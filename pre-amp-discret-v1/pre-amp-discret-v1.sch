@@ -1,0 +1,49 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Transistor_BJT:BC850 Q?
+U 1 1 5F7C47B2
+P 3500 5050
+F 0 "Q?" H 3691 5096 50  0000 L CNN
+F 1 "BC850C" H 3691 5005 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 3700 4975 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_BC850SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541d4630a1657" H 3500 5050 50  0001 L CNN
+	1    3500 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC860 Q?
+U 1 1 5F7C52FE
+P 2900 3150
+F 0 "Q?" H 3091 3196 50  0000 L CNN
+F 1 "BC860C" H 3091 3105 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 3100 3075 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/Infineon-BC857SERIES_BC858SERIES_BC859SERIES_BC860SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541da0e3a1661" H 2900 3150 50  0001 L CNN
+	1    2900 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC850 Q?
+U 1 1 5F7C8FFA
+P 2150 5750
+F 0 "Q?" H 2341 5796 50  0000 L CNN
+F 1 "BC850C" H 2341 5705 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 2350 5675 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_BC850SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541d4630a1657" H 2150 5750 50  0001 L CNN
+	1    2150 5750
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
