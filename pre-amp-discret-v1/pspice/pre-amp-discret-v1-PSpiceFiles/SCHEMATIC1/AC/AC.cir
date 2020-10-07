@@ -1,0 +1,20 @@
+** Profile: "SCHEMATIC1-AC"  [ C:\Users\schenk\Documents\GitHub\electronic-projects\pre-amp-discret-v1\pspice2\pre-amp-discret-v1-PSpiceFiles\SCHEMATIC1\AC.sim ] 
+
+** Creating circuit file "AC.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+* From [PSPICE NETLIST] section of C:\Cadence\SPB_17.4\SPB_Data\cdssetup\OrCAD_PSpice\17.4.0\PSpice.ini file:
+.lib "nom.lib" 
+.inc "C:\Cadence\OrcadPSpiceTubeLibrary-2015\MichiTube\michitube.INC" 
+
+*Analysis directives: 
+.AC DEC 100 1 1000k
+.OPTIONS ADVCONV
+.PROBE64 V(alias(*)) I(alias(*)) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+.END
