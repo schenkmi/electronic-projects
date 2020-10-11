@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue MK1
+L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue MK1
 U 1 1 5A6CFED2
 P 15100 700
 F 0 "MK1" H 15200 751 50  0000 L CNN
@@ -25,7 +25,7 @@ F 3 "" H 15100 700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue MK2
+L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue MK2
 U 1 1 5A6CFF98
 P 15100 1000
 F 0 "MK2" H 15200 1051 50  0000 L CNN
@@ -36,7 +36,7 @@ F 3 "" H 15100 1000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue MK3
+L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue MK3
 U 1 1 5A6CFFFA
 P 15100 1300
 F 0 "MK3" H 15200 1351 50  0000 L CNN
@@ -47,7 +47,7 @@ F 3 "" H 15100 1300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue MK4
+L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue MK4
 U 1 1 5A6D003F
 P 15100 1600
 F 0 "MK4" H 15200 1651 50  0000 L CNN
@@ -62,7 +62,7 @@ NoConn ~ 15100 1100
 NoConn ~ 15100 1400
 NoConn ~ 15100 1700
 $Comp
-L hv-power-supply-v1-rescue:BYV26C-PSU6SN7 D1
+L hv-power-supply-v1-rescue:BYV26C-PSU6SN7-hv-power-supply-v1-rescue D1
 U 1 1 5D44FFF5
 P 2200 1600
 F 0 "D1" H 2200 1816 50  0000 C CNN
@@ -73,7 +73,7 @@ F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 2200 1600 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:BYV26C-PSU6SN7 D2
+L hv-power-supply-v1-rescue:BYV26C-PSU6SN7-hv-power-supply-v1-rescue D2
 U 1 1 5D450671
 P 2200 3500
 F 0 "D2" H 2200 3716 50  0000 C CNN
@@ -84,7 +84,7 @@ F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 2200 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:BYV26C-PSU6SN7 D3
+L hv-power-supply-v1-rescue:BYV26C-PSU6SN7-hv-power-supply-v1-rescue D3
 U 1 1 5D4509EB
 P 2200 4300
 F 0 "D3" H 2200 4516 50  0000 C CNN
@@ -95,7 +95,7 @@ F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 2200 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:BYV26C-PSU6SN7 D4
+L hv-power-supply-v1-rescue:BYV26C-PSU6SN7-hv-power-supply-v1-rescue D4
 U 1 1 5D450EAA
 P 2200 2400
 F 0 "D4" H 2200 2616 50  0000 C CNN
@@ -212,7 +212,7 @@ Wire Wire Line
 	5350 9600 4700 9600
 Connection ~ 4700 9600
 $Comp
-L hv-power-supply-v1-rescue:TLC555CDR-dk_Clock-Timing-Programmable-Timers-and-Oscillators-PowerSupply-6SN7-rescue U2
+L hv-power-supply-v1-rescue:TLC555CDR-dk_Clock-Timing-Programmable-Timers-and-Oscillators-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue U2
 U 1 1 5D470D45
 P 7900 9050
 F 0 "U2" H 7900 9603 60  0000 C CNN
@@ -287,7 +287,7 @@ F 3 "https://www.diodes.com/assets/Datasheets/ds30396.pdf" H 9300 9050 50  0001 
 	0    1    1    0   
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:MMBT3904-TP-dk_Transistors-Bipolar-BJT-Single-PowerSupply-6SN7-rescue Q1
+L hv-power-supply-v1-rescue:MMBT3904-TP-dk_Transistors-Bipolar-BJT-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q1
 U 1 1 5D4746D0
 P 9700 9750
 F 0 "Q1" H 9888 9803 60  0000 L CNN
@@ -385,7 +385,7 @@ Wire Wire Line
 	5950 10500 5950 9950
 Connection ~ 6450 10500
 $Comp
-L hv-power-supply-v1-rescue:22-23-2021-dk_Rectangular-Connectors-Headers-Male-Pins-PowerSupply-6SN7-rescue J2
+L hv-power-supply-v1-rescue:22-23-2021-dk_Rectangular-Connectors-Headers-Male-Pins-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue J2
 U 1 1 5D48B827
 P 14650 6350
 F 0 "J2" V 14425 6358 50  0000 C CNN
@@ -515,7 +515,7 @@ Wire Wire Line
 Wire Wire Line
 	15000 6450 14750 6450
 $Comp
-L hv-power-supply-v1-rescue:22-23-2021-dk_Rectangular-Connectors-Headers-Male-Pins-PowerSupply-6SN7-rescue J3
+L hv-power-supply-v1-rescue:22-23-2021-dk_Rectangular-Connectors-Headers-Male-Pins-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue J3
 U 1 1 5D480FF0
 P 14650 5700
 F 0 "J3" V 14425 5708 50  0000 C CNN
@@ -1133,7 +1133,7 @@ F 3 "~" H 10512 2700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:IRF510PBF-dk_Transistors-FETs-MOSFETs-Single-PowerSupply-6SN7-rescue Q4
+L hv-power-supply-v1-rescue:IRF510PBF-dk_Transistors-FETs-MOSFETs-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q4
 U 1 1 5D4EC925
 P 11000 2900
 F 0 "Q4" H 11108 2953 60  0000 L CNN
@@ -1197,7 +1197,7 @@ F 3 "~" H 11000 4350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:MMBT3904-TP-dk_Transistors-Bipolar-BJT-Single-PowerSupply-6SN7-rescue Q3
+L hv-power-supply-v1-rescue:MMBT3904-TP-dk_Transistors-Bipolar-BJT-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q3
 U 1 1 5D4F56E1
 P 9850 3250
 F 0 "Q3" H 10038 3303 60  0000 L CNN
