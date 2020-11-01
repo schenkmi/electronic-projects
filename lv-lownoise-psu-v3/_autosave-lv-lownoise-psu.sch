@@ -520,7 +520,7 @@ F 1 "200k" H 6931 2905 50  0000 R CNN
 F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 7000 2950 50  0001 C CNN
 F 3 "~" H 7000 2950 50  0001 C CNN
 	1    7000 2950
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 Wire Wire Line
 	7850 2400 8350 2400
@@ -574,8 +574,6 @@ Connection ~ 7250 3650
 Wire Wire Line
 	7250 3650 7450 3650
 Wire Wire Line
-	7450 3250 7000 3250
-Wire Wire Line
 	6000 3100 6000 3250
 Wire Wire Line
 	6450 3100 6450 3250
@@ -583,25 +581,11 @@ Connection ~ 6450 3250
 Wire Wire Line
 	6450 3250 6000 3250
 Wire Wire Line
-	7000 3100 7000 3250
-Connection ~ 7000 3250
-Wire Wire Line
-	7000 3250 6450 3250
-Wire Wire Line
-	7000 2800 7000 2650
-Wire Wire Line
 	6450 2800 6450 2400
 Wire Wire Line
 	6000 2800 6000 2400
 Wire Wire Line
 	5550 2800 5550 2400
-Wire Wire Line
-	7150 2950 7150 2650
-Wire Wire Line
-	7150 2650 7000 2650
-Connection ~ 7000 2650
-Wire Wire Line
-	7000 2650 7000 2400
 Wire Wire Line
 	5550 3100 5550 3650
 Connection ~ 5550 3650
@@ -626,4 +610,20 @@ Wire Wire Line
 	3850 3650 4400 3650
 Connection ~ 3850 3650
 Connection ~ 4400 3650
+Wire Wire Line
+	6450 3250 7000 3250
+Wire Wire Line
+	7000 2800 7000 2650
+Wire Wire Line
+	7000 3100 7000 3250
+Connection ~ 7000 3250
+Wire Wire Line
+	7000 3250 7450 3250
+Wire Wire Line
+	6850 2950 6850 2650
+Wire Wire Line
+	6850 2650 7000 2650
+Connection ~ 7000 2650
+Wire Wire Line
+	7000 2650 7000 2400
 $EndSCHEMATC
