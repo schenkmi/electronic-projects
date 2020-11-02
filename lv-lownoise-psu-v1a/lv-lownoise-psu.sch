@@ -82,13 +82,13 @@ $EndComp
 $Comp
 L Device:C C5
 U 1 1 5F95B397
-P 5700 1900
-F 0 "C5" H 5815 1946 50  0000 L CNN
-F 1 "10n" H 5815 1855 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5738 1750 50  0001 C CNN
-F 3 "~" H 5700 1900 50  0001 C CNN
-	1    5700 1900
-	1    0    0    -1  
+P 5650 1250
+F 0 "C5" H 5765 1296 50  0000 L CNN
+F 1 "10n" H 5765 1205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5688 1100 50  0001 C CNN
+F 3 "~" H 5650 1250 50  0001 C CNN
+	1    5650 1250
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:CP C7
@@ -241,13 +241,9 @@ Connection ~ 4300 1150
 Wire Wire Line
 	6250 1250 6250 1150
 Wire Wire Line
-	6250 1150 5350 1150
+	6250 1150 5950 1150
 Wire Wire Line
 	5350 1350 5450 1350
-Wire Wire Line
-	5700 1750 5700 1250
-Wire Wire Line
-	5700 1250 5350 1250
 $Comp
 L Device:C C9
 U 1 1 5F973298
@@ -284,16 +280,11 @@ Wire Wire Line
 Wire Wire Line
 	6250 1650 5450 1650
 Wire Wire Line
-	5700 2050 5700 2400
-Wire Wire Line
 	3850 1150 3850 1650
 Wire Wire Line
 	4300 1150 4300 1650
 Wire Wire Line
-	5700 2400 4950 2400
-Wire Wire Line
 	4300 2400 4300 1950
-Connection ~ 5700 2400
 Wire Wire Line
 	3850 1950 3850 2400
 Wire Wire Line
@@ -396,13 +387,13 @@ Connection ~ 6800 3650
 $Comp
 L Device:C C6
 U 1 1 5F996810
-P 5700 2900
-F 0 "C6" H 5815 2946 50  0000 L CNN
-F 1 "10n" H 5815 2855 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5738 2750 50  0001 C CNN
-F 3 "~" H 5700 2900 50  0001 C CNN
-	1    5700 2900
-	1    0    0    -1  
+P 5650 3550
+F 0 "C6" H 5765 3596 50  0000 L CNN
+F 1 "10n" H 5765 3505 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5688 3400 50  0001 C CNN
+F 3 "~" H 5650 3550 50  0001 C CNN
+	1    5650 3550
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_POT RV2
@@ -430,12 +421,6 @@ Wire Wire Line
 	3850 2400 3600 2400
 Wire Wire Line
 	3600 2400 3600 2550
-Wire Wire Line
-	5700 2750 5700 2400
-Wire Wire Line
-	5350 3550 5700 3550
-Wire Wire Line
-	5700 3550 5700 3050
 Wire Wire Line
 	6250 2750 6250 2400
 Wire Wire Line
@@ -472,9 +457,7 @@ Connection ~ 6250 3650
 Wire Wire Line
 	6250 3650 6800 3650
 Wire Wire Line
-	5700 2400 6250 2400
-Wire Wire Line
-	5350 3650 6250 3650
+	5350 3650 5950 3650
 Wire Wire Line
 	5450 3150 6250 3150
 Connection ~ 3850 1150
@@ -505,4 +488,24 @@ Wire Wire Line
 	2600 3100 2600 2700
 Wire Wire Line
 	6250 2050 6250 2400
+Wire Wire Line
+	5350 1250 5500 1250
+Wire Wire Line
+	5800 1250 5950 1250
+Wire Wire Line
+	5950 1250 5950 1150
+Connection ~ 5950 1150
+Wire Wire Line
+	5950 1150 5350 1150
+Wire Wire Line
+	4950 2400 6250 2400
+Wire Wire Line
+	5350 3550 5500 3550
+Wire Wire Line
+	5800 3550 5950 3550
+Wire Wire Line
+	5950 3550 5950 3650
+Connection ~ 5950 3650
+Wire Wire Line
+	5950 3650 6250 3650
 $EndSCHEMATC
