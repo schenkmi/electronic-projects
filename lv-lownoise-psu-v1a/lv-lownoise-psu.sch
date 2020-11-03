@@ -404,7 +404,7 @@ F 1 "250k" H 6181 3355 50  0000 R CNN
 F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 6250 3400 50  0001 C CNN
 F 3 "~" H 6250 3400 50  0001 C CNN
 	1    6250 3400
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R R2
@@ -430,12 +430,6 @@ Wire Wire Line
 Connection ~ 7250 2400
 Wire Wire Line
 	6250 3250 6250 3150
-Wire Wire Line
-	6400 3400 6500 3400
-Wire Wire Line
-	6500 3400 6500 3150
-Wire Wire Line
-	6500 3150 6250 3150
 Connection ~ 6250 3150
 Wire Wire Line
 	6250 3150 6250 3050
@@ -459,7 +453,7 @@ Wire Wire Line
 Wire Wire Line
 	5350 3650 5950 3650
 Wire Wire Line
-	5450 3150 6250 3150
+	5450 3150 5950 3150
 Connection ~ 3850 1150
 Wire Wire Line
 	2050 3650 3850 3650
@@ -508,4 +502,11 @@ Wire Wire Line
 Connection ~ 5950 3650
 Wire Wire Line
 	5950 3650 6250 3650
+Wire Wire Line
+	6100 3400 5950 3400
+Wire Wire Line
+	5950 3400 5950 3150
+Connection ~ 5950 3150
+Wire Wire Line
+	5950 3150 6250 3150
 $EndSCHEMATC
