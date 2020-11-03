@@ -82,13 +82,13 @@ $EndComp
 $Comp
 L Device:C C5
 U 1 1 5F95B397
-P 7300 1900
-F 0 "C5" H 7415 1946 50  0000 L CNN
-F 1 "10n" H 7415 1855 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7338 1750 50  0001 C CNN
-F 3 "~" H 7300 1900 50  0001 C CNN
-	1    7300 1900
-	1    0    0    -1  
+P 7250 1250
+F 0 "C5" H 7365 1296 50  0000 L CNN
+F 1 "10n" H 7365 1205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7288 1100 50  0001 C CNN
+F 3 "~" H 7250 1250 50  0001 C CNN
+	1    7250 1250
+	0    1    1    0   
 $EndComp
 $Comp
 L Device:CP C7
@@ -238,13 +238,9 @@ Wire Wire Line
 Wire Wire Line
 	7850 1250 7850 1150
 Wire Wire Line
-	7850 1150 6950 1150
+	7850 1150 7500 1150
 Wire Wire Line
 	6950 1350 7050 1350
-Wire Wire Line
-	7300 1750 7300 1250
-Wire Wire Line
-	7300 1250 6950 1250
 $Comp
 L Device:C C9
 U 1 1 5F973298
@@ -281,16 +277,11 @@ Wire Wire Line
 Wire Wire Line
 	7850 1650 7050 1650
 Wire Wire Line
-	7300 2050 7300 2400
-Wire Wire Line
 	3850 1150 3850 1650
 Wire Wire Line
 	5900 1150 5900 1650
 Wire Wire Line
-	7300 2400 6550 2400
-Wire Wire Line
 	5900 2400 5900 1950
-Connection ~ 7300 2400
 Wire Wire Line
 	3850 1950 3850 2400
 Connection ~ 5900 2400
@@ -388,13 +379,13 @@ Connection ~ 8400 3650
 $Comp
 L Device:C C6
 U 1 1 5F996810
-P 7300 2900
-F 0 "C6" H 7415 2946 50  0000 L CNN
-F 1 "10n" H 7415 2855 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7338 2750 50  0001 C CNN
-F 3 "~" H 7300 2900 50  0001 C CNN
-	1    7300 2900
-	1    0    0    -1  
+P 7250 3550
+F 0 "C6" H 7365 3596 50  0000 L CNN
+F 1 "10n" H 7365 3505 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7288 3400 50  0001 C CNN
+F 3 "~" H 7250 3550 50  0001 C CNN
+	1    7250 3550
+	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R_POT RV2
@@ -405,7 +396,7 @@ F 1 "250k" H 7781 3355 50  0000 R CNN
 F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 7850 3400 50  0001 C CNN
 F 3 "~" H 7850 3400 50  0001 C CNN
 	1    7850 3400
-	1    0    0    -1  
+	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R R2
@@ -423,12 +414,6 @@ Wire Wire Line
 Wire Wire Line
 	3600 2400 3600 2550
 Wire Wire Line
-	7300 2750 7300 2400
-Wire Wire Line
-	6950 3550 7300 3550
-Wire Wire Line
-	7300 3550 7300 3050
-Wire Wire Line
 	7850 2750 7850 2400
 Wire Wire Line
 	8400 2900 8400 2400
@@ -437,12 +422,6 @@ Wire Wire Line
 Connection ~ 8850 2400
 Wire Wire Line
 	7850 3250 7850 3150
-Wire Wire Line
-	8000 3400 8100 3400
-Wire Wire Line
-	8100 3400 8100 3150
-Wire Wire Line
-	8100 3150 7850 3150
 Connection ~ 7850 3150
 Wire Wire Line
 	7850 3150 7850 3050
@@ -464,11 +443,9 @@ Connection ~ 7850 3650
 Wire Wire Line
 	7850 3650 8400 3650
 Wire Wire Line
-	7300 2400 7850 2400
+	6950 3650 7550 3650
 Wire Wire Line
-	6950 3650 7850 3650
-Wire Wire Line
-	7050 3150 7850 3150
+	7050 3150 7550 3150
 Wire Wire Line
 	2050 3650 3850 3650
 Wire Wire Line
@@ -500,7 +477,7 @@ L Transistor_BJT:BD140 Q2
 U 1 1 5F9AEA9D
 P 5200 3550
 F 0 "Q2" V 5437 3550 50  0000 C CNN
-F 1 "BD140" V 5528 3550 50  0000 C CNN
+F 1 "BD680" V 5528 3550 50  0000 C CNN
 F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 5400 3475 50  0001 L CIN
 F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 5200 3550 50  0001 L CNN
 	1    5200 3550
@@ -511,7 +488,7 @@ L Transistor_BJT:BD139 Q1
 U 1 1 5F9AF8DE
 P 5200 1250
 F 0 "Q1" V 5529 1250 50  0000 C CNN
-F 1 "BD139" V 5438 1250 50  0000 C CNN
+F 1 "BD679" V 5438 1250 50  0000 C CNN
 F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 5400 1175 50  0001 L CIN
 F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 5200 1250 50  0001 L CNN
 	1    5200 1250
@@ -610,4 +587,31 @@ Connection ~ 3850 3650
 Wire Wire Line
 	5400 3650 5900 3650
 Connection ~ 5900 3650
+Wire Wire Line
+	6950 1250 7100 1250
+Wire Wire Line
+	7400 1250 7500 1250
+Wire Wire Line
+	7500 1250 7500 1150
+Connection ~ 7500 1150
+Wire Wire Line
+	7500 1150 6950 1150
+Wire Wire Line
+	6550 2400 7850 2400
+Wire Wire Line
+	6950 3550 7100 3550
+Wire Wire Line
+	7400 3550 7550 3550
+Wire Wire Line
+	7550 3550 7550 3650
+Connection ~ 7550 3650
+Wire Wire Line
+	7550 3650 7850 3650
+Wire Wire Line
+	7700 3400 7550 3400
+Wire Wire Line
+	7550 3400 7550 3150
+Connection ~ 7550 3150
+Wire Wire Line
+	7550 3150 7850 3150
 $EndSCHEMATC
