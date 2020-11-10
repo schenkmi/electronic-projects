@@ -1190,17 +1190,6 @@ Wire Wire Line
 Wire Wire Line
 	3850 6600 2050 6600
 $Comp
-L Connector:TestPoint TP1
-U 1 1 5FE0B333
-P 7850 2850
-F 0 "TP1" H 7908 2968 50  0000 L CNN
-F 1 "TestPoint" H 7908 2877 50  0000 L CNN
-F 2 "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm" H 8050 2850 50  0001 C CNN
-F 3 "~" H 8050 2850 50  0001 C CNN
-	1    7850 2850
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR0119
 U 1 1 5FE25904
 P 9550 5150
@@ -1213,10 +1202,6 @@ F 3 "" H 9550 5150 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9550 5150 9550 5050
-Wire Wire Line
-	7650 2950 7850 2950
-Wire Wire Line
-	7850 2950 7850 2850
 $Comp
 L power:GND #PWR0120
 U 1 1 5FE38DA1
@@ -1288,55 +1273,6 @@ Wire Wire Line
 Connection ~ 2150 3750
 Wire Wire Line
 	2150 3750 2050 3750
-$Comp
-L Connector:TestPoint TP2
-U 1 1 5FF3CB43
-P 4700 3050
-F 0 "TP2" H 4758 3168 50  0000 L CNN
-F 1 "TestPoint" H 4758 3077 50  0000 L CNN
-F 2 "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm" H 4900 3050 50  0001 C CNN
-F 3 "~" H 4900 3050 50  0001 C CNN
-	1    4700 3050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5450 3050 4700 3050
-$Comp
-L Connector:TestPoint TP3
-U 1 1 5FF48A3A
-P 9000 5750
-F 0 "TP3" H 9058 5868 50  0000 L CNN
-F 1 "TestPoint" H 9058 5777 50  0000 L CNN
-F 2 "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm" H 9200 5750 50  0001 C CNN
-F 3 "~" H 9200 5750 50  0001 C CNN
-	1    9000 5750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:TestPoint TP4
-U 1 1 5FF4988F
-P 9000 6100
-F 0 "TP4" H 9058 6218 50  0000 L CNN
-F 1 "TestPoint" H 9058 6127 50  0000 L CNN
-F 2 "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm" H 9200 6100 50  0001 C CNN
-F 3 "~" H 9200 6100 50  0001 C CNN
-	1    9000 6100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9950 4750 10100 4750
-Wire Wire Line
-	10100 4750 10100 6250
-Wire Wire Line
-	10100 6250 9000 6250
-Wire Wire Line
-	9000 6250 9000 6100
-Wire Wire Line
-	9950 4850 9950 5850
-Wire Wire Line
-	9950 5850 9000 5850
-Wire Wire Line
-	9000 5850 9000 5750
 NoConn ~ 12400 2250
 NoConn ~ 12400 2650
 NoConn ~ 12400 3700
@@ -1387,4 +1323,8 @@ $EndComp
 Connection ~ 6550 4250
 Wire Wire Line
 	6550 4250 6550 4150
+NoConn ~ 9950 4750
+NoConn ~ 9950 4850
+NoConn ~ 5450 3050
+NoConn ~ 7650 2950
 $EndSCHEMATC
