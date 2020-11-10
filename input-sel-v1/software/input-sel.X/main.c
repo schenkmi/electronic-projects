@@ -43,6 +43,13 @@
 
 #include "mcc_generated_files/mcc.h"
 
+#define SELIN1 PORTCbits.RC0
+#define SELIN2 PORTCbits.RC1
+#define SELIN3 PORTCbits.RC2
+#define SELIN4 PORTCbits.RC3
+#define MUTEOUT PORTCbits.RC4
+
+
 /*
                          Main application
  */
@@ -66,6 +73,14 @@ void main(void)
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
 
+    __delay_ms(200);
+    
+    SELIN1 = 1;
+    
+    __delay_ms(1000);
+        
+    MUTEOUT = 1;
+    
     while (1)
     {
         // Add your application code
