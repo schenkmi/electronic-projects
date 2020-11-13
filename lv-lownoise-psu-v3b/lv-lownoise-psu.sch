@@ -524,17 +524,6 @@ F 3 "~" H 8750 4250 50  0001 C CNN
 	1    8750 4250
 	1    0    0    -1  
 $EndComp
-$Comp
-L lv-lownoise-psu-rescue:LT3094xMSE-Regulator_Linear U4
-U 1 1 5F9C7AC9
-P 7750 4650
-F 0 "U4" H 7750 5117 50  0000 C CNN
-F 1 "LT3094xMSE" H 7750 5026 50  0000 C CNN
-F 2 "Package_SO:MSOP-12-1EP_3x4mm_P0.65mm_EP1.65x2.85mm" H 7750 5075 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/LT3094.pdf" H 7750 4750 50  0001 C CNN
-	1    7750 4650
-	1    0    0    1   
-$EndComp
 Wire Wire Line
 	8150 4850 8250 4850
 Wire Wire Line
@@ -980,4 +969,15 @@ Wire Wire Line
 Connection ~ 5450 5850
 Wire Wire Line
 	3750 5200 3750 4850
+$Comp
+L Regulator_Linear:LT3094xMSE U?
+U 1 1 5FAF2126
+P 7750 4650
+F 0 "U?" H 7750 5025 50  0000 C CNN
+F 1 "LT3094xMSE" H 7750 5116 50  0000 C CNN
+F 2 "Package_SO:MSOP-12-1EP_3x4mm_P0.65mm_EP1.65x2.85mm" H 7750 5075 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/LT3094.pdf" H 7750 4750 50  0001 C CNN
+	1    7750 4650
+	1    0    0    1   
+$EndComp
 $EndSCHEMATC
