@@ -102,17 +102,6 @@ F 3 "~" H 5500 7350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Diode_Bridge:MB4S D1
-U 1 1 5F95E1FB
-P 2500 3600
-F 0 "D1" H 2844 3646 50  0000 L CNN
-F 1 "MB4S" H 2844 3555 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-269AA" H 2650 3725 50  0001 L CNN
-F 3 "http://www.vishay.com/docs/88661/mb2s.pdf" H 2500 3600 50  0001 C CNN
-	1    2500 3600
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x01 J1
 U 1 1 5F95F176
 P 1250 2950
@@ -139,8 +128,8 @@ L Device:CP C1
 U 1 1 5F961063
 P 3750 3000
 F 0 "C1" H 3868 3046 50  0000 L CNN
-F 1 "4700uF" H 3868 2955 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm" H 3788 2850 50  0001 C CNN
+F 1 "2200uF" H 3868 2955 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm" H 3788 2850 50  0001 C CNN
 F 3 "~" H 3750 3000 50  0001 C CNN
 	1    3750 3000
 	1    0    0    -1  
@@ -233,8 +222,8 @@ L Device:CP C2
 U 1 1 5F98959C
 P 3750 4250
 F 0 "C2" H 3868 4296 50  0000 L CNN
-F 1 "4700uF" H 3868 4205 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm" H 3788 4100 50  0001 C CNN
+F 1 "2200uF" H 3868 4205 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm" H 3788 4100 50  0001 C CNN
 F 3 "~" H 3750 4250 50  0001 C CNN
 	1    3750 4250
 	1    0    0    -1  
@@ -536,7 +525,7 @@ F 3 "~" H 8750 4250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Regulator_Linear:LT3094xMSE U4
+L lv-lownoise-psu-rescue:LT3094xMSE-Regulator_Linear U4
 U 1 1 5F9C7AC9
 P 7750 4650
 F 0 "U4" H 7750 5117 50  0000 C CNN
@@ -632,20 +621,9 @@ U 1 1 5FABDFEC
 P 8750 1500
 F 0 "C13" H 8868 1546 50  0000 L CNN
 F 1 "100uF" H 8868 1455 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 8788 1350 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 8788 1350 50  0001 C CNN
 F 3 "~" H 8750 1500 50  0001 C CNN
 	1    8750 1500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C8
-U 1 1 5FABDFF2
-P 5800 1500
-F 0 "C8" H 5915 1546 50  0000 L CNN
-F 1 "330nF" H 5915 1455 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5838 1350 50  0001 C CNN
-F 3 "~" H 5800 1500 50  0001 C CNN
-	1    5800 1500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -662,12 +640,12 @@ $EndComp
 $Comp
 L power:GND #PWR03
 U 1 1 5FABDFFE
-P 5800 1750
-F 0 "#PWR03" H 5800 1500 50  0001 C CNN
-F 1 "GND" H 5805 1577 50  0000 C CNN
-F 2 "" H 5800 1750 50  0001 C CNN
-F 3 "" H 5800 1750 50  0001 C CNN
-	1    5800 1750
+P 7150 1750
+F 0 "#PWR03" H 7150 1500 50  0001 C CNN
+F 1 "GND" H 7155 1577 50  0000 C CNN
+F 2 "" H 7150 1750 50  0001 C CNN
+F 3 "" H 7150 1750 50  0001 C CNN
+	1    7150 1750
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -763,35 +741,13 @@ Wire Wire Line
 	8750 1300 9450 1300
 Wire Wire Line
 	8750 1700 9450 1700
-Wire Wire Line
-	8250 1700 6450 1700
-Wire Wire Line
-	6450 1700 6450 1600
-Connection ~ 8250 1700
-Wire Wire Line
-	6450 1700 5800 1700
-Wire Wire Line
-	5800 1700 5800 1650
-Connection ~ 6450 1700
-Wire Wire Line
-	5800 1750 5800 1700
-Connection ~ 5800 1700
-Wire Wire Line
-	6750 1300 8250 1300
-Wire Wire Line
-	6150 1300 5800 1300
-Wire Wire Line
-	5800 1300 5800 1350
-Wire Wire Line
-	5800 1300 3750 1300
-Connection ~ 5800 1300
 $Comp
 L Device:CP C14
 U 1 1 5FABE045
 P 8750 5650
 F 0 "C14" H 8868 5696 50  0000 L CNN
 F 1 "100uF" H 8868 5605 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 8788 5500 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 8788 5500 50  0001 C CNN
 F 3 "~" H 8750 5650 50  0001 C CNN
 	1    8750 5650
 	1    0    0    -1  
@@ -799,12 +755,12 @@ $EndComp
 $Comp
 L Device:C C10
 U 1 1 5FABE04B
-P 5800 5650
-F 0 "C10" H 5915 5696 50  0000 L CNN
-F 1 "330nF" H 5915 5605 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5838 5500 50  0001 C CNN
-F 3 "~" H 5800 5650 50  0001 C CNN
-	1    5800 5650
+P 7150 5650
+F 0 "C10" H 7265 5696 50  0000 L CNN
+F 1 "330nF" H 7265 5605 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7188 5500 50  0001 C CNN
+F 3 "~" H 7150 5650 50  0001 C CNN
+	1    7150 5650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -821,12 +777,12 @@ $EndComp
 $Comp
 L power:GND #PWR04
 U 1 1 5FABE057
-P 5800 5400
-F 0 "#PWR04" H 5800 5150 50  0001 C CNN
-F 1 "GND" H 5805 5227 50  0000 C CNN
-F 2 "" H 5800 5400 50  0001 C CNN
-F 3 "" H 5800 5400 50  0001 C CNN
-	1    5800 5400
+P 7150 5400
+F 0 "#PWR04" H 7150 5150 50  0001 C CNN
+F 1 "GND" H 7155 5227 50  0000 C CNN
+F 2 "" H 7150 5400 50  0001 C CNN
+F 3 "" H 7150 5400 50  0001 C CNN
+	1    7150 5400
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -869,53 +825,159 @@ Wire Wire Line
 	8750 5450 9450 5450
 Wire Wire Line
 	8750 5850 9450 5850
-Wire Wire Line
-	5800 5450 5800 5500
-Wire Wire Line
-	6750 5850 8250 5850
-Connection ~ 8250 5850
-Wire Wire Line
-	6150 5850 5800 5850
-Wire Wire Line
-	5800 5850 5800 5800
-Wire Wire Line
-	8250 5450 6450 5450
-Connection ~ 8250 5450
-Wire Wire Line
-	5800 5400 5800 5450
-Connection ~ 5800 5450
-Wire Wire Line
-	5800 5850 3750 5850
-Connection ~ 5800 5850
-Wire Wire Line
-	6450 5550 6450 5450
-Connection ~ 6450 5450
-Wire Wire Line
-	6450 5450 5800 5450
-Wire Wire Line
-	3750 1300 3750 2350
-Wire Wire Line
-	3750 5850 3750 4850
 $Comp
 L Regulator_Linear:L78L05_SOT89 U1
 U 1 1 5FBCE5D2
-P 6450 1300
-F 0 "U1" H 6450 1542 50  0000 C CNN
-F 1 "L78L05_SOT89" H 6450 1451 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-89-3" H 6450 1500 50  0001 C CIN
-F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 6450 1250 50  0001 C CNN
-	1    6450 1300
+P 7750 1300
+F 0 "U1" H 7750 1542 50  0000 C CNN
+F 1 "L78L05_SOT89" H 7750 1451 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-89-3" H 7750 1500 50  0001 C CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 7750 1250 50  0001 C CNN
+	1    7750 1300
 	1    0    0    -1  
 $EndComp
 $Comp
 L Regulator_Linear:L79L05_SOT89 U2
 U 1 1 5FBCF8DE
-P 6450 5850
-F 0 "U2" H 6450 5701 50  0000 C CNN
-F 1 "L79L05_SOT89" H 6450 5610 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-89-3" H 6450 5650 50  0001 C CIN
-F 3 "http://www.farnell.com/datasheets/1827870.pdf" H 6450 5850 50  0001 C CNN
-	1    6450 5850
+P 7750 5850
+F 0 "U2" H 7750 5701 50  0000 C CNN
+F 1 "L79L05_SOT89" H 7750 5610 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-89-3" H 7750 5650 50  0001 C CIN
+F 3 "http://www.farnell.com/datasheets/1827870.pdf" H 7750 5850 50  0001 C CNN
+	1    7750 5850
 	1    0    0    -1  
 $EndComp
+$Comp
+L Diode_Bridge:DF06M D1
+U 1 1 5FC6A33D
+P 2500 3600
+F 0 "D1" H 2844 3646 50  0000 L CNN
+F 1 "DF06M" H 2844 3555 50  0000 L CNN
+F 2 "Diode_THT:Diode_Bridge_DIP-4_W7.62mm_P5.08mm" H 2650 3725 50  0001 L CNN
+F 3 "http://www.vishay.com/docs/88571/dfm.pdf" H 2500 3600 50  0001 C CNN
+	1    2500 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 5FC7002D
+P 5450 1700
+F 0 "R9" H 5520 1746 50  0000 L CNN
+F 1 "0R" H 5520 1655 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5380 1700 50  0001 C CNN
+F 3 "~" H 5450 1700 50  0001 C CNN
+	1    5450 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 5FC73B43
+P 3750 1700
+F 0 "R4" H 3820 1746 50  0000 L CNN
+F 1 "0R" H 3820 1655 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3680 1700 50  0001 C CNN
+F 3 "~" H 3750 1700 50  0001 C CNN
+	1    3750 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5450 1300 5450 1550
+Wire Wire Line
+	5450 1300 3750 1300
+Wire Wire Line
+	3750 1300 3750 1550
+Connection ~ 5450 1300
+Wire Wire Line
+	3750 1850 3750 2350
+Wire Wire Line
+	5450 1850 5450 2350
+Wire Wire Line
+	7750 1700 7750 1600
+Wire Wire Line
+	8050 1300 8250 1300
+Wire Wire Line
+	7750 1700 8250 1700
+Connection ~ 8250 1700
+Wire Wire Line
+	5450 1300 7150 1300
+$Comp
+L Device:C C8
+U 1 1 5FABDFF2
+P 7150 1500
+F 0 "C8" H 7265 1546 50  0000 L CNN
+F 1 "330nF" H 7265 1455 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7188 1350 50  0001 C CNN
+F 3 "~" H 7150 1500 50  0001 C CNN
+	1    7150 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7750 1700 7150 1700
+Wire Wire Line
+	7150 1700 7150 1650
+Connection ~ 7750 1700
+Wire Wire Line
+	7150 1750 7150 1700
+Connection ~ 7150 1700
+Wire Wire Line
+	7150 1350 7150 1300
+Connection ~ 7150 1300
+Wire Wire Line
+	7150 1300 7450 1300
+Wire Wire Line
+	8050 5850 8250 5850
+Connection ~ 8250 5850
+Wire Wire Line
+	8250 5450 7750 5450
+Wire Wire Line
+	7750 5450 7750 5550
+Connection ~ 8250 5450
+Wire Wire Line
+	7450 5850 7150 5850
+Wire Wire Line
+	7150 5850 7150 5800
+Wire Wire Line
+	7150 5500 7150 5450
+Wire Wire Line
+	7750 5450 7150 5450
+Connection ~ 7750 5450
+Connection ~ 7150 5450
+Wire Wire Line
+	7150 5450 7150 5400
+$Comp
+L Device:R R11
+U 1 1 5FCE79E9
+P 5450 5400
+F 0 "R11" H 5520 5446 50  0000 L CNN
+F 1 "0R" H 5520 5355 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5380 5400 50  0001 C CNN
+F 3 "~" H 5450 5400 50  0001 C CNN
+	1    5450 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 5FCE8103
+P 3750 5350
+F 0 "R10" H 3820 5396 50  0000 L CNN
+F 1 "0R" H 3820 5305 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 3680 5350 50  0001 C CNN
+F 3 "~" H 3750 5350 50  0001 C CNN
+	1    3750 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7150 5850 5450 5850
+Wire Wire Line
+	5450 5850 5450 5550
+Connection ~ 7150 5850
+Wire Wire Line
+	5450 5250 5450 4850
+Wire Wire Line
+	5450 5850 3750 5850
+Wire Wire Line
+	3750 5850 3750 5500
+Connection ~ 5450 5850
+Wire Wire Line
+	3750 5200 3750 4850
 $EndSCHEMATC
