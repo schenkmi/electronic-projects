@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
+Title "lv-lownoise-psu-to-220-v2c"
 Date ""
-Rev ""
+Rev "V2C"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -825,28 +825,6 @@ Wire Wire Line
 Wire Wire Line
 	8850 5850 9550 5850
 $Comp
-L Regulator_Linear:L78L05_SOT89 U3
-U 1 1 5FA8A431
-P 7500 1250
-F 0 "U3" H 7500 1492 50  0000 C CNN
-F 1 "L78L05_SOT89" H 7500 1401 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-89-3" H 7500 1450 50  0001 C CIN
-F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 7500 1200 50  0001 C CNN
-	1    7500 1250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Regulator_Linear:L79L05_SOT89 U4
-U 1 1 5FA8B82D
-P 7500 5850
-F 0 "U4" H 7500 5701 50  0000 C CNN
-F 1 "L79L05_SOT89" H 7500 5610 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-89-3" H 7500 5650 50  0001 C CIN
-F 3 "http://www.farnell.com/datasheets/1827870.pdf" H 7500 5850 50  0001 C CNN
-	1    7500 5850
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R4
 U 1 1 5FB1421B
 P 3850 1800
@@ -966,6 +944,28 @@ F 1 "DF06M" H 2944 3505 50  0000 L CNN
 F 2 "Diode_THT:Diode_Bridge_DIP-4_W7.62mm_P5.08mm" H 2750 3675 50  0001 L CNN
 F 3 "http://www.vishay.com/docs/88571/dfm.pdf" H 2600 3550 50  0001 C CNN
 	1    2600 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LM7805_TO220 U3
+U 1 1 5FBE743C
+P 7500 1250
+F 0 "U3" H 7500 1492 50  0000 C CNN
+F 1 "LM7805_TO220" H 7500 1401 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 7500 1475 50  0001 C CIN
+F 3 "http://www.fairchildsemi.com/ds/LM/LM7805.pdf" H 7500 1200 50  0001 C CNN
+	1    7500 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LM7905_TO220 U4
+U 1 1 5FBE979D
+P 7500 5850
+F 0 "U4" H 7500 5701 50  0000 C CNN
+F 1 "LM7905_TO220" H 7500 5610 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 7500 5650 50  0001 C CIN
+F 3 "http://www.fairchildsemi.com/ds/LM/LM7905.pdf" H 7500 5850 50  0001 C CNN
+	1    7500 5850
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
