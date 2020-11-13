@@ -60,17 +60,6 @@ F 3 "http://www.ti.com/lit/ds/symlink/uln2003a.pdf" H 9650 4250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Diode_Bridge:MB4S D1
-U 1 1 5FAC46EC
-P 2200 9900
-F 0 "D1" H 2544 9946 50  0000 L CNN
-F 1 "MB4S" H 2544 9855 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:TO-269AA" H 2350 10025 50  0001 L CNN
-F 3 "http://www.vishay.com/docs/88661/mb2s.pdf" H 2200 9900 50  0001 C CNN
-	1    2200 9900
-	1    0    0    -1  
-$EndComp
-$Comp
 L Regulator_Linear:L78L05_SOT89 U2
 U 1 1 5FAC60CB
 P 4200 9450
@@ -237,7 +226,7 @@ U 1 1 5FADD541
 P 5300 9900
 F 0 "C4" H 5418 9946 50  0000 L CNN
 F 1 "100uF" H 5418 9855 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 5338 9750 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 5338 9750 50  0001 C CNN
 F 3 "~" H 5300 9900 50  0001 C CNN
 	1    5300 9900
 	1    0    0    -1  
@@ -373,8 +362,6 @@ F 3 "" H 4200 8950 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1900 9900 1900 10350
-Wire Wire Line
-	1900 10350 3150 10350
 Wire Wire Line
 	3150 10350 3150 10050
 Wire Wire Line
@@ -1327,4 +1314,17 @@ NoConn ~ 9950 4750
 NoConn ~ 9950 4850
 NoConn ~ 5450 3050
 NoConn ~ 7650 2950
+$Comp
+L Diode_Bridge:DF06M D1
+U 1 1 5FC0CD5D
+P 2200 9900
+F 0 "D1" H 2544 9946 50  0000 L CNN
+F 1 "DF06M" H 2544 9855 50  0000 L CNN
+F 2 "Diode_THT:Diode_Bridge_DIP-4_W7.62mm_P5.08mm" H 2350 10025 50  0001 L CNN
+F 3 "http://www.vishay.com/docs/88571/dfm.pdf" H 2200 9900 50  0001 C CNN
+	1    2200 9900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 10350 3150 10350
 $EndSCHEMATC
