@@ -84,6 +84,11 @@ void main(void)
     while (1)
     {
         // Add your application code
+        SELIN1 = 0;
+        __delay_ms(500);
+        
+         SELIN1 = 1;
+        __delay_ms(500);
     }
 }
 /**
