@@ -72,22 +72,38 @@ void main(void)
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
-
-    __delay_ms(200);
+    
+    for (int cnt = 0; cnt < 20; cnt++) {
+        __delay_ms(500);
+    }
     
     SELIN1 = 1;
-    
     __delay_ms(1000);
-        
+    
+    SELIN1 = 0;
+    SELIN2 = 1;
+    __delay_ms(1000);
+    
+    SELIN2 = 0;
+    SELIN3 = 1;
+    __delay_ms(1000);
+    
+    SELIN3 = 0;
+    SELIN4 = 1;
+    __delay_ms(1000);
+    SELIN4 = 0;
+    SELIN1 = 1;
+    
+   
     MUTEOUT = 1;
     
     while (1)
     {
         // Add your application code
-        SELIN1 = 0;
+        //SELIN1 = 0;
         __delay_ms(500);
         
-         SELIN1 = 1;
+        // SELIN1 = 1;
         __delay_ms(500);
     }
 }
