@@ -52,6 +52,25 @@
 static uint8_t get_chan_sel(void)
 {
     uint8_t input = (~(PORTB >> 4)) & 0x0f;
+    
+    switch (input) {
+        case 0x01:
+            input = 1;
+            break;
+        case 0x02:
+            input = 2;
+            break;
+        case 0x04:
+            input = 3;
+            break;
+        case 0x08:
+            input = 4;
+            break;
+        default:
+            input = 1;
+            break;
+    }
+    
     return input;
 }
 
