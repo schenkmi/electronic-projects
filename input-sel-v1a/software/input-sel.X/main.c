@@ -49,6 +49,11 @@
 #define SELIN4 PORTCbits.RC3
 #define MUTEOUT PORTCbits.RC4
 
+static uint8_t get_chan_sel(void)
+{
+    uint8_t input = (~(PORTB >> 4)) & 0x0f;
+    return input;
+}
 
 void init(void)
 {
@@ -66,13 +71,10 @@ void init(void)
         PORTC &= ~in;
     }
     
-    // CH1, later store to EEPROM and take last
-    // Read chan selector
-    SELIN1 = 1;
-    
-    /* unmute output */
-    MUTEOUT = 1;
+
 }
+
+
 
 
 /*
@@ -100,16 +102,34 @@ void main(void)
     
     init();
     
-
+    uint8_t selected = get_chan_sel();
     
-    while (1)
-    {
-        // Add your application code
-        //SELIN1 = 0;
-        __delay_ms(500);
+    if (selected == 0) {
+        selected = 1;
+    }
+   
+    uint8_t last_selected = selected;
+    
+    PORTC |= ((1 << selected) & 0xff);
+     
+    
+        /* unmute output */
+    MUTEOUT = 1;
+
+    while (1) {
         
-        // SELIN1 = 1;
-        __delay_ms(500);
+        __delay_ms(100);
+        
+        
+        
+        selected = get_chan_sel();
+        if (selected != last_selected) {
+            PORTC &= ~((1 << last_selected) & 0xff);
+            PORTC |= ((1 << selected) & 0xff);
+            last_selected = selected;
+        }
+        
+
     }
 }
 /**
