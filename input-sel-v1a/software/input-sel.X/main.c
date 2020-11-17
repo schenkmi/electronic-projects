@@ -52,6 +52,14 @@
 #define MUTE_OFF_BIT    0x10
 
 
+static void eeprom_example(void)
+{
+    volatile uint8_t value = 0x09;
+    uint8_t address = 0xE5;
+    eeprom_write(address, value);     // Writing value 0x9 to EEPROM address 0xE5        
+    value = eeprom_read (address);    // Reading the value from address 0xE5
+}
+
 static uint8_t get_chan_sel(void)
 {
     /**
