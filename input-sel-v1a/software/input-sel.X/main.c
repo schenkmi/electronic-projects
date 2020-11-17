@@ -49,25 +49,32 @@
 #define SELIN4 PORTCbits.RC3
 #define MUTEOUT PORTCbits.RC4
 
+#define MUTE_OFF_BIT    0x10
+
+
 static uint8_t get_chan_sel(void)
 {
+    /**
+     * PORTB weak pull-up RB7..RB4
+     * Input selector ties to GND so we invert the bits here
+     */
     uint8_t input = (~(PORTB >> 4)) & 0x0f;
     
     switch (input) {
-        case 0x01:
+        case 0x01: /* INPUT 1, RB4 tie to GND */
             input = 1;
             break;
-        case 0x02:
+        case 0x02: /* INPUT 2, RB5 tie to GND */
             input = 2;
             break;
-        case 0x04:
+        case 0x04: /* INPUT 3, RB6 tie to GND */
             input = 3;
             break;
-        case 0x08:
+        case 0x08: /* INPUT 4, RB7 tie to GND */
             input = 4;
             break;
         default:
-            input = 1;
+            input = 1; /* no tie to GND, default to INPUT 1 */
             break;
     }
     
@@ -76,12 +83,14 @@ static uint8_t get_chan_sel(void)
 
 void init(void)
 {
+    /* mute, bias stabilization time */
     for (int cnt = 0; cnt < 20; cnt++) {
         __delay_ms(500);
     }
     
     PORTC = 0;
     
+    /* one channel after the others */
     for (int cnt = 0; cnt < 4; cnt++) {
         uint8_t in = ((1 << cnt) & 0xff);
         
@@ -89,12 +98,7 @@ void init(void)
         __delay_ms(1000);
         PORTC &= ~in;
     }
-    
-
 }
-
-
-
 
 /*
                          Main application
@@ -129,22 +133,19 @@ void main(void)
    
     uint8_t last_selected = selected;
     
-    PORTC |= (((1 << selected) & 0xff) | 0x10);
+    PORTC |= (((1 << selected) & 0xff) | MUTE_OFF_BIT);
      
     
         /* unmute output */
     MUTEOUT = 1;
 
     while (1) {
-        
         __delay_ms(100);
-        
-        
         
         selected = get_chan_sel();
         if (selected != last_selected) {
             PORTC &= ~((1 << last_selected) & 0xff);
-            PORTC |= (((1 << selected) & 0xff) | 0x10);
+            PORTC |= (((1 << selected) & 0xff) | MUTE_OFF_BIT);
             last_selected = selected;
         }
         
