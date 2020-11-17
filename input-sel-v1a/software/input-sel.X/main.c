@@ -110,7 +110,7 @@ void main(void)
    
     uint8_t last_selected = selected;
     
-    PORTC |= ((1 << selected) & 0xff);
+    PORTC |= (((1 << selected) & 0xff) | 0x10);
      
     
         /* unmute output */
@@ -125,7 +125,7 @@ void main(void)
         selected = get_chan_sel();
         if (selected != last_selected) {
             PORTC &= ~((1 << last_selected) & 0xff);
-            PORTC |= ((1 << selected) & 0xff);
+            PORTC |= (((1 << selected) & 0xff) | 0x10);
             last_selected = selected;
         }
         
