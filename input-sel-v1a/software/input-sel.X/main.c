@@ -50,6 +50,31 @@
 #define MUTEOUT PORTCbits.RC4
 
 
+void init(void)
+{
+    for (int cnt = 0; cnt < 20; cnt++) {
+        __delay_ms(500);
+    }
+    
+    PORTC = 0;
+    
+    for (int cnt = 0; cnt < 4; cnt++) {
+        uint8_t in = ((1 << cnt) & 0xff);
+        
+        PORTC |= in;
+        __delay_ms(1000);
+        PORTC &= ~in;
+    }
+    
+    // CH1, later store to EEPROM and take last
+    // Read chan selector
+    SELIN1 = 1;
+    
+    /* unmute output */
+    MUTEOUT = 1;
+}
+
+
 /*
                          Main application
  */
@@ -73,29 +98,9 @@ void main(void)
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
     
-    for (int cnt = 0; cnt < 20; cnt++) {
-        __delay_ms(500);
-    }
+    init();
     
-    SELIN1 = 1;
-    __delay_ms(1000);
-    
-    SELIN1 = 0;
-    SELIN2 = 1;
-    __delay_ms(1000);
-    
-    SELIN2 = 0;
-    SELIN3 = 1;
-    __delay_ms(1000);
-    
-    SELIN3 = 0;
-    SELIN4 = 1;
-    __delay_ms(1000);
-    SELIN4 = 0;
-    SELIN1 = 1;
-    
-   
-    MUTEOUT = 1;
+
     
     while (1)
     {
