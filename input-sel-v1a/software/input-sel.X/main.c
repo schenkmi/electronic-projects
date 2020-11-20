@@ -51,7 +51,6 @@
 
 #define MUTE_OFF_BIT    0x10
 
-
 static void eeprom_example(void)
 {
     volatile uint8_t value = 0x09;
