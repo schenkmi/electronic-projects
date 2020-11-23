@@ -59,8 +59,9 @@ static void eeprom_example(void)
     value = eeprom_read (address);    // Reading the value from address 0xE5
 }
 
-static uint8_t get_chan_sel(void)
+static int get_chan_sel(void)
 {
+    int ret = -1;
     /**
      * PORTB weak pull-up RB7..RB4
      * Input selector ties to GND so we invert the bits here
@@ -69,40 +70,33 @@ static uint8_t get_chan_sel(void)
     
     switch (input) {
         case 0x01: /* INPUT 1, RB4 tie to GND */
-            input = 1;
+            ret = 0;
             break;
         case 0x02: /* INPUT 2, RB5 tie to GND */
-            input = 2;
+            ret = 1;
             break;
         case 0x04: /* INPUT 3, RB6 tie to GND */
-            input = 3;
+            ret = 2;
             break;
         case 0x08: /* INPUT 4, RB7 tie to GND */
-            input = 4;
+            ret = 3;
             break;
         default:
-            input = 1; /* no tie to GND, default to INPUT 1 */
             break;
     }
     
-    return input;
+    return ret;
 }
 
 void init(void)
-{
-    /* mute, bias stabilization time */
-    for (int cnt = 0; cnt < 20; cnt++) {
-        __delay_ms(500);
-    }
-    
+{    
     PORTC = 0;
     
     /* one channel after the others */
     for (int cnt = 0; cnt < 4; cnt++) {
         uint8_t in = ((1 << cnt) & 0xff);
-        
         PORTC |= in;
-        __delay_ms(1000);
+        __delay_ms(500);
         PORTC &= ~in;
     }
 }
@@ -112,6 +106,10 @@ void init(void)
  */
 void main(void)
 {
+    int selected = -1;
+    int last_selected = -1; 
+    
+    
     // initialize the device
     SYSTEM_Initialize();
 
@@ -131,31 +129,23 @@ void main(void)
     //INTERRUPT_PeripheralInterruptDisable();
     
     init();
-    
-    uint8_t selected = get_chan_sel();
-    
-    if (selected == 0) {
-        selected = 1;
-    }
-   
-    uint8_t last_selected = selected;
-    
-    PORTC |= (((1 << selected) & 0xff) | MUTE_OFF_BIT);
-     
-    
-        /* unmute output */
-    MUTEOUT = 1;
 
+    
     while (1) {
-        __delay_ms(100);
-        
+        __delay_ms(20);
         selected = get_chan_sel();
+        if (selected == -1) {
+            continue;
+        }
+        
         if (selected != last_selected) {
-            PORTC &= ~((1 << last_selected) & 0xff);
+                        PORTC &= ~((1 << last_selected) & 0xff);
             PORTC |= (((1 << selected) & 0xff) | MUTE_OFF_BIT);
             last_selected = selected;
         }
         
+        
+
 
     }
 }
