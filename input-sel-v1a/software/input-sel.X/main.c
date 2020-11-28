@@ -51,6 +51,8 @@
 
 #define MUTE_OFF_BIT    0x10
 
+#define LED PORTAbits.RA4
+
 static void eeprom_example(void)
 {
     volatile uint8_t value = 0x09;
@@ -91,6 +93,7 @@ static int get_chan_sel(void)
 void init(void)
 {    
     PORTC = 0;
+    LED = 1;
     
     /* one channel after the others */
     for (int cnt = 0; cnt < 4; cnt++) {
