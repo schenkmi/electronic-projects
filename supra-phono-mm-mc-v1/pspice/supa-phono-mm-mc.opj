@@ -1,6 +1,6 @@
 (ExpressProject "supa-phono-mm-mc"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S012 (3898062)  [10/18/2020]-[11/15/20]")
+  (SoftwareVersion "17.4-2019 S012 (3898062)  [10/18/2020]-[11/29/20]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -39,9 +39,12 @@
     (File ".\supa-phono-mm-mc-pspicefiles\schematic1\schematic1.net"
       (Type "Report")))
   (Folder "PSpice Resources"
-    (Folder "Model Libraries")
-    (Folder "Stimulus Files")
-    (Folder "Include Files")
+    (Folder "Model Libraries"
+      (Sort User))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User))
     (Folder "Simulation Profiles"
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
          ".\supa-phono-mm-mc-pspicefiles\schematic1\bias.sim"
@@ -51,7 +54,7 @@
          ".\supa-phono-mm-mc-pspicefiles\schematic1\tran.sim"
         (DisplayName "SCHEMATIC1-Tran")
         (Type "PSpice Profile"))
-      (ActiveProfile ".\supa-phono-mm-mc-pspicefiles\schematic1\bias.sim")))
+      (ActiveProfile ".\supa-phono-mm-mc-pspicefiles\schematic1\tran.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
     (C
@@ -109,7 +112,8 @@
       (Path "Design Resources"
          "C:\Users\schenk\Documents\GitHub\electronic-projects\supra-phono-mm-mc-v1\pspice\supa-phono-mm-mc.dsn"
          "SCHEMATIC1")
-      (Path "Outputs"))
+      (Path "Outputs")
+      (Select "Design Resources"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
@@ -119,9 +123,9 @@
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 838 24 559")
-        (Scroll "339 582")
-        (Zoom "172")
+        (Placement "44 0 1 -1 -1 5 24 5 1194 24 559")
+        (Scroll "-140 106")
+        (Zoom "53")
         (Occurrence "/"))
       (Path
          "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\SUPRA-PHONO-MM-MC-V1\PSPICE\SUPA-PHONO-MM-MC.DSN")
