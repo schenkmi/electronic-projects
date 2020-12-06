@@ -4,8 +4,8 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
-Title "Audio Input Selector V1"
-Date "2020.11.10"
+Title "Audio Input Selector V2"
+Date "2020.12.06"
 Rev "1"
 Comp ""
 Comment1 "https://github.com/schenkmi/electronic-projects"
@@ -24,17 +24,6 @@ F 3 "" H 3050 3750 50  0001 L BNN
 F 4 "Compliant" H 3050 3750 50  0001 L BNN "EU_RoHS_Compliance"
 F 5 "1-338068-0" H 3050 3750 50  0001 L BNN "Comment"
 	1    3050 3750
-	1    0    0    -1  
-$EndComp
-$Comp
-L MCU_Microchip_PIC16:PIC16F1829-IP U3
-U 1 1 5FAC1510
-P 6550 3350
-F 0 "U3" H 6550 4431 50  0000 C CNN
-F 1 "PIC16F1829-IP" H 6550 4340 50  0000 C CNN
-F 2 "Package_DIP:DIP-20_W7.62mm" H 6550 2800 50  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf" H 6550 2800 50  0001 C CNN
-	1    6550 3350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -57,17 +46,6 @@ F 1 "ULN2003A" H 9550 5026 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 9600 3900 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/uln2003a.pdf" H 9650 4250 50  0001 C CNN
 	1    9550 4450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Regulator_Linear:L78L05_SOT89 U2
-U 1 1 5FAC60CB
-P 4200 9450
-F 0 "U2" H 4200 9692 50  0000 C CNN
-F 1 "L78L05_SOT89" H 4200 9601 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-89-3" H 4200 9650 50  0001 C CIN
-F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 4200 9400 50  0001 C CNN
-	1    4200 9450
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -199,28 +177,6 @@ F 3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-g6k.pdf" H 11050 8300 50
 	1    0    0    -1  
 $EndComp
 $Comp
-L Regulator_Linear:L7805 U1
-U 1 1 5FAD8DAC
-P 4200 8600
-F 0 "U1" H 4200 8842 50  0000 C CNN
-F 1 "L7805" H 4200 8751 50  0000 C CNN
-F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 4225 8450 50  0001 L CIN
-F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf" H 4200 8550 50  0001 C CNN
-	1    4200 8600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP C1
-U 1 1 5FADCAE3
-P 3150 9900
-F 0 "C1" H 3268 9946 50  0000 L CNN
-F 1 "1000uF" H 3268 9855 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm" H 3188 9750 50  0001 C CNN
-F 3 "~" H 3150 9900 50  0001 C CNN
-	1    3150 9900
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:CP C4
 U 1 1 5FADD541
 P 5300 9900
@@ -349,17 +305,6 @@ Wire Wire Line
 	1300 9550 2200 9550
 Wire Wire Line
 	2200 9550 2200 9600
-$Comp
-L power:GND #PWR0105
-U 1 1 5FAF8BE1
-P 4200 8950
-F 0 "#PWR0105" H 4200 8700 50  0001 C CNN
-F 1 "GND" H 4205 8777 50  0000 C CNN
-F 2 "" H 4200 8950 50  0001 C CNN
-F 3 "" H 4200 8950 50  0001 C CNN
-	1    4200 8950
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1900 9900 1900 10350
 Wire Wire Line
@@ -377,10 +322,6 @@ Connection ~ 3150 9450
 Wire Wire Line
 	3150 9450 2500 9450
 Wire Wire Line
-	3650 9450 3650 8600
-Wire Wire Line
-	3650 8600 3900 8600
-Wire Wire Line
 	4200 9750 4200 10350
 Wire Wire Line
 	4200 10350 3650 10350
@@ -393,12 +334,8 @@ Wire Wire Line
 Wire Wire Line
 	4750 9750 4750 9450
 Wire Wire Line
-	4750 8600 4500 8600
-Wire Wire Line
 	4500 9450 4750 9450
 Connection ~ 4750 9450
-Wire Wire Line
-	4750 9450 4750 8600
 Wire Wire Line
 	5300 9750 5300 9450
 Wire Wire Line
@@ -413,8 +350,6 @@ Wire Wire Line
 Wire Wire Line
 	5300 10350 4750 10350
 Connection ~ 4750 10350
-Wire Wire Line
-	4200 8950 4200 8900
 $Comp
 L power:+5V #PWR0106
 U 1 1 5FB0634B
@@ -1057,48 +992,6 @@ Wire Wire Line
 Wire Wire Line
 	10650 3400 11800 3400
 Wire Wire Line
-	7650 3650 8850 3650
-Wire Wire Line
-	8850 3650 8850 4250
-Wire Wire Line
-	8850 4250 9150 4250
-Wire Wire Line
-	7650 3550 8750 3550
-Wire Wire Line
-	8750 3550 8750 4350
-Wire Wire Line
-	8750 4350 9150 4350
-Wire Wire Line
-	7650 3450 8650 3450
-Wire Wire Line
-	8650 3450 8650 4450
-Wire Wire Line
-	8650 4450 9150 4450
-Wire Wire Line
-	7650 3350 8550 3350
-Wire Wire Line
-	8550 3350 8550 4550
-Wire Wire Line
-	8550 4550 9150 4550
-Wire Wire Line
-	7650 3250 8450 3250
-Wire Wire Line
-	8450 3250 8450 4650
-Wire Wire Line
-	8450 4650 9150 4650
-Wire Wire Line
-	7650 3150 8350 3150
-Wire Wire Line
-	8350 3150 8350 4750
-Wire Wire Line
-	8350 4750 9150 4750
-Wire Wire Line
-	7650 3050 8250 3050
-Wire Wire Line
-	8250 3050 8250 4850
-Wire Wire Line
-	8250 4850 9150 4850
-Wire Wire Line
 	9950 4450 10650 4450
 Wire Wire Line
 	10650 4450 10650 4900
@@ -1313,18 +1206,112 @@ Wire Wire Line
 NoConn ~ 9950 4750
 NoConn ~ 9950 4850
 NoConn ~ 5450 3050
-NoConn ~ 7650 2950
+Wire Wire Line
+	1900 10350 3150 10350
 $Comp
-L Diode_Bridge:DF06M D1
-U 1 1 5FC0CD5D
+L Device:CP C1
+U 1 1 5FADCAE3
+P 3150 9900
+F 0 "C1" H 3268 9946 50  0000 L CNN
+F 1 "1000uF" H 3268 9855 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D12.5mm_P5.00mm" H 3188 9750 50  0001 C CNN
+F 3 "~" H 3150 9900 50  0001 C CNN
+	1    3150 9900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:L78L05_SO8 U1
+U 1 1 5FCFF6C0
+P 4200 9450
+F 0 "U1" H 4200 9692 50  0000 C CNN
+F 1 "L78L05_SO8" H 4200 9601 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4300 9650 50  0001 C CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 4400 9450 50  0001 C CNN
+	1    4200 9450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode_Bridge:MB4S D1
+U 1 1 5FDFDB2A
 P 2200 9900
 F 0 "D1" H 2544 9946 50  0000 L CNN
-F 1 "DF06M" H 2544 9855 50  0000 L CNN
-F 2 "Diode_THT:Diode_Bridge_DIP-4_W7.62mm_P5.08mm" H 2350 10025 50  0001 L CNN
-F 3 "http://www.vishay.com/docs/88571/dfm.pdf" H 2200 9900 50  0001 C CNN
+F 1 "MB4S" H 2544 9855 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TO-269AA" H 2350 10025 50  0001 L CNN
+F 3 "http://www.vishay.com/docs/88661/mb2s.pdf" H 2200 9900 50  0001 C CNN
 	1    2200 9900
 	1    0    0    -1  
 $EndComp
+$Comp
+L MCU_Microchip_PIC16:PIC16F1829-IP U3
+U 1 1 5FAC1510
+P 6550 3350
+F 0 "U3" H 6550 4431 50  0000 C CNN
+F 1 "PIC16F1829-IP" H 6550 4340 50  0000 C CNN
+F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 6550 2800 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf" H 6550 2800 50  0001 C CNN
+	1    6550 3350
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	1900 10350 3150 10350
+	9150 4250 8850 4250
+Wire Wire Line
+	8850 4250 8850 3650
+Wire Wire Line
+	8850 3650 7650 3650
+Wire Wire Line
+	9150 4350 8750 4350
+Wire Wire Line
+	8750 4350 8750 3550
+Wire Wire Line
+	8750 3550 7650 3550
+Wire Wire Line
+	9150 4450 8650 4450
+Wire Wire Line
+	8650 4450 8650 3450
+Wire Wire Line
+	8650 3450 7650 3450
+Wire Wire Line
+	9150 4550 8550 4550
+Wire Wire Line
+	8550 4550 8550 3350
+Wire Wire Line
+	8550 3350 7650 3350
+Wire Wire Line
+	9150 4650 8450 4650
+Wire Wire Line
+	8450 4650 8450 3250
+Wire Wire Line
+	8450 3250 7650 3250
+$Comp
+L Regulator_Linear:L7805 U2
+U 1 1 601290F1
+P 4200 8500
+F 0 "U2" H 4200 8742 50  0000 C CNN
+F 1 "L7805" H 4200 8651 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 4225 8350 50  0001 L CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf" H 4200 8450 50  0001 C CNN
+	1    4200 8500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0105
+U 1 1 6012AC86
+P 4200 8950
+F 0 "#PWR0105" H 4200 8700 50  0001 C CNN
+F 1 "GND" H 4205 8777 50  0000 C CNN
+F 2 "" H 4200 8950 50  0001 C CNN
+F 3 "" H 4200 8950 50  0001 C CNN
+	1    4200 8950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 8950 4200 8800
+Wire Wire Line
+	4750 9450 4750 8500
+Wire Wire Line
+	4750 8500 4500 8500
+Wire Wire Line
+	3900 8500 3650 8500
+Wire Wire Line
+	3650 8500 3650 9450
 $EndSCHEMATC
