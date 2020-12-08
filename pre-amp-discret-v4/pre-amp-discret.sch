@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
+Title "Discrete Pre-Amp"
+Date "2020-12-08"
+Rev "V4"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -413,7 +413,7 @@ U 1 1 5F828F01
 P 1050 3400
 F 0 "J4" H 968 3175 50  0000 C CNN
 F 1 "Conn_01x01" H 968 3266 50  0000 C CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 1050 3400 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 1050 3400 50  0001 C CNN
 F 3 "~" H 1050 3400 50  0001 C CNN
 	1    1050 3400
 	-1   0    0    1   
@@ -424,7 +424,7 @@ U 1 1 5F829B5B
 P 1050 3800
 F 0 "J5" H 968 3575 50  0000 C CNN
 F 1 "Conn_01x01" H 968 3666 50  0000 C CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 1050 3800 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 1050 3800 50  0001 C CNN
 F 3 "~" H 1050 3800 50  0001 C CNN
 	1    1050 3800
 	-1   0    0    1   
@@ -592,7 +592,7 @@ U 1 1 5F85FA68
 P 6750 3400
 F 0 "J6" H 6830 3442 50  0000 L CNN
 F 1 "Conn_01x01" H 6830 3351 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 6750 3400 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 6750 3400 50  0001 C CNN
 F 3 "~" H 6750 3400 50  0001 C CNN
 	1    6750 3400
 	1    0    0    -1  
@@ -603,7 +603,7 @@ U 1 1 5F8602F3
 P 6750 3850
 F 0 "J7" H 6830 3892 50  0000 L CNN
 F 1 "Conn_01x01" H 6830 3801 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 6750 3850 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 6750 3850 50  0001 C CNN
 F 3 "~" H 6750 3850 50  0001 C CNN
 	1    6750 3850
 	1    0    0    -1  
@@ -614,7 +614,7 @@ U 1 1 5F860746
 P 8300 1950
 F 0 "J1" H 8218 1725 50  0000 C CNN
 F 1 "Conn_01x01" H 8218 1816 50  0000 C CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 8300 1950 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 8300 1950 50  0001 C CNN
 F 3 "~" H 8300 1950 50  0001 C CNN
 	1    8300 1950
 	-1   0    0    1   
@@ -625,7 +625,7 @@ U 1 1 5F860D1D
 P 9300 3700
 F 0 "J2" H 9218 3475 50  0000 C CNN
 F 1 "Conn_01x01" H 9218 3566 50  0000 C CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 9300 3700 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 9300 3700 50  0001 C CNN
 F 3 "~" H 9300 3700 50  0001 C CNN
 	1    9300 3700
 	-1   0    0    1   
@@ -636,7 +636,7 @@ U 1 1 5F861111
 P 8350 4850
 F 0 "J3" H 8268 4625 50  0000 C CNN
 F 1 "Conn_01x01" H 8268 4716 50  0000 C CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 8350 4850 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 8350 4850 50  0001 C CNN
 F 3 "~" H 8350 4850 50  0001 C CNN
 	1    8350 4850
 	-1   0    0    1   
