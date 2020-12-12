@@ -774,17 +774,6 @@ F 3 "" H 7250 10500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R17
-U 1 1 5F9B2DDC
-P 8200 8800
-F 0 "R17" V 7993 8800 50  0000 C CNN
-F 1 "0R" V 8084 8800 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 8130 8800 50  0001 C CNN
-F 3 "~" H 8200 8800 50  0001 C CNN
-	1    8200 8800
-	0    1    1    0   
-$EndComp
-$Comp
 L Transistor_BJT:BC860 Q12
 U 1 1 5F9DAB67
 P 8200 9400
@@ -900,7 +889,7 @@ U 1 1 5FD05CCF
 P 10500 5200
 F 0 "C6" H 10618 5246 50  0000 L CNN
 F 1 "100uF" H 10618 5155 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 10538 5050 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 10538 5050 50  0001 C CNN
 F 3 "~" H 10500 5200 50  0001 C CNN
 	1    10500 5200
 	1    0    0    -1  
@@ -976,8 +965,6 @@ F 3 "~" H 8200 9750 50  0001 C CNN
 $EndComp
 Connection ~ 7250 9300
 Wire Wire Line
-	8400 9300 8700 9300
-Wire Wire Line
 	8200 10100 8200 10000
 Wire Wire Line
 	8100 10000 8200 10000
@@ -999,17 +986,6 @@ Wire Wire Line
 	7250 10150 7250 10500
 Wire Wire Line
 	7250 9300 7700 9300
-Wire Wire Line
-	7700 9300 7700 8800
-Wire Wire Line
-	7700 8800 8050 8800
-Wire Wire Line
-	8350 8800 8700 8800
-Wire Wire Line
-	8700 8800 8700 9300
-Connection ~ 8700 9300
-Wire Wire Line
-	8700 9300 9000 9300
 $Comp
 L power:PWR_FLAG #FLG01
 U 1 1 5FF2F39A
@@ -1067,17 +1043,6 @@ F 3 "" H 4000 10500 50  0001 C CNN
 	1    4000 10500
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R R15
-U 1 1 5FF2F3BF
-P 4950 8800
-F 0 "R15" V 4743 8800 50  0000 C CNN
-F 1 "0R" V 4834 8800 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 4880 8800 50  0001 C CNN
-F 3 "~" H 4950 8800 50  0001 C CNN
-	1    4950 8800
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	3900 9300 4000 9300
 Connection ~ 5750 9300
@@ -1093,8 +1058,6 @@ F 3 "~" H 4950 9750 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Connection ~ 4000 9300
-Wire Wire Line
-	5150 9300 5450 9300
 Wire Wire Line
 	4950 10100 4950 10000
 Wire Wire Line
@@ -1117,17 +1080,6 @@ Wire Wire Line
 	4000 10150 4000 10500
 Wire Wire Line
 	4000 9300 4450 9300
-Wire Wire Line
-	4450 9300 4450 8800
-Wire Wire Line
-	4450 8800 4800 8800
-Wire Wire Line
-	5100 8800 5450 8800
-Wire Wire Line
-	5450 8800 5450 9300
-Connection ~ 5450 9300
-Wire Wire Line
-	5450 9300 5750 9300
 $Comp
 L Device:CP C8
 U 1 1 5FF2F3A1
@@ -1670,4 +1622,8 @@ Wire Wire Line
 	14100 4400 14500 4400
 Wire Wire Line
 	14900 5500 14900 5350
+Wire Wire Line
+	5150 9300 5750 9300
+Wire Wire Line
+	8400 9300 9000 9300
 $EndSCHEMATC
