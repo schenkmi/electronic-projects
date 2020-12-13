@@ -253,7 +253,7 @@ F 1 "270pF" V 12089 5700 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 12288 5550 50  0001 C CNN
 F 3 "~" H 12250 5700 50  0001 C CNN
 	1    12250 5700
-	0    1    1    0   
+	0    -1   -1   0   
 $EndComp
 $Comp
 L power:GND #PWR014
@@ -1519,24 +1519,24 @@ $EndComp
 $Comp
 L snk:BCM847DS,115 Q13
 U 1 1 5FD97384
-P 6350 3750
-F 0 "Q13" H 6540 3796 50  0000 L CNN
-F 1 "BCM847DS,115" H 6540 3705 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 6350 3750 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 6350 3750 50  0001 C CNN
-	1    6350 3750
-	1    0    0    -1  
+P 7350 3750
+F 0 "Q13" H 7540 3796 50  0000 L CNN
+F 1 "BCM847DS,115" H 7540 3705 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 7350 3750 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 7350 3750 50  0001 C CNN
+	1    7350 3750
+	-1   0    0    -1  
 $EndComp
 $Comp
 L snk:BCM847DS,115 Q13
 U 2 1 5FD9867A
-P 7350 3750
-F 0 "Q13" H 7541 3796 50  0000 L CNN
-F 1 "BCM847DS,115" H 7541 3705 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 7350 3750 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 7350 3750 50  0001 C CNN
-	2    7350 3750
-	-1   0    0    -1  
+P 6350 3750
+F 0 "Q13" H 6541 3796 50  0000 L CNN
+F 1 "BCM847DS,115" H 6541 3705 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 6350 3750 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 6350 3750 50  0001 C CNN
+	2    6350 3750
+	1    0    0    -1  
 $EndComp
 $Comp
 L snk:BCM857DS,115 Q7
@@ -1561,32 +1561,32 @@ F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220
 	1    0    0    1   
 $EndComp
 $Comp
-L snk:BCM857DS,115 Q?
+L snk:BCM857DS,115 Q1
 U 1 1 5FEA4A84
-P 8650 5100
-F 0 "Q?" H 8840 5054 50  0000 L CNN
-F 1 "BCM857DS,115" H 8840 5145 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 8650 5100 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 8650 5100 50  0001 C CNN
-	1    8650 5100
-	1    0    0    1   
-$EndComp
-$Comp
-L snk:BCM857DS,115 Q?
-U 2 1 5FEA6E47
 P 9650 5100
-F 0 "Q?" H 9841 5054 50  0000 L CNN
+F 0 "Q1" H 9841 5054 50  0000 L CNN
 F 1 "BCM857DS,115" H 9841 5145 50  0000 L CNN
 F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 9650 5100 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 9650 5100 50  0001 C CNN
-	2    9650 5100
+	1    9650 5100
 	-1   0    0    1   
 $EndComp
 $Comp
-L snk:BCM847DS,115 Q?
+L snk:BCM857DS,115 Q1
+U 2 1 5FEA6E47
+P 8650 5100
+F 0 "Q1" H 8840 5054 50  0000 L CNN
+F 1 "BCM857DS,115" H 8840 5145 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 8650 5100 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 8650 5100 50  0001 C CNN
+	2    8650 5100
+	1    0    0    1   
+$EndComp
+$Comp
+L snk:BCM847DS,115 Q2
 U 1 1 5FEBCE67
 P 8850 6700
-F 0 "Q?" H 9041 6746 50  0000 L CNN
+F 0 "Q2" H 9041 6746 50  0000 L CNN
 F 1 "BCM847DS,115" H 9041 6655 50  0000 L CNN
 F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 8850 6700 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 8850 6700 50  0001 C CNN
@@ -1594,10 +1594,10 @@ F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheet
 	-1   0    0    -1  
 $EndComp
 $Comp
-L snk:BCM847DS,115 Q?
+L snk:BCM847DS,115 Q2
 U 2 1 5FEBF2CC
 P 9450 6700
-F 0 "Q?" H 9640 6746 50  0000 L CNN
+F 0 "Q2" H 9640 6746 50  0000 L CNN
 F 1 "BCM847DS,115" H 9640 6655 50  0000 L CNN
 F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 9450 6700 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 9450 6700 50  0001 C CNN
@@ -1605,25 +1605,25 @@ F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheet
 	1    0    0    -1  
 $EndComp
 $Comp
-L snk:BCM847DS,115 Q?
+L snk:BCM847DS,115 Q4
 U 1 1 5FED60CE
-P 11750 6300
-F 0 "Q?" H 11940 6346 50  0000 L CNN
-F 1 "BCM847DS,115" H 11940 6255 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 11750 6300 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 11750 6300 50  0001 C CNN
-	1    11750 6300
-	1    0    0    -1  
-$EndComp
-$Comp
-L snk:BCM847DS,115 Q?
-U 2 1 5FED7D4F
 P 12500 6700
-F 0 "Q?" H 12690 6746 50  0000 L CNN
+F 0 "Q4" H 12690 6746 50  0000 L CNN
 F 1 "BCM847DS,115" H 12690 6655 50  0000 L CNN
 F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 12500 6700 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 12500 6700 50  0001 C CNN
-	2    12500 6700
+	1    12500 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L snk:BCM847DS,115 Q4
+U 2 1 5FED7D4F
+P 11750 6300
+F 0 "Q4" H 11940 6346 50  0000 L CNN
+F 1 "BCM847DS,115" H 11940 6255 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 11750 6300 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 11750 6300 50  0001 C CNN
+	2    11750 6300
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
