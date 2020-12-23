@@ -5,25 +5,14 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete Pre-Amp Symetric"
-Date "2020-12-22"
-Rev "V1a"
+Date "2020-12-23"
+Rev "V1b"
 Comp ""
 Comment1 ""
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L Transistor_BJT:BC850 Q2
-U 1 1 5F7C47B2
-P 8850 6700
-F 0 "Q2" H 9041 6746 50  0000 L CNN
-F 1 "BC850C" H 9041 6655 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 9050 6625 50  0001 L CIN
-F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_BC850SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541d4630a1657" H 8850 6700 50  0001 L CNN
-	1    8850 6700
-	-1   0    0    -1  
-$EndComp
 $Comp
 L Transistor_BJT:BC860 Q5
 U 1 1 5F7C52FE
@@ -36,22 +25,11 @@ F 3 "http://www.infineon.com/dgdl/Infineon-BC857SERIES_BC858SERIES_BC859SERIES_B
 	-1   0    0    1   
 $EndComp
 $Comp
-L Transistor_BJT:BC850 Q4
-U 1 1 5F7C8FFA
-P 9450 6700
-F 0 "Q4" H 9641 6746 50  0000 L CNN
-F 1 "BC850C" H 9641 6655 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 9650 6625 50  0001 L CIN
-F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_BC850SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541d4630a1657" H 9450 6700 50  0001 L CNN
-	1    9450 6700
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R6
 U 1 1 5F7F7F2C
 P 9550 7150
 F 0 "R6" H 9620 7196 50  0000 L CNN
-F 1 "68R" H 9620 7105 50  0000 L CNN
+F 1 "1k2" H 9620 7105 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9480 7150 50  0001 C CNN
 F 3 "~" H 9550 7150 50  0001 C CNN
 	1    9550 7150
@@ -95,7 +73,7 @@ L Device:R R3
 U 1 1 5F7FDDC2
 P 8750 7150
 F 0 "R3" H 8820 7196 50  0000 L CNN
-F 1 "68R" H 8820 7105 50  0000 L CNN
+F 1 "1k2" H 8820 7105 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8680 7150 50  0001 C CNN
 F 3 "~" H 8750 7150 50  0001 C CNN
 	1    8750 7150
@@ -310,23 +288,12 @@ F 3 "" H 11150 5450 50  0001 C CNN
 	1    11150 5450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	9550 6500 9550 6450
-Wire Wire Line
-	9250 6700 9150 6700
-Wire Wire Line
-	9150 6700 9150 6450
-Wire Wire Line
-	9150 6450 9550 6450
-Connection ~ 9150 6700
-Wire Wire Line
-	9150 6700 9050 6700
 $Comp
 L Device:C C7
 U 1 1 5F82148C
 P 12250 5700
 F 0 "C7" V 11998 5700 50  0000 C CNN
-F 1 "1nF" V 12089 5700 50  0000 C CNN
+F 1 "270pF" V 12089 5700 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 12288 5550 50  0001 C CNN
 F 3 "~" H 12250 5700 50  0001 C CNN
 	1    12250 5700
@@ -1149,8 +1116,6 @@ $EndComp
 Wire Wire Line
 	11550 6300 11450 6300
 Wire Wire Line
-	8750 6300 8750 6500
-Wire Wire Line
 	12400 5700 12600 5700
 Wire Wire Line
 	12600 5700 12600 6500
@@ -1161,8 +1126,6 @@ Wire Wire Line
 Wire Wire Line
 	11450 5700 11450 6300
 Connection ~ 11450 6300
-Wire Wire Line
-	11450 6300 10650 6300
 Wire Wire Line
 	11850 7000 11850 6700
 Wire Wire Line
@@ -1217,7 +1180,7 @@ L Device:C C17
 U 1 1 601B4994
 P 12300 3300
 F 0 "C17" V 12048 3300 50  0000 C CNN
-F 1 "1nF" V 12139 3300 50  0000 C CNN
+F 1 "270pF" V 12139 3300 50  0000 C CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 12338 3150 50  0001 C CNN
 F 3 "~" H 12300 3300 50  0001 C CNN
 	1    12300 3300
@@ -1405,14 +1368,10 @@ Wire Wire Line
 Wire Wire Line
 	9550 7400 10650 7400
 Wire Wire Line
-	9550 7000 9550 6900
-Wire Wire Line
 	9550 7400 8750 7400
 Wire Wire Line
 	8750 7400 8750 7300
 Connection ~ 9550 7400
-Wire Wire Line
-	8750 7000 8750 6900
 Connection ~ 11700 4400
 Wire Wire Line
 	11700 4400 11900 4400
@@ -1521,12 +1480,9 @@ Wire Wire Line
 	9550 4900 9550 4800
 Wire Wire Line
 	8750 4900 8750 4800
-Connection ~ 9550 6450
 Connection ~ 8750 6300
 Wire Wire Line
 	8750 5300 8750 6300
-Wire Wire Line
-	9550 5300 9550 6450
 Wire Wire Line
 	7250 4450 7250 4350
 Wire Wire Line
@@ -1625,29 +1581,6 @@ Wire Wire Line
 	12400 4400 14100 4400
 Connection ~ 12400 4400
 $Comp
-L Device:R R15
-U 1 1 5FE8C6A8
-P 10650 3800
-F 0 "R15" H 10720 3846 50  0000 L CNN
-F 1 "250k" H 10720 3755 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10580 3800 50  0001 C CNN
-F 3 "~" H 10650 3800 50  0001 C CNN
-	1    10650 3800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10650 3950 10650 6300
-Connection ~ 10650 6300
-Wire Wire Line
-	10650 6300 8750 6300
-Wire Wire Line
-	6450 2750 10650 2750
-Wire Wire Line
-	10650 3650 10650 2750
-Connection ~ 10650 2750
-Wire Wire Line
-	10650 2750 11400 2750
-$Comp
 L Device:CP C18
 U 1 1 6014A5F6
 P 8150 1950
@@ -1705,4 +1638,12 @@ Wire Wire Line
 Connection ~ 10650 7400
 Wire Wire Line
 	10650 7400 11850 7400
+Wire Wire Line
+	9550 5300 9550 7000
+Wire Wire Line
+	8750 6300 8750 7000
+Wire Wire Line
+	6450 2750 11400 2750
+Wire Wire Line
+	8750 6300 11450 6300
 $EndSCHEMATC
