@@ -1746,9 +1746,6 @@ Wire Wire Line
 	14100 5900 14100 7800
 Connection ~ 6450 1150
 Connection ~ 6850 4450
-Connection ~ 11550 2750
-Wire Wire Line
-	11550 2750 11750 2750
 Wire Wire Line
 	5000 1150 6450 1150
 Wire Wire Line
