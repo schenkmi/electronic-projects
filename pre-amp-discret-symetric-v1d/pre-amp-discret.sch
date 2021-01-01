@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete Pre-Amp Symetric"
-Date "2020-12-23"
-Rev "V1c"
+Date "2021-01-01"
+Rev "V1d"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -687,17 +687,6 @@ F 3 "~" H 9000 9300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9000 9300 9100 9300
-$Comp
-L Transistor_BJT:BC850 Q11
-U 1 1 5F91DD7E
-P 4950 9400
-F 0 "Q11" H 5141 9446 50  0000 L CNN
-F 1 "BC850C" H 5141 9355 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 5150 9325 50  0001 L CIN
-F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_BC850SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541d4630a1657" H 4950 9400 50  0001 L CNN
-	1    4950 9400
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	4850 5050 4850 4800
 Wire Wire Line
@@ -706,74 +695,6 @@ Wire Wire Line
 	4700 4400 4850 4400
 Wire Wire Line
 	5150 4400 5300 4400
-$Comp
-L Device:CP C10
-U 1 1 5F9B2DB2
-P 7250 10000
-F 0 "C10" H 7132 9954 50  0000 R CNN
-F 1 "100uF" H 7132 10045 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 7288 9850 50  0001 C CNN
-F 3 "~" H 7250 10000 50  0001 C CNN
-	1    7250 10000
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:CP C11
-U 1 1 5F9B2DB8
-P 8200 10250
-F 0 "C11" H 8082 10204 50  0000 R CNN
-F 1 "100uF" H 8082 10295 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 8238 10100 50  0001 C CNN
-F 3 "~" H 8200 10250 50  0001 C CNN
-	1    8200 10250
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R R16
-U 1 1 5F9B2DBE
-P 7950 10000
-F 0 "R16" V 7743 10000 50  0000 C CNN
-F 1 "10k" V 7834 10000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7880 10000 50  0001 C CNN
-F 3 "~" H 7950 10000 50  0001 C CNN
-	1    7950 10000
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR016
-U 1 1 5F9B2DC4
-P 8200 10500
-F 0 "#PWR016" H 8200 10250 50  0001 C CNN
-F 1 "GND" H 8205 10327 50  0000 C CNN
-F 2 "" H 8200 10500 50  0001 C CNN
-F 3 "" H 8200 10500 50  0001 C CNN
-	1    8200 10500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR03
-U 1 1 5F9B2DD5
-P 7250 10500
-F 0 "#PWR03" H 7250 10250 50  0001 C CNN
-F 1 "GND" H 7255 10327 50  0000 C CNN
-F 2 "" H 7250 10500 50  0001 C CNN
-F 3 "" H 7250 10500 50  0001 C CNN
-	1    7250 10500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Transistor_BJT:BC860 Q12
-U 1 1 5F9DAB67
-P 8200 9400
-F 0 "Q12" H 8391 9446 50  0000 L CNN
-F 1 "BC860C" H 8391 9355 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8400 9325 50  0001 L CIN
-F 3 "http://www.infineon.com/dgdl/Infineon-BC857SERIES_BC858SERIES_BC859SERIES_BC860SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541da0e3a1661" H 8200 9400 50  0001 L CNN
-	1    8200 9400
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7150 9300 7250 9300
 Connection ~ 9000 9300
 $Comp
 L Device:C C12
@@ -941,40 +862,6 @@ Wire Wire Line
 	15250 1150 14750 1150
 Connection ~ 14750 1150
 $Comp
-L Device:R R19
-U 1 1 5FDE8876
-P 8200 9750
-F 0 "R19" V 7993 9750 50  0000 C CNN
-F 1 "100R" V 8084 9750 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8130 9750 50  0001 C CNN
-F 3 "~" H 8200 9750 50  0001 C CNN
-	1    8200 9750
-	-1   0    0    1   
-$EndComp
-Connection ~ 7250 9300
-Wire Wire Line
-	8200 10100 8200 10000
-Wire Wire Line
-	8100 10000 8200 10000
-Connection ~ 8200 10000
-Wire Wire Line
-	8200 10000 8200 9900
-Wire Wire Line
-	8200 10500 8200 10400
-Wire Wire Line
-	7800 10000 7700 10000
-Wire Wire Line
-	7700 10000 7700 9300
-Connection ~ 7700 9300
-Wire Wire Line
-	7700 9300 8000 9300
-Wire Wire Line
-	7250 9300 7250 9850
-Wire Wire Line
-	7250 10150 7250 10500
-Wire Wire Line
-	7250 9300 7700 9300
-$Comp
 L power:PWR_FLAG #FLG01
 U 1 1 5FF2F39A
 P 5750 9300
@@ -987,98 +874,7 @@ F 3 "~" H 5750 9300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5750 9300 5850 9300
-$Comp
-L Device:CP C9
-U 1 1 5FF2F3A7
-P 4950 10250
-F 0 "C9" H 4832 10204 50  0000 R CNN
-F 1 "100uF" H 4832 10295 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 4988 10100 50  0001 C CNN
-F 3 "~" H 4950 10250 50  0001 C CNN
-	1    4950 10250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R14
-U 1 1 5FF2F3AD
-P 4700 10000
-F 0 "R14" V 4493 10000 50  0000 C CNN
-F 1 "10k" V 4584 10000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 4630 10000 50  0001 C CNN
-F 3 "~" H 4700 10000 50  0001 C CNN
-	1    4700 10000
-	0    1    1    0   
-$EndComp
-$Comp
-L power:GND #PWR022
-U 1 1 5FF2F3B3
-P 4950 10500
-F 0 "#PWR022" H 4950 10250 50  0001 C CNN
-F 1 "GND" H 4955 10327 50  0000 C CNN
-F 2 "" H 4950 10500 50  0001 C CNN
-F 3 "" H 4950 10500 50  0001 C CNN
-	1    4950 10500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR021
-U 1 1 5FF2F3B9
-P 4000 10500
-F 0 "#PWR021" H 4000 10250 50  0001 C CNN
-F 1 "GND" H 4005 10327 50  0000 C CNN
-F 2 "" H 4000 10500 50  0001 C CNN
-F 3 "" H 4000 10500 50  0001 C CNN
-	1    4000 10500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3900 9300 4000 9300
 Connection ~ 5750 9300
-$Comp
-L Device:R R18
-U 1 1 5FF2F3CD
-P 4950 9750
-F 0 "R18" V 4743 9750 50  0000 C CNN
-F 1 "100R" V 4834 9750 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 4880 9750 50  0001 C CNN
-F 3 "~" H 4950 9750 50  0001 C CNN
-	1    4950 9750
-	-1   0    0    1   
-$EndComp
-Connection ~ 4000 9300
-Wire Wire Line
-	4950 10100 4950 10000
-Wire Wire Line
-	4850 10000 4950 10000
-Connection ~ 4950 10000
-Wire Wire Line
-	4950 10000 4950 9900
-Wire Wire Line
-	4950 10500 4950 10400
-Wire Wire Line
-	4550 10000 4450 10000
-Wire Wire Line
-	4450 10000 4450 9300
-Connection ~ 4450 9300
-Wire Wire Line
-	4450 9300 4750 9300
-Wire Wire Line
-	4000 9300 4000 9850
-Wire Wire Line
-	4000 10150 4000 10500
-Wire Wire Line
-	4000 9300 4450 9300
-$Comp
-L Device:CP C8
-U 1 1 5FF2F3A1
-P 4000 10000
-F 0 "C8" H 3882 9954 50  0000 R CNN
-F 1 "100uF" H 3882 10045 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 4038 9850 50  0001 C CNN
-F 3 "~" H 4000 10000 50  0001 C CNN
-	1    4000 10000
-	1    0    0    -1  
-$EndComp
 $Comp
 L Diode:1N4148W D5
 U 1 1 60090CE7
@@ -1135,18 +931,11 @@ F 3 "~" H 12600 7550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	11550 6300 11450 6300
-Wire Wire Line
 	12400 5700 12600 5700
 Wire Wire Line
 	12600 5700 12600 6500
 Wire Wire Line
 	11850 6100 11850 6000
-Wire Wire Line
-	12100 5700 11450 5700
-Wire Wire Line
-	11450 5700 11450 6300
-Connection ~ 11450 6300
 Wire Wire Line
 	12300 6700 11850 6700
 Connection ~ 11850 6700
@@ -1393,8 +1182,6 @@ Wire Wire Line
 Wire Wire Line
 	12450 3300 12600 3300
 Connection ~ 12600 3300
-Wire Wire Line
-	12150 3300 11400 3300
 Connection ~ 11850 2300
 Wire Wire Line
 	11850 1250 11850 1150
@@ -1402,14 +1189,9 @@ Connection ~ 11850 1150
 Wire Wire Line
 	12600 1250 12600 1150
 Wire Wire Line
-	11550 2750 11400 2750
-Wire Wire Line
-	11400 2750 11400 3300
-Wire Wire Line
 	11850 3050 11850 2950
 Wire Wire Line
 	11850 2300 11850 2550
-Connection ~ 11400 2750
 Wire Wire Line
 	10100 2450 10100 2950
 Connection ~ 10100 1150
@@ -1459,7 +1241,6 @@ Wire Wire Line
 	9550 4900 9550 4800
 Wire Wire Line
 	8750 4900 8750 4800
-Connection ~ 8750 6300
 Wire Wire Line
 	8750 5300 8750 5900
 Wire Wire Line
@@ -1470,7 +1251,6 @@ Wire Wire Line
 	6450 4050 6450 3950
 Wire Wire Line
 	7250 4050 7250 3950
-Connection ~ 6450 2750
 Wire Wire Line
 	11150 4400 11150 4650
 Wire Wire Line
@@ -1516,10 +1296,6 @@ Wire Wire Line
 	14100 4400 14500 4400
 Wire Wire Line
 	14900 5500 14900 5350
-Wire Wire Line
-	5150 9300 5750 9300
-Wire Wire Line
-	8400 9300 9000 9300
 Connection ~ 11150 4400
 Wire Wire Line
 	10050 3750 10050 4400
@@ -1611,8 +1387,6 @@ F 3 "http://www.infineon.com/dgdl/Infineon-BC857SERIES_BC858SERIES_BC859SERIES_B
 	1    6950 2200
 	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	8750 6300 11450 6300
 $Comp
 L power:GND #PWR025
 U 1 1 60442878
@@ -1639,10 +1413,6 @@ Wire Wire Line
 	6450 1700 6450 1550
 Wire Wire Line
 	7250 1700 7250 1550
-Wire Wire Line
-	6450 2100 6450 2750
-Wire Wire Line
-	6450 2750 11400 2750
 Wire Wire Line
 	9150 1150 9150 1800
 Wire Wire Line
@@ -1718,8 +1488,6 @@ Wire Wire Line
 Wire Wire Line
 	8750 7400 8750 7300
 Wire Wire Line
-	8750 6300 8750 6900
-Wire Wire Line
 	9550 5300 9550 5900
 Wire Wire Line
 	9550 6800 9450 6800
@@ -1735,8 +1503,6 @@ Wire Wire Line
 	9000 5900 8750 5900
 Connection ~ 8750 5900
 Wire Wire Line
-	8750 5900 8750 6300
-Wire Wire Line
 	9150 6600 9150 6550
 Wire Wire Line
 	11850 6700 11850 7400
@@ -1748,8 +1514,6 @@ Connection ~ 6450 1150
 Connection ~ 6850 4450
 Wire Wire Line
 	5000 1150 6450 1150
-Wire Wire Line
-	6450 2750 6450 2950
 Wire Wire Line
 	7250 2100 7250 2200
 Wire Wire Line
@@ -1810,4 +1574,36 @@ Wire Wire Line
 	7550 7450 7550 7150
 Wire Wire Line
 	7550 6500 7550 6850
+Wire Wire Line
+	8750 5900 8750 6300
+Wire Wire Line
+	8750 6300 8750 6900
+Connection ~ 8750 6300
+Wire Wire Line
+	12150 3300 11400 3300
+Wire Wire Line
+	6450 2750 6450 2950
+Wire Wire Line
+	6450 2100 6450 2750
+Connection ~ 6450 2750
+Wire Wire Line
+	8750 6300 11450 6300
+Wire Wire Line
+	11550 6300 11450 6300
+Connection ~ 11450 6300
+Wire Wire Line
+	11450 5700 11450 6300
+Wire Wire Line
+	12100 5700 11450 5700
+Wire Wire Line
+	6450 2750 11400 2750
+Wire Wire Line
+	11550 2750 11400 2750
+Connection ~ 11400 2750
+Wire Wire Line
+	11400 2750 11400 3300
+Wire Wire Line
+	3900 9300 5750 9300
+Wire Wire Line
+	7150 9300 9000 9300
 $EndSCHEMATC
