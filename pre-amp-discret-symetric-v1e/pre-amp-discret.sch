@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 1 1
 Title "Discrete Pre-Amp Symetric"
 Date "2021-01-01"
-Rev "V1d"
+Rev "V1e"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -170,12 +170,12 @@ $EndComp
 $Comp
 L Device:R R4
 U 1 1 5F800CD9
-P 9150 1950
-F 0 "R4" H 9220 1996 50  0000 L CNN
-F 1 "100R" H 9220 1905 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9080 1950 50  0001 C CNN
-F 3 "~" H 9150 1950 50  0001 C CNN
-	1    9150 1950
+P 9150 1700
+F 0 "R4" H 9220 1746 50  0000 L CNN
+F 1 "100R" H 9220 1655 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9080 1700 50  0001 C CNN
+F 3 "~" H 9150 1700 50  0001 C CNN
+	1    9150 1700
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -188,28 +188,6 @@ F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10030 3100 50  
 F 3 "~" H 10100 3100 50  0001 C CNN
 	1    10100 3100
 	1    0    0    -1  
-$EndComp
-$Comp
-L Diode:1N4148W D2
-U 1 1 5F801FDC
-P 10100 2250
-F 0 "D2" V 10146 2170 50  0000 R CNN
-F 1 "1N4148W" V 10055 2170 50  0000 R CNN
-F 2 "Diode_SMD:D_SOD-123" H 10100 2075 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 10100 2250 50  0001 C CNN
-	1    10100 2250
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Diode:1N4148W D1
-U 1 1 5F80332A
-P 10100 1400
-F 0 "D1" V 10146 1320 50  0000 R CNN
-F 1 "1N4148W" V 10055 1320 50  0000 R CNN
-F 2 "Diode_SMD:D_SOD-123" H 10100 1225 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 10100 1400 50  0001 C CNN
-	1    10100 1400
-	0    -1   -1   0   
 $EndComp
 $Comp
 L Transistor_BJT:BC860 Q7
@@ -247,12 +225,12 @@ $EndComp
 $Comp
 L Device:R R12
 U 1 1 5F805B16
-P 14100 1950
-F 0 "R12" H 14170 1996 50  0000 L CNN
-F 1 "100R" H 14170 1905 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 14030 1950 50  0001 C CNN
-F 3 "~" H 14100 1950 50  0001 C CNN
-	1    14100 1950
+P 14100 1650
+F 0 "R12" H 14170 1696 50  0000 L CNN
+F 1 "100R" H 14170 1605 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 14030 1650 50  0001 C CNN
+F 3 "~" H 14100 1650 50  0001 C CNN
+	1    14100 1650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -876,28 +854,6 @@ Wire Wire Line
 	5750 9300 5850 9300
 Connection ~ 5750 9300
 $Comp
-L Diode:1N4148W D5
-U 1 1 60090CE7
-P 13450 1400
-F 0 "D5" V 13496 1320 50  0000 R CNN
-F 1 "1N4148W" V 13405 1320 50  0000 R CNN
-F 2 "Diode_SMD:D_SOD-123" H 13450 1225 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 13450 1400 50  0001 C CNN
-	1    13450 1400
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Diode:1N4148W D6
-U 1 1 6009159A
-P 13450 2250
-F 0 "D6" V 13496 2170 50  0000 R CNN
-F 1 "1N4148W" V 13405 2170 50  0000 R CNN
-F 2 "Diode_SMD:D_SOD-123" H 13450 2075 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 13450 2250 50  0001 C CNN
-	1    13450 2250
-	0    -1   -1   0   
-$EndComp
-$Comp
 L Device:R R28
 U 1 1 600AF22D
 P 13450 2650
@@ -995,17 +951,6 @@ $EndComp
 Wire Wire Line
 	12200 4400 12400 4400
 Wire Wire Line
-	9450 2450 10100 2450
-Wire Wire Line
-	10100 2450 10100 2400
-Connection ~ 10100 2450
-Wire Wire Line
-	9150 2250 9150 2100
-Wire Wire Line
-	9150 1150 10100 1150
-Wire Wire Line
-	10100 1250 10100 1150
-Wire Wire Line
 	10100 3350 10100 3250
 $Comp
 L Device:R R23
@@ -1096,30 +1041,6 @@ F 3 "~" H 7250 4200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Diode:1N4148W D4
-U 1 1 602CBA97
-P 7550 7600
-F 0 "D4" V 7596 7520 50  0000 R CNN
-F 1 "1N4148W" V 7505 7520 50  0000 R CNN
-F 2 "Diode_SMD:D_SOD-123" H 7550 7425 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 7550 7600 50  0001 C CNN
-	1    7550 7600
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Diode:1N4148W D3
-U 1 1 602CBA9D
-P 7550 7000
-F 0 "D3" V 7596 6920 50  0000 R CNN
-F 1 "1N4148W" V 7505 6920 50  0000 R CNN
-F 2 "Diode_SMD:D_SOD-123" H 7550 6825 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 7550 7000 50  0001 C CNN
-	1    7550 7000
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7550 7800 7550 7750
-$Comp
 L Device:R R25
 U 1 1 602D07FF
 P 7550 6300
@@ -1193,31 +1114,15 @@ Wire Wire Line
 Wire Wire Line
 	11850 2300 11850 2550
 Wire Wire Line
-	10100 2450 10100 2950
-Connection ~ 10100 1150
-Wire Wire Line
-	10100 1150 11850 1150
-Wire Wire Line
 	7250 4450 6850 4450
 Wire Wire Line
-	9150 1150 8150 1150
-Wire Wire Line
 	7250 1150 7250 1250
-Connection ~ 9150 1150
 Wire Wire Line
 	6450 1150 6450 1250
 Connection ~ 7250 1150
-Wire Wire Line
-	8750 7800 7550 7800
 Connection ~ 8750 7800
 Wire Wire Line
-	7550 6450 7550 6500
-Wire Wire Line
-	7150 6500 7550 6500
-Connection ~ 7550 6500
-Wire Wire Line
 	7550 6150 7550 6050
-Connection ~ 7550 7800
 Wire Wire Line
 	6850 6300 6850 4450
 Wire Wire Line
@@ -1258,28 +1163,9 @@ Wire Wire Line
 Connection ~ 14100 4400
 Wire Wire Line
 	14100 4400 14100 5500
-Wire Wire Line
-	12600 1150 13450 1150
 Connection ~ 12600 1150
 Wire Wire Line
-	13450 1250 13450 1150
-Connection ~ 13450 1150
-Wire Wire Line
-	13450 1150 14100 1150
-Wire Wire Line
-	13450 2500 13450 2450
-Wire Wire Line
 	13450 2900 13450 2800
-Connection ~ 14100 1150
-Wire Wire Line
-	14100 1150 14750 1150
-Wire Wire Line
-	14100 2250 14100 2100
-Wire Wire Line
-	13800 2450 13450 2450
-Connection ~ 13450 2450
-Wire Wire Line
-	13450 2450 13450 2400
 Wire Wire Line
 	14100 2650 14100 4400
 Wire Wire Line
@@ -1414,17 +1300,9 @@ Wire Wire Line
 Wire Wire Line
 	7250 1700 7250 1550
 Wire Wire Line
-	9150 1150 9150 1800
-Wire Wire Line
-	10100 1550 10100 2100
-Wire Wire Line
 	11850 1550 11850 2300
 Wire Wire Line
 	12600 1550 12600 2100
-Wire Wire Line
-	13450 1550 13450 2100
-Wire Wire Line
-	14100 1150 14100 1800
 $Comp
 L Device:R R29
 U 1 1 605F407F
@@ -1564,16 +1442,10 @@ Wire Wire Line
 Wire Wire Line
 	5000 7800 6850 7800
 Wire Wire Line
-	6850 7150 6850 6700
+	6850 7150 6850 6950
 Wire Wire Line
 	6850 7450 6850 7800
 Connection ~ 6850 7800
-Wire Wire Line
-	6850 7800 7550 7800
-Wire Wire Line
-	7550 7450 7550 7150
-Wire Wire Line
-	7550 6500 7550 6850
 Wire Wire Line
 	8750 5900 8750 6300
 Wire Wire Line
@@ -1606,4 +1478,108 @@ Wire Wire Line
 	3900 9300 5750 9300
 Wire Wire Line
 	7150 9300 9000 9300
+$Comp
+L Transistor_BJT:BC860 Q?
+U 1 1 60463A58
+P 10000 2050
+F 0 "Q?" H 10191 2096 50  0000 L CNN
+F 1 "BC860C" H 10191 2005 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 10200 1975 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/Infineon-BC857SERIES_BC858SERIES_BC859SERIES_BC860SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541da0e3a1661" H 10000 2050 50  0001 L CNN
+	1    10000 2050
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8150 1150 9150 1150
+Wire Wire Line
+	9150 2250 9150 2050
+Wire Wire Line
+	9150 1550 9150 1150
+Connection ~ 9150 1150
+Wire Wire Line
+	9150 1150 10100 1150
+Wire Wire Line
+	10100 2950 10100 2450
+Wire Wire Line
+	9450 2450 10100 2450
+Connection ~ 10100 2450
+Wire Wire Line
+	10100 2450 10100 2250
+Wire Wire Line
+	10100 1850 10100 1150
+Connection ~ 10100 1150
+Wire Wire Line
+	10100 1150 11850 1150
+Wire Wire Line
+	9800 2050 9150 2050
+Connection ~ 9150 2050
+Wire Wire Line
+	9150 2050 9150 1850
+Wire Wire Line
+	6850 7800 7550 7800
+$Comp
+L Transistor_BJT:BC850 Q?
+U 1 1 6053E1D2
+P 7450 6950
+F 0 "Q?" H 7641 6996 50  0000 L CNN
+F 1 "BC850C" H 7641 6905 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7650 6875 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_BC850SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541d4630a1657" H 7450 6950 50  0001 L CNN
+	1    7450 6950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 6450 7550 6500
+Wire Wire Line
+	7150 6500 7550 6500
+Connection ~ 7550 6500
+Wire Wire Line
+	7550 6500 7550 6750
+Wire Wire Line
+	7250 6950 6850 6950
+Connection ~ 6850 6950
+Wire Wire Line
+	6850 6950 6850 6700
+Wire Wire Line
+	7550 7150 7550 7800
+Connection ~ 7550 7800
+Wire Wire Line
+	7550 7800 8750 7800
+$Comp
+L Transistor_BJT:BC860 Q?
+U 1 1 605CD1F0
+P 13550 2050
+F 0 "Q?" H 13741 2096 50  0000 L CNN
+F 1 "BC860C" H 13741 2005 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 13750 1975 50  0001 L CIN
+F 3 "http://www.infineon.com/dgdl/Infineon-BC857SERIES_BC858SERIES_BC859SERIES_BC860SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541da0e3a1661" H 13550 2050 50  0001 L CNN
+	1    13550 2050
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	12600 1150 13450 1150
+Wire Wire Line
+	14100 2050 13750 2050
+Wire Wire Line
+	14100 2050 14100 2250
+Wire Wire Line
+	14100 2050 14100 1800
+Connection ~ 14100 2050
+Wire Wire Line
+	14100 1500 14100 1150
+Connection ~ 14100 1150
+Wire Wire Line
+	14100 1150 14750 1150
+Wire Wire Line
+	13450 1850 13450 1150
+Connection ~ 13450 1150
+Wire Wire Line
+	13450 1150 14100 1150
+Wire Wire Line
+	13450 2500 13450 2450
+Wire Wire Line
+	13800 2450 13450 2450
+Connection ~ 13450 2450
+Wire Wire Line
+	13450 2450 13450 2250
 $EndSCHEMATC
