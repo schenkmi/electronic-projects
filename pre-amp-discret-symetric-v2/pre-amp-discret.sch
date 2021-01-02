@@ -14,39 +14,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Transistor_BJT:BC850 Q2
-U 1 1 5F7C47B2
-P 8850 7100
-F 0 "Q2" H 9041 7146 50  0000 L CNN
-F 1 "BC850C" H 9041 7055 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 9050 7025 50  0001 L CIN
-F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_BC850SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541d4630a1657" H 8850 7100 50  0001 L CNN
-	1    8850 7100
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Transistor_BJT:BC860 Q5
-U 1 1 5F7C52FE
-P 9650 5100
-F 0 "Q5" H 9841 5146 50  0000 L CNN
-F 1 "BC860C" H 9841 5055 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 9850 5025 50  0001 L CIN
-F 3 "http://www.infineon.com/dgdl/Infineon-BC857SERIES_BC858SERIES_BC859SERIES_BC860SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541da0e3a1661" H 9650 5100 50  0001 L CNN
-	1    9650 5100
-	-1   0    0    1   
-$EndComp
-$Comp
-L Transistor_BJT:BC850 Q4
-U 1 1 5F7C8FFA
-P 9450 7100
-F 0 "Q4" H 9641 7146 50  0000 L CNN
-F 1 "BC850C" H 9641 7055 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 9650 7025 50  0001 L CIN
-F 3 "http://www.infineon.com/dgdl/Infineon-BC847SERIES_BC848SERIES_BC849SERIES_BC850SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541d4630a1657" H 9450 7100 50  0001 L CNN
-	1    9450 7100
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R6
 U 1 1 5F7F7F2C
 P 9550 7550
@@ -56,17 +23,6 @@ F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9480 7550 50  0
 F 3 "~" H 9550 7550 50  0001 C CNN
 	1    9550 7550
 	1    0    0    -1  
-$EndComp
-$Comp
-L Transistor_BJT:BC860 Q1
-U 1 1 5F7FA604
-P 8650 5100
-F 0 "Q1" H 8841 5146 50  0000 L CNN
-F 1 "BC860C" H 8841 5055 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8850 5025 50  0001 L CIN
-F 3 "http://www.infineon.com/dgdl/Infineon-BC857SERIES_BC858SERIES_BC859SERIES_BC860SERIES-DS-v01_01-en.pdf?fileId=db3a304314dca389011541da0e3a1661" H 8650 5100 50  0001 L CNN
-	1    8650 5100
-	1    0    0    1   
 $EndComp
 $Comp
 L Device:C C2
@@ -1581,5 +1537,49 @@ F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 14000 2450 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 14000 2450 50  0001 C CNN
 	1    14000 2450
 	1    0    0    1   
+$EndComp
+$Comp
+L kicad-snk:BCM857DS,115 Q1
+U 1 1 6002025B
+P 8650 5100
+F 0 "Q1" H 8840 5054 50  0000 L CNN
+F 1 "BCM857DS,115" H 8840 5145 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 8650 5100 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 8650 5100 50  0001 C CNN
+	1    8650 5100
+	1    0    0    1   
+$EndComp
+$Comp
+L kicad-snk:BCM857DS,115 Q1
+U 2 1 60023185
+P 9650 5100
+F 0 "Q1" H 9841 5054 50  0000 L CNN
+F 1 "BCM857DS,115" H 9841 5145 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 9650 5100 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 9650 5100 50  0001 C CNN
+	2    9650 5100
+	-1   0    0    1   
+$EndComp
+$Comp
+L kicad-snk:BCM847DS,115 Q2
+U 1 1 600576DE
+P 8850 7100
+F 0 "Q2" H 9041 7146 50  0000 L CNN
+F 1 "BCM847DS,115" H 9041 7055 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 8850 7100 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 8850 7100 50  0001 C CNN
+	1    8850 7100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:BCM847DS,115 Q2
+U 2 1 60059C04
+P 9450 7100
+F 0 "Q2" H 9640 7146 50  0000 L CNN
+F 1 "BCM847DS,115" H 9640 7055 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 9450 7100 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 9450 7100 50  0001 C CNN
+	2    9450 7100
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
