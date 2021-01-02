@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete Pre-Amp Symetric"
-Date "2021-01-01"
-Rev "V1e"
+Date "2021-01-02"
+Rev "V2"
 Comp ""
 Comment1 ""
 Comment2 ""
