@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete Pre-Amp Symetric"
-Date "2021-01-02"
-Rev "V2"
+Date "2021-01-12"
+Rev "V3"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -1022,8 +1022,6 @@ Connection ~ 9150 4400
 Wire Wire Line
 	9150 4400 9550 4400
 Wire Wire Line
-	9550 4900 9550 4800
-Wire Wire Line
 	8750 4900 8750 4800
 Wire Wire Line
 	8750 5300 8750 5900
@@ -1471,28 +1469,6 @@ F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220
 	1    0    0    1   
 $EndComp
 $Comp
-L kicad-snk:BCM847DS,115 Q13
-U 1 1 5FF125E4
-P 6350 3750
-F 0 "Q13" H 6540 3796 50  0000 L CNN
-F 1 "BCM847DS,115" H 6540 3705 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 6350 3750 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 6350 3750 50  0001 C CNN
-	1    6350 3750
-	1    0    0    -1  
-$EndComp
-$Comp
-L kicad-snk:BCM847DS,115 Q13
-U 2 1 5FF14014
-P 7350 3750
-F 0 "Q13" H 7541 3796 50  0000 L CNN
-F 1 "BCM847DS,115" H 7541 3705 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 7350 3750 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 7350 3750 50  0001 C CNN
-	2    7350 3750
-	-1   0    0    -1  
-$EndComp
-$Comp
 L kicad-snk:BCM857DS,115 Q3
 U 2 1 5FF89211
 P 10000 2050
@@ -1539,28 +1515,6 @@ F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220
 	1    0    0    1   
 $EndComp
 $Comp
-L kicad-snk:BCM857DS,115 Q1
-U 1 1 6002025B
-P 8650 5100
-F 0 "Q1" H 8840 5054 50  0000 L CNN
-F 1 "BCM857DS,115" H 8840 5145 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 8650 5100 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 8650 5100 50  0001 C CNN
-	1    8650 5100
-	1    0    0    1   
-$EndComp
-$Comp
-L kicad-snk:BCM857DS,115 Q1
-U 2 1 60023185
-P 9650 5100
-F 0 "Q1" H 9841 5054 50  0000 L CNN
-F 1 "BCM857DS,115" H 9841 5145 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 9650 5100 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 9650 5100 50  0001 C CNN
-	2    9650 5100
-	-1   0    0    1   
-$EndComp
-$Comp
 L kicad-snk:BCM847DS,115 Q2
 U 1 1 600576DE
 P 8850 7100
@@ -1582,4 +1536,61 @@ F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheet
 	2    9450 7100
 	1    0    0    -1  
 $EndComp
+$Comp
+L kicad-snk:THAT340 Q4
+U 1 1 5FFEC197
+P 6350 3750
+F 0 "Q4" H 6540 3841 50  0000 L CNN
+F 1 "THAT340" H 6540 3750 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6540 3659 50  0000 L CNN
+F 3 "http://www.thatcorp.com/datashts/THAT_300-Series_Datasheet.pdf" H 6540 3659 50  0001 L CNN
+	1    6350 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:THAT340 Q4
+U 2 1 5FFEE30A
+P 7350 3750
+F 0 "Q4" H 7539 3841 50  0000 L CNN
+F 1 "THAT340" H 7539 3750 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7539 3659 50  0000 L CNN
+F 3 "http://www.thatcorp.com/datashts/THAT_300-Series_Datasheet.pdf" H 7540 3659 50  0001 L CNN
+	2    7350 3750
+	-1   0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:THAT340 Q4
+U 3 1 5FFEFDC2
+P 8650 5100
+F 0 "Q4" H 8840 5191 50  0000 L CNN
+F 1 "THAT340" H 8840 5100 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 8840 5009 50  0000 L CNN
+F 3 "http://www.thatcorp.com/datashts/THAT_300-Series_Datasheet.pdf" H 8840 5009 50  0001 L CNN
+	3    8650 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:THAT340 Q4
+U 4 1 5FFF1440
+P 9650 5100
+F 0 "Q4" H 9839 5191 50  0000 L CNN
+F 1 "THAT340" H 9839 5100 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 9839 5009 50  0000 L CNN
+F 3 "http://www.thatcorp.com/datashts/THAT_300-Series_Datasheet.pdf" H 9840 5009 50  0001 L CNN
+	4    9650 5100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:THAT340 Q4
+U 5 1 5FFF2BC0
+P 1950 5050
+F 0 "Q4" H 1950 5405 50  0000 C CNN
+F 1 "THAT340" H 1950 5314 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 1950 5223 50  0000 C CNN
+F 3 "http://www.thatcorp.com/datashts/THAT_300-Series_Datasheet.pdf" H 2140 4959 50  0001 L CNN
+	5    1950 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9550 4900 9550 4800
 $EndSCHEMATC
