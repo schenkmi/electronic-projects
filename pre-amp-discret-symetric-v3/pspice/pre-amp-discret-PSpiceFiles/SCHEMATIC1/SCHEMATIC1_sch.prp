@@ -1,5 +1,113 @@
 ("FILE_TYPE"	"PMAP File"
     ("devices"
+        ("R"
+            ("info"
+                ("spice_dsg"	"R")
+                ("port_order"
+                    ("1")
+                    ("2")
+                )
+            )
+            ("model_params"
+                ("level_0"
+                    ("TC1"
+                        ("value"	"0")
+                    )
+                    ("TC2"
+                        ("value"	"0")
+                    )
+                    ("VALUE"
+                        ("value"	"0")
+                    )
+                )
+            )
+            ("smoke"
+                ("pre_smoke"
+                    ("NODE_VA"	"1")
+                    ("NODE_VB"	"2")
+                    ("DERATE_TYPE"	"RES")
+                )
+                ("max_ops"
+                    ("RV"	"VOLTAGE")
+                    ("PDM"	"POWER")
+                    ("SLP"	"SLOPE")
+                    ("RBA"	"1/SLP")
+                    ("TMAX"	"MAX_TEMP")
+                    ("TB"	"TMAX")
+                    ("RTKNEE"	"TKNEE")
+                    ("RTRISE"	"TRISE")
+                )
+                ("smoke_tests"
+                    ("PDM"
+                        ("test"	"power_test")
+                    )
+                    ("RV"
+                        ("test"	"abs_voltage_test")
+                        ("nodes"
+                            ("NODE_VA")
+                            ("NODE_VB")
+                        )
+                    )
+                    ("TB"
+                        ("test"	"temp_null_test")
+                    )
+                )
+                ("device_max_ops")
+            )
+        )
+        ("C"
+            ("info"
+                ("spice_dsg"	"C")
+                ("port_order"
+                    ("1")
+                    ("2")
+                )
+            )
+            ("model_params"
+                ("level_0"
+                    ("IC"
+                        ("value"	"0")
+                    )
+                    ("TC"
+                        ("value"	"0")
+                    )
+                    ("VALUE"
+                        ("value"	"0")
+                    )
+                )
+            )
+            ("smoke"
+                ("pre_smoke"
+                    ("NODE_VA"	"1")
+                    ("NODE_VB"	"2")
+                    ("TERM_A"	"-1")
+                    ("DERATE_TYPE"	"CAP")
+                )
+                ("max_ops"
+                    ("CV"	"VOLTAGE")
+                    ("CI"	"CURRENT")
+                    ("SLP"	"SLOPE")
+                    ("TBRK"	"KNEE")
+                    ("TMAX"	"MAX_TEMP")
+                )
+                ("smoke_tests"
+                    ("CV"
+                        ("test"	"abs_voltage_test")
+                        ("nodes"
+                            ("NODE_VA")
+                            ("NODE_VB")
+                        )
+                    )
+                    ("CI"
+                        ("test"	"abs_current_test")
+                        ("term"	"TERM_A")
+                    )
+                )
+                ("device_max_ops")
+            )
+        )
+        ("VDC")
+        ("VSIN")
         ("BC850C"
             ("info"
                 ("spice_dsg"	"X")
@@ -259,113 +367,6 @@
                 )
             )
         )
-        ("R"
-            ("info"
-                ("spice_dsg"	"R")
-                ("port_order"
-                    ("1")
-                    ("2")
-                )
-            )
-            ("model_params"
-                ("level_0"
-                    ("TC1"
-                        ("value"	"0")
-                    )
-                    ("TC2"
-                        ("value"	"0")
-                    )
-                    ("VALUE"
-                        ("value"	"0")
-                    )
-                )
-            )
-            ("smoke"
-                ("pre_smoke"
-                    ("NODE_VA"	"1")
-                    ("NODE_VB"	"2")
-                    ("DERATE_TYPE"	"RES")
-                )
-                ("max_ops"
-                    ("RV"	"VOLTAGE")
-                    ("PDM"	"POWER")
-                    ("SLP"	"SLOPE")
-                    ("RBA"	"1/SLP")
-                    ("TMAX"	"MAX_TEMP")
-                    ("TB"	"TMAX")
-                    ("RTKNEE"	"TKNEE")
-                    ("RTRISE"	"TRISE")
-                )
-                ("smoke_tests"
-                    ("PDM"
-                        ("test"	"power_test")
-                    )
-                    ("RV"
-                        ("test"	"abs_voltage_test")
-                        ("nodes"
-                            ("NODE_VA")
-                            ("NODE_VB")
-                        )
-                    )
-                    ("TB"
-                        ("test"	"temp_null_test")
-                    )
-                )
-                ("device_max_ops")
-            )
-        )
-        ("C"
-            ("info"
-                ("spice_dsg"	"C")
-                ("port_order"
-                    ("1")
-                    ("2")
-                )
-            )
-            ("model_params"
-                ("level_0"
-                    ("IC"
-                        ("value"	"0")
-                    )
-                    ("TC"
-                        ("value"	"0")
-                    )
-                    ("VALUE"
-                        ("value"	"0")
-                    )
-                )
-            )
-            ("smoke"
-                ("pre_smoke"
-                    ("NODE_VA"	"1")
-                    ("NODE_VB"	"2")
-                    ("TERM_A"	"-1")
-                    ("DERATE_TYPE"	"CAP")
-                )
-                ("max_ops"
-                    ("CV"	"VOLTAGE")
-                    ("CI"	"CURRENT")
-                    ("SLP"	"SLOPE")
-                    ("TBRK"	"KNEE")
-                    ("TMAX"	"MAX_TEMP")
-                )
-                ("smoke_tests"
-                    ("CV"
-                        ("test"	"abs_voltage_test")
-                        ("nodes"
-                            ("NODE_VA")
-                            ("NODE_VB")
-                        )
-                    )
-                    ("CI"
-                        ("test"	"abs_current_test")
-                        ("term"	"TERM_A")
-                    )
-                )
-                ("device_max_ops")
-            )
-        )
-        ("VDC")
         ("BC860C"
             ("info"
                 ("spice_dsg"	"X")
@@ -625,41 +626,12 @@
                 )
             )
         )
-        ("VSIN")
         ("QNPN_THAT_NS")
         ("QPNP_THAT_NS")
+        ("BCM857DS")
+        ("BCM847DS")
     )
     ("instances"
-        ("Q3"
-            ("device_name"	"BC850C")
-            ("pspice_path"	"Q_Q3")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"3.792mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
-            )
-        )
-        ("Q5"
-            ("device_name"	"BC850C")
-            ("pspice_path"	"Q_Q5")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"3.884mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
-            )
-        )
         ("R1"
             ("device_name"	"R")
             ("pspice_path"	"R_R1")
@@ -671,7 +643,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"543.9uW")
+                    ("value"	"544.0uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -728,7 +700,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"543.8uW")
+                    ("value"	"543.6uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -785,7 +757,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"2.334uW")
+                    ("value"	"3.034uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -912,7 +884,7 @@
                     ("pspice_param"	"DC")
                 )
                 ("BiasValue Power"
-                    ("value"	"-401.0mW")
+                    ("value"	"-410.2mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("PSpice Model Type"
@@ -931,7 +903,7 @@
                     ("pspice_param"	"DC")
                 )
                 ("BiasValue Power"
-                    ("value"	"-420.7mW")
+                    ("value"	"-441.2mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("PSpice Model Type"
@@ -951,7 +923,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"817.0uW")
+                    ("value"	"817.9uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -1008,7 +980,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"816.4uW")
+                    ("value"	"815.4uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -1052,21 +1024,6 @@
                 ("POWER"	"0.25")
                 ("SLOPE"	"0.005")
                 ("MAX_TEMP"	"200.0")
-            )
-        )
-        ("Q6"
-            ("device_name"	"BC860C")
-            ("pspice_path"	"Q_Q6")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"75.87mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
             )
         )
         ("R6"
@@ -1236,7 +1193,7 @@
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"6.093mW")
+                    ("value"	"6.453mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
@@ -1251,7 +1208,7 @@
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"84.51mW")
+                    ("value"	"102.5mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
@@ -1271,7 +1228,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"396.7uW")
+                    ("value"	"445.6uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -1323,22 +1280,7 @@
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"91.53mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
-            )
-        )
-        ("Q10"
-            ("device_name"	"BC860C")
-            ("pspice_path"	"Q_Q10")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"82.47mW")
+                    ("value"	"111.1mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
@@ -1353,7 +1295,7 @@
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"85.84mW")
+                    ("value"	"85.88mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
@@ -1501,7 +1443,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"2.322uW")
+                    ("value"	"2.986uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -1615,7 +1557,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"1.388mW")
+                    ("value"	"2.057mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -1743,7 +1685,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"1.392mW")
+                    ("value"	"2.062mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -1800,7 +1742,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"759.0uW")
+                    ("value"	"754.0uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -1857,7 +1799,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"759.0uW")
+                    ("value"	"753.8uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -1903,36 +1845,6 @@
                 ("MAX_TEMP"	"200.0")
             )
         )
-        ("Q12"
-            ("device_name"	"BC860C")
-            ("pspice_path"	"Q_Q12")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"3.790mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
-            )
-        )
-        ("Q13"
-            ("device_name"	"BC860C")
-            ("pspice_path"	"Q_Q13")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"3.822mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
-            )
-        )
         ("R16"
             ("device_name"	"R")
             ("pspice_path"	"R_R16")
@@ -1944,7 +1856,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"1.125mW")
+                    ("value"	"896.0uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2001,7 +1913,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"1.125mW")
+                    ("value"	"898.7uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2058,7 +1970,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"4.510mW")
+                    ("value"	"4.014mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2104,21 +2016,6 @@
                 ("MAX_TEMP"	"200.0")
             )
         )
-        ("Q16"
-            ("device_name"	"BC850C")
-            ("pspice_path"	"Q_Q16")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"90.19mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
-            )
-        )
         ("R19"
             ("device_name"	"R")
             ("pspice_path"	"R_R19")
@@ -2130,7 +2027,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"18.56mW")
+                    ("value"	"18.75mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2182,7 +2079,7 @@
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"5.483mW")
+                    ("value"	"5.848mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
@@ -2202,7 +2099,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"315.6uW")
+                    ("value"	"359.3uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2316,7 +2213,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"6.242fW")
+                    ("value"	"76.76fW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2373,7 +2270,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"6.242pW")
+                    ("value"	"76.76pW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2430,7 +2327,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"676.9uW")
+                    ("value"	"797.6uW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2482,7 +2379,7 @@
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"11.86mW")
+                    ("value"	"22.53mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
@@ -2502,7 +2399,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"1.941nW")
+                    ("value"	"32.48nW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2631,7 +2528,7 @@
                     ("distrib"	"FLAT")
                 )
                 ("BiasValue Power"
-                    ("value"	"22.09nW")
+                    ("value"	"171.5nW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("DIST"
@@ -2677,58 +2574,13 @@
                 ("MAX_TEMP"	"200.0")
             )
         )
-        ("Q20"
-            ("device_name"	"BC860C")
-            ("pspice_path"	"Q_Q20")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"1.613mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
-            )
-        )
-        ("Q21"
-            ("device_name"	"BC860C")
-            ("pspice_path"	"Q_Q21")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"1.612mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
-            )
-        )
-        ("Q22"
-            ("device_name"	"BC850C")
-            ("pspice_path"	"Q_Q22")
-            ("level"	"0")
-            ("model_params"
-                ("BiasValue Power"
-                    ("value"	"1.863mW")
-                    ("pspice_param"	"BiasValue Power")
-                )
-                ("AREA"
-                    ("value"	"")
-                    ("pspice_param"	"AREA")
-                )
-            )
-        )
         ("Q23"
             ("device_name"	"QNPN_THAT_NS")
             ("pspice_path"	"Q_Q23")
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"47.31mW")
+                    ("value"	"41.98mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
@@ -2743,7 +2595,7 @@
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"40.48mW")
+                    ("value"	"40.52mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
@@ -2758,7 +2610,7 @@
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"40.40mW")
+                    ("value"	"40.32mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
@@ -2773,7 +2625,157 @@
             ("level"	"0")
             ("model_params"
                 ("BiasValue Power"
-                    ("value"	"47.29mW")
+                    ("value"	"41.93mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U1"
+            ("device_name"	"BCM857DS")
+            ("pspice_path"	"X_U1")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"3.790mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U2"
+            ("device_name"	"BCM857DS")
+            ("pspice_path"	"X_U2")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"3.907mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U3"
+            ("device_name"	"BCM847DS")
+            ("pspice_path"	"X_U3")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"1.262mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U4"
+            ("device_name"	"BCM847DS")
+            ("pspice_path"	"X_U4")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"81.45mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U5"
+            ("device_name"	"BCM857DS")
+            ("pspice_path"	"X_U5")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"3.790mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U6"
+            ("device_name"	"BCM857DS")
+            ("pspice_path"	"X_U6")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"3.907mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U7"
+            ("device_name"	"BCM847DS")
+            ("pspice_path"	"X_U7")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"81.45mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U8"
+            ("device_name"	"BCM847DS")
+            ("pspice_path"	"X_U8")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"1.262mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U9"
+            ("device_name"	"BCM857DS")
+            ("pspice_path"	"X_U9")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"3.790mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
+                ("AREA"
+                    ("value"	"")
+                    ("pspice_param"	"AREA")
+                )
+            )
+        )
+        ("U10"
+            ("device_name"	"BCM857DS")
+            ("pspice_path"	"X_U10")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"3.907mW")
                     ("pspice_param"	"BiasValue Power")
                 )
                 ("AREA"
