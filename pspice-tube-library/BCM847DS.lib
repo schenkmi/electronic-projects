@@ -1,0 +1,73 @@
+**********************************************************
+*
+* BCM847DS
+*
+* Nexperia
+*
+* Matched double NPN/NPN Transistor
+* IC   = 100 mA
+* VCEO = 45 V 
+* hFE  = 200 - 450 @ 5V/2mA
+*
+*
+*
+*
+* Package pinning does not match Spice model pinning.
+* Package: SOT 457
+* 
+* Package Pin 1;4: Emitter     	TR1;TR2
+* Package Pin 2;5: Base        	TR1;TR2
+* Package Pin 3;6: Collector   	TR2;TR1
+*
+*
+* Extraction date (week/year): 14/2006
+* Spicemodel does not include temperature dependency
+*
+**********************************************************
+*#
+* Please note: The following model is to be used twice in 
+* schematic due to equality of both Transistors.
+*
+.SUBCKT BCM847DS 1 2 3
+Q1 1 2 3 MAIN
+.MODEL MAIN NPN
++     IS = 1.822E-14 
++     NF = 0.9932 
++     ISE = 2.894E-16 
++     NE = 1.4 
++     BF = 324.4 
++     IKF = 0.109 
++     VAF = 82 
++     NR = 0.9931 
++     ISC = 9.982E-12 
++     NC = 1.763 
++     BR = 8.29 
++     IKR = 0.09 
++     VAR = 17.9 
++     RB = 10 
++     IRB = 5E-06 
++     RBM = 5 
++     RE = 0.649 
++     RC = 0.7014 
++     CJE = 1.244E-11 
++     VJE = 0.7579 
++     MJE = 0.3656 
++     TF = 4.908E-10 
++     XTF = 9.51 
++     VTF = 2.927 
++     ITF = 0.3131 
++     PTF = 0 
++     CJC = 3.347E-12 
++     VJC = 0.5463 
++     MJC = 0.391 
++     XCJC = 0.6193 
++     TR = 9E-08 
++     CJS = 0 
++     VJS = 0.75 
++     MJS = 0.333 
++     XTB = 0 
++     XTI = 3 
++     EG = 1.11 
++     FC = 0.979
+.ENDS
+*
