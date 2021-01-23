@@ -1,0 +1,97 @@
+* 1-27-2018
+*
+* This information is protected under the United States copyright 
+* laws. THAT Corporation ("THAT") hereby grants users of this 
+* macromodel (the "User"), a nonexclusive, nontransferable 
+* license to use this macromodel as long as the licensee abides
+* by the terms of this agreement.  Before using the macromodel,
+* the User should read this license.  If the User does not accept
+* these terms, the macromodel contained herein should be erased, 
+* destroyed or returned to THAT within 30 days.
+*
+* The User may copy and distribute, at no charge, verbatim copies
+* of the Macromodel as contained herein, in any medium, provided 
+* that the User conspicuously publishes on each copy this copyright 
+* notice and disclaimer of warranty.  The User may modify this
+* macromodel to suit his or her specific applications, and the User
+* may make copies of the modified macromodel for use within his or  
+* her company only, and provided the modified files carry prominent 
+* notices stating that the files have been changed, and the date of 
+* any changes.
+* 
+* This macromodel is provided "AS IS, WHERE IS, AND WITH NO WARRANTY
+* OF ANY KIND EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED
+* TO ANY IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+* PARTICULAR PURPOSE."  In no event will THAT be liable for special,
+* collateral, incidental, or consequential damages in connection
+* with or arising out of the use of this macromodel.  THAT reserves
+* the right to make changes to the products and macromodel without
+* prior notice.
+*
+* ======================================================================== 
+*THAT 300-Series Noise Performance Optimized Models
+.MODEL QPNP_THAT_NS PNP (
++ IS     = 2.330327E-15    BF     = 80
++ NF     = 0.998           BR     = 54.6051301
++ NR     = 1               ISE    = 6.471784E-14    NE     = 1.5256667
++ ISC    = 9.821992E-14    NC     = 1.4090231       VAF    = 50
++ VAR    = 8.5915034       IKF    = 0.1605012       IKR    = 2.997951E-3
++ RB     = 25              RBM    = 1.604356        IRB    = 1.3734E-4
++ RE     = 0.2             RC     = 17.9803001      CJE    = 5.921046E-12
++ VJE    = 0.7302802       MJE    = 0.49864         FC     = 0.9317095
++ CJC    = 3.374991E-12    VJC    = 0.6162124       MJC    = 0.497456
++ TF     = 2.416792E-10    XTF    = 5.9184348       ITF    = 0.0726275
++ VTF    = 1.2378779       QCO     = 1E-12          RCO    = 1
++ VO     = 1               GAMMA   = 1E-13          XTB    = 1.2
++ PTF	   = 20)
+*                                                                   
+.MODEL QNPN_THAT_NS NPN (
++ IS     = 5.005475E-15    BF     = 150
++ NF     = 1               BR     = 119.4532856 
++ NR     = 1               ISE    = 3.002016E-16    NE     = 1.3340565
++ ISC    = 3.173175E-14    NC     = 1.6525          VAF    = 60
++ VAR    = 10.8094728      IKF    = 0.2850543       IKR    = 0.0103675
++ RB      = 30             RBM     = 2.94235        IRB    = 1.750788E-4
++ RE     = 0.2             RC     = 12.4561714      CJE    = 5.086292E-12
++ VJE    = 0.7241957       MJE    = 0.49456         FC     = 0.97
++ CJC    = 2.190824E-12    VJC    = 0.5595858       MJC    = 0.498675
++ TF     = 7.063932E-11    XTF    = 17.846692       ITF    = 0.0862198
++ VTF    = 1.7447209       QCO     = 1E-12          RCO    = 1
++ VO      = 1              GAMMA   = 1E-13          XTB    = 1.1
++ PTF	   = 20)
+*                                                                                 
+* THAT 300-Series Transistor Models - High Frequency Performance Optimized
+.MODEL QPNP_THAT_HF PNP (
++ IS     = 2.330327E-15    BF     = 80
++ NF     = 0.998           BR     = 54.6051301
++ NR     = 1               ISE    = 6.471784E-14    NE     = 1.5256667
++ ISC    = 9.821992E-14    NC     = 1.4090231       VAF    = 50
++ VAR    = 8.5915034       IKF    = 0.1605012       IKR    = 2.997951E-3
++ RB     = 103.345         RBM    = 2.20352         IRB    = 1.3734E-4
++ RE     = 0.2             RC     = 17.9803001      CJE    = 5.921046E-12
++ VJE    = 0.7302802       MJE    = 0.49864         FC     = 0.9317095
++ CJC    = 3.374991E-12    VJC    = 0.6162124       MJC    = 0.497456
++ TF     = 2.416792E-10    XTF    = 5.9184348       ITF    = 0.0726275
++ VTF    = 1.2378779       QCO     = 1E-12          RCO    = 1
++ VO     = 1               GAMMA   = 1E-13          XTB    = 1.2
++ PTF	   = 20)
+*                                                                   
+.MODEL QNPN_THAT_HF NPN (
++ IS     = 5.005475E-15    BF     = 150
++ NF     = 1               BR     = 119.4532856 
++ NR     = 1               ISE    = 3.002016E-16    NE     = 1.3340565
++ ISC    = 3.173175E-14    NC     = 1.6525          VAF    = 60
++ VAR    = 10.8094728      IKF    = 0.2850543       IKR    = 0.0103675
++ RB     = 117.3192        RBM    = 2.035           IRB    = 1.750788E-4
++ RE     = 0.2             RC     = 12.4561714      CJE    = 5.086292E-12
++ VJE    = 0.7241957       MJE    = 0.49456         FC     = 0.97
++ CJC    = 2.190824E-12    VJC    = 0.5595858       MJC    = 0.498675
++ TF     = 7.063932E-11    XTF    = 17.846692       ITF    = 0.0862198
++ VTF    = 1.7447209       QCO     = 1E-12          RCO    = 1
++ VO      = 1              GAMMA   = 1E-13          XTB    = 1.1
++ PTF	   = 20)
+*
+*$
+
+
+
