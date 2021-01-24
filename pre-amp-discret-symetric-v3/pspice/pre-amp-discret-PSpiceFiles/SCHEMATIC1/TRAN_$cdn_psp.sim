@@ -1,32 +1,32 @@
 @OrCAD Simulation Server Version: 1.0
 
-@Settings: 2 1
+@Settings: 0 1
 @General:
-ProfileName= "AC" 
-ProfileFile= "ac.sim" 
+ProfileName= "TRAN" 
+ProfileFile= "tran.sim" 
 Connectivity= "SCHEMATIC1.net" 
-NetlistFile= "AC.cir" 
-DataFile= "AC.dat" 
-OutFile= "AC.out" 
+NetlistFile= "TRAN.cir" 
+DataFile= "TRAN.dat" 
+OutFile= "TRAN.out" 
 Notes=
 @#$BEGINNOTES
 @#$ENDNOTES
 @End General
-@Analysis: 0 0
+@Analysis: 0 1
 +0 0 0 0 
-+0 "1000ns" 
++0 "1ms" 
 +1 "" 
 +2 "0" 
-+3 "" 
++3 "0.1us" 
 +4 "" 
 +5 "" 
 +6 "" 
 @End Analysis
-@Analysis: 1 1
+@Analysis: 1 0
 +2 0 0
-+0 "100" 
-+1 "1" 
-+2 "100meg" 
++0 "" 
++1 "" 
++2 "" 
 +3 "" 
 +4 "" 
 +5 "" 
@@ -49,7 +49,7 @@ Notes=
 +2 "" 
 @End Analysis
 @Analysis: 4 0
-+0 0 1 0 0 0 2 0 0 0 1
++0 0 1 0 0 0 0 0 0 0 1
 +0 "" 
 +1 "" 
 +2 "" 
@@ -62,14 +62,14 @@ LoadFile 0 ""
 SaveFile 0 "" 
 @End Analysis
 @Analysis: 5 0
-+2 0
-+0 "V3" 
++0 0
++0 "" 
 +1 "" 
 +2 "" 
 +3 "" 
-+4 "1" 
-+5 "10meg" 
-+6 "100" 
++4 "" 
++5 "" 
++6 "" 
 +7 "" 
 @End Analysis
 @Analysis: 6 0
