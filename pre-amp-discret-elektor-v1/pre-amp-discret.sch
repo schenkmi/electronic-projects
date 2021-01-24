@@ -1403,17 +1403,6 @@ F 3 "http://www.onsemi.com/pub_link/Collateral/BC327-D.PDF" H 12650 6400 50  000
 	1    0    0    1   
 $EndComp
 $Comp
-L Amplifier_Operational:OP77 U1
-U 1 1 606B1DB7
-P 6450 9100
-F 0 "U1" H 6450 9581 50  0000 C CNN
-F 1 "OP77" H 6450 9490 50  0000 C CNN
-F 2 "Package_SO:SO-8_3.9x4.9mm_P1.27mm" H 6500 9150 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/OP77.pdf" H 6500 9250 50  0001 C CNN
-	1    6450 9100
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Diode:1N4148W D1
 U 1 1 606B6A51
 P 8050 9600
@@ -1793,4 +1782,15 @@ Wire Wire Line
 	4750 3800 4300 3800
 Wire Wire Line
 	7600 9950 7600 10150
+$Comp
+L Amplifier_Operational:OPA188xxDBV U1
+U 1 1 608F29D6
+P 6450 9100
+F 0 "U1" H 6450 9581 50  0000 C CNN
+F 1 "OPA188xxDBV" H 6450 9490 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TSOT-23-5" H 6450 9100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa188.pdf" H 6450 9300 50  0001 C CNN
+	1    6450 9100
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC
