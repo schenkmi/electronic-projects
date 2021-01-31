@@ -1717,4 +1717,15 @@ Wire Wire Line
 	10900 6000 10900 5550
 Wire Wire Line
 	11850 6000 11850 5550
+$Comp
+L Regulator_Linear:LT3080xT U?
+U 1 1 60183AC9
+P 10000 1400
+F 0 "U?" H 10000 1767 50  0000 C CNN
+F 1 "LT3080xT" H 10000 1676 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical" H 10000 1100 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/3080fc.pdf" H 8280 2170 50  0001 C CNN
+	1    10000 1400
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
