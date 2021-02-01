@@ -1433,14 +1433,14 @@ Wire Wire Line
 Wire Wire Line
 	12950 9150 12650 9150
 Connection ~ 12650 9150
-Text GLabel 13700 8850 2    50   Input ~ 0
+Text GLabel 13700 9150 2    50   Input ~ 0
 GND_HV
-Text GLabel 12450 8850 0    50   Input ~ 0
+Text GLabel 12450 9150 0    50   Input ~ 0
 GND_LV
 Wire Wire Line
-	12450 8850 12650 8850
+	12450 9150 12650 9150
 Wire Wire Line
-	13550 8850 13700 8850
+	13550 9150 13700 9150
 Wire Wire Line
 	12650 9150 12650 9450
 $Comp
@@ -1534,46 +1534,4 @@ $EndComp
 Wire Wire Line
 	12350 2100 12350 2950
 NoConn ~ 11950 2200
-$Comp
-L Device:R R17
-U 1 1 601C122F
-P 13100 8600
-F 0 "R17" H 13170 8646 50  0000 L CNN
-F 1 "0R" H 13170 8555 50  0000 L CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" V 13030 8600 50  0001 C CNN
-F 3 "~" H 13100 8600 50  0001 C CNN
-	1    13100 8600
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	13550 8850 13550 8600
-Wire Wire Line
-	13550 8600 13250 8600
-Connection ~ 13550 8850
-Wire Wire Line
-	12950 8600 12650 8600
-Wire Wire Line
-	12650 8600 12650 8850
-Connection ~ 12650 8850
-$Comp
-L Device:R R16
-U 1 1 601EBA7D
-P 13100 8350
-F 0 "R16" H 13170 8396 50  0000 L CNN
-F 1 "0R" H 13170 8305 50  0000 L CNN
-F 2 "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder" V 13030 8350 50  0001 C CNN
-F 3 "~" H 13100 8350 50  0001 C CNN
-	1    13100 8350
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	13250 8350 13550 8350
-Wire Wire Line
-	13550 8350 13550 8600
-Connection ~ 13550 8600
-Wire Wire Line
-	12950 8350 12650 8350
-Wire Wire Line
-	12650 8350 12650 8600
-Connection ~ 12650 8600
 $EndSCHEMATC
