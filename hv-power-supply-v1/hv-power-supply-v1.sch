@@ -1153,17 +1153,6 @@ F 12 "Active" H 11200 4100 60  0001 L CNN "Status"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Transistor_BJT:MJE13003 Q2
-U 1 1 5D4EF597
-P 8200 3800
-F 0 "Q2" H 8392 3846 50  0000 L CNN
-F 1 "MJE13003" H 8392 3755 50  0000 L CNN
-F 2 "TO_SOT_Packages_THT:TO-126_Vertical" H 8400 3725 50  0001 L CIN
-F 3 "http://www.onsemi.com/pub_link/Collateral/MJE13003-D.PDF" H 8200 3800 50  0001 L CNN
-	1    8200 3800
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R10
 U 1 1 5D4F27BA
 P 11000 3450
@@ -1239,25 +1228,14 @@ F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bzx84c2v4.pdf" H 43
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:CP C22
-U 1 1 5D504F4B
-P 11850 4150
-F 0 "C22" H 11968 4196 50  0000 L CNN
-F 1 "470uF/400V" H 11968 4105 50  0000 L CNN
-F 2 "Capacitors_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn" H 11888 4000 50  0001 C CNN
-F 3 "~" H 11850 4150 50  0001 C CNN
-	1    11850 4150
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C C24
 U 1 1 5D50A0DD
-P 12750 4150
-F 0 "C24" V 12498 4150 50  0000 C CNN
-F 1 "100nF/400V" V 12589 4150 50  0000 C CNN
-F 2 "Capacitors_THT:C_Rect_L18.0mm_W7.0mm_P15.00mm_FKS3_FKP3" H 12788 4000 50  0001 C CNN
-F 3 "~" H 12750 4150 50  0001 C CNN
-	1    12750 4150
+P 11850 4150
+F 0 "C24" V 11598 4150 50  0000 C CNN
+F 1 "100nF/400V" V 11689 4150 50  0000 C CNN
+F 2 "Capacitors_THT:C_Rect_L18.0mm_W7.0mm_P15.00mm_FKS3_FKP3" H 11888 4000 50  0001 C CNN
+F 3 "~" H 11850 4150 50  0001 C CNN
+	1    11850 4150
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1332,7 +1310,7 @@ Wire Wire Line
 Wire Wire Line
 	6050 3450 6050 3100
 Wire Wire Line
-	6650 3900 6050 3900
+	6650 3900 6350 3900
 Wire Wire Line
 	6050 3900 6050 3750
 Wire Wire Line
@@ -1347,18 +1325,16 @@ L Device:R R15
 U 1 1 5D6391A7
 P 7700 3800
 F 0 "R15" H 7770 3846 50  0000 L CNN
-F 1 "100k 1/8W" H 7770 3755 50  0000 L CNN
+F 1 "100R 1/8W" H 7770 3755 50  0000 L CNN
 F 2 "Resistors_SMD:R_0805_HandSoldering" V 7630 3800 50  0001 C CNN
 F 3 "~" H 7700 3800 50  0001 C CNN
 	1    7700 3800
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	7250 3800 7550 3800
+	7250 3800 7400 3800
 Wire Wire Line
 	7850 3800 8000 3800
-Wire Wire Line
-	8300 4000 8300 4600
 Wire Wire Line
 	8300 4600 6850 4600
 Connection ~ 6850 4600
@@ -1374,10 +1350,7 @@ F 3 "~" H 8300 2700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8300 3000 8300 3600
-Wire Wire Line
 	8300 2850 8300 3000
-Connection ~ 8300 3000
 Wire Wire Line
 	8300 2550 8300 2400
 Wire Wire Line
@@ -1491,23 +1464,9 @@ Wire Wire Line
 	10200 4600 11000 4600
 Wire Wire Line
 	11850 4000 11850 3750
-Wire Wire Line
-	11850 3750 11000 3750
-Wire Wire Line
-	12750 4000 12750 3750
-Wire Wire Line
-	12750 3750 11850 3750
-Connection ~ 11850 3750
-Wire Wire Line
-	11850 4300 11850 4600
-Wire Wire Line
-	11850 4600 11000 4600
 Connection ~ 11000 4600
 Wire Wire Line
-	12750 4300 12750 4600
-Wire Wire Line
-	12750 4600 11850 4600
-Connection ~ 11850 4600
+	11850 4300 11850 4600
 $Comp
 L Device:CP C25
 U 1 1 5DB70D19
@@ -1571,9 +1530,6 @@ Wire Wire Line
 	11700 9650 11950 9650
 Text GLabel 13250 3750 2    50   Input ~ 0
 HV
-Wire Wire Line
-	13250 3750 13050 3750
-Connection ~ 12750 3750
 Text GLabel 10600 8150 1    50   Input ~ 0
 HV
 Wire Wire Line
@@ -1689,24 +1645,18 @@ Wire Wire Line
 $Comp
 L Device:R R22
 U 1 1 5DFCC28A
-P 13050 4150
-F 0 "R22" H 13120 4196 50  0000 L CNN
-F 1 "100k/2W" H 13120 4105 50  0000 L CNN
-F 2 "Resistors_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 12980 4150 50  0001 C CNN
-F 3 "~" H 13050 4150 50  0001 C CNN
-	1    13050 4150
+P 12150 4150
+F 0 "R22" H 12220 4196 50  0000 L CNN
+F 1 "100k/2W" H 12220 4105 50  0000 L CNN
+F 2 "Resistors_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P12.70mm_Horizontal" V 12080 4150 50  0001 C CNN
+F 3 "~" H 12150 4150 50  0001 C CNN
+	1    12150 4150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	13050 4000 13050 3750
-Connection ~ 13050 3750
+	12150 4000 12150 3750
 Wire Wire Line
-	13050 3750 12750 3750
-Wire Wire Line
-	13050 4300 13050 4600
-Wire Wire Line
-	13050 4600 12750 4600
-Connection ~ 12750 4600
+	12150 4300 12150 4600
 Connection ~ 2800 8500
 Connection ~ 2800 9600
 Wire Wire Line
@@ -1717,4 +1667,80 @@ Wire Wire Line
 	10900 6000 10900 5550
 Wire Wire Line
 	11850 6000 11850 5550
+Wire Wire Line
+	11000 3750 11850 3750
+Wire Wire Line
+	11000 4600 11850 4600
+Connection ~ 11850 3750
+Connection ~ 11850 4600
+Wire Wire Line
+	11850 3750 12150 3750
+Wire Wire Line
+	11850 4600 12150 4600
+$Comp
+L Device:R R?
+U 1 1 6029D1C0
+P 12650 3750
+F 0 "R?" V 12443 3750 50  0000 C CNN
+F 1 "330R/1W" V 12534 3750 50  0000 C CNN
+F 2 "Resistors_SMD:R_1210_HandSoldering" V 12580 3750 50  0001 C CNN
+F 3 "~" H 12650 3750 50  0001 C CNN
+	1    12650 3750
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	12150 3750 12500 3750
+Connection ~ 12150 3750
+Wire Wire Line
+	12800 3750 13250 3750
+$Comp
+L hv-power-supply-v1-rescue:IRF510PBF-dk_Transistors-FETs-MOSFETs-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q?
+U 1 1 60346B13
+P 8300 3700
+F 0 "Q?" H 8408 3753 60  0000 L CNN
+F 1 "IRF840" H 8408 3647 60  0000 L CNN
+F 2 "TO_SOT_Packages_THT:TO-220-3_Vertical" H 8500 3900 60  0001 L CNN
+F 3 "http://www.vishay.com/docs/91015/sihf510.pdf" H 8500 4000 60  0001 L CNN
+F 4 "IRF510PBF-ND" H 8500 4100 60  0001 L CNN "Digi-Key_PN"
+F 5 "IRF510PBF" H 8500 4200 60  0001 L CNN "MPN"
+F 6 "Discrete Semiconductor Products" H 8500 4300 60  0001 L CNN "Category"
+F 7 "Transistors - FETs, MOSFETs - Single" H 8500 4400 60  0001 L CNN "Family"
+F 8 "http://www.vishay.com/docs/91015/sihf510.pdf" H 8500 4500 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/vishay-siliconix/IRF510PBF/IRF510PBF-ND/811710" H 8500 4600 60  0001 L CNN "DK_Detail_Page"
+F 10 "MOSFET N-CH 100V 5.6A TO-220AB" H 8500 4700 60  0001 L CNN "Description"
+F 11 "Vishay Siliconix" H 8500 4800 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 8500 4900 60  0001 L CNN "Status"
+	1    8300 3700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8300 3900 8300 4600
+Wire Wire Line
+	8300 3500 8300 3000
+Connection ~ 8300 3000
+$Comp
+L Device:C C?
+U 1 1 603AF544
+P 7100 3450
+F 0 "C?" H 7215 3496 50  0000 L CNN
+F 1 "10nF/50V" H 7215 3405 50  0000 L CNN
+F 2 "Capacitors_SMD:C_1206_HandSoldering" H 7138 3300 50  0001 C CNN
+F 3 "~" H 7100 3450 50  0001 C CNN
+	1    7100 3450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7250 3450 7400 3450
+Wire Wire Line
+	7400 3450 7400 3800
+Connection ~ 7400 3800
+Wire Wire Line
+	7400 3800 7550 3800
+Wire Wire Line
+	6950 3450 6350 3450
+Wire Wire Line
+	6350 3450 6350 3900
+Connection ~ 6350 3900
+Wire Wire Line
+	6350 3900 6050 3900
 $EndSCHEMATC
