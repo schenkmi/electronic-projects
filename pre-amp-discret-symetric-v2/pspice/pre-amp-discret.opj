@@ -1,6 +1,6 @@
 (ExpressProject "pre-amp-discret"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S013 (3906575)  [12/6/2020]-[01/24/21]")
+  (SoftwareVersion "17.4-2019 S013 (3906575)  [12/6/2020]-[01/29/21]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -40,9 +40,12 @@
     (File ".\pre-amp-discret-pspicefiles\schematic1\schematic1.net"
       (Type "Report")))
   (Folder "PSpice Resources"
-    (Folder "Model Libraries")
-    (Folder "Stimulus Files")
-    (Folder "Include Files")
+    (Folder "Model Libraries"
+      (Sort User))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User))
     (Folder "Simulation Profiles"
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
          ".\pre-amp-discret-pspicefiles\schematic1\bias.sim"
@@ -146,6 +149,11 @@
   (Folder "Logs")
   (MPSSessionName "schenk")
   (PartMRUSelector
+    (PARAM
+      (FullPartName "PARAM.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SPECIAL.OLB")
+      (DeviceIndex "0"))
     (C
       (FullPartName "C.Normal")
       (LibraryName
@@ -167,4 +175,15 @@
       (Type "COrCapturePMDoc")
       (Frame
         (Placement "44 0 1 -1 -1 -1 -1 0 200 0 517"))
-      (Tab 0))))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 5 24 5 707 24 558")
+        (Scroll "757 280")
+        (Zoom "100")
+        (Occurrence "/"))
+      (Path
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PRE-AMP-DISCRET-SYMETRIC-V2\PSPICE\PRE-AMP-DISCRET.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))
