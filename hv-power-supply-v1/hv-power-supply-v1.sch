@@ -1094,18 +1094,12 @@ F 3 "~" H 3650 2950 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	2900 2850 2900 2800
-Wire Wire Line
 	2900 2400 2600 2400
-Connection ~ 2900 2800
 Wire Wire Line
 	2900 2800 2900 2400
 Connection ~ 2600 2400
 Wire Wire Line
-	3650 2850 3650 2800
-Wire Wire Line
 	3650 2400 2900 2400
-Connection ~ 3650 2800
 Wire Wire Line
 	3650 2800 3650 2400
 Connection ~ 2900 2400
@@ -1335,8 +1329,6 @@ Wire Wire Line
 	7250 3800 7400 3800
 Wire Wire Line
 	7850 3800 8000 3800
-Wire Wire Line
-	8300 4600 6850 4600
 Connection ~ 6850 4600
 $Comp
 L Device:R R16
@@ -1409,15 +1401,12 @@ Wire Wire Line
 Connection ~ 6050 4000
 Wire Wire Line
 	6050 4000 6050 3900
-Connection ~ 8300 4600
 Wire Wire Line
 	11000 4500 11000 4600
 Wire Wire Line
 	8850 2550 9200 2550
 Wire Wire Line
 	6650 3700 6500 3700
-Wire Wire Line
-	8300 4600 10200 4600
 Wire Wire Line
 	11000 3800 11000 3750
 Wire Wire Line
@@ -1641,10 +1630,10 @@ Connection ~ 11850 4600
 Wire Wire Line
 	11850 4600 12150 4600
 $Comp
-L Device:R R?
+L Device:R R27
 U 1 1 6029D1C0
 P 12650 3750
-F 0 "R?" V 12443 3750 50  0000 C CNN
+F 0 "R27" V 12443 3750 50  0000 C CNN
 F 1 "330R/1W" V 12534 3750 50  0000 C CNN
 F 2 "Resistors_SMD:R_1210_HandSoldering" V 12580 3750 50  0001 C CNN
 F 3 "~" H 12650 3750 50  0001 C CNN
@@ -1654,10 +1643,10 @@ $EndComp
 Wire Wire Line
 	12800 3750 13250 3750
 $Comp
-L hv-power-supply-v1-rescue:IRF510PBF-dk_Transistors-FETs-MOSFETs-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q?
+L hv-power-supply-v1-rescue:IRF510PBF-dk_Transistors-FETs-MOSFETs-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q2
 U 1 1 60346B13
 P 8300 3700
-F 0 "Q?" H 8408 3753 60  0000 L CNN
+F 0 "Q2" H 8408 3753 60  0000 L CNN
 F 1 "IRF840" H 8408 3647 60  0000 L CNN
 F 2 "TO_SOT_Packages_THT:TO-220-3_Vertical" H 8500 3900 60  0001 L CNN
 F 3 "http://www.vishay.com/docs/91015/sihf510.pdf" H 8500 4000 60  0001 L CNN
@@ -1673,14 +1662,12 @@ F 12 "Active" H 8500 4900 60  0001 L CNN "Status"
 	1    8300 3700
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8300 3900 8300 4600
 Connection ~ 8300 2550
 $Comp
-L Device:C C?
+L Device:C C22
 U 1 1 603AF544
 P 6600 3450
-F 0 "C?" H 6715 3496 50  0000 L CNN
+F 0 "C22" H 6715 3496 50  0000 L CNN
 F 1 "10nF/50V" H 6715 3405 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 6638 3300 50  0001 C CNN
 F 3 "~" H 6600 3450 50  0001 C CNN
@@ -1703,10 +1690,10 @@ Wire Wire Line
 	10150 2550 9750 2550
 Connection ~ 9750 2550
 $Comp
-L Device:R R?
+L Device:R R26
 U 1 1 60466ED9
 P 10300 2550
-F 0 "R?" H 10370 2596 50  0000 L CNN
+F 0 "R26" H 10370 2596 50  0000 L CNN
 F 1 "100R 1/8W" H 10370 2505 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10230 2550 50  0001 C CNN
 F 3 "~" H 10300 2550 50  0001 C CNN
@@ -1714,10 +1701,10 @@ F 3 "~" H 10300 2550 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:Ferrite_Bead_Small FB?
+L Device:Ferrite_Bead_Small FB1
 U 1 1 604693C4
 P 11000 2900
-F 0 "FB?" H 11100 2946 50  0000 L CNN
+F 0 "FB1" H 11100 2946 50  0000 L CNN
 F 1 "Ferrite_Bead_Small" H 11100 2855 50  0000 L CNN
 F 2 "Inductor_SMD:L_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 10930 2900 50  0001 C CNN
 F 3 "~" H 11000 2900 50  0001 C CNN
@@ -1747,10 +1734,10 @@ Wire Wire Line
 	10050 3250 10200 3250
 Connection ~ 10200 3250
 $Comp
-L Device:R R?
+L Device:R R25
 U 1 1 605F38CD
 P 9000 4150
-F 0 "R?" H 9070 4196 50  0000 L CNN
+F 0 "R25" H 9070 4196 50  0000 L CNN
 F 1 "10k 1/8W" H 9070 4105 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8930 4150 50  0001 C CNN
 F 3 "~" H 9000 4150 50  0001 C CNN
@@ -1769,10 +1756,10 @@ Connection ~ 11000 4150
 Wire Wire Line
 	11000 4150 11000 4200
 $Comp
-L Diode:SD103ATW D?
+L Diode:SD103ATW D11
 U 1 1 60692B0A
 P 6500 4400
-F 0 "D?" V 6454 4480 50  0000 L CNN
+F 0 "D11" V 6454 4480 50  0000 L CNN
 F 1 "SD103ATW" V 6545 4480 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-363_SC-70-6" H 6500 4200 50  0001 C CNN
 F 3 "https://www.diodes.com/assets/Datasheets/ds30374.pdf" H 6500 4400 50  0001 C CNN
@@ -1788,10 +1775,10 @@ Connection ~ 6500 4600
 Wire Wire Line
 	6500 4600 6850 4600
 $Comp
-L Device:R R?
+L Device:R R23
 U 1 1 606FCE24
 P 7050 3450
-F 0 "R?" H 7120 3496 50  0000 L CNN
+F 0 "R23" H 7120 3496 50  0000 L CNN
 F 1 "0R 1/8W" H 7120 3405 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6980 3450 50  0001 C CNN
 F 3 "~" H 7050 3450 50  0001 C CNN
@@ -1805,10 +1792,10 @@ Wire Wire Line
 Wire Wire Line
 	6450 3450 6350 3450
 $Comp
-L Device:C C?
+L Device:C C28
 U 1 1 6074CF3B
 P 10350 3950
-F 0 "C?" H 10465 3996 50  0000 L CNN
+F 0 "C28" H 10465 3996 50  0000 L CNN
 F 1 "10pF/400V" H 10465 3905 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 10388 3800 50  0001 C CNN
 F 3 "~" H 10350 3950 50  0001 C CNN
@@ -1828,10 +1815,10 @@ Wire Wire Line
 Wire Wire Line
 	11850 3750 12150 3750
 $Comp
-L Device:C C?
+L Device:C C29
 U 1 1 607F5B6C
 P 12150 4350
-F 0 "C?" V 11898 4350 50  0000 C CNN
+F 0 "C29" V 11898 4350 50  0000 C CNN
 F 1 "470pF/400V" V 11989 4350 50  0000 C CNN
 F 2 "Capacitors_THT:C_Rect_L18.0mm_W7.0mm_P15.00mm_FKS3_FKP3" H 12188 4200 50  0001 C CNN
 F 3 "~" H 12150 4350 50  0001 C CNN
@@ -1848,10 +1835,10 @@ Connection ~ 12150 3750
 Wire Wire Line
 	12150 3750 12500 3750
 $Comp
-L Device:C C?
+L Device:C C27
 U 1 1 60846F6E
 P 9200 2900
-F 0 "C?" H 9315 2946 50  0000 L CNN
+F 0 "C27" H 9315 2946 50  0000 L CNN
 F 1 "1nF/50V" H 9315 2855 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 9238 2750 50  0001 C CNN
 F 3 "~" H 9200 2900 50  0001 C CNN
@@ -1868,4 +1855,47 @@ Wire Wire Line
 Connection ~ 9200 3750
 Wire Wire Line
 	9200 3750 9750 3750
+Wire Wire Line
+	6850 4600 8000 4600
+$Comp
+L Device:R R24
+U 1 1 601D4C94
+P 8300 4350
+F 0 "R24" H 8370 4396 50  0000 L CNN
+F 1 "2.7k/0.6W" H 8370 4305 50  0000 L CNN
+F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 8230 4350 50  0001 C CNN
+F 3 "~" H 8300 4350 50  0001 C CNN
+	1    8300 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C26
+U 1 1 601D5B51
+P 8000 4350
+F 0 "C26" H 8115 4396 50  0000 L CNN
+F 1 "10pF/400V" H 8115 4305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 8038 4200 50  0001 C CNN
+F 3 "~" H 8000 4350 50  0001 C CNN
+	1    8000 4350
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8300 4500 8300 4600
+Connection ~ 8300 4600
+Wire Wire Line
+	8300 4600 10200 4600
+Wire Wire Line
+	8000 4500 8000 4600
+Connection ~ 8000 4600
+Wire Wire Line
+	8000 4600 8300 4600
+Wire Wire Line
+	8300 4200 8300 4000
+Wire Wire Line
+	8000 4200 8000 4000
+Wire Wire Line
+	8000 4000 8300 4000
+Connection ~ 8300 4000
+Wire Wire Line
+	8300 4000 8300 3900
 $EndSCHEMATC
