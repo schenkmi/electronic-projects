@@ -4,9 +4,9 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
+Title "Discrete HV Supply"
+Date "2021-02-05"
+Rev "V1a"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -1317,10 +1317,7 @@ Wire Wire Line
 Wire Wire Line
 	12400 2900 12650 2900
 Wire Wire Line
-	12650 2900 12650 2600
-Wire Wire Line
 	12650 3050 12650 2900
-Connection ~ 12650 2900
 Wire Wire Line
 	9800 2500 9100 2500
 Wire Wire Line
@@ -2033,4 +2030,20 @@ Wire Wire Line
 Connection ~ 6700 7750
 Wire Wire Line
 	6700 7750 7350 7750
+$Comp
+L Device:Ferrite_Bead_Small FB?
+U 1 1 601F7DA3
+P 12650 2750
+F 0 "FB?" H 12750 2796 50  0000 L CNN
+F 1 "600R@100MHz" H 12750 2705 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 12580 2750 50  0001 C CNN
+F 3 "~" H 12650 2750 50  0001 C CNN
+	1    12650 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12650 2650 12650 2600
+Wire Wire Line
+	12650 2850 12650 2900
+Connection ~ 12650 2900
 $EndSCHEMATC
