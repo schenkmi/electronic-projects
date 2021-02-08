@@ -1835,4 +1835,6 @@ F 3 "" H 2250 5100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2250 5100 2250 4950
+Text Notes 12850 8450 0    50   ~ 0
+2021.02.06\nDC Service not needed!
 $EndSCHEMATC
