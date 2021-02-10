@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 1 1
 Title "Discrete Pre-Amp Elektor"
 Date "2021-02-10"
-Rev "V2"
+Rev "V3"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -940,28 +940,6 @@ F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheet
 	-1   0    0    -1  
 $EndComp
 $Comp
-L kicad-snk:BCM847DS,115 Q13
-U 1 1 5FF125E4
-P 3100 3800
-F 0 "Q13" H 3290 3846 50  0000 L CNN
-F 1 "BCM847DS,115" H 3290 3755 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 3100 3800 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 3100 3800 50  0001 C CNN
-	1    3100 3800
-	1    0    0    -1  
-$EndComp
-$Comp
-L kicad-snk:BCM847DS,115 Q13
-U 2 1 5FF14014
-P 4100 3800
-F 0 "Q13" H 4291 3846 50  0000 L CNN
-F 1 "BCM847DS,115" H 4291 3755 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 4100 3800 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/obsolete-data-sheets/SSM2210.pdf" H 4100 3800 50  0001 C CNN
-	2    4100 3800
-	-1   0    0    -1  
-$EndComp
-$Comp
 L kicad-snk:BCM857DS,115 Q3
 U 2 1 5FF89211
 P 6800 1750
@@ -981,28 +959,6 @@ F 1 "BCM857DS,115" H 6191 2145 50  0000 L CNN
 F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 6000 2100 50  0001 C CNN
 F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 6000 2100 50  0001 C CNN
 	1    6000 2100
-	-1   0    0    1   
-$EndComp
-$Comp
-L kicad-snk:BCM857DS,115 Q1
-U 1 1 6002025B
-P 5400 5150
-F 0 "Q1" H 5590 5104 50  0000 L CNN
-F 1 "BCM857DS,115" H 5590 5195 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 5400 5150 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 5400 5150 50  0001 C CNN
-	1    5400 5150
-	1    0    0    1   
-$EndComp
-$Comp
-L kicad-snk:BCM857DS,115 Q1
-U 2 1 60023185
-P 6400 5150
-F 0 "Q1" H 6591 5104 50  0000 L CNN
-F 1 "BCM857DS,115" H 6591 5195 50  0000 L CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 6400 5150 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 6400 5150 50  0001 C CNN
-	2    6400 5150
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
@@ -1448,4 +1404,48 @@ Wire Wire Line
 	2650 5150 5200 5150
 Wire Wire Line
 	4300 3800 6800 3800
+$Comp
+L kicad-snk:THAT340 Q1
+U 3 1 60284C07
+P 5400 5150
+F 0 "Q1" H 5590 5196 50  0000 L CNN
+F 1 "THAT340" H 5590 5105 50  0000 L CNN
+F 2 "" H 5590 5059 50  0000 L CNN
+F 3 "" H 5590 5059 50  0000 L CNN
+	3    5400 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:THAT340 Q1
+U 4 1 60285CA6
+P 6400 5150
+F 0 "Q1" H 6590 5196 50  0000 L CNN
+F 1 "THAT340" H 6590 5105 50  0000 L CNN
+F 2 "" H 6589 5059 50  0000 L CNN
+F 3 "" H 6590 5059 50  0000 L CNN
+	4    6400 5150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:THAT340 Q1
+U 1 1 6024A272
+P 3100 3800
+F 0 "Q1" H 3290 3891 50  0000 L CNN
+F 1 "THAT340" H 3290 3800 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 3290 3709 50  0000 L CNN
+F 3 "" H 3290 3709 50  0000 L CNN
+	1    3100 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:THAT340 Q1
+U 2 1 6024A424
+P 4100 3800
+F 0 "Q1" H 4289 3891 50  0000 L CNN
+F 1 "THAT340" H 4289 3800 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4289 3709 50  0000 L CNN
+F 3 "" H 4290 3709 50  0000 L CNN
+	2    4100 3800
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC
