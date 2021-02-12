@@ -14,28 +14,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Connector:Screw_Terminal_01x03 J1
-U 1 1 6016D206
-P 1400 3000
-F 0 "J1" H 1318 3317 50  0000 C CNN
-F 1 "Screw_Terminal_01x03" H 1318 3226 50  0000 C CNN
-F 2 "TerminalBlock:TerminalBlock_Altech_AK300-3_P5.00mm" H 1400 3000 50  0001 C CNN
-F 3 "~" H 1400 3000 50  0001 C CNN
-	1    1400 3000
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Screw_Terminal_01x02 J2
-U 1 1 6016D6B4
-P 1400 9200
-F 0 "J2" H 1318 8875 50  0000 C CNN
-F 1 "Screw_Terminal_01x02" H 1318 8966 50  0000 C CNN
-F 2 "TerminalBlock:TerminalBlock_Altech_AK300-2_P5.00mm" H 1400 9200 50  0001 C CNN
-F 3 "~" H 1400 9200 50  0001 C CNN
-	1    1400 9200
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Device:D D3
 U 1 1 6016E53A
 P 2900 9000
@@ -172,8 +150,8 @@ L Device:R R1
 U 1 1 6017939F
 P 2650 4250
 F 0 "R1" V 2443 4250 50  0000 C CNN
-F 1 "100R/3W" V 2534 4250 50  0000 C CNN
-F 2 "Resistor_THT:R_Axial_DIN0617_L17.0mm_D6.0mm_P25.40mm_Horizontal" V 2580 4250 50  0001 C CNN
+F 1 "100R/2W" V 2534 4250 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P15.24mm_Horizontal" V 2580 4250 50  0001 C CNN
 F 3 "~" H 2650 4250 50  0001 C CNN
 	1    2650 4250
 	0    1    1    0   
@@ -377,21 +355,13 @@ Wire Wire Line
 	4250 2250 4250 1900
 Wire Wire Line
 	4250 1900 2550 1900
-Wire Wire Line
-	2550 1900 2550 2900
 Connection ~ 4250 2250
 Wire Wire Line
 	4250 2250 3900 2250
 Wire Wire Line
-	2550 2900 1600 2900
-Wire Wire Line
 	4250 3700 4250 3950
 Wire Wire Line
 	4250 3950 2550 3950
-Wire Wire Line
-	2550 3950 2550 3000
-Wire Wire Line
-	2550 3000 1600 3000
 Connection ~ 4250 3700
 Wire Wire Line
 	4250 3700 4600 3700
@@ -405,8 +375,6 @@ Wire Wire Line
 	2250 4250 1850 4250
 Wire Wire Line
 	1850 4250 1850 3100
-Wire Wire Line
-	1850 3100 1600 3100
 Connection ~ 2250 4250
 Wire Wire Line
 	2800 4250 2950 4250
@@ -945,10 +913,6 @@ Wire Wire Line
 	3250 8600 3250 8450
 Wire Wire Line
 	3250 8450 1800 8450
-Wire Wire Line
-	1800 8450 1800 9200
-Wire Wire Line
-	1800 9200 1600 9200
 Connection ~ 3250 8600
 Wire Wire Line
 	3250 8600 3600 8600
@@ -956,10 +920,6 @@ Wire Wire Line
 	3250 9950 3250 10100
 Wire Wire Line
 	3250 10100 1800 10100
-Wire Wire Line
-	1800 10100 1800 9300
-Wire Wire Line
-	1800 9300 1600 9300
 Connection ~ 3250 9950
 Wire Wire Line
 	3250 9950 2900 9950
@@ -1651,4 +1611,77 @@ Wire Wire Line
 Connection ~ 10950 3050
 Wire Wire Line
 	10950 3050 10950 2300
+$Comp
+L Connector_Generic:Conn_01x01 J12
+U 1 1 603AF4F4
+P 1050 8950
+F 0 "J12" H 1130 8992 50  0000 L CNN
+F 1 "AC-LV" H 1130 8901 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 1050 8950 50  0001 C CNN
+F 3 "~" H 1050 8950 50  0001 C CNN
+	1    1050 8950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J13
+U 1 1 603F7111
+P 1050 9650
+F 0 "J13" H 1130 9692 50  0000 L CNN
+F 1 "AC-LV" H 1130 9601 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 1050 9650 50  0001 C CNN
+F 3 "~" H 1050 9650 50  0001 C CNN
+	1    1050 9650
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1250 8950 1800 8950
+Wire Wire Line
+	1800 8950 1800 8450
+Wire Wire Line
+	1800 10100 1800 9650
+Wire Wire Line
+	1800 9650 1250 9650
+$Comp
+L Connector_Generic:Conn_01x01 J1
+U 1 1 60426B57
+P 1050 2550
+F 0 "J1" H 1130 2592 50  0000 L CNN
+F 1 "AC-HV" H 1130 2501 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 1050 2550 50  0001 C CNN
+F 3 "~" H 1050 2550 50  0001 C CNN
+	1    1050 2550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J2
+U 1 1 60427688
+P 1050 2800
+F 0 "J2" H 1130 2842 50  0000 L CNN
+F 1 "AC-HV" H 1130 2751 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 1050 2800 50  0001 C CNN
+F 3 "~" H 1050 2800 50  0001 C CNN
+	1    1050 2800
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J11
+U 1 1 60427D86
+P 1050 3100
+F 0 "J11" H 1130 3142 50  0000 L CNN
+F 1 "EARTH" H 1130 3051 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 1050 3100 50  0001 C CNN
+F 3 "~" H 1050 3100 50  0001 C CNN
+	1    1050 3100
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2550 2800 1250 2800
+Wire Wire Line
+	2550 2800 2550 3950
+Wire Wire Line
+	2550 1900 2550 2550
+Wire Wire Line
+	2550 2550 1250 2550
+Wire Wire Line
+	1250 3100 1850 3100
 $EndSCHEMATC
