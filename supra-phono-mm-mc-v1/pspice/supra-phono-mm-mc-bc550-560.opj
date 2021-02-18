@@ -1,28 +1,25 @@
-(ExpressProject "preamp-6SN7"
+(ExpressProject "supa-phono-mm-mc"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S014 (3914599)  [1/24/2021]-[02/15/21]")
+  (SoftwareVersion "17.4-2019 S014 (3914599)  [1/24/2021]-[02/17/21]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
-      (File "C:\Cadence\SPB_17.4\tools\capture\library\pspice\analog.olb"
-        (DisplayName
-           "C:\Cadence\SPB_17.4\tools\capture\library\pspice\analog.olb")
+      (File ".\MovedFiles\analog.olb"
+        (DisplayName ".\MovedFiles\analog.olb")
         (Type "Schematic Library"))
-      (File "C:\Cadence\SPB_17.4\tools\capture\library\pspice\breakout.olb"
-        (DisplayName
-           "C:\Cadence\SPB_17.4\tools\capture\library\pspice\breakout.olb")
+      (File ".\MovedFiles\breakout.olb"
+        (DisplayName ".\MovedFiles\breakout.olb")
         (Type "Schematic Library"))
-      (File "C:\Cadence\SPB_17.4\tools\capture\library\pspice\source.olb"
-        (DisplayName
-           "C:\Cadence\SPB_17.4\tools\capture\library\pspice\source.olb")
+      (File ".\MovedFiles\source.olb"
+        (DisplayName ".\MovedFiles\source.olb")
         (Type "Schematic Library"))
-      (File "C:\Cadence\SPB_17.4\tools\capture\library\pspice\special.olb"
-        (DisplayName
-           "C:\Cadence\SPB_17.4\tools\capture\library\pspice\special.olb")
+      (File ".\MovedFiles\special.olb"
+        (DisplayName ".\MovedFiles\special.olb")
         (Type "Schematic Library")))
     (NoModify)
-    (File "preamp-6SN7.dsn"
-      (Type "Schematic Design"))
+    (File ".\supra-phono-mm-mc-bc550-560.DSN"
+      (Type "Schematic Design")
+      (DisplayName ".\supra-phono-mm-mc-bc550-560.DSN"))
     (BuildFileAddedOrDeleted "x")
     (CompileFileAddedOrDeleted "x")
     (ANNOTATE_Scope "0")
@@ -36,8 +33,10 @@
     (PSPICE_Regenerate_Netlist_Flag "FALSE"))
   (Folder "Layout")
   (Folder "Outputs"
-    (File ".\preamp-6SN7-pspicefiles\schematic1\schematic1.net"
-      (Type "Report")))
+    (File ".\supra-phono-mm-mc-bc550-560-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net"
+      (Type "Report")
+      (DisplayName
+         ".\supra-phono-mm-mc-bc550-560-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net")))
   (Folder "PSpice Resources"
     (Folder "Model Libraries"
       (Sort User))
@@ -47,44 +46,61 @@
       (Sort User))
     (Folder "Simulation Profiles"
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
-         ".\preamp-6SN7-pspicefiles\schematic1\bias.sim"
+         ".\supra-phono-mm-mc-bc550-560-pspicefiles\schematic1\bias.sim"
         (DisplayName "SCHEMATIC1-bias")
         (Type "PSpice Profile"))
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
-         ".\preamp-6sn7-pspicefiles\schematic1\tran.sim"
-        (DisplayName "SCHEMATIC1-tran")
+         ".\supra-phono-mm-mc-bc550-560-pspicefiles\schematic1\tran.sim"
+        (DisplayName "SCHEMATIC1-Tran")
         (Type "PSpice Profile"))
+      (ActiveProfile
+         ".\supra-phono-mm-mc-bc550-560-pspicefiles\schematic1\ac.sim")
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
-         ".\preamp-6sn7-pspicefiles\schematic1\ac.sim"
+         ".\supra-phono-mm-mc-bc550-560-pspicefiles\schematic1\ac.sim"
         (DisplayName "SCHEMATIC1-AC")
-        (Type "PSpice Profile"))
-      (ActiveProfile ".\preamp-6sn7-pspicefiles\schematic1\ac.sim")))
+        (Type "PSpice Profile"))))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
+    (BC550C
+      (FullPartName "BC550C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (BC560C
+      (FullPartName "BC560C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
     (C
       (FullPartName "C.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
-      (DeviceIndex "0"))
-    (6SN7
-      (FullPartName "6SN7.Normal")
-      (LibraryName
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\TUBE_IM.OLB")
-      (DeviceIndex "0"))
-    (6DJ8
-      (FullPartName "6DJ8.Normal")
-      (LibraryName
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\TUBE_IM.OLB")
       (DeviceIndex "0"))
     (R
       (FullPartName "R.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
       (DeviceIndex "0"))
+    (BC860C
+      (FullPartName "BC860C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (PORTRIGHT-R
+      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
+      (DeviceIndex "0"))
+    (BC850C
+      (FullPartName "BC850C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
     (VSIN
       (FullPartName "VSIN.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (PORTRIGHT-L
+      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\CAPSYM.OLB")
       (DeviceIndex "0"))
     (VDC
       (FullPartName "VDC.Normal")
@@ -99,21 +115,20 @@
       (FullPartName "VSTIM.Normal")
       (LibraryName "..\..\LIBRARY\PSPICE\SOURCSTM.OLB")
       (DeviceIndex "0")))
-  (LastUsedLibraryBrowseDirectory
-     "C:\Users\schenk\Documents\GitHub\electronic-projects\pspice-tube-library")
+  (LastUsedLibraryBrowseDirectory "LIBRARY\PSPICE")
   (MPSSessionName "schenk")
   (Folder "Logs")
   (GlobalState
     (FileView
       (Path "Design Resources")
       (Path "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\pre-amp-6SN7-v1\pspice\preamp-6SN7.dsn")
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\supra-phono-mm-mc-v1\pspice\supra-phono-mm-mc-bc550-560.DSN")
       (Path "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\pre-amp-6SN7-v1\pspice\preamp-6SN7.dsn"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\supra-phono-mm-mc-v1\pspice\supra-phono-mm-mc-bc550-560.DSN"
          "SCHEMATIC1")
       (Path "Outputs")
       (Select "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\pre-amp-6SN7-v1\pspice\preamp-6SN7.dsn"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\supra-phono-mm-mc-v1\pspice\supra-phono-mm-mc-bc550-560.DSN"
          "SCHEMATIC1" "PAGE1"))
     (HierarchyView)
     (Doc
@@ -125,10 +140,10 @@
       (Type "COrSchematicDoc")
       (Frame
         (Placement "44 0 1 -1 -1 -1 -1 5 1194 24 555")
-        (Scroll "0 282")
+        (Scroll "496 296")
         (Zoom "100")
         (Occurrence "/"))
       (Path
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PRE-AMP-6SN7-V1\PSPICE\PREAMP-6SN7.DSN")
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\SUPRA-PHONO-MM-MC-V1\PSPICE\SUPRA-PHONO-MM-MC-BC550-560.DSN")
       (Schematic "SCHEMATIC1")
       (Page "PAGE1"))))
