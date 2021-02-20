@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete HV Supply"
-Date "2021-02-09"
-Rev "V1b"
+Date "2021-02-20"
+Rev "V1c"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -1095,7 +1095,7 @@ U 1 1 6036E649
 P 14100 3550
 F 0 "R22" H 14170 3596 50  0000 L CNN
 F 1 "330R2W" H 14170 3505 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 14030 3550 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal" V 14030 3550 50  0001 C CNN
 F 3 "~" H 14100 3550 50  0001 C CNN
 	1    14100 3550
 	0    1    1    0   
