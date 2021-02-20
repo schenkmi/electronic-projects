@@ -5,7 +5,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Pre-Amp 6SN7"
-Date "2021-02-14"
+Date "2021-02-20"
 Rev "V1"
 Comp ""
 Comment1 ""
@@ -474,7 +474,7 @@ Wire Wire Line
 Wire Wire Line
 	3200 10550 3700 10550
 Wire Wire Line
-	5200 2900 6850 2900
+	5200 2900 5600 2900
 Connection ~ 6850 2900
 Wire Wire Line
 	6850 2900 7200 2900
@@ -625,7 +625,7 @@ $EndComp
 Wire Wire Line
 	4300 2050 4300 2700
 Wire Wire Line
-	4500 2300 4750 2300
+	4500 2300 4650 2300
 Wire Wire Line
 	4500 2300 4500 2700
 Wire Wire Line
@@ -1007,7 +1007,7 @@ Wire Wire Line
 	6500 5500 6500 5400
 Connection ~ 6500 5500
 Wire Wire Line
-	5200 7100 6850 7100
+	5200 7100 5600 7100
 Connection ~ 6850 7100
 Wire Wire Line
 	6850 7100 7200 7100
@@ -1158,7 +1158,7 @@ $EndComp
 Wire Wire Line
 	4300 6250 4300 6900
 Wire Wire Line
-	4500 6500 4750 6500
+	4500 6500 4650 6500
 Wire Wire Line
 	4500 6500 4500 6900
 Wire Wire Line
@@ -1317,4 +1317,54 @@ Text GLabel 6050 7200 2    50   Input ~ 0
 VDDF2
 Text GLabel 6050 3000 2    50   Input ~ 0
 VDDF1
+$Comp
+L Diode:1N4007 D1
+U 1 1 60348EBE
+P 5150 1950
+F 0 "D1" H 5150 1733 50  0000 C CNN
+F 1 "1N4007" H 5150 1824 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123F" H 5150 1775 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 5150 1950 50  0001 C CNN
+	1    5150 1950
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5000 1950 4650 1950
+Wire Wire Line
+	4650 1950 4650 2300
+Connection ~ 4650 2300
+Wire Wire Line
+	4650 2300 4750 2300
+Wire Wire Line
+	5300 1950 5600 1950
+Wire Wire Line
+	5600 1950 5600 2900
+Connection ~ 5600 2900
+Wire Wire Line
+	5600 2900 6850 2900
+$Comp
+L Diode:1N4007 D2
+U 1 1 60365358
+P 5150 6150
+F 0 "D2" H 5150 5933 50  0000 C CNN
+F 1 "1N4007" H 5150 6024 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123F" H 5150 5975 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 5150 6150 50  0001 C CNN
+	1    5150 6150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5000 6150 4650 6150
+Wire Wire Line
+	4650 6150 4650 6500
+Connection ~ 4650 6500
+Wire Wire Line
+	4650 6500 4750 6500
+Wire Wire Line
+	5300 6150 5600 6150
+Wire Wire Line
+	5600 6150 5600 7100
+Connection ~ 5600 7100
+Wire Wire Line
+	5600 7100 6850 7100
 $EndSCHEMATC
