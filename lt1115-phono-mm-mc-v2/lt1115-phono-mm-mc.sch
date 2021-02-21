@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "LT1115 MC/MM Phono Pre"
-Date "2021-02-18"
-Rev "V1"
+Date "2021-02-21"
+Rev "V2"
 Comp ""
 Comment1 ""
 Comment2 ""
