@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete HV Supply"
-Date "2021-02-20"
-Rev "V1c"
+Date "2021-02-21"
+Rev "V1d"
 Comp ""
 Comment1 ""
 Comment2 ""
