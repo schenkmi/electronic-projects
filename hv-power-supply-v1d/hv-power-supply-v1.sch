@@ -1155,7 +1155,7 @@ Connection ~ 4350 2500
 Wire Wire Line
 	4350 2500 4350 3650
 Wire Wire Line
-	6650 3600 6200 3600
+	6650 3600 6350 3600
 Wire Wire Line
 	6050 2500 6050 3450
 Wire Wire Line
@@ -1196,11 +1196,6 @@ Wire Wire Line
 	6500 4300 6500 4050
 Wire Wire Line
 	6500 3400 6650 3400
-Wire Wire Line
-	6500 3400 6500 2950
-Wire Wire Line
-	6500 2950 7050 2950
-Connection ~ 6500 3400
 $Comp
 L Mechanical:Heatsink HS3
 U 1 1 5D4EB32D
@@ -1635,7 +1630,7 @@ U 1 1 610606DC
 P 8250 4900
 F 0 "D11" H 8250 5117 50  0000 C CNN
 F 1 "1N4007" H 8250 5026 50  0000 C CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 8250 4725 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-123F" H 8250 4725 50  0001 C CNN
 F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 8250 4900 50  0001 C CNN
 	1    8250 4900
 	1    0    0    -1  
@@ -1662,7 +1657,7 @@ U 1 1 6110B946
 P 8250 6500
 F 0 "D12" H 8250 6717 50  0000 C CNN
 F 1 "1N4007" H 8250 6626 50  0000 C CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 8250 6325 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-123F" H 8250 6325 50  0001 C CNN
 F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 8250 6500 50  0001 C CNN
 	1    8250 6500
 	1    0    0    -1  
@@ -2185,4 +2180,11 @@ Wire Wire Line
 Connection ~ 9050 7750
 Wire Wire Line
 	9050 7750 10350 7750
+Wire Wire Line
+	6350 2950 6350 3600
+Wire Wire Line
+	6350 2950 7050 2950
+Connection ~ 6350 3600
+Wire Wire Line
+	6350 3600 6200 3600
 $EndSCHEMATC
