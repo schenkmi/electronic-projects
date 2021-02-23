@@ -1,23 +1,23 @@
 @OrCAD Simulation Server Version: 1.0
 
-@Settings: 3 1
+@Settings: 0 1
 @General:
-ProfileName= "bias" 
-ProfileFile= "bias.sim" 
+ProfileName= "tran" 
+ProfileFile= "tran.sim" 
 Connectivity= "SCHEMATIC1.net" 
-NetlistFile= "bias.cir" 
-DataFile= "bias.dat" 
-OutFile= "bias.out" 
+NetlistFile= "tran.cir" 
+DataFile= "tran.dat" 
+OutFile= "tran.out" 
 Notes=
 @#$BEGINNOTES
 @#$ENDNOTES
 @End General
-@Analysis: 0 0
+@Analysis: 0 1
 +0 0 0 0 
-+0 "1000ns" 
++0 "50ms" 
 +1 "" 
-+2 "0" 
-+3 "" 
++2 "20m" 
++3 "1us" 
 +4 "" 
 +5 "" 
 +6 "" 
@@ -42,14 +42,14 @@ Notes=
 +6 "" 
 +7 "" 
 @End Analysis
-@Analysis: 3 1
-+1 0 0
+@Analysis: 3 0
++0 0 0
 +0 "" 
 +1 "" 
 +2 "" 
 @End Analysis
 @Analysis: 4 0
-+0 0 1 0 0 0 3 0 0 0 1
++0 0 1 0 0 0 0 0 0 0 1
 +0 "" 
 +1 "" 
 +2 "" 
