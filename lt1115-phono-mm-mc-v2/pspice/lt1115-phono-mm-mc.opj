@@ -1,6 +1,6 @@
 (ExpressProject "lt1115-phono-mm-mc"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S014 (3914599)  [1/24/2021]-[02/23/21]")
+  (SoftwareVersion "17.4-2019 S014 (3914599)  [1/24/2021]-[02/25/21]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -33,7 +33,17 @@
     (ANNOTATE_Property_Combine "{Value}{Source Package}")
     (DOCKED "TRUE")
     (DOCKING_POSITION "59420")
-    (PSPICE_Regenerate_Netlist_Flag "FALSE"))
+    (PSPICE_Regenerate_Netlist_Flag "FALSE")
+    (Annotate_Page_Order "0")
+    (ANNOTATE_IncludeNonPrimitive "TRUE")
+    (ANNOTATE_PreserveDesignator "FALSE")
+    (ANNOTATE_PreserveUserEdits "FALSE")
+    (ANNOTATE_Refdes_Control_Required "FALSE")
+    (Update_Instace_for_External_Design "FALSE")
+    (Annotate_type "Default")
+    (width_pages "100")
+    (width_start "80")
+    (width_End "80"))
   (Folder "Layout")
   (Folder "Outputs"
     (File ".\lt1115-phono-mm-mc-pspicefiles\schematic1\schematic1.net"
@@ -61,6 +71,14 @@
       (ActiveProfile ".\lt1115-phono-mm-mc-pspicefiles\schematic1\ac.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
+    (LAPLACE
+      (FullPartName "LAPLACE.Normal")
+      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ABM.OLB")
+      (DeviceIndex "0"))
+    (ELAPLACE
+      (FullPartName "ELAPLACE.Normal")
+      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ABM.OLB")
+      (DeviceIndex "0"))
     (IDC
       (FullPartName "IDC.Normal")
       (LibraryName
@@ -127,10 +145,7 @@
       (Path "Design Resources"
          "C:\Users\schenk\Documents\GitHub\electronic-projects\lt1115-phono-mm-mc-v2\pspice\lt1115-phono-mm-mc.dsn"
          "SCHEMATIC1")
-      (Path "Outputs")
-      (Select "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\lt1115-phono-mm-mc-v2\pspice\lt1115-phono-mm-mc.dsn"
-         "SCHEMATIC1" "PAGE1"))
+      (Path "Outputs"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
@@ -140,8 +155,8 @@
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 873 24 708")
-        (Scroll "505 895")
+        (Placement "44 0 1 -1 -1 5 24 5 873 24 708")
+        (Scroll "858 984")
         (Zoom "172")
         (Occurrence "/"))
       (Path
