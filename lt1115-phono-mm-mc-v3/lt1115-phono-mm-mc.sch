@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "LT1115 MC/MM Phono Pre"
-Date "2021-02-21"
-Rev "V2"
+Date "2021-03-07"
+Rev "V3"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -161,7 +161,7 @@ L Device:R R3
 U 1 1 6078B815
 P 3150 5200
 F 0 "R3" H 3220 5246 50  0000 L CNN
-F 1 "210R" H 3220 5155 50  0000 L CNN
+F 1 "210R/0R" H 3220 5155 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3080 5200 50  0001 C CNN
 F 3 "~" H 3150 5200 50  0001 C CNN
 	1    3150 5200
@@ -216,17 +216,6 @@ F 3 "~" H 4800 5150 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R4
-U 1 1 60797FD7
-P 3550 5200
-F 0 "R4" H 3620 5246 50  0000 L CNN
-F 1 "0R" H 3620 5155 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3480 5200 50  0001 C CNN
-F 3 "~" H 3550 5200 50  0001 C CNN
-	1    3550 5200
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:R R8
 U 1 1 6079862D
 P 4800 5650
@@ -264,7 +253,7 @@ L Connector_Generic:Conn_01x01 J1
 U 1 1 6079A593
 P 1100 2300
 F 0 "J1" H 1018 2075 50  0000 C CNN
-F 1 "INR" H 1018 2166 50  0000 C CNN
+F 1 "IN" H 1018 2166 50  0000 C CNN
 F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 1100 2300 50  0001 C CNN
 F 3 "~" H 1100 2300 50  0001 C CNN
 	1    1100 2300
@@ -275,7 +264,7 @@ L Connector_Generic:Conn_01x01 J2
 U 1 1 6079AF75
 P 1100 2800
 F 0 "J2" H 1018 2575 50  0000 C CNN
-F 1 "INR_GND" H 1018 2666 50  0000 C CNN
+F 1 "IN_GND" H 1018 2666 50  0000 C CNN
 F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 1100 2800 50  0001 C CNN
 F 3 "~" H 1100 2800 50  0001 C CNN
 	1    1100 2800
@@ -294,8 +283,6 @@ F 3 "~" H 9650 10150 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3700 2500 3150 2500
-Wire Wire Line
-	3150 5350 3150 5450
 Wire Wire Line
 	4650 5650 3150 5650
 Connection ~ 3150 5650
@@ -388,19 +375,6 @@ F 1 "49.9R" H 6720 1855 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6580 1900 50  0001 C CNN
 F 3 "~" H 6650 1900 50  0001 C CNN
 	1    6650 1900
-	1    0    0    -1  
-$EndComp
-$Comp
-L kicad-snk:LT1010_TO220-5 U3
-U 1 1 607A8DE7
-P 6650 2400
-F 0 "U3" H 6994 2446 50  0000 L CNN
-F 1 "LT1010" H 6994 2355 50  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-220-5_P3.4x3.7mm_StaggerOdd_Lead3.8mm_Vertical" H 7350 2050 50  0001 C CNN
-F 3 "http://www.analog.com/media/en/technical-documentation/data-sheets/1010fe.pdf" H 6650 2400 50  0001 C CNN
-F 4 "Analog Devices" H 6950 2750 50  0001 C CNN "MFN"
-F 5 "LT1010" H 7050 2850 50  0001 C CNN "MFP"
-	1    6650 2400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -525,17 +499,6 @@ Wire Wire Line
 Wire Wire Line
 	1300 2300 1800 2300
 Connection ~ 1800 2300
-$Comp
-L Mechanical:Heatsink HS1
-U 1 1 607C0232
-P 7100 2200
-F 0 "HS1" H 7242 2321 50  0000 L CNN
-F 1 "Heatsink" H 7242 2230 50  0000 L CNN
-F 2 "Heatsink:Heatsink_Fischer_SK104-STC-STIC_35x13mm_2xDrill2.5mm" H 7112 2200 50  0001 C CNN
-F 3 "~" H 7112 2200 50  0001 C CNN
-	1    7100 2200
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:CP C11
 U 1 1 607C1306
@@ -776,8 +739,8 @@ Wire Wire Line
 	13300 2650 13350 2650
 Wire Wire Line
 	13300 3550 13100 3550
-Text GLabel 12000 3650 0    50   Output ~ 0
-SERVO_OUTR
+Text GLabel 11300 3650 0    50   Output ~ 0
+SERVO_OUT
 Text GLabel 13850 3550 2    50   Input ~ 0
 SERVO_INR
 Wire Wire Line
@@ -808,15 +771,13 @@ Wire Wire Line
 	12150 3650 12500 3650
 Wire Wire Line
 	12550 3100 13300 3100
-Wire Wire Line
-	12000 3650 12150 3650
 Connection ~ 12150 3650
 Text GLabel 7550 2650 3    50   Output ~ 0
 SERVO_INR
 Wire Wire Line
 	4300 2400 5250 2400
 Text GLabel 4250 2850 2    50   Input ~ 0
-SERVO_OUTR
+SERVO_OUT
 Wire Wire Line
 	4250 2850 4100 2850
 Wire Wire Line
@@ -982,22 +943,6 @@ Connection ~ 4500 4700
 Wire Wire Line
 	4500 4700 4500 4300
 Wire Wire Line
-	3550 5350 3550 5450
-Wire Wire Line
-	3550 5450 3150 5450
-Connection ~ 3150 5450
-Wire Wire Line
-	3150 5450 3150 5650
-Wire Wire Line
-	3150 4700 3150 4900
-Wire Wire Line
-	3550 4900 3150 4900
-Wire Wire Line
-	3550 4900 3550 5050
-Connection ~ 3150 4900
-Wire Wire Line
-	3150 4900 3150 5050
-Wire Wire Line
 	5450 4700 5300 4700
 Wire Wire Line
 	5300 4700 5300 4300
@@ -1056,7 +1001,7 @@ L Connector_Generic:Conn_01x01 J6
 U 1 1 60905CA4
 P 9450 2400
 F 0 "J6" H 9368 2175 50  0000 C CNN
-F 1 "OUTR" H 9368 2266 50  0000 C CNN
+F 1 "OUT" H 9368 2266 50  0000 C CNN
 F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 9450 2400 50  0001 C CNN
 F 3 "~" H 9450 2400 50  0001 C CNN
 	1    9450 2400
@@ -1067,7 +1012,7 @@ L Connector_Generic:Conn_01x01 J7
 U 1 1 60906DF1
 P 9450 3000
 F 0 "J7" H 9368 2775 50  0000 C CNN
-F 1 "OUTR_GND" H 9368 2866 50  0000 C CNN
+F 1 "OUT_GND" H 9368 2866 50  0000 C CNN
 F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 9450 3000 50  0001 C CNN
 F 3 "~" H 9450 3000 50  0001 C CNN
 	1    9450 3000
@@ -1251,4 +1196,36 @@ Text Notes 8400 10250 0    50   ~ 0
 I+: 32mA\nI-: 32mA\nC1: 4.7pF COG
 Text Notes 4600 10200 0    50   ~ 0
 Known Issues\n- missing 33.2k in SERVO_OUTR path according LT1115 Datasheet\n
+$Comp
+L Device:R R4
+U 1 1 60456974
+P 11700 3650
+F 0 "R4" H 11770 3696 50  0000 L CNN
+F 1 "33.2k" H 11770 3605 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 11630 3650 50  0001 C CNN
+F 3 "~" H 11700 3650 50  0001 C CNN
+	1    11700 3650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	11850 3650 12150 3650
+Wire Wire Line
+	11550 3650 11300 3650
+$Comp
+L kicad-snk:LT1010 U3
+U 1 1 604645E6
+P 6650 2400
+F 0 "U3" H 6994 2446 50  0000 L CNN
+F 1 "LT1010" H 6994 2355 50  0000 L CNN
+F 2 "Package_DIP:DIP-8_W7.62mm" H 7350 2050 50  0001 C CNN
+F 3 "http://www.analog.com/media/en/technical-documentation/data-sheets/1010fe.pdf" H 6650 2400 50  0001 C CNN
+F 4 "Analog Devices" H 6950 2750 50  0001 C CNN "MFN"
+F 5 "LT1010" H 7050 2850 50  0001 C CNN "MFP"
+	1    6650 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3150 4700 3150 5050
+Wire Wire Line
+	3150 5350 3150 5650
 $EndSCHEMATC
