@@ -1593,4 +1593,6 @@ F 3 "http://www.thatcorp.com/datashts/THAT_300-Series_Datasheet.pdf" H 2140 4959
 $EndComp
 Wire Wire Line
 	9550 4900 9550 4800
+Text Notes 14250 8850 0    50   ~ 0
++15V => 33mA\n-15V => 31mA
 $EndSCHEMATC
