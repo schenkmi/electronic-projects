@@ -1192,10 +1192,8 @@ F 3 "~" H 12450 9000 50  0001 C CNN
 	1    12450 9000
 	1    0    0    -1  
 $EndComp
-Text Notes 8400 10250 0    50   ~ 0
-I+: 32mA\nI-: 32mA\nC1: 4.7pF COG
-Text Notes 4600 10200 0    50   ~ 0
-Known Issues\n- missing 33.2k in SERVO_OUTR path according LT1115 Datasheet\n
+Text Notes 1300 10650 0    50   ~ 0
+MM: R1 = 47k, R3 = 210R\nMC: R1 = 100, R3 = 0R\nU4: OPA188 or MCP6V51T-E/OT\nC1: 4.7pF COG\nDC-Servo: Don’t populate C2/C3, Short C3 to GND with a wire\n\nI+: 32mA\nI-: 32mA
 $Comp
 L Device:R R4
 U 1 1 60456974
