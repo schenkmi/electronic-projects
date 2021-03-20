@@ -1448,4 +1448,6 @@ F 3 "" H 4290 3709 50  0000 L CNN
 	2    4100 3800
 	-1   0    0    -1  
 $EndComp
+Text Notes 13550 3800 0    50   ~ 0
+2021.03.20\nIdle current => 15mA\nVDrop R16 or R17 => 150mV\nVDrop R16 and R17 => 300mV
 $EndSCHEMATC
