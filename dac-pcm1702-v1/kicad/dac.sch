@@ -1355,4 +1355,15 @@ F 3 "~" H 4400 3550 50  0001 C CNN
 	1    4400 3550
 	0    1    1    0   
 $EndComp
+$Comp
+L 74xx:74HC164 U?
+U 1 1 60759670
+P 1150 1900
+F 0 "U?" H 1150 2581 50  0000 C CNN
+F 1 "74HC164" H 1150 2490 50  0000 C CNN
+F 2 "Package_SO:TSSOP-14_4.4x5mm_P0.65mm" H 2050 1600 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT164.pdf" H 2050 1600 50  0001 C CNN
+	1    1150 1900
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
