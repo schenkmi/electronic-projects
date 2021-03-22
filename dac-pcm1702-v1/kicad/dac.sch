@@ -1350,17 +1350,6 @@ Connection ~ 13850 8900
 Wire Wire Line
 	13850 7700 13600 7700
 Connection ~ 13850 7700
-$Comp
-L Connector:TestPoint TP5
-U 1 1 6081E106
-P 13150 8800
-F 0 "TP5" H 13208 8918 50  0000 L CNN
-F 1 "5V" H 13208 8827 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 13350 8800 50  0001 C CNN
-F 3 "~" H 13350 8800 50  0001 C CNN
-	1    13150 8800
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	13150 8900 12900 8900
 Connection ~ 13150 8900
@@ -1564,8 +1553,6 @@ Text Notes 3000 3550 0    50   ~ 0
 Add I2C
 Wire Wire Line
 	13150 8900 13600 8900
-Wire Wire Line
-	13150 8900 13150 8800
 Wire Wire Line
 	13600 7700 13600 8900
 Connection ~ 13600 8900
@@ -2433,19 +2420,6 @@ NoConn ~ 6950 3150
 NoConn ~ 6950 3250
 NoConn ~ 6950 3450
 NoConn ~ 6950 3550
-$Comp
-L Connector:TestPoint TP2
-U 1 1 617ACF93
-P 11050 8800
-F 0 "TP2" H 11108 8918 50  0000 L CNN
-F 1 "VIN" H 11108 8827 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 11250 8800 50  0001 C CNN
-F 3 "~" H 11250 8800 50  0001 C CNN
-	1    11050 8800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	11050 8800 11050 8900
 $Comp
 L Connector_Generic:Conn_01x01 J16
 U 1 1 617EFDEB
