@@ -4,8 +4,8 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 2
-Title "DAC PCM1702"
-Date "2021-03-08"
+Title "Async sample rate converter"
+Date "2021-03-22"
 Rev "V1"
 Comp ""
 Comment1 ""
