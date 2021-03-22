@@ -1965,17 +1965,6 @@ Wire Wire Line
 Connection ~ 9200 1300
 Wire Wire Line
 	9200 1300 9200 1250
-$Comp
-L power:GND #PWR0145
-U 1 1 6128855A
-P 7550 850
-F 0 "#PWR0145" H 7550 600 50  0001 C CNN
-F 1 "GND" H 7555 677 50  0000 C CNN
-F 2 "" H 7550 850 50  0001 C CNN
-F 3 "" H 7550 850 50  0001 C CNN
-	1    7550 850 
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	7550 850  7700 850 
 $Comp
@@ -2460,4 +2449,28 @@ Wire Wire Line
 Wire Wire Line
 	9700 7800 10600 7800
 Connection ~ 10600 8900
+$Comp
+L power:+3.3V #PWR0145
+U 1 1 60662C93
+P 8450 750
+F 0 "#PWR0145" H 8450 600 50  0001 C CNN
+F 1 "+3.3V" H 8465 923 50  0000 C CNN
+F 2 "" H 8450 750 50  0001 C CNN
+F 3 "" H 8450 750 50  0001 C CNN
+	1    8450 750 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6066B509
+P 7550 850
+F 0 "#PWR?" H 7550 600 50  0001 C CNN
+F 1 "GND" H 7555 677 50  0000 C CNN
+F 2 "" H 7550 850 50  0001 C CNN
+F 3 "" H 7550 850 50  0001 C CNN
+	1    7550 850 
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8450 850  8450 750 
 $EndSCHEMATC
