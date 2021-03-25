@@ -89,6 +89,26 @@
 #define RB6_SetAnalogMode()         do { ANSELBbits.ANSB6 = 1; } while(0)
 #define RB6_SetDigitalMode()        do { ANSELBbits.ANSB6 = 0; } while(0)
 
+// get/set RESET aliases
+#define RESET_TRIS                 TRISCbits.TRISC2
+#define RESET_LAT                  LATCbits.LATC2
+#define RESET_PORT                 PORTCbits.RC2
+#define RESET_WPU                  WPUCbits.WPUC2
+#define RESET_OD                   ODCONCbits.ODCC2
+#define RESET_ANS                  ANSELCbits.ANSC2
+#define RESET_SetHigh()            do { LATCbits.LATC2 = 1; } while(0)
+#define RESET_SetLow()             do { LATCbits.LATC2 = 0; } while(0)
+#define RESET_Toggle()             do { LATCbits.LATC2 = ~LATCbits.LATC2; } while(0)
+#define RESET_GetValue()           PORTCbits.RC2
+#define RESET_SetDigitalInput()    do { TRISCbits.TRISC2 = 1; } while(0)
+#define RESET_SetDigitalOutput()   do { TRISCbits.TRISC2 = 0; } while(0)
+#define RESET_SetPullup()          do { WPUCbits.WPUC2 = 1; } while(0)
+#define RESET_ResetPullup()        do { WPUCbits.WPUC2 = 0; } while(0)
+#define RESET_SetPushPull()        do { ODCONCbits.ODCC2 = 0; } while(0)
+#define RESET_SetOpenDrain()       do { ODCONCbits.ODCC2 = 1; } while(0)
+#define RESET_SetAnalogMode()      do { ANSELCbits.ANSC2 = 1; } while(0)
+#define RESET_SetDigitalMode()     do { ANSELCbits.ANSC2 = 0; } while(0)
+
 /**
    @Param
     none
