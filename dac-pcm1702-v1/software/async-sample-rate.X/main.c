@@ -424,8 +424,9 @@ void init(void)
     RESET_SetLow();
     __delay_ms(100);
     RESET_SetHigh();
-
-	// Select page 0
+    __delay_ms(10);
+	
+    // Select page 0
 	src4392_write(SRC_REG7F, 0x00);
 
 	// DIR setup:
