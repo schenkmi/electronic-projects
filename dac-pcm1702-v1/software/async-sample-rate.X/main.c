@@ -134,12 +134,18 @@
 #define DEEMPH_AUTO		0	// auto
 #define DEEMPH_OFF		1	// off
 
-// Maximum number of inputs
-#define MAX_INPUTS		5
 
 uint8_t		upsample_rate = UPSAMPLE_192KHZ;
 uint8_t		dit_mode = DIT_UPSAMPLE;
 
+
+// input 0,1,2 or 3
+
+#define INPUT_RX1   0
+#define INPUT_RX2   1
+#define INPUT_RX3   2
+#define INPUT_RX4   3
+#define MAX_INPUTS  INPUT_RX4
 
 // Read one byte from the SRC4392
 uint8_t src4392_read(uint8_t reg)
@@ -243,17 +249,13 @@ void set_dit_mode(uint8_t input, uint8_t mode)
 	uint8_t	val;
 
 	if ((mode != DIT_UPSAMPLE && mode != DIT_LOOPOUT) ||
-	    input >= MAX_INPUTS)
+	    input > MAX_INPUTS)
 		return;		// error checking
 
 	// Select SRC4392 page 0
 	src4392_write(SRC_REG7F, 0x00);
 
-	if (mode == DIT_UPSAMPLE || input == 0) {
-		// For USB we will always set the output for up-sampling
-		// because we have no way to set the DIT master clock
-		// appropriately when its source is directly from Port B.
-
+	if (mode == DIT_UPSAMPLE) {
 		if (upsample_rate == UPSAMPLE_192KHZ) {
 			// DIT setup
 			// - SRC as the input data source
@@ -296,12 +298,10 @@ void set_dit_mode(uint8_t input, uint8_t mode)
 		}
 	}
 	else if (mode == DIT_LOOPOUT) {
-		// handle regular input 1..4
-
 		// set both AES and TX outputs to receive their
 		// data via the bypass multiplexor without going
 		// through the DIT block.
-		val = ((input - 1)) << 6 | 0x30;       
+		val = (input) << 6 | 0x30;       
 		src4392_write(SRC_REG08, val);
 	}
 }
@@ -313,31 +313,24 @@ void set_input(uint8_t input, uint8_t mode)
 {
 	uint8_t	val;
 
-	if ((input >= MAX_INPUTS) ||
+	if ((input > MAX_INPUTS) ||
 	    (mode != DIT_UPSAMPLE && mode != DIT_LOOPOUT))
 		return;		// error checking
 
 	// Select page 0
 	src4392_write(SRC_REG7F, 0x00);
 
-	if (input == 0) {
-		// Special case for USB
-		// set SRC input source to port B
-		src4392_write(SRC_REG2D, 0x01);
-	}
-	else {
-		// - set DIR input source to the appropriate RX port
-		// - use MCLK as clock source
-		// - audio muted for loss of lock condition
-		// - PLL free runs for loss of lock condition
-		// - RXCKO output disabled
-		val = 0x08 | (input - 1);
-		src4392_write(SRC_REG0D, val);
-		src4392_write(SRC_REG0E, 0x18);
+    // - set DIR input source to the appropriate RX port
+    // - use MCLK as clock source
+    // - audio muted for loss of lock condition
+    // - PLL free runs for loss of lock condition
+    // - RXCKO output disabled
+    val = 0x08 | input;
+    src4392_write(SRC_REG0D, val);
+    src4392_write(SRC_REG0E, 0x18);
 
-		// set SRC input source to DIR
-		src4392_write(SRC_REG2D, 0x02);
-	}
+    // set SRC input source to DIR
+    src4392_write(SRC_REG2D, 0x02);
 
 	// update DIT mode
 	set_dit_mode(input, mode);
@@ -530,6 +523,8 @@ void main(void)
     //INTERRUPT_PeripheralInterruptDisable();
 
     init();
+    
+    set_input(INPUT_RX1, DIT_UPSAMPLE);
     
     while (1) {
         __delay_ms(20);
