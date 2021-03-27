@@ -1220,17 +1220,6 @@ F 3 "~" H 3150 9900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Regulator_Linear:L78L05_SO8 U1
-U 1 1 5FCFF6C0
-P 4200 9450
-F 0 "U1" H 4200 9692 50  0000 C CNN
-F 1 "L78L05_SO8" H 4200 9601 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4300 9650 50  0001 C CIN
-F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 4400 9450 50  0001 C CNN
-	1    4200 9450
-	1    0    0    -1  
-$EndComp
-$Comp
 L Diode_Bridge:MB4S D1
 U 1 1 5FDFDB2A
 P 2200 9900
@@ -1246,7 +1235,7 @@ L MCU_Microchip_PIC16:PIC16F1829-IP U3
 U 1 1 5FAC1510
 P 6550 3350
 F 0 "U3" H 6550 4431 50  0000 C CNN
-F 1 "PIC16F1829-IP" H 6550 4340 50  0000 C CNN
+F 1 "PIC16F18446-I/SO" H 7100 4150 50  0000 C CNN
 F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 6550 2800 50  0001 C CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf" H 6550 2800 50  0001 C CNN
 	1    6550 3350
@@ -1314,4 +1303,15 @@ Wire Wire Line
 	3900 8500 3650 8500
 Wire Wire Line
 	3650 8500 3650 9450
+$Comp
+L Regulator_Linear:MC78L05_SO8 U1
+U 1 1 6198B95B
+P 4200 9450
+F 0 "U1" H 4200 9692 50  0000 C CNN
+F 1 "MC78L05_SO8" H 4200 9601 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4300 9650 50  0001 C CIN
+F 3 "https://www.onsemi.com/pub/Collateral/MC78L00A-D.PDF" H 4400 9450 50  0001 C CNN
+	1    4200 9450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
