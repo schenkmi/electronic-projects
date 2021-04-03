@@ -435,6 +435,11 @@ void init(void)
 	// - audio not muted for loss of lock condition
 	// - PLL stops for loss of lock condition
 	// - RXCKO output disabled
+    
+    // 000010 00
+    // 00 => RXMUX1 / RXMUX0 => (RX1)
+    // 0
+    // 1 => RXCLK => MCLK
 	src4392_write(SRC_REG0D, 0x08);	// default input source = RX1
 	src4392_write(SRC_REG0E, 0x00);
 
@@ -459,7 +464,8 @@ void init(void)
 	// - autodem enabled
 	src4392_write(SRC_REG2D, 0x02);	// default input source = DIR
 	src4392_write(SRC_REG2E, 0x20);
-	src4392_write(SRC_REG2F, 0x00);
+  
+	src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
 	src4392_write(SRC_REG30, 0x00);
 	src4392_write(SRC_REG31, 0x00);
 
@@ -524,6 +530,12 @@ void main(void)
     //INTERRUPT_PeripheralInterruptDisable();
 
     init();
+    
+    set_upsample(upsample_rate);
+    
+    set_dit_mode(INPUT_RX1, DIT_UPSAMPLE);
+    
+    set_deemphasis(DEEMPH_AUTO);
     
     set_input(INPUT_RX1, DIT_UPSAMPLE);
     
