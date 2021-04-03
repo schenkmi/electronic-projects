@@ -1546,17 +1546,6 @@ Wire Wire Line
 	9700 8750 10300 8750
 Wire Wire Line
 	10300 8750 10300 8850
-$Comp
-L Device:R R14
-U 1 1 60D0F8F5
-P 14350 5150
-F 0 "R14" V 14143 5150 50  0000 C CNN
-F 1 "33R" V 14234 5150 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 14280 5150 50  0001 C CNN
-F 3 "~" H 14350 5150 50  0001 C CNN
-	1    14350 5150
-	0    1    1    0   
-$EndComp
 Text GLabel 15100 5150 2    50   Input ~ 0
 SCL
 Text GLabel 15100 5050 2    50   BiDi ~ 0
@@ -1583,17 +1572,6 @@ F 3 "" H 13700 5350 50  0001 C CNN
 	1    13700 5350
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R R4
-U 1 1 60D1CFC1
-P 11300 4850
-F 0 "R4" V 11093 4850 50  0000 C CNN
-F 1 "33R" V 11184 4850 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 11230 4850 50  0001 C CNN
-F 3 "~" H 11300 4850 50  0001 C CNN
-	1    11300 4850
-	0    1    1    0   
-$EndComp
 Text GLabel 11000 4850 0    50   Input ~ 0
 MCLK3
 Text GLabel 7400 2650 2    50   Output ~ 0
@@ -1613,28 +1591,6 @@ BCKB
 Text GLabel 11000 5050 0    50   Input ~ 0
 LRCKB
 $Comp
-L Device:R R16
-U 1 1 60DADD01
-P 11550 4950
-F 0 "R16" V 11343 4950 50  0000 C CNN
-F 1 "33R" V 11434 4950 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 11480 4950 50  0001 C CNN
-F 3 "~" H 11550 4950 50  0001 C CNN
-	1    11550 4950
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R17
-U 1 1 60DAE3ED
-P 11800 5050
-F 0 "R17" V 11593 5050 50  0000 C CNN
-F 1 "33R" V 11684 5050 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 11730 5050 50  0001 C CNN
-F 3 "~" H 11800 5050 50  0001 C CNN
-	1    11800 5050
-	0    1    1    0   
-$EndComp
-$Comp
 L Connector:Conn_01x08_Male J12
 U 1 1 60DD3786
 P 12700 6250
@@ -1647,17 +1603,6 @@ F 3 "~" H 12700 6250 50  0001 C CNN
 $EndComp
 Text GLabel 15100 5250 2    50   Input ~ 0
 RESET
-$Comp
-L Device:R R5
-U 1 1 60D0F47F
-P 14700 5050
-F 0 "R5" V 14493 5050 50  0000 C CNN
-F 1 "33R" V 14584 5050 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 14630 5050 50  0001 C CNN
-F 3 "~" H 14700 5050 50  0001 C CNN
-	1    14700 5050
-	0    1    1    0   
-$EndComp
 $Comp
 L power:GND #PWR0142
 U 1 1 60FCCD1A
@@ -1675,14 +1620,6 @@ Wire Wire Line
 	13200 5950 13100 5950
 Wire Wire Line
 	13100 5950 13100 6050
-Wire Wire Line
-	14550 5050 14050 5050
-Wire Wire Line
-	14200 5150 14100 5150
-Wire Wire Line
-	14500 5150 15100 5150
-Wire Wire Line
-	14850 5050 15100 5050
 Wire Wire Line
 	15100 5250 14150 5250
 Wire Wire Line
@@ -1714,17 +1651,6 @@ Wire Wire Line
 	14050 5050 13650 5050
 Text GLabel 11000 5150 0    50   Input ~ 0
 SDOUTB
-$Comp
-L Device:R R18
-U 1 1 610DF4D6
-P 12100 5150
-F 0 "R18" V 11893 5150 50  0000 C CNN
-F 1 "33R" V 11984 5150 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 12030 5150 50  0001 C CNN
-F 3 "~" H 12100 5150 50  0001 C CNN
-	1    12100 5150
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	12700 6050 12700 5150
 Wire Wire Line
@@ -1741,26 +1667,10 @@ Wire Wire Line
 	12400 6050 12400 4850
 Wire Wire Line
 	12400 4850 12850 4850
-Wire Wire Line
-	12700 5150 12250 5150
 Connection ~ 12700 5150
-Wire Wire Line
-	12600 5050 11950 5050
 Connection ~ 12600 5050
-Wire Wire Line
-	12500 4950 11700 4950
 Connection ~ 12500 4950
-Wire Wire Line
-	12400 4850 11450 4850
 Connection ~ 12400 4850
-Wire Wire Line
-	11150 4850 11000 4850
-Wire Wire Line
-	11000 4950 11400 4950
-Wire Wire Line
-	11000 5050 11650 5050
-Wire Wire Line
-	11000 5150 11950 5150
 Wire Wire Line
 	12850 5250 12800 5250
 Wire Wire Line
@@ -1986,17 +1896,6 @@ F 5 "1-338068-0" H 13250 3100 50  0001 L BNN "Comment"
 	1    13250 3100
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R R28
-U 1 1 614B4B95
-P 14350 3200
-F 0 "R28" V 14143 3200 50  0000 C CNN
-F 1 "33R" V 14234 3200 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 14280 3200 50  0001 C CNN
-F 3 "~" H 14350 3200 50  0001 C CNN
-	1    14350 3200
-	0    1    1    0   
-$EndComp
 Text GLabel 15100 3200 2    50   Input ~ 0
 SCL
 Text GLabel 15100 3100 2    50   BiDi ~ 0
@@ -2023,45 +1922,12 @@ F 3 "" H 13700 3400 50  0001 C CNN
 	1    13700 3400
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R R24
-U 1 1 614B4BB5
-P 11300 2900
-F 0 "R24" V 11093 2900 50  0000 C CNN
-F 1 "33R" V 11184 2900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 11230 2900 50  0001 C CNN
-F 3 "~" H 11300 2900 50  0001 C CNN
-	1    11300 2900
-	0    1    1    0   
-$EndComp
 Text GLabel 11000 2900 0    50   Input ~ 0
 MCLK2
 Text GLabel 11000 3000 0    50   Input ~ 0
 BCKA
 Text GLabel 11000 3100 0    50   Input ~ 0
 LRCKA
-$Comp
-L Device:R R25
-U 1 1 614B4BC2
-P 11550 3000
-F 0 "R25" V 11343 3000 50  0000 C CNN
-F 1 "33R" V 11434 3000 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 11480 3000 50  0001 C CNN
-F 3 "~" H 11550 3000 50  0001 C CNN
-	1    11550 3000
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R26
-U 1 1 614B4BCC
-P 11800 3100
-F 0 "R26" V 11593 3100 50  0000 C CNN
-F 1 "33R" V 11684 3100 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 11730 3100 50  0001 C CNN
-F 3 "~" H 11800 3100 50  0001 C CNN
-	1    11800 3100
-	0    1    1    0   
-$EndComp
 $Comp
 L Connector:Conn_01x08_Male J14
 U 1 1 614B4BD6
@@ -2075,17 +1941,6 @@ F 3 "~" H 12700 4300 50  0001 C CNN
 $EndComp
 Text GLabel 15100 3300 2    50   Input ~ 0
 RESET
-$Comp
-L Device:R R29
-U 1 1 614B4BE1
-P 14700 3100
-F 0 "R29" V 14493 3100 50  0000 C CNN
-F 1 "33R" V 14584 3100 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 14630 3100 50  0001 C CNN
-F 3 "~" H 14700 3100 50  0001 C CNN
-	1    14700 3100
-	0    1    1    0   
-$EndComp
 $Comp
 L power:GND #PWR0152
 U 1 1 614B4BEB
@@ -2103,14 +1958,6 @@ Wire Wire Line
 	13200 4000 13100 4000
 Wire Wire Line
 	13100 4000 13100 4100
-Wire Wire Line
-	14550 3100 14050 3100
-Wire Wire Line
-	14200 3200 14100 3200
-Wire Wire Line
-	14500 3200 15100 3200
-Wire Wire Line
-	14850 3100 15100 3100
 Wire Wire Line
 	15100 3300 14150 3300
 Wire Wire Line
@@ -2142,17 +1989,6 @@ Wire Wire Line
 	14050 3100 13650 3100
 Text GLabel 11000 3200 0    50   Input ~ 0
 SDOUTA
-$Comp
-L Device:R R27
-U 1 1 614B4C0D
-P 12100 3200
-F 0 "R27" V 11893 3200 50  0000 C CNN
-F 1 "33R" V 11984 3200 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 12030 3200 50  0001 C CNN
-F 3 "~" H 12100 3200 50  0001 C CNN
-	1    12100 3200
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	12700 4100 12700 3200
 Wire Wire Line
@@ -2169,26 +2005,10 @@ Wire Wire Line
 	12400 4100 12400 2900
 Wire Wire Line
 	12400 2900 12850 2900
-Wire Wire Line
-	12700 3200 12250 3200
 Connection ~ 12700 3200
-Wire Wire Line
-	12600 3100 11950 3100
 Connection ~ 12600 3100
-Wire Wire Line
-	12500 3000 11700 3000
 Connection ~ 12500 3000
-Wire Wire Line
-	12400 2900 11450 2900
 Connection ~ 12400 2900
-Wire Wire Line
-	11150 2900 11000 2900
-Wire Wire Line
-	11000 3000 11400 3000
-Wire Wire Line
-	11000 3100 11650 3100
-Wire Wire Line
-	11000 3200 11950 3200
 Wire Wire Line
 	12850 3300 12800 3300
 Wire Wire Line
@@ -2357,9 +2177,9 @@ Wire Wire Line
 Text GLabel 12550 1400 2    50   Output ~ 0
 MCLK1
 Text GLabel 12550 1500 2    50   Output ~ 0
-MCLK2
-Text GLabel 12550 1600 2    50   Output ~ 0
 MCLK3
+Text GLabel 12550 1600 2    50   Output ~ 0
+MCLK2
 Wire Wire Line
 	12250 1400 12550 1400
 Wire Wire Line
@@ -2722,4 +2542,28 @@ Wire Wire Line
 	3450 5850 3450 6200
 NoConn ~ 6950 2350
 NoConn ~ 6950 2850
+Wire Wire Line
+	11000 2900 12400 2900
+Wire Wire Line
+	11000 3000 12500 3000
+Wire Wire Line
+	11000 3100 12600 3100
+Wire Wire Line
+	11000 3200 12700 3200
+Wire Wire Line
+	14100 3200 15100 3200
+Wire Wire Line
+	14050 3100 15100 3100
+Wire Wire Line
+	14050 5050 15100 5050
+Wire Wire Line
+	14100 5150 15100 5150
+Wire Wire Line
+	11000 4850 12400 4850
+Wire Wire Line
+	11000 4950 12500 4950
+Wire Wire Line
+	11000 5050 12600 5050
+Wire Wire Line
+	11000 5150 12700 5150
 $EndSCHEMATC
