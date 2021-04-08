@@ -475,6 +475,8 @@ void init(void)
 	// - clock divider 128 to set the output frame rate
 	// - block start is an output and valid audio is indicated
 	// - c and u data will not be updated
+    
+    // 0x1c => 0001'1100
 	src4392_write(SRC_REG07, 0x1c);
 	src4392_write(SRC_REG08, 0x00);
 	src4392_write(SRC_REG09, 0x00);
