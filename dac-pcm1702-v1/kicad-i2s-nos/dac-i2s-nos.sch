@@ -544,17 +544,6 @@ F 3 "" H 6800 8800 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6800 8800 6800 8700
-$Comp
-L Connector:TestPoint TP1
-U 1 1 6092CA41
-P 7400 8150
-F 0 "TP1" H 7458 8268 50  0000 L CNN
-F 1 "1.8V" H 7458 8177 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 7600 8150 50  0001 C CNN
-F 3 "~" H 7600 8150 50  0001 C CNN
-	1    7400 8150
-	1    0    0    -1  
-$EndComp
 Connection ~ 7400 8150
 $Comp
 L power:+1V8 #PWR0104
@@ -576,17 +565,6 @@ F 1 "+3.3V" H 7915 9623 50  0000 C CNN
 F 2 "" H 7900 9450 50  0001 C CNN
 F 3 "" H 7900 9450 50  0001 C CNN
 	1    7900 9450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:TestPoint TP2
-U 1 1 6092FF8F
-P 7450 9500
-F 0 "TP2" H 7508 9618 50  0000 L CNN
-F 1 "3.3V" H 7508 9527 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 7650 9500 50  0001 C CNN
-F 3 "~" H 7650 9500 50  0001 C CNN
-	1    7450 9500
 	1    0    0    -1  
 $EndComp
 Connection ~ 7450 9500
