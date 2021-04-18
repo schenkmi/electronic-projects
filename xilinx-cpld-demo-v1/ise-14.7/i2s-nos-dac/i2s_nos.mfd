@@ -1,0 +1,35 @@
+MDF Database:  version 1.0
+MDF_INFO | i2s_nos | XC2C64A-5-VQ44
+MACROCELL | 0 | 1 | DATAOUTL_MC
+ATTRIBUTES | 8684290 | 0
+INPUTS | 1 | D1
+INPUTMC | 1 | 0 | 15
+EQ | 2 | 
+   DATAOUTL := D1;	// (1 pt, 1 inp)
+   DATAOUTL.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 15 | D1_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 1
+INPUTS | 1 | D0
+INPUTMC | 1 | 0 | 0
+EQ | 2 | 
+   D1 := D0;	// (1 pt, 1 inp)
+   D1.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 0 | D0_MC
+ATTRIBUTES | 2155905024 | 4
+OUTPUTMC | 1 | 0 | 15
+INPUTS | 0 
+EQ | 4 | 
+   
+// Direct Input Register
+D0 := DATAIN;	// (0 pt, 0 inp)
+   D0.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+PIN | BCK | 4096 | 16 | LVCMOS18 | 19 | 3 | 0 | 0 | 0 | 15 | 0 | 1
+PIN | DATAIN | 64 | 16 | LVCMOS18 | 11 | 1 | 0 | 0
+PIN | DATAOUTL | 536871040 | 0 | LVCMOS18 | 10
