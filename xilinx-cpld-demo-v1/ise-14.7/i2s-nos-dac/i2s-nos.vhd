@@ -42,6 +42,7 @@ end i2s_nos;
 
 architecture Behavioral of i2s_nos is
 	signal D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11 : STD_LOGIC;
+	signal DA0, DA1, DA2, DA3, DA4, DA5, DA6, DA7, DA8, DA9, DA10, DA11 : STD_LOGIC;
 	begin
 	SHIFT : process (BCK)
 		begin
@@ -52,7 +53,18 @@ architecture Behavioral of i2s_nos is
 			end if;
 		end process;
 		
+			SHIFT2 : process (BCK)
+		begin
+			if (BCK'event and BCK='1') then
+				DA0 <= D11; DA1 <= DA0; DA2 <= DA1; DA3 <= DA2;
+				DA4 <= DA3; DA5 <= DA4; DA6 <= DA5; DA7 <= DA6; 
+				DA8 <= DA7; DA9 <= DA8; DA10 <= DA9; DA11 <= DA10;
+			end if;
+		end process;
+		
+		
 		DATAOUTL <= D11;
+		DATAOUTR <= DA11;
 		CLKOUT <= BCK;
 		LEOUT <= LRCK;
 
