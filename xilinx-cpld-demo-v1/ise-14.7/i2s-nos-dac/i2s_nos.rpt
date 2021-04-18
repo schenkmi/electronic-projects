@@ -1,7 +1,7 @@
  
 cpldfit:  version P.20131013                        Xilinx Inc.
                                   Fitter Report
-Design Name: i2s_nos                             Date:  4-18-2021, 12:33PM
+Design Name: i2s_nos                             Date:  4-18-2021,  3:07PM
 Device Used: XC2C64A-5-VQ44
 Fitting Status: Successful
 
@@ -61,10 +61,10 @@ WARNING:Cpld - Unable to retrieve the path to the iSE Project Repository. Will
 
 Signal              Total Total Bank Loc     Pin   Pin       Pin     I/O      I/O       Slew Reg     Reg Init
 Name                Pts   Inps               No.   Type      Use     STD      Style     Rate Use     State
-DATAOUTL            1     1     2    FB1_2   37    I/O       O       LVCMOS18           FAST DFF     RESET
-DATAOUTR            1     1     2    FB1_3   36    I/O       O       LVCMOS18           FAST DFF     RESET
-CLKOUT              1     1     2    FB3_1   29    I/O       O       LVCMOS18           FAST         
-LEOUT               1     1     2    FB3_2   28    I/O       O       LVCMOS18           FAST         
+DATAOUTL            1     1     2    FB1_2   37    I/O       O       LVCMOS33           FAST DFF     RESET
+DATAOUTR            1     1     2    FB1_3   36    I/O       O       LVCMOS33           FAST DFF     RESET
+CLKOUT              1     1     2    FB3_1   29    I/O       O       LVCMOS33           FAST         
+LEOUT               1     1     2    FB3_2   28    I/O       O       LVCMOS33           FAST         
 
 ** 42 Buried Nodes **
 
@@ -120,9 +120,9 @@ sr_left<8>          1     1     FB3_16  DFF     RESET
 
 Signal              Bank Loc     Pin   Pin       Pin     I/O      I/O
 Name                             No.   Type      Use     STD      Style
-DATAIN              2    FB1_1   38    I/O       I       LVCMOS18 KPR
-BCK                 1    FB2_7   43    GCK/I/O   GCK/I   LVCMOS18 KPR
-LRCK                2    FB3_3   27    I/O       I       LVCMOS18 KPR
+DATAIN              2    FB1_1   38~   I/O       I       LVCMOS33 KPR
+BCK                 1    FB2_7   43    GCK/I/O   GCK/I   LVCMOS33 KPR
+LRCK                2    FB3_3   27    I/O       I       LVCMOS33 KPR
 
 Legend:
 Pin No.   - ~     - User Assigned
@@ -455,10 +455,10 @@ No. Name                           No. Name
   1 KPR                              23 KPR                           
   2 KPR                              24 TDO                           
   3 KPR                              25 GND                           
-  4 GND                              26 VCCIO-1.8                     
+  4 GND                              26 VCCIO-3.3                     
   5 KPR                              27 LRCK                          
   6 KPR                              28 LEOUT                         
-  7 VCCIO-1.8                        29 CLKOUT                        
+  7 VCCIO-3.3                        29 CLKOUT                        
   8 KPR                              30 KPR                           
   9 TDI                              31 KPR                           
  10 TMS                              32 KPR                           
