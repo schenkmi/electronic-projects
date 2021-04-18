@@ -1,7 +1,7 @@
  
 cpldfit:  version P.20131013                        Xilinx Inc.
                                   Fitter Report
-Design Name: i2s_nos                             Date:  4-18-2021, 11:31AM
+Design Name: i2s_nos                             Date:  4-18-2021, 12:33PM
 Device Used: XC2C64A-5-VQ44
 Fitting Status: Successful
 
@@ -9,18 +9,18 @@ Fitting Status: Successful
 
 Macrocells     Product Terms    Function Block   Registers      Pins           
 Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
-26 /64  ( 41%) 25  /224  ( 11%) 25  /160  ( 16%) 24 /64  ( 37%) 7  /33  ( 21%)
+46 /64  ( 72%) 45  /224  ( 20%) 45  /160  ( 28%) 44 /64  ( 69%) 7  /33  ( 21%)
 
 ** Function Block Resources **
 
 Function Mcells   FB Inps  Pterms   IO       CTC      CTR      CTS      CTE     
 Block    Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot
 FB1      16/16*    15/40    15/56     2/ 8    0/1      0/1      0/1      0/1
-FB2      10/16     10/40    10/56     2/ 9    0/1      0/1      0/1      0/1
-FB3       0/16      0/40     0/56     0/ 9    0/1      0/1      0/1      0/1
+FB2      16/16*    16/40    16/56     0/ 9    0/1      0/1      0/1      0/1
+FB3      14/16     14/40    14/56     2/ 9    0/1      0/1      0/1      0/1
 FB4       0/16      0/40     0/56     0/ 7    0/1      0/1      0/1      0/1
          -----    -------  -------   -----    ---      ---      ---      ---
-Total    26/64     25/160   25/224    4/33    0/4      0/4      0/4      0/4 
+Total    46/64     45/160   45/224    4/33    0/4      0/4      0/4      0/4 
 
 CTC - Control Term Clock
 CTR - Control Term Reset
@@ -63,43 +63,66 @@ Signal              Total Total Bank Loc     Pin   Pin       Pin     I/O      I/
 Name                Pts   Inps               No.   Type      Use     STD      Style     Rate Use     State
 DATAOUTL            1     1     2    FB1_2   37    I/O       O       LVCMOS18           FAST DFF     RESET
 DATAOUTR            1     1     2    FB1_3   36    I/O       O       LVCMOS18           FAST DFF     RESET
-CLKOUT              1     1     1    FB2_1   39    I/O       O       LVCMOS18           FAST         
-LEOUT               1     1     1    FB2_2   40    I/O       O       LVCMOS18           FAST         
+CLKOUT              1     1     2    FB3_1   29    I/O       O       LVCMOS18           FAST         
+LEOUT               1     1     2    FB3_2   28    I/O       O       LVCMOS18           FAST         
 
-** 22 Buried Nodes **
+** 42 Buried Nodes **
 
 Signal              Total Total Loc     Reg     Reg Init
 Name                Pts   Inps          Use     State
-D0                  0     0     FB1_1   DFF     RESET
-D7                  1     1     FB1_4   DFF     RESET
-D6                  1     1     FB1_5   DFF     RESET
-D5                  1     1     FB1_6   DFF     RESET
-D4                  1     1     FB1_7   DFF     RESET
-D3                  1     1     FB1_8   DFF     RESET
-DA10                1     1     FB1_9   DFF     RESET
-DA1                 1     1     FB1_10  DFF     RESET
-DA0                 1     1     FB1_11  DFF     RESET
-D9                  1     1     FB1_12  DFF     RESET
-D8                  1     1     FB1_13  DFF     RESET
-D2                  1     1     FB1_14  DFF     RESET
-D10                 1     1     FB1_15  DFF     RESET
-D1                  1     1     FB1_16  DFF     RESET
-DA8                 1     1     FB2_3   DFF     RESET
-DA7                 1     1     FB2_4   DFF     RESET
-DA6                 1     1     FB2_9   DFF     RESET
-DA5                 1     1     FB2_11  DFF     RESET
-DA9                 1     1     FB2_13  DFF     RESET
-DA4                 1     1     FB2_14  DFF     RESET
-DA3                 1     1     FB2_15  DFF     RESET
-DA2                 1     1     FB2_16  DFF     RESET
+sr_right<0>         0     0     FB1_1   DFF     RESET
+sr_left<16>         1     1     FB1_4   DFF     RESET
+sr_left<15>         1     1     FB1_5   DFF     RESET
+sr_left<14>         1     1     FB1_6   DFF     RESET
+sr_left<13>         1     1     FB1_7   DFF     RESET
+sr_left<12>         1     1     FB1_8   DFF     RESET
+sr_left<20>         1     1     FB1_9   DFF     RESET
+sr_left<1>          1     1     FB1_10  DFF     RESET
+sr_left<19>         1     1     FB1_11  DFF     RESET
+sr_left<18>         1     1     FB1_12  DFF     RESET
+sr_left<17>         1     1     FB1_13  DFF     RESET
+sr_left<11>         1     1     FB1_14  DFF     RESET
+sr_left<10>         1     1     FB1_15  DFF     RESET
+sr_left<0>          1     1     FB1_16  DFF     RESET
+sr_left<7>          1     1     FB2_1   DFF     RESET
+sr_left<6>          1     1     FB2_2   DFF     RESET
+sr_left<27>         1     1     FB2_3   DFF     RESET
+sr_left<26>         1     1     FB2_4   DFF     RESET
+sr_left<5>          1     1     FB2_5   DFF     RESET
+sr_left<4>          1     1     FB2_6   DFF     RESET
+sr_left<3>          1     1     FB2_7   DFF     RESET
+sr_left<30>         1     1     FB2_8   DFF     RESET
+sr_left<25>         1     1     FB2_9   DFF     RESET
+sr_left<2>          1     1     FB2_10  DFF     RESET
+sr_left<24>         1     1     FB2_11  DFF     RESET
+sr_left<29>         1     1     FB2_12  DFF     RESET
+sr_left<28>         1     1     FB2_13  DFF     RESET
+sr_left<23>         1     1     FB2_14  DFF     RESET
+sr_left<22>         1     1     FB2_15  DFF     RESET
+sr_left<21>         1     1     FB2_16  DFF     RESET
+sr_right<4>         1     1     FB3_4   DFF     RESET
+sr_right<3>         1     1     FB3_5   DFF     RESET
+sr_right<2>         1     1     FB3_7   DFF     RESET
+sr_right<1>         1     1     FB3_8   DFF     RESET
+sr_right<10>        1     1     FB3_9   DFF     RESET
+sr_right<9>         1     1     FB3_10  DFF     RESET
+sr_right<8>         1     1     FB3_11  DFF     RESET
+sr_right<7>         1     1     FB3_12  DFF     RESET
+sr_left<9>          1     1     FB3_13  DFF     RESET
+sr_right<6>         1     1     FB3_14  DFF     RESET
+
+Signal              Total Total Loc     Reg     Reg Init
+Name                Pts   Inps          Use     State
+sr_right<5>         1     1     FB3_15  DFF     RESET
+sr_left<8>          1     1     FB3_16  DFF     RESET
 
 ** 3 Inputs **
 
 Signal              Bank Loc     Pin   Pin       Pin     I/O      I/O
 Name                             No.   Type      Use     STD      Style
 DATAIN              2    FB1_1   38    I/O       I       LVCMOS18 KPR
-LRCK                1    FB2_5   41    I/O       I       LVCMOS18 KPR
 BCK                 1    FB2_7   43    GCK/I/O   GCK/I   LVCMOS18 KPR
+LRCK                2    FB3_3   27    I/O       I       LVCMOS18 KPR
 
 Legend:
 Pin No.   - ~     - User Assigned
@@ -132,116 +155,150 @@ Number of function block control terms used/remaining:        0/4
 Number of PLA product terms used/remaining:                   15/41
 Signal                        Total Loc     Pin  Pin     Pin   CTC CTR CTS CTE
 Name                          Pt            No.  Type    Use   
-D0                            0     FB1_1   38   I/O     I                 
+sr_right<0>                   0     FB1_1   38   I/O     I                 
 DATAOUTL                      1     FB1_2   37   I/O     O                 
 DATAOUTR                      1     FB1_3   36   I/O     O                 
-D7                            1     FB1_4        (b)     (b)               
-D6                            1     FB1_5        (b)     (b)               
-D5                            1     FB1_6        (b)     (b)               
-D4                            1     FB1_7        (b)     (b)               
-D3                            1     FB1_8        (b)     (b)               
-DA10                          1     FB1_9   34   GTS/I/O (b)               
-DA1                           1     FB1_10  33   GTS/I/O (b)               
-DA0                           1     FB1_11  32   GTS/I/O (b)               
-D9                            1     FB1_12  31   GTS/I/O (b)               
-D8                            1     FB1_13  30   GSR/I/O (b)               
-D2                            1     FB1_14       (b)     (b)               
-D10                           1     FB1_15       (b)     (b)               
-D1                            1     FB1_16       (b)     (b)               
+sr_left<16>                   1     FB1_4        (b)     (b)               
+sr_left<15>                   1     FB1_5        (b)     (b)               
+sr_left<14>                   1     FB1_6        (b)     (b)               
+sr_left<13>                   1     FB1_7        (b)     (b)               
+sr_left<12>                   1     FB1_8        (b)     (b)               
+sr_left<20>                   1     FB1_9   34   GTS/I/O (b)               
+sr_left<1>                    1     FB1_10  33   GTS/I/O (b)               
+sr_left<19>                   1     FB1_11  32   GTS/I/O (b)               
+sr_left<18>                   1     FB1_12  31   GTS/I/O (b)               
+sr_left<17>                   1     FB1_13  30   GSR/I/O (b)               
+sr_left<11>                   1     FB1_14       (b)     (b)               
+sr_left<10>                   1     FB1_15       (b)     (b)               
+sr_left<0>                    1     FB1_16       (b)     (b)               
 
 Signals Used by Logic in Function Block
-  1: D0                 6: D4                11: D9 
-  2: D1                 7: D5                12: DA0 
-  3: D10                8: D6                13: DA10 
-  4: D2                 9: D7                14: DA9 
-  5: D3                10: D8                15: DATAOUTL 
+  1: DATAOUTR           6: sr_left<13>       11: sr_left<18> 
+  2: sr_left<0>         7: sr_left<14>       12: sr_left<19> 
+  3: sr_left<10>        8: sr_left<15>       13: sr_left<30> 
+  4: sr_left<11>        9: sr_left<16>       14: sr_left<9> 
+  5: sr_left<12>       10: sr_left<17>       15: sr_right<10> 
 
 Signal                     1         2         3         4 FB      
 Name             0----+----0----+----0----+----0----+----0 Inputs  
-DATAOUTL          ..X..................................... 1       
-DATAOUTR          ............X........................... 1       
-D7                .......X................................ 1       
-D6                ......X................................. 1       
-D5                .....X.................................. 1       
-D4                ....X................................... 1       
-D3                ...X.................................... 1       
-DA10              .............X.......................... 1       
-DA1               ...........X............................ 1       
-DA0               ..............X......................... 1       
-D9                .........X.............................. 1       
-D8                ........X............................... 1       
-D2                .X...................................... 1       
-D10               ..........X............................. 1       
-D1                X....................................... 1       
+DATAOUTL          ............X........................... 1       
+DATAOUTR          ..............X......................... 1       
+sr_left<16>       .......X................................ 1       
+sr_left<15>       ......X................................. 1       
+sr_left<14>       .....X.................................. 1       
+sr_left<13>       ....X................................... 1       
+sr_left<12>       ...X.................................... 1       
+sr_left<20>       ...........X............................ 1       
+sr_left<1>        .X...................................... 1       
+sr_left<19>       ..........X............................. 1       
+sr_left<18>       .........X.............................. 1       
+sr_left<17>       ........X............................... 1       
+sr_left<11>       ..X..................................... 1       
+sr_left<10>       .............X.......................... 1       
+sr_left<0>        X....................................... 1       
                  0----+----1----+----2----+----3----+----4
                            0         0         0         0
 *********************************** FB2  ***********************************
 This function block is part of I/O Bank number:               1
-Number of function block inputs used/remaining:               10/30
+Number of function block inputs used/remaining:               16/24
 Number of function block control terms used/remaining:        0/4
-Number of PLA product terms used/remaining:                   10/46
+Number of PLA product terms used/remaining:                   16/40
 Signal                        Total Loc     Pin  Pin     Pin   CTC CTR CTS CTE
 Name                          Pt            No.  Type    Use   
-CLKOUT                        1     FB2_1   39   I/O     O                 
-LEOUT                         1     FB2_2   40   I/O     O                 
-DA8                           1     FB2_3        (b)     (b)               
-DA7                           1     FB2_4        (b)     (b)               
-(unused)                      0     FB2_5   41   I/O     I     
-(unused)                      0     FB2_6   42   I/O           
-(unused)                      0     FB2_7   43   GCK/I/O GCK/I 
-(unused)                      0     FB2_8   44   GCK/I/O       
-DA6                           1     FB2_9        (b)     (b)               
-(unused)                      0     FB2_10  1    GCK/I/O       
-DA5                           1     FB2_11       (b)     (b)               
-(unused)                      0     FB2_12  2    I/O           
-DA9                           1     FB2_13  3    I/O     (b)               
-DA4                           1     FB2_14       (b)     (b)               
-DA3                           1     FB2_15       (b)     (b)               
-DA2                           1     FB2_16       (b)     (b)               
+sr_left<7>                    1     FB2_1   39   I/O     (b)               
+sr_left<6>                    1     FB2_2   40   I/O     (b)               
+sr_left<27>                   1     FB2_3        (b)     (b)               
+sr_left<26>                   1     FB2_4        (b)     (b)               
+sr_left<5>                    1     FB2_5   41   I/O     (b)               
+sr_left<4>                    1     FB2_6   42   I/O     (b)               
+sr_left<3>                    1     FB2_7   43   GCK/I/O GCK/I             
+sr_left<30>                   1     FB2_8   44   GCK/I/O (b)               
+sr_left<25>                   1     FB2_9        (b)     (b)               
+sr_left<2>                    1     FB2_10  1    GCK/I/O (b)               
+sr_left<24>                   1     FB2_11       (b)     (b)               
+sr_left<29>                   1     FB2_12  2    I/O     (b)               
+sr_left<28>                   1     FB2_13  3    I/O     (b)               
+sr_left<23>                   1     FB2_14       (b)     (b)               
+sr_left<22>                   1     FB2_15       (b)     (b)               
+sr_left<21>                   1     FB2_16       (b)     (b)               
 
 Signals Used by Logic in Function Block
-  1: BCK                5: DA4                8: DA7 
-  2: DA1                6: DA5                9: DA8 
-  3: DA2                7: DA6               10: LRCK 
-  4: DA3              
+  1: sr_left<1>         7: sr_left<25>       12: sr_left<2> 
+  2: sr_left<20>        8: sr_left<26>       13: sr_left<3> 
+  3: sr_left<21>        9: sr_left<27>       14: sr_left<4> 
+  4: sr_left<22>       10: sr_left<28>       15: sr_left<5> 
+  5: sr_left<23>       11: sr_left<29>       16: sr_left<6> 
+  6: sr_left<24>      
 
 Signal                     1         2         3         4 FB      
 Name             0----+----0----+----0----+----0----+----0 Inputs  
-CLKOUT            X....................................... 1       
-LEOUT             .........X.............................. 1       
-DA8               .......X................................ 1       
-DA7               ......X................................. 1       
-DA6               .....X.................................. 1       
-DA5               ....X................................... 1       
-DA9               ........X............................... 1       
-DA4               ...X.................................... 1       
-DA3               ..X..................................... 1       
-DA2               .X...................................... 1       
+sr_left<7>        ...............X........................ 1       
+sr_left<6>        ..............X......................... 1       
+sr_left<27>       .......X................................ 1       
+sr_left<26>       ......X................................. 1       
+sr_left<5>        .............X.......................... 1       
+sr_left<4>        ............X........................... 1       
+sr_left<3>        ...........X............................ 1       
+sr_left<30>       ..........X............................. 1       
+sr_left<25>       .....X.................................. 1       
+sr_left<2>        X....................................... 1       
+sr_left<24>       ....X................................... 1       
+sr_left<29>       .........X.............................. 1       
+sr_left<28>       ........X............................... 1       
+sr_left<23>       ...X.................................... 1       
+sr_left<22>       ..X..................................... 1       
+sr_left<21>       .X...................................... 1       
                  0----+----1----+----2----+----3----+----4
                            0         0         0         0
 *********************************** FB3  ***********************************
 This function block is part of I/O Bank number:               2
-Number of function block inputs used/remaining:               0/40
+Number of function block inputs used/remaining:               14/26
 Number of function block control terms used/remaining:        0/4
-Number of PLA product terms used/remaining:                   0/56
+Number of PLA product terms used/remaining:                   14/42
 Signal                        Total Loc     Pin  Pin     Pin   CTC CTR CTS CTE
 Name                          Pt            No.  Type    Use   
-(unused)                      0     FB3_1   29   I/O           
-(unused)                      0     FB3_2   28   I/O           
-(unused)                      0     FB3_3   27   I/O           
-(unused)                      0     FB3_4        (b)           
-(unused)                      0     FB3_5        (b)           
+CLKOUT                        1     FB3_1   29   I/O     O                 
+LEOUT                         1     FB3_2   28   I/O     O                 
+(unused)                      0     FB3_3   27   I/O     I     
+sr_right<4>                   1     FB3_4        (b)     (b)               
+sr_right<3>                   1     FB3_5        (b)     (b)               
 (unused)                      0     FB3_6   23   I/O           
-(unused)                      0     FB3_7        (b)           
-(unused)                      0     FB3_8        (b)           
-(unused)                      0     FB3_9        (b)           
-(unused)                      0     FB3_10  22   I/O           
-(unused)                      0     FB3_11  21   I/O           
-(unused)                      0     FB3_12  20   I/O           
-(unused)                      0     FB3_13       (b)           
-(unused)                      0     FB3_14  19   I/O           
-(unused)                      0     FB3_15  18   I/O           
-(unused)                      0     FB3_16       (b)           
+sr_right<2>                   1     FB3_7        (b)     (b)               
+sr_right<1>                   1     FB3_8        (b)     (b)               
+sr_right<10>                  1     FB3_9        (b)     (b)               
+sr_right<9>                   1     FB3_10  22   I/O     (b)               
+sr_right<8>                   1     FB3_11  21   I/O     (b)               
+sr_right<7>                   1     FB3_12  20   I/O     (b)               
+sr_left<9>                    1     FB3_13       (b)     (b)               
+sr_right<6>                   1     FB3_14  19   I/O     (b)               
+sr_right<5>                   1     FB3_15  18   I/O     (b)               
+sr_left<8>                    1     FB3_16       (b)     (b)               
+
+Signals Used by Logic in Function Block
+  1: BCK                6: sr_right<1>       11: sr_right<6> 
+  2: LRCK               7: sr_right<2>       12: sr_right<7> 
+  3: sr_left<7>         8: sr_right<3>       13: sr_right<8> 
+  4: sr_left<8>         9: sr_right<4>       14: sr_right<9> 
+  5: sr_right<0>       10: sr_right<5>      
+
+Signal                     1         2         3         4 FB      
+Name             0----+----0----+----0----+----0----+----0 Inputs  
+CLKOUT            X....................................... 1       
+LEOUT             .X...................................... 1       
+sr_right<4>       .......X................................ 1       
+sr_right<3>       ......X................................. 1       
+sr_right<2>       .....X.................................. 1       
+sr_right<1>       ....X................................... 1       
+sr_right<10>      .............X.......................... 1       
+sr_right<9>       ............X........................... 1       
+sr_right<8>       ...........X............................ 1       
+sr_right<7>       ..........X............................. 1       
+sr_left<9>        ...X.................................... 1       
+sr_right<6>       .........X.............................. 1       
+sr_right<5>       ........X............................... 1       
+sr_left<8>        ..X..................................... 1       
+                 0----+----1----+----2----+----3----+----4
+                           0         0         0         0
 *********************************** FB4  ***********************************
 This function block is part of I/O Bank number:               1
 Number of function block inputs used/remaining:               0/40
@@ -272,56 +329,96 @@ Name                          Pt            No.  Type    Use
 
 CLKOUT <= BCK;
 
-FDCPE_D0: FDCPE port map (D0,DATAIN,BCK,'0','0','1');
+FDCPE_DATAOUTL: FDCPE port map (DATAOUTL,sr_left(30),BCK,'0','0','1');
 
-FDCPE_D10: FDCPE port map (D10,D9,BCK,'0','0','1');
-
-FDCPE_D1: FDCPE port map (D1,D0,BCK,'0','0','1');
-
-FDCPE_D2: FDCPE port map (D2,D1,BCK,'0','0','1');
-
-FDCPE_D3: FDCPE port map (D3,D2,BCK,'0','0','1');
-
-FDCPE_D4: FDCPE port map (D4,D3,BCK,'0','0','1');
-
-FDCPE_D5: FDCPE port map (D5,D4,BCK,'0','0','1');
-
-FDCPE_D6: FDCPE port map (D6,D5,BCK,'0','0','1');
-
-FDCPE_D7: FDCPE port map (D7,D6,BCK,'0','0','1');
-
-FDCPE_D8: FDCPE port map (D8,D7,BCK,'0','0','1');
-
-FDCPE_D9: FDCPE port map (D9,D8,BCK,'0','0','1');
-
-FDCPE_DA0: FDCPE port map (DA0,DATAOUTL,BCK,'0','0','1');
-
-FDCPE_DA10: FDCPE port map (DA10,DA9,BCK,'0','0','1');
-
-FDCPE_DA1: FDCPE port map (DA1,DA0,BCK,'0','0','1');
-
-FDCPE_DA2: FDCPE port map (DA2,DA1,BCK,'0','0','1');
-
-FDCPE_DA3: FDCPE port map (DA3,DA2,BCK,'0','0','1');
-
-FDCPE_DA4: FDCPE port map (DA4,DA3,BCK,'0','0','1');
-
-FDCPE_DA5: FDCPE port map (DA5,DA4,BCK,'0','0','1');
-
-FDCPE_DA6: FDCPE port map (DA6,DA5,BCK,'0','0','1');
-
-FDCPE_DA7: FDCPE port map (DA7,DA6,BCK,'0','0','1');
-
-FDCPE_DA8: FDCPE port map (DA8,DA7,BCK,'0','0','1');
-
-FDCPE_DA9: FDCPE port map (DA9,DA8,BCK,'0','0','1');
-
-FDCPE_DATAOUTL: FDCPE port map (DATAOUTL,D10,BCK,'0','0','1');
-
-FDCPE_DATAOUTR: FDCPE port map (DATAOUTR,DA10,BCK,'0','0','1');
+FDCPE_DATAOUTR: FDCPE port map (DATAOUTR,sr_right(10),BCK,'0','0','1');
 
 
 LEOUT <= LRCK;
+
+FDCPE_sr_left0: FDCPE port map (sr_left(0),DATAOUTR,BCK,'0','0','1');
+
+FDCPE_sr_left1: FDCPE port map (sr_left(1),sr_left(0),BCK,'0','0','1');
+
+FDCPE_sr_left2: FDCPE port map (sr_left(2),sr_left(1),BCK,'0','0','1');
+
+FDCPE_sr_left3: FDCPE port map (sr_left(3),sr_left(2),BCK,'0','0','1');
+
+FDCPE_sr_left4: FDCPE port map (sr_left(4),sr_left(3),BCK,'0','0','1');
+
+FDCPE_sr_left5: FDCPE port map (sr_left(5),sr_left(4),BCK,'0','0','1');
+
+FDCPE_sr_left6: FDCPE port map (sr_left(6),sr_left(5),BCK,'0','0','1');
+
+FDCPE_sr_left7: FDCPE port map (sr_left(7),sr_left(6),BCK,'0','0','1');
+
+FDCPE_sr_left8: FDCPE port map (sr_left(8),sr_left(7),BCK,'0','0','1');
+
+FDCPE_sr_left9: FDCPE port map (sr_left(9),sr_left(8),BCK,'0','0','1');
+
+FDCPE_sr_left10: FDCPE port map (sr_left(10),sr_left(9),BCK,'0','0','1');
+
+FDCPE_sr_left11: FDCPE port map (sr_left(11),sr_left(10),BCK,'0','0','1');
+
+FDCPE_sr_left12: FDCPE port map (sr_left(12),sr_left(11),BCK,'0','0','1');
+
+FDCPE_sr_left13: FDCPE port map (sr_left(13),sr_left(12),BCK,'0','0','1');
+
+FDCPE_sr_left14: FDCPE port map (sr_left(14),sr_left(13),BCK,'0','0','1');
+
+FDCPE_sr_left15: FDCPE port map (sr_left(15),sr_left(14),BCK,'0','0','1');
+
+FDCPE_sr_left16: FDCPE port map (sr_left(16),sr_left(15),BCK,'0','0','1');
+
+FDCPE_sr_left17: FDCPE port map (sr_left(17),sr_left(16),BCK,'0','0','1');
+
+FDCPE_sr_left18: FDCPE port map (sr_left(18),sr_left(17),BCK,'0','0','1');
+
+FDCPE_sr_left19: FDCPE port map (sr_left(19),sr_left(18),BCK,'0','0','1');
+
+FDCPE_sr_left20: FDCPE port map (sr_left(20),sr_left(19),BCK,'0','0','1');
+
+FDCPE_sr_left21: FDCPE port map (sr_left(21),sr_left(20),BCK,'0','0','1');
+
+FDCPE_sr_left22: FDCPE port map (sr_left(22),sr_left(21),BCK,'0','0','1');
+
+FDCPE_sr_left23: FDCPE port map (sr_left(23),sr_left(22),BCK,'0','0','1');
+
+FDCPE_sr_left24: FDCPE port map (sr_left(24),sr_left(23),BCK,'0','0','1');
+
+FDCPE_sr_left25: FDCPE port map (sr_left(25),sr_left(24),BCK,'0','0','1');
+
+FDCPE_sr_left26: FDCPE port map (sr_left(26),sr_left(25),BCK,'0','0','1');
+
+FDCPE_sr_left27: FDCPE port map (sr_left(27),sr_left(26),BCK,'0','0','1');
+
+FDCPE_sr_left28: FDCPE port map (sr_left(28),sr_left(27),BCK,'0','0','1');
+
+FDCPE_sr_left29: FDCPE port map (sr_left(29),sr_left(28),BCK,'0','0','1');
+
+FDCPE_sr_left30: FDCPE port map (sr_left(30),sr_left(29),BCK,'0','0','1');
+
+FDCPE_sr_right0: FDCPE port map (sr_right(0),DATAIN,BCK,'0','0','1');
+
+FDCPE_sr_right1: FDCPE port map (sr_right(1),sr_right(0),BCK,'0','0','1');
+
+FDCPE_sr_right2: FDCPE port map (sr_right(2),sr_right(1),BCK,'0','0','1');
+
+FDCPE_sr_right3: FDCPE port map (sr_right(3),sr_right(2),BCK,'0','0','1');
+
+FDCPE_sr_right4: FDCPE port map (sr_right(4),sr_right(3),BCK,'0','0','1');
+
+FDCPE_sr_right5: FDCPE port map (sr_right(5),sr_right(4),BCK,'0','0','1');
+
+FDCPE_sr_right6: FDCPE port map (sr_right(6),sr_right(5),BCK,'0','0','1');
+
+FDCPE_sr_right7: FDCPE port map (sr_right(7),sr_right(6),BCK,'0','0','1');
+
+FDCPE_sr_right8: FDCPE port map (sr_right(8),sr_right(7),BCK,'0','0','1');
+
+FDCPE_sr_right9: FDCPE port map (sr_right(9),sr_right(8),BCK,'0','0','1');
+
+FDCPE_sr_right10: FDCPE port map (sr_right(10),sr_right(9),BCK,'0','0','1');
 
 
 Register Legend:
@@ -359,9 +456,9 @@ No. Name                           No. Name
   2 KPR                              24 TDO                           
   3 KPR                              25 GND                           
   4 GND                              26 VCCIO-1.8                     
-  5 KPR                              27 KPR                           
-  6 KPR                              28 KPR                           
-  7 VCCIO-1.8                        29 KPR                           
+  5 KPR                              27 LRCK                          
+  6 KPR                              28 LEOUT                         
+  7 VCCIO-1.8                        29 CLKOUT                        
   8 KPR                              30 KPR                           
   9 TDI                              31 KPR                           
  10 TMS                              32 KPR                           
@@ -371,9 +468,9 @@ No. Name                           No. Name
  14 KPR                              36 DATAOUTR                      
  15 VCC                              37 DATAOUTL                      
  16 KPR                              38 DATAIN                        
- 17 GND                              39 CLKOUT                        
- 18 KPR                              40 LEOUT                         
- 19 KPR                              41 LRCK                          
+ 17 GND                              39 KPR                           
+ 18 KPR                              40 KPR                           
+ 19 KPR                              41 KPR                           
  20 KPR                              42 KPR                           
  21 KPR                              43 BCK                           
  22 KPR                              44 KPR                           

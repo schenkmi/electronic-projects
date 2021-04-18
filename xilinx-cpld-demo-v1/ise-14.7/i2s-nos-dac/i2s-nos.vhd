@@ -41,30 +41,70 @@ entity i2s_nos is
 end i2s_nos;
 
 architecture Behavioral of i2s_nos is
-	signal D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11 : STD_LOGIC;
+	--signal D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11 : STD_LOGIC;
 	signal DA0, DA1, DA2, DA3, DA4, DA5, DA6, DA7, DA8, DA9, DA10, DA11 : STD_LOGIC;
+	
+	
+	-- Build an array type for the shift register
+	type sr_right_length is array (11 downto 0) of std_logic;
+	
+	-- Declare the shift register signal
+	signal sr_right: sr_right_length;
+	
+	
+	type sr_left_length is array (31 downto 0) of std_logic;
+	signal sr_left: sr_left_length;
+	
 	begin
-	SHIFT : process (BCK)
+	--SHIFT : process (BCK)
+	--	begin
+	--		if (BCK'event and BCK='1') then
+	--			D0 <= DATAIN; D1 <= D0; D2 <= D1; D3 <= D2;
+	--			D4 <= D3; D5 <= D4; D6 <= D5; D7 <= D6; 
+	--			D8 <= D7; D9 <= D8; D10 <= D9; D11 <= D10;
+	--		end if;
+	--	end process;
+		
+	--		SHIFT2 : process (BCK)
+	--	begin
+	--		if (BCK'event and BCK='1') then
+	--			DA0 <= D11; DA1 <= DA0; DA2 <= DA1; DA3 <= DA2;
+	--			DA4 <= DA3; DA5 <= DA4; DA6 <= DA5; DA7 <= DA6; 
+	--			DA8 <= DA7; DA9 <= DA8; DA10 <= DA9; DA11 <= DA10;
+	--		end if;
+	--	end process;
+		
+		
+		SHIFT3 : process (BCK)
 		begin
-			if (BCK'event and BCK='1') then
-				D0 <= DATAIN; D1 <= D0; D2 <= D1; D3 <= D2;
-				D4 <= D3; D5 <= D4; D6 <= D5; D7 <= D6; 
-				D8 <= D7; D9 <= D8; D10 <= D9; D11 <= D10;
+			if (rising_edge(BCK)) then
+						-- Shift data by one stage; data from last stage is lost
+				sr_right(11 downto 1) <= sr_right(10 downto 0);
+				
+				-- Load new data into the first stage
+				sr_right(0) <= DATAIN;
 			end if;
 		end process;
 		
-			SHIFT2 : process (BCK)
+		
+		SHIFTL : process (BCK)
 		begin
-			if (BCK'event and BCK='1') then
-				DA0 <= D11; DA1 <= DA0; DA2 <= DA1; DA3 <= DA2;
-				DA4 <= DA3; DA5 <= DA4; DA6 <= DA5; DA7 <= DA6; 
-				DA8 <= DA7; DA9 <= DA8; DA10 <= DA9; DA11 <= DA10;
+			if (rising_edge(BCK)) then
+						-- Shift data by one stage; data from last stage is lost
+				sr_left(31 downto 1) <= sr_left(30 downto 0);
+				
+				-- Load new data into the first stage
+				sr_left(0) <= sr_right(11);
 			end if;
 		end process;
 		
+		-- Capture the data from the last stage, before it is lost
+		DATAOUTR <= sr_right(11);
+		DATAOUTL <= sr_left(31);
+	
 		
-		DATAOUTL <= D11;
-		DATAOUTR <= DA11;
+		-- DATAOUTL <= D11;
+		--DATAOUTR <= DA11;
 		CLKOUT <= BCK;
 		LEOUT <= LRCK;
 
