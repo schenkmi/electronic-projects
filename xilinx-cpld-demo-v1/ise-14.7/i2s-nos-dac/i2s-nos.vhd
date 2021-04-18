@@ -47,10 +47,14 @@ architecture Behavioral of i2s_nos is
 		begin
 			if (BCK'event and BCK='1') then
 				D0 <= DATAIN; D1 <= D0; D2 <= D1; D3 <= D2;
+				D4 <= D3; D5 <= D4; D6 <= D5; D7 <= D6; 
+				D8 <= D7; D9 <= D8; D10 <= D9; D11 <= D10;
 			end if;
 		end process;
 		
-		DATAOUTL <= D2;
+		DATAOUTL <= D11;
+		CLKOUT <= BCK;
+		LEOUT <= LRCK;
 
 end Behavioral;
 

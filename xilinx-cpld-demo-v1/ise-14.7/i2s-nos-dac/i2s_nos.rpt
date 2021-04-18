@@ -1,7 +1,7 @@
  
 cpldfit:  version P.20131013                        Xilinx Inc.
                                   Fitter Report
-Design Name: i2s_nos                             Date:  4-18-2021, 11:11AM
+Design Name: i2s_nos                             Date:  4-18-2021, 11:17AM
 Device Used: XC2C64A-5-VQ44
 Fitting Status: Successful
 
@@ -9,18 +9,18 @@ Fitting Status: Successful
 
 Macrocells     Product Terms    Function Block   Registers      Pins           
 Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
-3  /64  (  5%) 2   /224  (  1%) 2   /160  (  1%) 3  /64  (  5%) 3  /33  (  9%)
+12 /64  ( 19%) 11  /224  (  5%) 11  /160  (  7%) 12 /64  ( 19%) 3  /33  (  9%)
 
 ** Function Block Resources **
 
 Function Mcells   FB Inps  Pterms   IO       CTC      CTR      CTS      CTE     
 Block    Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot
-FB1       3/16      2/40     2/56     1/ 8    0/1      0/1      0/1      0/1
+FB1      12/16     11/40    11/56     1/ 8    0/1      0/1      0/1      0/1
 FB2       0/16      0/40     0/56     0/ 9    0/1      0/1      0/1      0/1
 FB3       0/16      0/40     0/56     0/ 9    0/1      0/1      0/1      0/1
 FB4       0/16      0/40     0/56     0/ 7    0/1      0/1      0/1      0/1
          -----    -------  -------   -----    ---      ---      ---      ---
-Total     3/64      2/160    2/224    1/33    0/4      0/4      0/4      0/4 
+Total    12/64     11/160   11/224    1/33    0/4      0/4      0/4      0/4 
 
 CTC - Control Term Clock
 CTR - Control Term Reset
@@ -63,11 +63,20 @@ Signal              Total Total Bank Loc     Pin   Pin       Pin     I/O      I/
 Name                Pts   Inps               No.   Type      Use     STD      Style     Rate Use     State
 DATAOUTL            1     1     2    FB1_2   37    I/O       O       LVCMOS18           FAST DFF     RESET
 
-** 2 Buried Nodes **
+** 11 Buried Nodes **
 
 Signal              Total Total Loc     Reg     Reg Init
 Name                Pts   Inps          Use     State
 D0                  0     0     FB1_1   DFF     RESET
+D7                  1     1     FB1_4   DFF     RESET
+D6                  1     1     FB1_5   DFF     RESET
+D5                  1     1     FB1_6   DFF     RESET
+D4                  1     1     FB1_7   DFF     RESET
+D3                  1     1     FB1_8   DFF     RESET
+D9                  1     1     FB1_12  DFF     RESET
+D8                  1     1     FB1_13  DFF     RESET
+D2                  1     1     FB1_14  DFF     RESET
+D10                 1     1     FB1_15  DFF     RESET
 D1                  1     1     FB1_16  DFF     RESET
 
 ** 2 Inputs **
@@ -103,34 +112,46 @@ Pin Type/Use - I  - Input             GCK - Global clock
 Pin No.      - ~  - User Assigned
 *********************************** FB1  ***********************************
 This function block is part of I/O Bank number:               2
-Number of function block inputs used/remaining:               2/38
+Number of function block inputs used/remaining:               11/29
 Number of function block control terms used/remaining:        0/4
-Number of PLA product terms used/remaining:                   2/54
+Number of PLA product terms used/remaining:                   11/45
 Signal                        Total Loc     Pin  Pin     Pin   CTC CTR CTS CTE
 Name                          Pt            No.  Type    Use   
 D0                            0     FB1_1   38   I/O     I                 
 DATAOUTL                      1     FB1_2   37   I/O     O                 
 (unused)                      0     FB1_3   36   I/O           
-(unused)                      0     FB1_4        (b)           
-(unused)                      0     FB1_5        (b)           
-(unused)                      0     FB1_6        (b)           
-(unused)                      0     FB1_7        (b)           
-(unused)                      0     FB1_8        (b)           
+D7                            1     FB1_4        (b)     (b)               
+D6                            1     FB1_5        (b)     (b)               
+D5                            1     FB1_6        (b)     (b)               
+D4                            1     FB1_7        (b)     (b)               
+D3                            1     FB1_8        (b)     (b)               
 (unused)                      0     FB1_9   34   GTS/I/O       
 (unused)                      0     FB1_10  33   GTS/I/O       
 (unused)                      0     FB1_11  32   GTS/I/O       
-(unused)                      0     FB1_12  31   GTS/I/O       
-(unused)                      0     FB1_13  30   GSR/I/O       
-(unused)                      0     FB1_14       (b)           
-(unused)                      0     FB1_15       (b)           
+D9                            1     FB1_12  31   GTS/I/O (b)               
+D8                            1     FB1_13  30   GSR/I/O (b)               
+D2                            1     FB1_14       (b)     (b)               
+D10                           1     FB1_15       (b)     (b)               
 D1                            1     FB1_16       (b)     (b)               
 
 Signals Used by Logic in Function Block
-  1: D0                 2: D1               
+  1: D0                 5: D3                 9: D7 
+  2: D1                 6: D4                10: D8 
+  3: D10                7: D5                11: D9 
+  4: D2                 8: D6               
 
 Signal                     1         2         3         4 FB      
 Name             0----+----0----+----0----+----0----+----0 Inputs  
-DATAOUTL          .X...................................... 1       
+DATAOUTL          ..X..................................... 1       
+D7                .......X................................ 1       
+D6                ......X................................. 1       
+D5                .....X.................................. 1       
+D4                ....X................................... 1       
+D3                ...X.................................... 1       
+D9                .........X.............................. 1       
+D8                ........X............................... 1       
+D2                .X...................................... 1       
+D10               ..........X............................. 1       
 D1                X....................................... 1       
                  0----+----1----+----2----+----3----+----4
                            0         0         0         0
@@ -209,9 +230,27 @@ Name                          Pt            No.  Type    Use
 
 FDCPE_D0: FDCPE port map (D0,DATAIN,BCK,'0','0','1');
 
+FDCPE_D10: FDCPE port map (D10,D9,BCK,'0','0','1');
+
 FDCPE_D1: FDCPE port map (D1,D0,BCK,'0','0','1');
 
-FDCPE_DATAOUTL: FDCPE port map (DATAOUTL,D1,BCK,'0','0','1');
+FDCPE_D2: FDCPE port map (D2,D1,BCK,'0','0','1');
+
+FDCPE_D3: FDCPE port map (D3,D2,BCK,'0','0','1');
+
+FDCPE_D4: FDCPE port map (D4,D3,BCK,'0','0','1');
+
+FDCPE_D5: FDCPE port map (D5,D4,BCK,'0','0','1');
+
+FDCPE_D6: FDCPE port map (D6,D5,BCK,'0','0','1');
+
+FDCPE_D7: FDCPE port map (D7,D6,BCK,'0','0','1');
+
+FDCPE_D8: FDCPE port map (D8,D7,BCK,'0','0','1');
+
+FDCPE_D9: FDCPE port map (D9,D8,BCK,'0','0','1');
+
+FDCPE_DATAOUTL: FDCPE port map (DATAOUTL,D10,BCK,'0','0','1');
 
 
 Register Legend:

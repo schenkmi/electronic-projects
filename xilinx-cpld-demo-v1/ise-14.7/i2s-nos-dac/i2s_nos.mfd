@@ -2,16 +2,106 @@ MDF Database:  version 1.0
 MDF_INFO | i2s_nos | XC2C64A-5-VQ44
 MACROCELL | 0 | 1 | DATAOUTL_MC
 ATTRIBUTES | 8684290 | 0
+INPUTS | 1 | D10
+INPUTMC | 1 | 0 | 14
+EQ | 2 | 
+   DATAOUTL := D10;	// (1 pt, 1 inp)
+   DATAOUTL.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 14 | D10_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 1
+INPUTS | 1 | D9
+INPUTMC | 1 | 0 | 11
+EQ | 2 | 
+   D10 := D9;	// (1 pt, 1 inp)
+   D10.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 11 | D9_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 14
+INPUTS | 1 | D8
+INPUTMC | 1 | 0 | 12
+EQ | 2 | 
+   D9 := D8;	// (1 pt, 1 inp)
+   D9.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 12 | D8_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 11
+INPUTS | 1 | D7
+INPUTMC | 1 | 0 | 3
+EQ | 2 | 
+   D8 := D7;	// (1 pt, 1 inp)
+   D8.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 3 | D7_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 12
+INPUTS | 1 | D6
+INPUTMC | 1 | 0 | 4
+EQ | 2 | 
+   D7 := D6;	// (1 pt, 1 inp)
+   D7.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 4 | D6_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 3
+INPUTS | 1 | D5
+INPUTMC | 1 | 0 | 5
+EQ | 2 | 
+   D6 := D5;	// (1 pt, 1 inp)
+   D6.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 5 | D5_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 4
+INPUTS | 1 | D4
+INPUTMC | 1 | 0 | 6
+EQ | 2 | 
+   D5 := D4;	// (1 pt, 1 inp)
+   D5.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 6 | D4_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 5
+INPUTS | 1 | D3
+INPUTMC | 1 | 0 | 7
+EQ | 2 | 
+   D4 := D3;	// (1 pt, 1 inp)
+   D4.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 7 | D3_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 6
+INPUTS | 1 | D2
+INPUTMC | 1 | 0 | 13
+EQ | 2 | 
+   D3 := D2;	// (1 pt, 1 inp)
+   D3.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | BCK
+
+MACROCELL | 0 | 13 | D2_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 7
 INPUTS | 1 | D1
 INPUTMC | 1 | 0 | 15
 EQ | 2 | 
-   DATAOUTL := D1;	// (1 pt, 1 inp)
-   DATAOUTL.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
+   D2 := D1;	// (1 pt, 1 inp)
+   D2.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
 GLOBALS | 1 | 2 | BCK
 
 MACROCELL | 0 | 15 | D1_MC
 ATTRIBUTES | 2155905792 | 0
-OUTPUTMC | 1 | 0 | 1
+OUTPUTMC | 1 | 0 | 13
 INPUTS | 1 | D0
 INPUTMC | 1 | 0 | 0
 EQ | 2 | 
@@ -30,6 +120,6 @@ D0 := DATAIN;	// (0 pt, 0 inp)
    D0.CLK  =  BCK;	// GCK	(0 pt, 0 inp)
 GLOBALS | 1 | 2 | BCK
 
-PIN | BCK | 4096 | 16 | LVCMOS18 | 19 | 3 | 0 | 0 | 0 | 15 | 0 | 1
+PIN | BCK | 4096 | 16 | LVCMOS18 | 19 | 12 | 0 | 0 | 0 | 15 | 0 | 13 | 0 | 7 | 0 | 6 | 0 | 5 | 0 | 4 | 0 | 3 | 0 | 12 | 0 | 11 | 0 | 14 | 0 | 1
 PIN | DATAIN | 64 | 16 | LVCMOS18 | 11 | 1 | 0 | 0
 PIN | DATAOUTL | 536871040 | 0 | LVCMOS18 | 10
