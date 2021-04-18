@@ -42,7 +42,7 @@ end i2s_nos;
 
 architecture Behavioral of i2s_nos is
 	--signal D0, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11 : STD_LOGIC;
-	signal DA0, DA1, DA2, DA3, DA4, DA5, DA6, DA7, DA8, DA9, DA10, DA11 : STD_LOGIC;
+	--signal DA0, DA1, DA2, DA3, DA4, DA5, DA6, DA7, DA8, DA9, DA10, DA11 : STD_LOGIC;
 	
 	
 	-- Build an array type for the shift register
