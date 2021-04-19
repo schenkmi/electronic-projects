@@ -34,10 +34,12 @@ entity i2s_nos is
            BCK : in  STD_LOGIC;
            LRCK : in  STD_LOGIC;
            DATAIN : in  STD_LOGIC;
-           CLKOUT : out  STD_LOGIC;
-           LEOUT : out  STD_LOGIC;
-           DATAOUTL : out  STD_LOGIC;
-           DATAOUTR : out  STD_LOGIC);
+           CLKOUTR : out  STD_LOGIC;
+           LEOUTR : out  STD_LOGIC;
+           DATAOUTR : out  STD_LOGIC;
+			  CLKOUTL : out  STD_LOGIC;
+           LEOUTL : out  STD_LOGIC;  
+           DATAOUTL : out  STD_LOGIC);
 end i2s_nos;
 
 architecture Behavioral of i2s_nos is
@@ -75,7 +77,7 @@ architecture Behavioral of i2s_nos is
 	--	end process;
 		
 		
-		SHIFT3 : process (BCK)
+		SHIFTR : process (BCK)
 		begin
 			if (rising_edge(BCK)) then
 						-- Shift data by one stage; data from last stage is lost
@@ -99,14 +101,14 @@ architecture Behavioral of i2s_nos is
 		end process;
 		
 		-- Capture the data from the last stage, before it is lost
+		CLKOUTR <= BCK;
+		LEOUTR <= LRCK;
 		DATAOUTR <= sr_right(11);
+		
+		CLKOUTL <= BCK;
+		LEOUTL <= LRCK;
 		DATAOUTL <= sr_left(31);
 	
-		
-		-- DATAOUTL <= D11;
-		--DATAOUTR <= DA11;
-		CLKOUT <= BCK;
-		LEOUT <= LRCK;
 
 end Behavioral;
 
