@@ -735,15 +735,15 @@ PIN14-IO1
 Text GLabel 1700 7250 0    50   BiDi ~ 0
 PIN16-IO1
 Text GLabel 3600 5650 2    50   BiDi ~ 0
-PIN18-IO1
+PIN18-IO2
 Text GLabel 3600 5750 2    50   BiDi ~ 0
-PIN19-IO1
+PIN19-IO2
 Text GLabel 3600 5850 2    50   BiDi ~ 0
-PIN20-IO1
+PIN20-IO2
 Text GLabel 3600 5950 2    50   BiDi ~ 0
-PIN21-IO1
+PIN21-IO2
 Text GLabel 3600 6050 2    50   BiDi ~ 0
-PIN22-IO1
+PIN22-IO2
 Wire Wire Line
 	1700 6950 1950 6950
 Wire Wire Line
@@ -779,15 +779,15 @@ Wire Wire Line
 Wire Wire Line
 	9250 3200 9500 3200
 Text GLabel 9250 3300 0    50   BiDi ~ 0
-PIN18-IO1
+PIN18-IO2
 Text GLabel 9250 3400 0    50   BiDi ~ 0
-PIN19-IO1
+PIN19-IO2
 Text GLabel 9250 3500 0    50   BiDi ~ 0
-PIN20-IO1
+PIN20-IO2
 Text GLabel 9250 3600 0    50   BiDi ~ 0
-PIN21-IO1
+PIN21-IO2
 Text GLabel 9250 3700 0    50   BiDi ~ 0
-PIN22-IO1
+PIN22-IO2
 Wire Wire Line
 	9500 3300 9250 3300
 Wire Wire Line
@@ -886,4 +886,60 @@ Wire Wire Line
 	9250 6250 9500 6250
 Wire Wire Line
 	9250 6350 9500 6350
+Text GLabel 3600 6850 2    50   BiDi ~ 0
+PIN32-IO2-GTS3
+Wire Wire Line
+	3600 6850 3350 6850
+Text GLabel 9250 5250 0    50   BiDi ~ 0
+PIN32-IO2-GTS3
+Text GLabel 3600 6750 2    50   BiDi ~ 0
+PIN31-IO2-GTS2
+Text GLabel 3600 6650 2    50   BiDi ~ 0
+PIN30-IO2-GSR
+Wire Wire Line
+	3600 6750 3350 6750
+Wire Wire Line
+	3600 6650 3350 6650
+Text GLabel 9250 5150 0    50   BiDi ~ 0
+PIN31-IO2-GTS2
+Text GLabel 9250 5050 0    50   BiDi ~ 0
+PIN30-IO2-GSR
+Wire Wire Line
+	9250 5150 9500 5150
+Wire Wire Line
+	9250 5050 9500 5050
+Wire Wire Line
+	9250 5250 9500 5250
+Text GLabel 3600 6450 2    50   BiDi ~ 0
+PIN29-IO2
+Text GLabel 3600 6350 2    50   BiDi ~ 0
+PIN28-IO2
+Text GLabel 3600 6250 2    50   BiDi ~ 0
+PIN27-IO2
+Text GLabel 3600 6150 2    50   BiDi ~ 0
+PIN23-IO2
+Wire Wire Line
+	3600 6150 3350 6150
+Wire Wire Line
+	3350 6250 3600 6250
+Wire Wire Line
+	3600 6350 3350 6350
+Wire Wire Line
+	3350 6450 3600 6450
+Text GLabel 9250 4950 0    50   BiDi ~ 0
+PIN29-IO2
+Text GLabel 9250 4850 0    50   BiDi ~ 0
+PIN28-IO2
+Text GLabel 9250 4750 0    50   BiDi ~ 0
+PIN27-IO2
+Text GLabel 9250 4650 0    50   BiDi ~ 0
+PIN23-IO2
+Wire Wire Line
+	9250 4650 9500 4650
+Wire Wire Line
+	9500 4750 9250 4750
+Wire Wire Line
+	9250 4850 9500 4850
+Wire Wire Line
+	9500 4950 9250 4950
 $EndSCHEMATC
