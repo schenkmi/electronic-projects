@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "DAC I2S NOS"
-Date "2021-04-18"
-Rev "V1"
+Date "2021-04-24"
+Rev "V2"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -348,17 +348,6 @@ F 3 "https://www.xilinx.com/support/documentation/data_sheets/ds311.pdf" H 3350 
 	1    0    0    -1  
 $EndComp
 $Comp
-L Power_Protection:USBLC6-4SC6 U5
-U 1 1 607F668B
-P 14050 7650
-F 0 "U5" H 13800 8000 50  0000 C CNN
-F 1 "CM1293A−04SO" H 14400 7250 50  0000 C CNN
-F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 14050 7150 50  0001 C CNN
-F 3 "https://www.st.com/resource/en/datasheet/usblc6-4.pdf" H 14250 8000 50  0001 C CNN
-	1    14050 7650
-	1    0    0    -1  
-$EndComp
-$Comp
 L Regulator_Linear:TC1017-xCT U1
 U 1 1 607D3EFE
 P 3650 10300
@@ -583,87 +572,6 @@ Wire Wire Line
 	5300 8850 6100 8850
 Wire Wire Line
 	5300 10200 6150 10200
-$Comp
-L Connector:Conn_01x06_Male J2
-U 1 1 6080540D
-P 15500 6700
-F 0 "J2" V 15562 6944 50  0000 L CNN
-F 1 "Conn_01x06_Male" V 15653 6944 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 15500 6700 50  0001 C CNN
-F 3 "~" H 15500 6700 50  0001 C CNN
-	1    15500 6700
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0107
-U 1 1 609C7E29
-P 14900 6900
-F 0 "#PWR0107" H 14900 6650 50  0001 C CNN
-F 1 "GND" H 14905 6727 50  0000 C CNN
-F 2 "" H 14900 6900 50  0001 C CNN
-F 3 "" H 14900 6900 50  0001 C CNN
-	1    14900 6900
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:+3.3V #PWR0108
-U 1 1 609C88D2
-P 15100 7000
-F 0 "#PWR0108" H 15100 6850 50  0001 C CNN
-F 1 "+3.3V" H 15115 7173 50  0000 C CNN
-F 2 "" H 15100 7000 50  0001 C CNN
-F 3 "" H 15100 7000 50  0001 C CNN
-	1    15100 7000
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	15300 7000 15100 7000
-Wire Wire Line
-	15300 6900 14900 6900
-Text GLabel 13350 6500 0    50   BiDi ~ 0
-JTAG_TMS
-Text GLabel 13350 6600 0    50   BiDi ~ 0
-JTAG_TDI
-Text GLabel 13350 6700 0    50   BiDi ~ 0
-JTAG_TDO
-Text GLabel 13350 6800 0    50   BiDi ~ 0
-JTAG_TCK
-Wire Wire Line
-	15300 6800 14650 6800
-Wire Wire Line
-	15300 6700 14550 6700
-Wire Wire Line
-	15300 6600 13500 6600
-Wire Wire Line
-	15300 6500 13600 6500
-Wire Wire Line
-	13650 7550 13600 7550
-Wire Wire Line
-	13600 7550 13600 6500
-Connection ~ 13600 6500
-Wire Wire Line
-	13600 6500 13350 6500
-Wire Wire Line
-	13650 7750 13500 7750
-Wire Wire Line
-	13500 7750 13500 6600
-Connection ~ 13500 6600
-Wire Wire Line
-	13500 6600 13350 6600
-Wire Wire Line
-	14450 7550 14550 7550
-Wire Wire Line
-	14550 7550 14550 6700
-Connection ~ 14550 6700
-Wire Wire Line
-	14550 6700 13350 6700
-Wire Wire Line
-	14450 7750 14650 7750
-Wire Wire Line
-	14650 7750 14650 6800
-Connection ~ 14650 6800
-Wire Wire Line
-	14650 6800 13350 6800
 Text GLabel 1500 5300 0    50   BiDi ~ 0
 JTAG_TMS
 Text GLabel 1500 5200 0    50   BiDi ~ 0
@@ -908,32 +816,6 @@ Wire Wire Line
 	1200 5900 1750 5900
 Wire Wire Line
 	1200 6100 1750 6100
-$Comp
-L power:GND #PWR0109
-U 1 1 60B35F5D
-P 14050 8150
-F 0 "#PWR0109" H 14050 7900 50  0001 C CNN
-F 1 "GND" H 14055 7977 50  0000 C CNN
-F 2 "" H 14050 8150 50  0001 C CNN
-F 3 "" H 14050 8150 50  0001 C CNN
-	1    14050 8150
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	14050 8150 14050 8050
-$Comp
-L power:+3.3V #PWR0110
-U 1 1 60B3C74B
-P 14050 7150
-F 0 "#PWR0110" H 14050 7000 50  0001 C CNN
-F 1 "+3.3V" H 14065 7323 50  0000 C CNN
-F 2 "" H 14050 7150 50  0001 C CNN
-F 3 "" H 14050 7150 50  0001 C CNN
-	1    14050 7150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	14050 7250 14050 7150
 Text GLabel 4150 6000 2    50   Output ~ 0
 CLKOUTR
 Text GLabel 4150 5900 2    50   Output ~ 0
@@ -2307,4 +2189,158 @@ Wire Wire Line
 Wire Wire Line
 	12550 4850 12550 4900
 Connection ~ 12550 4850
+$Comp
+L Power_Protection:USBLC6-4SC6 U5
+U 1 1 6086A499
+P 13250 7650
+F 0 "U5" H 13000 8000 50  0000 C CNN
+F 1 "CM1293A−04SO" H 13600 7250 50  0000 C CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 13250 7150 50  0001 C CNN
+F 3 "https://www.st.com/resource/en/datasheet/usblc6-4.pdf" H 13450 8000 50  0001 C CNN
+	1    13250 7650
+	1    0    0    -1  
+$EndComp
+Text GLabel 12550 6500 0    50   BiDi ~ 0
+JTAG_TMS
+Text GLabel 12550 6800 0    50   BiDi ~ 0
+JTAG_TDI
+Text GLabel 12550 6700 0    50   BiDi ~ 0
+JTAG_TDO
+Text GLabel 12550 6600 0    50   BiDi ~ 0
+JTAG_TCK
+Wire Wire Line
+	14500 6500 12800 6500
+Wire Wire Line
+	12850 7550 12800 7550
+Wire Wire Line
+	12800 7550 12800 6500
+Connection ~ 12800 6500
+Wire Wire Line
+	12800 6500 12550 6500
+Wire Wire Line
+	12850 7750 12700 7750
+Wire Wire Line
+	13650 7550 13750 7550
+Wire Wire Line
+	13650 7750 13850 7750
+$Comp
+L power:GND #PWR0107
+U 1 1 6086A4AB
+P 13250 8150
+F 0 "#PWR0107" H 13250 7900 50  0001 C CNN
+F 1 "GND" H 13255 7977 50  0000 C CNN
+F 2 "" H 13250 8150 50  0001 C CNN
+F 3 "" H 13250 8150 50  0001 C CNN
+	1    13250 8150
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	13250 8150 13250 8050
+$Comp
+L power:+3.3V #PWR0108
+U 1 1 6086A4B2
+P 13250 7150
+F 0 "#PWR0108" H 13250 7000 50  0001 C CNN
+F 1 "+3.3V" H 13265 7323 50  0000 C CNN
+F 2 "" H 13250 7150 50  0001 C CNN
+F 3 "" H 13250 7150 50  0001 C CNN
+	1    13250 7150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13250 7250 13250 7150
+$Comp
+L Connector_Generic:Conn_02x07_Odd_Even J2
+U 1 1 6086A4B9
+P 14800 6700
+F 0 "J2" H 14850 7217 50  0000 C CNN
+F 1 "Conn_02x07_Odd_Even" H 14850 7126 50  0000 C CNN
+F 2 "Connector_PinHeader_2.00mm:PinHeader_2x07_P2.00mm_Vertical" H 14800 6700 50  0001 C CNN
+F 3 "~" H 14800 6700 50  0001 C CNN
+	1    14800 6700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0109
+U 1 1 6086A4BF
+P 15150 7100
+F 0 "#PWR0109" H 15150 6850 50  0001 C CNN
+F 1 "GND" H 15155 6927 50  0000 C CNN
+F 2 "" H 15150 7100 50  0001 C CNN
+F 3 "" H 15150 7100 50  0001 C CNN
+	1    15150 7100
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	15150 7100 15150 7000
+Wire Wire Line
+	15150 6400 15000 6400
+Wire Wire Line
+	15000 6500 15150 6500
+Connection ~ 15150 6500
+Wire Wire Line
+	15150 6500 15150 6400
+Wire Wire Line
+	15000 6600 15150 6600
+Connection ~ 15150 6600
+Wire Wire Line
+	15150 6600 15150 6500
+Wire Wire Line
+	15000 6700 15150 6700
+Connection ~ 15150 6700
+Wire Wire Line
+	15150 6700 15150 6600
+Wire Wire Line
+	15000 6800 15150 6800
+Connection ~ 15150 6800
+Wire Wire Line
+	15150 6800 15150 6700
+Wire Wire Line
+	15000 6900 15150 6900
+Connection ~ 15150 6900
+Wire Wire Line
+	15150 6900 15150 6800
+Wire Wire Line
+	15000 7000 15150 7000
+Connection ~ 15150 7000
+Wire Wire Line
+	15150 7000 15150 6900
+$Comp
+L power:+3.3V #PWR0110
+U 1 1 6086A4D9
+P 14250 6250
+F 0 "#PWR0110" H 14250 6100 50  0001 C CNN
+F 1 "+3.3V" H 14265 6423 50  0000 C CNN
+F 2 "" H 14250 6250 50  0001 C CNN
+F 3 "" H 14250 6250 50  0001 C CNN
+	1    14250 6250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14500 6400 14250 6400
+Wire Wire Line
+	14250 6400 14250 6250
+NoConn ~ 14500 6900
+NoConn ~ 14500 7000
+Wire Wire Line
+	12550 6800 13850 6800
+Wire Wire Line
+	13850 7750 13850 6800
+Connection ~ 13850 6800
+Wire Wire Line
+	13850 6800 14500 6800
+Wire Wire Line
+	12550 6700 12700 6700
+Wire Wire Line
+	13750 7550 13750 6600
+Connection ~ 13750 6600
+Wire Wire Line
+	13750 6600 14500 6600
+Wire Wire Line
+	12550 6600 13750 6600
+Wire Wire Line
+	12700 7750 12700 6700
+Connection ~ 12700 6700
+Wire Wire Line
+	12700 6700 14500 6700
 $EndSCHEMATC
