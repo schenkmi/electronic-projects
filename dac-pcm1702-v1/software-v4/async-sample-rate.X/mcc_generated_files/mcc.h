@@ -53,6 +53,7 @@
 #include <stdbool.h>
 #include <conio.h>
 #include "i2c1_master.h"
+#include "i2c2_master.h"
 
 
 
