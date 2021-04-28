@@ -147,6 +147,11 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 #define INPUT_RX4   3
 #define MAX_INPUTS  INPUT_RX4
 
+#define SRC_OUTPUT_BITS 20
+//#define SRC_OUTPUT_BITS 24
+
+
+
 // Read one byte from the SRC4392
 uint8_t src4392_read(uint8_t reg)
 {
@@ -464,8 +469,16 @@ void init(void)
 	// - autodem enabled
 	src4392_write(SRC_REG2D, 0x02);	// default input source = DIR
 	src4392_write(SRC_REG2E, 0x20);
-  
-	src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
+ 
+#if SRC_OUTPUT_BITS == 24
+    src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
+#elif SRC_OUTPUT_BITS == 20
+    src4392_write(SRC_REG2F, 0x40); // SRC output 20 Bit
+#else
+    // default 24 Bit
+    src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
+#endif
+    
 	src4392_write(SRC_REG30, 0x00);
 	src4392_write(SRC_REG31, 0x00);
 
@@ -513,6 +526,10 @@ void init(void)
  */
 void main(void)
 {
+    uint8_t recv_status_reg2;
+    uint8_t sr;
+    uint8_t last_sr;
+    
     // initialize the device
     SYSTEM_Initialize();
 
@@ -530,6 +547,25 @@ void main(void)
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
+    
+#if 0
+    LED_D5_SetLow();
+    LED_D4_SetLow();
+    
+    LED_D5_SetDigitalOutput();
+    
+    __delay_ms(500);
+    
+    LED_D5_SetDigitalInput();
+    
+     __delay_ms(500);
+    
+        LED_D4_SetDigitalOutput();
+    
+    __delay_ms(500);
+    
+    LED_D4_SetDigitalInput();
+#endif
 
     init();
     
@@ -542,7 +578,37 @@ void main(void)
     set_input(INPUT_RX1, DIT_UPSAMPLE);
     
     while (1) {
-        __delay_ms(20);
+        __delay_ms(100);
+
+        sr = get_sample_rate();
+        if (last_sr != sr) {
+            last_sr = sr;
+            
+            switch (last_sr) {
+                case SAMPLERATE_192KHZ:
+                    LED_D5_SetDigitalOutput();
+                    LED_D4_SetDigitalOutput();
+                    break;
+                case SAMPLERATE_96KHZ:
+                    LED_D5_SetDigitalInput();
+                    LED_D4_SetDigitalOutput();
+                    break; 
+                case SAMPLERATE_44KHZ:
+                    LED_D4_SetDigitalInput();
+                    LED_D5_SetDigitalOutput();
+                    break;
+                default:
+                    LED_D5_SetDigitalInput();
+                    LED_D4_SetDigitalInput();
+                    break;
+            }
+        }
+        
+        recv_status_reg2 =  src4392_read(SRC_REG0E);
+        
+        if (recv_status_reg2 & 0x4) {
+            LED_D5_SetDigitalOutput();
+        }
     }
 }
 /**
