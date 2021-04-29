@@ -147,8 +147,8 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 #define INPUT_RX4   3
 #define MAX_INPUTS  INPUT_RX4
 
-#define SRC_OUTPUT_BITS 20
-//#define SRC_OUTPUT_BITS 24
+//#define SRC_OUTPUT_BITS 20
+#define SRC_OUTPUT_BITS 24
 
 
 
