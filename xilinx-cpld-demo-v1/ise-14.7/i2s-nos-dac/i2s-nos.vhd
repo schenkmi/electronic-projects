@@ -39,7 +39,8 @@ entity i2s_nos is
            DATAOUTR : out  STD_LOGIC;
 			  CLKOUTL : out  STD_LOGIC;
            LEOUTL : out  STD_LOGIC;  
-           DATAOUTL : out  STD_LOGIC);
+           DATAOUTL : out  STD_LOGIC;
+			  LED1 : out STD_LOGIC);
 end i2s_nos;
 
 architecture Behavioral of i2s_nos is
@@ -108,6 +109,8 @@ architecture Behavioral of i2s_nos is
 		CLKOUTL <= BCK;
 		LEOUTL <= LRCK;
 		DATAOUTL <= sr_left(31);
+		
+		LED1 <= '0';
 	
 
 end Behavioral;

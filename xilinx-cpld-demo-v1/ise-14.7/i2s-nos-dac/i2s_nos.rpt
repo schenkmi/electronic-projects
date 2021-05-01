@@ -1,26 +1,26 @@
  
 cpldfit:  version P.20131013                        Xilinx Inc.
                                   Fitter Report
-Design Name: i2s_nos                             Date:  4-18-2021,  8:34PM
-Device Used: XC2C64A-5-VQ44
+Design Name: i2s_nos                             Date:  4-27-2021,  3:39PM
+Device Used: XC2C64A-7-VQ44
 Fitting Status: Successful
 
 *************************  Mapped Resource Summary  **************************
 
 Macrocells     Product Terms    Function Block   Registers      Pins           
 Used/Tot       Used/Tot         Inps Used/Tot    Used/Tot       Used/Tot       
-48 /64  ( 75%) 47  /224  ( 21%) 47  /160  ( 29%) 44 /64  ( 69%) 9  /33  ( 27%)
+49 /64  ( 77%) 47  /224  ( 21%) 47  /160  ( 29%) 44 /64  ( 69%) 10 /33  ( 30%)
 
 ** Function Block Resources **
 
 Function Mcells   FB Inps  Pterms   IO       CTC      CTR      CTS      CTE     
 Block    Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot Used/Tot
-FB1      16/16*    16/40    16/56     0/ 8    0/1      0/1      0/1      0/1
+FB1      16/16*    15/40    15/56     1/ 8    0/1      0/1      0/1      0/1
 FB2      16/16*    15/40    15/56     0/ 9    0/1      0/1      0/1      0/1
-FB3      13/16     13/40    13/56     3/ 9    0/1      0/1      0/1      0/1
+FB3      14/16     14/40    14/56     3/ 9    0/1      0/1      0/1      0/1
 FB4       3/16      3/40     3/56     3/ 7    0/1      0/1      0/1      0/1
          -----    -------  -------   -----    ---      ---      ---      ---
-Total    48/64     47/160   47/224    6/33    0/4      0/4      0/4      0/4 
+Total    49/64     47/160   47/224    7/33    0/4      0/4      0/4      0/4 
 
 CTC - Control Term Clock
 CTR - Control Term Reset
@@ -41,14 +41,14 @@ Signal 'BCK' mapped onto global clock net GCK0.
 
 Signal Type    Required     Mapped  |  Pin Type            Used    Total 
 ------------------------------------|------------------------------------
-Input         :    2           2    |  I/O              :     8     25
-Output        :    6           6    |  GCK/IO           :     1      3
+Input         :    2           2    |  I/O              :     9     25
+Output        :    7           7    |  GCK/IO           :     1      3
 Bidirectional :    0           0    |  GTS/IO           :     0      4
 GCK           :    1           1    |  GSR/IO           :     0      1
 GTS           :    0           0    |  
 GSR           :    0           0    |  
                  ----        ----
-        Total      9           9
+        Total     10          10
 
 End of Mapped Resource Summary
 **************************  Errors and Warnings  ***************************
@@ -57,10 +57,11 @@ WARNING:Cpld - Unable to retrieve the path to the iSE Project Repository. Will
    use the default filename of 'i2s_nos.ise'.
 *************************  Summary of Mapped Logic  ************************
 
-** 6 Outputs **
+** 7 Outputs **
 
 Signal              Total Total Bank Loc     Pin   Pin       Pin     I/O      I/O       Slew Reg     Reg Init
 Name                Pts   Inps               No.   Type      Use     STD      Style     Rate Use     State
+LED1                0     0     2    FB1_1   38    I/O       O       LVCMOS33           FAST         
 DATAOUTR            1     1     2    FB3_10  22    I/O       O       LVCMOS33           FAST DFF     RESET
 CLKOUTR             1     1     2    FB3_11  21    I/O       O       LVCMOS33           FAST         
 LEOUTR              1     1     2    FB3_12  20    I/O       O       LVCMOS33           FAST         
@@ -72,7 +73,6 @@ DATAOUTL            1     1     1    FB4_14  14    I/O       O       LVCMOS33   
 
 Signal              Total Total Loc     Reg     Reg Init
 Name                Pts   Inps          Use     State
-sr_left<23>         1     1     FB1_1   DFF     RESET
 sr_left<22>         1     1     FB1_2   DFF     RESET
 sr_left<21>         1     1     FB1_3   DFF     RESET
 sr_left<16>         1     1     FB1_4   DFF     RESET
@@ -89,34 +89,35 @@ sr_left<11>         1     1     FB1_14  DFF     RESET
 sr_left<10>         1     1     FB1_15  DFF     RESET
 sr_left<0>          1     1     FB1_16  DFF     RESET
 sr_right<0>         0     0     FB2_1   DFF     RESET
-sr_left<9>          1     1     FB2_2   DFF     RESET
-sr_left<2>          1     1     FB2_3   DFF     RESET
-sr_left<29>         1     1     FB2_4   DFF     RESET
-sr_left<8>          1     1     FB2_5   DFF     RESET
-sr_left<7>          1     1     FB2_6   DFF     RESET
-sr_left<6>          1     1     FB2_7   DFF     RESET
-sr_left<5>          1     1     FB2_8   DFF     RESET
-sr_left<28>         1     1     FB2_9   DFF     RESET
-sr_left<4>          1     1     FB2_10  DFF     RESET
-sr_left<27>         1     1     FB2_11  DFF     RESET
-sr_left<3>          1     1     FB2_12  DFF     RESET
-sr_left<30>         1     1     FB2_13  DFF     RESET
-sr_left<26>         1     1     FB2_14  DFF     RESET
-sr_left<25>         1     1     FB2_15  DFF     RESET
-sr_left<24>         1     1     FB2_16  DFF     RESET
-sr_right<6>         1     1     FB3_4   DFF     RESET
-sr_right<5>         1     1     FB3_5   DFF     RESET
-sr_right<9>         1     1     FB3_6   DFF     RESET
-sr_right<4>         1     1     FB3_7   DFF     RESET
-sr_right<3>         1     1     FB3_8   DFF     RESET
-sr_right<2>         1     1     FB3_9   DFF     RESET
-sr_right<1>         1     1     FB3_13  DFF     RESET
-sr_right<8>         1     1     FB3_14  DFF     RESET
+sr_left<8>          1     1     FB2_2   DFF     RESET
+sr_left<29>         1     1     FB2_3   DFF     RESET
+sr_left<28>         1     1     FB2_4   DFF     RESET
+sr_left<7>          1     1     FB2_5   DFF     RESET
+sr_left<6>          1     1     FB2_6   DFF     RESET
+sr_left<5>          1     1     FB2_7   DFF     RESET
+sr_left<4>          1     1     FB2_8   DFF     RESET
+sr_left<27>         1     1     FB2_9   DFF     RESET
+sr_left<3>          1     1     FB2_10  DFF     RESET
+sr_left<26>         1     1     FB2_11  DFF     RESET
+sr_left<30>         1     1     FB2_12  DFF     RESET
+sr_left<2>          1     1     FB2_13  DFF     RESET
+sr_left<25>         1     1     FB2_14  DFF     RESET
+sr_left<24>         1     1     FB2_15  DFF     RESET
+sr_left<23>         1     1     FB2_16  DFF     RESET
+sr_right<9>         1     1     FB3_3   DFF     RESET
+sr_right<5>         1     1     FB3_4   DFF     RESET
+sr_right<4>         1     1     FB3_5   DFF     RESET
+sr_right<8>         1     1     FB3_6   DFF     RESET
+sr_right<3>         1     1     FB3_7   DFF     RESET
+sr_right<2>         1     1     FB3_8   DFF     RESET
+sr_right<1>         1     1     FB3_9   DFF     RESET
+sr_right<10>        1     1     FB3_13  DFF     RESET
+sr_right<7>         1     1     FB3_14  DFF     RESET
 
 Signal              Total Total Loc     Reg     Reg Init
 Name                Pts   Inps          Use     State
-sr_right<7>         1     1     FB3_15  DFF     RESET
-sr_right<10>        1     1     FB3_16  DFF     RESET
+sr_right<6>         1     1     FB3_15  DFF     RESET
+sr_left<9>          1     1     FB3_16  DFF     RESET
 
 ** 3 Inputs **
 
@@ -152,12 +153,12 @@ Pin Type/Use - I  - Input             GCK - Global clock
 Pin No.      - ~  - User Assigned
 *********************************** FB1  ***********************************
 This function block is part of I/O Bank number:               2
-Number of function block inputs used/remaining:               16/24
+Number of function block inputs used/remaining:               15/25
 Number of function block control terms used/remaining:        0/4
-Number of PLA product terms used/remaining:                   16/40
+Number of PLA product terms used/remaining:                   15/41
 Signal                        Total Loc     Pin  Pin     Pin   CTC CTR CTS CTE
 Name                          Pt            No.  Type    Use   
-sr_left<23>                   1     FB1_1   38   I/O     (b)               
+LED1                          0     FB1_1   38   I/O     O                 
 sr_left<22>                   1     FB1_2   37   I/O     (b)               
 sr_left<21>                   1     FB1_3   36   I/O     (b)               
 sr_left<16>                   1     FB1_4        (b)     (b)               
@@ -175,16 +176,15 @@ sr_left<10>                   1     FB1_15       (b)     (b)
 sr_left<0>                    1     FB1_16       (b)     (b)               
 
 Signals Used by Logic in Function Block
-  1: DATAOUTR           7: sr_left<14>       12: sr_left<19> 
-  2: sr_left<0>         8: sr_left<15>       13: sr_left<20> 
-  3: sr_left<10>        9: sr_left<16>       14: sr_left<21> 
-  4: sr_left<11>       10: sr_left<17>       15: sr_left<22> 
-  5: sr_left<12>       11: sr_left<18>       16: sr_left<9> 
-  6: sr_left<13>      
+  1: DATAOUTR           6: sr_left<13>       11: sr_left<18> 
+  2: sr_left<0>         7: sr_left<14>       12: sr_left<19> 
+  3: sr_left<10>        8: sr_left<15>       13: sr_left<20> 
+  4: sr_left<11>        9: sr_left<16>       14: sr_left<21> 
+  5: sr_left<12>       10: sr_left<17>       15: sr_left<9> 
 
 Signal                     1         2         3         4 FB      
 Name             0----+----0----+----0----+----0----+----0 Inputs  
-sr_left<23>       ..............X......................... 1       
+LED1              ........................................ 0       
 sr_left<22>       .............X.......................... 1       
 sr_left<21>       ............X........................... 1       
 sr_left<16>       .......X................................ 1       
@@ -198,7 +198,7 @@ sr_left<19>       ..........X............................. 1
 sr_left<18>       .........X.............................. 1       
 sr_left<17>       ........X............................... 1       
 sr_left<11>       ..X..................................... 1       
-sr_left<10>       ...............X........................ 1       
+sr_left<10>       ..............X......................... 1       
 sr_left<0>        X....................................... 1       
                  0----+----1----+----2----+----3----+----4
                            0         0         0         0
@@ -210,94 +210,95 @@ Number of PLA product terms used/remaining:                   15/41
 Signal                        Total Loc     Pin  Pin     Pin   CTC CTR CTS CTE
 Name                          Pt            No.  Type    Use   
 sr_right<0>                   0     FB2_1   39   I/O     I                 
-sr_left<9>                    1     FB2_2   40   I/O     (b)               
-sr_left<2>                    1     FB2_3        (b)     (b)               
-sr_left<29>                   1     FB2_4        (b)     (b)               
-sr_left<8>                    1     FB2_5   41   I/O     I                 
-sr_left<7>                    1     FB2_6   42   I/O     (b)               
-sr_left<6>                    1     FB2_7   43   GCK/I/O GCK/I             
-sr_left<5>                    1     FB2_8   44   GCK/I/O (b)               
-sr_left<28>                   1     FB2_9        (b)     (b)               
-sr_left<4>                    1     FB2_10  1    GCK/I/O (b)               
-sr_left<27>                   1     FB2_11       (b)     (b)               
-sr_left<3>                    1     FB2_12  2    I/O     (b)               
-sr_left<30>                   1     FB2_13  3    I/O     (b)               
-sr_left<26>                   1     FB2_14       (b)     (b)               
-sr_left<25>                   1     FB2_15       (b)     (b)               
-sr_left<24>                   1     FB2_16       (b)     (b)               
+sr_left<8>                    1     FB2_2   40   I/O     (b)               
+sr_left<29>                   1     FB2_3        (b)     (b)               
+sr_left<28>                   1     FB2_4        (b)     (b)               
+sr_left<7>                    1     FB2_5   41   I/O     I                 
+sr_left<6>                    1     FB2_6   42   I/O     (b)               
+sr_left<5>                    1     FB2_7   43   GCK/I/O GCK/I             
+sr_left<4>                    1     FB2_8   44   GCK/I/O (b)               
+sr_left<27>                   1     FB2_9        (b)     (b)               
+sr_left<3>                    1     FB2_10  1    GCK/I/O (b)               
+sr_left<26>                   1     FB2_11       (b)     (b)               
+sr_left<30>                   1     FB2_12  2    I/O     (b)               
+sr_left<2>                    1     FB2_13  3    I/O     (b)               
+sr_left<25>                   1     FB2_14       (b)     (b)               
+sr_left<24>                   1     FB2_15       (b)     (b)               
+sr_left<23>                   1     FB2_16       (b)     (b)               
 
 Signals Used by Logic in Function Block
-  1: sr_left<1>         6: sr_left<27>       11: sr_left<4> 
-  2: sr_left<23>        7: sr_left<28>       12: sr_left<5> 
-  3: sr_left<24>        8: sr_left<29>       13: sr_left<6> 
-  4: sr_left<25>        9: sr_left<2>        14: sr_left<7> 
-  5: sr_left<26>       10: sr_left<3>        15: sr_left<8> 
+  1: sr_left<1>         6: sr_left<26>       11: sr_left<3> 
+  2: sr_left<22>        7: sr_left<27>       12: sr_left<4> 
+  3: sr_left<23>        8: sr_left<28>       13: sr_left<5> 
+  4: sr_left<24>        9: sr_left<29>       14: sr_left<6> 
+  5: sr_left<25>       10: sr_left<2>        15: sr_left<7> 
 
 Signal                     1         2         3         4 FB      
 Name             0----+----0----+----0----+----0----+----0 Inputs  
-sr_left<9>        ..............X......................... 1       
+sr_left<8>        ..............X......................... 1       
+sr_left<29>       .......X................................ 1       
+sr_left<28>       ......X................................. 1       
+sr_left<7>        .............X.......................... 1       
+sr_left<6>        ............X........................... 1       
+sr_left<5>        ...........X............................ 1       
+sr_left<4>        ..........X............................. 1       
+sr_left<27>       .....X.................................. 1       
+sr_left<3>        .........X.............................. 1       
+sr_left<26>       ....X................................... 1       
+sr_left<30>       ........X............................... 1       
 sr_left<2>        X....................................... 1       
-sr_left<29>       ......X................................. 1       
-sr_left<8>        .............X.......................... 1       
-sr_left<7>        ............X........................... 1       
-sr_left<6>        ...........X............................ 1       
-sr_left<5>        ..........X............................. 1       
-sr_left<28>       .....X.................................. 1       
-sr_left<4>        .........X.............................. 1       
-sr_left<27>       ....X................................... 1       
-sr_left<3>        ........X............................... 1       
-sr_left<30>       .......X................................ 1       
-sr_left<26>       ...X.................................... 1       
-sr_left<25>       ..X..................................... 1       
-sr_left<24>       .X...................................... 1       
+sr_left<25>       ...X.................................... 1       
+sr_left<24>       ..X..................................... 1       
+sr_left<23>       .X...................................... 1       
                  0----+----1----+----2----+----3----+----4
                            0         0         0         0
 *********************************** FB3  ***********************************
 This function block is part of I/O Bank number:               2
-Number of function block inputs used/remaining:               13/27
+Number of function block inputs used/remaining:               14/26
 Number of function block control terms used/remaining:        0/4
-Number of PLA product terms used/remaining:                   13/43
+Number of PLA product terms used/remaining:                   14/42
 Signal                        Total Loc     Pin  Pin     Pin   CTC CTR CTS CTE
 Name                          Pt            No.  Type    Use   
 (unused)                      0     FB3_1   29   I/O           
 (unused)                      0     FB3_2   28   I/O           
-(unused)                      0     FB3_3   27   I/O           
-sr_right<6>                   1     FB3_4        (b)     (b)               
-sr_right<5>                   1     FB3_5        (b)     (b)               
-sr_right<9>                   1     FB3_6   23   I/O     (b)               
-sr_right<4>                   1     FB3_7        (b)     (b)               
-sr_right<3>                   1     FB3_8        (b)     (b)               
-sr_right<2>                   1     FB3_9        (b)     (b)               
+sr_right<9>                   1     FB3_3   27   I/O     (b)               
+sr_right<5>                   1     FB3_4        (b)     (b)               
+sr_right<4>                   1     FB3_5        (b)     (b)               
+sr_right<8>                   1     FB3_6   23   I/O     (b)               
+sr_right<3>                   1     FB3_7        (b)     (b)               
+sr_right<2>                   1     FB3_8        (b)     (b)               
+sr_right<1>                   1     FB3_9        (b)     (b)               
 DATAOUTR                      1     FB3_10  22   I/O     O                 
 CLKOUTR                       1     FB3_11  21   I/O     O                 
 LEOUTR                        1     FB3_12  20   I/O     O                 
-sr_right<1>                   1     FB3_13       (b)     (b)               
-sr_right<8>                   1     FB3_14  19   I/O     (b)               
-sr_right<7>                   1     FB3_15  18   I/O     (b)               
-sr_right<10>                  1     FB3_16       (b)     (b)               
+sr_right<10>                  1     FB3_13       (b)     (b)               
+sr_right<7>                   1     FB3_14  19   I/O     (b)               
+sr_right<6>                   1     FB3_15  18   I/O     (b)               
+sr_left<9>                    1     FB3_16       (b)     (b)               
 
 Signals Used by Logic in Function Block
-  1: BCK                6: sr_right<2>       10: sr_right<6> 
-  2: LRCK               7: sr_right<3>       11: sr_right<7> 
-  3: sr_right<0>        8: sr_right<4>       12: sr_right<8> 
-  4: sr_right<10>       9: sr_right<5>       13: sr_right<9> 
-  5: sr_right<1>      
+  1: BCK                6: sr_right<1>       11: sr_right<6> 
+  2: LRCK               7: sr_right<2>       12: sr_right<7> 
+  3: sr_left<8>         8: sr_right<3>       13: sr_right<8> 
+  4: sr_right<0>        9: sr_right<4>       14: sr_right<9> 
+  5: sr_right<10>      10: sr_right<5>      
 
 Signal                     1         2         3         4 FB      
 Name             0----+----0----+----0----+----0----+----0 Inputs  
-sr_right<6>       ........X............................... 1       
-sr_right<5>       .......X................................ 1       
-sr_right<9>       ...........X............................ 1       
-sr_right<4>       ......X................................. 1       
-sr_right<3>       .....X.................................. 1       
-sr_right<2>       ....X................................... 1       
-DATAOUTR          ...X.................................... 1       
+sr_right<9>       ............X........................... 1       
+sr_right<5>       ........X............................... 1       
+sr_right<4>       .......X................................ 1       
+sr_right<8>       ...........X............................ 1       
+sr_right<3>       ......X................................. 1       
+sr_right<2>       .....X.................................. 1       
+sr_right<1>       ...X.................................... 1       
+DATAOUTR          ....X................................... 1       
 CLKOUTR           X....................................... 1       
 LEOUTR            .X...................................... 1       
-sr_right<1>       ..X..................................... 1       
-sr_right<8>       ..........X............................. 1       
-sr_right<7>       .........X.............................. 1       
-sr_right<10>      ............X........................... 1       
+sr_right<10>      .............X.......................... 1       
+sr_right<7>       ..........X............................. 1       
+sr_right<6>       .........X.............................. 1       
+sr_left<9>        ..X..................................... 1       
                  0----+----1----+----2----+----3----+----4
                            0         0         0         0
 *********************************** FB4  ***********************************
@@ -347,6 +348,9 @@ CLKOUTR <= BCK;
 FDCPE_DATAOUTL: FDCPE port map (DATAOUTL,sr_left(30),BCK,'0','0','1');
 
 FDCPE_DATAOUTR: FDCPE port map (DATAOUTR,sr_right(10),BCK,'0','0','1');
+
+
+LED1 <= '0';
 
 
 LEOUTL <= LRCK;
@@ -448,7 +452,7 @@ Register Legend:
 
 ******************************  Device Pin Out *****************************
 
-Device : XC2C64A-5-VQ44
+Device : XC2C64A-7-VQ44
 
 
    --------------------------------  
@@ -457,7 +461,7 @@ Device : XC2C64A-5-VQ44
  | 2                             32 | 
  | 3                             31 | 
  | 4                             30 | 
- | 5         XC2C64A-5-VQ44      29 | 
+ | 5         XC2C64A-7-VQ44      29 | 
  | 6                             28 | 
  | 7                             27 | 
  | 8                             26 | 
@@ -485,7 +489,7 @@ No. Name                           No. Name
  13 CLKOUTL                          35 VCCAUX                        
  14 DATAOUTL                         36 KPR                           
  15 VCC                              37 KPR                           
- 16 KPR                              38 KPR                           
+ 16 KPR                              38 LED1                          
  17 GND                              39 DATAIN                        
  18 KPR                              40 KPR                           
  19 KPR                              41 LRCK                          
@@ -517,7 +521,7 @@ Legend :  NC  = Not Connected, unbonded pin
 
 Following is a list of all global compiler options used by the fitter run.
 
-Device(s) Specified                         : xc2c64a-5-VQ44
+Device(s) Specified                         : xc2c64a-7-VQ44
 Optimization Method                         : DENSITY
 Multi-Level Logic Optimization              : ON
 Ignore Timing Specifications                : OFF
