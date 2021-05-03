@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "DAC I2S NOS"
-Date "2021-04-24"
-Rev "V2"
+Date "2021-05-03"
+Rev "V3"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -2343,4 +2343,114 @@ Wire Wire Line
 Connection ~ 12700 6700
 Wire Wire Line
 	12700 6700 14500 6700
+$Comp
+L Amplifier_Operational:OPA1678 U?
+U 1 1 60925F5D
+P 7750 7550
+F 0 "U?" H 7750 7183 50  0000 C CNN
+F 1 "OPA1612" H 7750 7274 50  0000 C CNN
+F 2 "" H 7750 7550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa1678.pdf" H 7750 7550 50  0001 C CNN
+	1    7750 7550
+	1    0    0    1   
+$EndComp
+$Comp
+L Amplifier_Operational:OPA1678 U?
+U 3 1 6092B58A
+P 10300 6250
+F 0 "U?" H 10258 6296 50  0000 L CNN
+F 1 "OPA1678" H 10258 6205 50  0000 L CNN
+F 2 "" H 10300 6250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa1678.pdf" H 10300 6250 50  0001 C CNN
+	3    10300 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60945B83
+P 7700 7000
+F 0 "R?" V 7493 7000 50  0000 C CNN
+F 1 "2.5k" V 7584 7000 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7630 7000 50  0001 C CNN
+F 3 "~" H 7700 7000 50  0001 C CNN
+	1    7700 7000
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 6095B63D
+P 7700 6550
+F 0 "C?" H 7815 6596 50  0000 L CNN
+F 1 "220pF" H 7815 6505 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7738 6400 50  0001 C CNN
+F 3 "~" H 7700 6550 50  0001 C CNN
+	1    7700 6550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60974A60
+P 8500 7550
+F 0 "R?" V 8293 7550 50  0000 C CNN
+F 1 "4.7k" V 8384 7550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8430 7550 50  0001 C CNN
+F 3 "~" H 8500 7550 50  0001 C CNN
+	1    8500 7550
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 60974FCB
+P 8750 7800
+F 0 "C?" H 8865 7846 50  0000 L CNN
+F 1 "2n2" H 8865 7755 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 8788 7650 50  0001 C CNN
+F 3 "~" H 8750 7800 50  0001 C CNN
+	1    8750 7800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Amplifier_Operational:OPA1678 U?
+U 2 1 609755EF
+P 10250 7600
+F 0 "U?" H 10250 7233 50  0000 C CNN
+F 1 "OPA1612" H 10250 7324 50  0000 C CNN
+F 2 "" H 10250 7600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa1678.pdf" H 10250 7600 50  0001 C CNN
+	2    10250 7600
+	1    0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6098C340
+P 9000 7550
+F 0 "R?" V 8793 7550 50  0000 C CNN
+F 1 "2k" V 8884 7550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8930 7550 50  0001 C CNN
+F 3 "~" H 9000 7550 50  0001 C CNN
+	1    9000 7550
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6098D57B
+P 8750 7200
+F 0 "R?" V 8543 7200 50  0000 C CNN
+F 1 "4.7k" V 8634 7200 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8680 7200 50  0001 C CNN
+F 3 "~" H 8750 7200 50  0001 C CNN
+	1    8750 7200
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 6098DB5E
+P 9300 7200
+F 0 "C?" H 9415 7246 50  0000 L CNN
+F 1 "2n2" H 9415 7155 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 9338 7050 50  0001 C CNN
+F 3 "~" H 9300 7200 50  0001 C CNN
+	1    9300 7200
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
