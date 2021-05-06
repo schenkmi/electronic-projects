@@ -81,7 +81,7 @@ begin
             end if;
             ledglow   <= leddimmed;
             leddimmed <= ledbright;
-            ledbright <= ledarray(idx);
+            ledbright <= not ledarray(idx);
          end if;
          if (pwmcnt<15) then      -- PWM für gedimmte LEDs
             pwmcnt <= pwmcnt+1;
