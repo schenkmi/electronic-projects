@@ -4,28 +4,15 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
-Title "Audio Input Selector V2"
-Date "2020.12.06"
-Rev "1"
+Title "Audio Input Selector V2b"
+Date "2021-05-07"
+Rev "2b"
 Comp ""
 Comment1 "https://github.com/schenkmi/electronic-projects"
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L TE-Con:1-338068-0 J9
-U 1 1 5FAC04C3
-P 3050 3750
-F 0 "J9" H 3050 4217 50  0000 C CNN
-F 1 "1-338068-0" H 3050 4126 50  0000 C CNN
-F 2 "TE-Con:TE_1-338068-0" H 3050 3750 50  0001 L BNN
-F 3 "" H 3050 3750 50  0001 L BNN
-F 4 "Compliant" H 3050 3750 50  0001 L BNN "EU_RoHS_Compliance"
-F 5 "1-338068-0" H 3050 3750 50  0001 L BNN "Comment"
-	1    3050 3750
-	1    0    0    -1  
-$EndComp
 $Comp
 L Relay:G6K-2 K2
 U 1 1 5FAC21AC
@@ -174,17 +161,6 @@ F 1 "G6K-2" H 11680 8255 50  0000 L CNN
 F 2 "Relay_SMD:Relay_DPDT_Omron_G6K-2F" H 11050 8300 50  0001 L CNN
 F 3 "http://omronfs.omron.com/en_US/ecb/products/pdf/en-g6k.pdf" H 11050 8300 50  0001 C CNN
 	1    11050 8300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP C4
-U 1 1 5FADD541
-P 5300 9900
-F 0 "C4" H 5418 9946 50  0000 L CNN
-F 1 "100uF" H 5418 9855 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 5338 9750 50  0001 C CNN
-F 3 "~" H 5300 9900 50  0001 C CNN
-	1    5300 9900
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1236,7 +1212,7 @@ U 1 1 5FAC1510
 P 6550 3350
 F 0 "U3" H 6550 4431 50  0000 C CNN
 F 1 "PIC16F18446-I/SO" H 7100 4150 50  0000 C CNN
-F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 6550 2800 50  0001 C CNN
+F 2 "Package_SO:SOP-20_7.5x12.8mm_P1.27mm" H 6550 2800 50  0001 C CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/41440C.pdf" H 6550 2800 50  0001 C CNN
 	1    6550 3350
 	1    0    0    -1  
@@ -1304,14 +1280,111 @@ Wire Wire Line
 Wire Wire Line
 	3650 8500 3650 9450
 $Comp
-L Regulator_Linear:MC78L05_SO8 U1
-U 1 1 6198B95B
+L kicad-snk:TE_CONN_RCPT_10POS_0.1_TIN_PCB J9
+U 1 1 60970892
+P 3050 3750
+F 0 "J9" H 3050 4217 50  0000 C CNN
+F 1 "TE_CONN_RCPT_10POS_0.1_TIN_PCB" H 3050 4126 50  0000 C CNN
+F 2 "kicad-snk:TE_CONN_RCPT_10POS_0.1_TIN_PCB" H 3050 3750 50  0001 L BNN
+F 3 "" H 3050 3750 50  0001 L BNN
+F 4 "Compliant" H 3050 3750 50  0001 L BNN "EU_RoHS_Compliance"
+F 5 "1-338068-0" H 3050 3750 50  0001 L BNN "Comment"
+	1    3050 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 609AE2E4
+P 3500 2150
+F 0 "R7" V 3293 2150 50  0000 C CNN
+F 1 "4.7k" V 3384 2150 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 3430 2150 50  0001 C CNN
+F 3 "~" H 3500 2150 50  0001 C CNN
+	1    3500 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C7
+U 1 1 609AEA55
+P 3500 2550
+F 0 "C7" H 3615 2596 50  0000 L CNN
+F 1 "10nF" H 3615 2505 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 3538 2400 50  0001 C CNN
+F 3 "~" H 3500 2550 50  0001 C CNN
+	1    3500 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4148W D2
+U 1 1 60969874
+P 4050 2350
+F 0 "D2" V 4004 2430 50  0000 L CNN
+F 1 "1N4148W" V 4095 2430 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-123" H 4050 2175 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 4050 2350 50  0001 C CNN
+	1    4050 2350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0122
+U 1 1 6098392C
+P 3500 2750
+F 0 "#PWR0122" H 3500 2500 50  0001 C CNN
+F 1 "GND" H 3505 2577 50  0000 C CNN
+F 2 "" H 3500 2750 50  0001 C CNN
+F 3 "" H 3500 2750 50  0001 C CNN
+	1    3500 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0123
+U 1 1 60990074
+P 3500 1950
+F 0 "#PWR0123" H 3500 1800 50  0001 C CNN
+F 1 "+5V" H 3515 2123 50  0000 C CNN
+F 2 "" H 3500 1950 50  0001 C CNN
+F 3 "" H 3500 1950 50  0001 C CNN
+	1    3500 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 2000 3500 1950
+Wire Wire Line
+	3500 2400 3500 2350
+Wire Wire Line
+	3500 2750 3500 2700
+Wire Wire Line
+	3900 2350 3500 2350
+Connection ~ 3500 2350
+Wire Wire Line
+	3500 2350 3500 2300
+Wire Wire Line
+	5250 3150 4600 3150
+Wire Wire Line
+	4600 3150 4600 2350
+Wire Wire Line
+	4600 2350 4200 2350
+Connection ~ 5250 3150
+$Comp
+L Regulator_Linear:TLV1117-50 U1
+U 1 1 6098FA47
 P 4200 9450
 F 0 "U1" H 4200 9692 50  0000 C CNN
-F 1 "MC78L05_SO8" H 4200 9601 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4300 9650 50  0001 C CIN
-F 3 "https://www.onsemi.com/pub/Collateral/MC78L00A-D.PDF" H 4400 9450 50  0001 C CNN
+F 1 "TLV1117-50" H 4200 9601 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 4200 9450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/tlv1117.pdf" H 4200 9450 50  0001 C CNN
 	1    4200 9450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C4
+U 1 1 609DD90F
+P 5300 9900
+F 0 "C4" H 5418 9946 50  0000 L CNN
+F 1 "10uF" H 5418 9855 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 5338 9750 50  0001 C CNN
+F 3 "~" H 5300 9900 50  0001 C CNN
+	1    5300 9900
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
