@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Async sample rate converter"
-Date "2021-04-25"
-Rev "V4"
+Date "2021-05-09"
+Rev "V5"
 Comp ""
 Comment1 ""
 Comment2 ""
