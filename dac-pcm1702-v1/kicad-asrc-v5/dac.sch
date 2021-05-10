@@ -588,7 +588,7 @@ Wire Wire Line
 Connection ~ 3350 10700
 Wire Wire Line
 	3350 10700 3700 10700
-Text GLabel 7350 9600 2    50   Output ~ 0
+Text GLabel 6700 9500 2    50   Output ~ 0
 RESET
 $Comp
 L power:+3.3V #PWR0112
@@ -2296,8 +2296,6 @@ F 3 "" H 3750 3000 50  0001 C CNN
 	1    3750 3000
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6500 9600 7350 9600
 $Comp
 L Device:Ferrite_Bead_Small FB1
 U 1 1 61C4566F
@@ -2641,7 +2639,6 @@ Wire Wire Line
 	2000 4300 1850 4300
 Wire Wire Line
 	1850 4300 1850 4250
-NoConn ~ 6500 9500
 Wire Wire Line
 	1400 2950 2600 2950
 Wire Wire Line
@@ -2795,5 +2792,46 @@ F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm_NumberLabels" H 
 F 3 "~" H 2200 4300 50  0001 C CNN
 	1    2200 4300
 	-1   0    0    1   
+$EndComp
+Text GLabel 7550 9600 2    50   Output ~ 0
+SDO
+Wire Wire Line
+	6500 9500 6700 9500
+$Comp
+L Connector:Conn_01x10_Male J?
+U 1 1 60BB5F67
+P 11350 6250
+F 0 "J?" H 11458 6831 50  0000 C CNN
+F 1 "Conn_01x10_Male" H 11458 6740 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical" H 11350 6250 50  0001 C CNN
+F 3 "~" H 11350 6250 50  0001 C CNN
+	1    11350 6250
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60BBC27B
+P 7250 9600
+F 0 "R?" V 7043 9600 50  0000 C CNN
+F 1 "0R" V 7134 9600 50  0000 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 7180 9600 50  0001 C CNN
+F 3 "~" H 7250 9600 50  0001 C CNN
+	1    7250 9600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6500 9600 7100 9600
+Wire Wire Line
+	7400 9600 7550 9600
+$Comp
+L Connector:Conn_01x04_Male J?
+U 1 1 60C216C0
+P 1850 9300
+F 0 "J?" H 1958 9581 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 1958 9490 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 1850 9300 50  0001 C CNN
+F 3 "~" H 1850 9300 50  0001 C CNN
+	1    1850 9300
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
