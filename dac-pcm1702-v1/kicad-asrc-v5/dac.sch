@@ -969,28 +969,6 @@ Wire Wire Line
 	8450 5250 8450 5600
 Connection ~ 8450 5600
 $Comp
-L Device:R R11
-U 1 1 60754A1D
-P 4350 4650
-F 0 "R11" V 4143 4650 50  0000 C CNN
-F 1 "33R" V 4234 4650 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 4280 4650 50  0001 C CNN
-F 3 "~" H 4350 4650 50  0001 C CNN
-	1    4350 4650
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R9
-U 1 1 60755F2B
-P 4350 4950
-F 0 "R9" V 4143 4950 50  0000 C CNN
-F 1 "33R" V 4234 4950 50  0000 C CNN
-F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 4280 4950 50  0001 C CNN
-F 3 "~" H 4350 4950 50  0001 C CNN
-	1    4350 4950
-	0    1    1    0   
-$EndComp
-$Comp
 L kicad-snk:TE_CONN_RCPT_10POS_0.1_TIN_PCB J10
 U 1 1 60763C93
 P 13250 5050
@@ -1350,9 +1328,9 @@ Wire Wire Line
 	5500 3950 5900 3950
 Wire Wire Line
 	5500 4250 5900 4250
-Text GLabel 3900 4650 0    50   Input ~ 0
+Text GLabel 4400 3550 0    50   Input ~ 0
 SCL
-Text GLabel 3900 4950 0    50   BiDi ~ 0
+Text GLabel 4400 3650 0    50   BiDi ~ 0
 SDA
 $Comp
 L kicad-snk:TE_CONN_RCPT_10POS_0.1_TIN_PCB J6
@@ -1372,22 +1350,6 @@ Text GLabel 5150 4350 0    50   Input ~ 0
 RESET
 Wire Wire Line
 	5150 4350 5900 4350
-Wire Wire Line
-	5900 3650 4750 3650
-Wire Wire Line
-	4750 3650 4750 4950
-Wire Wire Line
-	4750 4950 4500 4950
-Wire Wire Line
-	4500 4650 4600 4650
-Wire Wire Line
-	4600 4650 4600 3550
-Wire Wire Line
-	4600 3550 5900 3550
-Wire Wire Line
-	3900 4950 4200 4950
-Wire Wire Line
-	4200 4650 3900 4650
 $Comp
 L Connector:Conn_01x03_Male J7
 U 1 1 60AC87C0
@@ -1511,17 +1473,6 @@ F 3 "" H 12800 5350 50  0001 C CNN
 	1    12800 5350
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR0118
-U 1 1 60D1CC01
-P 13700 5350
-F 0 "#PWR0118" H 13700 5100 50  0001 C CNN
-F 1 "GND" H 13705 5177 50  0000 C CNN
-F 2 "" H 13700 5350 50  0001 C CNN
-F 3 "" H 13700 5350 50  0001 C CNN
-	1    13700 5350
-	1    0    0    -1  
-$EndComp
 Text GLabel 11000 4850 0    50   Input ~ 0
 MCLK3
 Text GLabel 8150 2750 2    50   Output ~ 0
@@ -1626,14 +1577,7 @@ Wire Wire Line
 Wire Wire Line
 	12800 5250 12800 5350
 Wire Wire Line
-	13700 5350 13700 4950
-Wire Wire Line
-	13700 4950 13650 4950
-Wire Wire Line
-	13700 4950 13700 4850
-Wire Wire Line
 	13700 4850 13650 4850
-Connection ~ 13700 4950
 $Comp
 L Device:C C8
 U 1 1 61213542
@@ -1812,19 +1756,6 @@ F 3 "" H 2750 2300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2850 2100 2750 2100
-$Comp
-L kicad-snk:TE_CONN_RCPT_10POS_0.1_TIN_PCB J15
-U 1 1 614B4B8B
-P 13250 3100
-F 0 "J15" H 13250 3567 50  0000 C CNN
-F 1 "A" H 13250 3476 50  0000 C CNN
-F 2 "kicad-snk:TE_CONN_RCPT_10POS_0.1_TIN_PCB" H 13250 3100 50  0001 L BNN
-F 3 "" H 13250 3100 50  0001 L BNN
-F 4 "Compliant" H 13250 3100 50  0001 L BNN "EU_RoHS_Compliance"
-F 5 "1-338068-0" H 13250 3100 50  0001 L BNN "Comment"
-	1    13250 3100
-	1    0    0    -1  
-$EndComp
 Text GLabel 15100 3200 2    50   Input ~ 0
 SCL
 Text GLabel 15100 3100 2    50   BiDi ~ 0
@@ -1838,17 +1769,6 @@ F 1 "GND" H 12805 3227 50  0000 C CNN
 F 2 "" H 12800 3400 50  0001 C CNN
 F 3 "" H 12800 3400 50  0001 C CNN
 	1    12800 3400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0151
-U 1 1 614B4BAB
-P 13700 3400
-F 0 "#PWR0151" H 13700 3150 50  0001 C CNN
-F 1 "GND" H 13705 3227 50  0000 C CNN
-F 2 "" H 13700 3400 50  0001 C CNN
-F 3 "" H 13700 3400 50  0001 C CNN
-	1    13700 3400
 	1    0    0    -1  
 $EndComp
 Text GLabel 11000 2900 0    50   Input ~ 0
@@ -1943,14 +1863,7 @@ Wire Wire Line
 Wire Wire Line
 	12800 3300 12800 3400
 Wire Wire Line
-	13700 3400 13700 3000
-Wire Wire Line
-	13700 3000 13650 3000
-Wire Wire Line
-	13700 3000 13700 2900
-Wire Wire Line
 	13700 2900 13650 2900
-Connection ~ 13700 3000
 Text GLabel 8150 2250 2    50   Output ~ 0
 BCKA
 Text GLabel 8150 2350 2    50   Output ~ 0
@@ -2834,4 +2747,29 @@ F 3 "~" H 1850 9300 50  0001 C CNN
 	1    1850 9300
 	1    0    0    -1  
 $EndComp
+Text GLabel 15100 3000 2    50   Input ~ 0
+SDO
+$Comp
+L kicad-snk:TE_CONN_RCPT_10POS_0.1_TIN_PCB J15
+U 1 1 614B4B8B
+P 13250 3100
+F 0 "J15" H 13250 3567 50  0000 C CNN
+F 1 "A" H 13250 3476 50  0000 C CNN
+F 2 "kicad-snk:TE_CONN_RCPT_10POS_0.1_TIN_PCB" H 13250 3100 50  0001 L BNN
+F 3 "" H 13250 3100 50  0001 L BNN
+F 4 "Compliant" H 13250 3100 50  0001 L BNN "EU_RoHS_Compliance"
+F 5 "1-338068-0" H 13250 3100 50  0001 L BNN "Comment"
+	1    13250 3100
+	1    0    0    -1  
+$EndComp
+Text GLabel 15100 4950 2    50   Input ~ 0
+SDO
+Wire Wire Line
+	13650 4950 15100 4950
+Wire Wire Line
+	13650 3000 15100 3000
+Wire Wire Line
+	4400 3550 5900 3550
+Wire Wire Line
+	4400 3650 5900 3650
 $EndSCHEMATC
