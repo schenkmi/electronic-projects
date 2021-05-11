@@ -1481,9 +1481,9 @@ Wire Wire Line
 	13450 1950 13550 1950
 Text GLabel 14650 1550 2    50   Output ~ 0
 MCLK1
-Text GLabel 14650 1650 2    50   Output ~ 0
-MCLK3
 Text GLabel 14650 1750 2    50   Output ~ 0
+MCLK3
+Text GLabel 14650 1650 2    50   Output ~ 0
 MCLK2
 Wire Wire Line
 	14350 1550 14650 1550
