@@ -887,21 +887,8 @@ F 3 "" H 15400 8800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 15400 8900
-$Comp
-L Connector:TestPoint TP6
-U 1 1 607A594C
-P 14900 8850
-F 0 "TP6" H 14958 8968 50  0000 L CNN
-F 1 "3.3V" H 14958 8877 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 15100 8850 50  0001 C CNN
-F 3 "~" H 15100 8850 50  0001 C CNN
-	1    14900 8850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	15400 8800 15400 8900
-Wire Wire Line
-	14900 8850 14900 8900
 Wire Wire Line
 	14900 9550 14900 9450
 $Comp
@@ -958,21 +945,8 @@ F 3 "" H 14900 8350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 15400 7700
-$Comp
-L Connector:TestPoint TP7
-U 1 1 607C6936
-P 14900 7650
-F 0 "TP7" H 14958 7768 50  0000 L CNN
-F 1 "1.8V" H 14958 7677 50  0000 L CNN
-F 2 "TestPoint:TestPoint_Pad_D1.0mm" H 15100 7650 50  0001 C CNN
-F 3 "~" H 15100 7650 50  0001 C CNN
-	1    14900 7650
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	15400 7600 15400 7700
-Wire Wire Line
-	14900 7650 14900 7700
 Wire Wire Line
 	14900 8350 14900 8250
 $Comp
@@ -1980,77 +1954,6 @@ Wire Wire Line
 	2800 6650 3000 6650
 Wire Wire Line
 	3000 6750 2800 6750
-$Comp
-L Connector:Conn_01x10_Male J20
-U 1 1 61C2F14C
-P 1750 7550
-F 0 "J20" H 1858 8131 50  0000 C CNN
-F 1 "Conn_01x10_Male" H 1858 8040 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical" H 1750 7550 50  0001 C CNN
-F 3 "~" H 1750 7550 50  0001 C CNN
-	1    1750 7550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0159
-U 1 1 61C32FDF
-P 2100 7150
-F 0 "#PWR0159" H 2100 6900 50  0001 C CNN
-F 1 "GND" H 2105 6977 50  0000 C CNN
-F 2 "" H 2100 7150 50  0001 C CNN
-F 3 "" H 2100 7150 50  0001 C CNN
-	1    2100 7150
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:+3.3V #PWR0169
-U 1 1 61C33FD6
-P 2400 7150
-F 0 "#PWR0169" H 2400 7000 50  0001 C CNN
-F 1 "+3.3V" H 2415 7323 50  0000 C CNN
-F 2 "" H 2400 7150 50  0001 C CNN
-F 3 "" H 2400 7150 50  0001 C CNN
-	1    2400 7150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2400 7150 2400 7250
-Wire Wire Line
-	2400 7250 1950 7250
-Text GLabel 2100 7450 2    50   Input ~ 0
-RA5
-Text GLabel 2100 7350 2    50   Input ~ 0
-RA4
-Text GLabel 2100 7650 2    50   Input ~ 0
-RC5
-Text GLabel 2100 7550 2    50   Input ~ 0
-RC4
-Text GLabel 2100 7850 2    50   Input ~ 0
-RC6
-Text GLabel 2100 7750 2    50   Input ~ 0
-RC7
-Text GLabel 2100 8050 2    50   Input ~ 0
-SCL2
-Text GLabel 2100 7950 2    50   BiDi ~ 0
-SDA2
-Wire Wire Line
-	2100 7150 1950 7150
-Wire Wire Line
-	2100 7350 1950 7350
-Wire Wire Line
-	1950 7450 2100 7450
-Wire Wire Line
-	2100 7550 1950 7550
-Wire Wire Line
-	1950 7650 2100 7650
-Wire Wire Line
-	1950 7750 2100 7750
-Wire Wire Line
-	1950 7850 2100 7850
-Wire Wire Line
-	1950 7950 2100 7950
-Wire Wire Line
-	1950 8050 2100 8050
 Wire Wire Line
 	1900 10000 4300 10000
 Wire Wire Line
@@ -2273,7 +2176,6 @@ Wire Wire Line
 Wire Wire Line
 	3950 1400 5600 1400
 NoConn ~ 7700 1750
-NoConn ~ 1900 7450
 Wire Wire Line
 	12150 8900 12700 8900
 Wire Wire Line
