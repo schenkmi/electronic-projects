@@ -307,7 +307,7 @@ void set_dit_mode(uint8_t input, uint8_t mode)
 		// set both AES and TX outputs to receive their
 		// data via the bypass multiplexor without going
 		// through the DIT block.
-		val = (input) << 6 | 0x30;       
+		val = (uint8_t)((input) << 6 | 0x30);       
 		src4392_write(SRC_REG08, val);
 	}
 }
@@ -526,21 +526,22 @@ const signed char table[] = {0,-1,+1,0,+1,0,0,-1,-1,0,0,+1,0,+1,-1,0};
 
 void encoder_click(void)
   {
-#if 0
+#if 1
     static unsigned char previous = 0;
-  unsigned char temp;
+  uint8_t tmp;
 
-  temp = 5;
+  tmp = 5;
 
-  while(temp--){ /* debounce */
+  while(tmp--){ /* debounce */
     ;
     }
 
-  temp = PORTB;     /* Read port */
-  temp >>= 2;       /* Shift input to bit positions 1, 0 */
-  temp &= 0x03;     /* Mask out bits */ 
+  
+
+  tmp = (uint8_t)((ENCCHANB_GetValue() << 1) | ENCCHANA_GetValue());      
+  
   previous <<= 2;   /* shift the previous data left two places */ 
-  previous |= temp; /* OR in the two new bits */
+  previous |= tmp; /* OR in the two new bits */
 
   encoder_count += table[(previous & 0x0f)];  /* Index into table */
 #endif
