@@ -150,6 +150,7 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 //#define SRC_OUTPUT_BITS 20
 #define SRC_OUTPUT_BITS 24
 
+volatile signed int encoder_count;
 
 
 // Read one byte from the SRC4392
@@ -521,6 +522,30 @@ void init(void)
 	src4392_write(SRC_REG06, 0x00);
 }
 
+const signed char table[] = {0,-1,+1,0,+1,0,0,-1,-1,0,0,+1,0,+1,-1,0};
+
+void encoder_click(void)
+  {
+#if 0
+    static unsigned char previous = 0;
+  unsigned char temp;
+
+  temp = 5;
+
+  while(temp--){ /* debounce */
+    ;
+    }
+
+  temp = PORTB;     /* Read port */
+  temp >>= 2;       /* Shift input to bit positions 1, 0 */
+  temp &= 0x03;     /* Mask out bits */ 
+  previous <<= 2;   /* shift the previous data left two places */ 
+  previous |= temp; /* OR in the two new bits */
+
+  encoder_count += table[(previous & 0x0f)];  /* Index into table */
+#endif
+  }
+
 /*
                          Main application
  */
@@ -533,14 +558,18 @@ void main(void)
     // initialize the device
     SYSTEM_Initialize();
 
+    encoder_count = 0;
+    IOCCF6_SetInterruptHandler(encoder_click);
+    IOCCF7_SetInterruptHandler(encoder_click);
+    
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
 
     // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
+    INTERRUPT_GlobalInterruptEnable();
 
     // Enable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptEnable();
+    INTERRUPT_PeripheralInterruptEnable();
 
     // Disable the Global Interrupts
     //INTERRUPT_GlobalInterruptDisable();
