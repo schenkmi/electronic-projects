@@ -65,6 +65,26 @@
 #define PULL_UP_ENABLED      1
 #define PULL_UP_DISABLED     0
 
+// get/set SEL aliases
+#define SEL_TRIS                 TRISAbits.TRISA2
+#define SEL_LAT                  LATAbits.LATA2
+#define SEL_PORT                 PORTAbits.RA2
+#define SEL_WPU                  WPUAbits.WPUA2
+#define SEL_OD                   ODCONAbits.ODCA2
+#define SEL_ANS                  ANSELAbits.ANSA2
+#define SEL_SetHigh()            do { LATAbits.LATA2 = 1; } while(0)
+#define SEL_SetLow()             do { LATAbits.LATA2 = 0; } while(0)
+#define SEL_Toggle()             do { LATAbits.LATA2 = ~LATAbits.LATA2; } while(0)
+#define SEL_GetValue()           PORTAbits.RA2
+#define SEL_SetDigitalInput()    do { TRISAbits.TRISA2 = 1; } while(0)
+#define SEL_SetDigitalOutput()   do { TRISAbits.TRISA2 = 0; } while(0)
+#define SEL_SetPullup()          do { WPUAbits.WPUA2 = 1; } while(0)
+#define SEL_ResetPullup()        do { WPUAbits.WPUA2 = 0; } while(0)
+#define SEL_SetPushPull()        do { ODCONAbits.ODCA2 = 0; } while(0)
+#define SEL_SetOpenDrain()       do { ODCONAbits.ODCA2 = 1; } while(0)
+#define SEL_SetAnalogMode()      do { ANSELAbits.ANSA2 = 1; } while(0)
+#define SEL_SetDigitalMode()     do { ANSELAbits.ANSA2 = 0; } while(0)
+
 // get/set RB4 procedures
 #define RB4_SetHigh()            do { LATBbits.LATB4 = 1; } while(0)
 #define RB4_SetLow()             do { LATBbits.LATB4 = 0; } while(0)
