@@ -470,7 +470,8 @@ void init(void)
 	// - autodem enabled
 	src4392_write(SRC_REG2D, 0x02);	// default input source = DIR
 	src4392_write(SRC_REG2E, 0x20);
- 
+
+#if 0
 #if SRC_OUTPUT_BITS == 24
     src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
 #elif SRC_OUTPUT_BITS == 20
@@ -479,6 +480,15 @@ void init(void)
     // default 24 Bit
     src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
 #endif
+#else
+    if (SEL_GetValue()) {
+        src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
+    }
+    else {
+        src4392_write(SRC_REG2F, 0x40); // SRC output 20 Bit
+    }
+#endif
+    
     
 	src4392_write(SRC_REG30, 0x00);
 	src4392_write(SRC_REG31, 0x00);
