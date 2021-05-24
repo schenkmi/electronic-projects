@@ -107,11 +107,19 @@ void init(void)
     }
 }
 
+#if 0
 const signed char table[] = {0,-1,+1,0,+1,0,0,-1,-1,0,0,+1,0,+1,-1,0};
+#else
+const signed char table[] = {0,0,0,0,0,0,0,-1,0,0,0,+1,0,0,0,0};
+#endif
+
+
+// 1011 => + 1
+// 0111 => - 1
 
 void encoder_click(void)
   {
-#if 1
+#if 0
     static unsigned char previous = 0;
   uint8_t tmp;
 
@@ -123,7 +131,8 @@ void encoder_click(void)
 
   
 
-  tmp = (uint8_t)((RCHANB_GetValue() << 1) | RCHANA_GetValue());      
+  tmp = (uint8_t)((RCHANB_GetValue() << 1) | RCHANA_GetValue());
+   
   
   previous <<= 2;   /* shift the previous data left two places */ 
   previous |= tmp; /* OR in the two new bits */
@@ -131,11 +140,52 @@ void encoder_click(void)
   encoder_count += table[(previous & 0x0f)];  /* Index into table */
   
   if (encoder_count > 3) {
-    encoder_count = 0;  
+    //encoder_count = 0; 
+    encoder_count = 3; 
   }
   else if (encoder_count < 0) {
-     encoder_count = 3; 
+     //encoder_count = 3; 
+     encoder_count = 0; 
   }
+  
+#else
+     static unsigned char previous = 0;
+  uint8_t tmp;
+
+  tmp = 5;
+
+  while(tmp--){ /* debounce */
+    ;
+    }
+
+  
+
+
+  tmp = (uint8_t)((RCHANB_GetValue() << 1) | RCHANA_GetValue());
+    previous <<= 2;   /* shift the previous data left two places */ 
+  previous |= tmp; /* OR in the two new bits */
+  
+  encoder_count += table[(previous & 0x0f)];  /* Index into table */
+  
+#if 0
+  if (tmp == 0x2) {
+      encoder_count++;
+  }
+  else if (tmp == 0x1) {
+      
+      encoder_count--;
+  }
+#endif
+
+  if (encoder_count > 3) {
+    //encoder_count = 0; 
+    encoder_count = 3; 
+  }
+  else if (encoder_count < 0) {
+     //encoder_count = 3; 
+     encoder_count = 0; 
+  }
+  
   
   
 #endif
@@ -177,6 +227,7 @@ void main(void)
     while (1) {
         
 #if 1
+        __delay_ms(20);
         if (encoder_count != last_encoder_count) {
             PORTC &= ~((1 << last_encoder_count) & 0xff);
             PORTC |= (((1 << encoder_count) & 0xff) | MUTE_OFF_BIT);
