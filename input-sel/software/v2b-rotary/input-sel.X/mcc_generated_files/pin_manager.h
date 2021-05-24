@@ -145,45 +145,45 @@
 #define IO_RB5_SetAnalogMode()      do { ANSELBbits.ANSB5 = 1; } while(0)
 #define IO_RB5_SetDigitalMode()     do { ANSELBbits.ANSB5 = 0; } while(0)
 
-// get/set IO_RB6 aliases
-#define IO_RB6_TRIS                 TRISBbits.TRISB6
-#define IO_RB6_LAT                  LATBbits.LATB6
-#define IO_RB6_PORT                 PORTBbits.RB6
-#define IO_RB6_WPU                  WPUBbits.WPUB6
-#define IO_RB6_OD                   ODCONBbits.ODCB6
-#define IO_RB6_ANS                  ANSELBbits.ANSB6
-#define IO_RB6_SetHigh()            do { LATBbits.LATB6 = 1; } while(0)
-#define IO_RB6_SetLow()             do { LATBbits.LATB6 = 0; } while(0)
-#define IO_RB6_Toggle()             do { LATBbits.LATB6 = ~LATBbits.LATB6; } while(0)
-#define IO_RB6_GetValue()           PORTBbits.RB6
-#define IO_RB6_SetDigitalInput()    do { TRISBbits.TRISB6 = 1; } while(0)
-#define IO_RB6_SetDigitalOutput()   do { TRISBbits.TRISB6 = 0; } while(0)
-#define IO_RB6_SetPullup()          do { WPUBbits.WPUB6 = 1; } while(0)
-#define IO_RB6_ResetPullup()        do { WPUBbits.WPUB6 = 0; } while(0)
-#define IO_RB6_SetPushPull()        do { ODCONBbits.ODCB6 = 0; } while(0)
-#define IO_RB6_SetOpenDrain()       do { ODCONBbits.ODCB6 = 1; } while(0)
-#define IO_RB6_SetAnalogMode()      do { ANSELBbits.ANSB6 = 1; } while(0)
-#define IO_RB6_SetDigitalMode()     do { ANSELBbits.ANSB6 = 0; } while(0)
+// get/set RCHANA aliases
+#define RCHANA_TRIS                 TRISBbits.TRISB6
+#define RCHANA_LAT                  LATBbits.LATB6
+#define RCHANA_PORT                 PORTBbits.RB6
+#define RCHANA_WPU                  WPUBbits.WPUB6
+#define RCHANA_OD                   ODCONBbits.ODCB6
+#define RCHANA_ANS                  ANSELBbits.ANSB6
+#define RCHANA_SetHigh()            do { LATBbits.LATB6 = 1; } while(0)
+#define RCHANA_SetLow()             do { LATBbits.LATB6 = 0; } while(0)
+#define RCHANA_Toggle()             do { LATBbits.LATB6 = ~LATBbits.LATB6; } while(0)
+#define RCHANA_GetValue()           PORTBbits.RB6
+#define RCHANA_SetDigitalInput()    do { TRISBbits.TRISB6 = 1; } while(0)
+#define RCHANA_SetDigitalOutput()   do { TRISBbits.TRISB6 = 0; } while(0)
+#define RCHANA_SetPullup()          do { WPUBbits.WPUB6 = 1; } while(0)
+#define RCHANA_ResetPullup()        do { WPUBbits.WPUB6 = 0; } while(0)
+#define RCHANA_SetPushPull()        do { ODCONBbits.ODCB6 = 0; } while(0)
+#define RCHANA_SetOpenDrain()       do { ODCONBbits.ODCB6 = 1; } while(0)
+#define RCHANA_SetAnalogMode()      do { ANSELBbits.ANSB6 = 1; } while(0)
+#define RCHANA_SetDigitalMode()     do { ANSELBbits.ANSB6 = 0; } while(0)
 
-// get/set IO_RB7 aliases
-#define IO_RB7_TRIS                 TRISBbits.TRISB7
-#define IO_RB7_LAT                  LATBbits.LATB7
-#define IO_RB7_PORT                 PORTBbits.RB7
-#define IO_RB7_WPU                  WPUBbits.WPUB7
-#define IO_RB7_OD                   ODCONBbits.ODCB7
-#define IO_RB7_ANS                  ANSELBbits.ANSB7
-#define IO_RB7_SetHigh()            do { LATBbits.LATB7 = 1; } while(0)
-#define IO_RB7_SetLow()             do { LATBbits.LATB7 = 0; } while(0)
-#define IO_RB7_Toggle()             do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0)
-#define IO_RB7_GetValue()           PORTBbits.RB7
-#define IO_RB7_SetDigitalInput()    do { TRISBbits.TRISB7 = 1; } while(0)
-#define IO_RB7_SetDigitalOutput()   do { TRISBbits.TRISB7 = 0; } while(0)
-#define IO_RB7_SetPullup()          do { WPUBbits.WPUB7 = 1; } while(0)
-#define IO_RB7_ResetPullup()        do { WPUBbits.WPUB7 = 0; } while(0)
-#define IO_RB7_SetPushPull()        do { ODCONBbits.ODCB7 = 0; } while(0)
-#define IO_RB7_SetOpenDrain()       do { ODCONBbits.ODCB7 = 1; } while(0)
-#define IO_RB7_SetAnalogMode()      do { ANSELBbits.ANSB7 = 1; } while(0)
-#define IO_RB7_SetDigitalMode()     do { ANSELBbits.ANSB7 = 0; } while(0)
+// get/set RCHANB aliases
+#define RCHANB_TRIS                 TRISBbits.TRISB7
+#define RCHANB_LAT                  LATBbits.LATB7
+#define RCHANB_PORT                 PORTBbits.RB7
+#define RCHANB_WPU                  WPUBbits.WPUB7
+#define RCHANB_OD                   ODCONBbits.ODCB7
+#define RCHANB_ANS                  ANSELBbits.ANSB7
+#define RCHANB_SetHigh()            do { LATBbits.LATB7 = 1; } while(0)
+#define RCHANB_SetLow()             do { LATBbits.LATB7 = 0; } while(0)
+#define RCHANB_Toggle()             do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0)
+#define RCHANB_GetValue()           PORTBbits.RB7
+#define RCHANB_SetDigitalInput()    do { TRISBbits.TRISB7 = 1; } while(0)
+#define RCHANB_SetDigitalOutput()   do { TRISBbits.TRISB7 = 0; } while(0)
+#define RCHANB_SetPullup()          do { WPUBbits.WPUB7 = 1; } while(0)
+#define RCHANB_ResetPullup()        do { WPUBbits.WPUB7 = 0; } while(0)
+#define RCHANB_SetPushPull()        do { ODCONBbits.ODCB7 = 0; } while(0)
+#define RCHANB_SetOpenDrain()       do { ODCONBbits.ODCB7 = 1; } while(0)
+#define RCHANB_SetAnalogMode()      do { ANSELBbits.ANSB7 = 1; } while(0)
+#define RCHANB_SetDigitalMode()     do { ANSELBbits.ANSB7 = 0; } while(0)
 
 // get/set IO_RC0 aliases
 #define IO_RC0_TRIS                 TRISCbits.TRISC0
@@ -368,6 +368,174 @@ void PIN_MANAGER_Initialize (void);
     PIN_MANAGER_IOC();
  */
 void PIN_MANAGER_IOC(void);
+
+
+/**
+ * @Param
+    none
+ * @Returns
+    none
+ * @Description
+    Interrupt on Change Handler for the IOCBF6 pin functionality
+ * @Example
+    IOCBF6_ISR();
+ */
+void IOCBF6_ISR(void);
+
+/**
+  @Summary
+    Interrupt Handler Setter for IOCBF6 pin interrupt-on-change functionality
+
+  @Description
+    Allows selecting an interrupt handler for IOCBF6 at application runtime
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    InterruptHandler function pointer.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCBF6_SetInterruptHandler(MyInterruptHandler);
+
+*/
+void IOCBF6_SetInterruptHandler(void (* InterruptHandler)(void));
+
+/**
+  @Summary
+    Dynamic Interrupt Handler for IOCBF6 pin
+
+  @Description
+    This is a dynamic interrupt handler to be used together with the IOCBF6_SetInterruptHandler() method.
+    This handler is called every time the IOCBF6 ISR is executed and allows any function to be registered at runtime.
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCBF6_SetInterruptHandler(IOCBF6_InterruptHandler);
+
+*/
+extern void (*IOCBF6_InterruptHandler)(void);
+
+/**
+  @Summary
+    Default Interrupt Handler for IOCBF6 pin
+
+  @Description
+    This is a predefined interrupt handler to be used together with the IOCBF6_SetInterruptHandler() method.
+    This handler is called every time the IOCBF6 ISR is executed. 
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCBF6_SetInterruptHandler(IOCBF6_DefaultInterruptHandler);
+
+*/
+void IOCBF6_DefaultInterruptHandler(void);
+
+
+/**
+ * @Param
+    none
+ * @Returns
+    none
+ * @Description
+    Interrupt on Change Handler for the IOCBF7 pin functionality
+ * @Example
+    IOCBF7_ISR();
+ */
+void IOCBF7_ISR(void);
+
+/**
+  @Summary
+    Interrupt Handler Setter for IOCBF7 pin interrupt-on-change functionality
+
+  @Description
+    Allows selecting an interrupt handler for IOCBF7 at application runtime
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    InterruptHandler function pointer.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCBF7_SetInterruptHandler(MyInterruptHandler);
+
+*/
+void IOCBF7_SetInterruptHandler(void (* InterruptHandler)(void));
+
+/**
+  @Summary
+    Dynamic Interrupt Handler for IOCBF7 pin
+
+  @Description
+    This is a dynamic interrupt handler to be used together with the IOCBF7_SetInterruptHandler() method.
+    This handler is called every time the IOCBF7 ISR is executed and allows any function to be registered at runtime.
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCBF7_SetInterruptHandler(IOCBF7_InterruptHandler);
+
+*/
+extern void (*IOCBF7_InterruptHandler)(void);
+
+/**
+  @Summary
+    Default Interrupt Handler for IOCBF7 pin
+
+  @Description
+    This is a predefined interrupt handler to be used together with the IOCBF7_SetInterruptHandler() method.
+    This handler is called every time the IOCBF7 ISR is executed. 
+    
+  @Preconditions
+    Pin Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    PIN_MANAGER_Initialize();
+    IOCBF7_SetInterruptHandler(IOCBF7_DefaultInterruptHandler);
+
+*/
+void IOCBF7_DefaultInterruptHandler(void);
 
 
 
