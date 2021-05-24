@@ -53,6 +53,9 @@
 
 #define LED PORTAbits.RA4
 
+volatile signed int encoder_count;
+
+
 static void eeprom_example(void)
 {
     volatile uint8_t value = 0x09;
@@ -104,6 +107,41 @@ void init(void)
     }
 }
 
+const signed char table[] = {0,-1,+1,0,+1,0,0,-1,-1,0,0,+1,0,+1,-1,0};
+
+void encoder_click(void)
+  {
+#if 1
+    static unsigned char previous = 0;
+  uint8_t tmp;
+
+  tmp = 5;
+
+  while(tmp--){ /* debounce */
+    ;
+    }
+
+  
+
+  tmp = (uint8_t)((RCHANB_GetValue() << 1) | RCHANA_GetValue());      
+  
+  previous <<= 2;   /* shift the previous data left two places */ 
+  previous |= tmp; /* OR in the two new bits */
+
+  encoder_count += table[(previous & 0x0f)];  /* Index into table */
+  
+  if (encoder_count > 3) {
+    encoder_count = 0;  
+  }
+  else if (encoder_count < 0) {
+     encoder_count = 3; 
+  }
+  
+  
+#endif
+  }
+
+
 /*
                          Main application
  */
@@ -115,14 +153,18 @@ void main(void)
     // initialize the device
     SYSTEM_Initialize();
 
+    encoder_count = 0;
+    IOCBF6_SetInterruptHandler(encoder_click);
+    IOCBF7_SetInterruptHandler(encoder_click);
+    
     // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
     // Use the following macros to:
 
     // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
+    INTERRUPT_GlobalInterruptEnable();
 
     // Enable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptEnable();
+    INTERRUPT_PeripheralInterruptEnable();
 
     // Disable the Global Interrupts
     //INTERRUPT_GlobalInterruptDisable();
