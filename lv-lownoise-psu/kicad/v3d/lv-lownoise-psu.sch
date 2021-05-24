@@ -1,12 +1,12 @@
 EESchema Schematic File Version 4
 EELAYER 30 0
 EELAYER END
-$Descr A4 11693 8268
+$Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Ultra Low Noise PSU"
-Date "2020-12-27"
-Rev "V3C"
+Date "2021-05-24"
+Rev "v3d"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -884,17 +884,6 @@ F 3 "~" H 6200 3000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:CP C15
-U 1 1 5FEAF090
-P 6650 3000
-F 0 "C15" H 6768 3046 50  0000 L CNN
-F 1 "4.7uF" H 6768 2955 50  0000 L CNN
-F 2 "Capacitor_Tantalum_SMD:CP_EIA-2012-12_Kemet-R_Pad1.30x1.05mm_HandSolder" H 6688 2850 50  0001 C CNN
-F 3 "~" H 6650 3000 50  0001 C CNN
-	1    6650 3000
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:CP C18
 U 1 1 5FEBD2E5
 P 9500 4250
@@ -914,17 +903,6 @@ F 1 "4.7uF" H 6318 4105 50  0000 L CNN
 F 2 "Capacitor_Tantalum_SMD:CP_EIA-2012-12_Kemet-R_Pad1.30x1.05mm_HandSolder" H 6238 4000 50  0001 C CNN
 F 3 "~" H 6200 4150 50  0001 C CNN
 	1    6200 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:CP C16
-U 1 1 5FED7F72
-P 6650 4150
-F 0 "C16" H 6768 4196 50  0000 L CNN
-F 1 "4.7uF" H 6768 4105 50  0000 L CNN
-F 2 "Capacitor_Tantalum_SMD:CP_EIA-2012-12_Kemet-R_Pad1.30x1.05mm_HandSolder" H 6688 4000 50  0001 C CNN
-F 3 "~" H 6650 4150 50  0001 C CNN
-	1    6650 4150
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1107,6 +1085,375 @@ F 1 "LM7905_TO220" H 8500 5610 50  0000 C CNN
 F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 8500 5650 50  0001 C CIN
 F 3 "https://www.onsemi.com/pub/Collateral/MC7900-D.PDF" H 8500 5850 50  0001 C CNN
 	1    8500 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 60ADDB9F
+P 6650 4150
+F 0 "C?" H 6765 4196 50  0000 L CNN
+F 1 "4.7uF/25V" H 6765 4105 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 6688 4000 50  0001 C CNN
+F 3 "~" H 6650 4150 50  0001 C CNN
+	1    6650 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 60AF17BD
+P 6650 3000
+F 0 "C?" H 6765 3046 50  0000 L CNN
+F 1 "4.7uF/25V" H 6765 2955 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 6688 2850 50  0001 C CNN
+F 3 "~" H 6650 3000 50  0001 C CNN
+	1    6650 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LM317_TO-220 U?
+U 1 1 60B19DC3
+P 13250 2500
+F 0 "U?" H 13250 2742 50  0000 C CNN
+F 1 "LM317_TO-220" H 13250 2651 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 13250 2750 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/lm317.pdf" H 13250 2500 50  0001 C CNN
+F 4 "LM317T" H 13250 2500 50  0001 C CNN "manf#"
+	1    13250 2500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60B19DCA
+P 13250 3350
+F 0 "R?" H 13320 3396 50  0000 L CNN
+F 1 "910R" H 13320 3305 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 13180 3350 50  0001 C CNN
+F 3 "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RT_1-to-0.01_RoHS_L_12.pdf" H 13250 3350 50  0001 C CNN
+F 4 "RT0603FRE07910RL" H 13250 3350 50  0001 C CNN "manf#"
+	1    13250 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60B19DD1
+P 13650 2800
+F 0 "R?" H 13720 2846 50  0000 L CNN
+F 1 "240R" H 13720 2755 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 13580 2800 50  0001 C CNN
+F 3 "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RT_1-to-0.01_RoHS_L_12.pdf" H 13650 2800 50  0001 C CNN
+F 4 "RT0603FRE07240RL" H 13650 2800 50  0001 C CNN "manf#"
+	1    13650 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 60B19DD8
+P 13250 2100
+F 0 "D?" H 13250 2317 50  0000 C CNN
+F 1 "1N4148W" H 13250 2226 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 13250 1925 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30086.pdf" H 13250 2100 50  0001 C CNN
+F 4 "1N4148W-7-F" H 13250 2100 50  0001 C CNN "manf#"
+	1    13250 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 60B19DDF
+P 14050 2800
+F 0 "D?" V 14004 2880 50  0000 L CNN
+F 1 "1N4148W" V 14095 2880 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-123" H 14050 2625 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30086.pdf" H 14050 2800 50  0001 C CNN
+F 4 "1N4148W-7-F" V 14050 2800 50  0001 C CNN "manf#"
+	1    14050 2800
+	0    1    1    0   
+$EndComp
+$Comp
+L Mechanical:Heatsink HS?
+U 1 1 60B19DE6
+P 13250 1750
+F 0 "HS?" H 13392 1871 50  0000 L CNN
+F 1 "Heatsink" H 13392 1780 50  0000 L CNN
+F 2 "Heatsink:Heatsink_Fischer_SK104-STC-STIC_35x13mm_2xDrill2.5mm" H 13262 1750 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 13262 1750 50  0001 C CNN
+F 4 "637-15ABPE" H 13250 1750 50  0001 C CNN "manf#"
+	1    13250 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 60B19DED
+P 12550 3150
+F 0 "C?" H 12668 3196 50  0000 L CNN
+F 1 "10uF/25V" H 12668 3105 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 12588 3000 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 12550 3150 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 12550 3150 50  0001 C CNN "manf#"
+	1    12550 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 60B19DF4
+P 13650 3350
+F 0 "C?" H 13768 3396 50  0000 L CNN
+F 1 "10uF/25V" H 13768 3305 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 13688 3200 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 13650 3350 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 13650 3350 50  0001 C CNN "manf#"
+	1    13650 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 60B19DFB
+P 14650 3150
+F 0 "C?" H 14768 3196 50  0000 L CNN
+F 1 "10uF/25V" H 14768 3105 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 14688 3000 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 14650 3150 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 14650 3150 50  0001 C CNN "manf#"
+	1    14650 3150
+	1    0    0    -1  
+$EndComp
+Text GLabel 12200 2500 0    50   Input ~ 0
++17V
+Wire Wire Line
+	12550 2500 12850 2500
+Wire Wire Line
+	13550 2500 13650 2500
+Wire Wire Line
+	13650 2500 14050 2500
+Wire Wire Line
+	13650 2500 13650 2100
+Wire Wire Line
+	13650 2100 13400 2100
+Wire Wire Line
+	13100 2100 12850 2100
+Wire Wire Line
+	12850 2100 12850 2500
+Wire Wire Line
+	12850 2500 12950 2500
+Wire Wire Line
+	12200 2500 12550 2500
+Wire Wire Line
+	14050 2500 14650 2500
+Wire Wire Line
+	14650 3000 14650 2500
+Wire Wire Line
+	14650 3300 14650 3750
+Wire Wire Line
+	13250 2800 13250 3050
+Wire Wire Line
+	13650 3200 13650 3050
+Wire Wire Line
+	13650 3050 13250 3050
+Wire Wire Line
+	13650 3050 13650 2950
+Wire Wire Line
+	13250 3050 13250 3200
+Wire Wire Line
+	13250 3500 13250 3750
+Wire Wire Line
+	13650 3500 13650 3750
+Wire Wire Line
+	14050 2950 14050 3050
+Wire Wire Line
+	14050 3050 13650 3050
+Wire Wire Line
+	14050 2500 14050 2650
+Wire Wire Line
+	13650 2500 13650 2650
+Wire Wire Line
+	12550 3300 12550 3750
+Wire Wire Line
+	12550 2500 12550 3000
+Connection ~ 13650 2500
+Connection ~ 12850 2500
+Connection ~ 14050 2500
+Connection ~ 12550 2500
+Connection ~ 13650 3050
+Connection ~ 13250 3050
+$Comp
+L Regulator_Linear:LM337_TO220 U?
+U 1 1 60B4B010
+P 13200 6550
+F 0 "U?" H 13200 6401 50  0000 C CNN
+F 1 "LM337_TO220" H 13200 6310 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 13200 6350 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/lm337-n.pdf" H 13200 6550 50  0001 C CNN
+F 4 "LM337T/NOPB" H 13200 6550 50  0001 C CNN "manf#"
+	1    13200 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 60B4B017
+P 13200 7000
+F 0 "D?" H 13200 7217 50  0000 C CNN
+F 1 "1N4148W" H 13200 7126 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 13200 6825 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30086.pdf" H 13200 7000 50  0001 C CNN
+F 4 "1N4148W-7-F" H 13200 7000 50  0001 C CNN "manf#"
+	1    13200 7000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 60B4B01E
+P 12500 5850
+F 0 "C?" H 12618 5896 50  0000 L CNN
+F 1 "10uF/25V" H 12618 5805 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 12538 5700 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 12500 5850 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 12500 5850 50  0001 C CNN "manf#"
+	1    12500 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 60B4B025
+P 14000 6250
+F 0 "D?" V 13954 6330 50  0000 L CNN
+F 1 "1N4148W" V 14045 6330 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-123" H 14000 6075 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30086.pdf" H 14000 6250 50  0001 C CNN
+F 4 "1N4148W-7-F" V 14000 6250 50  0001 C CNN "manf#"
+	1    14000 6250
+	0    1    1    0   
+$EndComp
+$Comp
+L Mechanical:Heatsink HS?
+U 1 1 60B4B02C
+P 13200 7350
+F 0 "HS?" H 13342 7471 50  0000 L CNN
+F 1 "Heatsink" H 13342 7380 50  0000 L CNN
+F 2 "Heatsink:Heatsink_Fischer_SK104-STC-STIC_35x13mm_2xDrill2.5mm" H 13212 7350 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 13212 7350 50  0001 C CNN
+F 4 "637-15ABPE" H 13200 7350 50  0001 C CNN "manf#"
+	1    13200 7350
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 60B4B033
+P 13600 6250
+F 0 "R?" H 13670 6296 50  0000 L CNN
+F 1 "240R" H 13670 6205 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 13530 6250 50  0001 C CNN
+F 3 "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RT_1-to-0.01_RoHS_L_12.pdf" H 13600 6250 50  0001 C CNN
+F 4 "RT0603FRE07240RL" H 13600 6250 50  0001 C CNN "manf#"
+	1    13600 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 60B4B041
+P 13600 5650
+F 0 "C?" H 13718 5696 50  0000 L CNN
+F 1 "10uF/25V" H 13718 5605 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 13638 5500 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 13600 5650 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 13600 5650 50  0001 C CNN "manf#"
+	1    13600 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 60B4B048
+P 14600 5850
+F 0 "C?" H 14718 5896 50  0000 L CNN
+F 1 "10uF/25V" H 14718 5805 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 14638 5700 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 14600 5850 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 14600 5850 50  0001 C CNN "manf#"
+	1    14600 5850
+	1    0    0    -1  
+$EndComp
+Text GLabel 12150 6550 0    50   Input ~ 0
+-17V
+Wire Wire Line
+	13500 6550 13600 6550
+Wire Wire Line
+	12150 6550 12500 6550
+Wire Wire Line
+	13050 7000 12800 7000
+Wire Wire Line
+	12800 7000 12800 6550
+Wire Wire Line
+	12800 6550 12900 6550
+Wire Wire Line
+	13350 7000 13600 7000
+Wire Wire Line
+	13600 7000 13600 6550
+Wire Wire Line
+	13600 6550 14000 6550
+Wire Wire Line
+	13600 6550 13600 6400
+Wire Wire Line
+	14600 5300 14600 5700
+Wire Wire Line
+	14600 6000 14600 6550
+Wire Wire Line
+	13600 6100 13600 5950
+Wire Wire Line
+	13200 5950 13600 5950
+Wire Wire Line
+	13600 5950 13600 5800
+Wire Wire Line
+	13600 5950 14000 5950
+Wire Wire Line
+	14000 5950 14000 6100
+Wire Wire Line
+	14000 6400 14000 6550
+Wire Wire Line
+	14000 6550 14600 6550
+Wire Wire Line
+	13600 5300 13600 5500
+Wire Wire Line
+	12500 6000 12500 6550
+Wire Wire Line
+	12500 6550 12800 6550
+Wire Wire Line
+	12500 5700 12500 5300
+Wire Wire Line
+	13200 6250 13200 5950
+Connection ~ 12800 6550
+Connection ~ 13600 6550
+Connection ~ 13600 5950
+Connection ~ 14000 6550
+Connection ~ 12500 6550
+$Comp
+L Device:R_POT RV?
+U 1 1 60B8E0EB
+P 13200 5700
+F 0 "RV?" H 13131 5746 50  0000 R CNN
+F 1 "5k" H 13131 5655 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 13200 5700 50  0001 C CNN
+F 3 "~" H 13200 5700 50  0001 C CNN
+	1    13200 5700
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	13200 5550 13200 5400
+Wire Wire Line
+	13050 5700 13050 5400
+Wire Wire Line
+	13050 5400 13200 5400
+Wire Wire Line
+	13200 5850 13200 5950
+Connection ~ 13200 5950
+$Comp
+L Device:R R?
+U 1 1 60E5E9A7
+P 12800 5700
+F 0 "R?" H 12870 5746 50  0000 L CNN
+F 1 "910R" H 12870 5655 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 12730 5700 50  0001 C CNN
+F 3 "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RT_1-to-0.01_RoHS_L_12.pdf" H 12800 5700 50  0001 C CNN
+F 4 "RT0603FRE07910RL" H 12800 5700 50  0001 C CNN "manf#"
+	1    12800 5700
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
