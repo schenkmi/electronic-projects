@@ -4,9 +4,9 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
-Title "Xilinx CPLD CoolRunner-II XC2C64A"
-Date "2021-04-23"
-Rev "V2"
+Title "PIC Break-Out Board"
+Date "2021-05-24"
+Rev "V1"
 Comp ""
 Comment1 ""
 Comment2 ""
