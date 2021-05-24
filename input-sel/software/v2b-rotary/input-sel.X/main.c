@@ -149,7 +149,7 @@ void main(void)
 {
     int selected = -1;
     int last_selected = -1; 
-    
+    int last_encoder_count = -1;
     // initialize the device
     SYSTEM_Initialize();
 
@@ -175,6 +175,14 @@ void main(void)
     init();
     
     while (1) {
+        
+#if 1
+        if (encoder_count != last_encoder_count) {
+            PORTC &= ~((1 << last_encoder_count) & 0xff);
+            PORTC |= (((1 << encoder_count) & 0xff) | MUTE_OFF_BIT);
+            last_encoder_count = encoder_count;
+        }   
+#else
         __delay_ms(20);
         selected = get_chan_sel();
         if (selected == -1) {
@@ -186,6 +194,7 @@ void main(void)
             PORTC |= (((1 << selected) & 0xff) | MUTE_OFF_BIT);
             last_selected = selected;
         }
+#endif
     }
 }
 /**
