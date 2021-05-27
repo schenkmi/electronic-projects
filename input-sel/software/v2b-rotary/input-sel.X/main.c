@@ -107,7 +107,7 @@ void init(void)
     }
 }
 
-#if 0
+#if 1
 const signed char table[] = {0,-1,+1,0,+1,0,0,-1,-1,0,0,+1,0,+1,-1,0};
 #else
 const signed char table[] = {0,0,0,0,0,0,0,-1,0,0,0,+1,0,0,0,0};
@@ -119,7 +119,7 @@ const signed char table[] = {0,0,0,0,0,0,0,-1,0,0,0,+1,0,0,0,0};
 
 void encoder_click(void)
   {
-#if 0
+#if 1
     static unsigned char previous = 0;
   uint8_t tmp;
 
@@ -139,9 +139,9 @@ void encoder_click(void)
 
   encoder_count += table[(previous & 0x0f)];  /* Index into table */
   
-  if (encoder_count > 3) {
+  if (encoder_count > 6) {
     //encoder_count = 0; 
-    encoder_count = 3; 
+    encoder_count = 6; 
   }
   else if (encoder_count < 0) {
      //encoder_count = 3; 
@@ -200,6 +200,9 @@ void main(void)
     int selected = -1;
     int last_selected = -1; 
     int last_encoder_count = -1;
+    
+    int tmp = 0;
+    
     // initialize the device
     SYSTEM_Initialize();
 
@@ -228,10 +231,11 @@ void main(void)
         
 #if 1
         __delay_ms(20);
-        if (encoder_count != last_encoder_count) {
+        tmp = encoder_count / 2;
+        if (tmp != last_encoder_count) {
             PORTC &= ~((1 << last_encoder_count) & 0xff);
-            PORTC |= (((1 << encoder_count) & 0xff) | MUTE_OFF_BIT);
-            last_encoder_count = encoder_count;
+            PORTC |= (((1 << tmp) & 0xff) | MUTE_OFF_BIT);
+            last_encoder_count = tmp;
         }   
 #else
         __delay_ms(20);
