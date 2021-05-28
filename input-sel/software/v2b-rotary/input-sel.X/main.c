@@ -68,7 +68,11 @@ static int get_chan_sel(void)
     int ret = -1;
     
 #ifdef __ROTARY_ENCODER__
+    
+
+    if (encoder_count >= 0) {
     ret = encoder_count / ROTARY_MULTI;
+    }
 #else
     /**
      * PORTB weak pull-up RB7..RB4
@@ -129,10 +133,10 @@ void encoder_click(void)
     encoder_count += table[(previous & 0x0f)];  /* Index into table */
   
 #ifdef __ROTARY_CONTINUOUS__
-  if (encoder_count > (ROTARY_MAX * ROTARY_MULTI)) {
+  if (encoder_count >= ((ROTARY_MAX + 1) * ROTARY_MULTI)) {
     encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
   }
-  else if (encoder_count < (ROTARY_MIN * ROTARY_MULTI)) {
+  else if (encoder_count <= ((ROTARY_MIN - 1) * ROTARY_MULTI)) {
      encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
   }
 #else
