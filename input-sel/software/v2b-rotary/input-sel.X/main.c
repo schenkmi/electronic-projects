@@ -1,45 +1,34 @@
 /**
-  Generated Main Source File
-
-  Company:
-    Microchip Technology Inc.
-
-  File Name:
-    main.c
-
-  Summary:
-    This is the main file generated using PIC10 / PIC12 / PIC16 / PIC18 MCUs
-
-  Description:
-    This header file provides implementations for driver APIs for all modules selected in the GUI.
-    Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.6
-        Device            :  PIC16F18446
-        Driver Version    :  2.00
-*/
-
-/*
-    (c) 2018 Microchip Technology Inc. and its subsidiaries. 
-    
-    Subject to your compliance with these terms, you may use Microchip software and any 
-    derivatives exclusively with Microchip products. It is your responsibility to comply with third party 
-    license terms applicable to your use of third party software (including open source software) that 
-    may accompany Microchip software.
-    
-    THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-    EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY 
-    IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS 
-    FOR A PARTICULAR PURPOSE.
-    
-    IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-    INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-    WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP 
-    HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO 
-    THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL 
-    CLAIMS IN ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT 
-    OF FEES, IF ANY, THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS 
-    SOFTWARE.
-*/
+ * PIC16F18446 based input channel selection
+ *
+ * Copyright (c) 2020, Michael Schenk
+ * All Rights Reserved
+ *
+ * Author: Michael Schenk
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * OEMs, ISVs, VARs and other distributors that combine and distribute
+ * commercially licensed software with Albis Technologies software
+ * and do not wish to distribute the source code for the commercially
+ * licensed software under version 2, or (at your option) any later
+ * version, of the GNU General Public License (the "GPL") must enter
+ * into a commercial license agreement with Albis Technologies Ldt.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; see the file LICENSE.txt. If not, write to
+ * the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ */
 
 #include "mcc_generated_files/mcc.h"
 
@@ -53,9 +42,18 @@
 
 #define LED PORTAbits.RA4
 
+
+#define __ROTARY_ENCODER__
+#ifdef __ROTARY_ENCODER__
+#   define __ROTARY_CONTINUOUS__
+#   define ROTARY_MIN       0
+#   define ROTARY_MAX       3
+#   define ROTARY_MULTI     2
+#endif
+
 volatile signed int encoder_count;
 
-
+#if 0
 static void eeprom_example(void)
 {
     volatile uint8_t value = 0x09;
@@ -63,10 +61,15 @@ static void eeprom_example(void)
     eeprom_write(address, value);     // Writing value 0x9 to EEPROM address 0xE5        
     value = eeprom_read (address);    // Reading the value from address 0xE5
 }
+#endif
 
 static int get_chan_sel(void)
 {
     int ret = -1;
+    
+#ifdef __ROTARY_ENCODER__
+    ret = encoder_count / ROTARY_MULTI;
+#else
     /**
      * PORTB weak pull-up RB7..RB4
      * Input selector ties to GND so we invert the bits here
@@ -89,7 +92,7 @@ static int get_chan_sel(void)
         default:
             break;
     }
-    
+#endif
     return ret;
 }
 
@@ -107,90 +110,41 @@ void init(void)
     }
 }
 
-#if 1
-const signed char table[] = {0,-1,+1,0,+1,0,0,-1,-1,0,0,+1,0,+1,-1,0};
-#else
-const signed char table[] = {0,0,0,0,0,0,0,-1,0,0,0,+1,0,0,0,0};
-#endif
-
-
-// 1011 => + 1
-// 0111 => - 1
+#ifdef __ROTARY_ENCODER__
+const signed char table[] = { 0, -1, +1, 0, +1, 0, 0, -1, -1, 0, 0, +1, 0, +1, -1, 0 };
 
 void encoder_click(void)
-  {
-#if 1
+{
     static unsigned char previous = 0;
-  uint8_t tmp;
+    uint8_t tmp = 5;
 
-  tmp = 5;
+    while(tmp--) { /* debounce */ ; }
+ 
+    /* read CHANA and CHANB */
+    tmp = (uint8_t)((RCHANB_GetValue() << 1) | RCHANA_GetValue());
 
-  while(tmp--){ /* debounce */
-    ;
-    }
+    previous <<= 2;     /* shift the previous data left two places */ 
+    previous |= tmp;    /* OR in the two new bits */
 
+    encoder_count += table[(previous & 0x0f)];  /* Index into table */
   
-
-  tmp = (uint8_t)((RCHANB_GetValue() << 1) | RCHANA_GetValue());
-   
-  
-  previous <<= 2;   /* shift the previous data left two places */ 
-  previous |= tmp; /* OR in the two new bits */
-
-  encoder_count += table[(previous & 0x0f)];  /* Index into table */
-  
-  if (encoder_count > 6) {
-    //encoder_count = 0; 
-    encoder_count = 6; 
+#ifdef __ROTARY_CONTINUOUS__
+  if (encoder_count > (ROTARY_MAX * ROTARY_MULTI)) {
+    encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
   }
-  else if (encoder_count < 0) {
-     //encoder_count = 3; 
-     encoder_count = 0; 
+  else if (encoder_count < (ROTARY_MIN * ROTARY_MULTI)) {
+     encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
   }
-  
 #else
-     static unsigned char previous = 0;
-  uint8_t tmp;
-
-  tmp = 5;
-
-  while(tmp--){ /* debounce */
-    ;
-    }
-
-  
-
-
-  tmp = (uint8_t)((RCHANB_GetValue() << 1) | RCHANA_GetValue());
-    previous <<= 2;   /* shift the previous data left two places */ 
-  previous |= tmp; /* OR in the two new bits */
-  
-  encoder_count += table[(previous & 0x0f)];  /* Index into table */
-  
-#if 0
-  if (tmp == 0x2) {
-      encoder_count++;
+  if (encoder_count > (ROTARY_MAX * ROTARY_MULTI)) {
+    encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
   }
-  else if (tmp == 0x1) {
-      
-      encoder_count--;
+  else if (encoder_count < (ROTARY_MIN * ROTARY_MULTI)) {
+     encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
   }
 #endif
-
-  if (encoder_count > 3) {
-    //encoder_count = 0; 
-    encoder_count = 3; 
-  }
-  else if (encoder_count < 0) {
-     //encoder_count = 3; 
-     encoder_count = 0; 
-  }
-  
-  
-  
+}
 #endif
-  }
-
 
 /*
                          Main application
@@ -198,15 +152,14 @@ void encoder_click(void)
 void main(void)
 {
     int selected = -1;
-    int last_selected = -1; 
-    int last_encoder_count = -1;
-    
-    int tmp = 0;
+    int last_selected = -1;
     
     // initialize the device
     SYSTEM_Initialize();
-
+    
     encoder_count = 0;
+    
+#ifdef __ROTARY_ENCODER__
     IOCBF6_SetInterruptHandler(encoder_click);
     IOCBF7_SetInterruptHandler(encoder_click);
     
@@ -224,20 +177,26 @@ void main(void)
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
+#else
+    // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
+    // Use the following macros to:
+
+    // Enable the Global Interrupts
+    //INTERRUPT_GlobalInterruptEnable();
+
+    // Enable the Peripheral Interrupts
+    //INTERRUPT_PeripheralInterruptEnable();
+
+    // Disable the Global Interrupts
+    //INTERRUPT_GlobalInterruptDisable();
+
+    // Disable the Peripheral Interrupts
+    //INTERRUPT_PeripheralInterruptDisable();
+#endif
     
     init();
     
     while (1) {
-        
-#if 1
-        __delay_ms(20);
-        tmp = encoder_count / 2;
-        if (tmp != last_encoder_count) {
-            PORTC &= ~((1 << last_encoder_count) & 0xff);
-            PORTC |= (((1 << tmp) & 0xff) | MUTE_OFF_BIT);
-            last_encoder_count = tmp;
-        }   
-#else
         __delay_ms(20);
         selected = get_chan_sel();
         if (selected == -1) {
@@ -249,7 +208,6 @@ void main(void)
             PORTC |= (((1 << selected) & 0xff) | MUTE_OFF_BIT);
             last_selected = selected;
         }
-#endif
     }
 }
 /**
