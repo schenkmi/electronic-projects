@@ -34,6 +34,11 @@
 #include "mcc_generated_files/mcc.h"
 #include "mcc_generated_files/examples/i2c1_master_example.h"
 
+
+
+
+
+
 // Page 38 
 #define SRC4392_I2C_SLAVE_ADDR              0x70
 
@@ -139,6 +144,15 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 
 //#define SRC_OUTPUT_BITS 20
 #define SRC_OUTPUT_BITS 24
+
+
+#define __ROTARY_ENCODER__
+#ifdef __ROTARY_ENCODER__
+#   define __ROTARY_CONTINUOUS__
+#   define ROTARY_MIN       0
+#   define ROTARY_MAX       3
+#   define ROTARY_MULTI     2
+#endif
 
 volatile signed int encoder_count;
 
@@ -522,30 +536,82 @@ void init(void)
 	src4392_write(SRC_REG06, 0x00);
 }
 
-const signed char table[] = {0,-1,+1,0,+1,0,0,-1,-1,0,0,+1,0,+1,-1,0};
+
+
+
+static int get_chan_sel(void)
+{
+    int ret = -1;
+    
+#ifdef __ROTARY_ENCODER__
+    
+
+    if (encoder_count >= 0) {
+    ret = encoder_count / ROTARY_MULTI;
+    }
+#else
+    /**
+     * PORTB weak pull-up RB7..RB4
+     * Input selector ties to GND so we invert the bits here
+     */
+    uint8_t input = (~(PORTB >> 4)) & 0x0f;
+    
+    switch (input) {
+        case 0x01: /* INPUT 1, RB4 tie to GND */
+            ret = 0;
+            break;
+        case 0x02: /* INPUT 2, RB5 tie to GND */
+            ret = 1;
+            break;
+        case 0x04: /* INPUT 3, RB6 tie to GND */
+            ret = 2;
+            break;
+        case 0x08: /* INPUT 4, RB7 tie to GND */
+            ret = 3;
+            break;
+        default:
+            break;
+    }
+#endif
+    return ret;
+}
+
+#ifdef __ROTARY_ENCODER__
+const signed char table[] = { 0, -1, +1, 0, +1, 0, 0, -1, -1, 0, 0, +1, 0, +1, -1, 0 };
 
 void encoder_click(void)
-  {
-#if 1
+{
     static unsigned char previous = 0;
-  uint8_t tmp;
+    uint8_t tmp = 5;
 
-  tmp = 5;
+    while(tmp--) { /* debounce */ ; }
+ 
+    /* read CHANA and CHANB */
+    tmp = (uint8_t)((ENCCHANB_GetValue() << 1) | ENCCHANA_GetValue());
 
-  while(tmp--){ /* debounce */
-    ;
-    }
+    previous <<= 2;     /* shift the previous data left two places */ 
+    previous |= tmp;    /* OR in the two new bits */
 
+    encoder_count += table[(previous & 0x0f)];  /* Index into table */
   
-
-  tmp = (uint8_t)((ENCCHANB_GetValue() << 1) | ENCCHANA_GetValue());      
-  
-  previous <<= 2;   /* shift the previous data left two places */ 
-  previous |= tmp; /* OR in the two new bits */
-
-  encoder_count += table[(previous & 0x0f)];  /* Index into table */
-#endif
+#ifdef __ROTARY_CONTINUOUS__
+  if (encoder_count >= ((ROTARY_MAX + 1) * ROTARY_MULTI)) {
+    encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
   }
+  else if (encoder_count <= ((ROTARY_MIN - 1) * ROTARY_MULTI)) {
+     encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
+  }
+#else
+  if (encoder_count > (ROTARY_MAX * ROTARY_MULTI)) {
+    encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
+  }
+  else if (encoder_count < (ROTARY_MIN * ROTARY_MULTI)) {
+     encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
+  }
+#endif
+}
+#endif
+
 
 /*
                          Main application
@@ -560,6 +626,8 @@ void main(void)
     SYSTEM_Initialize();
 
     encoder_count = 0;
+
+#ifdef __ROTARY_ENCODER__
     IOCCF6_SetInterruptHandler(encoder_click);
     IOCCF7_SetInterruptHandler(encoder_click);
     
@@ -577,6 +645,22 @@ void main(void)
 
     // Disable the Peripheral Interrupts
     //INTERRUPT_PeripheralInterruptDisable();
+#else
+    // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
+    // Use the following macros to:
+
+    // Enable the Global Interrupts
+    //INTERRUPT_GlobalInterruptEnable();
+
+    // Enable the Peripheral Interrupts
+    //INTERRUPT_PeripheralInterruptEnable();
+
+    // Disable the Global Interrupts
+    //INTERRUPT_GlobalInterruptDisable();
+
+    // Disable the Peripheral Interrupts
+    //INTERRUPT_PeripheralInterruptDisable();
+#endif
     
 #if 0
     LED_D5_SetLow();
