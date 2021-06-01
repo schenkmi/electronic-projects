@@ -539,15 +539,13 @@ void init(void)
 
 
 
-static int get_chan_sel(void)
+static uint8_t get_chan_sel(void)
 {
-    int ret = -1;
+    uint8_t ret = 0xff;
     
 #ifdef __ROTARY_ENCODER__
-    
-
     if (encoder_count >= 0) {
-    ret = encoder_count / ROTARY_MULTI;
+        ret = (uint8_t)encoder_count / ROTARY_MULTI;
     }
 #else
     /**
@@ -622,6 +620,9 @@ void main(void)
     uint8_t sr;
     uint8_t last_sr;
     
+    uint8_t selected = 0xff;
+    uint8_t last_selected = 0xff;
+    
     // initialize the device
     SYSTEM_Initialize();
 
@@ -692,6 +693,18 @@ void main(void)
     set_input(INPUT_RX1, DIT_UPSAMPLE);
     
     while (1) {
+#if 1
+        __delay_ms(20);
+        selected = get_chan_sel();
+        if (selected == 0xff) {
+            continue;
+        }
+        
+        if (selected != last_selected) {
+            set_input(selected, DIT_UPSAMPLE);
+            last_selected = selected;
+        }
+#else
         __delay_ms(100);
 
         sr = get_sample_rate();
@@ -723,6 +736,7 @@ void main(void)
         if (recv_status_reg2 & 0x4) {
             LED_D5_SetDigitalOutput();
         }
+#endif
     }
 }
 /**
