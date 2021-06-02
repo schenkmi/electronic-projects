@@ -148,10 +148,10 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 
 #define __ROTARY_ENCODER__
 #ifdef __ROTARY_ENCODER__
-#   define __ROTARY_CONTINUOUS__
+//#   define __ROTARY_CONTINUOUS__
 #   define ROTARY_MIN       0
 #   define ROTARY_MAX       3
-#   define ROTARY_MULTI     2
+#   define ROTARY_MULTI     1
 #endif
 
 volatile signed int encoder_count;
