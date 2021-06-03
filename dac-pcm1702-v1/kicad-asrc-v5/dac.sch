@@ -5,7 +5,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Async sample rate converter"
-Date "2021-05-10"
+Date "2021-06-03"
 Rev "V5"
 Comp ""
 Comment1 ""
@@ -2553,4 +2553,6 @@ NoConn ~ 13650 2900
 NoConn ~ 13650 4850
 Text Notes 2250 9250 0    50   ~ 0
 1-2 24Bit Ouput\n2-3 20Bit Output
+Text Notes 9350 7200 0    50   ~ 0
+Rotary Encoder (Bourns ECW0J-B24-CC0006L)\nChannel A -> RC6\nChannel B -> RC7
 $EndSCHEMATC
