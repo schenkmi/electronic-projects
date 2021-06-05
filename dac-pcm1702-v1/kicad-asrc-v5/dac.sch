@@ -2555,4 +2555,6 @@ Text Notes 2250 9250 0    50   ~ 0
 1-2 24Bit Ouput\n2-3 20Bit Output
 Text Notes 9350 7200 0    50   ~ 0
 Rotary Encoder (Bourns ECW0J-B24-CC0006L)\nChannel A -> RC6\nChannel B -> RC7
+Text Notes 6200 5000 0    50   ~ 0
+I2C Addr 0x70 11100 A1 A0, 1110000\nPin19 -> A0\nPin21 -> A1\n\n\n
 $EndSCHEMATC
