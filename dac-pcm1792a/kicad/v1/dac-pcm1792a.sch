@@ -761,13 +761,13 @@ Wire Wire Line
 Wire Wire Line
 	7300 900  7300 850 
 Wire Wire Line
-	2200 1300 2800 1300
+	2200 1300 2600 1300
 Wire Wire Line
-	1900 1200 2800 1200
+	1900 1200 2500 1200
 Wire Wire Line
-	1650 1100 2800 1100
+	1650 1100 2400 1100
 Wire Wire Line
-	1400 1000 2800 1000
+	1400 1000 2300 1000
 NoConn ~ 3600 1000
 NoConn ~ 3600 1100
 Text GLabel 5500 1300 2    50   Output ~ 0
@@ -1259,14 +1259,6 @@ Wire Wire Line
 	3000 2100 3000 2200
 Wire Wire Line
 	2900 2200 2900 2000
-Wire Wire Line
-	2600 2200 2600 1300
-Wire Wire Line
-	2500 2200 2500 1200
-Wire Wire Line
-	2400 2200 2400 1100
-Wire Wire Line
-	2300 2200 2300 1000
 Wire Wire Line
 	3600 1200 3700 1200
 Wire Wire Line
@@ -2222,4 +2214,24 @@ Wire Wire Line
 	1500 9350 1500 9250
 Wire Wire Line
 	1500 9250 1350 9250
+Wire Wire Line
+	2600 2200 2600 1300
+Connection ~ 2600 1300
+Wire Wire Line
+	2600 1300 2800 1300
+Wire Wire Line
+	2500 2200 2500 1200
+Connection ~ 2500 1200
+Wire Wire Line
+	2500 1200 2800 1200
+Wire Wire Line
+	2400 2200 2400 1100
+Connection ~ 2400 1100
+Wire Wire Line
+	2400 1100 2800 1100
+Wire Wire Line
+	2300 2200 2300 1000
+Connection ~ 2300 1000
+Wire Wire Line
+	2300 1000 2800 1000
 $EndSCHEMATC
