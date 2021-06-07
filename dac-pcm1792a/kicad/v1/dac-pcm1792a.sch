@@ -584,12 +584,12 @@ Wire Wire Line
 $Comp
 L Amplifier_Operational:OPA1678 U6
 U 1 1 613445A8
-P 7800 3450
-F 0 "U6" H 7800 3083 50  0000 C CNN
-F 1 "OPA1612" H 7800 3174 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 7800 3450 50  0001 C CNN
-F 3 "https://www.digikey.ch/product-detail/de/texas-instruments/OPA1612AIDR/296-39098-1-ND/5143116" H 7800 3450 50  0001 C CNN
-	1    7800 3450
+P 7800 4850
+F 0 "U6" H 7800 4483 50  0000 C CNN
+F 1 "OPA1612" H 7800 4574 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 7800 4850 50  0001 C CNN
+F 3 "https://www.digikey.ch/product-detail/de/texas-instruments/OPA1612AIDR/296-39098-1-ND/5143116" H 7800 4850 50  0001 C CNN
+	1    7800 4850
 	1    0    0    1   
 $EndComp
 $Comp
@@ -606,12 +606,12 @@ $EndComp
 $Comp
 L Amplifier_Operational:OPA1678 U6
 U 2 1 613445E4
-P 7800 4850
-F 0 "U6" H 7800 4483 50  0000 C CNN
-F 1 "OPA1612" H 7800 4574 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 7800 4850 50  0001 C CNN
-F 3 "https://www.digikey.ch/product-detail/de/texas-instruments/OPA1612AIDR/296-39098-1-ND/5143116" H 7800 4850 50  0001 C CNN
-	2    7800 4850
+P 7800 3450
+F 0 "U6" H 7800 3083 50  0000 C CNN
+F 1 "OPA1612" H 7800 3174 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 7800 3450 50  0001 C CNN
+F 3 "https://www.digikey.ch/product-detail/de/texas-instruments/OPA1612AIDR/296-39098-1-ND/5143116" H 7800 3450 50  0001 C CNN
+	2    7800 3450
 	1    0    0    1   
 $EndComp
 $Comp
@@ -1692,23 +1692,23 @@ $EndComp
 $Comp
 L Amplifier_Operational:OPA1678 U4
 U 1 1 6123723C
-P 7750 6550
-F 0 "U4" H 7750 6183 50  0000 C CNN
-F 1 "OPA1612" H 7750 6274 50  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 7750 6550 50  0001 C CNN
-F 3 "https://www.digikey.ch/product-detail/de/texas-instruments/OPA1612AIDR/296-39098-1-ND/5143116" H 7750 6550 50  0001 C CNN
-	1    7750 6550
-	1    0    0    1   
-$EndComp
-$Comp
-L Amplifier_Operational:OPA1678 U4
-U 2 1 61237246
 P 7750 7950
 F 0 "U4" H 7750 7583 50  0000 C CNN
 F 1 "OPA1612" H 7750 7674 50  0000 C CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 7750 7950 50  0001 C CNN
 F 3 "https://www.digikey.ch/product-detail/de/texas-instruments/OPA1612AIDR/296-39098-1-ND/5143116" H 7750 7950 50  0001 C CNN
-	2    7750 7950
+	1    7750 7950
+	1    0    0    1   
+$EndComp
+$Comp
+L Amplifier_Operational:OPA1678 U4
+U 2 1 61237246
+P 7750 6550
+F 0 "U4" H 7750 6183 50  0000 C CNN
+F 1 "OPA1612" H 7750 6274 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 7750 6550 50  0001 C CNN
+F 3 "https://www.digikey.ch/product-detail/de/texas-instruments/OPA1612AIDR/296-39098-1-ND/5143116" H 7750 6550 50  0001 C CNN
+	2    7750 6550
 	1    0    0    1   
 $EndComp
 $Comp
