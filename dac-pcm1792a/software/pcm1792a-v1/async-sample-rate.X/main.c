@@ -1,6 +1,7 @@
 /**
  * PIC16F18446 based async sample rate converter
  * for TI/BB SRC4392/SRC4382
+ * PCM1792A
  *
  * Copyright (c) 2021, Michael Schenk
  * All Rights Reserved
@@ -145,6 +146,20 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 //#define SRC_OUTPUT_BITS 20
 #define SRC_OUTPUT_BITS 24
 
+#define __PCM1972A__
+
+
+#define PCM1792A_I2C_SLAVE_ADDR              0x4c
+
+// Register 18 => default
+
+// Register 19 
+//#define PCM1792A_REG19_VALUE        0x1302 /* 0x13 == Reg 19, 0x02 FLT = Slow rolloff */
+
+#define PCM1792A_REG19        0x13 /* 0x13 == Reg 19 */
+#define PCM1792A_REG19_VALUE        0x02 /* 0x02 FLT = Slow rolloff */
+
+
 
 #define __ROTARY_ENCODER__
 #ifdef __ROTARY_ENCODER__
@@ -169,6 +184,20 @@ void src4392_write(uint8_t reg, uint8_t val)
 {
     I2C1_Write1ByteRegister(SRC4392_I2C_SLAVE_ADDR, reg, val);
 }
+
+#if 0
+void pcm1792a_write(uint8_t reg, uint16_t val)
+{
+    I2C1_Write2ByteRegister(PCM1792A_I2C_SLAVE_ADDR, reg, val);
+}
+#else
+void pcm1792a_write(uint8_t reg, uint8_t val)
+{
+    I2C1_Write2ByteRegister(PCM1792A_I2C_SLAVE_ADDR, reg, val);
+}
+#endif
+
+
 
 // Set the digital de-emphasis mode
 // mode: DEEMPH_AUTO or DEEMPH_OFF
@@ -534,6 +563,14 @@ void init(void)
 	// - slave with i2s data format
 	src4392_write(SRC_REG05, 0x01);
 	src4392_write(SRC_REG06, 0x00);
+    
+
+    
+#ifdef __PCM1972A__
+    pcm1792a_write(PCM1792A_REG19, PCM1792A_REG19_VALUE);
+    c
+#endif
+    
 }
 
 
