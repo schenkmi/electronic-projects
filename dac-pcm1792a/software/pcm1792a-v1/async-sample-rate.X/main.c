@@ -156,6 +156,15 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 // Register 19 
 //#define PCM1792A_REG19_VALUE        0x1302 /* 0x13 == Reg 19, 0x02 FLT = Slow rolloff */
 
+
+#define PCM1792A_REG16        0x10 /* 0x10 == Reg 16, Digital Attenuation Level Setting left */
+#define PCM1792A_REG16_VALUE        0xff /* 0dB, not attenuation */
+
+#define PCM1792A_REG17        0x11 /* 0x11 == Reg 17, Digital Attenuation Level Setting left */
+#define PCM1792A_REG17_VALUE        0xff /* 0dB, not attenuation */
+
+
+
 #define PCM1792A_REG19        0x13 /* 0x13 == Reg 19 */
 #define PCM1792A_REG19_VALUE        0x02 /* 0x02 FLT = Slow rolloff */
 
@@ -568,7 +577,12 @@ void init(void)
     
 #ifdef __PCM1972A__
     pcm1792a_write(PCM1792A_REG19, PCM1792A_REG19_VALUE);
-    c
+    
+    // attenuation left -31.5dB
+    //pcm1792a_write(PCM1792A_REG16, 0xc0);
+    // attenuation right -31.5dB
+    //pcm1792a_write(PCM1792A_REG17, 0xc0);
+                 
 #endif
     
 }
