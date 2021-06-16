@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "DAC PCM1792A"
-Date "2021-06-05"
-Rev "V1"
+Date "2021-06-15"
+Rev "V2"
 Comp ""
 Comment1 ""
 Comment2 ""
