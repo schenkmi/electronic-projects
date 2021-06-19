@@ -2234,4 +2234,24 @@ Wire Wire Line
 Connection ~ 2300 1000
 Wire Wire Line
 	2300 1000 2800 1000
+Text Notes 12100 2850 0    50   ~ 0
+OPA1612\nIq (quiescent current) per unit per supply 3.6mA\nPVq (+-15V) per OPA1612: 2*2*3.6mA*15V = 216mW\nSOIC-8 150°/W\ndT = PVq * 150°/W = +32.4°C (Ta + 32.4°C) = 25°C + 32.4°C = 57.4°C\n\n3xOPA1612 Quiescent current\n+15V: 3 * (2*3.6mA) = 21.6mA\n-15V: 3 * (2*3.6mA) = 21.6mA\n\nMeasured DAC operating BPZ\n+15V: 29mA\n-15V: 61mA\n\nIBPZ=-6.2mA + IOPA=-5.18mA = -11.38mA\n\nDifferential per output channel: 2* -11.38mA ? -22.76mA\nFor Stereo (L/R): 2*-22.76mA + 21.6mA = 67.12mA\n\nPV dual I/V positive rail = 2*3.6mA = 7.2mA * 15V = 108mW\nPV dial I/V negative rail = (2*-11.38mA + 2*-3.6mA) * 15V = 449mW\n\nTotal PV for I/V one channel (L or R): 108mW + 449mW = 557mW\n\nSOIC-8 150°/W\ndT = PV * 150°/W = +83.6°C (Ta + 83.6°C) = 25°C + 83.6°C = 108.6°C
+Text Notes 8200 3550 0    50   ~ 0
+-4.3V
+Text Notes 8200 4950 0    50   ~ 0
+-4.3V
+Text Notes 9450 4050 0    50   ~ 0
+-1.4V
+Text Notes 9450 4350 0    50   ~ 0
+-1.4V
+Text Notes 6450 3350 0    50   ~ 0
+IBPZ = -6.2mA
+Text Notes 6150 4850 0    50   ~ 0
+IBPZ = -6.2mA
+Text Notes 8750 3850 0    50   ~ 0
+5.18mA
+Text Notes 8750 4550 0    50   ~ 0
+5.18mA
+Text Notes 8500 2800 0    50   ~ 0
+PVR12 = 560R * (5.18mA * 5.18mA) = 15mW\nPVR16 = 240R * (5.18mA * 5.18mA) = 6.4mW\n
 $EndSCHEMATC
