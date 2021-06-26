@@ -2566,8 +2566,6 @@ Wire Wire Line
 Wire Wire Line
 	2750 6250 3100 6250
 Wire Wire Line
-	1500 6250 1050 6250
-Wire Wire Line
 	1050 6650 1500 6650
 Wire Wire Line
 	2100 6750 2100 6650
@@ -2662,4 +2660,20 @@ Wire Wire Line
 Connection ~ 2500 3950
 Wire Wire Line
 	2500 3950 1400 3950
+$Comp
+L Device:C C?
+U 1 1 612AAE93
+P 1250 6250
+F 0 "C?" H 1135 6204 50  0000 R CNN
+F 1 "100nF" H 1135 6295 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder" H 1288 6100 50  0001 C CNN
+F 3 "~" H 1250 6250 50  0001 C CNN
+F 4 "CL10B104KB8NNNL" H 1135 6304 50  0001 C CNN "manf#"
+	1    1250 6250
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	1100 6250 1050 6250
+Wire Wire Line
+	1400 6250 1500 6250
 $EndSCHEMATC
