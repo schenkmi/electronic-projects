@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete HV Supply"
-Date "2021-02-21"
-Rev "V1d"
+Date "2021-07-04"
+Rev "V1e"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -366,72 +366,6 @@ $EndComp
 Text GLabel 14000 8500 0    50   Input ~ 0
 +5VDC
 $Comp
-L Regulator_Linear:LM317_3PinPackage U5
-U 1 1 5D487A64
-P 8250 6850
-F 0 "U5" H 8250 7092 50  0000 C CNN
-F 1 "LM317_3PinPackage" H 8250 7001 50  0000 C CNN
-F 2 "TO_SOT_Packages_THT:TO-220-3_Vertical" H 8250 7100 50  0001 C CIN
-F 3 "http://www.ti.com/lit/ds/symlink/lm317.pdf" H 8250 6850 50  0001 C CNN
-	1    8250 6850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mechanical:Heatsink HS2
-U 1 1 5D48855B
-P 8900 6500
-F 0 "HS2" H 9042 6621 50  0000 L CNN
-F 1 "Heatsink" H 9042 6530 50  0000 L CNN
-F 2 "Heatsinks:Heatsink_Fischer_SK104-STC-STIC_35x13mm_2xDrill2.5mm" H 8912 6500 50  0001 C CNN
-F 3 "~" H 8912 6500 50  0001 C CNN
-	1    8900 6500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R10
-U 1 1 5D48E456
-P 9050 7100
-F 0 "R10" H 9120 7146 50  0000 L CNN
-F 1 "240R 1/8W" H 9120 7055 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8980 7100 50  0001 C CNN
-F 3 "~" H 9050 7100 50  0001 C CNN
-	1    9050 7100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C22
-U 1 1 5D48ECCD
-P 7350 7350
-F 0 "C22" H 7465 7396 50  0000 L CNN
-F 1 "100nF/50V" H 7465 7305 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 7388 7200 50  0001 C CNN
-F 3 "~" H 7350 7350 50  0001 C CNN
-	1    7350 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C30
-U 1 1 5D48EFEC
-P 10350 7350
-F 0 "C30" H 10465 7396 50  0000 L CNN
-F 1 "100nF/50V" H 10465 7305 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 10388 7200 50  0001 C CNN
-F 3 "~" H 10350 7350 50  0001 C CNN
-	1    10350 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R7
-U 1 1 5D48F2A8
-P 8250 7500
-F 0 "R7" H 8320 7546 50  0000 L CNN
-F 1 "976R 1/8W" H 8320 7455 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8180 7500 50  0001 C CNN
-F 3 "~" H 8250 7500 50  0001 C CNN
-	1    8250 7500
-	1    0    0    -1  
-$EndComp
-$Comp
 L Regulator_Linear:LM317_3PinPackage U4
 U 1 1 5D4A937E
 P 8250 5250
@@ -448,7 +382,7 @@ U 1 1 5D4A973A
 P 8900 4900
 F 0 "HS1" H 9042 5021 50  0000 L CNN
 F 1 "Heatsink" H 9042 4930 50  0000 L CNN
-F 2 "Heatsinks:Heatsink_Fischer_SK104-STC-STIC_35x13mm_2xDrill2.5mm" H 8912 4900 50  0001 C CNN
+F 2 "Heatsink:Heatsink_Fischer_SK129-STS_42x25mm_2xDrill2.5mm" H 8912 4900 50  0001 C CNN
 F 3 "~" H 8912 4900 50  0001 C CNN
 	1    8900 4900
 	1    0    0    -1  
@@ -532,13 +466,6 @@ F 3 "~" H 1800 4800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8550 6850 8650 6850
-Wire Wire Line
-	7950 6850 7800 6850
-Wire Wire Line
-	8250 7650 8250 7750
-Connection ~ 8250 7750
-Wire Wire Line
 	7350 5600 7350 5250
 Connection ~ 7350 5250
 Wire Wire Line
@@ -559,8 +486,6 @@ Wire Wire Line
 	10350 5900 10350 6200
 Wire Wire Line
 	11050 5900 11050 6200
-Text GLabel 6150 7750 0    50   Input ~ 0
-GND_LV
 $Comp
 L Device:C C4
 U 1 1 5D78BBA2
@@ -1652,27 +1577,6 @@ Connection ~ 7800 5250
 Wire Wire Line
 	7800 5250 7950 5250
 $Comp
-L Diode:1N4007 D12
-U 1 1 6110B946
-P 8250 6500
-F 0 "D12" H 8250 6717 50  0000 C CNN
-F 1 "1N4007" H 8250 6626 50  0000 C CNN
-F 2 "Diode_SMD:D_SMA_Handsoldering" H 8250 6325 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 8250 6500 50  0001 C CNN
-	1    8250 6500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8400 6500 8650 6500
-Wire Wire Line
-	8650 6500 8650 6850
-Connection ~ 8650 6850
-Wire Wire Line
-	8100 6500 7800 6500
-Wire Wire Line
-	7800 6500 7800 6850
-Connection ~ 7800 6850
-$Comp
 L Device:CP C12
 U 1 1 6117EC9C
 P 3800 9500
@@ -1741,59 +1645,10 @@ F 3 "~" H 6700 5750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7350 7500 7350 7750
-Wire Wire Line
-	7350 7200 7350 6850
-Wire Wire Line
 	6150 6200 6700 6200
 Connection ~ 7350 6200
-$Comp
-L Device:CP C18
-U 1 1 612EDC08
-P 6700 7350
-F 0 "C18" H 6818 7396 50  0000 L CNN
-F 1 "10uF/25V" H 6818 7305 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 6738 7200 50  0001 C CNN
-F 3 "~" H 6700 7350 50  0001 C CNN
-	1    6700 7350
-	1    0    0    -1  
-$EndComp
-Connection ~ 7350 6850
-Wire Wire Line
-	7350 6850 7800 6850
-Connection ~ 7350 7750
-Wire Wire Line
-	7350 7750 8250 7750
-Wire Wire Line
-	6150 7750 6700 7750
-Wire Wire Line
-	3800 5250 3800 6850
 Wire Wire Line
 	3800 5250 6700 5250
-Wire Wire Line
-	3800 6850 6700 6850
-Connection ~ 3800 6850
-Wire Wire Line
-	3800 6850 3800 8500
-$Comp
-L Device:CP C34
-U 1 1 61368459
-P 11050 7350
-F 0 "C34" H 11168 7396 50  0000 L CNN
-F 1 "1uF/25V" H 11168 7305 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 11088 7200 50  0001 C CNN
-F 3 "~" H 11050 7350 50  0001 C CNN
-	1    11050 7350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	11050 7200 11050 6850
-Wire Wire Line
-	11050 7500 11050 7750
-Wire Wire Line
-	10350 7200 10350 6850
-Wire Wire Line
-	10350 7500 10350 7750
 $Comp
 L Device:CP C16
 U 1 1 613FFBB9
@@ -1847,17 +1702,6 @@ F 3 "~" H 11350 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x01 J8
-U 1 1 614FBF1E
-P 11350 6850
-F 0 "J8" H 11430 6892 50  0000 L CNN
-F 1 "LV2" H 11430 6801 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 11350 6850 50  0001 C CNN
-F 3 "~" H 11350 6850 50  0001 C CNN
-	1    11350 6850
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x01 J7
 U 1 1 614FC706
 P 11350 6200
@@ -1866,17 +1710,6 @@ F 1 "GND_LV1" H 11430 6151 50  0000 L CNN
 F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 11350 6200 50  0001 C CNN
 F 3 "~" H 11350 6200 50  0001 C CNN
 	1    11350 6200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x01 J9
-U 1 1 614FCBF5
-P 11350 7750
-F 0 "J9" H 11430 7792 50  0000 L CNN
-F 1 "GND_LV2" H 11430 7701 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 11350 7750 50  0001 C CNN
-F 3 "~" H 11350 7750 50  0001 C CNN
-	1    11350 7750
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1961,16 +1794,6 @@ Wire Wire Line
 Connection ~ 6700 6200
 Wire Wire Line
 	6700 6200 7350 6200
-Wire Wire Line
-	6700 7200 6700 6850
-Connection ~ 6700 6850
-Wire Wire Line
-	6700 6850 7350 6850
-Wire Wire Line
-	6700 7500 6700 7750
-Connection ~ 6700 7750
-Wire Wire Line
-	6700 7750 7350 7750
 $Comp
 L Device:Ferrite_Bead_Small FB1
 U 1 1 601F7DA3
@@ -2092,20 +1915,6 @@ Wire Wire Line
 	10350 6200 11050 6200
 Wire Wire Line
 	9050 6200 10350 6200
-Connection ~ 10350 6850
-Connection ~ 10350 7750
-Connection ~ 11050 6850
-Wire Wire Line
-	11050 6850 11150 6850
-Connection ~ 11050 7750
-Wire Wire Line
-	11050 7750 11150 7750
-Wire Wire Line
-	10350 6850 11050 6850
-Wire Wire Line
-	10350 7750 11050 7750
-Wire Wire Line
-	8250 7750 9050 7750
 Wire Wire Line
 	8650 5250 9050 5250
 Wire Wire Line
@@ -2126,65 +1935,30 @@ Wire Wire Line
 Wire Wire Line
 	9650 5750 9050 5750
 Wire Wire Line
-	8650 6850 9050 6850
-$Comp
-L Diode:1N4148W D14
-U 1 1 60A06169
-P 9650 7100
-F 0 "D14" V 9604 7180 50  0000 L CNN
-F 1 "1N4148W" V 9695 7180 50  0000 L CNN
-F 2 "Diode_SMD:D_SOD-123" H 9650 6925 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 9650 7100 50  0001 C CNN
-	1    9650 7100
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:CP C26
-U 1 1 60A0917C
-P 9050 7550
-F 0 "C26" H 9168 7596 50  0000 L CNN
-F 1 "10uF/25V" H 9168 7505 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 9088 7400 50  0001 C CNN
-F 3 "~" H 9050 7550 50  0001 C CNN
-	1    9050 7550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9050 7300 9050 7400
-Wire Wire Line
-	8250 7350 8250 7300
-Wire Wire Line
-	8250 7300 9050 7300
-Wire Wire Line
-	8250 7300 8250 7150
-Connection ~ 8250 7300
-Wire Wire Line
-	9050 7300 9050 7250
-Connection ~ 9050 7300
-Wire Wire Line
-	9050 6950 9050 6850
-Connection ~ 9050 6850
-Wire Wire Line
-	9050 6850 9650 6850
-Wire Wire Line
-	9650 7250 9650 7300
-Wire Wire Line
-	9650 7300 9050 7300
-Wire Wire Line
-	9650 6950 9650 6850
-Connection ~ 9650 6850
-Wire Wire Line
-	9650 6850 10350 6850
-Wire Wire Line
-	9050 7700 9050 7750
-Connection ~ 9050 7750
-Wire Wire Line
-	9050 7750 10350 7750
-Wire Wire Line
 	6350 2950 6350 3600
 Wire Wire Line
 	6350 2950 7050 2950
 Connection ~ 6350 3600
 Wire Wire Line
 	6350 3600 6200 3600
+Wire Wire Line
+	3800 5250 3800 8500
+$Comp
+L Diode:1N4007 D12
+U 1 1 60EA1E2D
+P 13400 2600
+F 0 "D12" H 13400 2817 50  0000 C CNN
+F 1 "1N4007" H 13400 2726 50  0000 C CNN
+F 2 "Diode_SMD:D_SMA_Handsoldering" H 13400 2425 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 13400 2600 50  0001 C CNN
+	1    13400 2600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	13400 3550 13400 2750
+Wire Wire Line
+	13400 2450 13400 1600
+Wire Wire Line
+	13400 1600 12650 1600
+Connection ~ 12650 1600
 $EndSCHEMATC
