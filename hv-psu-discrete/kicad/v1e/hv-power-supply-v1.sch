@@ -127,9 +127,6 @@ F 3 "~" H 6700 9500 50  0001 C CNN
 	1    6700 9500
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5900 8500 6050 8500
-Connection ~ 6050 8500
 $Comp
 L hv-power-supply-v1-rescue:TLC555CDR-dk_Clock-Timing-Programmable-Timers-and-Oscillators-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue U6
 U 1 1 5D470D45
@@ -930,8 +927,6 @@ Connection ~ 1800 5050
 Wire Wire Line
 	1800 5050 1050 5050
 Wire Wire Line
-	6050 8500 6700 8500
-Wire Wire Line
 	13900 7700 13900 7250
 Wire Wire Line
 	14850 7700 14850 7250
@@ -1127,7 +1122,7 @@ U 1 1 5D4EB32D
 P 12850 2200
 F 0 "HS3" H 12992 2321 50  0000 L CNN
 F 1 "Heatsink" H 12992 2230 50  0000 L CNN
-F 2 "Heatsinks:Heatsink_Fischer_SK104-STC-STIC_35x13mm_2xDrill2.5mm" H 12862 2200 50  0001 C CNN
+F 2 "Heatsink:Heatsink_Fischer_SK129-STS_42x25mm_2xDrill2.5mm" H 12862 2200 50  0001 C CNN
 F 3 "~" H 12862 2200 50  0001 C CNN
 	1    12850 2200
 	1    0    0    -1  
@@ -1633,42 +1628,9 @@ Wire Wire Line
 	4850 10700 5000 10700
 Wire Wire Line
 	5000 10700 5000 10500
-$Comp
-L Device:CP C17
-U 1 1 61254958
-P 6700 5750
-F 0 "C17" H 6818 5796 50  0000 L CNN
-F 1 "10uF/25V" H 6818 5705 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 6738 5600 50  0001 C CNN
-F 3 "~" H 6700 5750 50  0001 C CNN
-	1    6700 5750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6150 6200 6700 6200
 Connection ~ 7350 6200
 Wire Wire Line
-	3800 5250 6700 5250
-$Comp
-L Device:CP C16
-U 1 1 613FFBB9
-P 6050 9500
-F 0 "C16" H 6168 9546 50  0000 L CNN
-F 1 "10uF/25V" H 6168 9455 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 6088 9350 50  0001 C CNN
-F 3 "~" H 6050 9500 50  0001 C CNN
-	1    6050 9500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
 	6700 8500 6700 9350
-Wire Wire Line
-	6050 8500 6050 9350
-Wire Wire Line
-	6050 9650 6050 10500
-Connection ~ 6050 10500
-Wire Wire Line
-	6050 10500 6700 10500
 Wire Wire Line
 	6700 9650 6700 10500
 Connection ~ 6700 10500
@@ -1677,8 +1639,6 @@ Wire Wire Line
 Wire Wire Line
 	5600 8800 5600 10500
 Connection ~ 5600 10500
-Wire Wire Line
-	5600 10500 6050 10500
 $Comp
 L Regulator_Linear:LM7805_TO220 U2
 U 1 1 6149AF46
@@ -1784,16 +1744,6 @@ Wire Wire Line
 Connection ~ 1650 3050
 Wire Wire Line
 	1650 3050 1650 4300
-Wire Wire Line
-	6700 5600 6700 5250
-Connection ~ 6700 5250
-Wire Wire Line
-	6700 5250 7350 5250
-Wire Wire Line
-	6700 5900 6700 6200
-Connection ~ 6700 6200
-Wire Wire Line
-	6700 6200 7350 6200
 $Comp
 L Device:Ferrite_Bead_Small FB1
 U 1 1 601F7DA3
@@ -1961,4 +1911,12 @@ Wire Wire Line
 Wire Wire Line
 	13400 1600 12650 1600
 Connection ~ 12650 1600
+Wire Wire Line
+	5900 8500 6700 8500
+Wire Wire Line
+	5600 10500 6700 10500
+Wire Wire Line
+	3800 5250 7350 5250
+Wire Wire Line
+	6150 6200 7350 6200
 $EndSCHEMATC
