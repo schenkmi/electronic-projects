@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue MK1
+L Mechanical:MountingHole MK1
 U 1 1 5A6CFED2
 P 15100 700
 F 0 "MK1" H 15200 751 50  0000 L CNN
@@ -25,7 +25,7 @@ F 3 "" H 15100 700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue MK2
+L Mechanical:MountingHole MK2
 U 1 1 5A6CFF98
 P 15100 1000
 F 0 "MK2" H 15200 1051 50  0000 L CNN
@@ -36,7 +36,7 @@ F 3 "" H 15100 1000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue MK3
+L Mechanical:MountingHole MK3
 U 1 1 5A6CFFFA
 P 15100 1300
 F 0 "MK3" H 15200 1351 50  0000 L CNN
@@ -47,7 +47,7 @@ F 3 "" H 15100 1300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:Mounting_Hole_PAD-Mechanical-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue MK4
+L Mechanical:MountingHole MK4
 U 1 1 5A6D003F
 P 15100 1600
 F 0 "MK4" H 15200 1651 50  0000 L CNN
@@ -62,7 +62,7 @@ NoConn ~ 15100 1100
 NoConn ~ 15100 1400
 NoConn ~ 15100 1700
 $Comp
-L hv-power-supply-v1-rescue:BYV26C-PSU6SN7-hv-power-supply-v1-rescue D3
+L Device:D D3
 U 1 1 5D44FFF5
 P 2200 1600
 F 0 "D3" H 2200 1816 50  0000 C CNN
@@ -73,7 +73,7 @@ F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 2200 1600 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:BYV26C-PSU6SN7-hv-power-supply-v1-rescue D5
+L Device:D D5
 U 1 1 5D450671
 P 2200 3500
 F 0 "D5" H 2200 3716 50  0000 C CNN
@@ -84,7 +84,7 @@ F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 2200 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:BYV26C-PSU6SN7-hv-power-supply-v1-rescue D6
+L Device:D D6
 U 1 1 5D4509EB
 P 2200 4300
 F 0 "D6" H 2200 4516 50  0000 C CNN
@@ -95,7 +95,7 @@ F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 2200 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:BYV26C-PSU6SN7-hv-power-supply-v1-rescue D4
+L Device:D D4
 U 1 1 5D450EAA
 P 2200 2400
 F 0 "D4" H 2200 2616 50  0000 C CNN
@@ -119,69 +119,69 @@ $EndComp
 $Comp
 L Device:C C19
 U 1 1 5D4699C7
-P 6700 9500
-F 0 "C19" H 6815 9546 50  0000 L CNN
-F 1 "100nF/50V" H 6815 9455 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 6738 9350 50  0001 C CNN
-F 3 "~" H 6700 9500 50  0001 C CNN
-	1    6700 9500
+P 6250 9500
+F 0 "C19" H 6365 9546 50  0000 L CNN
+F 1 "100nF/50V" H 6365 9455 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 6288 9350 50  0001 C CNN
+F 3 "~" H 6250 9500 50  0001 C CNN
+	1    6250 9500
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:TLC555CDR-dk_Clock-Timing-Programmable-Timers-and-Oscillators-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue U6
+L Timer:TLC555xD U6
 U 1 1 5D470D45
-P 9250 9050
-F 0 "U6" H 9250 9603 60  0000 C CNN
-F 1 "TLC555CDR" H 9250 9497 60  0000 C CNN
-F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 9450 9250 60  0001 L CNN
-F 3 "http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10&gotoUrl=http%3A%2F%2Fwww.ti.com%2Flit%2Fgpn%2Ftlc555" H 9450 9350 60  0001 L CNN
-F 4 "296-1336-1-ND" H 9450 9450 60  0001 L CNN "Digi-Key_PN"
-F 5 "TLC555CDR" H 9450 9550 60  0001 L CNN "MPN"
-F 6 "Integrated Circuits (ICs)" H 9450 9650 60  0001 L CNN "Category"
-F 7 "Clock/Timing - Programmable Timers and Oscillators" H 9450 9750 60  0001 L CNN "Family"
-F 8 "http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10&gotoUrl=http%3A%2F%2Fwww.ti.com%2Flit%2Fgpn%2Ftlc555" H 9450 9850 60  0001 L CNN "DK_Datasheet_Link"
-F 9 "/product-detail/en/texas-instruments/TLC555CDR/296-1336-1-ND/404959" H 9450 9950 60  0001 L CNN "DK_Detail_Page"
-F 10 "IC OSC SGL TIMER 2.1MHZ 8-SOIC" H 9450 10050 60  0001 L CNN "Description"
-F 11 "Texas Instruments" H 9450 10150 60  0001 L CNN "Manufacturer"
-F 12 "Active" H 9450 10250 60  0001 L CNN "Status"
-	1    9250 9050
+P 9150 9350
+F 0 "U6" H 9150 9903 60  0000 C CNN
+F 1 "TLC555CDR" H 9150 9797 60  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 9350 9550 60  0001 L CNN
+F 3 "http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10&gotoUrl=http%3A%2F%2Fwww.ti.com%2Flit%2Fgpn%2Ftlc555" H 9350 9650 60  0001 L CNN
+F 4 "296-1336-1-ND" H 9350 9750 60  0001 L CNN "Digi-Key_PN"
+F 5 "TLC555CDR" H 9350 9850 60  0001 L CNN "MPN"
+F 6 "Integrated Circuits (ICs)" H 9350 9950 60  0001 L CNN "Category"
+F 7 "Clock/Timing - Programmable Timers and Oscillators" H 9350 10050 60  0001 L CNN "Family"
+F 8 "http://www.ti.com/general/docs/suppproductinfo.tsp?distId=10&gotoUrl=http%3A%2F%2Fwww.ti.com%2Flit%2Fgpn%2Ftlc555" H 9350 10150 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/texas-instruments/TLC555CDR/296-1336-1-ND/404959" H 9350 10250 60  0001 L CNN "DK_Detail_Page"
+F 10 "IC OSC SGL TIMER 2.1MHZ 8-SOIC" H 9350 10350 60  0001 L CNN "Description"
+F 11 "Texas Instruments" H 9350 10450 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 9350 10550 60  0001 L CNN "Status"
+	1    9150 9350
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R4
 U 1 1 5D471DEA
-P 7800 9500
-F 0 "R4" H 7870 9546 50  0000 L CNN
-F 1 "1Meg 1/8W" H 7870 9455 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7730 9500 50  0001 C CNN
-F 3 "~" H 7800 9500 50  0001 C CNN
-	1    7800 9500
+P 7400 9800
+F 0 "R4" H 7470 9846 50  0000 L CNN
+F 1 "1Meg 1/8W" H 7470 9755 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7330 9800 50  0001 C CNN
+F 3 "~" H 7400 9800 50  0001 C CNN
+	1    7400 9800
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R13
 U 1 1 5D47247E
-P 10200 9750
-F 0 "R13" H 10270 9796 50  0000 L CNN
-F 1 "2.49k 1/8W" H 10270 9705 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10130 9750 50  0001 C CNN
-F 3 "~" H 10200 9750 50  0001 C CNN
-	1    10200 9750
+P 10500 9750
+F 0 "R13" H 10570 9796 50  0000 L CNN
+F 1 "2.49k 1/8W" H 10570 9705 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10430 9750 50  0001 C CNN
+F 3 "~" H 10500 9750 50  0001 C CNN
+	1    10500 9750
 	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R R14
 U 1 1 5D473526
-P 10550 10100
-F 0 "R14" H 10620 10146 50  0000 L CNN
-F 1 "2.49k 1/8W" H 10620 10055 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10480 10100 50  0001 C CNN
-F 3 "~" H 10550 10100 50  0001 C CNN
-	1    10550 10100
-	1    0    0    -1  
+P 10800 10100
+F 0 "R14" H 10870 10146 50  0000 L CNN
+F 1 "2.49k 1/8W" H 10870 10055 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10730 10100 50  0001 C CNN
+F 3 "~" H 10800 10100 50  0001 C CNN
+	1    10800 10100
+	-1   0    0    1   
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:MMBT3904-TP-dk_Transistors-Bipolar-BJT-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q2
+L Transistor_BJT:MMBT3904 Q2
 U 1 1 5D4746D0
 P 11050 9750
 F 0 "Q2" H 11238 9803 60  0000 L CNN
@@ -203,23 +203,23 @@ $EndComp
 $Comp
 L Device:CP C23
 U 1 1 5D480494
-P 7800 8800
-F 0 "C23" H 7918 8846 50  0000 L CNN
-F 1 "15uF/25V" H 7918 8755 50  0000 L CNN
-F 2 "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D_Pad2.25x2.55mm_HandSolder" H 7838 8650 50  0001 C CNN
-F 3 "~" H 7800 8800 50  0001 C CNN
-	1    7800 8800
+P 7400 8800
+F 0 "C23" H 7518 8846 50  0000 L CNN
+F 1 "15uF/25V" H 7518 8755 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D_Pad2.25x2.55mm_HandSolder" H 7438 8650 50  0001 C CNN
+F 3 "~" H 7400 8800 50  0001 C CNN
+	1    7400 8800
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C24
 U 1 1 5D481DFE
-P 8450 9500
-F 0 "C24" H 8565 9546 50  0000 L CNN
-F 1 "100nF/50V" H 8565 9455 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 8488 9350 50  0001 C CNN
-F 3 "~" H 8450 9500 50  0001 C CNN
-	1    8450 9500
+P 8050 9800
+F 0 "C24" H 8165 9846 50  0000 L CNN
+F 1 "100nF/50V" H 8165 9755 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 8088 9650 50  0001 C CNN
+F 3 "~" H 8050 9800 50  0001 C CNN
+	1    8050 9800
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -234,59 +234,17 @@ F 3 "~" H 9950 8750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9250 10500 9250 9500
+	6900 10500 6900 9950
 Wire Wire Line
-	9250 10500 8450 10500
+	6900 9150 7400 9150
+Connection ~ 7400 9150
 Wire Wire Line
-	8450 10500 8450 9650
-Connection ~ 9250 10500
+	7400 9150 7400 8950
 Wire Wire Line
-	8450 10500 7800 10500
-Wire Wire Line
-	7800 10500 7800 9650
-Connection ~ 8450 10500
-Wire Wire Line
-	7800 10500 7300 10500
-Wire Wire Line
-	7300 10500 7300 9950
-Connection ~ 7800 10500
-Wire Wire Line
-	7800 9350 7800 9150
-Wire Wire Line
-	7300 9150 7800 9150
-Connection ~ 7800 9150
-Wire Wire Line
-	7800 9150 7800 8950
-Wire Wire Line
-	8750 9150 7800 9150
-Wire Wire Line
-	8750 9250 8450 9250
-Wire Wire Line
-	8450 9250 8450 9350
-Wire Wire Line
-	8750 9050 8600 9050
-Wire Wire Line
-	8600 9050 8600 8950
-Wire Wire Line
-	8600 8500 7800 8500
-Connection ~ 6700 8500
-Wire Wire Line
-	8750 8950 8600 8950
-Connection ~ 8600 8950
-Wire Wire Line
-	8600 8950 8600 8500
-Wire Wire Line
-	7800 8650 7800 8500
+	7400 8650 7400 8500
 Connection ~ 7800 8500
 Wire Wire Line
-	7800 8500 6700 8500
-Wire Wire Line
-	7300 9150 7300 9650
-Wire Wire Line
-	9250 8700 9250 8500
-Wire Wire Line
-	9250 8500 8600 8500
-Connection ~ 8600 8500
+	6900 9150 6900 9650
 Wire Wire Line
 	11150 9550 11150 9450
 Wire Wire Line
@@ -300,7 +258,6 @@ Wire Wire Line
 	11150 8750 11150 8650
 Wire Wire Line
 	11150 8500 9950 8500
-Connection ~ 9250 8500
 Wire Wire Line
 	10650 8900 10650 8650
 Wire Wire Line
@@ -311,36 +268,11 @@ Wire Wire Line
 Wire Wire Line
 	11150 9950 11150 10500
 Wire Wire Line
-	9250 10500 9950 10500
-Wire Wire Line
-	9750 9150 9800 9150
-Wire Wire Line
-	9800 9150 9800 9750
-Wire Wire Line
-	9800 9750 10050 9750
-Wire Wire Line
-	10350 9750 10550 9750
-Wire Wire Line
-	10550 9950 10550 9750
-Connection ~ 10550 9750
-Wire Wire Line
-	10550 9750 10850 9750
-Wire Wire Line
-	10550 10250 10550 10500
-Connection ~ 10550 10500
-Wire Wire Line
-	10550 10500 11150 10500
-Wire Wire Line
 	9950 8900 9950 10500
 Connection ~ 9950 10500
 Wire Wire Line
-	9950 10500 10550 10500
-Wire Wire Line
 	9950 8600 9950 8500
 Connection ~ 9950 8500
-Wire Wire Line
-	9950 8500 9250 8500
-Connection ~ 7300 10500
 Text GLabel 8000 8100 2    50   Input ~ 0
 +5VDC
 Wire Wire Line
@@ -439,7 +371,6 @@ F 3 "~" H 11050 5750 50  0001 C CNN
 	1    11050 5750
 	1    0    0    -1  
 $EndComp
-NoConn ~ 9750 9050
 $Comp
 L Device:C C1
 U 1 1 5D48C954
@@ -621,23 +552,23 @@ Wire Wire Line
 Text GLabel 3350 3650 0    50   Input ~ 0
 GND_HV
 $Comp
-L hv-power-supply-v1-rescue:IRF510PBF-dk_Transistors-FETs-MOSFETs-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q4
+L Transistor_FET:IRF740 Q4
 U 1 1 5D4EC925
-P 12650 2400
-F 0 "Q4" H 12758 2453 60  0000 L CNN
-F 1 "IRF840" H 12758 2347 60  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 12850 2600 60  0001 L CNN
-F 3 "http://www.vishay.com/docs/91015/sihf510.pdf" H 12850 2700 60  0001 L CNN
-F 4 "IRF510PBF-ND" H 12850 2800 60  0001 L CNN "Digi-Key_PN"
-F 5 "IRF510PBF" H 12850 2900 60  0001 L CNN "MPN"
-F 6 "Discrete Semiconductor Products" H 12850 3000 60  0001 L CNN "Category"
-F 7 "Transistors - FETs, MOSFETs - Single" H 12850 3100 60  0001 L CNN "Family"
-F 8 "http://www.vishay.com/docs/91015/sihf510.pdf" H 12850 3200 60  0001 L CNN "DK_Datasheet_Link"
-F 9 "/product-detail/en/vishay-siliconix/IRF510PBF/IRF510PBF-ND/811710" H 12850 3300 60  0001 L CNN "DK_Detail_Page"
-F 10 "MOSFET N-CH 100V 5.6A TO-220AB" H 12850 3400 60  0001 L CNN "Description"
-F 11 "Vishay Siliconix" H 12850 3500 60  0001 L CNN "Manufacturer"
-F 12 "Active" H 12850 3600 60  0001 L CNN "Status"
-	1    12650 2400
+P 12550 2400
+F 0 "Q4" H 12658 2453 60  0000 L CNN
+F 1 "IRF840" H 12658 2347 60  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 12750 2600 60  0001 L CNN
+F 3 "http://www.vishay.com/docs/91015/sihf510.pdf" H 12750 2700 60  0001 L CNN
+F 4 "IRF510PBF-ND" H 12750 2800 60  0001 L CNN "Digi-Key_PN"
+F 5 "IRF510PBF" H 12750 2900 60  0001 L CNN "MPN"
+F 6 "Discrete Semiconductor Products" H 12750 3000 60  0001 L CNN "Category"
+F 7 "Transistors - FETs, MOSFETs - Single" H 12750 3100 60  0001 L CNN "Family"
+F 8 "http://www.vishay.com/docs/91015/sihf510.pdf" H 12750 3200 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/vishay-siliconix/IRF510PBF/IRF510PBF-ND/811710" H 12750 3300 60  0001 L CNN "DK_Detail_Page"
+F 10 "MOSFET N-CH 100V 5.6A TO-220AB" H 12750 3400 60  0001 L CNN "Description"
+F 11 "Vishay Siliconix" H 12750 3500 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 12750 3600 60  0001 L CNN "Status"
+	1    12550 2400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -674,7 +605,7 @@ F 3 "~" H 12650 4350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:MMBT3904-TP-dk_Transistors-Bipolar-BJT-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q3
+L Transistor_BJT:MMBT3904 Q3
 U 1 1 5D4F56E1
 P 11500 2900
 F 0 "Q3" H 11688 2953 60  0000 L CNN
@@ -750,8 +681,6 @@ F 3 "~" H 8500 3500 50  0001 C CNN
 	1    8500 3500
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	8650 3500 8800 3500
 $Comp
 L Device:R R11
 U 1 1 5D6D0C3D
@@ -1043,23 +972,23 @@ F 3 "~" H 7850 4050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L hv-power-supply-v1-rescue:IRF510PBF-dk_Transistors-FETs-MOSFETs-Single-PowerSupply-6SN7-rescue-hv-power-supply-v1-rescue Q1
+L Transistor_FET:IRF740 Q1
 U 1 1 603EDCB9
-P 9100 3400
-F 0 "Q1" H 9208 3453 60  0000 L CNN
-F 1 "IRF840" H 9208 3347 60  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 9300 3600 60  0001 L CNN
-F 3 "http://www.vishay.com/docs/91015/sihf510.pdf" H 9300 3700 60  0001 L CNN
-F 4 "IRF510PBF-ND" H 9300 3800 60  0001 L CNN "Digi-Key_PN"
-F 5 "IRF510PBF" H 9300 3900 60  0001 L CNN "MPN"
-F 6 "Discrete Semiconductor Products" H 9300 4000 60  0001 L CNN "Category"
-F 7 "Transistors - FETs, MOSFETs - Single" H 9300 4100 60  0001 L CNN "Family"
-F 8 "http://www.vishay.com/docs/91015/sihf510.pdf" H 9300 4200 60  0001 L CNN "DK_Datasheet_Link"
-F 9 "/product-detail/en/vishay-siliconix/IRF510PBF/IRF510PBF-ND/811710" H 9300 4300 60  0001 L CNN "DK_Detail_Page"
-F 10 "MOSFET N-CH 100V 5.6A TO-220AB" H 9300 4400 60  0001 L CNN "Description"
-F 11 "Vishay Siliconix" H 9300 4500 60  0001 L CNN "Manufacturer"
-F 12 "Active" H 9300 4600 60  0001 L CNN "Status"
-	1    9100 3400
+P 9000 3500
+F 0 "Q1" H 9108 3553 60  0000 L CNN
+F 1 "IRF840" H 9108 3447 60  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 9200 3700 60  0001 L CNN
+F 3 "http://www.vishay.com/docs/91015/sihf510.pdf" H 9200 3800 60  0001 L CNN
+F 4 "IRF510PBF-ND" H 9200 3900 60  0001 L CNN "Digi-Key_PN"
+F 5 "IRF510PBF" H 9200 4000 60  0001 L CNN "MPN"
+F 6 "Discrete Semiconductor Products" H 9200 4100 60  0001 L CNN "Category"
+F 7 "Transistors - FETs, MOSFETs - Single" H 9200 4200 60  0001 L CNN "Family"
+F 8 "http://www.vishay.com/docs/91015/sihf510.pdf" H 9200 4300 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/vishay-siliconix/IRF510PBF/IRF510PBF-ND/811710" H 9200 4400 60  0001 L CNN "DK_Detail_Page"
+F 10 "MOSFET N-CH 100V 5.6A TO-220AB" H 9200 4500 60  0001 L CNN "Description"
+F 11 "Vishay Siliconix" H 9200 4600 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 9200 4700 60  0001 L CNN "Status"
+	1    9000 3500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1149,54 +1078,26 @@ F 3 "~" H 9350 4350 50  0001 C CNN
 	1    9350 4350
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	9800 2500 9800 2950
-Wire Wire Line
-	9800 3250 9800 3550
 $Comp
 L Device:C C31
 U 1 1 6064FFD8
-P 10450 3100
-F 0 "C31" H 10565 3146 50  0000 L CNN
-F 1 "1nF/50V" H 10565 3055 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 10488 2950 50  0001 C CNN
-F 3 "~" H 10450 3100 50  0001 C CNN
-	1    10450 3100
+P 10450 2950
+F 0 "C31" H 10565 2996 50  0000 L CNN
+F 1 "1nF/50V" H 10565 2905 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 10488 2800 50  0001 C CNN
+F 3 "~" H 10450 2950 50  0001 C CNN
+	1    10450 2950
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	10450 2950 10450 2500
-Connection ~ 10450 2500
-Wire Wire Line
-	10450 2500 9800 2500
-Wire Wire Line
-	10450 3250 10450 3550
-Connection ~ 10450 3550
-Wire Wire Line
-	10450 3550 9800 3550
-Wire Wire Line
-	10450 3550 10950 3550
 Connection ~ 11400 3550
 Wire Wire Line
 	11400 3100 11400 3550
-Wire Wire Line
-	11400 2700 11400 2500
-Wire Wire Line
-	11400 2500 10450 2500
 Wire Wire Line
 	12100 2900 11850 2900
 Wire Wire Line
 	12400 2900 12650 2900
 Wire Wire Line
 	12650 3050 12650 2900
-Wire Wire Line
-	9800 2500 9100 2500
-Wire Wire Line
-	9100 2500 9100 2250
-Connection ~ 9800 2500
-Wire Wire Line
-	9100 2500 9100 3200
-Connection ~ 9100 2500
 Wire Wire Line
 	9100 1950 9100 1600
 Wire Wire Line
@@ -1238,11 +1139,6 @@ Wire Wire Line
 	9100 4200 9100 4100
 Wire Wire Line
 	9350 4200 9350 4100
-Wire Wire Line
-	9350 4100 9100 4100
-Connection ~ 9100 4100
-Wire Wire Line
-	9100 4100 9100 3600
 Wire Wire Line
 	9350 4500 9350 4600
 Wire Wire Line
@@ -1291,12 +1187,12 @@ $EndComp
 $Comp
 L Diode:BZX84Cxx D15
 U 1 1 60A33BA7
-P 9800 3100
-F 0 "D15" V 9754 3180 50  0000 L CNN
-F 1 "BZX84C15" V 9845 3180 50  0000 L CNN
-F 2 "Diode_SMD:D_SOT-23_ANK" H 9800 2925 50  0001 C CNN
-F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bzx84c2v4.pdf" H 9800 3100 50  0001 C CNN
-	1    9800 3100
+P 9800 2950
+F 0 "D15" V 9754 3030 50  0000 L CNN
+F 1 "BZX84C15" V 9845 3030 50  0000 L CNN
+F 2 "Diode_SMD:D_SOT-23_ANK" H 9800 2775 50  0001 C CNN
+F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bzx84c2v4.pdf" H 9800 2950 50  0001 C CNN
+	1    9800 2950
 	0    1    1    0   
 $EndComp
 $Comp
@@ -1536,12 +1432,12 @@ $EndComp
 $Comp
 L Diode:1N4148W D10
 U 1 1 60FF3090
-P 7300 9800
-F 0 "D10" V 7254 9880 50  0000 L CNN
-F 1 "1N4148W" V 7345 9880 50  0000 L CNN
-F 2 "Diode_SMD:D_SOD-123" H 7300 9625 50  0001 C CNN
-F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 7300 9800 50  0001 C CNN
-	1    7300 9800
+P 6900 9800
+F 0 "D10" V 6854 9880 50  0000 L CNN
+F 1 "1N4148W" V 6945 9880 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-123" H 6900 9625 50  0001 C CNN
+F 3 "https://www.vishay.com/docs/85748/1n4148w.pdf" H 6900 9800 50  0001 C CNN
+	1    6900 9800
 	0    1    1    0   
 $EndComp
 $Comp
@@ -1630,12 +1526,9 @@ Wire Wire Line
 	5000 10700 5000 10500
 Connection ~ 7350 6200
 Wire Wire Line
-	6700 8500 6700 9350
+	6250 8500 6250 9350
 Wire Wire Line
-	6700 9650 6700 10500
-Connection ~ 6700 10500
-Wire Wire Line
-	6700 10500 7300 10500
+	6250 9650 6250 10500
 Wire Wire Line
 	5600 8800 5600 10500
 Connection ~ 5600 10500
@@ -1763,19 +1656,14 @@ Connection ~ 12650 2900
 $Comp
 L Device:R R16
 U 1 1 6021D1DE
-P 11950 2500
-F 0 "R16" H 12020 2546 50  0000 L CNN
-F 1 "100R 1/8W" H 12020 2455 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 11880 2500 50  0001 C CNN
-F 3 "~" H 11950 2500 50  0001 C CNN
-	1    11950 2500
+P 11950 2400
+F 0 "R16" H 12020 2446 50  0000 L CNN
+F 1 "100R 1/8W" H 12020 2355 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 11880 2400 50  0001 C CNN
+F 3 "~" H 11950 2400 50  0001 C CNN
+	1    11950 2400
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	12350 2500 12100 2500
-Wire Wire Line
-	11800 2500 11400 2500
-Connection ~ 11400 2500
 $Comp
 L Device:C C32
 U 1 1 6029DB1D
@@ -1912,11 +1800,128 @@ Wire Wire Line
 	13400 1600 12650 1600
 Connection ~ 12650 1600
 Wire Wire Line
-	5900 8500 6700 8500
+	5900 8500 6250 8500
 Wire Wire Line
-	5600 10500 6700 10500
+	5600 10500 6250 10500
 Wire Wire Line
 	3800 5250 7350 5250
 Wire Wire Line
 	6150 6200 7350 6200
+Connection ~ 6250 8500
+Connection ~ 6250 10500
+Wire Wire Line
+	6250 8500 7400 8500
+Wire Wire Line
+	6250 10500 6900 10500
+Connection ~ 6900 10500
+Connection ~ 7400 8500
+Wire Wire Line
+	7400 8500 7800 8500
+Wire Wire Line
+	7400 9150 8650 9150
+Wire Wire Line
+	6900 10500 7400 10500
+Wire Wire Line
+	7400 9150 7400 9650
+Wire Wire Line
+	7400 9950 7400 10500
+Connection ~ 7400 10500
+Wire Wire Line
+	7400 10500 8050 10500
+Wire Wire Line
+	8050 9650 8050 9350
+Wire Wire Line
+	8050 9350 8650 9350
+Wire Wire Line
+	8050 9950 8050 10500
+Connection ~ 8050 10500
+Wire Wire Line
+	8050 10500 9150 10500
+Wire Wire Line
+	7800 8500 8400 8500
+Wire Wire Line
+	8650 9550 8400 9550
+Wire Wire Line
+	8400 9550 8400 8500
+Connection ~ 8400 8500
+Wire Wire Line
+	8400 8500 9150 8500
+Wire Wire Line
+	9150 9750 9150 10500
+Connection ~ 9150 10500
+Wire Wire Line
+	9150 10500 9950 10500
+Wire Wire Line
+	9150 8950 9150 8500
+Connection ~ 9150 8500
+Wire Wire Line
+	9150 8500 9750 8500
+NoConn ~ 9650 9350
+Wire Wire Line
+	9950 10500 10800 10500
+Wire Wire Line
+	10800 10250 10800 10500
+Connection ~ 10800 10500
+Wire Wire Line
+	10800 10500 11150 10500
+Wire Wire Line
+	10800 9950 10800 9750
+Wire Wire Line
+	10800 9750 10850 9750
+Wire Wire Line
+	10800 9750 10650 9750
+Connection ~ 10800 9750
+Wire Wire Line
+	10350 9750 10200 9750
+Wire Wire Line
+	10200 9750 10200 9150
+Wire Wire Line
+	10200 9150 9650 9150
+Wire Wire Line
+	9650 9550 9750 9550
+Wire Wire Line
+	9750 9550 9750 8500
+Connection ~ 9750 8500
+Wire Wire Line
+	9750 8500 9950 8500
+Wire Wire Line
+	9100 4100 9350 4100
+Connection ~ 9100 4100
+Wire Wire Line
+	9100 3700 9100 4100
+Wire Wire Line
+	8800 3500 8650 3500
+Wire Wire Line
+	9100 2250 9100 2400
+Wire Wire Line
+	12350 2400 12100 2400
+Wire Wire Line
+	11800 2400 11400 2400
+Connection ~ 9100 2400
+Wire Wire Line
+	9100 2400 9100 3300
+Wire Wire Line
+	11400 2400 11400 2700
+Connection ~ 11400 2400
+Wire Wire Line
+	9800 3550 10450 3550
+Wire Wire Line
+	9100 2400 9800 2400
+Wire Wire Line
+	10450 2800 10450 2400
+Connection ~ 10450 2400
+Wire Wire Line
+	10450 2400 11400 2400
+Wire Wire Line
+	9800 2800 9800 2400
+Connection ~ 9800 2400
+Wire Wire Line
+	9800 2400 10450 2400
+Wire Wire Line
+	9800 3100 9800 3550
+Wire Wire Line
+	10450 3100 10450 3550
+Connection ~ 10450 3550
+Wire Wire Line
+	10450 3550 10950 3550
 $EndSCHEMATC
