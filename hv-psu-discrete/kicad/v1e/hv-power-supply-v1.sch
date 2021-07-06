@@ -5,7 +5,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete HV Supply"
-Date "2021-07-04"
+Date "2021-07-06"
 Rev "V1e"
 Comp ""
 Comment1 ""
@@ -640,7 +640,7 @@ L Amplifier_Operational:LM321 U3
 U 1 1 5D789BFC
 P 6950 3500
 F 0 "U3" H 7294 3546 50  0000 L CNN
-F 1 "LM321" H 7294 3455 50  0000 L CNN
+F 1 "LM321MFX" H 7294 3455 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 6950 3500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm321.pdf" H 6950 3500 50  0001 C CNN
 	1    6950 3500
@@ -1473,7 +1473,7 @@ U 1 1 6117EC9C
 P 3800 9500
 F 0 "C12" H 3918 9546 50  0000 L CNN
 F 1 "22000uF/25V" H 3918 9455 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D30.0mm_P10.00mm_SnapIn" H 3838 9350 50  0001 C CNN
+F 2 "Capacitor_THT:CP_Radial_D35.0mm_P10.00mm_SnapIn" H 3838 9350 50  0001 C CNN
 F 3 "~" H 3800 9500 50  0001 C CNN
 	1    3800 9500
 	1    0    0    -1  
