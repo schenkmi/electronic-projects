@@ -636,17 +636,6 @@ F 3 "~" H 4350 1950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Amplifier_Operational:LM321 U3
-U 1 1 5D789BFC
-P 6950 3500
-F 0 "U3" H 7294 3546 50  0000 L CNN
-F 1 "LM321MFX" H 7294 3455 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 6950 3500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/lm321.pdf" H 6950 3500 50  0001 C CNN
-	1    6950 3500
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C C15
 U 1 1 5D51B86E
 P 5500 3300
@@ -1924,4 +1913,15 @@ Wire Wire Line
 Connection ~ 10450 3550
 Wire Wire Line
 	10450 3550 10950 3550
+$Comp
+L Amplifier_Operational:OPA188xxDBV U3
+U 1 1 60ED5BF7
+P 6950 3500
+F 0 "U3" H 7294 3546 50  0000 L CNN
+F 1 "OPA188xxDBV" H 7294 3455 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:TSOT-23-5" H 6950 3500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa188.pdf" H 6950 3700 50  0001 C CNN
+	1    6950 3500
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
