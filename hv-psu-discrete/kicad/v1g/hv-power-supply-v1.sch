@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete HV Supply"
-Date "2021-07-17"
-Rev "V1f"
+Date "2021-07-20"
+Rev "V1g"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -965,8 +965,8 @@ L Transistor_FET:IRF740 Q1
 U 1 1 603EDCB9
 P 9000 3500
 F 0 "Q1" H 9108 3553 60  0000 L CNN
-F 1 "IRF840" H 9108 3447 60  0000 L CNN
-F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 9200 3700 60  0001 L CNN
+F 1 "IPN50R3K0CE" H 9108 3447 60  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 9200 3700 60  0001 L CNN
 F 3 "http://www.vishay.com/docs/91015/sihf510.pdf" H 9200 3800 60  0001 L CNN
 F 4 "IRF510PBF-ND" H 9200 3900 60  0001 L CNN "Digi-Key_PN"
 F 5 "IRF510PBF" H 9200 4000 60  0001 L CNN "MPN"
@@ -1770,24 +1770,6 @@ Wire Wire Line
 	6350 3600 6200 3600
 Wire Wire Line
 	3800 5250 3800 8500
-$Comp
-L Diode:1N4007 D12
-U 1 1 60EA1E2D
-P 13400 2600
-F 0 "D12" H 13400 2817 50  0000 C CNN
-F 1 "1N4007" H 13400 2726 50  0000 C CNN
-F 2 "Diode_SMD:D_SMA_Handsoldering" H 13400 2425 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 13400 2600 50  0001 C CNN
-	1    13400 2600
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	13400 3550 13400 2750
-Wire Wire Line
-	13400 2450 13400 1600
-Wire Wire Line
-	13400 1600 12650 1600
-Connection ~ 12650 1600
 Wire Wire Line
 	5900 8500 6250 8500
 Wire Wire Line
