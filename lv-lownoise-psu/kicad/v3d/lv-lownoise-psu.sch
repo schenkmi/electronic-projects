@@ -1456,4 +1456,369 @@ F 4 "RT0603FRE07910RL" H 12800 5700 50  0001 C CNN "manf#"
 	1    12800 5700
 	1    0    0    -1  
 $EndComp
+$Comp
+L Regulator_Linear:LM317_TO-220 U?
+U 1 1 61002BF7
+P 8000 7500
+F 0 "U?" H 8000 7742 50  0000 C CNN
+F 1 "LM317_TO-220" H 8000 7651 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 8000 7750 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/lm317.pdf" H 8000 7500 50  0001 C CNN
+F 4 "LM317T" H 8000 7500 50  0001 C CNN "manf#"
+	1    8000 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 61002BFE
+P 8000 8350
+F 0 "R?" H 8070 8396 50  0000 L CNN
+F 1 "910R" H 8070 8305 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 7930 8350 50  0001 C CNN
+F 3 "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RT_1-to-0.01_RoHS_L_12.pdf" H 8000 8350 50  0001 C CNN
+F 4 "RT0603FRE07910RL" H 8000 8350 50  0001 C CNN "manf#"
+	1    8000 8350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 61002C05
+P 8400 7800
+F 0 "R?" H 8470 7846 50  0000 L CNN
+F 1 "240R" H 8470 7755 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 8330 7800 50  0001 C CNN
+F 3 "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RT_1-to-0.01_RoHS_L_12.pdf" H 8400 7800 50  0001 C CNN
+F 4 "RT0603FRE07240RL" H 8400 7800 50  0001 C CNN "manf#"
+	1    8400 7800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 61002C0C
+P 8000 7100
+F 0 "D?" H 8000 7317 50  0000 C CNN
+F 1 "1N4148W" H 8000 7226 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 8000 6925 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30086.pdf" H 8000 7100 50  0001 C CNN
+F 4 "1N4148W-7-F" H 8000 7100 50  0001 C CNN "manf#"
+	1    8000 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 61002C13
+P 8800 7800
+F 0 "D?" V 8754 7880 50  0000 L CNN
+F 1 "1N4148W" V 8845 7880 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-123" H 8800 7625 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30086.pdf" H 8800 7800 50  0001 C CNN
+F 4 "1N4148W-7-F" V 8800 7800 50  0001 C CNN "manf#"
+	1    8800 7800
+	0    1    1    0   
+$EndComp
+$Comp
+L Mechanical:Heatsink HS?
+U 1 1 61002C1A
+P 8000 6750
+F 0 "HS?" H 8142 6871 50  0000 L CNN
+F 1 "Heatsink" H 8142 6780 50  0000 L CNN
+F 2 "Heatsink:Heatsink_Fischer_SK104-STC-STIC_35x13mm_2xDrill2.5mm" H 8012 6750 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 8012 6750 50  0001 C CNN
+F 4 "637-15ABPE" H 8000 6750 50  0001 C CNN "manf#"
+	1    8000 6750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 61002C21
+P 7300 8150
+F 0 "C?" H 7418 8196 50  0000 L CNN
+F 1 "10uF/25V" H 7418 8105 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 7338 8000 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 7300 8150 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 7300 8150 50  0001 C CNN "manf#"
+	1    7300 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 61002C28
+P 8400 8350
+F 0 "C?" H 8518 8396 50  0000 L CNN
+F 1 "10uF/25V" H 8518 8305 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 8438 8200 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 8400 8350 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 8400 8350 50  0001 C CNN "manf#"
+	1    8400 8350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 61002C2F
+P 9400 8150
+F 0 "C?" H 9518 8196 50  0000 L CNN
+F 1 "10uF/25V" H 9518 8105 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 9438 8000 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 9400 8150 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 9400 8150 50  0001 C CNN "manf#"
+	1    9400 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 61002C35
+P 6950 8800
+F 0 "#PWR?" H 6950 8550 50  0001 C CNN
+F 1 "GND" H 6955 8627 50  0000 C CNN
+F 2 "" H 6950 8800 50  0001 C CNN
+F 3 "" H 6950 8800 50  0001 C CNN
+	1    6950 8800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LM337_TO220 U?
+U 1 1 61002C3C
+P 8000 10000
+F 0 "U?" H 8000 9851 50  0000 C CNN
+F 1 "LM337_TO220" H 8000 9760 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 8000 9800 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/lm337-n.pdf" H 8000 10000 50  0001 C CNN
+F 4 "LM337T/NOPB" H 8000 10000 50  0001 C CNN "manf#"
+	1    8000 10000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 61002C43
+P 8000 10450
+F 0 "D?" H 8000 10667 50  0000 C CNN
+F 1 "1N4148W" H 8000 10576 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 8000 10275 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30086.pdf" H 8000 10450 50  0001 C CNN
+F 4 "1N4148W-7-F" H 8000 10450 50  0001 C CNN "manf#"
+	1    8000 10450
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 61002C4A
+P 7300 9300
+F 0 "C?" H 7418 9346 50  0000 L CNN
+F 1 "10uF/25V" H 7418 9255 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 7338 9150 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 7300 9300 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 7300 9300 50  0001 C CNN "manf#"
+	1    7300 9300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4007 D?
+U 1 1 61002C51
+P 8800 9700
+F 0 "D?" V 8754 9780 50  0000 L CNN
+F 1 "1N4148W" V 8845 9780 50  0000 L CNN
+F 2 "Diode_SMD:D_SOD-123" H 8800 9525 50  0001 C CNN
+F 3 "https://www.diodes.com/assets/Datasheets/ds30086.pdf" H 8800 9700 50  0001 C CNN
+F 4 "1N4148W-7-F" V 8800 9700 50  0001 C CNN "manf#"
+	1    8800 9700
+	0    1    1    0   
+$EndComp
+$Comp
+L Mechanical:Heatsink HS?
+U 1 1 61002C58
+P 8000 10800
+F 0 "HS?" H 8142 10921 50  0000 L CNN
+F 1 "Heatsink" H 8142 10830 50  0000 L CNN
+F 2 "Heatsink:Heatsink_Fischer_SK104-STC-STIC_35x13mm_2xDrill2.5mm" H 8012 10800 50  0001 C CNN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Wakefield%20Thermal%20PDFs/634%20Heat%20Sinks.pdf" H 8012 10800 50  0001 C CNN
+F 4 "637-15ABPE" H 8000 10800 50  0001 C CNN "manf#"
+	1    8000 10800
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 61002C5F
+P 8400 9700
+F 0 "R?" H 8470 9746 50  0000 L CNN
+F 1 "240R" H 8470 9655 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 8330 9700 50  0001 C CNN
+F 3 "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RT_1-to-0.01_RoHS_L_12.pdf" H 8400 9700 50  0001 C CNN
+F 4 "RT0603FRE07240RL" H 8400 9700 50  0001 C CNN "manf#"
+	1    8400 9700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 61002C66
+P 8000 9100
+F 0 "R?" H 8070 9146 50  0000 L CNN
+F 1 "910R" H 8070 9055 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 7930 9100 50  0001 C CNN
+F 3 "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RT_1-to-0.01_RoHS_L_12.pdf" H 8000 9100 50  0001 C CNN
+F 4 "RT0603FRE07910RL" H 8000 9100 50  0001 C CNN "manf#"
+	1    8000 9100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 61002C6D
+P 8400 9100
+F 0 "C?" H 8518 9146 50  0000 L CNN
+F 1 "10uF/25V" H 8518 9055 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 8438 8950 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 8400 9100 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 8400 9100 50  0001 C CNN "manf#"
+	1    8400 9100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C?
+U 1 1 61002C74
+P 9400 9300
+F 0 "C?" H 9518 9346 50  0000 L CNN
+F 1 "10uF/25V" H 9518 9255 50  0000 L CNN
+F 2 "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder" H 9438 9150 50  0001 C CNN
+F 3 "https://datasheets.avx.com/TCJ.pdf" H 9400 9300 50  0001 C CNN
+F 4 "TCJB106M025R0100" H 9400 9300 50  0001 C CNN "manf#"
+	1    9400 9300
+	1    0    0    -1  
+$EndComp
+Text GLabel 6950 7500 0    50   Input ~ 0
++17V
+Text GLabel 6950 10000 0    50   Input ~ 0
+-17V
+Wire Wire Line
+	7300 7500 7600 7500
+Wire Wire Line
+	8300 7500 8400 7500
+Wire Wire Line
+	8400 7500 8800 7500
+Wire Wire Line
+	8400 7500 8400 7100
+Wire Wire Line
+	8400 7100 8150 7100
+Wire Wire Line
+	7850 7100 7600 7100
+Wire Wire Line
+	7600 7100 7600 7500
+Wire Wire Line
+	7600 7500 7700 7500
+Wire Wire Line
+	6950 7500 7300 7500
+Wire Wire Line
+	6950 8800 6950 8750
+Wire Wire Line
+	6950 8750 7300 8750
+Wire Wire Line
+	8800 7500 9400 7500
+Wire Wire Line
+	8300 10000 8400 10000
+Wire Wire Line
+	6950 10000 7300 10000
+Wire Wire Line
+	7850 10450 7600 10450
+Wire Wire Line
+	7600 10450 7600 10000
+Wire Wire Line
+	7600 10000 7700 10000
+Wire Wire Line
+	8150 10450 8400 10450
+Wire Wire Line
+	8400 10450 8400 10000
+Wire Wire Line
+	8400 10000 8800 10000
+Wire Wire Line
+	8400 10000 8400 9850
+Wire Wire Line
+	9400 8000 9400 7500
+Wire Wire Line
+	9400 8300 9400 8750
+Wire Wire Line
+	9400 8750 9400 9150
+Wire Wire Line
+	9400 9450 9400 10000
+Wire Wire Line
+	8400 9550 8400 9400
+Wire Wire Line
+	8000 9250 8000 9400
+Wire Wire Line
+	8000 9400 8400 9400
+Wire Wire Line
+	8400 9400 8400 9250
+Wire Wire Line
+	8400 9400 8800 9400
+Wire Wire Line
+	8800 9400 8800 9550
+Wire Wire Line
+	8800 9850 8800 10000
+Wire Wire Line
+	8800 10000 9400 10000
+Wire Wire Line
+	7300 8750 8000 8750
+Wire Wire Line
+	8000 7800 8000 8050
+Wire Wire Line
+	8400 8200 8400 8050
+Wire Wire Line
+	8400 8050 8000 8050
+Wire Wire Line
+	8400 8050 8400 7950
+Wire Wire Line
+	8000 8050 8000 8200
+Wire Wire Line
+	8000 8500 8000 8750
+Wire Wire Line
+	8000 8750 8400 8750
+Wire Wire Line
+	8000 8750 8000 8950
+Wire Wire Line
+	8400 8500 8400 8750
+Wire Wire Line
+	8400 8750 9400 8750
+Wire Wire Line
+	8400 8750 8400 8950
+Wire Wire Line
+	8800 7950 8800 8050
+Wire Wire Line
+	8800 8050 8400 8050
+Wire Wire Line
+	8800 7500 8800 7650
+Wire Wire Line
+	8400 7500 8400 7650
+Wire Wire Line
+	7300 9450 7300 10000
+Wire Wire Line
+	7300 10000 7600 10000
+Wire Wire Line
+	7300 9150 7300 8750
+Wire Wire Line
+	7300 8300 7300 8750
+Wire Wire Line
+	7300 7500 7300 8000
+Wire Wire Line
+	9400 10000 12200 10000
+Wire Wire Line
+	9400 8750 10950 8750
+Wire Wire Line
+	9400 7500 12200 7500
+Wire Wire Line
+	8000 9700 8000 9400
+Connection ~ 8400 7500
+Connection ~ 7600 7500
+Connection ~ 8800 7500
+Connection ~ 7300 7500
+Connection ~ 7300 8750
+Connection ~ 7600 10000
+Connection ~ 8400 10000
+Connection ~ 9400 7500
+Connection ~ 9400 8750
+Connection ~ 9400 10000
+Connection ~ 8400 9400
+Connection ~ 8800 10000
+Connection ~ 8400 8050
+Connection ~ 8000 8050
+Connection ~ 8000 8750
+Connection ~ 8400 8750
+Connection ~ 7300 10000
+Connection ~ 8000 9400
 $EndSCHEMATC
