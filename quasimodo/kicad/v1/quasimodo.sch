@@ -782,4 +782,5 @@ Wire Wire Line
 Wire Wire Line
 	3950 3350 3950 3500
 NoConn ~ 4800 3350
+NoConn ~ -2550 8550
 $EndSCHEMATC
