@@ -1,0 +1,85 @@
+MDF Database:  version 1.0
+MDF_INFO | test1 | XC2C32A-4-VQ44
+MACROCELL | 0 | 1 | SO_MC
+ATTRIBUTES | 8684290 | 0
+INPUTS | 1 | tmp<6>
+INPUTMC | 1 | 0 | 10
+EQ | 2 | 
+   SO := tmp<6>;	// (1 pt, 1 inp)
+   SO.CLK  =  C;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | C
+
+MACROCELL | 0 | 10 | tmp<6>_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 1
+INPUTS | 1 | tmp<5>
+INPUTMC | 1 | 0 | 11
+EQ | 2 | 
+   tmp<6> := tmp<5>;	// (1 pt, 1 inp)
+   tmp<6>.CLK  =  C;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | C
+
+MACROCELL | 0 | 11 | tmp<5>_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 10
+INPUTS | 1 | tmp<4>
+INPUTMC | 1 | 0 | 12
+EQ | 2 | 
+   tmp<5> := tmp<4>;	// (1 pt, 1 inp)
+   tmp<5>.CLK  =  C;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | C
+
+MACROCELL | 0 | 12 | tmp<4>_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 11
+INPUTS | 1 | tmp<3>
+INPUTMC | 1 | 0 | 13
+EQ | 2 | 
+   tmp<4> := tmp<3>;	// (1 pt, 1 inp)
+   tmp<4>.CLK  =  C;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | C
+
+MACROCELL | 0 | 13 | tmp<3>_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 12
+INPUTS | 1 | tmp<2>
+INPUTMC | 1 | 0 | 14
+EQ | 2 | 
+   tmp<3> := tmp<2>;	// (1 pt, 1 inp)
+   tmp<3>.CLK  =  C;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | C
+
+MACROCELL | 0 | 14 | tmp<2>_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 13
+INPUTS | 1 | tmp<1>
+INPUTMC | 1 | 0 | 15
+EQ | 2 | 
+   tmp<2> := tmp<1>;	// (1 pt, 1 inp)
+   tmp<2>.CLK  =  C;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | C
+
+MACROCELL | 0 | 15 | tmp<1>_MC
+ATTRIBUTES | 2155905792 | 0
+OUTPUTMC | 1 | 0 | 14
+INPUTS | 1 | tmp<0>
+INPUTMC | 1 | 0 | 0
+EQ | 2 | 
+   tmp<1> := tmp<0>;	// (1 pt, 1 inp)
+   tmp<1>.CLK  =  C;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | C
+
+MACROCELL | 0 | 0 | tmp<0>_MC
+ATTRIBUTES | 2155905024 | 4
+OUTPUTMC | 1 | 0 | 15
+INPUTS | 0 
+EQ | 4 | 
+   
+// Direct Input Register
+tmp<0> := SI;	// (0 pt, 0 inp)
+   tmp<0>.CLK  =  C;	// GCK	(0 pt, 0 inp)
+GLOBALS | 1 | 2 | C
+
+PIN | C | 4096 | 16 | LVCMOS18 | 10 | 8 | 0 | 0 | 0 | 15 | 0 | 14 | 0 | 13 | 0 | 12 | 0 | 11 | 0 | 10 | 0 | 1
+PIN | SI | 64 | 16 | LVCMOS18 | 5 | 1 | 0 | 0
+PIN | SO | 536871040 | 0 | LVCMOS18 | 4

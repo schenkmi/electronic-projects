@@ -1,0 +1,689 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A3 16535 11693
+encoding utf-8
+Sheet 1 1
+Title "Solder Test"
+Date "2021-04-04"
+Rev "V1"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L kicad-snk:CS4344 IC1
+U 1 1 6061E7E9
+P 12700 5250
+F 0 "IC1" H 12750 6020 50  0000 C CNN
+F 1 "CS4344" H 12750 5929 50  0000 C CNN
+F 2 "Package_SO:TSSOP-10_3x3mm_P0.5mm" H 12700 5250 50  0001 L BNN
+F 3 "" H 12700 5250 50  0001 L BNN
+F 4 "1509912" H 12700 5250 50  0001 L BNN "OC_FARNELL"
+F 5 "CS4344-DZZ " H 12700 5250 50  0001 L BNN "MPN"
+F 6 "TEXAS INSTRUMENT CONNECTORS" H 12700 5250 50  0001 L BNN "MF"
+F 7 "75C5298" H 12700 5250 50  0001 L BNN "OC_NEWARK"
+	1    12700 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:SRC4392 U5
+U 1 1 606AC246
+P 11800 1100
+F 0 "U5" H 12700 1420 50  0000 C CNN
+F 1 "SRC4392" H 12700 1329 50  0000 C CNN
+F 2 "Package_QFP:TQFP-48_7x7mm_P0.5mm" H 13150 1300 50  0001 C CNN
+F 3 "" H 13150 1300 50  0001 C CNN
+	1    11800 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Amplifier_Operational:OPA859xDSG U1
+U 1 1 606AE5C6
+P 6200 1100
+F 0 "U1" H 6200 711 50  0000 C CNN
+F 1 "OPA859xDSG" H 6200 620 50  0000 C CNN
+F 2 "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm" H 6100 1700 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa859.pdf" H 6600 1500 50  0001 C CNN
+	1    6200 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:L78L05_SOT89 U2
+U 1 1 606AF9F9
+P 7050 1100
+F 0 "U2" H 7050 1342 50  0000 C CNN
+F 1 "L78L05_SOT89" H 7050 1251 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-89-3" H 7050 1300 50  0001 C CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 7050 1050 50  0001 C CNN
+	1    7050 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 606B1520
+P 2000 8650
+F 0 "R1" H 2070 8696 50  0000 L CNN
+F 1 "R" H 2070 8605 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 1930 8650 50  0001 C CNN
+F 3 "~" H 2000 8650 50  0001 C CNN
+	1    2000 8650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 606B2559
+P 2250 8650
+F 0 "R2" H 2320 8696 50  0000 L CNN
+F 1 "R" H 2320 8605 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 2180 8650 50  0001 C CNN
+F 3 "~" H 2250 8650 50  0001 C CNN
+	1    2250 8650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 606B2866
+P 2500 8650
+F 0 "R3" H 2570 8696 50  0000 L CNN
+F 1 "R" H 2570 8605 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 2430 8650 50  0001 C CNN
+F 3 "~" H 2500 8650 50  0001 C CNN
+	1    2500 8650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 606B2C58
+P 2750 8650
+F 0 "R4" H 2820 8696 50  0000 L CNN
+F 1 "R" H 2820 8605 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 2680 8650 50  0001 C CNN
+F 3 "~" H 2750 8650 50  0001 C CNN
+	1    2750 8650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R5
+U 1 1 606B2E2A
+P 3000 8650
+F 0 "R5" H 3070 8696 50  0000 L CNN
+F 1 "R" H 3070 8605 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 2930 8650 50  0001 C CNN
+F 3 "~" H 3000 8650 50  0001 C CNN
+	1    3000 8650
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:CS4344 IC3
+U 1 1 606BB373
+P 14000 5250
+F 0 "IC3" H 14050 6020 50  0000 C CNN
+F 1 "CS4344" H 14050 5929 50  0000 C CNN
+F 2 "Package_SO:TSSOP-10_3x3mm_P0.5mm" H 14000 5250 50  0001 L BNN
+F 3 "" H 14000 5250 50  0001 L BNN
+F 4 "1509912" H 14000 5250 50  0001 L BNN "OC_FARNELL"
+F 5 "CS4344-DZZ " H 14000 5250 50  0001 L BNN "MPN"
+F 6 "TEXAS INSTRUMENT CONNECTORS" H 14000 5250 50  0001 L BNN "MF"
+F 7 "75C5298" H 14000 5250 50  0001 L BNN "OC_NEWARK"
+	1    14000 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:CS4344 IC2
+U 1 1 606BBEB4
+P 12700 6700
+F 0 "IC2" H 12750 7470 50  0000 C CNN
+F 1 "CS4344" H 12750 7379 50  0000 C CNN
+F 2 "Package_SO:TSSOP-10_3x3mm_P0.5mm" H 12700 6700 50  0001 L BNN
+F 3 "" H 12700 6700 50  0001 L BNN
+F 4 "1509912" H 12700 6700 50  0001 L BNN "OC_FARNELL"
+F 5 "CS4344-DZZ " H 12700 6700 50  0001 L BNN "MPN"
+F 6 "TEXAS INSTRUMENT CONNECTORS" H 12700 6700 50  0001 L BNN "MF"
+F 7 "75C5298" H 12700 6700 50  0001 L BNN "OC_NEWARK"
+	1    12700 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:CS4344 IC4
+U 1 1 606BC8BB
+P 14000 6700
+F 0 "IC4" H 14050 7470 50  0000 C CNN
+F 1 "CS4344" H 14050 7379 50  0000 C CNN
+F 2 "Package_SO:TSSOP-10_3x3mm_P0.5mm" H 14000 6700 50  0001 L BNN
+F 3 "" H 14000 6700 50  0001 L BNN
+F 4 "1509912" H 14000 6700 50  0001 L BNN "OC_FARNELL"
+F 5 "CS4344-DZZ " H 14000 6700 50  0001 L BNN "MPN"
+F 6 "TEXAS INSTRUMENT CONNECTORS" H 14000 6700 50  0001 L BNN "MF"
+F 7 "75C5298" H 14000 6700 50  0001 L BNN "OC_NEWARK"
+	1    14000 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:SRC4392 U6
+U 1 1 606BD317
+P 13750 1100
+F 0 "U6" H 14650 1420 50  0000 C CNN
+F 1 "SRC4392" H 14650 1329 50  0000 C CNN
+F 2 "Package_QFP:TQFP-48_7x7mm_P0.5mm" H 15100 1300 50  0001 C CNN
+F 3 "" H 15100 1300 50  0001 C CNN
+	1    13750 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:SRC4392 U4
+U 1 1 606BEEC1
+P 9800 1100
+F 0 "U4" H 10700 1420 50  0000 C CNN
+F 1 "SRC4392" H 10700 1329 50  0000 C CNN
+F 2 "Package_QFP:TQFP-48_7x7mm_P0.5mm" H 11150 1300 50  0001 C CNN
+F 3 "" H 11150 1300 50  0001 C CNN
+	1    9800 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:SRC4392 U3
+U 1 1 606C1F1F
+P 7850 1100
+F 0 "U3" H 8750 1420 50  0000 C CNN
+F 1 "SRC4392" H 8750 1329 50  0000 C CNN
+F 2 "Package_QFP:TQFP-48_7x7mm_P0.5mm" H 9200 1300 50  0001 C CNN
+F 3 "" H 9200 1300 50  0001 C CNN
+	1    7850 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R6
+U 1 1 606D0546
+P 2000 9050
+F 0 "R6" H 2070 9096 50  0000 L CNN
+F 1 "R" H 2070 9005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 1930 9050 50  0001 C CNN
+F 3 "~" H 2000 9050 50  0001 C CNN
+	1    2000 9050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 606D0A52
+P 2250 9050
+F 0 "R8" H 2320 9096 50  0000 L CNN
+F 1 "R" H 2320 9005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 2180 9050 50  0001 C CNN
+F 3 "~" H 2250 9050 50  0001 C CNN
+	1    2250 9050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 606D0E41
+P 2500 9050
+F 0 "R10" H 2570 9096 50  0000 L CNN
+F 1 "R" H 2570 9005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 2430 9050 50  0001 C CNN
+F 3 "~" H 2500 9050 50  0001 C CNN
+	1    2500 9050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R12
+U 1 1 606D11BB
+P 2750 9050
+F 0 "R12" H 2820 9096 50  0000 L CNN
+F 1 "R" H 2820 9005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 2680 9050 50  0001 C CNN
+F 3 "~" H 2750 9050 50  0001 C CNN
+	1    2750 9050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R14
+U 1 1 606D13F6
+P 3000 9050
+F 0 "R14" H 3070 9096 50  0000 L CNN
+F 1 "R" H 3070 9005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder" V 2930 9050 50  0001 C CNN
+F 3 "~" H 3000 9050 50  0001 C CNN
+	1    3000 9050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R7
+U 1 1 606D17DE
+P 2000 9550
+F 0 "R7" H 2070 9596 50  0000 L CNN
+F 1 "R" H 2070 9505 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 1930 9550 50  0001 C CNN
+F 3 "~" H 2000 9550 50  0001 C CNN
+	1    2000 9550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 606D1F36
+P 2250 9550
+F 0 "R9" H 2320 9596 50  0000 L CNN
+F 1 "R" H 2320 9505 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 2180 9550 50  0001 C CNN
+F 3 "~" H 2250 9550 50  0001 C CNN
+	1    2250 9550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R11
+U 1 1 606D2252
+P 2500 9550
+F 0 "R11" H 2570 9596 50  0000 L CNN
+F 1 "R" H 2570 9505 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 2430 9550 50  0001 C CNN
+F 3 "~" H 2500 9550 50  0001 C CNN
+	1    2500 9550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R13
+U 1 1 606D254E
+P 2750 9550
+F 0 "R13" H 2820 9596 50  0000 L CNN
+F 1 "R" H 2820 9505 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 2680 9550 50  0001 C CNN
+F 3 "~" H 2750 9550 50  0001 C CNN
+	1    2750 9550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R15
+U 1 1 606D283A
+P 3000 9550
+F 0 "R15" H 3070 9596 50  0000 L CNN
+F 1 "R" H 3070 9505 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 2930 9550 50  0001 C CNN
+F 3 "~" H 3000 9550 50  0001 C CNN
+	1    3000 9550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:L78L05_SOT89 U7
+U 1 1 606D975D
+P 7050 1750
+F 0 "U7" H 7050 1992 50  0000 C CNN
+F 1 "L78L05_SOT89" H 7050 1901 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-89-3" H 7050 1950 50  0001 C CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 7050 1700 50  0001 C CNN
+	1    7050 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:L78L05_SOT89 U8
+U 1 1 606DA665
+P 7050 2400
+F 0 "U8" H 7050 2642 50  0000 C CNN
+F 1 "L78L05_SOT89" H 7050 2551 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-89-3" H 7050 2600 50  0001 C CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 7050 2350 50  0001 C CNN
+	1    7050 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:L78L05_SOT89 U9
+U 1 1 606DB1D9
+P 7050 3050
+F 0 "U9" H 7050 3292 50  0000 C CNN
+F 1 "L78L05_SOT89" H 7050 3201 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-89-3" H 7050 3250 50  0001 C CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 7050 3000 50  0001 C CNN
+	1    7050 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Amplifier_Operational:OPA859xDSG U10
+U 1 1 606E4A3B
+P 6200 2000
+F 0 "U10" H 6200 1611 50  0000 C CNN
+F 1 "OPA859xDSG" H 6200 1520 50  0000 C CNN
+F 2 "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm" H 6100 2600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa859.pdf" H 6600 2400 50  0001 C CNN
+	1    6200 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Amplifier_Operational:OPA859xDSG U11
+U 1 1 606E5D32
+P 6200 2950
+F 0 "U11" H 6200 2561 50  0000 C CNN
+F 1 "OPA859xDSG" H 6200 2470 50  0000 C CNN
+F 2 "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm" H 6100 3550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa859.pdf" H 6600 3350 50  0001 C CNN
+	1    6200 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Amplifier_Operational:OPA859xDSG U12
+U 1 1 606E6627
+P 6200 3850
+F 0 "U12" H 6200 3461 50  0000 C CNN
+F 1 "OPA859xDSG" H 6200 3370 50  0000 C CNN
+F 2 "Package_SON:WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm" H 6100 4450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/opa859.pdf" H 6600 4250 50  0001 C CNN
+	1    6200 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R16
+U 1 1 606FD8C8
+P 2000 10050
+F 0 "R16" H 2070 10096 50  0000 L CNN
+F 1 "R" H 2070 10005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric_Pad0.72x0.64mm_HandSolder" V 1930 10050 50  0001 C CNN
+F 3 "~" H 2000 10050 50  0001 C CNN
+	1    2000 10050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R17
+U 1 1 606FDE71
+P 2250 10050
+F 0 "R17" H 2320 10096 50  0000 L CNN
+F 1 "R" H 2320 10005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric_Pad0.72x0.64mm_HandSolder" V 2180 10050 50  0001 C CNN
+F 3 "~" H 2250 10050 50  0001 C CNN
+	1    2250 10050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R18
+U 1 1 606FE211
+P 2500 10050
+F 0 "R18" H 2570 10096 50  0000 L CNN
+F 1 "R" H 2570 10005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric_Pad0.72x0.64mm_HandSolder" V 2430 10050 50  0001 C CNN
+F 3 "~" H 2500 10050 50  0001 C CNN
+	1    2500 10050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R19
+U 1 1 606FE4B3
+P 2750 10050
+F 0 "R19" H 2820 10096 50  0000 L CNN
+F 1 "R" H 2820 10005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric_Pad0.72x0.64mm_HandSolder" V 2680 10050 50  0001 C CNN
+F 3 "~" H 2750 10050 50  0001 C CNN
+	1    2750 10050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R20
+U 1 1 606FE6FD
+P 3000 10050
+F 0 "R20" H 3070 10096 50  0000 L CNN
+F 1 "R" H 3070 10005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric_Pad0.72x0.64mm_HandSolder" V 2930 10050 50  0001 C CNN
+F 3 "~" H 3000 10050 50  0001 C CNN
+	1    3000 10050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R21
+U 1 1 60707667
+P 2000 10500
+F 0 "R21" H 2070 10546 50  0000 L CNN
+F 1 "R" H 2070 10455 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 1930 10500 50  0001 C CNN
+F 3 "~" H 2000 10500 50  0001 C CNN
+	1    2000 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R22
+U 1 1 60707B10
+P 2250 10500
+F 0 "R22" H 2320 10546 50  0000 L CNN
+F 1 "R" H 2320 10455 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 2180 10500 50  0001 C CNN
+F 3 "~" H 2250 10500 50  0001 C CNN
+	1    2250 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R23
+U 1 1 60707E40
+P 2500 10500
+F 0 "R23" H 2570 10546 50  0000 L CNN
+F 1 "R" H 2570 10455 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 2430 10500 50  0001 C CNN
+F 3 "~" H 2500 10500 50  0001 C CNN
+	1    2500 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R24
+U 1 1 60708121
+P 2750 10500
+F 0 "R24" H 2820 10546 50  0000 L CNN
+F 1 "R" H 2820 10455 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 2680 10500 50  0001 C CNN
+F 3 "~" H 2750 10500 50  0001 C CNN
+	1    2750 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R25
+U 1 1 60708513
+P 3000 10500
+F 0 "R25" H 3070 10546 50  0000 L CNN
+F 1 "R" H 3070 10455 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 2930 10500 50  0001 C CNN
+F 3 "~" H 3000 10500 50  0001 C CNN
+	1    3000 10500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Linear_Technology:LT3045xDD U13
+U 1 1 6070DF8F
+P 11150 8150
+F 0 "U13" H 11150 8587 60  0000 C CNN
+F 1 "LT3045xDD" H 11150 8481 60  0000 C CNN
+F 2 "Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm" H 11150 8650 60  0001 C CNN
+F 3 "https://cds.linear.com/docs/en/datasheet/3045f.pdf" H 11150 8500 60  0001 C CNN
+F 4 "Linear Technology" H 11900 7800 60  0001 C CNN "MFN"
+F 5 "LT3045EDD" H 11750 7650 60  0001 C CNN "MFP"
+	1    11150 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LT3045xMSE U14
+U 1 1 6070F735
+P 12750 8100
+F 0 "U14" H 12750 8467 50  0000 C CNN
+F 1 "LT3045xMSE" H 12750 8376 50  0000 C CNN
+F 2 "Package_SO:MSOP-12-1EP_3x4mm_P0.65mm_EP1.65x2.85mm" H 12750 8425 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/3045fa.pdf" H 12750 8100 50  0001 C CNN
+	1    12750 8100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LT3045xMSE U17
+U 1 1 60711AB2
+P 14000 8100
+F 0 "U17" H 14000 8467 50  0000 C CNN
+F 1 "LT3045xMSE" H 14000 8376 50  0000 C CNN
+F 2 "Package_SO:MSOP-12-1EP_3x4mm_P0.65mm_EP1.65x2.85mm" H 14000 8425 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/3045fa.pdf" H 14000 8100 50  0001 C CNN
+	1    14000 8100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LT3045xMSE U15
+U 1 1 6071239B
+P 12750 9050
+F 0 "U15" H 12750 9417 50  0000 C CNN
+F 1 "LT3045xMSE" H 12750 9326 50  0000 C CNN
+F 2 "Package_SO:MSOP-12-1EP_3x4mm_P0.65mm_EP1.65x2.85mm" H 12750 9375 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/3045fa.pdf" H 12750 9050 50  0001 C CNN
+	1    12750 9050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LT3045xMSE U16
+U 1 1 60712FEF
+P 13950 9050
+F 0 "U16" H 13950 9417 50  0000 C CNN
+F 1 "LT3045xMSE" H 13950 9326 50  0000 C CNN
+F 2 "Package_SO:MSOP-12-1EP_3x4mm_P0.65mm_EP1.65x2.85mm" H 13950 9375 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/3045fa.pdf" H 13950 9050 50  0001 C CNN
+	1    13950 9050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Linear_Technology:LT3045xDD U20
+U 1 1 6071B86D
+P 11200 9100
+F 0 "U20" H 11200 9537 60  0000 C CNN
+F 1 "LT3045xDD" H 11200 9431 60  0000 C CNN
+F 2 "Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm" H 11200 9600 60  0001 C CNN
+F 3 "https://cds.linear.com/docs/en/datasheet/3045f.pdf" H 11200 9450 60  0001 C CNN
+F 4 "Linear Technology" H 11950 8750 60  0001 C CNN "MFN"
+F 5 "LT3045EDD" H 11800 8600 60  0001 C CNN "MFP"
+	1    11200 9100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Linear_Technology:LT3045xDD U18
+U 1 1 6071BF9E
+P 9450 8150
+F 0 "U18" H 9450 8587 60  0000 C CNN
+F 1 "LT3045xDD" H 9450 8481 60  0000 C CNN
+F 2 "Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm" H 9450 8650 60  0001 C CNN
+F 3 "https://cds.linear.com/docs/en/datasheet/3045f.pdf" H 9450 8500 60  0001 C CNN
+F 4 "Linear Technology" H 10200 7800 60  0001 C CNN "MFN"
+F 5 "LT3045EDD" H 10050 7650 60  0001 C CNN "MFP"
+	1    9450 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Linear_Technology:LT3045xDD U19
+U 1 1 6071CCBC
+P 9450 9100
+F 0 "U19" H 9450 9537 60  0000 C CNN
+F 1 "LT3045xDD" H 9450 9431 60  0000 C CNN
+F 2 "Package_DFN_QFN:DFN-10-1EP_3x3mm_P0.5mm_EP1.55x2.48mm" H 9450 9600 60  0001 C CNN
+F 3 "https://cds.linear.com/docs/en/datasheet/3045f.pdf" H 9450 9450 60  0001 C CNN
+F 4 "Linear Technology" H 10200 8750 60  0001 C CNN "MFN"
+F 5 "LT3045EDD" H 10050 8600 60  0001 C CNN "MFP"
+	1    9450 9100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Audio:PCM1792A U21
+U 1 1 60729C46
+P 9500 5250
+F 0 "U21" H 9500 6231 50  0000 C CNN
+F 1 "PCM1792A" H 9500 6140 50  0000 C CNN
+F 2 "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm" H 9500 5250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/pcm1792a.pdf" H 9500 5250 50  0001 C CNN
+	1    9500 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Audio:PCM1792A U22
+U 1 1 6072C597
+P 11250 5200
+F 0 "U22" H 11250 6181 50  0000 C CNN
+F 1 "PCM1792A" H 11250 6090 50  0000 C CNN
+F 2 "Package_SO:SSOP-28_5.3x10.2mm_P0.65mm" H 11250 5200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/pcm1792a.pdf" H 11250 5200 50  0001 C CNN
+	1    11250 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LP3982ILD-1.8 U25
+U 1 1 60736068
+P 5500 8300
+F 0 "U25" H 5500 8667 50  0000 C CNN
+F 1 "LP3982ILD-1.8" H 5500 8576 50  0000 C CNN
+F 2 "Package_SON:WSON-8-1EP_3x2.5mm_P0.5mm_EP1.2x1.5mm_PullBack_ThermalVias" H 5700 7950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lp3982.pdf" H 5500 8300 50  0001 C CNN
+	1    5500 8300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LP3982IMM-1.8 U23
+U 1 1 60738606
+P 5400 6250
+F 0 "U23" H 5400 6617 50  0000 C CNN
+F 1 "LP3982IMM-1.8" H 5400 6526 50  0000 C CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 5600 5900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lp3982.pdf" H 5400 6250 50  0001 C CNN
+	1    5400 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LP3982IMM-1.8 U27
+U 1 1 60738CB5
+P 6500 6250
+F 0 "U27" H 6500 6617 50  0000 C CNN
+F 1 "LP3982IMM-1.8" H 6500 6526 50  0000 C CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 6700 5900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lp3982.pdf" H 6500 6250 50  0001 C CNN
+	1    6500 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LP3982IMM-1.8 U24
+U 1 1 607395B6
+P 5400 7050
+F 0 "U24" H 5400 7417 50  0000 C CNN
+F 1 "LP3982IMM-1.8" H 5400 7326 50  0000 C CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 5600 6700 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lp3982.pdf" H 5400 7050 50  0001 C CNN
+	1    5400 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LP3982IMM-1.8 U28
+U 1 1 60739CBB
+P 6500 7100
+F 0 "U28" H 6500 7467 50  0000 C CNN
+F 1 "LP3982IMM-1.8" H 6500 7376 50  0000 C CNN
+F 2 "Package_SO:VSSOP-8_3.0x3.0mm_P0.65mm" H 6700 6750 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lp3982.pdf" H 6500 7100 50  0001 C CNN
+	1    6500 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LP3982ILD-1.8 U29
+U 1 1 6073ADE1
+P 6550 8350
+F 0 "U29" H 6550 8717 50  0000 C CNN
+F 1 "LP3982ILD-1.8" H 6550 8626 50  0000 C CNN
+F 2 "Package_SON:WSON-8-1EP_3x2.5mm_P0.5mm_EP1.2x1.5mm_PullBack_ThermalVias" H 6750 8000 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lp3982.pdf" H 6550 8350 50  0001 C CNN
+	1    6550 8350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LP3982ILD-1.8 U26
+U 1 1 6073B470
+P 5550 9300
+F 0 "U26" H 5550 9667 50  0000 C CNN
+F 1 "LP3982ILD-1.8" H 5550 9576 50  0000 C CNN
+F 2 "Package_SON:WSON-8-1EP_3x2.5mm_P0.5mm_EP1.2x1.5mm_PullBack_ThermalVias" H 5750 8950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lp3982.pdf" H 5550 9300 50  0001 C CNN
+	1    5550 9300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:LP3982ILD-1.8 U30
+U 1 1 6073BC38
+P 6550 9300
+F 0 "U30" H 6550 9667 50  0000 C CNN
+F 1 "LP3982ILD-1.8" H 6550 9576 50  0000 C CNN
+F 2 "Package_SON:WSON-8-1EP_3x2.5mm_P0.5mm_EP1.2x1.5mm_PullBack_ThermalVias" H 6750 8950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/lp3982.pdf" H 6550 9300 50  0001 C CNN
+	1    6550 9300
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

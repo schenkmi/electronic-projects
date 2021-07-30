@@ -1,0 +1,1 @@
+-intstyle "ise" -incremental -o "C:/Users/schenk/Documents/GitHub/electronic-projects/xilinx-cpld-demo-v1/ise-14.7/lauflicht2/lauflicht2_test_isim_beh.exe" -prj "C:/Users/schenk/Documents/GitHub/electronic-projects/xilinx-cpld-demo-v1/ise-14.7/lauflicht2/lauflicht2_test_beh.prj" "work.lauflicht2_test" 
