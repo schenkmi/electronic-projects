@@ -31,6 +31,11 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+/**
+ * Save hex
+ * cp ./async-sample-rate.X/dist/default/production/async-sample-rate.X.production.hex hex/
+ */
+
 #include "mcc_generated_files/mcc.h"
 #include "mcc_generated_files/examples/i2c1_master_example.h"
 
