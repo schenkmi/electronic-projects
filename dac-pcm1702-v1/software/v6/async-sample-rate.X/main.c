@@ -35,9 +35,11 @@
 #include "mcc_generated_files/examples/i2c1_master_example.h"
 
 
+__EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
+              0xff, 0xff, 0xff, 0xff); // 0x00..0x07
 
-
-
+// EEPROM address of current channel
+#define EEPROM_ADR_CHANNEL 0x00
 
 // Page 38 
 #define SRC4392_I2C_SLAVE_ADDR              0x70
@@ -428,6 +430,7 @@ uint8_t get_sample_rate(void)
 }
 
 
+
 void init(void)
 {   
     __delay_ms(100);
@@ -684,13 +687,19 @@ void main(void)
 
     init();
     
+    // read last used channel
+    selected = eeprom_read(EEPROM_ADR_CHANNEL);
+#ifdef __ROTARY_ENCODER__
+    encoder_count = (selected * ROTARY_MULTI);
+#endif
+    
     set_upsample(upsample_rate);
     
-    set_dit_mode(INPUT_RX1, DIT_UPSAMPLE);
+    set_dit_mode(selected, DIT_UPSAMPLE);
     
     set_deemphasis(DEEMPH_AUTO);
     
-    set_input(INPUT_RX1, DIT_UPSAMPLE);
+    set_input(selected, DIT_UPSAMPLE);
     
     while (1) {
 #if 1
@@ -702,6 +711,8 @@ void main(void)
         
         if (selected != last_selected) {
             set_input(selected, DIT_UPSAMPLE);
+            // store current selected channel
+            eeprom_write(EEPROM_ADR_CHANNEL, selected);
             last_selected = selected;
         }
 #else
