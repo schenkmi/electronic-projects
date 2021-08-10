@@ -1532,28 +1532,10 @@ F 3 "~" H 5950 3900 50  0001 C CNN
 	1    5950 3900
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:C C3
-U 1 1 6140052F
-P 5100 3900
-F 0 "C3" H 5215 3946 50  0000 L CNN
-F 1 "47nF/630V" H 5215 3855 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 5138 3750 50  0001 C CNN
-F 3 "~" H 5100 3900 50  0001 C CNN
-	1    5100 3900
-	1    0    0    -1  
-$EndComp
 Text GLabel 4850 4300 0    50   Input ~ 0
 GND_HV
 Wire Wire Line
-	4850 4300 5100 4300
-Wire Wire Line
-	5100 4300 5100 4050
-Wire Wire Line
-	5100 4300 5950 4300
-Wire Wire Line
 	5950 4300 5950 4050
-Connection ~ 5100 4300
 $Comp
 L Amplifier_Operational:OPA188xxD U3
 U 1 1 6144DC48
@@ -1703,9 +1685,6 @@ F 3 "~" H 9600 3550 50  0001 C CNN
 	1    9600 3550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5100 3750 5100 3700
-Connection ~ 5100 3700
 $Comp
 L Transistor_FET:IRF740 Q1
 U 1 1 61882603
@@ -2099,4 +2078,25 @@ Text Notes 12200 1100 0    50   ~ 0
 13,4°/W
 Text Notes 6400 8300 0    50   ~ 0
 13,4°/W
+Wire Wire Line
+	4850 4300 5100 4300
+$Comp
+L Device:C C3
+U 1 1 61285432
+P 5100 4000
+F 0 "C3" V 4848 4000 50  0000 C CNN
+F 1 "100nF/630V" V 4939 4000 50  0000 C CNN
+F 2 "Capacitor_THT:C_Rect_L18.0mm_W5.0mm_P15.00mm_FKS3_FKP3" H 5138 3850 50  0001 C CNN
+F 3 "~" H 5100 4000 50  0001 C CNN
+	1    5100 4000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5100 3850 5100 3700
+Connection ~ 5100 3700
+Wire Wire Line
+	5100 4150 5100 4300
+Connection ~ 5100 4300
+Wire Wire Line
+	5100 4300 5950 4300
 $EndSCHEMATC
