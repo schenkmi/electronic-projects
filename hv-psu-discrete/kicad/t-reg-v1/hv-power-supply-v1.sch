@@ -4,9 +4,9 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
-Title "Discrete HV Supply"
-Date "2021-08-03"
-Rev "V1j"
+Title "Discrete HV Supply T-Reg based"
+Date "2021-08-10"
+Rev "V1"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -57,8 +57,6 @@ F 3 "" H 14050 1000 50  0001 C CNN
 	1    14050 1000
 	1    0    0    -1  
 $EndComp
-NoConn ~ 15100 800 
-NoConn ~ 15100 1100
 $Comp
 L Device:D D3
 U 1 1 5D44FFF5
@@ -1114,7 +1112,7 @@ L Device:C C17
 U 1 1 61440729
 P 2050 9250
 F 0 "C17" H 2165 9296 50  0000 L CNN
-F 1 "Cs/150nF/50V" H 2165 9205 50  0000 L CNN
+F 1 "Cs/50V" H 2165 9205 50  0000 L CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 2088 9100 50  0001 C CNN
 F 3 "~" H 2050 9250 50  0001 C CNN
 	1    2050 9250
@@ -1147,7 +1145,7 @@ L Device:C C22
 U 1 1 615D2787
 P 2000 4050
 F 0 "C22" V 1748 4050 50  0000 C CNN
-F 1 "Cs/150nF/630V" V 1839 4050 50  0000 C CNN
+F 1 "Cs/630V" V 1839 4050 50  0000 C CNN
 F 2 "Capacitor_THT:C_Rect_L18.0mm_W5.0mm_P15.00mm_FKS3_FKP3" H 2038 3900 50  0001 C CNN
 F 3 "~" H 2000 4050 50  0001 C CNN
 	1    2000 4050
@@ -2089,4 +2087,16 @@ Text Notes 6050 4200 0    50   ~ 0
 VSET\nR=VOUT/0.58k\n
 Text Notes 11000 5300 0    50   ~ 0
 Imax=50mA
+Text Notes 1450 5450 0    50   ~ 0
+Cs=100nF/630V\nRs=470R/0.6W
+Text Notes 1250 10700 0    50   ~ 0
+Cs=100nF/50V\nRs=22R/0.6W
+Text Notes 8550 4600 0    50   ~ 0
+3.7°/W
+Text Notes 9050 6150 0    50   ~ 0
+3.7°/W
+Text Notes 12200 1100 0    50   ~ 0
+13,4°/W
+Text Notes 6400 8300 0    50   ~ 0
+13,4°/W
 $EndSCHEMATC
