@@ -572,7 +572,7 @@ L Device:R R22
 U 1 1 6036E649
 P 13700 4650
 F 0 "R22" H 13770 4696 50  0000 L CNN
-F 1 "330R/2W" H 13770 4605 50  0000 L CNN
+F 1 "0R/2W" H 13770 4605 50  0000 L CNN
 F 2 "Resistor_THT:R_Axial_DIN0414_L11.9mm_D4.5mm_P15.24mm_Horizontal" V 13630 4650 50  0001 C CNN
 F 3 "~" H 13700 4650 50  0001 C CNN
 	1    13700 4650
@@ -2103,4 +2103,8 @@ Text Notes 11250 4800 0    50   ~ 0
 Thick
 Text Notes 11900 1500 0    50   ~ 0
 depletion-mode FET
+Text Notes 13400 4450 0    50   ~ 0
+Minimum load current is aprox. 3mA\nFor 200V output I use two 100k/2W
+Text Notes 13600 1700 0    50   ~ 0
+Heatsink 3.7°/W: 529802B02500G/HS350-D\nHeatsink 13.4°/W: 513002B02500G/HS403-ND
 $EndSCHEMATC
