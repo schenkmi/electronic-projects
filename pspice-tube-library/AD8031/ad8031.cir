@@ -1,0 +1,198 @@
+* AD8031 Spice Macro-model
+* Description: Amplifier
+* Generic Desc: 2.7V 80 MHz rail-rail op amp
+* Developed by: SMR/ADI
+* Revision History:
+*   1.2 (07/31/2013- updated Characteristics
+*   1.1 (08/2012) - Updated to new header style
+*   1.0 (08/1996) Initial release
+* Copyright 1996, 2012 by Analog Devices, Inc.
+*
+* Refer to 
+* http://www.analog.com/Analog_Root/static/techSupport/designTools/
+* spiceModels/license/spice_general.html for License Statement.  
+* Use of this model indicates your acceptance with the terms and 
+*
+* provisions in the License Statement.
+***	This Model accurately simulated the following characteristics:
+***	Open loop Gain and Phase
+***	Slew Rate
+***	CMRR & PSRR
+***	Voltage and current noise
+***	DC characteristics
+*
+* BEGIN Notes:
+*
+* Not Modeled:
+*    Distortion
+*    Noise
+*
+* Parameters modeled include:
+*    open loop gain and phase vs frequency
+*    output clamping voltage and current
+*    input common mode range
+*    CMRR vs freq
+*    I bias vs Vcm in    
+*    Slew rate
+*    Output currents are reflected to V supplies
+*    Vos is static and will not vary with Vcm in
+*    Step response is modeled at unity gain w/1k load 
+*
+* END Notes
+*
+***************	+IN	-IN	Vcc	Vee	Out
+.subckt AD8031 	1	2	99	50	61
+*
+***Differential Stage
+Q1	13	12	14	npn
+Q2	17	2	16	npn
+Rc1	98	13	Rideal	2.000E-01
+Rc2	98	17	Rideal	2.000E-01
+Re1	14	15	Rideal	1.483E-01
+Re2	15	16	Rideal	1.483E-01
+Ibias	15	51	1.00E+00
+Dcmlim1	18	15	DQUIET
+Vcmlim1	18	51	-0.474
+
+***Voltage Noise Generation
+HVnoise	12	7	Vvnoise	1
+VVnoise	501	0	0
+DVnoise	501	0	Dvnoise
+RVnoise	501	0	0.0000736
+
+***Current Noise Generation on +IN
+FInoise1	12	0	VInoise1	1
+VInoise1	502	0	0
+DInoise1	502	0	DInoise1
+RInoise1	502	0	1840
+
+***Current Noise Generation on -IN
+FInoise2	2	0	VInoise2	1
+VInoise2	503	0	0
+DInoise2	503	0	DInoise2
+RInoise2	503	0	1840
+
+***Common Mode Injection
+Rcm1	1	601	Rideal	100Meg
+Rcm2	2	601	Rideal	100Meg
+Gcmr	0	602	601	75	1.00E-06
+Rcmr1	602	603	Rideal	1Meg
+Rcmr2	603	604	Rideal	1.000E+02
+Lcmr	604	0	3.183E-02
+Ecmr	10	9	603	0	1.000E+00
+
+***Positive Power Supply Rejection
+Epsr1	700	0	98	0	1
+Rpsr1	700	701	Rideal	1.00E+02
+Rpsr2	701	702	Rideal	5.012E-03
+Lpsr1	702	0	7.977E-07
+Epsr2	11	10	701	0	1
+
+***Negative Power Supply Rejection
+Epsr3	703	0	51	0	1
+Rpsr3	703	704	Rideal	1.00E+02
+Rpsr4	704	705	Rideal	5.012E-03
+Lpsr2	705	0	7.977E-07
+Epsr4	12	11	704	0	1
+
+***Input Offset and Bias
+Vos	1	7	1.000E-03
+Ios	1	2	2.500E-08
+
+***Input Impedance
+Cinv	2	0	1.00E-12
+Cninv	1	0	1.00E-12
+
+***1st Gain and Slew limiting
+Gslew	0	101	17	13	1.0000E+00
+Rslew	101	0	Rideal	2.50E+02
+Dslew1	101	102	DZENER
+Dslew2	0	102	DZENER
+
+***Second Gain and Dominant Pole with Output Voltage Limiting
+Gp1	51	201	101	0	1.885E-06
+Rp1	201	51	Rideal	2.122E+07
+Cp1	201	51	1.50E-12
+Vlim1	97	206	-0.05
+Dlim1	201	206	dquiet
+Vlim2	207	52	-0.05
+Dlim2	207	201	dquiet
+Esupref1	97	98	51	0	1
+Esupref2	52	51	51	0	1
+
+***Second Pole
+Gp2	0	202	201	51	1.00E-03
+Rp2	202	0	Rideal	1.00E+03
+Cp2	202	0	1.59155E-12
+
+***Third Pole
+Gp3	0	203	202	0	1.00E-03
+Rp3	203	0	Rideal	1.00E+03
+Cp3	203	0	1.13682E-12
+***Fourth Pole
+Gp4	0	204	203	0	1.00E-03
+Rp4	204	0	Rideal	1.00E+03
+Cp4	204	0	1.59155E-16
+***Fifth Pole
+Gp5	0	205	204	0	1.00E-03
+Rp5	205	0	Rideal	1.00E+03
+Cp5	205	0	1.592E-16
+
+***First Zero
+Gz1	0	301	205	0	1.00E-03
+Rz1	301	302	Rideal	1.00E+03
+Lz1	302	0	1.592E-10
+***Second Zero
+Gz2	0	303	301	0	1.00E-03
+Rz2	303	304	Rideal	1.00E+03
+Lz2	304	0	1.592E-10
+***Third Zero
+Gz3	0	305	303	0	1.00E-03
+Rz3	305	306	Rideal	1.00E+03
+Lz3	306	0	1.59E-10
+
+***Buffer
+Gbuf	0	401	305	0	1.00E-04
+Rbuf	401	0	Rideal	1.00E+04
+
+***Output with current limiting
+Eout	404	0	401	0	1.000E+00
+Rout	404	405	RIDEAL	1.000E+00
+Lout	405	406	1.00E-19
+Cout	406	0	1.00E-22
+Voutmon	406	61	0
+Dout1	401	407	Dquiet
+Vout1	407	406	-6.150E-01
+Dout2	408	401	Dquiet
+Vout2	406	408	-6.150E-01
+
+***Voltage reference generator
+Eref1	98	0	99	0	1
+Eref2	51	0	50	0	1
+Rref1	98	901	Rideal	100Meg
+Rref2	901	51	Rideal	100Meg
+Eref3	75	0	901	0	1
+
+***Supply current correction
+Iq	99	50	0.00045
+Fsup1	99	0	Voutmon	1
+*DZsup1	0	802	DZENER2
+*Dsup1	99	802	DQUIET
+Fsup2	0	50	Voutmon	-1
+*DZsup2	804	0	DZENER2
+*Dsup2	804	50	DQUIET
+
+***models
+.model	Rideal	res	T_ABS=-273
+.model	Rnoise	res	T_ABS=27
+.model	npn	npn	BF= 1111110.11111111
+.model	dquiet	d
+.model	dvnoise	d	KF=2250000
+.model	dinoise1	d	KF=45
+.model	dinoise2	d	KF=45
+.model	dzener	d	BV=27.2521385667767
+.model	dzener2	d	BV=50
+
+.ends
+*$
+
