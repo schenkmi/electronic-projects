@@ -457,8 +457,6 @@ HV
 Text GLabel 12450 8150 1    50   Input ~ 0
 HV
 Wire Wire Line
-	12450 8750 12450 8400
-Wire Wire Line
 	12050 8750 12050 8400
 Wire Wire Line
 	12050 8400 12450 8400
@@ -916,7 +914,7 @@ Connection ~ 1100 5850
 Wire Wire Line
 	1100 4800 1100 5850
 Wire Wire Line
-	12350 9550 13700 9550
+	12350 9550 13050 9550
 $Comp
 L Device:R R23
 U 1 1 6059050F
@@ -2107,4 +2105,15 @@ Text Notes 13400 4450 0    50   ~ 0
 Minimum load current is aprox. 3mA\nFor 200V output I use two 100k/2W
 Text Notes 13600 1700 0    50   ~ 0
 Heatsink 3.7°/W: 529802B02500G/HS350-D\nHeatsink 13.4°/W: 513002B02500G/HS403-ND
+Wire Wire Line
+	12450 8750 12450 8400
+Wire Wire Line
+	12450 8400 13050 8400
+Wire Wire Line
+	13050 8400 13050 9550
+Connection ~ 13050 9550
+Wire Wire Line
+	13050 9550 13700 9550
+Text Notes 12650 8350 0    50   ~ 0
+Don’t use the HV delay!\nBad things happen!
 $EndSCHEMATC
