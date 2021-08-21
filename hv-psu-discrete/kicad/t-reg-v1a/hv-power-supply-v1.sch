@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Discrete HV Supply T-Reg based"
-Date "2021-08-10"
-Rev "V1"
+Date "2021-08-21"
+Rev "V1a"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -1324,7 +1324,7 @@ U 1 1 61257572
 P 6900 1900
 F 0 "D12" V 6939 1782 50  0000 R CNN
 F 1 "LED" V 6848 1782 50  0000 R CNN
-F 2 "LED_THT:LED_D3.0mm" H 6900 1900 50  0001 C CNN
+F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6900 1900 50  0001 C CNN
 F 3 "~" H 6900 1900 50  0001 C CNN
 	1    6900 1900
 	0    -1   -1   0   
@@ -1623,7 +1623,7 @@ U 1 1 61C9015D
 P 10150 4450
 F 0 "D17" V 10104 4530 50  0000 L CNN
 F 1 "BZX79C12" V 10195 4530 50  0000 L CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 10150 4275 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 10150 4275 50  0001 C CNN
 F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bzx84c2v4.pdf" H 10150 4450 50  0001 C CNN
 	1    10150 4450
 	0    1    1    0   
@@ -1865,7 +1865,7 @@ U 1 1 6268AE03
 P 12550 2450
 F 0 "D18" V 12504 2530 50  0000 L CNN
 F 1 "BZX79C5V6" V 12595 2530 50  0000 L CNN
-F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 12550 2275 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 12550 2275 50  0001 C CNN
 F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/bzx84c2v4.pdf" H 12550 2450 50  0001 C CNN
 	1    12550 2450
 	0    1    1    0   
