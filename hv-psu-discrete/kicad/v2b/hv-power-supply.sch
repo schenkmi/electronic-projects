@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "HV Power Supply"
-Date "2021-01-31"
-Rev "2"
+Date "2021-09-01"
+Rev "2b"
 Comp ""
 Comment1 ""
 Comment2 ""
