@@ -5,7 +5,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "HV Power Supply"
-Date "2021-09-01"
+Date "2021-09-02"
 Rev "2b"
 Comp ""
 Comment1 ""
@@ -415,7 +415,7 @@ L Device:CP C20
 U 1 1 60326F7A
 P 9600 6600
 F 0 "C20" H 9718 6646 50  0000 L CNN
-F 1 "15uF/25V" H 9718 6555 50  0000 L CNN
+F 1 "15uF/10V" H 9718 6555 50  0000 L CNN
 F 2 "Capacitor_Tantalum_SMD:CP_EIA-3216-12_Kemet-S_Pad1.58x1.35mm_HandSolder" H 9638 6450 50  0001 C CNN
 F 3 "~" H 9600 6600 50  0001 C CNN
 	1    9600 6600
