@@ -1,6 +1,6 @@
 (ExpressProject "hv-power-supply"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S019 (3960720)  [7/14/2021]-[08/15/21]")
+  (SoftwareVersion "17.4-2019 S020 (3967196)  [8/8/2021]-[08/23/21]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -67,9 +67,43 @@
          ".\hv-power-supply-pspicefiles\schematic1\dc.sim"
         (DisplayName "SCHEMATIC1-DC")
         (Type "PSpice Profile"))
-      (ActiveProfile ".\hv-power-supply-pspicefiles\schematic1\ac.sim")))
+      (ActiveProfile ".\hv-power-supply-pspicefiles\schematic1\bias.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
+    (BC860C
+      (FullPartName "BC860C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (D1N4007
+      (FullPartName "D1N4007.Normal")
+      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\DIODE.OLB")
+      (DeviceIndex "0"))
+    (BC850C
+      (FullPartName "BC850C.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (Sw_tClose
+      (FullPartName "Sw_tClose.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANL_MISC.OLB")
+      (DeviceIndex "0"))
+    (VSIN
+      (FullPartName "VSIN.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (AD8031
+      (FullPartName "AD8031.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\AD8031\AD8031.OLB")
+      (DeviceIndex "0"))
+    (AD8031a/AD
+      (FullPartName "AD8031a/AD.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANLG_DEV.OLB")
+      (DeviceIndex "0"))
     (BZX84C5V6/ZTX
       (FullPartName "BZX84C5V6/ZTX.Normal")
       (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ZETEX.OLB")
@@ -158,70 +192,39 @@
       (FullPartName "MJE13003/TO.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\PWRBJT.OLB")
-      (DeviceIndex "0"))
-    (POT
-      (FullPartName "POT.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\BREAKOUT.OLB")
-      (DeviceIndex "0"))
-    (VAC
-      (FullPartName "VAC.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
-      (DeviceIndex "0"))
-    (BZX84C15/ZTX
-      (FullPartName "BZX84C15/ZTX.Normal")
-      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ZETEX.OLB")
-      (DeviceIndex "0"))
-    (IRF840
-      (FullPartName "IRF840.Normal")
-      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\IRF.OLB")
-      (DeviceIndex "0"))
-    (MMBT3904
-      (FullPartName "MMBT3904.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ADVANLS\BJN.OLB")
-      (DeviceIndex "0"))
-    (L
-      (FullPartName "L.Normal")
-      (LibraryName "..\..\LIBRARY\PSPICE\ANALOG.OLB")
-      (DeviceIndex "0"))
-    (VSTIM
-      (FullPartName "VSTIM.Normal")
-      (LibraryName "..\..\LIBRARY\PSPICE\SOURCSTM.OLB")
       (DeviceIndex "0")))
   (LastUsedLibraryBrowseDirectory
-     "C:\Users\schenk\Documents\GitHub\electronic-projects\pspice-tube-library")
+     "C:\Users\schenk\Documents\GitHub\electronic-projects\pspice-tube-library\AD8031")
   (MPSSessionName "schenk")
   (Folder "Logs")
   (GlobalState
     (FileView
       (Path "Design Resources")
       (Path "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\hv-psu-discrete\pspice\highside-v1a\hv-power-supply.DSN")
+         "c:\users\schenk\documents\github\electronic-projects\hv-psu-discrete\pspice\highside-v1a\hv-power-supply.DSN")
       (Path "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\hv-psu-discrete\pspice\highside-v1a\hv-power-supply.DSN"
+         "c:\users\schenk\documents\github\electronic-projects\hv-psu-discrete\pspice\highside-v1a\hv-power-supply.DSN"
          "SCHEMATIC1")
       (Path "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\hv-psu-discrete\pspice\highside-v1a\hv-power-supply.DSN"
+         "c:\users\schenk\documents\github\electronic-projects\hv-psu-discrete\pspice\highside-v1a\hv-power-supply.DSN"
          "Design Cache")
       (Path "Design Resources" "Library")
       (Path "Outputs")
       (Select "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\hv-psu-discrete\pspice\highside-v1a\hv-power-supply.DSN"
-         "Design Cache" "TL321/5_1/TI"))
+         "c:\users\schenk\documents\github\electronic-projects\hv-psu-discrete\pspice\highside-v1a\hv-power-supply.DSN"
+         "SCHEMATIC1" "PAGE1"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 1001"))
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 611"))
       (Tab 0))
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 2033 24 1019")
-        (Scroll "227 404")
-        (Zoom "200")
+        (Placement "44 0 1 -1 -1 -1 -1 5 1154 24 629")
+        (Scroll "90 443")
+        (Zoom "100")
         (Occurrence "/"))
       (Path
          "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\HV-PSU-DISCRETE\PSPICE\HIGHSIDE-V1A\HV-POWER-SUPPLY.DSN")
