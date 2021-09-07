@@ -14,17 +14,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Device:R R1
-U 1 1 5F95888A
-P 10150 3000
-F 0 "R1" H 10220 3046 50  0000 L CNN
-F 1 "150k" H 10220 2955 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10080 3000 50  0001 C CNN
-F 3 "~" H 10150 3000 50  0001 C CNN
-	1    10150 3000
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector_Generic:Conn_01x01 J2
 U 1 1 5F959844
 P 900 3750
@@ -240,20 +229,10 @@ Wire Wire Line
 Wire Wire Line
 	9700 2650 9700 2850
 Wire Wire Line
-	10150 2850 10150 2650
-Connection ~ 10150 2650
-Wire Wire Line
-	10150 2650 9700 2650
-Wire Wire Line
 	10700 2850 10700 2650
 Wire Wire Line
 	9700 3150 9700 3600
 Connection ~ 9700 3600
-Wire Wire Line
-	10150 3150 10150 3600
-Connection ~ 10150 3600
-Wire Wire Line
-	10150 3600 9700 3600
 Wire Wire Line
 	10700 3150 10700 3300
 Wire Wire Line
@@ -278,7 +257,6 @@ Wire Wire Line
 	11000 2550 11000 3600
 Wire Wire Line
 	11550 2850 11550 3600
-Connection ~ 5500 2350
 Connection ~ 9250 2350
 Wire Wire Line
 	12550 2350 12050 2350
@@ -300,23 +278,8 @@ Wire Wire Line
 	10950 2000 10950 2350
 Wire Wire Line
 	9250 3600 9700 3600
-$Comp
-L Device:R R2
-U 1 1 5FAB6814
-P 10150 4150
-F 0 "R2" H 10220 4196 50  0000 L CNN
-F 1 "150k" H 10220 4105 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 10080 4150 50  0001 C CNN
-F 3 "~" H 10150 4150 50  0001 C CNN
-	1    10150 4150
-	1    0    0    -1  
-$EndComp
 Connection ~ 10700 2650
 Connection ~ 10700 3600
-Wire Wire Line
-	10150 2650 10700 2650
-Wire Wire Line
-	10150 3600 10700 3600
 $Comp
 L Device:R_POT RV2
 U 1 1 5FABA31D
@@ -358,13 +321,6 @@ Wire Wire Line
 Wire Wire Line
 	9700 4300 9700 4450
 Wire Wire Line
-	10150 4300 10150 4450
-Connection ~ 10150 4450
-Wire Wire Line
-	10150 4450 9700 4450
-Wire Wire Line
-	10150 4000 10150 3600
-Wire Wire Line
 	9700 4000 9700 3600
 Wire Wire Line
 	9250 4000 9250 3600
@@ -388,9 +344,6 @@ Wire Wire Line
 	12200 5200 10950 5200
 Wire Wire Line
 	10950 5200 10950 4850
-Connection ~ 5500 4850
-Wire Wire Line
-	10150 4450 10700 4450
 Wire Wire Line
 	10700 4000 10700 3850
 Wire Wire Line
@@ -615,21 +568,6 @@ Wire Wire Line
 	12550 5450 13250 5450
 Wire Wire Line
 	12550 5850 13250 5850
-$Comp
-L Device:R R4
-U 1 1 5FC73B43
-P 5500 1700
-F 0 "R4" H 5570 1746 50  0000 L CNN
-F 1 "0R" H 5570 1655 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5430 1700 50  0001 C CNN
-F 3 "~" H 5500 1700 50  0001 C CNN
-	1    5500 1700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5500 1300 5500 1550
-Wire Wire Line
-	5500 1850 5500 2350
 Wire Wire Line
 	11550 1700 11550 1600
 Wire Wire Line
@@ -682,21 +620,6 @@ Connection ~ 10950 5450
 Wire Wire Line
 	10950 5450 10950 5400
 $Comp
-L Device:R R10
-U 1 1 5FCE8103
-P 5500 5350
-F 0 "R10" H 5570 5396 50  0000 L CNN
-F 1 "0R" H 5570 5305 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" V 5430 5350 50  0001 C CNN
-F 3 "~" H 5500 5350 50  0001 C CNN
-	1    5500 5350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5500 5850 5500 5500
-Wire Wire Line
-	5500 5200 5500 4850
-$Comp
 L Regulator_Linear:LT3094xMSE U4
 U 1 1 5FAF2126
 P 11550 4650
@@ -712,7 +635,7 @@ L Device:CP C17
 U 1 1 5FE98FC2
 P 12550 3000
 F 0 "C17" H 12668 3046 50  0000 L CNN
-F 1 "47uF" H 12668 2955 50  0000 L CNN
+F 1 "33uF" H 12668 2955 50  0000 L CNN
 F 2 "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D_Pad2.25x2.55mm_HandSolder" H 12588 2850 50  0001 C CNN
 F 3 "~" H 12550 3000 50  0001 C CNN
 	1    12550 3000
@@ -723,7 +646,7 @@ L Device:CP C18
 U 1 1 5FEBD2E5
 P 12550 4250
 F 0 "C18" H 12668 4296 50  0000 L CNN
-F 1 "47uF" H 12668 4205 50  0000 L CNN
+F 1 "33uF" H 12668 4205 50  0000 L CNN
 F 2 "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D_Pad2.25x2.55mm_HandSolder" H 12588 4100 50  0001 C CNN
 F 3 "~" H 12550 4250 50  0001 C CNN
 	1    12550 4250
@@ -788,22 +711,14 @@ Wire Wire Line
 Wire Wire Line
 	5250 3750 5250 3600
 Wire Wire Line
-	4000 3600 4900 3600
-Wire Wire Line
 	4900 3600 4900 2350
 Wire Wire Line
 	2850 4850 5500 4850
 Wire Wire Line
 	3550 2950 3550 3200
-Wire Wire Line
-	2250 2950 3550 2950
 Connection ~ 3550 3200
 Wire Wire Line
 	3550 3200 3250 3200
-Wire Wire Line
-	3550 4300 3550 4000
-Wire Wire Line
-	2250 4300 3550 4300
 Connection ~ 3550 4000
 Wire Wire Line
 	3550 4000 3800 4000
@@ -852,9 +767,9 @@ F 3 "~" H 9700 3000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3800 3550 3800 3650
+	3800 3550 3800 3600
 Wire Wire Line
-	3250 3550 3250 3650
+	3250 3550 3250 3600
 $Comp
 L Device:C C3
 U 1 1 613D53B2
@@ -1144,15 +1059,36 @@ Wire Wire Line
 	7350 5850 7350 4850
 Connection ~ 10950 5850
 Connection ~ 7350 4850
-$Comp
-L Mechanical:Heatsink HS1
-U 1 1 614CCE34
-P 8500 2150
-F 0 "HS1" H 8642 2271 50  0000 L CNN
-F 1 "Heatsink" H 8642 2180 50  0000 L CNN
-F 2 "Heatsink:Heatsink_Aavid-TV5G_TO220_Horizontal" H 8512 2150 50  0001 C CNN
-F 3 "~" H 8512 2150 50  0001 C CNN
-	1    8500 2150
-	1    0    0    -1  
-$EndComp
+Wire Wire Line
+	3800 3600 4900 3600
+Connection ~ 3800 3600
+Wire Wire Line
+	3800 3600 3800 3650
+Wire Wire Line
+	2850 4850 2850 3600
+Wire Wire Line
+	2850 3600 3250 3600
+Connection ~ 3250 3600
+Wire Wire Line
+	3250 3600 3250 3650
+Wire Wire Line
+	1650 2950 3550 2950
+Connection ~ 1650 2950
+Wire Wire Line
+	1650 4550 3550 4550
+Wire Wire Line
+	3550 4000 3550 4550
+Connection ~ 1650 4550
+Wire Wire Line
+	7350 2350 5500 2350
+Connection ~ 5500 2350
+Wire Wire Line
+	7350 4850 5500 4850
+Connection ~ 5500 4850
+Wire Wire Line
+	9700 4450 10700 4450
+Wire Wire Line
+	9700 3600 10700 3600
+Wire Wire Line
+	9700 2650 10700 2650
 $EndSCHEMATC
