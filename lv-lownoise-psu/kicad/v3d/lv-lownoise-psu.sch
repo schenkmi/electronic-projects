@@ -5,7 +5,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Ultra Low Noise PSU"
-Date "2021-05-24"
+Date "2021-09-07"
 Rev "v3d"
 Comp ""
 Comment1 ""
@@ -359,17 +359,6 @@ Connection ~ 10700 3850
 Wire Wire Line
 	10700 3850 10700 3600
 $Comp
-L Device:CP C13
-U 1 1 5FABDFEC
-P 12550 1500
-F 0 "C13" H 12668 1546 50  0000 L CNN
-F 1 "100uF" H 12668 1455 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 12588 1350 50  0001 C CNN
-F 3 "~" H 12550 1500 50  0001 C CNN
-	1    12550 1500
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C C11
 U 1 1 5FABDFF8
 P 12050 1500
@@ -484,17 +473,6 @@ Wire Wire Line
 	12550 1300 13250 1300
 Wire Wire Line
 	12550 1700 13250 1700
-$Comp
-L Device:CP C14
-U 1 1 5FABE045
-P 12550 5650
-F 0 "C14" H 12668 5696 50  0000 L CNN
-F 1 "100uF" H 12668 5605 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 12588 5500 50  0001 C CNN
-F 3 "~" H 12550 5650 50  0001 C CNN
-	1    12550 5650
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:C C10
 U 1 1 5FABE04B
@@ -1091,4 +1069,26 @@ Wire Wire Line
 	9700 3600 10700 3600
 Wire Wire Line
 	9700 2650 10700 2650
+$Comp
+L Device:C C13
+U 1 1 613EABD6
+P 12550 1500
+F 0 "C13" H 12665 1546 50  0000 L CNN
+F 1 "10uF/25V" H 12665 1455 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 12588 1350 50  0001 C CNN
+F 3 "~" H 12550 1500 50  0001 C CNN
+	1    12550 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C14
+U 1 1 613EB46E
+P 12550 5650
+F 0 "C14" H 12665 5696 50  0000 L CNN
+F 1 "10uF/25V" H 12665 5605 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 12588 5500 50  0001 C CNN
+F 3 "~" H 12550 5650 50  0001 C CNN
+	1    12550 5650
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
