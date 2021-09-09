@@ -1,6 +1,6 @@
 (ExpressProject "pre-reg-z-diode"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S (3842415DEV319) [2/13/2020]-[08/12/09]")
+  (SoftwareVersion "17.4-2019 S020 (3967196)  [8/8/2021]-[09/09/21]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -32,28 +32,69 @@
     (ANNOTATE_No_Page_Number_Change "TRUE")
     (ANNOTATE_Property_Combine "{Value}{Source Package}")
     (DOCKED "TRUE")
-    (DOCKING_POSITION "59420"))
+    (DOCKING_POSITION "59420")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE"))
   (Folder "Layout")
-  (Folder "Outputs")
+  (Folder "Outputs"
+    (File ".\pre-reg-z-diode-pspicefiles\schematic1\schematic1.net"
+      (Type "Report")))
   (Folder "PSpice Resources"
-    (Folder "Model Libraries")
-    (Folder "Stimulus Files")
-    (Folder "Include Files")
+    (Folder "Model Libraries"
+      (Sort User))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User))
     (Folder "Simulation Profiles"
-      (ActiveProfile ".\pre-reg-z-diode-pspicefiles\schematic1\bias.sim")
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
          ".\pre-reg-z-diode-pspicefiles\schematic1\bias.sim"
         (DisplayName "SCHEMATIC1-bias")
-        (Type "PSpice Profile"))))
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\pre-reg-z-diode-pspicefiles\schematic1\tran.sim"
+        (DisplayName "SCHEMATIC1-Tran")
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\pre-reg-z-diode-pspicefiles\schematic1\tran.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
-    (R
-      (FullPartName "R.Normal")
-      (LibraryName "..\..\LIBRARY\PSPICE\ANALOG.OLB")
+    (0
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (BD136/PLP
+      (FullPartName "BD136/PLP.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\PHIL_BJT.OLB")
       (DeviceIndex "0"))
     (C
       (FullPartName "C.Normal")
-      (LibraryName "..\..\LIBRARY\PSPICE\ANALOG.OLB")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (IDC
+      (FullPartName "IDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (BD135-16/PLP
+      (FullPartName "BD135-16/PLP.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\PHIL_BJT.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (zener
+      (FullPartName "zener.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\TCLSCRIPTS\CAPPSPICEMODELAPP\ZENER\HYBRID\SUPPORTFILES\ZENER.OLB")
+      (DeviceIndex "0"))
+    (VSIN
+      (FullPartName "VSIN.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
       (DeviceIndex "0"))
     (L
       (FullPartName "L.Normal")
@@ -68,5 +109,34 @@
       (LibraryName "..\..\LIBRARY\PSPICE\SOURCE.OLB")
       (DeviceIndex "0")))
   (LastUsedLibraryBrowseDirectory "LIBRARY\PSPICE")
-  (MPSSessionName "nitint")
-  (Folder "Logs"))
+  (MPSSessionName "schenk")
+  (Folder "Logs")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\lv-lownoise-psu\pspice\pre-reg-z-v1\pre-reg-z-diode.dsn")
+      (Path "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\lv-lownoise-psu\pspice\pre-reg-z-v1\pre-reg-z-diode.dsn"
+         "SCHEMATIC1")
+      (Path "Outputs")
+      (Select "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\lv-lownoise-psu\pspice\pre-reg-z-v1\pre-reg-z-diode.dsn"
+         "SCHEMATIC1" "PAGE1"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 611"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 873 24 629")
+        (Scroll "0 263")
+        (Zoom "100")
+        (Occurrence "/"))
+      (Path
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\LV-LOWNOISE-PSU\PSPICE\PRE-REG-Z-V1\PRE-REG-Z-DIODE.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))
