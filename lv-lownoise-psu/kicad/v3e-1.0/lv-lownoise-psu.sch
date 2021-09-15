@@ -5,8 +5,8 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Ultra Low Noise PSU"
-Date "2021-09-13"
-Rev "v3e"
+Date "2021-09-15"
+Rev "v3e-1.0"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -38,45 +38,45 @@ $EndComp
 $Comp
 L Mechanical:MountingHole H1
 U 1 1 5F95CBEB
-P 4600 6950
-F 0 "H1" H 4700 6996 50  0000 L CNN
-F 1 "MountingHole" H 4700 6905 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 4600 6950 50  0001 C CNN
-F 3 "~" H 4600 6950 50  0001 C CNN
-	1    4600 6950
+P 9800 10000
+F 0 "H1" H 9900 10046 50  0000 L CNN
+F 1 "MountingHole" H 9900 9955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9800 10000 50  0001 C CNN
+F 3 "~" H 9800 10000 50  0001 C CNN
+	1    9800 10000
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H3
 U 1 1 5F95D7C8
-P 5500 6950
-F 0 "H3" H 5600 6996 50  0000 L CNN
-F 1 "MountingHole" H 5600 6905 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 5500 6950 50  0001 C CNN
-F 3 "~" H 5500 6950 50  0001 C CNN
-	1    5500 6950
+P 10700 10000
+F 0 "H3" H 10800 10046 50  0000 L CNN
+F 1 "MountingHole" H 10800 9955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 10700 10000 50  0001 C CNN
+F 3 "~" H 10700 10000 50  0001 C CNN
+	1    10700 10000
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H2
 U 1 1 5F95D9CD
-P 4600 7350
-F 0 "H2" H 4700 7396 50  0000 L CNN
-F 1 "MountingHole" H 4700 7305 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 4600 7350 50  0001 C CNN
-F 3 "~" H 4600 7350 50  0001 C CNN
-	1    4600 7350
+P 9800 10400
+F 0 "H2" H 9900 10446 50  0000 L CNN
+F 1 "MountingHole" H 9900 10355 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9800 10400 50  0001 C CNN
+F 3 "~" H 9800 10400 50  0001 C CNN
+	1    9800 10400
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H4
 U 1 1 5F95DB8E
-P 5500 7350
-F 0 "H4" H 5600 7396 50  0000 L CNN
-F 1 "MountingHole" H 5600 7305 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 5500 7350 50  0001 C CNN
-F 3 "~" H 5500 7350 50  0001 C CNN
-	1    5500 7350
+P 10700 10400
+F 0 "H4" H 10800 10446 50  0000 L CNN
+F 1 "MountingHole" H 10800 10355 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 10700 10400 50  0001 C CNN
+F 3 "~" H 10700 10400 50  0001 C CNN
+	1    10700 10400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -129,7 +129,7 @@ U 1 1 5F96866D
 P 13450 3600
 F 0 "J5" H 13530 3642 50  0000 L CNN
 F 1 "GND" H 13530 3551 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 13450 3600 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 13450 3600 50  0001 C CNN
 F 3 "~" H 13450 3600 50  0001 C CNN
 	1    13450 3600
 	1    0    0    -1  
@@ -151,7 +151,7 @@ U 1 1 5F96951B
 P 13450 4850
 F 0 "J6" H 13530 4892 50  0000 L CNN
 F 1 "-15V" H 13530 4801 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 13450 4850 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 13450 4850 50  0001 C CNN
 F 3 "~" H 13450 4850 50  0001 C CNN
 	1    13450 4850
 	1    0    0    -1  
@@ -384,7 +384,7 @@ U 1 1 5FABE004
 P 13450 1300
 F 0 "J9" H 13530 1342 50  0000 L CNN
 F 1 "+5V" H 13530 1251 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 13450 1300 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 13450 1300 50  0001 C CNN
 F 3 "~" H 13450 1300 50  0001 C CNN
 	1    13450 1300
 	1    0    0    -1  
@@ -395,7 +395,7 @@ U 1 1 5FABE00A
 P 13450 1700
 F 0 "J10" H 13530 1742 50  0000 L CNN
 F 1 "GND" H 13530 1651 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 13450 1700 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 13450 1700 50  0001 C CNN
 F 3 "~" H 13450 1700 50  0001 C CNN
 	1    13450 1700
 	1    0    0    -1  
@@ -417,7 +417,7 @@ U 1 1 5FABE016
 P 13450 800
 F 0 "J7" H 13530 842 50  0000 L CNN
 F 1 "LED" H 13530 751 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 13450 800 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 13450 800 50  0001 C CNN
 F 3 "~" H 13450 800 50  0001 C CNN
 	1    13450 800 
 	1    0    0    -1  
@@ -428,7 +428,7 @@ U 1 1 5FABE01C
 P 13450 1050
 F 0 "J8" H 13530 1092 50  0000 L CNN
 F 1 "GND" H 13530 1001 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 13450 1050 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 13450 1050 50  0001 C CNN
 F 3 "~" H 13450 1050 50  0001 C CNN
 	1    13450 1050
 	1    0    0    -1  
@@ -510,7 +510,7 @@ U 1 1 5FABE05D
 P 13450 5450
 F 0 "J11" H 13530 5492 50  0000 L CNN
 F 1 "GND" H 13530 5401 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 13450 5450 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 13450 5450 50  0001 C CNN
 F 3 "~" H 13450 5450 50  0001 C CNN
 	1    13450 5450
 	1    0    0    -1  
@@ -521,7 +521,7 @@ U 1 1 5FABE063
 P 13450 5850
 F 0 "J12" H 13530 5892 50  0000 L CNN
 F 1 "-5V" H 13530 5801 50  0000 L CNN
-F 2 "Connector_Pin:Pin_D1.3mm_L11.0mm" H 13450 5850 50  0001 C CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 13450 5850 50  0001 C CNN
 F 3 "~" H 13450 5850 50  0001 C CNN
 	1    13450 5850
 	1    0    0    -1  
