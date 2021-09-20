@@ -4,9 +4,9 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
-Title "Ultra Low Noise PSU"
-Date "2021-09-15"
-Rev "v3d-1.0"
+Title "Ultra Low Noise PSU TL431 pre-regulation"
+Date "2021-09-17"
+Rev "v3f"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -227,7 +227,6 @@ Wire Wire Line
 	10950 3250 9250 3250
 Wire Wire Line
 	11150 3450 11000 3450
-Connection ~ 9250 3250
 Wire Wire Line
 	12550 3250 12050 3250
 Connection ~ 12550 3250
@@ -835,140 +834,21 @@ F 3 "~" H 9250 5850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Diode:Z1SMAxxx D5
-U 1 1 613ACE63
-P 7350 3900
-F 0 "D5" V 7304 3980 50  0000 L CNN
-F 1 "MMSZ5232B/5.6V" V 7395 3980 50  0000 L CNN
-F 2 "Diode_SMD:D_SOD-123" H 7350 3725 50  0001 C CNN
-F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/z1sma1.pdf" H 7350 3900 50  0001 C CNN
-	1    7350 3900
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R R7
-U 1 1 613AF448
-P 7350 3500
-F 0 "R7" H 7420 3546 50  0000 L CNN
-F 1 "430R/0.6W" H 7420 3455 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 7280 3500 50  0001 C CNN
-F 3 "~" H 7350 3500 50  0001 C CNN
-	1    7350 3500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Transistor_BJT:BD139 Q1
-U 1 1 613B0ED5
-P 8200 3350
-F 0 "Q1" V 8529 3350 50  0000 C CNN
-F 1 "BD139" V 8438 3350 50  0000 C CNN
-F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 8400 3275 50  0001 L CIN
-F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 8200 3350 50  0001 L CNN
-	1    8200 3350
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:C C7
-U 1 1 613B1E1A
-P 8200 3900
-F 0 "C7" H 8315 3946 50  0000 L CNN
-F 1 "100nF" H 8315 3855 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 8238 3750 50  0001 C CNN
-F 3 "~" H 8200 3900 50  0001 C CNN
-	1    8200 3900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7350 3750 7350 3700
-Connection ~ 7350 3700
-Wire Wire Line
-	7350 3700 7350 3650
-Wire Wire Line
-	8200 3700 8200 3550
-Wire Wire Line
-	7350 3700 8200 3700
-Wire Wire Line
-	8200 3700 8200 3750
-Connection ~ 8200 3700
-Wire Wire Line
-	8000 3250 7350 3250
-Wire Wire Line
-	7350 3250 7350 3350
-$Comp
 L Transistor_BJT:BD140 Q2
 U 1 1 613FC744
-P 8200 6450
-F 0 "Q2" V 8437 6450 50  0000 C CNN
-F 1 "BD140" V 8528 6450 50  0000 C CNN
-F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 8400 6375 50  0001 L CIN
-F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 8200 6450 50  0001 L CNN
-	1    8200 6450
+P 7350 6450
+F 0 "Q2" V 7587 6450 50  0000 C CNN
+F 1 "BD140" V 7678 6450 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 7550 6375 50  0001 L CIN
+F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 7350 6450 50  0001 L CNN
+	1    7350 6450
 	0    -1   1    0   
 $EndComp
-$Comp
-L Diode:Z1SMAxxx D6
-U 1 1 61438832
-P 7350 5800
-F 0 "D6" V 7304 5880 50  0000 L CNN
-F 1 "MMSZ5232B/5.6V" V 7395 5880 50  0000 L CNN
-F 2 "Diode_SMD:D_SOD-123" H 7350 5625 50  0001 C CNN
-F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/z1sma1.pdf" H 7350 5800 50  0001 C CNN
-	1    7350 5800
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:C C9
-U 1 1 6143A1DA
-P 8200 5900
-F 0 "C9" H 8315 5946 50  0000 L CNN
-F 1 "100nF" H 8315 5855 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 8238 5750 50  0001 C CNN
-F 3 "~" H 8200 5900 50  0001 C CNN
-	1    8200 5900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8400 3250 9250 3250
-Wire Wire Line
-	7350 3250 7350 2200
-Wire Wire Line
-	7350 2200 10950 2200
-Connection ~ 7350 3250
-Wire Wire Line
-	7350 6150 7350 6100
-Wire Wire Line
-	8200 6050 8200 6100
-$Comp
-L Device:R R8
-U 1 1 6143946E
-P 7350 6300
-F 0 "R8" H 7420 6346 50  0000 L CNN
-F 1 "430R/0.6W" H 7420 6255 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 7280 6300 50  0001 C CNN
-F 3 "~" H 7350 6300 50  0001 C CNN
-	1    7350 6300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7350 6100 8200 6100
-Connection ~ 7350 6100
-Wire Wire Line
-	7350 6100 7350 5950
-Connection ~ 8200 6100
-Wire Wire Line
-	8200 6100 8200 6250
 Wire Wire Line
 	8400 6550 9250 6550
 Wire Wire Line
-	8000 6550 7350 6550
-Wire Wire Line
-	7350 6550 7350 6450
-Wire Wire Line
 	10950 7550 7350 7550
-Wire Wire Line
-	7350 7550 7350 6550
 Connection ~ 10950 7550
-Connection ~ 7350 6550
 Wire Wire Line
 	3800 4850 4900 4850
 Connection ~ 3800 4850
@@ -987,12 +867,6 @@ Wire Wire Line
 Wire Wire Line
 	3550 5250 3550 5800
 Connection ~ 1650 5800
-Wire Wire Line
-	7350 3250 5500 3250
-Connection ~ 5500 3250
-Wire Wire Line
-	7350 6550 5500 6550
-Connection ~ 5500 6550
 Wire Wire Line
 	9700 6150 10700 6150
 Wire Wire Line
@@ -1019,50 +893,6 @@ F 3 "~" H 12550 7350 50  0001 C CNN
 	1    12550 7350
 	1    0    0    -1  
 $EndComp
-$Comp
-L Diode:Z1SMAxxx D7
-U 1 1 6147D653
-P 7350 4250
-F 0 "D7" V 7304 4330 50  0000 L CNN
-F 1 "MMSZ5232B/5.6V" V 7395 4330 50  0000 L CNN
-F 2 "Diode_SMD:D_SOD-123" H 7350 4075 50  0001 C CNN
-F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/z1sma1.pdf" H 7350 4250 50  0001 C CNN
-	1    7350 4250
-	0    1    1    0   
-$EndComp
-$Comp
-L Diode:Z1SMAxxx D8
-U 1 1 6147DF30
-P 7350 4600
-F 0 "D8" V 7304 4680 50  0000 L CNN
-F 1 "MMSZ5232B/5.6V" V 7395 4680 50  0000 L CNN
-F 2 "Diode_SMD:D_SOD-123" H 7350 4425 50  0001 C CNN
-F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/z1sma1.pdf" H 7350 4600 50  0001 C CNN
-	1    7350 4600
-	0    1    1    0   
-$EndComp
-$Comp
-L Diode:Z1SMAxxx D10
-U 1 1 6148EEA1
-P 7350 5450
-F 0 "D10" V 7304 5530 50  0000 L CNN
-F 1 "MMSZ5232B/5.6V" V 7395 5530 50  0000 L CNN
-F 2 "Diode_SMD:D_SOD-123" H 7350 5275 50  0001 C CNN
-F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/z1sma1.pdf" H 7350 5450 50  0001 C CNN
-	1    7350 5450
-	0    1    1    0   
-$EndComp
-$Comp
-L Diode:Z1SMAxxx D9
-U 1 1 6148F85C
-P 7350 5100
-F 0 "D9" V 7304 5180 50  0000 L CNN
-F 1 "MMSZ5232B/5.6V" V 7395 5180 50  0000 L CNN
-F 2 "Diode_SMD:D_SOD-123" H 7350 4925 50  0001 C CNN
-F 3 "https://diotec.com/tl_files/diotec/files/pdf/datasheets/z1sma1.pdf" H 7350 5100 50  0001 C CNN
-	1    7350 5100
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	4900 4850 4900 3250
 Wire Wire Line
@@ -1073,31 +903,12 @@ Wire Wire Line
 	5500 5800 5500 4850
 Connection ~ 5500 4850
 Wire Wire Line
-	5500 4850 7350 4850
+	5500 4850 6550 4850
 Wire Wire Line
 	5500 4050 5500 4850
-Wire Wire Line
-	7350 4100 7350 4050
-Wire Wire Line
-	7350 4450 7350 4400
-Wire Wire Line
-	7350 4750 7350 4850
 Connection ~ 7350 4850
 Wire Wire Line
-	7350 4850 8200 4850
-Wire Wire Line
-	7350 4950 7350 4850
-Wire Wire Line
-	7350 5300 7350 5250
-Wire Wire Line
-	7350 5650 7350 5600
-Wire Wire Line
-	8200 4850 8200 5750
-Connection ~ 8200 4850
-Wire Wire Line
-	8200 4850 9250 4850
-Wire Wire Line
-	8200 4050 8200 4850
+	7350 4850 8050 4850
 Wire Wire Line
 	9250 4050 9250 4850
 Connection ~ 9250 4850
@@ -1143,4 +954,178 @@ Wire Wire Line
 	12550 4850 13250 4850
 Wire Wire Line
 	12550 4050 12550 4850
+$Comp
+L Device:C C16
+U 1 1 61653885
+P 6550 4050
+F 0 "C16" H 6665 4096 50  0000 L CNN
+F 1 "4.7uF" H 6665 4005 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 6588 3900 50  0001 C CNN
+F 3 "~" H 6550 4050 50  0001 C CNN
+	1    6550 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R4
+U 1 1 6168DBCC
+P 8050 4350
+F 0 "R4" H 8120 4396 50  0000 L CNN
+F 1 "10k" H 8120 4305 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7980 4350 50  0001 C CNN
+F 3 "~" H 8050 4350 50  0001 C CNN
+	1    8050 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 616A2196
+P 8050 3800
+F 0 "R2" H 8120 3846 50  0000 L CNN
+F 1 "56.2k" H 8120 3755 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7980 3800 50  0001 C CNN
+F 3 "~" H 8050 3800 50  0001 C CNN
+	1    8050 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BD139 Q3
+U 1 1 616A2B42
+P 7350 3350
+F 0 "Q3" V 7679 3350 50  0000 C CNN
+F 1 "BD139" V 7588 3350 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-126-3_Vertical" H 7550 3275 50  0001 L CIN
+F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 7350 3350 50  0001 L CNN
+	1    7350 3350
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 616AF7CA
+P 6550 3600
+F 0 "R1" H 6620 3646 50  0000 L CNN
+F 1 "2.4k" H 6620 3555 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6480 3600 50  0001 C CNN
+F 3 "~" H 6550 3600 50  0001 C CNN
+	1    6550 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8050 4050 8050 3950
+Wire Wire Line
+	8050 4200 8050 4050
+Connection ~ 8050 4050
+Wire Wire Line
+	7350 3550 7350 3850
+Wire Wire Line
+	8050 3650 8050 3250
+Wire Wire Line
+	8050 3250 7550 3250
+Wire Wire Line
+	6550 3750 6550 3850
+Wire Wire Line
+	6550 3850 7350 3850
+Connection ~ 6550 3850
+Wire Wire Line
+	6550 3850 6550 3900
+Connection ~ 7350 3850
+Wire Wire Line
+	7350 3850 7350 3950
+Wire Wire Line
+	7150 3250 6550 3250
+Wire Wire Line
+	6550 3250 6550 3450
+Wire Wire Line
+	8050 3250 9250 3250
+Connection ~ 8050 3250
+Connection ~ 9250 3250
+Wire Wire Line
+	6550 2200 6550 3250
+Wire Wire Line
+	6550 2200 10950 2200
+Connection ~ 6550 3250
+Wire Wire Line
+	6550 3250 5500 3250
+Connection ~ 5500 3250
+Wire Wire Line
+	7350 4150 7350 4850
+Wire Wire Line
+	8050 4500 8050 4850
+Connection ~ 8050 4850
+Wire Wire Line
+	6550 4200 6550 4850
+Connection ~ 6550 4850
+Wire Wire Line
+	6550 4850 7350 4850
+Wire Wire Line
+	7450 4050 8050 4050
+Text Notes 7600 3000 0    50   ~ 0
+MCC TL431K-TP seems to have\npinout like TL432
+$Comp
+L Reference_Voltage:TL432DBZ U5
+U 1 1 617E9C64
+P 7350 4050
+F 0 "U5" V 7396 3981 50  0000 R CNN
+F 1 "TL432DBZ" V 7305 3981 50  0000 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7350 3900 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/tl431.pdf" H 7350 4050 50  0001 C CIN
+	1    7350 4050
+	0    1    -1   0   
+$EndComp
+$Comp
+L Reference_Voltage:TL432DBZ U?
+U 1 1 6182AB05
+P 7350 5500
+F 0 "U?" V 7396 5431 50  0000 R CNN
+F 1 "TL432DBZ" V 7305 5431 50  0000 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7350 5350 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/tl431.pdf" H 7350 5500 50  0001 C CIN
+	1    7350 5500
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	8050 4850 9250 4850
+$Comp
+L Device:R R?
+U 1 1 618A8E05
+P 6550 5250
+F 0 "R?" H 6620 5296 50  0000 L CNN
+F 1 "2.4k" H 6620 5205 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6480 5250 50  0001 C CNN
+F 3 "~" H 6550 5250 50  0001 C CNN
+	1    6550 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 618A9D95
+P 6550 6050
+F 0 "C?" H 6665 6096 50  0000 L CNN
+F 1 "4.7uF" H 6665 6005 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 6588 5900 50  0001 C CNN
+F 3 "~" H 6550 6050 50  0001 C CNN
+	1    6550 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 618CDCCA
+P 8050 5200
+F 0 "R?" H 8120 5246 50  0000 L CNN
+F 1 "10k" H 8120 5155 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7980 5200 50  0001 C CNN
+F 3 "~" H 8050 5200 50  0001 C CNN
+	1    8050 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 618CE2D2
+P 8050 6050
+F 0 "R?" H 8120 6096 50  0000 L CNN
+F 1 "56.2k" H 8120 6005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7980 6050 50  0001 C CNN
+F 3 "~" H 8050 6050 50  0001 C CNN
+	1    8050 6050
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
