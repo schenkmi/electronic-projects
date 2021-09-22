@@ -5,7 +5,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Ultra Low Noise PSU TL431 pre-regulation"
-Date "2021-09-17"
+Date "2021-09-22"
 Rev "v3f"
 Comp ""
 Comment1 ""
@@ -674,7 +674,7 @@ L Device:C C22
 U 1 1 60ADDB9F
 P 9700 5850
 F 0 "C22" H 9815 5896 50  0000 L CNN
-F 1 "4.7uF/25V" H 9815 5805 50  0000 L CNN
+F 1 "4.7uF/50V" H 9815 5805 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 9738 5700 50  0001 C CNN
 F 3 "~" H 9700 5850 50  0001 C CNN
 	1    9700 5850
@@ -685,7 +685,7 @@ L Device:C C21
 U 1 1 60AF17BD
 P 9700 3900
 F 0 "C21" H 9815 3946 50  0000 L CNN
-F 1 "4.7uF/25V" H 9815 3855 50  0000 L CNN
+F 1 "4.7uF/50V" H 9815 3855 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 9738 3750 50  0001 C CNN
 F 3 "~" H 9700 3900 50  0001 C CNN
 	1    9700 3900
@@ -816,7 +816,7 @@ L Device:C C19
 U 1 1 616050C8
 P 9250 3900
 F 0 "C19" H 9365 3946 50  0000 L CNN
-F 1 "4.7uF/25V" H 9365 3855 50  0000 L CNN
+F 1 "4.7uF/50V" H 9365 3855 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 9288 3750 50  0001 C CNN
 F 3 "~" H 9250 3900 50  0001 C CNN
 	1    9250 3900
@@ -827,7 +827,7 @@ L Device:C C20
 U 1 1 61756786
 P 9250 5850
 F 0 "C20" H 9365 5896 50  0000 L CNN
-F 1 "4.7uF/25V" H 9365 5805 50  0000 L CNN
+F 1 "4.7uF/50V" H 9365 5805 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 9288 5700 50  0001 C CNN
 F 3 "~" H 9250 5850 50  0001 C CNN
 	1    9250 5850
@@ -844,10 +844,6 @@ F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DAT
 	1    7350 6450
 	0    -1   1    0   
 $EndComp
-Wire Wire Line
-	8400 6550 9250 6550
-Wire Wire Line
-	10950 7550 7350 7550
 Connection ~ 10950 7550
 Wire Wire Line
 	3800 4850 4900 4850
@@ -908,7 +904,7 @@ Wire Wire Line
 	5500 4050 5500 4850
 Connection ~ 7350 4850
 Wire Wire Line
-	7350 4850 8050 4850
+	7350 4850 7850 4850
 Wire Wire Line
 	9250 4050 9250 4850
 Connection ~ 9250 4850
@@ -1055,7 +1051,7 @@ Wire Wire Line
 	6550 4200 6550 4850
 Connection ~ 6550 4850
 Wire Wire Line
-	6550 4850 7350 4850
+	6550 4850 7050 4850
 Wire Wire Line
 	7450 4050 8050 4050
 Text Notes 7600 3000 0    50   ~ 0
@@ -1072,60 +1068,174 @@ F 3 "http://www.ti.com/lit/ds/symlink/tl431.pdf" H 7350 4050 50  0001 C CIN
 	0    1    -1   0   
 $EndComp
 $Comp
-L Reference_Voltage:TL432DBZ U?
+L Reference_Voltage:TL432DBZ U6
 U 1 1 6182AB05
-P 7350 5500
-F 0 "U?" V 7396 5431 50  0000 R CNN
-F 1 "TL432DBZ" V 7305 5431 50  0000 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 7350 5350 50  0001 C CIN
-F 3 "http://www.ti.com/lit/ds/symlink/tl431.pdf" H 7350 5500 50  0001 C CIN
-	1    7350 5500
+P 7850 5950
+F 0 "U6" V 7896 5881 50  0000 R CNN
+F 1 "TL432DBZ" V 7805 5881 50  0000 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7850 5800 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/tl431.pdf" H 7850 5950 50  0001 C CIN
+	1    7850 5950
 	0    1    -1   0   
 $EndComp
 Wire Wire Line
-	8050 4850 9250 4850
+	8050 4850 8600 4850
 $Comp
-L Device:R R?
+L Device:R R7
 U 1 1 618A8E05
-P 6550 5250
-F 0 "R?" H 6620 5296 50  0000 L CNN
-F 1 "2.4k" H 6620 5205 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6480 5250 50  0001 C CNN
-F 3 "~" H 6550 5250 50  0001 C CNN
-	1    6550 5250
+P 6550 6200
+F 0 "R7" H 6620 6246 50  0000 L CNN
+F 1 "2.4k" H 6620 6155 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6480 6200 50  0001 C CNN
+F 3 "~" H 6550 6200 50  0001 C CNN
+	1    6550 6200
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C C?
-U 1 1 618A9D95
-P 6550 6050
-F 0 "C?" H 6665 6096 50  0000 L CNN
-F 1 "4.7uF" H 6665 6005 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 6588 5900 50  0001 C CNN
-F 3 "~" H 6550 6050 50  0001 C CNN
-	1    6550 6050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R?
+L Device:R R8
 U 1 1 618CDCCA
-P 8050 5200
-F 0 "R?" H 8120 5246 50  0000 L CNN
-F 1 "10k" H 8120 5155 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7980 5200 50  0001 C CNN
-F 3 "~" H 8050 5200 50  0001 C CNN
-	1    8050 5200
+P 8600 5500
+F 0 "R8" H 8670 5546 50  0000 L CNN
+F 1 "56.2k" H 8670 5455 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8530 5500 50  0001 C CNN
+F 3 "~" H 8600 5500 50  0001 C CNN
+	1    8600 5500
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R9
 U 1 1 618CE2D2
-P 8050 6050
-F 0 "R?" H 8120 6096 50  0000 L CNN
-F 1 "56.2k" H 8120 6005 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7980 6050 50  0001 C CNN
-F 3 "~" H 8050 6050 50  0001 C CNN
-	1    8050 6050
+P 8600 6200
+F 0 "R9" H 8670 6246 50  0000 L CNN
+F 1 "10k" H 8670 6155 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8530 6200 50  0001 C CNN
+F 3 "~" H 8600 6200 50  0001 C CNN
+	1    8600 6200
 	1    0    0    -1  
 $EndComp
+$Comp
+L kicad-snk:BCM857DS,115 Q1
+U 2 1 614CE976
+P 7750 5450
+F 0 "Q1" H 7940 5404 50  0000 L CNN
+F 1 "BCM857DS,115" H 7940 5495 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 7750 5450 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 7750 5450 50  0001 C CNN
+	2    7750 5450
+	1    0    0    1   
+$EndComp
+$Comp
+L kicad-snk:BCM857DS,115 Q1
+U 1 1 614E8E95
+P 7150 5450
+F 0 "Q1" H 7340 5404 50  0000 L CNN
+F 1 "BCM857DS,115" H 7340 5495 50  0000 L CNN
+F 2 "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm" H 7150 5450 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/SSM2220.pdf" H 7150 5450 50  0001 C CNN
+	1    7150 5450
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 614EA145
+P 7050 5050
+F 0 "R10" H 7120 5096 50  0000 L CNN
+F 1 "33R" H 7120 5005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 6980 5050 50  0001 C CNN
+F 3 "~" H 7050 5050 50  0001 C CNN
+	1    7050 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R11
+U 1 1 614EAC4E
+P 7850 5050
+F 0 "R11" H 7920 5096 50  0000 L CNN
+F 1 "33R" H 7920 5005 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7780 5050 50  0001 C CNN
+F 3 "~" H 7850 5050 50  0001 C CNN
+	1    7850 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C9
+U 1 1 6150FCC0
+P 6550 5700
+F 0 "C9" H 6665 5746 50  0000 L CNN
+F 1 "4.7uF" H 6665 5655 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder" H 6588 5550 50  0001 C CNN
+F 3 "~" H 6550 5700 50  0001 C CNN
+	1    6550 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 6550 7850 6550
+Wire Wire Line
+	7850 6050 7850 6550
+Connection ~ 7850 6550
+Wire Wire Line
+	7850 6550 8600 6550
+Wire Wire Line
+	7950 5950 8600 5950
+Wire Wire Line
+	8600 5950 8600 5650
+Wire Wire Line
+	8600 6050 8600 5950
+Connection ~ 8600 5950
+Wire Wire Line
+	8600 6350 8600 6550
+Connection ~ 8600 6550
+Wire Wire Line
+	8600 6550 9250 6550
+Wire Wire Line
+	8600 5350 8600 4850
+Connection ~ 8600 4850
+Wire Wire Line
+	8600 4850 9250 4850
+Wire Wire Line
+	7850 4900 7850 4850
+Connection ~ 7850 4850
+Wire Wire Line
+	7850 4850 8050 4850
+Wire Wire Line
+	7050 4900 7050 4850
+Connection ~ 7050 4850
+Wire Wire Line
+	7050 4850 7350 4850
+Wire Wire Line
+	7050 5200 7050 5250
+Wire Wire Line
+	7850 5200 7850 5250
+Wire Wire Line
+	7550 5450 7350 5450
+Wire Wire Line
+	7850 5850 7850 5650
+Connection ~ 5500 6550
+Wire Wire Line
+	7350 6250 7350 5900
+Wire Wire Line
+	7350 5900 7050 5900
+Connection ~ 7050 5900
+Wire Wire Line
+	7050 5900 7050 5650
+Wire Wire Line
+	7050 5900 6550 5900
+Wire Wire Line
+	6550 5900 6550 5850
+Wire Wire Line
+	6550 5550 6550 4850
+Wire Wire Line
+	5500 6550 6550 6550
+Wire Wire Line
+	6550 6350 6550 6550
+Connection ~ 6550 6550
+Wire Wire Line
+	6550 6550 7150 6550
+Wire Wire Line
+	6550 6050 6550 5900
+Connection ~ 6550 5900
+Wire Wire Line
+	6550 7550 6550 6550
+Wire Wire Line
+	6550 7550 10950 7550
 $EndSCHEMATC
