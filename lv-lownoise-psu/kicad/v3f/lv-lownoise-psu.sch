@@ -1056,28 +1056,6 @@ Wire Wire Line
 	7450 4050 8050 4050
 Text Notes 7600 3000 0    50   ~ 0
 MCC TL431K-TP seems to have\npinout like TL432
-$Comp
-L Reference_Voltage:TL432DBZ U5
-U 1 1 617E9C64
-P 7350 4050
-F 0 "U5" V 7396 3981 50  0000 R CNN
-F 1 "TL432DBZ" V 7305 3981 50  0000 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 7350 3900 50  0001 C CIN
-F 3 "http://www.ti.com/lit/ds/symlink/tl431.pdf" H 7350 4050 50  0001 C CIN
-	1    7350 4050
-	0    1    -1   0   
-$EndComp
-$Comp
-L Reference_Voltage:TL432DBZ U6
-U 1 1 6182AB05
-P 7850 5950
-F 0 "U6" V 7896 5881 50  0000 R CNN
-F 1 "TL432DBZ" V 7805 5881 50  0000 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 7850 5800 50  0001 C CIN
-F 3 "http://www.ti.com/lit/ds/symlink/tl431.pdf" H 7850 5950 50  0001 C CIN
-	1    7850 5950
-	0    1    -1   0   
-$EndComp
 Wire Wire Line
 	8050 4850 8600 4850
 $Comp
@@ -1238,4 +1216,26 @@ Wire Wire Line
 	6550 7550 6550 6550
 Wire Wire Line
 	6550 7550 10950 7550
+$Comp
+L Reference_Voltage:TL431DBZ U5
+U 1 1 615A0AA7
+P 7350 4050
+F 0 "U5" V 7396 3981 50  0000 R CNN
+F 1 "TL431DBZ" V 7305 3981 50  0000 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7350 3900 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/tl431.pdf" H 7350 4050 50  0001 C CIN
+	1    7350 4050
+	0    1    -1   0   
+$EndComp
+$Comp
+L Reference_Voltage:TL431DBZ U6
+U 1 1 615BA6DA
+P 7850 5950
+F 0 "U6" V 7896 5881 50  0000 R CNN
+F 1 "TL431DBZ" V 7805 5881 50  0000 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7850 5800 50  0001 C CIN
+F 3 "http://www.ti.com/lit/ds/symlink/tl431.pdf" H 7850 5950 50  0001 C CIN
+	1    7850 5950
+	0    1    -1   0   
+$EndComp
 $EndSCHEMATC
