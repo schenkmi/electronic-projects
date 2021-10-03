@@ -864,7 +864,7 @@ $EndComp
 Wire Wire Line
 	8400 5800 8400 5500
 Wire Wire Line
-	9450 4850 8400 4850
+	9450 4850 9100 4850
 Wire Wire Line
 	8400 5100 8400 4850
 Wire Wire Line
@@ -1199,4 +1199,51 @@ Wire Wire Line
 Connection ~ 11900 6100
 Wire Wire Line
 	11900 6100 12750 6100
+$Comp
+L Device:R_POT RV1
+U 1 1 615B1217
+P 8900 4500
+F 0 "RV1" H 8831 4546 50  0000 R CNN
+F 1 "5k" H 8831 4455 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 8900 4500 50  0001 C CNN
+F 3 "~" H 8900 4500 50  0001 C CNN
+	1    8900 4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8900 4650 8900 4850
+Connection ~ 8900 4850
+Wire Wire Line
+	8900 4850 8700 4850
+Wire Wire Line
+	9050 4500 9100 4500
+Wire Wire Line
+	9100 4500 9100 4850
+Connection ~ 9100 4850
+Wire Wire Line
+	9100 4850 8900 4850
+Wire Wire Line
+	8900 4350 8900 4250
+$Comp
+L Device:R_POT RV2
+U 1 1 61825FE6
+P 8900 5250
+F 0 "RV2" H 8831 5296 50  0000 R CNN
+F 1 "5k" H 8831 5205 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 8900 5250 50  0001 C CNN
+F 3 "~" H 8900 5250 50  0001 C CNN
+	1    8900 5250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8900 5100 8900 4850
+Wire Wire Line
+	8900 5400 8900 5500
+Wire Wire Line
+	8750 5250 8700 5250
+Wire Wire Line
+	8700 5250 8700 4850
+Connection ~ 8700 4850
+Wire Wire Line
+	8700 4850 8400 4850
 $EndSCHEMATC
