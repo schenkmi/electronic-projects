@@ -5,25 +5,14 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "LT1115 MC/MM Phono Pre"
-Date "2021-03-07"
-Rev "V3"
+Date "2021-10-13"
+Rev "V4"
 Comp ""
 Comment1 ""
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L kicad-snk:LT1115 U1
-U 1 1 60783628
-P 4000 2400
-F 0 "U1" H 4344 2446 50  0000 L CNN
-F 1 "LT1115" H 4344 2355 50  0000 L CNN
-F 2 "Package_DIP:DIP-8_W7.62mm" H 3200 2750 50  0001 C CNN
-F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/lt1152.pdf" H 3200 2750 50  0001 C CNN
-	1    4000 2400
-	1    0    0    -1  
-$EndComp
 $Comp
 L Reference_Current:LM334M U2
 U 1 1 607840D1
@@ -135,17 +124,6 @@ F 3 "~" H 4800 4700 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:CP C5
-U 1 1 6078A90E
-P 4150 1500
-F 0 "C5" H 4268 1546 50  0000 L CNN
-F 1 "1uF" H 4268 1455 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 4188 1350 50  0001 C CNN
-F 3 "~" H 4150 1500 50  0001 C CNN
-	1    4150 1500
-	0    -1   -1   0   
-$EndComp
-$Comp
 L Device:R R2
 U 1 1 6078AFAE
 P 3150 4550
@@ -218,34 +196,12 @@ $EndComp
 $Comp
 L Device:R R8
 U 1 1 6079862D
-P 4800 5650
-F 0 "R8" V 4593 5650 50  0000 C CNN
-F 1 "82.5k" V 4684 5650 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 4730 5650 50  0001 C CNN
-F 3 "~" H 4800 5650 50  0001 C CNN
-	1    4800 5650
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:CP C3
-U 1 1 60798CD6
-P 3150 6100
-F 0 "C3" H 3268 6146 50  0000 L CNN
-F 1 "2200uF/16V" H 3268 6055 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm" H 3188 5950 50  0001 C CNN
-F 3 "~" H 3150 6100 50  0001 C CNN
-	1    3150 6100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C2
-U 1 1 607995DD
-P 2600 6100
-F 0 "C2" H 2485 6054 50  0000 R CNN
-F 1 "4.7uF" H 2485 6145 50  0000 R CNN
-F 2 "Capacitor_THT:C_Rect_L7.2mm_W7.2mm_P5.00mm_FKS2_FKP2_MKS2_MKP2" H 2638 5950 50  0001 C CNN
-F 3 "~" H 2600 6100 50  0001 C CNN
-	1    2600 6100
+P 7400 4800
+F 0 "R8" V 7193 4800 50  0000 C CNN
+F 1 "82.5k" V 7284 4800 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7330 4800 50  0001 C CNN
+F 3 "~" H 7400 4800 50  0001 C CNN
+	1    7400 4800
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -284,41 +240,6 @@ $EndComp
 Wire Wire Line
 	3700 2500 3150 2500
 Wire Wire Line
-	4650 5650 3150 5650
-Connection ~ 3150 5650
-Wire Wire Line
-	3150 5650 3150 5950
-$Comp
-L power:GND #PWR05
-U 1 1 6079ED34
-P 3150 6400
-F 0 "#PWR05" H 3150 6150 50  0001 C CNN
-F 1 "GND" H 3155 6227 50  0000 C CNN
-F 2 "" H 3150 6400 50  0001 C CNN
-F 3 "" H 3150 6400 50  0001 C CNN
-	1    3150 6400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR04
-U 1 1 6079F32B
-P 2600 6400
-F 0 "#PWR04" H 2600 6150 50  0001 C CNN
-F 1 "GND" H 2605 6227 50  0000 C CNN
-F 2 "" H 2600 6400 50  0001 C CNN
-F 3 "" H 2600 6400 50  0001 C CNN
-	1    2600 6400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3150 5650 2600 5650
-Wire Wire Line
-	2600 5650 2600 5950
-Wire Wire Line
-	2600 6250 2600 6400
-Wire Wire Line
-	3150 6250 3150 6400
-Wire Wire Line
 	3700 4300 3150 4300
 Connection ~ 3150 4300
 Wire Wire Line
@@ -329,17 +250,6 @@ Wire Wire Line
 	4950 4300 5100 4300
 Wire Wire Line
 	5750 4300 5900 4300
-$Comp
-L Device:CP C13
-U 1 1 607A274D
-P 6800 3050
-F 0 "C13" V 6545 3050 50  0000 C CNN
-F 1 "1uF" V 6636 3050 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 6838 2900 50  0001 C CNN
-F 3 "~" H 6800 3050 50  0001 C CNN
-	1    6800 3050
-	0    1    1    0   
-$EndComp
 $Comp
 L power:GND #PWR017
 U 1 1 607A451F
@@ -388,17 +298,6 @@ F 3 "" H 6500 1100 50  0001 C CNN
 	1    6500 1100
 	0    -1   -1   0   
 $EndComp
-$Comp
-L Device:CP C12
-U 1 1 607AC743
-P 6800 1500
-F 0 "C12" H 6918 1546 50  0000 L CNN
-F 1 "1uF" H 6918 1455 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 6838 1350 50  0001 C CNN
-F 3 "~" H 6800 1500 50  0001 C CNN
-	1    6800 1500
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	6550 1500 6550 2100
 Wire Wire Line
@@ -421,7 +320,6 @@ F 3 "" H 7000 1500 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7000 1500 6950 1500
-Connection ~ 6650 1500
 $Comp
 L power:+15V #PWR06
 U 1 1 607B3755
@@ -504,8 +402,8 @@ L Device:CP C11
 U 1 1 607C1306
 P 6800 1100
 F 0 "C11" V 7055 1100 50  0000 C CNN
-F 1 "220uF/25V" V 6964 1100 50  0000 C CNN
-F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 6838 950 50  0001 C CNN
+F 1 "10uF/25V" V 6964 1100 50  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.8" H 6838 950 50  0001 C CNN
 F 3 "~" H 6800 1100 50  0001 C CNN
 	1    6800 1100
 	0    -1   -1   0   
@@ -515,8 +413,8 @@ L Device:CP C4
 U 1 1 607C1950
 P 4150 1100
 F 0 "C4" V 4405 1100 50  0000 C CNN
-F 1 "220uF/25V" V 4314 1100 50  0000 C CNN
-F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 4188 950 50  0001 C CNN
+F 1 "10uF/25V" V 4314 1100 50  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.8" H 4188 950 50  0001 C CNN
 F 3 "~" H 4150 1100 50  0001 C CNN
 	1    4150 1100
 	0    -1   -1   0   
@@ -604,7 +502,7 @@ U 1 1 607F8903
 P 13650 3950
 F 0 "C19" H 13535 3904 50  0000 R CNN
 F 1 "1uF" H 13535 3995 50  0000 R CNN
-F 2 "Capacitor_THT:C_Rect_L7.2mm_W3.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2" H 13688 3800 50  0001 C CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 13688 3800 50  0001 C CNN
 F 3 "~" H 13650 3950 50  0001 C CNN
 	1    13650 3950
 	-1   0    0    1   
@@ -650,7 +548,7 @@ U 1 1 608002FC
 P 12400 3100
 F 0 "C16" H 12285 3054 50  0000 R CNN
 F 1 "1uF" H 12285 3145 50  0000 R CNN
-F 2 "Capacitor_THT:C_Rect_L7.2mm_W3.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2" H 12438 2950 50  0001 C CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 12438 2950 50  0001 C CNN
 F 3 "~" H 12400 3100 50  0001 C CNN
 	1    12400 3100
 	0    -1   -1   0   
@@ -809,8 +707,8 @@ L Device:CP C7
 U 1 1 607D3C6F
 P 4150 3750
 F 0 "C7" V 3895 3750 50  0000 C CNN
-F 1 "220uF/25V" V 3986 3750 50  0000 C CNN
-F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 4188 3600 50  0001 C CNN
+F 1 "10uF/25V" V 3986 3750 50  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.8" H 4188 3600 50  0001 C CNN
 F 3 "~" H 4150 3750 50  0001 C CNN
 	1    4150 3750
 	0    1    1    0   
@@ -839,17 +737,6 @@ F 3 "" H 3850 3750 50  0001 C CNN
 	1    3850 3750
 	0    -1   -1   0   
 $EndComp
-$Comp
-L Device:CP C6
-U 1 1 6078DFBD
-P 4150 3250
-F 0 "C6" V 3895 3250 50  0000 C CNN
-F 1 "1uF" V 3986 3250 50  0000 C CNN
-F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 4188 3100 50  0001 C CNN
-F 3 "~" H 4150 3250 50  0001 C CNN
-	1    4150 3250
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	3900 3250 3900 3400
 Connection ~ 3900 3250
@@ -875,8 +762,8 @@ L Device:CP C14
 U 1 1 608948FB
 P 6800 3500
 F 0 "C14" V 6545 3500 50  0000 C CNN
-F 1 "220uF/25V" V 6636 3500 50  0000 C CNN
-F 2 "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm" H 6838 3350 50  0001 C CNN
+F 1 "10uF/25V" V 6636 3500 50  0000 C CNN
+F 2 "Capacitor_SMD:CP_Elec_6.3x5.8" H 6838 3350 50  0001 C CNN
 F 3 "~" H 6800 3500 50  0001 C CNN
 	1    6800 3500
 	0    1    1    0   
@@ -956,11 +843,6 @@ Wire Wire Line
 Connection ~ 5900 4300
 Wire Wire Line
 	5900 4300 7400 4300
-Wire Wire Line
-	4950 5650 7400 5650
-Wire Wire Line
-	7400 5650 7400 4300
-Connection ~ 7400 4300
 Wire Wire Line
 	8250 2650 8250 2400
 Wire Wire Line
@@ -1215,7 +1097,7 @@ U 1 1 604645E6
 P 6650 2400
 F 0 "U3" H 6994 2446 50  0000 L CNN
 F 1 "LT1010" H 6994 2355 50  0000 L CNN
-F 2 "Package_DIP:DIP-8_W7.62mm" H 7350 2050 50  0001 C CNN
+F 2 "Package_DFN_QFN:DFN-8-1EP_3x3mm_P0.5mm_EP1.66x2.38mm" H 7350 2050 50  0001 C CNN
 F 3 "http://www.analog.com/media/en/technical-documentation/data-sheets/1010fe.pdf" H 6650 2400 50  0001 C CNN
 F 4 "Analog Devices" H 6950 2750 50  0001 C CNN "MFN"
 F 5 "LT1010" H 7050 2850 50  0001 C CNN "MFP"
@@ -1224,6 +1106,89 @@ F 5 "LT1010" H 7050 2850 50  0001 C CNN "MFP"
 $EndComp
 Wire Wire Line
 	3150 4700 3150 5050
+$Comp
+L kicad-snk:LT1115SO16 U1
+U 1 1 616FAAFC
+P 4000 2400
+F 0 "U1" H 4344 2446 50  0000 L CNN
+F 1 "LT1115SO16" H 4344 2355 50  0000 L CNN
+F 2 "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm" H 3200 2750 50  0001 C CNN
+F 3 "https://www.analog.com/media/en/technical-documentation/data-sheets/lt1152.pdf" H 3200 2750 50  0001 C CNN
+	1    4000 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 6170D374
+P 7400 5450
+F 0 "#PWR0102" H 7400 5200 50  0001 C CNN
+F 1 "GND" H 7405 5277 50  0000 C CNN
+F 2 "" H 7400 5450 50  0001 C CNN
+F 3 "" H 7400 5450 50  0001 C CNN
+	1    7400 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0103
+U 1 1 6171DBB1
+P 3150 5450
+F 0 "#PWR0103" H 3150 5200 50  0001 C CNN
+F 1 "GND" H 3155 5277 50  0000 C CNN
+F 2 "" H 3150 5450 50  0001 C CNN
+F 3 "" H 3150 5450 50  0001 C CNN
+	1    3150 5450
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	3150 5350 3150 5650
+	7400 4300 7400 4650
+Connection ~ 7400 4300
+Wire Wire Line
+	7400 4950 7400 5450
+Wire Wire Line
+	3150 5350 3150 5450
+$Comp
+L Device:C C2
+U 1 1 61789035
+P 4150 1500
+F 0 "C2" V 3898 1500 50  0000 C CNN
+F 1 "100nF" V 3989 1500 50  0000 C CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 4188 1350 50  0001 C CNN
+F 3 "~" H 4150 1500 50  0001 C CNN
+	1    4150 1500
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C3
+U 1 1 61792591
+P 4150 3250
+F 0 "C3" V 3898 3250 50  0000 C CNN
+F 1 "100nF" V 3989 3250 50  0000 C CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 4188 3100 50  0001 C CNN
+F 3 "~" H 4150 3250 50  0001 C CNN
+	1    4150 3250
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C5
+U 1 1 617973C9
+P 6800 1500
+F 0 "C5" V 6548 1500 50  0000 C CNN
+F 1 "100nF" V 6639 1500 50  0000 C CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 6838 1350 50  0001 C CNN
+F 3 "~" H 6800 1500 50  0001 C CNN
+	1    6800 1500
+	0    1    1    0   
+$EndComp
+Connection ~ 6650 1500
+$Comp
+L Device:C C6
+U 1 1 6179C2F7
+P 6800 3050
+F 0 "C6" V 6548 3050 50  0000 C CNN
+F 1 "100nF" V 6639 3050 50  0000 C CNN
+F 2 "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" H 6838 2900 50  0001 C CNN
+F 3 "~" H 6800 3050 50  0001 C CNN
+	1    6800 3050
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
