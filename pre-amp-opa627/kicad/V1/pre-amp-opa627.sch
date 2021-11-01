@@ -4,9 +4,9 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
-Title "Discrete Pre-Amp"
-Date "2021-07-28"
-Rev "V6 BC850C/BC860C"
+Title "Pre-Amp OPA627"
+Date "2021-10-31"
+Rev "V1"
 Comp ""
 Comment1 ""
 Comment2 ""
