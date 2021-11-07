@@ -1,6 +1,6 @@
 /**
  * PIC16F18446 based async sample rate converter
- * for TI/BB SRC4392/SRC4382
+ * for CS CS8416/CS8421
  *
  * Copyright (c) 2021, Michael Schenk
  * All Rights Reserved
@@ -33,7 +33,7 @@
 
 /**
  * Save hex
- * cp ./async-sample-rate.X/dist/default/production/async-sample-rate.X.production.hex hex/
+ * cp CS8416-receiver.X/dist/default/production/CS8416-receiver.X.production.hex hex
  */
 
 #include "mcc_generated_files/mcc.h"
@@ -46,99 +46,323 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 // EEPROM address of current channel
 #define EEPROM_ADR_CHANNEL 0x00
 
-// Page 38 
-#define SRC4392_I2C_SLAVE_ADDR              0x70
+// Page 34 
+#define CS8416_I2C_SLAVE_ADDR              0x20
+
+//  Control Port Registers
+#define CS8416_CTRL0            (0x00)     //  (R/W)
+#define   CTRL0_TRUNC			(0x04)     //         Word length != encoding
+#define   CTRL0_PDUR			(0x08)     //         Phase detector (normal/fast)
+#define   CTRL0_FSWCLK			(0x40)     //         Set OMCLK to RMCLK
+
+#define CS8416_CTRL1			(0x01)     //  (R/W)
+#define   CTRL1_CHS				(0x01)     //         0=A/1=B to channel stat reg (0x0A)
+#define   CTRL1_RMCKF			(0x02)     //         Recovered MCLK freq (0=256/1=128)
+#define   CTRL1_HOLD			(0x0C)     //         Output behavior on receive error
+#define   CTRL1_INT				(0x30)     //         Interrupt output polarity control
+#define   CTRL1_MUTESAO			(0x40)     //         Mute serial audio out (1=mute)
+#define   CTRL1_SWCLK			(0x80)     //         OMCLK -> RMCLK/OSCLK/OLRCLK
+
+#define CS8416_CTRL2            (0x02)     //  (R/W)
+#define   CTRL2_GPO0_SEL		(0x0F)     //         General Purpose Out 0 select
+#define   CTRL2_EMPH_CNTL0		(0x70)     //         De-emphasis filter (0=none)
+#define   CTRL2_DETCI			(0x80)     //         D -> E status transfer inhibit
+
+#define CS8416_CTRL3            (0x03)     //  (R/W)
+#define   CTRL3_GPO1SEL			(0xF0)     //         General Purpose Out 1 select
+#define   CTRL3_GPO2SEL			(0x0F)     //         General Purpose Out 2 select
+
+#define CS8416_CTRL4            (0x04)     //  (R/W)
+#define   CTRL4_TXSEL			(0x07)     //         Assign RXPn to GPOn TX
+#define   CTRL4_RXSEL			(0x38)     //         Assign RXPn to RX input
+#define   CTRL4_RXD				(0x40)     //         Set RMCLK to high-Z output
+#define   CTRL4_RUN				(0x80)     //         **NORMAL USE=1**  (default=0)
+
+#define CS8416_DATA_FORMAT      (0x05)     //  (R/W)
+#define   FRMT_SOLRPOL			(0x01)     //         LRCLK polarity (channel swap)
+#define   FRMT_SOSPOL			(0x02)     //         Sample on rising/falling BCLK
+#define   FRMT_SODEL			(0x04)     //         Delay SDOUT wrt OLRCLK in LJ
+#define   FRMT_SOJUST			(0x08)     //         R/L justify SDOUT wrt OLROUT
+#define   FRMT_SORES			(0x30)     //         Word width of serial data out
+#define   FRMT_SOSF				(0x40)     //         OSCLK frequency
+#define   FRMT_SOMS				(0x80)     //         OSCLK/OLRCLK are master/slave
+#define   FRMT_I2S				(FRMT_SOMS | FRMT_SODEL | FRMT_SOLRPOL)
+#define   FRMT_LJ				(FRMT_SOMS)
+#define   FRMT_RJ24				(FRMT_SOMS | FRMT_SOJUST)
+
+#define CS8416_RX_ERR_MASK      (0x06)     //  (R/W)
+#define   ERRMASK_PAR			(0x01)     //         Parity bit error mask
+#define   ERRMASK_BIP			(0x02)     //         Biphase error mask
+#define   ERRMASK_CONF			(0x04)     //         Confidence bit mask
+#define   ERRMASK_V				(0x08)     //         Validity bit mask
+#define   ERRMASK_UNLOCK		(0x10)     //         PLL lock error mask
+#define   ERRMASK_CCRC			(0x20)     //         Channel status CRC error mask
+#define   ERRMASK_QCRC			(0x40)     //         Q-subcode CRC error mask
+
+#define CS8416_INT_MASK         (0x07)     //  (R/W)
+#define   INT_FCHM				(0x01)     //         Format change
+#define   INT_QCHM				(0x02)     //         New Q-subcode block available
+#define   INT_RERRM				(0x04)     //         Receiver error
+#define   INT_CCHM				(0x08)     //         Channel status change
+#define   INT_DETCM				(0x01)     //         D->E C-buffer transfer
+#define   INT_OSLIPM			(0x20)     //         Serial data out drop/repeat
+#define   INT_PCCHM				(0x40)     //         PC burst preamble change
+
+#define CS8416_INT_MODE_MSB     (0x08)     //  (R/W)
+#define   INT_FCH1				(0x01)     //         Format change
+#define   INT_QCH1				(0x02)     //         New Q-subcode block available
+#define   INT_RERR1				(0x04)     //         Receiver error
+#define   INT_CCH1				(0x08)     //         Channel status change
+#define   INT_DETC1				(0x01)     //         D->E C-buffer transfer
+#define   INT_OSLIP1			(0x20)     //         Serial data out drop/repeat
+#define   INT_PCCH1				(0x40)     //         PC burst preamble change
+
+#define CS8416_INT_MODE_LSB     (0x09)     //  (R/W)
+#define   INT_FCH0				(0x01)     //         Format change
+#define   INT_QCH0				(0x02)     //         New Q-subcode block available
+#define   INT_RERR0				(0x04)     //         Receiver error
+#define   INT_CCH0				(0x08)     //         Channel status change
+#define   INT_DETC0				(0x01)     //         D->E C-buffer transfer
+#define   INT_OSLIP0			(0x20)     //         Serial data out drop/repeat
+#define   INT_PCCH0				(0x40)     //         PC burst preamble change
+
+#define CS8416_CH_STAT          (0x0A)     //   (R)
+#define   CHSTAT_EMPH			(0x01)     //         Emphasis encoded in stream
+#define   CHSTAT_ORIG			(0x02)     //         SCMS original (not copy)
+#define   CHSTAT_COPY			(0x04)     //         Copying prohibited by SCMS
+#define   CHSTAT_PRO			(0x08)     //         Ch stat is professional fmt
+#define   CHSTAT_AUX			(0xF0)     //         Length of IEC60958 aux field
+
+#define CS8416_FMT_DETECT       (0x0B)     //   (R)
+#define   FMT_96KHZ				(0x01)     //         Fs encoded as >= 88.1KHz
+#define   FMT_DGTL_SIL			(0x02)     //         Digital silence detected
+#define   FMT_DTS_CD			(0x08)     //         DTS CD stream detected
+#define   FMT_DTS_LD			(0x10)     //         DTS laser disc detected
+#define   FMT_IEC61937			(0x20)     //         IEC61937 stream detected
+#define   FMT_PCM				(0x40)     //         PCM data detected
+
+#define CS8416_RX_ERROR         (0x0C)     //   (R)
+#define   ERROR_PAR				(0x01)     //         Parity bit error
+#define   ERROR_BIP				(0x02)     //         Biphase error
+#define   ERROR_CONF			(0x04)     //         Confidence bit
+#define   ERROR_V				(0x08)     //         Validity bit
+#define   ERROR_UNLOCK			(0x10)     //         PLL lock error
+#define   ERROR_CCRC			(0x20)     //         Channel status CRC error
+#define   ERROR_QCRC			(0x40)     //         Q-subcode CRC error
+
+#define CS8416_INT_STAT         (0x0D)     //   (R)
+#define   INT_FCH				(0x01)     //         Format change
+#define   INT_QCH				(0x02)     //         New Q-subcode block available
+#define   INT_RERR				(0x04)     //         Receiver error
+#define   INT_CCH				(0x08)     //         Channel status change
+#define   INT_DETC				(0x10)     //         D->E C-buffer transfer
+#define   INT_OSLIP				(0x20)     //         Serial data out drop/repeat
+#define   INT_PPCH				(0x40)     //         PC burst preamble change
+
+// Q-channel subcode status
+#define CS8416_Q_CH_SUB_07_00   (0x0E)     //   (R)   Control
+#define CS8416_Q_CH_SUB_15_08   (0x0F)     //   (R)   Track
+#define CS8416_Q_CH_SUB_23_16   (0x10)     //   (R)   Index
+#define CS8416_Q_CH_SUB_31_24   (0x11)     //   (R)   Minute
+#define CS8416_Q_CH_SUB_39_32   (0x12)     //   (R)   Second
+#define CS8416_Q_CH_SUB_47_40   (0x13)     //   (R)   Frame
+#define CS8416_Q_CH_SUB_55_48   (0x14)     //   (R)   Zero
+#define CS8416_Q_CH_SUB_63_56   (0x15)     //   (R)   ABS Minute
+#define CS8416_Q_CH_SUB_71_64   (0x16)     //   (R)   ABS Second
+#define CS8416_Q_CH_SUB_79_72   (0x17)     //   (R)   ABS Frame
+
+// System clock mode (PLL out of lock)
+#define CS8416_OMCLK_TO_RMCLK   (0x18)     //   (R)   Outside MCLK/Recovered MCLK
+
+// Channel status A (left)
+#define CS8416_CHAN_STAT_A0     (0x19)     //   (R)   Channel Status A: Byte 0
+#define CS8416_CHAN_STAT_A1     (0x1A)     //   (R)   Channel Status A: Byte 1
+#define CS8416_CHAN_STAT_A2     (0x1B)     //   (R)   Channel Status A: Byte 2
+#define CS8416_CHAN_STAT_A3     (0x1C)     //   (R)   Channel Status A: Byte 3
+#define CS8416_CHAN_STAT_A4     (0x1D)     //   (R)   Channel Status A: Byte 4
+
+// Channel status B (right)
+#define CS8416_CHAN_STAT_B0     (0x1E)     //   (R)   Channel Status B: Byte 0
+#define CS8416_CHAN_STAT_B1     (0x1F)     //   (R)   Channel Status B: Byte 1
+#define CS8416_CHAN_STAT_B2     (0x20)     //   (R)   Channel Status B: Byte 2
+#define CS8416_CHAN_STAT_B3     (0x21)     //   (R)   Channel Status B: Byte 3
+#define CS8416_CHAN_STAT_B4     (0x22)     //   (R)   Channel Status B: Byte 4
+
+#define CS8416_BURST_PRE_PC0    (0x23)     //   (R)   Burst Preamble PC: Byte 0
+#define CS8416_BURST_PRE_PC1    (0x24)     //   (R)   Burst Preamble PC: Byte 1
+#define CS8416_BURST_PRE_PD0    (0x25)     //   (R)   Burst Preamble PD: Byte 0
+#define CS8416_BURST_PRE_PD1    (0x26)     //   (R)   Burst Preamble PD: Byte 1
+
+// IC revision
+#define CS8416_ID_VERSION       (0x7F)     //   (R)   ID = 0x02, Version = 3:0
+
+// General Purpose Output encodings
+#define GPO_GND					(0x0)     //    Fixed LOW level
+#define GPO_INV_EMPH			(0x1)     //    State of /EMPH on incoming stream
+#define GPO_INT					(0x2)     //    CS8416 Interrupt output
+#define GPO_C					(0x3)     //    Channel status bit
+#define GPO_U					(0x4)     //    User data bit
+#define GPO_RERR				(0x5)     //    Receiver error
+#define GPO_NVERR				(0x6)     //    Non-Validity Receiver Error
+#define GPO_RCBL				(0x7)     //    Receiver Channel Status Block
+#define GPO_96KHZ				(0x8)     //    Sample rate >= 88.1 KHz
+#define GPO_NON_AUDIO			(0x9)     //    Non-audio indicator for decoded input
+#define GPO_VLRCLK				(0xA)     //    Virtual LR clock
+#define GPO_TX					(0xB)     //    Pass through input spec'd by TXSEL[2:0]
+#define GPO_VDD					(0xC)     //    VDD fixed HIGH level
+#define GPO_HRMCK				(0xD)     //    512*Fs
 
 
-// SRC4392 control/status registers
-#define SRC_REG01	0x01		// power down and reset
-#define SRC_REG02	0x02		// global interrupt status
-#define SRC_REG03	0x03		// port A control
-#define SRC_REG04	0x04		// port A control
-#define SRC_REG05	0x05		// port B control
-#define SRC_REG06	0x06		// port B control
-#define SRC_REG07	0x07		// DIT control
-#define SRC_REG08	0x08		// DIT control
-#define SRC_REG09	0x09		// DIT control
-#define SRC_REG0A	0x0a		// SRC and DIT status
-#define SRC_REG0B	0x0b		// SRC and DIT interrupt mask
-#define SRC_REG0C	0x0c		// SRC and DIT interrupt mode
-#define SRC_REG0D	0x0d		// DIR control
-#define SRC_REG0E	0x0e		// DIR control
-#define SRC_REG0F	0x0f		// DIR PLL configuration
-#define SRC_REG10	0x10		// DIR PLL configuration
-#define SRC_REG11	0x11		// DIR PLL configuration
-#define SRC_REG12	0x12		// non-PCM audio detection
-#define SRC_REG13	0x13		// DIR status
-#define SRC_REG14	0x14		// DIR status
-#define SRC_REG15	0x15		// DIR status
-#define SRC_REG16	0x16		// DIR interrupt mask
-#define SRC_REG17	0x17		// DIR interrupt mask
-#define SRC_REG18	0x18		// DIR interrupt mode
-#define SRC_REG19	0x19		// DIR interrupt mode
-#define SRC_REG1A	0x1a		// DIR interrupt mode
-#define SRC_REG1B	0x1b		// GP01
-#define SRC_REG1C	0x1c		// GP02
-#define SRC_REG1D	0x1d		// GP03
-#define SRC_REG1E	0x1e		// GP04
-#define SRC_REG1F	0x1f		// audio CD Q-channel subcode
-#define SRC_REG20	0x20		// audio CD Q-channel subcode
-#define SRC_REG21	0x21		// audio CD Q-channel subcode
-#define SRC_REG22	0x22		// audio CD Q-channel subcode
-#define SRC_REG23	0x23		// audio CD Q-channel subcode
-#define SRC_REG24	0x24		// audio CD Q-channel subcode
-#define SRC_REG25	0x25		// audio CD Q-channel subcode
-#define SRC_REG26	0x26		// audio CD Q-channel subcode
-#define SRC_REG27	0x27		// audio CD Q-channel subcode
-#define SRC_REG28	0x28		// audio CD Q-channel subcode
-#define SRC_REG29	0x29		// PC burst preamble, high byte
-#define SRC_REG2A	0x2a		// PC burst preamble, low byte
-#define SRC_REG2B	0x2b		// PD burst preamble, high byte
-#define SRC_REG2C	0x2c		// PD burst preamble, low byte
-#define SRC_REG2D	0x2d		// SRC control
-#define SRC_REG2E	0x2e		// SRC control
-#define SRC_REG2F	0x2f		// SRC control
-#define SRC_REG30	0x30		// SRC control
-#define SRC_REG31	0x31		// SRC control
-#define SRC_REG32	0x32		// SRC input/output ratio
-#define SRC_REG33	0x33		// SRC input/output ratio
-#define SRC_REG7F	0x7f		// page selection
 
 
 
-// Sample rate enums
-#define SAMPLERATE_UNKNOWN	0	// unknown
-#define SAMPLERATE_32KHZ	1	// 32.0KHz
-#define SAMPLERATE_44KHZ	2	// 44.1KHz
-#define SAMPLERATE_48KHZ	3	// 48.0KHz
-#define SAMPLERATE_64KHZ	4	// 64.0KHz
-#define SAMPLERATE_88KHZ	5	// 88.2KHz
-#define SAMPLERATE_96KHZ	6	// 96.0KHz
-#define SAMPLERATE_128KHZ	7	// 128.0KHz
-#define SAMPLERATE_176KHZ	8	// 176.4KHz
-#define SAMPLERATE_192KHZ	9	// 192.0KHz
 
-/*
- * Upsampling enums
- */
-#define UPSAMPLE_192KHZ		0	// 192KHz
-#define UPSAMPLE_96KHZ		1	// 96KHz
-
-/*
- * DIT routing mode enums
- */
-#define DIT_UPSAMPLE		0	// upsample
-#define DIT_LOOPOUT		1	// loop-back
-
-/*
- * Digital de-emphasis enums
- */
-#define DEEMPH_AUTO		0	// auto
-#define DEEMPH_OFF		1	// off
+#define SPDIF_CONTROL0	0x00
+#define SPDIF_CONTROL1	0x01
+#define SPDIF_CONTROL2	0x02
+#define SPDIF_CONTROL3	0x03
+#define SPDIF_CONTROL4	0x04
+#define SPDIF_SADF		0x05		// Serial Audio Data Format Register (05h)
+#define SPDIF_REM		0x06		// Receiver Error Mask (06h)
+#define SPDIF_IM		0x07		// Interrupt Mask (07h)
+#define SPDIF_IMODE_MSB	0x08		// Interrupt Mode MSB (08h)
+#define SPDIF_IMODE_LSB	0x09		// Interrupt Mode LSB (09h)
+#define SPDIF_RCSTAT	0x0a		// Receiver Channel Status (0Ah)
+#define SPDIF_FDSTAT	0x0b		// Format Detect Status (0Bh)
+#define SPDIF_RERROR	0x0c		// Receiver Error (0Ch), see SPDIF_REM
+#define SPDIF_INT1STAT	0x0d		// Interrupt 1 Status (0Dh)
+#define SPDIF_QCHAN		0x0e		// Q-Channel Subcode spans between 0x0e to 0x17
+#define SPDIF_ORMCK_RATIO	0x18	// OMCK/RMCK Ratio (18h)
+#define SPDIF_CSR_A0	0x19		// Channel Status Registers for Channel A
+#define SPDIF_CSR_B0	0x1e		// Channel Status Registers for Channel B
+#define SPDIF_IEC61937BP 	0x23	// IEC61937 Burst Preamble (23h - 26h)
+#define SPDIF_VREG		0x7f		// CS8416 I.D. and Version Register (7Fh)
 
 
-uint8_t		upsample_rate = UPSAMPLE_192KHZ;
-uint8_t		dit_mode = DIT_UPSAMPLE;
+// Bit definitions for SPDIF_CONTROL0
+
+#define SPDIF_FSWCLK	6			// Forces the clock signal on OMCK to be output on RMCK regardless of the SWCLK
+#define	SPDIF_PDUR		3			// Normal/High Update Rate phase detector
+#define SPDIF_TRUNC		2			// Truncate incoming data
+
+// Bit definitions for SPDIF_CONTROL1
+
+#define	SPDIF_SWCLK		7			// Lets OMCK determine RMCK, OSCLK, OLRCLK when PLL loses lock
+#define SPDIF_MUTESAO	6			// Mute control for the serial audio output port
+#define SPDIF_INT1		5			// Interrupt output pin control
+#define SPDIF_INT0		4			//
+#define SPDIF_HOLD1		3			//	
+#define SPDIF_HOLD0		2			// How received audio sample is affected if receiver error occurs
+#define SPDIF_RMCKF		1			// 0: RMCK = 256*Fs, 1: RMCK = 128*Fs
+#define SPDIF_CHS		0			// Receiver Channel Status register decoded from A(0) channel or B(1) channel
+
+
+// Bit definitions for SPDIF_CONTROL2
+#define SPDIF_DETCI		7 			// D to E status transfer inhibit
+#define SPDIF_EMPH_CNTL2	6		// De-emphasis control
+#define SPDIF_EMPH_CNTL1	5		//
+#define SPDIF_EMPH_CNTL0	4		//
+#define SPDIF_GPO0SEL3	3			// GPO0 source select
+#define SPDIF_GPO0SEL2	2
+#define SPDIF_GPO0SEL1	1
+#define SPDIF_GPO0SEL0	0
+
+// Bit definitions for SPDIF_CONTROL3
+#define SPDIF_GPO1SEL3	7			// GPO1 source select
+#define SPDIF_GPO1SEL2	6
+#define SPDIF_GPO1SEL1	5
+#define SPDIF_GPO1SEL0	4
+#define SPDIF_GPO2SEL3	3			// GPO2 source select
+#define SPDIF_GPO2SEL2	2
+#define SPDIF_GPO2SEL1	1
+#define SPDIF_GPO2SEL0	0
+
+
+// Bit definitions for SPDIF_CONTROL4
+#define SPDIF_RUN 		7			// 1 = power on
+#define SPDIF_RXD		6
+#define SPDIF_RXSEL0	3			// Selects RXP0 to RXP7 for input to the receiver
+#define SPDIF_TXSEL0	0			// Selects RXP0 to RXP7 as the input for GPO TX source
+
+// Bit definitions for SPDIF_SADF
+#define SPDIF_SOMS		7
+#define SPDIF_SOSF		6
+#define	SPDIF_SORES1	5
+#define SPDIF_SORES0	4
+#define SPDIF_SOJUST	3
+#define SPDIF_SODEL		2
+#define SPDIF_SOSPOL	1
+#define SPDIF_SOLRPOL	0
+
+// Bit definitions for SPDIF_REM
+// Bit definitions for SPDIF_RERROR
+#define SPDIF_QCRC		6			// Q-subcode data CRC error
+#define SPDIF_CCRC		5			// Channel Status Block CRC error
+#define SPDIF_UNLOCK	4			// PLL out of lock
+#define SPDIF_V			3			// Received AES3 Validity bit status (1 = Confidence error)
+#define SPDIF_CONF		2			// Condidence error (UNLOCK || BIP)
+#define SPDIF_BIP		1			// Bi-phase error bit
+#define SPDIF_PAR		0			// Parity error
+
+// Bit definitions for SPDIF_IM
+#define SPDIF_PCCHM		6			// PC burst preamble change	
+#define SPDIF_OSLIPM	5			// Serial audio output port data slip interrupt
+#define SPDIF_DETCM		4			// Indicates the completion of a D to E C-buffer transfer
+#define SPDIF_CCHM		3			// Indicates that the current 10 bytes of channel status is different from the previous 10 bytes
+#define SPDIF_RERRM		2			// A receiver error has occurred
+#define SPDIF_QCHM		1			// A new block of Q-subcode is available for reading
+#define SPDIF_FCHM		0			// Format Change
+
+// Bit definitions for SPDIF_IMODE_MSB/SPDIF_IMODE_LSB
+#define SPDIF_PCCH1		6			
+#define SPDIF_OSLIP1	5
+#define SPDIF_DETC1		4
+#define SPDIF_CCH1		3
+#define SPDIF_RERR1		2
+#define SPDIF_QCH1		1
+#define SPDIF_FCH1		0
+
+#define SPDIF_PCCH0		6			
+#define SPDIF_OSLIP0	5
+#define SPDIF_DETC0		4
+#define SPDIF_CCH0		3
+#define SPDIF_RERR0		2
+#define SPDIF_QCH0		1
+#define SPDIF_FCH0		0
+
+// Bit definitions for SPDIF_RCSTAT
+#define SPDIF_AUX3		7			// Auxilliary data length
+#define SPDIF_AUX2		6
+#define SPDIF_AUX1		5
+#define SPDIF_AUX0		4
+#define SPDIF_PRO		3			// Indicates professional format
+#define SPDIF_COPY		2			// 1 = Copyright not asserted
+#define SPDIF_ORIG		1			// 1 = Receiver data is original
+#define SPDIF_EMPH		0			// 0 = 50uS/15uS pre-emphasis indicated
+
+// Bit definitions for SPDIF_FDSTAT
+#define SPDIF_PCM		6			// PCM data was detected
+#define SPDIF_IEC61937	5			// IEC61937 data was detected
+#define SPDIF_DTS_LD	4			// DTS_LD data was detected
+#define SPDIF_DTS_CD	3			// DTS_CD data was detected
+#define SPDIF_SIL		1			// Digital Silence was detected
+#define SPDIF_96KHZ		0			// 0 = input sample rate <= 48kHz
+
+// Bit definitions for SPDIF_INT1STAT
+#define SPDIF_PCCH		6			
+#define SPDIF_OSLIP		5
+#define SPDIF_DETC		4
+#define SPDIF_CCH		3
+#define SPDIF_RERR		2
+#define SPDIF_QCH		1
+#define SPDIF_FCH		0
+
+
+// Bit definitions for spdif_readStatus()
+#define SPDIF_STATUS_SILENCE 	0			// digital silence detected
+#define SPDIF_STATUS_PCM		1			// input data is in PCM format
+#define SPDIF_CONFIDENCE_ERROR	2			// parity+biphase error
+#define SPDIF_INTERRUPT			7
 
 
 // input 0,1,2 or 3
@@ -149,8 +373,7 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 #define INPUT_RX4   3
 #define MAX_INPUTS  INPUT_RX4
 
-//#define SRC_OUTPUT_BITS 20
-#define SRC_OUTPUT_BITS 24
+
 
 
 #define __ROTARY_ENCODER__
@@ -165,273 +388,16 @@ volatile signed int encoder_count;
 
 
 // Read one byte from the SRC4392
-uint8_t src4392_read(uint8_t reg)
+uint8_t cs8416_read(uint8_t reg)
 {
-    return I2C1_Read1ByteRegister(SRC4392_I2C_SLAVE_ADDR, reg);   
+    return I2C1_Read1ByteRegister(CS8416_I2C_SLAVE_ADDR, reg);   
 }
 
 
 // Write one byte to the SRC4392
-void src4392_write(uint8_t reg, uint8_t val)
+void cs8416_write(uint8_t reg, uint8_t val)
 {
-    I2C1_Write1ByteRegister(SRC4392_I2C_SLAVE_ADDR, reg, val);
-}
-
-// Set the digital de-emphasis mode
-// mode: DEEMPH_AUTO or DEEMPH_OFF
-void set_deemphasis(uint8_t mode)
-{
-	if (mode != DEEMPH_AUTO && mode != DEEMPH_OFF)
-		return;		// error checking
-
-	// Select SRC4392 page 0
-	src4392_write(SRC_REG7F, 0x00);
-
-	if (mode == DEEMPH_AUTO) {
-		src4392_write(SRC_REG2E, 0x20);
-	}
-	else if (mode == DEEMPH_OFF) {
-		src4392_write(SRC_REG2E, 0x00);
-	}
-}
-
-// Set the upsample rate
-// rate: UPSAMPLE_192KHZ or UPSAMPLE_96KHZ
-void set_upsample(uint8_t rate)
-{
-	if (rate != UPSAMPLE_192KHZ && rate != UPSAMPLE_96KHZ)
-		return;		// error checking
-
-    // mute audio
-    
-	// Select SRC4392 page 0
-	src4392_write(SRC_REG7F, 0x00);
-
-	if (rate == UPSAMPLE_192KHZ) {
-		// SRC4392 DIT setup:
-		// - SRC as the input data source
-		// - MCLK as master clock
-		// - clock divider 128 to set the output frame rate
-		// - block start is an output and valid audio is indicated
-		// - c and u data will not be updated
-		src4392_write(SRC_REG07, 0x1c);
-
-		// set up for 192KHz output 
-		src4392_write(SRC_REG08, 0x08);
-		src4392_write(SRC_REG7F, 0x02);
-		src4392_write(0x00, 0x80);
-		src4392_write(0x01, 0x80);
-		src4392_write(0x08, 0x18);
-		src4392_write(0x09, 0x18);
-		src4392_write(SRC_REG7F, 0x00);
-		src4392_write(SRC_REG08, 0x00);
-
-		// SRC4392 Port A setup:
-		// - MCLK as clock source
-		// - clock divider 128
-		src4392_write(SRC_REG04, 0x00);
-	}
-	else if (rate == UPSAMPLE_96KHZ) {
-		// SRC4392 DIT setup:
-		// - SRC as the input data source
-		// - MCLK as master clock
-		// - clock divider 256 to set the output frame rate
-		// - block start is an output and valid audio is indicated
-		// - c and u data will not be updated
-		src4392_write(SRC_REG07, 0x3c);
-
-		// set up for 96KHz output 
-		src4392_write(SRC_REG08, 0x08);
-		src4392_write(SRC_REG7F, 0x02);
-		src4392_write(0x00, 0x80);
-		src4392_write(0x01, 0x80);
-		src4392_write(0x08, 0x08);
-		src4392_write(0x09, 0x08);
-		src4392_write(SRC_REG7F, 0x00);
-		src4392_write(SRC_REG08, 0x00);
-
-		// SRC4392 Port A setup:
-		// - MCLK as clock source
-		// - clock divider 256
-		src4392_write(SRC_REG04, 0x01);
-	}
-
-	// Un-mute audio
-}
-
-// Set the DIT (digital output) routing
-// input: input number, mode: DIT_LOOPOUT or DIT_UPSAMPLE
-void set_dit_mode(uint8_t input, uint8_t mode)
-{
-	uint8_t	val;
-
-	if ((mode != DIT_UPSAMPLE && mode != DIT_LOOPOUT) ||
-	    input > MAX_INPUTS)
-		return;		// error checking
-
-	// Select SRC4392 page 0
-	src4392_write(SRC_REG7F, 0x00);
-
-	if (mode == DIT_UPSAMPLE) {
-		if (upsample_rate == UPSAMPLE_192KHZ) {
-			// DIT setup
-			// - SRC as the input data source
-			// - MCLK as master clock
-			// - clock divider 128 to set the output frame rate
-			// - block start is an output and valid audio
-			//   is indicated
-			// - c and u data will not be updated
-			src4392_write(SRC_REG07, 0x1c);
-
-			// set up for 192KHz output 
-			src4392_write(SRC_REG08, 0x08);
-			src4392_write(SRC_REG7F, 0x02);
-			src4392_write(0x00, 0x80);
-			src4392_write(0x01, 0x80);
-			src4392_write(0x08, 0x18);
-			src4392_write(0x09, 0x18);
-			src4392_write(SRC_REG7F, 0x00);
-			src4392_write(SRC_REG08, 0x00);
-		}
-		else if (upsample_rate == UPSAMPLE_96KHZ) {
-			// DIT setup
-			// - SRC as the input data source
-			// - MCLK as master clock
-			// - clock divider 256 to set the output frame rate
-			// - block start is an output and valid audio
-			//   is indicated
-			// - c and u data will not be updated
-			src4392_write(SRC_REG07, 0x3c);
-
-			// set up for 96KHz output 
-			src4392_write(SRC_REG08, 0x08);
-			src4392_write(SRC_REG7F, 0x02);
-			src4392_write(0x00, 0x80);
-			src4392_write(0x01, 0x80);
-			src4392_write(0x08, 0x08);
-			src4392_write(0x09, 0x08);
-			src4392_write(SRC_REG7F, 0x00);
-			src4392_write(SRC_REG08, 0x00);
-		}
-	}
-	else if (mode == DIT_LOOPOUT) {
-		// set both AES and TX outputs to receive their
-		// data via the bypass multiplexor without going
-		// through the DIT block.
-		val = (uint8_t)((input) << 6 | 0x30);       
-		src4392_write(SRC_REG08, val);
-	}
-}
-
-
-// Set the input
-// input: 0..4, mode: DIT_UPSAMPLE or DIT_LOOPOUT
-void set_input(uint8_t input, uint8_t mode)
-{
-	uint8_t	val;
-
-	if ((input > MAX_INPUTS) ||
-	    (mode != DIT_UPSAMPLE && mode != DIT_LOOPOUT))
-		return;		// error checking
-
-	// Select page 0
-	src4392_write(SRC_REG7F, 0x00);
-
-    // - set DIR input source to the appropriate RX port
-    // - use MCLK as clock source
-    // - audio muted for loss of lock condition
-    // - PLL free runs for loss of lock condition
-    // - RXCKO output disabled
-    val = 0x08 | input;
-    src4392_write(SRC_REG0D, val);
-    src4392_write(SRC_REG0E, 0x18);
-
-    // set SRC input source to DIR
-    src4392_write(SRC_REG2D, 0x02);
-
-	// update DIT mode
-	set_dit_mode(input, mode);
-}
-
-// Return the enum representing the current sample rate (SAMPLERATE_xxKHZ).
-uint8_t get_sample_rate(void)
-{
-	uint8_t	val0, val1;
-
-	// Select SRC4392 page 0
-	src4392_write(SRC_REG7F, 0x00);
-
-	val0 = src4392_read(SRC_REG32);
-	val1 = src4392_read(SRC_REG33);
-
-	if (upsample_rate == UPSAMPLE_192KHZ) {
-		// for output sample rate = 192K
-		if ((val0 == 0x07 && val1 == 0xff) ||
-		    (val0 == 0x08 && val1 == 0x00)) {
-			return SAMPLERATE_192KHZ;
-		}
-		else if (val0 == 0x07 && val1 == 0x59) {
-			return SAMPLERATE_176KHZ;
-		}
-		else if (val0 == 0x05 && val1 == 0x55) {
-			return SAMPLERATE_128KHZ;
-		}
-		else if ((val0 == 0x03 && val1 == 0xff) ||
-			 (val0 == 0x04 && val1 == 0x00)) {
-			return SAMPLERATE_96KHZ;
-		}
-		else if (val0 == 0x03 && val1 == 0xac) {
-			return SAMPLERATE_88KHZ;
-		}
-		else if (val0 == 0x02 && val1 == 0xaa) {
-			return SAMPLERATE_64KHZ;
-		}
-		else if ((val0 == 0x01 && val1 == 0xff) ||
-			 (val0 == 0x02 && val1 == 0x00)) {
-			return SAMPLERATE_48KHZ;
-		}
-		else if (val0 == 0x01 && val1 == 0xd6) {
-			return SAMPLERATE_44KHZ;
-		}
-		else if (val0 == 0x01 && val1 == 0x55) {
-			return SAMPLERATE_32KHZ;
-		}
-	}
-	else if (upsample_rate == UPSAMPLE_96KHZ) {
-		// for output sample rate of 96KHz
-		if ((val0 == 0x0f && val1 == 0xff) ||
-		    (val0 == 0x10 && val1 == 0x00)) {
-			return SAMPLERATE_192KHZ;
-		}
-		else if (val0 == 0x0e && val1 == 0xb3) {
-			return SAMPLERATE_176KHZ;
-		}
-		else if (val0 == 0x0a && val1 == 0xaa) {
-			return SAMPLERATE_128KHZ;
-		}
-		else if ((val0 == 0x07 && val1 == 0xff) ||
-			 (val0 == 0x08 && val1 == 0x00)) {
-			return SAMPLERATE_96KHZ;
-		}
-		else if (val0 == 0x07 && val1 == 0x59) {
-			return SAMPLERATE_88KHZ;
-		}
-		else if (val0 == 0x05 && val1 == 0x55) {
-			return SAMPLERATE_64KHZ;
-		}
-		else if ((val0 == 0x03 && val1 == 0xff) ||
-			 (val0 == 0x04 && val1 == 0x00)) {
-			return SAMPLERATE_48KHZ;
-		}
-		else if (val0 == 0x03 && val1 == 0xac) {
-			return SAMPLERATE_44KHZ;
-		}
-		else if (val0 == 0x02 && val1 == 0xaa) {
-			return SAMPLERATE_32KHZ;
-		}
-	}
-
-	return SAMPLERATE_UNKNOWN;
+    I2C1_Write1ByteRegister(CS8416_I2C_SLAVE_ADDR, reg, val);
 }
 
 
@@ -444,107 +410,60 @@ void init(void)
     RESET_SetHigh();
     __delay_ms(10);
 	
-    // Select page 0
-	src4392_write(SRC_REG7F, 0x00);
-
-	// DIR setup:
-	// - set default input source
-	// - use MCLK as clock source
-	// - audio not muted for loss of lock condition
-	// - PLL stops for loss of lock condition
-	// - RXCKO output disabled
+    cs8416_write(SPDIF_CONTROL0, 0x00);
     
-    // 000010 00
-    // 00 => RXMUX1 / RXMUX0 => (RX1)
-    // 0
-    // 1 => RXCLK => MCLK
-	src4392_write(SRC_REG0D, 0x08);	// default input source = RX1
-	src4392_write(SRC_REG0E, 0x00);
+    // RMCKF[1] : 0 => RMCK output frequency is 256*FS.
+    cs8416_write(SPDIF_CONTROL1, 0x00);
+    // RMCKF[1] : 1 => RMCK output frequency is 128*FS.
+    //cs8416_write(CS8416_CTRL1, 0x02); 
+    
+    // DETCI[7] : 0 => D to E status transfer inhibit allow update
+    // EMPH_CNTL[2:0] : 0x4 => 50 ?s/15 ?s de-emphasis filter auto-select on.
+    // GPO0SEL[3..0] : 0 => GPO0 Source select
 
-	// PLL1 setup:
-	// 24.576MHz, p = 2, j = 8, d = 0
-	src4392_write(SRC_REG0F, 0x22);
-	src4392_write(SRC_REG10, 0x00);
-	src4392_write(SRC_REG11, 0x00);
-
-	// Set GP01 for DIR non-audio flag
-	src4392_write(SRC_REG1B, 0x06);
-	// Set GP02 for DIR non-valid flag
-	src4392_write(SRC_REG1C, 0x07);
-	// Set GP03 for DIR emphasis flag
-	src4392_write(SRC_REG1D, 0x05);
-	// Set GP04 for DIR parity error flag
-	src4392_write(SRC_REG1E, 0x0d);
-
-	// SRC setup:
-	// - DIR as the input data source
-	// - use MCLK as clock source
-	// - autodem enabled
-	src4392_write(SRC_REG2D, 0x02);	// default input source = DIR
-	src4392_write(SRC_REG2E, 0x20);
-
-#if 0
-#if SRC_OUTPUT_BITS == 24
-    src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
-#elif SRC_OUTPUT_BITS == 20
-    src4392_write(SRC_REG2F, 0x40); // SRC output 20 Bit
-#else
-    // default 24 Bit
-    src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
-#endif
-#else
-    if (SEL_GetValue()) {
-        src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
-    }
-    else {
-        src4392_write(SRC_REG2F, 0x40); // SRC output 20 Bit
-    }
-#endif
     
     
-	src4392_write(SRC_REG30, 0x00);
-	src4392_write(SRC_REG31, 0x00);
-
-	// DIT setup:
-	// - SRC as the input data source
-	// - MCLK as master clock
-	// - clock divider 128 to set the output frame rate
-	// - block start is an output and valid audio is indicated
-	// - c and u data will not be updated
     
-    // 0x1c => 0001'1100
-	src4392_write(SRC_REG07, 0x1c);
-	src4392_write(SRC_REG08, 0x00);
-	src4392_write(SRC_REG09, 0x00);
+    	cs8416_write(SPDIF_CONTROL2, (0x04 << SPDIF_EMPH_CNTL0) |		// Automatic de-emphasis filter select
+								(0x00 << SPDIF_GPO0SEL0));		// GPO0 Source select
+							
 
-	// set up for 192KHz output
-	src4392_write(SRC_REG08, 0x08);
-	src4392_write(SRC_REG7F, 0x02);
-	src4392_write(0x00, 0x80);
-	src4392_write(0x01, 0x80);
-	src4392_write(0x08, 0x18);
-	src4392_write(0x09, 0x18);
-	src4392_write(SRC_REG7F, 0x00);
-	src4392_write(SRC_REG08, 0x00);
-
-	// Power up all blocks
-	src4392_write(SRC_REG01, 0x3f);
-
-	// Port A setup:
-	// - master with i2s data format
-	// - SRC as input data source
-	// - MCLK as clock source
-	// - clock divider 128
-	src4392_write(SRC_REG03, 0x39);
-	src4392_write(SRC_REG04, 0x00);
-
-	// Port B setup:
-	// - slave with i2s data format
-	src4392_write(SRC_REG05, 0x01);
-	src4392_write(SRC_REG06, 0x00);
+        
+    
+    cs8416_write(SPDIF_CONTROL3, 0x00);
+    
+   
+    
+	cs8416_write(SPDIF_SADF,
+		(1<<SPDIF_SOMS) | (1<<SPDIF_SOSF) | (1<<SPDIF_SODEL) | (1<<SPDIF_SOLRPOL));	// Master mode, OSCLK & OLRCLK are outputs
+																						// OSCLK frequency = 128*Fs
+	
+	cs8416_write(SPDIF_REM, 0x7F);								// Enable all errors
+	
+	//cs8416_write(SPDIF_IM, _BV(SPDIF_RERRM) | _BV(SPDIF_FCHM));	// Enable error and format change interrupts
+    
+ 
 }
 
 
+// Set the input
+// input: 0..7
+void set_input(uint8_t input)
+{
+	uint8_t	val;
+
+	if (input > MAX_INPUTS) {
+		return;		// error checking
+    }
+    
+    // RUN[7] : 1
+    // RXD[6] : 0
+    // RXSEL[5..3] : input
+    // TXSEL[2..0] : 0
+    val = ((1<<SPDIF_RUN) | ((input & 0x7) << SPDIF_RXSEL0) | (0x0 << SPDIF_TXSEL0));
+    cs8416_write(SPDIF_CONTROL3, val);
+    
+}
 
 
 static uint8_t get_chan_sel(void)
@@ -683,7 +602,7 @@ void main(void)
     
      __delay_ms(500);
     
-        LED_D4_SetDigitalOutput();
+    LED_D4_SetDigitalOutput();
     
     __delay_ms(500);
     
@@ -698,13 +617,7 @@ void main(void)
     encoder_count = (selected * ROTARY_MULTI);
 #endif
     
-    set_upsample(upsample_rate);
-    
-    set_dit_mode(selected, DIT_UPSAMPLE);
-    
-    set_deemphasis(DEEMPH_AUTO);
-    
-    set_input(selected, DIT_UPSAMPLE);
+    set_input(selected);
     
     while (1) {
 #if 1
@@ -715,7 +628,7 @@ void main(void)
         }
         
         if (selected != last_selected) {
-            set_input(selected, DIT_UPSAMPLE);
+            set_input(selected);
             // store current selected channel
             eeprom_write(EEPROM_ADR_CHANNEL, selected);
             last_selected = selected;
