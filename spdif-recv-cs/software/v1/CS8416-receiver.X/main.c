@@ -201,14 +201,11 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 
 
 // input 0,1,2 or 3
-
 #define INPUT_RX1   0
 #define INPUT_RX2   1
 #define INPUT_RX3   2
 #define INPUT_RX4   3
 #define MAX_INPUTS  INPUT_RX4
-
-
 
 
 #define __ROTARY_ENCODER__
@@ -245,6 +242,7 @@ void init(void)
     RESET_SetHigh();
     __delay_ms(10);
 	
+    
     cs8416_write(SPDIF_CONTROL0, 0x00);
     
     // RMCKF[1] : 0 => RMCK output frequency is 256*FS.
@@ -255,29 +253,18 @@ void init(void)
     // DETCI[7] : 0 => D to E status transfer inhibit allow update
     // EMPH_CNTL[2:0] : 0x4 => 50 ?s/15 ?s de-emphasis filter auto-select on.
     // GPO0SEL[3..0] : 0 => GPO0 Source select
+    cs8416_write(SPDIF_CONTROL2, (0x04 << SPDIF_EMPH_CNTL0) |		// Automatic de-emphasis filter select
+								 (0x00 << SPDIF_GPO0SEL0));		// GPO0 Source select
 
-    
-    
-    
-    	cs8416_write(SPDIF_CONTROL2, (0x04 << SPDIF_EMPH_CNTL0) |		// Automatic de-emphasis filter select
-								(0x00 << SPDIF_GPO0SEL0));		// GPO0 Source select
-							
-
-        
-    
     cs8416_write(SPDIF_CONTROL3, 0x00);
-    
    
-    
-	cs8416_write(SPDIF_SADF,
-		(1<<SPDIF_SOMS) | (1<<SPDIF_SOSF) | (1<<SPDIF_SODEL) | (1<<SPDIF_SOLRPOL));	// Master mode, OSCLK & OLRCLK are outputs
-																						// OSCLK frequency = 128*Fs
+    // Master mode, OSCLK & OLRCLK are outputs (I2S)
+    // OSCLK frequency = 128*Fs
+    cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
+                             (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
 	
 	cs8416_write(SPDIF_REM, 0x7F);								// Enable all errors
-	
 	//cs8416_write(SPDIF_IM, _BV(SPDIF_RERRM) | _BV(SPDIF_FCHM));	// Enable error and format change interrupts
-    
- 
 }
 
 
@@ -295,7 +282,7 @@ void set_input(uint8_t input)
     // RXD[6] : 0
     // RXSEL[5..3] : input
     // TXSEL[2..0] : 0
-    val = ((1<<SPDIF_RUN) | ((input & 0x7) << SPDIF_RXSEL0) | (0x0 << SPDIF_TXSEL0));
+    val = (uint8_t)((1<<SPDIF_RUN) | ((input & 0x7) << SPDIF_RXSEL0) | (0x0 << SPDIF_TXSEL0));
     cs8416_write(SPDIF_CONTROL3, val);
     
 }
