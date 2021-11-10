@@ -283,7 +283,7 @@ void set_input(uint8_t input)
     // RXSEL[5..3] : input
     // TXSEL[2..0] : 0
     val = (uint8_t)((1<<SPDIF_RUN) | ((input & 0x7) << SPDIF_RXSEL0) | (0x0 << SPDIF_TXSEL0));
-    cs8416_write(SPDIF_CONTROL3, val);
+    cs8416_write(SPDIF_CONTROL4, val);
     
 }
 
