@@ -47,7 +47,9 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 #define EEPROM_ADR_CHANNEL 0x00
 
 // Page 34 
-#define CS8416_I2C_SLAVE_ADDR              0x20
+// on bus : 0 0 1 0 AD2 AD1 AD0 R/W
+// for API /Bit: 0 0 1 0 AD2 AD1 AD0 => 0x10
+#define CS8416_I2C_SLAVE_ADDR              0x10
 
 
 
