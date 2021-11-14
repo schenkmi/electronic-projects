@@ -1,4 +1,71 @@
-EESchema Schematic File Version 2
-EELAYER 25 0
+EESchema Schematic File Version 4
+EELAYER 30 0
 EELAYER END
+$Descr A3 16535 11693
+encoding utf-8
+Sheet 1 1
+Title "Lateral MOS FET 160W"
+Date "2021-11-13"
+Rev "V1"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Transistor_BJT:BC556 Q1
+U 1 1 61911C69
+P 3250 2250
+F 0 "Q1" H 3441 2296 50  0000 L CNN
+F 1 "BC556" H 3441 2205 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 3450 2175 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/BC556BTA-D.pdf" H 3250 2250 50  0001 L CNN
+	1    3250 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BD139 Q2
+U 1 1 61912A2E
+P 5750 1850
+F 0 "Q2" H 5942 1896 50  0000 L CNN
+F 1 "MJE340" H 5942 1805 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-126-3_Horizontal_TabDown" H 5950 1775 50  0001 L CIN
+F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 5750 1850 50  0001 L CNN
+	1    5750 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BD140 Q3
+U 1 1 6191347E
+P 5750 2850
+F 0 "Q3" H 5942 2896 50  0000 L CNN
+F 1 "MJE350" H 5942 2805 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-126-3_Horizontal_TabDown" H 5950 2775 50  0001 L CIN
+F 3 "http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00001225.pdf" H 5750 2850 50  0001 L CNN
+	1    5750 2850
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:Q_NMOS_GSD Q5
+U 1 1 61915EFC
+P 9000 2300
+F 0 "Q5" H 9191 2391 50  0000 L CNN
+F 1 "Q_NMOS_GSD" H 9191 2300 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-247-3_Horizontal_TabDown" H 9191 2209 50  0000 L CNN
+F 3 "" H 9000 2300 50  0000 C CNN
+	1    9000 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L kicad-snk:Q_PMOS_GSD Q4
+U 1 1 619167B8
+P 8000 3950
+F 0 "Q4" H 8191 4041 50  0000 L CNN
+F 1 "Q_PMOS_GSD" H 8191 3950 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-247-3_Horizontal_TabDown" H 8191 3859 50  0000 L CNN
+F 3 "" H 8000 3950 50  0000 C CNN
+	1    8000 3950
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
