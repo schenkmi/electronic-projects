@@ -5,7 +5,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 1
 Title "Lateral MOS FET 160W"
-Date "2021-11-24"
+Date "2021-12-08"
 Rev "V2"
 Comp ""
 Comment1 ""
