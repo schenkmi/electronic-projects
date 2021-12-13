@@ -1447,4 +1447,12 @@ Wire Wire Line
 Connection ~ 10300 3900
 Wire Wire Line
 	10300 3900 10300 3150
+Text Notes 5350 4600 0    50   ~ 0
+C5: remove as it creates oszillation (6.42MHz)
+Text Notes 11400 4150 0    50   ~ 0
+C16/C17: not equipped
+Text Notes 10250 2250 0    50   ~ 0
+Idle: 19.5mA
+Text Notes 10950 2650 0    50   ~ 0
+Idle: 200mA
 $EndSCHEMATC
