@@ -254,7 +254,7 @@ Wire Wire Line
 Text Notes 3150 3050 0    50   ~ 0
 Snubber
 Text Notes 3150 5150 0    50   ~ 0
-Cs=100nF/50\nRs=25.8R/0.125W
+Cs=100nF/50\nRs=46R/0.125W
 Wire Notes Line
 	3150 3150 4100 3150
 Wire Notes Line
@@ -514,4 +514,6 @@ F 3 "" H 8450 10200 50  0001 C CNN
 	1    8450 10200
 	1    0    0    -1  
 $EndComp
+Text Notes 1450 10050 0    50   ~ 0
+Trafo\nTalema 55187-P1S2\nhttps://www.tme.eu/de/details/55187-p1s2/ringkerntransformatoren/talema/
 $EndSCHEMATC
