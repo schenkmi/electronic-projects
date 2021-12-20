@@ -1408,7 +1408,13 @@ Wire Wire Line
 Text Notes 11400 4000 0    50   ~ 0
 Eventuell\nQ5 Source (Pin2) -> Q12 Source (Pin2) 220nF
 Text Notes 5300 2800 0    50   ~ 0
-MJE350 => BD140 (or KSA1381)\nMJE340 => BD139 (or KSA3503)
+MJE350 => BF470, BD140 (or KSA1381)\nMJE340 => BF469, BD139 (or KSA3503)
 Text Notes 11250 3550 0    50   ~ 0
-Iq 50mA per FET
+Iq 100mA per FET
+Text Notes 5200 4600 0    50   ~ 0
+C5: remove as it creates oszillation (6.42MHz)
+Text Notes 10250 2200 0    50   ~ 0
+Idle: 19.5mA
+Text Notes 11000 2650 0    50   ~ 0
+Idle: 200mA
 $EndSCHEMATC
