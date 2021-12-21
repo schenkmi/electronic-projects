@@ -1100,18 +1100,16 @@ Wire Wire Line
 	11500 7550 11400 7550
 Wire Wire Line
 	11100 7550 10900 7550
-Text Notes 11400 4000 0    50   ~ 0
-Eventuell\nQ5 Source (Pin2) -> Q12 Source (Pin2) 220nF
 Text Notes 5300 2800 0    50   ~ 0
 MJE350 => BF470, BD140 (or KSA1381)\nMJE340 => BF469, BD139 (or KSA3503)
-Text Notes 11250 3550 0    50   ~ 0
-Iq 100mA per FET
+Text Notes 10950 3650 0    50   ~ 0
+Iq 100mA
 Text Notes 5200 4600 0    50   ~ 0
 C5: remove as it creates oszillation (6.42MHz)
-Text Notes 10250 2200 0    50   ~ 0
-Idle: 19.5mA
+Text Notes 10250 2300 0    50   ~ 0
+Idle: 15.5mA
 Text Notes 11000 2650 0    50   ~ 0
-Idle: 200mA
+Idle: 100mA
 $Comp
 L Transistor_BJT:BC856BS Q1
 U 1 1 61C1473B
@@ -1219,4 +1217,8 @@ Wire Wire Line
 Connection ~ 10900 4500
 Wire Wire Line
 	10900 5350 10900 6850
+Text Notes 11850 2300 0    50   ~ 0
+Idle: 120mA
+Text Notes 3400 2900 0    50   ~ 0
+I:1.7mA = > 430R
 $EndSCHEMATC
