@@ -1309,8 +1309,8 @@ F 3 "" H 2250 5100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2250 5100 2250 4950
-Text Notes 12850 8450 0    50   ~ 0
-2021.02.06\nDC Service not needed!
+Text Notes 12800 2650 0    50   ~ 0
+Iq:15mA
 Wire Wire Line
 	8550 4450 12750 4450
 Wire Wire Line
