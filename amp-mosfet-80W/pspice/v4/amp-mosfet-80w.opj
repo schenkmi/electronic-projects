@@ -1,6 +1,6 @@
 (ExpressProject "amp-mosfet-160w"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S023 (3989754)  [11/2/2021]-[01/05/22]")
+  (SoftwareVersion "17.4-2019 S026 (4007227)  [1/17/2022]-[01/24/22]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -64,17 +64,53 @@
          ".\amp-mosfet-80w-pspicefiles\schematic1\bias.sim"
         (DisplayName "SCHEMATIC1-bias")
         (Type "PSpice Profile"))
-      (ActiveProfile ".\amp-mosfet-80w-pspicefiles\schematic1\bias.sim")))
+      (ActiveProfile ".\amp-mosfet-80w-pspicefiles\schematic1\ac.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
-    (BC856B/PLP
-      (FullPartName "BC856B/PLP.Normal")
+    (BC846B
+      (FullPartName "BC846B.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (BC847B
+      (FullPartName "BC847B.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (BC547B
+      (FullPartName "BC547B.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (BC556B
+      (FullPartName "BC556B.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EBIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (1N4148C
+      (FullPartName "1N4148C.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\CORDELL\CORDELL.OLB")
+      (DeviceIndex "0"))
+    (GREEN
+      (FullPartName "GREEN.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\CORDELL\CORDELL.OLB")
+      (DeviceIndex "0"))
+    (BC546B/PLP
+      (FullPartName "BC546B/PLP.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\PHIL_BJT.OLB")
       (DeviceIndex "0"))
-    (BC846B/ZTX
-      (FullPartName "BC846B/ZTX.Normal")
-      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ZETEX.OLB")
+    (VDC
+      (FullPartName "VDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (BC846BW/PLP
+      (FullPartName "BC846BW/PLP.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\PHIL_BJT.OLB")
       (DeviceIndex "0"))
     (BCM847DS
       (FullPartName "BCM847DS.Normal")
@@ -103,11 +139,6 @@
       (DeviceIndex "0"))
     (VAC
       (FullPartName "VAC.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
-      (DeviceIndex "0"))
-    (VDC
-      (FullPartName "VDC.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
       (DeviceIndex "0"))
@@ -159,35 +190,6 @@
       (FullPartName "C.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
-      (DeviceIndex "0"))
-    (R
-      (FullPartName "R.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
-      (DeviceIndex "0"))
-    (POT
-      (FullPartName "POT.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\BREAKOUT.OLB")
-      (DeviceIndex "0"))
-    (D1N4002
-      (FullPartName "D1N4002.Normal")
-      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\DIODE.OLB")
-      (DeviceIndex "0"))
-    (ECX10P20
-      (FullPartName "ECX10P20.Normal")
-      (LibraryName
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\EXICONMOSFET\EXICONMOSFET.OLB")
-      (DeviceIndex "0"))
-    (ECX10N20
-      (FullPartName "ECX10N20.Normal")
-      (LibraryName
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\EXICONMOSFET\EXICONMOSFET.OLB")
-      (DeviceIndex "0"))
-    (QMJE340/ON
-      (FullPartName "QMJE340/ON.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ON_BJT.OLB")
       (DeviceIndex "0")))
   (LastUsedLibraryBrowseDirectory
      "C:\Users\schenk\Documents\GitHub\electronic-projects\pspice-tube-library\Cordell")
@@ -197,29 +199,26 @@
     (FileView
       (Path "Design Resources")
       (Path "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice\v3\amp-mosfet-80w.DSN")
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice\v4\amp-mosfet-80w.DSN")
       (Path "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice\v3\amp-mosfet-80w.DSN"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice\v4\amp-mosfet-80w.DSN"
          "SCHEMATIC1")
       (Path "Design Resources" "Library")
-      (Path "Outputs")
-      (Select "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice\v3\amp-mosfet-80w.DSN"
-         "SCHEMATIC1" "PAGE1"))
+      (Path "Outputs"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 438"))
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 461"))
       (Tab 0))
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 913 24 479")
-        (Scroll "155 83")
+        (Placement "44 0 1 -1 -1 -1 -1 5 1194 24 479")
+        (Scroll "134 267")
         (Zoom "100")
         (Occurrence "/"))
       (Path
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\AMP-MOSFET-80W\PSPICE\V3\AMP-MOSFET-80W.DSN")
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\AMP-MOSFET-80W\PSPICE\V4\AMP-MOSFET-80W.DSN")
       (Schematic "SCHEMATIC1")
       (Page "PAGE1"))))
