@@ -1,6 +1,6 @@
 (ExpressProject "amp-protection"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S (3842415DEV319) [2/13/2020]-[08/12/09]")
+  (SoftwareVersion "17.4-2019 S026 (4007227)  [1/17/2022]-[02/09/22]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -32,28 +32,87 @@
     (ANNOTATE_No_Page_Number_Change "TRUE")
     (ANNOTATE_Property_Combine "{Value}{Source Package}")
     (DOCKED "TRUE")
-    (DOCKING_POSITION "59420"))
+    (DOCKING_POSITION "59420")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE"))
   (Folder "Layout")
-  (Folder "Outputs")
+  (Folder "Outputs"
+    (File ".\amp-protection-pspicefiles\schematic1\schematic1.net"
+      (Type "Report")))
   (Folder "PSpice Resources"
-    (Folder "Model Libraries")
-    (Folder "Stimulus Files")
-    (Folder "Include Files")
+    (Folder "Model Libraries"
+      (Sort User))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User))
     (Folder "Simulation Profiles"
-      (ActiveProfile ".\amp-protection-pspicefiles\schematic1\bias.sim")
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
          ".\amp-protection-pspicefiles\schematic1\bias.sim"
         (DisplayName "SCHEMATIC1-bias")
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\amp-protection-pspicefiles\schematic1\tran.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\amp-protection-pspicefiles\schematic1\tran.sim"
+        (DisplayName "SCHEMATIC1-tran")
         (Type "PSpice Profile"))))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
-    (R
-      (FullPartName "R.Normal")
-      (LibraryName "..\..\LIBRARY\PSPICE\ANALOG.OLB")
+    (CNY17-3
+      (FullPartName "CNY17-3.Normal")
+      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\OPTO.OLB")
+      (DeviceIndex "0"))
+    (Relay_SPDT_b
+      (FullPartName "Relay_SPDT_b.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\MIX_MISC.OLB")
+      (DeviceIndex "0"))
+    (MPSA92
+      (FullPartName "MPSA92.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\BIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (Sw_tOpen
+      (FullPartName "Sw_tOpen.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANL_MISC.OLB")
+      (DeviceIndex "0"))
+    (BZX84C15/ZTX
+      (FullPartName "BZX84C15/ZTX.Normal")
+      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ZETEX.OLB")
       (DeviceIndex "0"))
     (C
       (FullPartName "C.Normal")
-      (LibraryName "..\..\LIBRARY\PSPICE\ANALOG.OLB")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
+    (MPSA42
+      (FullPartName "MPSA42.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\BIPOLAR.OLB")
+      (DeviceIndex "0"))
+    (D1N4004
+      (FullPartName "D1N4004.Normal")
+      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\DIODE.OLB")
+      (DeviceIndex "0"))
+    (VSIN
+      (FullPartName "VSIN.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (IAC
+      (FullPartName "IAC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (VDC
+      (FullPartName "VDC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (R
+      (FullPartName "R.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
       (DeviceIndex "0"))
     (L
       (FullPartName "L.Normal")
@@ -62,11 +121,37 @@
     (VSTIM
       (FullPartName "VSTIM.Normal")
       (LibraryName "..\..\LIBRARY\PSPICE\SOURCSTM.OLB")
-      (DeviceIndex "0"))
-    (VDC
-      (FullPartName "VDC.Normal")
-      (LibraryName "..\..\LIBRARY\PSPICE\SOURCE.OLB")
       (DeviceIndex "0")))
-  (LastUsedLibraryBrowseDirectory "LIBRARY\PSPICE")
-  (MPSSessionName "nitint")
-  (Folder "Logs"))
+  (LastUsedLibraryBrowseDirectory
+     "C:\Cadence\SPB_17.4\tools\capture\library\pspice")
+  (MPSSessionName "schenk")
+  (Folder "Logs")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice-protection\v1\amp-protection.dsn")
+      (Path "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice-protection\v1\amp-protection.dsn"
+         "SCHEMATIC1")
+      (Path "Outputs")
+      (Select "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice-protection\v1\amp-protection.dsn"
+         "SCHEMATIC1" "PAGE1"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 532"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 5 24 5 913 24 550")
+        (Scroll "481 120")
+        (Zoom "136")
+        (Occurrence "/"))
+      (Path
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\AMP-MOSFET-80W\PSPICE-PROTECTION\V1\AMP-PROTECTION.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))
