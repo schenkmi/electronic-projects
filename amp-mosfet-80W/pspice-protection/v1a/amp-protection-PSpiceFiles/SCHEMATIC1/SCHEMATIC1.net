@@ -1,0 +1,54 @@
+* source AMP-PROTECTION
+R_R1         N15689 N14768  22k TC=0,0 
+R_R2         N15002 N14772  22k TC=0,0 
+V_V1         N14677 0 50Vdc
+V_V2         N14991 0  
++SIN 0V 35V 50Hz 0 0 0
+D_D1         N14768 N14576 D1N4004 
+D_D2         N14772 N14576 D1N4004 
+R_R3         0 N14576  10k TC=0,0 
+Q_Q1         N14693 N25522 0 MPSA42
+R_R4         N14693 N14689  100 TC=0,0 
+R_R5         N14689 N14677  100k TC=0,0 
+C_C1         0 N14689  470n  TC=0,0 
+V_V3         0 N14996  
++SIN 0V 35V 50Hz 0 0 0
+Q_Q2         N150581 N14689 0 MPSA42
+C_C2         0 N15218  22u  TC=0,0 
+R_R6         N15218 N14677  220k TC=0,0 
+R_R7         N150581 N15218  100 TC=0,0 
+Q_Q3         N15571 N15218 N15575 MPSA42
+D_D3         N15575 N15533 D1N4004 
+D_D4         0 N15533 BZX84C15/ZTX 
+R_R8         N15571 N14677  6.8k TC=0,0 
+R_R9         N15533 N14677  47k TC=0,0 
+X_U1         N14991 N15689 Sw_tOpen PARAMS: tOpen=4 ttran=1u Rclosed=0.01
++  Ropen=1Meg
+X_U2         N14996 N15002 Sw_tOpen PARAMS: tOpen=4 ttran=1u Rclosed=0.01
++  Ropen=1Meg
+Q_Q4         N15931 N15571 N14677 MPSA92
+R_R10         N15888 N15931  100 TC=0,0 
+X_U3         N15888 0 N16041 N16297 N16123 Relay_Spdt_Bhv_Bounce PARAMS:
++ T_make=20m
++ T_break=10m
++ T_bounce=5m
++ I_pull=35ma
++ I_drop=25ma
++ R_coil=100
++ L_coil=5mH
++ R_open=100MEG
++ R_close=.05
+R_R11         0 N16041  47k TC=0,0 
+V_V4         N16123 0 5Vdc
+R_R12         0 N16297  47k TC=0,0 
+C_C3         0 N17995  47u  TC=0,0 
+R_R15         N18304 N17995  47k TC=0,0 
+X_U4         N18297 N18304 Sw_tClose PARAMS: tClose=3 ttran=1u Rclosed=0.01
++  Ropen=1Meg
+V_V6         N18297 0 -2Vdc
+Q_Q9         N25043 0 N17995 MPSA42
+Q_Q10         0 N25043 N25047 MPSA92
+Q_Q11         N25047 N17995 0 MPSA42
+R_R20         0 N17995  22k TC=0,0 
+R_R21         N25047 N15218  10 TC=0,0 
+R_R22         N25522 N14576  100 TC=0,0 
