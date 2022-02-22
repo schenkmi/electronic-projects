@@ -3,7 +3,7 @@
 @Settings: 0 1
 @General:
 ProfileName= "Tran" 
-ProfileFile= "Tran.sim" 
+ProfileFile= "tran.sim" 
 Connectivity= "SCHEMATIC1.net" 
 NetlistFile= "Tran.cir" 
 DataFile= "Tran.dat" 
@@ -13,14 +13,14 @@ Notes=
 @#$ENDNOTES
 @End General
 @Analysis: 0 1
-+0 0 0 0 
-+0 "20ms" 
++0 1 0 0 
++0 "200ms" 
 +1 "" 
 +2 "0" 
 +3 "1u" 
-+4 "" 
-+5 "" 
-+6 "" 
++4 "1k" 
++5 "V(R28:2)" 
++6 "5" 
 @End Analysis
 @Analysis: 1 0
 +2 0 0
@@ -129,8 +129,8 @@ SaveFile 0 ""
 @End Analysis
 @Analysis: 17 0
 +0 "-1" 
-+1 "" 
-+2 "-1" 
++1 "-1" 
++2 "0" 
 +3 "-1" 
 +4 "1" 
 @End Analysis
