@@ -1,6 +1,6 @@
 (ExpressProject "amp-protection"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S026 (4007227)  [1/17/2022]-[02/11/22]")
+  (SoftwareVersion "17.4-2019 S027 (4012302)  [2/5/2022]-[02/21/22]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -50,11 +50,15 @@
          ".\amp-protection-pspicefiles\schematic1\bias.sim"
         (DisplayName "SCHEMATIC1-bias")
         (Type "PSpice Profile"))
-      (ActiveProfile ".\amp-protection-pspicefiles\schematic1\tran.sim")
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
          ".\amp-protection-pspicefiles\schematic1\tran.sim"
         (DisplayName "SCHEMATIC1-tran")
-        (Type "PSpice Profile"))))
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\amp-protection-pspicefiles\schematic1\bias-3sec.sim"
+        (DisplayName "SCHEMATIC1-bias-3sec")
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\amp-protection-pspicefiles\schematic1\tran.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
     (Sw_tClose
@@ -152,16 +156,5 @@
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 532"))
-      (Tab 0))
-    (Doc
-      (Type "COrSchematicDoc")
-      (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 1194 24 550")
-        (Scroll "75 209")
-        (Zoom "100")
-        (Occurrence "/"))
-      (Path
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\AMP-MOSFET-80W\PSPICE-PROTECTION\V1A\AMP-PROTECTION.DSN")
-      (Schematic "SCHEMATIC1")
-      (Page "PAGE1"))))
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 461"))
+      (Tab 0))))
