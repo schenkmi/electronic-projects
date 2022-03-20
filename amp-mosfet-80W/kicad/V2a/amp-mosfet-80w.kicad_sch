@@ -6,7 +6,7 @@
 
   (title_block
     (title "Lateral MOS FET 80W")
-    (date "2022-02-02")
+    (date "2022-03-20")
     (rev "V2a")
   )
 
@@ -1826,7 +1826,8 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c71f56c1-5b7c-4373-9716-fffac482104c)
   )
-  (text "R2/C2 => 1k/1n\nR2/C2 => 470R/470p" (at 100.33 168.91 0)
+  (text "R2/C2 => 1k/1n\nR2/C2 => 470R/470p\n\nCurrenlty used:\nR2=1k/C2=1n/C16 not populated"
+    (at 73.025 172.72 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid f38bb362-1913-44d0-a35c-1aa477594df3)
   )
@@ -1988,7 +1989,7 @@
     (property "Reference" "R3" (id 0) (at 126.238 91.5416 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "22k" (id 1) (at 126.238 93.853 0)
+    (property "Value" "" (id 1) (at 126.238 93.853 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 122.682 92.71 90)
@@ -3052,6 +3053,9 @@
     (pin "1" (uuid cf0bef72-ca14-4e69-be35-1f112576b0ca))
     (pin "2" (uuid 3385122f-8a7e-48c7-833b-f42c6d01ff70))
     (pin "6" (uuid fc87dbc8-dc10-448a-a30c-31f8942805e9))
+    (pin "3" (uuid 981ff4de-0330-4757-b746-0cb983df5e7c))
+    (pin "4" (uuid fead07ab-5a70-40db-ada8-c72dcc827bfc))
+    (pin "5" (uuid 7943ed8c-e760-4ace-9c5f-baf5589fae39))
   )
 
   (symbol (lib_id "Transistor_BJT:BC856BS") (at 147.32 133.35 180) (unit 2)
@@ -3069,6 +3073,9 @@
     (property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BC856BS.pdf" (id 3) (at 147.32 133.35 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (pin "1" (uuid 77aa6db5-9b8d-4983-b88e-30fe5af25975))
+    (pin "2" (uuid 0e0f9829-27a5-43b2-a0ae-121d3ce72ef4))
+    (pin "6" (uuid 3934b2e9-06c8-499c-a6df-4d7b35cfb894))
     (pin "3" (uuid 4a58a75a-c3a1-4008-826e-4097682ee034))
     (pin "4" (uuid a0a7411e-2ace-431e-9190-e1efd84cfa19))
     (pin "5" (uuid a2285651-61d7-419f-8e15-6bf6c6e6dd5d))
@@ -3092,6 +3099,9 @@
     (pin "1" (uuid e0583802-1569-4cd3-9486-99e7f32e64be))
     (pin "2" (uuid ea539131-0e68-48b8-ab1c-48a7e730f074))
     (pin "6" (uuid aebbe4a9-8276-47f3-ab49-db454bafd386))
+    (pin "3" (uuid 905b154b-e92b-469d-b2e2-340d67daddb7))
+    (pin "4" (uuid 778b0e81-d70b-4705-ae45-b4c475c88dab))
+    (pin "5" (uuid dfba7148-cad3-4f40-9835-b1394bd30a2c))
   )
 
   (symbol (lib_id "Transistor_BJT:BC856BS") (at 127 74.93 180) (unit 2)
@@ -3109,6 +3119,9 @@
     (property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BC856BS.pdf" (id 3) (at 127 74.93 0)
       (effects (font (size 1.27 1.27)) hide)
     )
+    (pin "1" (uuid f5a3f95b-1a53-41b4-b208-bf168c9d9c6d))
+    (pin "2" (uuid ed247857-b2a3-4b23-90ad-758c01ae5e8e))
+    (pin "6" (uuid 3d70e675-48ae-4edd-b95d-3ca51e634018))
     (pin "3" (uuid b9daf163-7c82-4586-8717-049299291796))
     (pin "4" (uuid a1382019-0d9b-435a-8a50-f6e6c2e9f5e8))
     (pin "5" (uuid 1c56d96d-fa53-4d21-be8c-bacb08d2651b))
@@ -3470,7 +3483,7 @@
       (reference "R2") (unit 1) (value "1k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000061922f14"
-      (reference "R3") (unit 1) (value "22k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R3") (unit 1) (value "22k/0.25W") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000061935443"
       (reference "R4") (unit 1) (value "4k7") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
