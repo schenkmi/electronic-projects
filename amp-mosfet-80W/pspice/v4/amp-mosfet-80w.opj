@@ -1,6 +1,6 @@
 (ExpressProject "amp-mosfet-160w"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S026 (4007227)  [1/17/2022]-[02/02/22]")
+  (SoftwareVersion "17.4-2019 S027 (4012302)  [2/5/2022]-[03/06/22]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -45,9 +45,12 @@
       (Type "Report")
       (DisplayName ".\amp-mosfet-80w-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net")))
   (Folder "PSpice Resources"
-    (Folder "Model Libraries")
-    (Folder "Stimulus Files")
-    (Folder "Include Files")
+    (Folder "Model Libraries"
+      (Sort User))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User))
     (Folder "Simulation Profiles"
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
          ".\amp-mosfet-80w-pspicefiles\schematic1\tran.sim"
@@ -61,7 +64,7 @@
          ".\amp-mosfet-80w-pspicefiles\schematic1\bias.sim"
         (DisplayName "SCHEMATIC1-bias")
         (Type "PSpice Profile"))
-      (ActiveProfile ".\amp-mosfet-80w-pspicefiles\schematic1\bias.sim")))
+      (ActiveProfile ".\amp-mosfet-80w-pspicefiles\schematic1\tran.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
     (BC846B
@@ -202,18 +205,20 @@
          "SCHEMATIC1")
       (Path "Design Resources" "Library")
       (Path "Outputs")
-      (Select "Design Resources"))
+      (Select "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice\v4\amp-mosfet-80w.DSN"
+         "SCHEMATIC1" "PAGE1"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 438"))
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 461"))
       (Tab 0))
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 913 24 479")
-        (Scroll "777 93")
+        (Placement "44 0 1 -1 -1 -1 -1 5 1194 24 479")
+        (Scroll "0 0")
         (Zoom "100")
         (Occurrence "/"))
       (Path
