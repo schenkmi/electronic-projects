@@ -1,6 +1,6 @@
 (ExpressProject "amp-mosfet-160w"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S023 (3989754)  [11/2/2021]-[01/05/22]")
+  (SoftwareVersion "17.4-2019 S028 (4018475)  [3/9/2022]-[04/10/22]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -38,12 +38,70 @@
     (ANNOTATE_Property_Combine "{Value}{Source Package}")
     (DOCKED "TRUE")
     (DOCKING_POSITION "59420")
-    (PSPICE_Regenerate_Netlist_Flag "FALSE"))
+    (PSPICE_Regenerate_Netlist_Flag "FALSE")
+    (DRC_Scope "0")
+    (DRC_Action "0")
+    (DRC_Create_Warnings "TRUE")
+    (DRC_View_Output "TRUE")
+    (DRC_View_Output_Type "2")
+    (DRC_Preserved_Waived "FALSE")
+    (RUN_Online_Rules "TRUE")
+    (DRC_Run_Electrical_Rules "TRUE")
+    (DRC_Check_Single_Node_Nets "TRUE")
+    (DRC_Check_No_Driving_Source "TRUE")
+    (DRC_Check_Duplicate_NetNames "TRUE")
+    (DRC_Check_Off-Page_Connectors "FALSE")
+    (DRC_Check_Ports "FALSE")
+    (DRC_Check_Unconnected_Nets "TRUE")
+    (DRC_Check_Floating_Pins "TRUE")
+    (DRC_SDT_Compatibility "FALSE")
+    (DRC_Check_Single_Node_Nets_Online "FALSE")
+    (DRC_Check_No_Driving_Source_Online "FALSE")
+    (DRC_Check_Duplicate_NetNames_Online "FALSE")
+    (DRC_Check_Off-Page_Connectors_Online "FALSE")
+    (DRC_Check_Ports_Online "FALSE")
+    (DRC_Check_Unconnected_Nets_Online "FALSE")
+    (DRC_Check_Floating_Pins_Online "FALSE")
+    (DRC_Run_Electrical_Reports "TRUE")
+    (DRC_Report_Netnames "FALSE")
+    (DRC_Report_Off-grid_Objects "FALSE")
+    (DRC_Report_Ports_and_Off-page_Connectors "FALSE")
+    (DRC_Check_for_Misleading_TAP "FALSE")
+    (DRC_Run_Physical_Rules "TRUE")
+    (DRC_Check_Physical_Power_Pins_Visibility "TRUE")
+    (DRC_Check_PCB_Footprint_Property "TRUE")
+    (DRC_Check_Normal_Convert_View_Sync "TRUE")
+    (DRC_Check_Incorrect_PinGroup_Assignment "TRUE")
+    (DRC_Check_High_Speed_Props_Syntax "TRUE")
+    (DRC_Check_Missing_Pin_Numbers "TRUE")
+    (DRC_Check_Device_With_No_Pins "TRUE")
+    (DRC_Check_Power_Ground_Short "TRUE")
+    (DRC_Check_Name_Prop_For_HierBlocks "TRUE")
+    (DRC_Check_Physical_Power_Pins_Visibility_Online "FALSE")
+    (DRC_Check_PCB_Footprint_Property_Online "FALSE")
+    (DRC_Check_Normal_Convert_View_Sync_Online "FALSE")
+    (DRC_Check_Incorrect_PinGroup_Assignment_Online "FALSE")
+    (DRC_Check_Missing_Pin_Numbers_Online "FALSE")
+    (DRC_Check_Device_With_No_Pins_Online "FALSE")
+    (DRC_Check_Power_Ground_Short_Online "FALSE")
+    (DRC_Check_Name_Prop_For_HierBlocks_Online "FALSE")
+    (DRC_Run_Physical_Reports "TRUE")
+    (DRC_Visible_Power_pins "FALSE")
+    (DRC_Report_Unused_Part_Packages "TRUE")
+    (DRC_Type_Mismatch "TRUE")
+    (DRC_Identical_References "TRUE")
+    (DRC_Run_Simulation_Rules "TRUE")
+    (DRC_Check_Pspice_Model_Lib_Path_Online "TRUE")
+    (DRC_Run_Custom_Rules "FALSE")
+    (DRC_Report_File
+       "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\AMP-MOSFET-80W\PSPICE\V3\AMP-MOSFET-80W.DRC"))
   (Folder "Layout")
   (Folder "Outputs"
     (File ".\amp-mosfet-80w-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net"
       (Type "Report")
-      (DisplayName ".\amp-mosfet-80w-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net")))
+      (DisplayName ".\amp-mosfet-80w-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net"))
+    (File ".\amp-mosfet-80w.drc"
+      (Type "Report")))
   (Folder "PSpice Resources"
     (Folder "Model Libraries"
       (Sort User))
@@ -67,6 +125,26 @@
       (ActiveProfile ".\amp-mosfet-80w-pspicefiles\schematic1\bias.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
+    (1N4148
+      (FullPartName "1N4148.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\EDIODE.OLB")
+      (DeviceIndex "0"))
+    (BCM856BS
+      (FullPartName "BCM856BS.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\BCM8XX\BCM8XX.OLB")
+      (DeviceIndex "0"))
+    (BCM846BS
+      (FullPartName "BCM846BS.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\BCM8XX\BCM8XX.OLB")
+      (DeviceIndex "0"))
+    (QBC846BDW1T1G
+      (FullPartName "QBC846BDW1T1G.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\BC846-856BDW1\BC846BDW1T1G_REV0.OLB")
+      (DeviceIndex "0"))
     (BC856B/PLP
       (FullPartName "BC856B/PLP.Normal")
       (LibraryName
@@ -169,28 +247,9 @@
       (FullPartName "POT.Normal")
       (LibraryName
          "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\BREAKOUT.OLB")
-      (DeviceIndex "0"))
-    (D1N4002
-      (FullPartName "D1N4002.Normal")
-      (LibraryName "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\DIODE.OLB")
-      (DeviceIndex "0"))
-    (ECX10P20
-      (FullPartName "ECX10P20.Normal")
-      (LibraryName
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\EXICONMOSFET\EXICONMOSFET.OLB")
-      (DeviceIndex "0"))
-    (ECX10N20
-      (FullPartName "ECX10N20.Normal")
-      (LibraryName
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\EXICONMOSFET\EXICONMOSFET.OLB")
-      (DeviceIndex "0"))
-    (QMJE340/ON
-      (FullPartName "QMJE340/ON.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ON_BJT.OLB")
       (DeviceIndex "0")))
   (LastUsedLibraryBrowseDirectory
-     "C:\Users\schenk\Documents\GitHub\electronic-projects\pspice-tube-library\Cordell")
+     "C:\Users\schenk\Documents\GitHub\electronic-projects\pspice-tube-library\BCM8xx")
   (MPSSessionName "schenk")
   (Folder "Logs")
   (GlobalState
@@ -210,13 +269,13 @@
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 438"))
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 1106"))
       (Tab 0))
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 913 24 479")
-        (Scroll "155 83")
+        (Placement "44 0 1 -1 -1 -1 -1 5 2033 24 1124")
+        (Scroll "-171 16")
         (Zoom "100")
         (Occurrence "/"))
       (Path
