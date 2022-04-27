@@ -32,6 +32,12 @@
 
 #include "mcc_generated_files/mcc.h"
 
+__EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
+              0xff, 0xff, 0xff, 0xff); // 0x00..0x07
+
+// EEPROM address of current channel
+#define EEPROM_ADR_CHANNEL 0x00
+
 #define SELIN1 PORTCbits.RC0
 #define SELIN2 PORTCbits.RC1
 #define SELIN3 PORTCbits.RC2
@@ -52,53 +58,6 @@
 #endif
 
 volatile signed int encoder_count;
-
-#if 0
-static void eeprom_example(void)
-{
-    volatile uint8_t value = 0x09;
-    uint8_t address = 0xE5;
-    eeprom_write(address, value);     // Writing value 0x9 to EEPROM address 0xE5        
-    value = eeprom_read (address);    // Reading the value from address 0xE5
-}
-#endif
-
-static int get_chan_sel(void)
-{
-    int ret = -1;
-    
-#ifdef __ROTARY_ENCODER__
-    
-
-    if (encoder_count >= 0) {
-    ret = encoder_count / ROTARY_MULTI;
-    }
-#else
-    /**
-     * PORTB weak pull-up RB7..RB4
-     * Input selector ties to GND so we invert the bits here
-     */
-    uint8_t input = (~(PORTB >> 4)) & 0x0f;
-    
-    switch (input) {
-        case 0x01: /* INPUT 1, RB4 tie to GND */
-            ret = 0;
-            break;
-        case 0x02: /* INPUT 2, RB5 tie to GND */
-            ret = 1;
-            break;
-        case 0x04: /* INPUT 3, RB6 tie to GND */
-            ret = 2;
-            break;
-        case 0x08: /* INPUT 4, RB7 tie to GND */
-            ret = 3;
-            break;
-        default:
-            break;
-    }
-#endif
-    return ret;
-}
 
 void init(void)
 {    
@@ -131,32 +90,72 @@ void encoder_click(void)
     previous |= tmp;    /* OR in the two new bits */
 
     encoder_count += table[(previous & 0x0f)];  /* Index into table */
-  
 #ifdef __ROTARY_CONTINUOUS__
-  if (encoder_count >= ((ROTARY_MAX + 1) * ROTARY_MULTI)) {
-    encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
-  }
-  else if (encoder_count <= ((ROTARY_MIN - 1) * ROTARY_MULTI)) {
-     encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
-  }
+    if (encoder_count >= ((ROTARY_MAX + 1) * ROTARY_MULTI)) {
+        encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
+    }
+    else if (encoder_count <= ((ROTARY_MIN - 1) * ROTARY_MULTI)) {
+        encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
+    }
 #else
-  if (encoder_count > (ROTARY_MAX * ROTARY_MULTI)) {
-    encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
-  }
-  else if (encoder_count < (ROTARY_MIN * ROTARY_MULTI)) {
-     encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
-  }
+    if (encoder_count > (ROTARY_MAX * ROTARY_MULTI)) {
+        encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
+    }
+    else if (encoder_count < (ROTARY_MIN * ROTARY_MULTI)) {
+        encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
+    }
 #endif
 }
 #endif
+
+static uint8_t get_chan_sel(void)
+{
+    uint8_t ret = 0xff;
+    
+#ifdef __ROTARY_ENCODER__
+    if (encoder_count >= 0) {
+        ret = (uint8_t)encoder_count / ROTARY_MULTI;
+    }
+#else
+    /**
+     * PORTB weak pull-up RB7..RB4
+     * Input selector ties to GND so we invert the bits here
+     */
+    uint8_t input = (~(PORTB >> 4)) & 0x0f;
+    
+    switch (input) {
+        case 0x01: /* INPUT 1, RB4 tie to GND */
+            ret = 0;
+            break;
+        case 0x02: /* INPUT 2, RB5 tie to GND */
+            ret = 1;
+            break;
+        case 0x04: /* INPUT 3, RB6 tie to GND */
+            ret = 2;
+            break;
+        case 0x08: /* INPUT 4, RB7 tie to GND */
+            ret = 3;
+            break;
+        default:
+            break;
+    }
+#endif
+    return ret;
+}
+
+
+void set_input(uint8_t input)
+{
+    PORTC = (((1 << input) & 0xff) | MUTE_OFF_BIT);           
+}
 
 /*
                          Main application
  */
 void main(void)
 {
-    int selected = -1;
-    int last_selected = -1;
+    uint8_t selected = 0xff;
+    uint8_t last_selected = 0xff;
     
     // initialize the device
     SYSTEM_Initialize();
@@ -200,16 +199,25 @@ void main(void)
     
     init();
     
+    // read last used channel
+    selected = eeprom_read(EEPROM_ADR_CHANNEL);
+#ifdef __ROTARY_ENCODER__
+    encoder_count = (selected * ROTARY_MULTI);
+#endif
+    
+    set_input(selected);
+    
     while (1) {
         __delay_ms(20);
         selected = get_chan_sel();
-        if (selected == -1) {
+        if (selected == 0xff) {
             continue;
         }
         
         if (selected != last_selected) {
-            PORTC &= ~((1 << last_selected) & 0xff);
-            PORTC |= (((1 << selected) & 0xff) | MUTE_OFF_BIT);
+            set_input(selected);
+            // store current selected channel
+            eeprom_write(EEPROM_ADR_CHANNEL, selected);
             last_selected = selected;
         }
     }
