@@ -54,7 +54,7 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 #   define __ROTARY_CONTINUOUS__
 #   define ROTARY_MIN       0
 #   define ROTARY_MAX       3
-#   define ROTARY_MULTI     6
+#   define ROTARY_MULTI     6 /* on 12PPR this gaves 3 clicks */
 #endif
 
 
