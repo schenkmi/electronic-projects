@@ -54,10 +54,19 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 #   define __ROTARY_CONTINUOUS__
 #   define ROTARY_MIN       0
 #   define ROTARY_MAX       3
-#   define ROTARY_MULTI     2
+#   define ROTARY_MULTI     6
 #endif
 
-volatile signed int encoder_count;
+
+
+
+volatile  int encoder_count = 0;
+volatile  int next_up ;
+volatile  int next_down ;
+
+volatile int channel = 0;
+volatile int tmp_channel = 0;
+
 
 void init(void)
 {    
@@ -73,38 +82,82 @@ void init(void)
     }
 }
 
+
+//void encoder_isr() {
+//    static int8_t lookup_table[] = {0,-1,1,0,1,0,0,-1,-1,0,0,1,0,1,-1,0};
+//    static uint8_t enc_val = 0;
+//    
+//    enc_val = enc_val << 2;
+//    enc_val = enc_val | ((PIND & 0b1100) >> 2)
+// 
+//    enc_count = enc_count + lookup_table[enc_val & 0b1111];
+//}
+
+
 #ifdef __ROTARY_ENCODER__
-const signed char table[] = { 0, -1, +1, 0, +1, 0, 0, -1, -1, 0, 0, +1, 0, +1, -1, 0 };
+const int8_t table[] = { 0, -1, +1, 0, +1, 0, 0, -1, -1, 0, 0, +1, 0, +1, -1, 0 };
 
 void encoder_click(void)
 {
-    static unsigned char previous = 0;
-    uint8_t tmp = 5;
+    //static unsigned char previous = 0;
+    
+    static uint8_t enc_val = 0;
+    
+    //uint8_t tmp = 5;
 
-    while(tmp--) { /* debounce */ ; }
+    //while(tmp--) { /* debounce */ ; }
  
     /* read CHANA and CHANB */
-    tmp = (uint8_t)((RCHANB_GetValue() << 1) | RCHANA_GetValue());
+    uint8_t tmp = (uint8_t)((RCHANB_GetValue() << 1) | RCHANA_GetValue());
 
-    previous <<= 2;     /* shift the previous data left two places */ 
-    previous |= tmp;    /* OR in the two new bits */
+    
+        enc_val = (uint8_t)(enc_val << 2);
+    enc_val = enc_val | (tmp);
+ 
+    encoder_count = encoder_count + table[enc_val & 0x0f];
+    
+    
+    //previous <<= 2;     /* shift the previous data left two places */ 
+    //previous |= tmp;    /* OR in the two new bits */
 
-    encoder_count += table[(previous & 0x0f)];  /* Index into table */
-#ifdef __ROTARY_CONTINUOUS__
-    if (encoder_count >= ((ROTARY_MAX + 1) * ROTARY_MULTI)) {
-        encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
+   // encoder_count += table[(previous & 0x0f)];  /* Index into table */
+
+    
+    if (encoder_count >= next_up) {
+     tmp_channel++;
+     encoder_count = 0;
+     //next_up = encoder_count + ROTARY_MULTI;
+     //next_down = encoder_count - ROTARY_MULTI;
+     
     }
-    else if (encoder_count <= ((ROTARY_MIN - 1) * ROTARY_MULTI)) {
-        encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
+    else if (encoder_count <= next_down) {
+     tmp_channel--;   
+     encoder_count = 0;
+    }
+    
+    
+
+
+#ifdef __ROTARY_CONTINUOUS__
+    if (tmp_channel > ROTARY_MAX) {
+        tmp_channel = channel = 0;
+    } else if (tmp_channel < ROTARY_MIN) {
+        tmp_channel = channel = ROTARY_MAX;
+    } else {
+        channel = tmp_channel;
     }
 #else
-    if (encoder_count > (ROTARY_MAX * ROTARY_MULTI)) {
-        encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
+    if (tmp_channel > ROTARY_MAX) {
+        tmp_channel = channel = ROTARY_MAX;
+    } else if (tmp_channel < ROTARY_MIN) {
+        tmp_channel = channel = 0;
+    } else {
+        channel = tmp_channel;
     }
-    else if (encoder_count < (ROTARY_MIN * ROTARY_MULTI)) {
-        encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
-    }
+    
 #endif
+    
+
 }
 #endif
 
@@ -113,9 +166,7 @@ static uint8_t get_chan_sel(void)
     uint8_t ret = 0xff;
     
 #ifdef __ROTARY_ENCODER__
-    if (encoder_count >= 0) {
-        ret = (uint8_t)encoder_count / ROTARY_MULTI;
-    }
+    ret = (uint8_t)channel;
 #else
     /**
      * PORTB weak pull-up RB7..RB4
@@ -160,7 +211,18 @@ void main(void)
     // initialize the device
     SYSTEM_Initialize();
     
+    
     encoder_count = 0;
+    next_up = encoder_count + ROTARY_MULTI;
+    next_down = encoder_count - ROTARY_MULTI;
+    
+        // read last used channel
+  //  selected = eeprom_read(EEPROM_ADR_CHANNEL);
+channel = tmp_channel = selected = eeprom_read(EEPROM_ADR_CHANNEL);
+    
+
+
+
     
 #ifdef __ROTARY_ENCODER__
     IOCBF6_SetInterruptHandler(encoder_click);
@@ -199,13 +261,11 @@ void main(void)
     
     init();
     
-    // read last used channel
-    selected = eeprom_read(EEPROM_ADR_CHANNEL);
-#ifdef __ROTARY_ENCODER__
-    encoder_count = (selected * ROTARY_MULTI);
-#endif
+
     
     set_input(selected);
+    last_selected = selected;
+    
     
     while (1) {
         __delay_ms(20);
