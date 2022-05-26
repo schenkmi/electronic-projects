@@ -2,7 +2,7 @@
  * PIC16F18446 based async sample rate converter
  * for TI/BB SRC4392/SRC4382
  *
- * Copyright (c) 2021, Michael Schenk
+ * Copyright (c) 2021-2022, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -13,11 +13,11 @@
  * of the License, or (at your option) any later version.
  *
  * OEMs, ISVs, VARs and other distributors that combine and distribute
- * commercially licensed software with Albis Technologies software
+ * commercially licensed software with Michael Schenk software
  * and do not wish to distribute the source code for the commercially
  * licensed software under version 2, or (at your option) any later
  * version, of the GNU General Public License (the "GPL") must enter
- * into a commercial license agreement with Albis Technologies Ldt.
+ * into a commercial license agreement with Michael Schenk.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -31,6 +31,7 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+
 /**
  * Save hex
  * cp ./async-sample-rate.X/dist/default/production/async-sample-rate.X.production.hex hex/
@@ -38,7 +39,6 @@
 
 #include "mcc_generated_files/mcc.h"
 #include "mcc_generated_files/examples/i2c1_master_example.h"
-
 
 __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
               0xff, 0xff, 0xff, 0xff); // 0x00..0x07
@@ -155,13 +155,27 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 
 #define __ROTARY_ENCODER__
 #ifdef __ROTARY_ENCODER__
-//#   define __ROTARY_CONTINUOUS__
+#   define __ROTARY_CONTINUOUS__
 #   define ROTARY_MIN       0
 #   define ROTARY_MAX       3
-#   define ROTARY_MULTI     1
+#   define ROTARY_MULTI     6 /* on 12PPR this gaves 3 clicks */
 #endif
 
-volatile signed int encoder_count;
+//volatile signed int encoder_count;
+
+volatile int encoder_count = 0;
+volatile int next_up = ROTARY_MULTI;
+volatile int next_down = -ROTARY_MULTI;
+
+
+//    encoder_count = 0;
+//    next_up = encoder_count + ROTARY_MULTI;
+//    next_down = encoder_count - ROTARY_MULTI;
+    
+
+
+volatile int channel = 0;
+//volatile int tmp_channel = 0;
 
 
 // Read one byte from the SRC4392
@@ -436,7 +450,7 @@ uint8_t get_sample_rate(void)
 
 
 
-void init(void)
+static uint8_t init(void)
 {   
     __delay_ms(100);
     RESET_SetLow();
@@ -542,6 +556,11 @@ void init(void)
 	// - slave with i2s data format
 	src4392_write(SRC_REG05, 0x01);
 	src4392_write(SRC_REG06, 0x00);
+    
+    // read last used channel
+    channel = eeprom_read(EEPROM_ADR_CHANNEL);
+    
+    return (uint8_t)channel;
 }
 
 
@@ -549,74 +568,59 @@ void init(void)
 
 static uint8_t get_chan_sel(void)
 {
-    uint8_t ret = 0xff;
-    
-#ifdef __ROTARY_ENCODER__
-    if (encoder_count >= 0) {
-        ret = (uint8_t)encoder_count / ROTARY_MULTI;
-    }
-#else
-    /**
-     * PORTB weak pull-up RB7..RB4
-     * Input selector ties to GND so we invert the bits here
-     */
-    uint8_t input = (~(PORTB >> 4)) & 0x0f;
-    
-    switch (input) {
-        case 0x01: /* INPUT 1, RB4 tie to GND */
-            ret = 0;
-            break;
-        case 0x02: /* INPUT 2, RB5 tie to GND */
-            ret = 1;
-            break;
-        case 0x04: /* INPUT 3, RB6 tie to GND */
-            ret = 2;
-            break;
-        case 0x08: /* INPUT 4, RB7 tie to GND */
-            ret = 3;
-            break;
-        default:
-            break;
-    }
-#endif
-    return ret;
+    return (uint8_t)channel;
 }
 
-#ifdef __ROTARY_ENCODER__
-const signed char table[] = { 0, -1, +1, 0, +1, 0, 0, -1, -1, 0, 0, +1, 0, +1, -1, 0 };
+
+const int8_t table[] = { 0, -1, +1, 0, +1, 0, 0, -1, -1, 0, 0, +1, 0, +1, -1, 0 };
 
 void encoder_click(void)
-{
-    static unsigned char previous = 0;
-    uint8_t tmp = 5;
+{    
+    static uint8_t enc_val = 0;
+    int tmp_channel = channel;
 
-    while(tmp--) { /* debounce */ ; }
- 
     /* read CHANA and CHANB */
-    tmp = (uint8_t)((ENCCHANB_GetValue() << 1) | ENCCHANA_GetValue());
+    uint8_t curr_enc_val = (uint8_t)((ENCCHANB_GetValue() << 1) | ENCCHANA_GetValue());
 
-    previous <<= 2;     /* shift the previous data left two places */ 
-    previous |= tmp;    /* OR in the two new bits */
+//    enc_val = (uint8_t)(enc_val << 2);
+//    enc_val |= tmp;
+    enc_val = (uint8_t)((enc_val << 2) | curr_enc_val);
+    encoder_count += table[enc_val & 0x0f];
+    
+    
+    //previous <<= 2;     /* shift the previous data left two places */ 
+    //previous |= tmp;    /* OR in the two new bits */
 
-    encoder_count += table[(previous & 0x0f)];  /* Index into table */
-  
+   // encoder_count += table[(previous & 0x0f)];  /* Index into table */
+
+    
+    if (encoder_count >= next_up) {
+        tmp_channel++;
+        encoder_count = 0;
+    }
+    else if (encoder_count <= next_down) {
+        tmp_channel--;   
+        encoder_count = 0;
+    }
+    
 #ifdef __ROTARY_CONTINUOUS__
-  if (encoder_count >= ((ROTARY_MAX + 1) * ROTARY_MULTI)) {
-    encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
-  }
-  else if (encoder_count <= ((ROTARY_MIN - 1) * ROTARY_MULTI)) {
-     encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
-  }
+    if (tmp_channel > ROTARY_MAX) {
+        channel = 0;
+    } else if (tmp_channel < ROTARY_MIN) {
+        channel = ROTARY_MAX;
+    } else {
+        channel = tmp_channel;
+    }
 #else
-  if (encoder_count > (ROTARY_MAX * ROTARY_MULTI)) {
-    encoder_count = (ROTARY_MAX * ROTARY_MULTI); 
-  }
-  else if (encoder_count < (ROTARY_MIN * ROTARY_MULTI)) {
-     encoder_count = (ROTARY_MIN * ROTARY_MULTI); 
-  }
+    if (tmp_channel > ROTARY_MAX) {
+        channel = ROTARY_MAX;
+    } else if (tmp_channel < ROTARY_MIN) {
+        channel = 0;
+    } else {
+        channel = tmp_channel;
+    }
 #endif
 }
-#endif
 
 
 /*
@@ -634,14 +638,12 @@ void main(void)
     // initialize the device
     SYSTEM_Initialize();
 
-    encoder_count = 0;
-
-#ifdef __ROTARY_ENCODER__
+//    encoder_count = 0;
+//    next_up = encoder_count + ROTARY_MULTI;
+//    next_down = encoder_count - ROTARY_MULTI;
+    
     IOCCF6_SetInterruptHandler(encoder_click);
     IOCCF7_SetInterruptHandler(encoder_click);
-    
-    // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
-    // Use the following macros to:
 
     // Enable the Global Interrupts
     INTERRUPT_GlobalInterruptEnable();
@@ -649,71 +651,25 @@ void main(void)
     // Enable the Peripheral Interrupts
     INTERRUPT_PeripheralInterruptEnable();
 
-    // Disable the Global Interrupts
-    //INTERRUPT_GlobalInterruptDisable();
-
-    // Disable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptDisable();
-#else
-    // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
-    // Use the following macros to:
-
-    // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
-
-    // Enable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptEnable();
-
-    // Disable the Global Interrupts
-    //INTERRUPT_GlobalInterruptDisable();
-
-    // Disable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptDisable();
-#endif
-    
-#if 0
-    LED_D5_SetLow();
-    LED_D4_SetLow();
-    
-    LED_D5_SetDigitalOutput();
-    
-    __delay_ms(500);
-    
-    LED_D5_SetDigitalInput();
-    
-     __delay_ms(500);
-    
-        LED_D4_SetDigitalOutput();
-    
-    __delay_ms(500);
-    
-    LED_D4_SetDigitalInput();
-#endif
-
-    init();
-    
-    // read last used channel
-    selected = eeprom_read(EEPROM_ADR_CHANNEL);
-#ifdef __ROTARY_ENCODER__
-    encoder_count = (selected * ROTARY_MULTI);
-#endif
-    
+    selected = init();
+        
     set_upsample(upsample_rate);
     
-    set_dit_mode(selected, DIT_UPSAMPLE);
+    //set_dit_mode(selected, DIT_UPSAMPLE);
     
     set_deemphasis(DEEMPH_AUTO);
     
     set_input(selected, DIT_UPSAMPLE);
+    last_selected = selected;
+    
+        
+
     
     while (1) {
 #if 1
         __delay_ms(20);
-        selected = get_chan_sel();
-        if (selected == 0xff) {
-            continue;
-        }
         
+        selected = get_chan_sel();
         if (selected != last_selected) {
             set_input(selected, DIT_UPSAMPLE);
             // store current selected channel
