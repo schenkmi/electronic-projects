@@ -40,6 +40,7 @@
 #include "mcc_generated_files/mcc.h"
 #include "mcc_generated_files/examples/i2c1_master_example.h"
 
+
 __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
               0xff, 0xff, 0xff, 0xff); // 0x00..0x07
 
