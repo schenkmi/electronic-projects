@@ -40,7 +40,6 @@
 #include "mcc_generated_files/mcc.h"
 #include "mcc_generated_files/examples/i2c1_master_example.h"
 
-
 __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
               0xff, 0xff, 0xff, 0xff); // 0x00..0x07
 
@@ -49,7 +48,6 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 
 // Page 38 
 #define SRC4392_I2C_SLAVE_ADDR              0x70
-
 
 // SRC4392 control/status registers
 #define SRC_REG01	0x01		// power down and reset
@@ -105,8 +103,6 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 #define SRC_REG33	0x33		// SRC input/output ratio
 #define SRC_REG7F	0x7f		// page selection
 
-
-
 // Sample rate enums
 #define SAMPLERATE_UNKNOWN	0	// unknown
 #define SAMPLERATE_32KHZ	1	// 32.0KHz
@@ -129,21 +125,16 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
  * DIT routing mode enums
  */
 #define DIT_UPSAMPLE		0	// upsample
-#define DIT_LOOPOUT		1	// loop-back
+#define DIT_LOOPOUT         1	// loop-back
 
 /*
  * Digital de-emphasis enums
  */
-#define DEEMPH_AUTO		0	// auto
-#define DEEMPH_OFF		1	// off
-
-
-uint8_t		upsample_rate = UPSAMPLE_192KHZ;
-uint8_t		dit_mode = DIT_UPSAMPLE;
+#define DEEMPH_AUTO         0	// auto
+#define DEEMPH_OFF          1	// off
 
 
 // input 0,1,2 or 3
-
 #define INPUT_RX1   0
 #define INPUT_RX2   1
 #define INPUT_RX3   2
@@ -153,38 +144,23 @@ uint8_t		dit_mode = DIT_UPSAMPLE;
 //#define SRC_OUTPUT_BITS 20
 #define SRC_OUTPUT_BITS 24
 
+#define __ROTARY_CONTINUOUS__
+#define ROTARY_MIN       0
+#define ROTARY_MAX       3
+#define ROTARY_MULTI     6 /* on 12PPR this gaves 3 clicks */
 
-#define __ROTARY_ENCODER__
-#ifdef __ROTARY_ENCODER__
-#   define __ROTARY_CONTINUOUS__
-#   define ROTARY_MIN       0
-#   define ROTARY_MAX       3
-#   define ROTARY_MULTI     6 /* on 12PPR this gaves 3 clicks */
-#endif
-
-//volatile signed int encoder_count;
-
+uint8_t upsample_rate = UPSAMPLE_192KHZ;
+uint8_t	dit_mode = DIT_UPSAMPLE;
 volatile int encoder_count = 0;
 volatile int next_up = ROTARY_MULTI;
 volatile int next_down = -ROTARY_MULTI;
-
-
-//    encoder_count = 0;
-//    next_up = encoder_count + ROTARY_MULTI;
-//    next_down = encoder_count - ROTARY_MULTI;
-    
-
-
 volatile int channel = 0;
-//volatile int tmp_channel = 0;
-
 
 // Read one byte from the SRC4392
 uint8_t src4392_read(uint8_t reg)
 {
     return I2C1_Read1ByteRegister(SRC4392_I2C_SLAVE_ADDR, reg);   
 }
-
 
 // Write one byte to the SRC4392
 void src4392_write(uint8_t reg, uint8_t val)
@@ -196,8 +172,9 @@ void src4392_write(uint8_t reg, uint8_t val)
 // mode: DEEMPH_AUTO or DEEMPH_OFF
 void set_deemphasis(uint8_t mode)
 {
-	if (mode != DEEMPH_AUTO && mode != DEEMPH_OFF)
+	if (mode != DEEMPH_AUTO && mode != DEEMPH_OFF) {
 		return;		// error checking
+    }
 
 	// Select SRC4392 page 0
 	src4392_write(SRC_REG7F, 0x00);
@@ -580,20 +557,10 @@ void encoder_click(void)
     static uint8_t enc_val = 0;
     int tmp_channel = channel;
 
-    /* read CHANA and CHANB */
-    uint8_t curr_enc_val = (uint8_t)((ENCCHANB_GetValue() << 1) | ENCCHANA_GetValue());
-
-//    enc_val = (uint8_t)(enc_val << 2);
-//    enc_val |= tmp;
+    /* read CHANA and CHANB, CW => up, CCW => down */
+    uint8_t curr_enc_val = (uint8_t)((ENCCHANA_GetValue() << 1) | ENCCHANB_GetValue());
     enc_val = (uint8_t)((enc_val << 2) | curr_enc_val);
     encoder_count += table[enc_val & 0x0f];
-    
-    
-    //previous <<= 2;     /* shift the previous data left two places */ 
-    //previous |= tmp;    /* OR in the two new bits */
-
-   // encoder_count += table[(previous & 0x0f)];  /* Index into table */
-
     
     if (encoder_count >= next_up) {
         tmp_channel++;
@@ -623,9 +590,30 @@ void encoder_click(void)
 #endif
 }
 
+static void led_debug_rotary(uint8_t channel)
+{
+    switch (channel) {
+        case 3:
+            LED_D5_SetDigitalOutput();
+            LED_D4_SetDigitalOutput();
+            break;
+        case 2:
+            LED_D5_SetDigitalInput();
+            LED_D4_SetDigitalOutput();
+            break; 
+        case 1:
+            LED_D4_SetDigitalInput();
+            LED_D5_SetDigitalOutput();
+            break;
+        default:
+            LED_D5_SetDigitalInput();
+            LED_D4_SetDigitalInput();
+            break;
+    }
+}
 
-/*
-                         Main application
+/**
+ * Main application
  */
 void main(void)
 {
@@ -636,35 +624,27 @@ void main(void)
     uint8_t selected = 0xff;
     uint8_t last_selected = 0xff;
     
-    // initialize the device
+    /* initialize the device */
     SYSTEM_Initialize();
 
-//    encoder_count = 0;
-//    next_up = encoder_count + ROTARY_MULTI;
-//    next_down = encoder_count - ROTARY_MULTI;
-    
+    /* install irq handlers */
     IOCCF6_SetInterruptHandler(encoder_click);
     IOCCF7_SetInterruptHandler(encoder_click);
 
-    // Enable the Global Interrupts
+    /* Enable the Global Interrupts */
     INTERRUPT_GlobalInterruptEnable();
 
-    // Enable the Peripheral Interrupts
+    /* Enable the Peripheral Interrupts */
     INTERRUPT_PeripheralInterruptEnable();
 
     selected = init();
         
     set_upsample(upsample_rate);
-    
-    //set_dit_mode(selected, DIT_UPSAMPLE);
-    
     set_deemphasis(DEEMPH_AUTO);
     
     set_input(selected, DIT_UPSAMPLE);
     last_selected = selected;
-    
-        
-
+    led_debug_rotary(selected);
     
     while (1) {
 #if 1
@@ -673,9 +653,10 @@ void main(void)
         selected = get_chan_sel();
         if (selected != last_selected) {
             set_input(selected, DIT_UPSAMPLE);
-            // store current selected channel
+            /* store current selected channel */
             eeprom_write(EEPROM_ADR_CHANNEL, selected);
             last_selected = selected;
+            led_debug_rotary(selected);
         }
 #else
         __delay_ms(100);
