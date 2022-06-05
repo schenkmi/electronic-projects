@@ -145,45 +145,45 @@
 #define IO_RB5_SetAnalogMode()      do { ANSELBbits.ANSB5 = 1; } while(0)
 #define IO_RB5_SetDigitalMode()     do { ANSELBbits.ANSB5 = 0; } while(0)
 
-// get/set RCHANA aliases
-#define RCHANA_TRIS                 TRISBbits.TRISB6
-#define RCHANA_LAT                  LATBbits.LATB6
-#define RCHANA_PORT                 PORTBbits.RB6
-#define RCHANA_WPU                  WPUBbits.WPUB6
-#define RCHANA_OD                   ODCONBbits.ODCB6
-#define RCHANA_ANS                  ANSELBbits.ANSB6
-#define RCHANA_SetHigh()            do { LATBbits.LATB6 = 1; } while(0)
-#define RCHANA_SetLow()             do { LATBbits.LATB6 = 0; } while(0)
-#define RCHANA_Toggle()             do { LATBbits.LATB6 = ~LATBbits.LATB6; } while(0)
-#define RCHANA_GetValue()           PORTBbits.RB6
-#define RCHANA_SetDigitalInput()    do { TRISBbits.TRISB6 = 1; } while(0)
-#define RCHANA_SetDigitalOutput()   do { TRISBbits.TRISB6 = 0; } while(0)
-#define RCHANA_SetPullup()          do { WPUBbits.WPUB6 = 1; } while(0)
-#define RCHANA_ResetPullup()        do { WPUBbits.WPUB6 = 0; } while(0)
-#define RCHANA_SetPushPull()        do { ODCONBbits.ODCB6 = 0; } while(0)
-#define RCHANA_SetOpenDrain()       do { ODCONBbits.ODCB6 = 1; } while(0)
-#define RCHANA_SetAnalogMode()      do { ANSELBbits.ANSB6 = 1; } while(0)
-#define RCHANA_SetDigitalMode()     do { ANSELBbits.ANSB6 = 0; } while(0)
+// get/set ENCCHANA aliases
+#define ENCCHANA_TRIS                 TRISBbits.TRISB6
+#define ENCCHANA_LAT                  LATBbits.LATB6
+#define ENCCHANA_PORT                 PORTBbits.RB6
+#define ENCCHANA_WPU                  WPUBbits.WPUB6
+#define ENCCHANA_OD                   ODCONBbits.ODCB6
+#define ENCCHANA_ANS                  ANSELBbits.ANSB6
+#define ENCCHANA_SetHigh()            do { LATBbits.LATB6 = 1; } while(0)
+#define ENCCHANA_SetLow()             do { LATBbits.LATB6 = 0; } while(0)
+#define ENCCHANA_Toggle()             do { LATBbits.LATB6 = ~LATBbits.LATB6; } while(0)
+#define ENCCHANA_GetValue()           PORTBbits.RB6
+#define ENCCHANA_SetDigitalInput()    do { TRISBbits.TRISB6 = 1; } while(0)
+#define ENCCHANA_SetDigitalOutput()   do { TRISBbits.TRISB6 = 0; } while(0)
+#define ENCCHANA_SetPullup()          do { WPUBbits.WPUB6 = 1; } while(0)
+#define ENCCHANA_ResetPullup()        do { WPUBbits.WPUB6 = 0; } while(0)
+#define ENCCHANA_SetPushPull()        do { ODCONBbits.ODCB6 = 0; } while(0)
+#define ENCCHANA_SetOpenDrain()       do { ODCONBbits.ODCB6 = 1; } while(0)
+#define ENCCHANA_SetAnalogMode()      do { ANSELBbits.ANSB6 = 1; } while(0)
+#define ENCCHANA_SetDigitalMode()     do { ANSELBbits.ANSB6 = 0; } while(0)
 
-// get/set RCHANB aliases
-#define RCHANB_TRIS                 TRISBbits.TRISB7
-#define RCHANB_LAT                  LATBbits.LATB7
-#define RCHANB_PORT                 PORTBbits.RB7
-#define RCHANB_WPU                  WPUBbits.WPUB7
-#define RCHANB_OD                   ODCONBbits.ODCB7
-#define RCHANB_ANS                  ANSELBbits.ANSB7
-#define RCHANB_SetHigh()            do { LATBbits.LATB7 = 1; } while(0)
-#define RCHANB_SetLow()             do { LATBbits.LATB7 = 0; } while(0)
-#define RCHANB_Toggle()             do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0)
-#define RCHANB_GetValue()           PORTBbits.RB7
-#define RCHANB_SetDigitalInput()    do { TRISBbits.TRISB7 = 1; } while(0)
-#define RCHANB_SetDigitalOutput()   do { TRISBbits.TRISB7 = 0; } while(0)
-#define RCHANB_SetPullup()          do { WPUBbits.WPUB7 = 1; } while(0)
-#define RCHANB_ResetPullup()        do { WPUBbits.WPUB7 = 0; } while(0)
-#define RCHANB_SetPushPull()        do { ODCONBbits.ODCB7 = 0; } while(0)
-#define RCHANB_SetOpenDrain()       do { ODCONBbits.ODCB7 = 1; } while(0)
-#define RCHANB_SetAnalogMode()      do { ANSELBbits.ANSB7 = 1; } while(0)
-#define RCHANB_SetDigitalMode()     do { ANSELBbits.ANSB7 = 0; } while(0)
+// get/set ENCCHANB aliases
+#define ENCCHANB_TRIS                 TRISBbits.TRISB7
+#define ENCCHANB_LAT                  LATBbits.LATB7
+#define ENCCHANB_PORT                 PORTBbits.RB7
+#define ENCCHANB_WPU                  WPUBbits.WPUB7
+#define ENCCHANB_OD                   ODCONBbits.ODCB7
+#define ENCCHANB_ANS                  ANSELBbits.ANSB7
+#define ENCCHANB_SetHigh()            do { LATBbits.LATB7 = 1; } while(0)
+#define ENCCHANB_SetLow()             do { LATBbits.LATB7 = 0; } while(0)
+#define ENCCHANB_Toggle()             do { LATBbits.LATB7 = ~LATBbits.LATB7; } while(0)
+#define ENCCHANB_GetValue()           PORTBbits.RB7
+#define ENCCHANB_SetDigitalInput()    do { TRISBbits.TRISB7 = 1; } while(0)
+#define ENCCHANB_SetDigitalOutput()   do { TRISBbits.TRISB7 = 0; } while(0)
+#define ENCCHANB_SetPullup()          do { WPUBbits.WPUB7 = 1; } while(0)
+#define ENCCHANB_ResetPullup()        do { WPUBbits.WPUB7 = 0; } while(0)
+#define ENCCHANB_SetPushPull()        do { ODCONBbits.ODCB7 = 0; } while(0)
+#define ENCCHANB_SetOpenDrain()       do { ODCONBbits.ODCB7 = 1; } while(0)
+#define ENCCHANB_SetAnalogMode()      do { ANSELBbits.ANSB7 = 1; } while(0)
+#define ENCCHANB_SetDigitalMode()     do { ANSELBbits.ANSB7 = 0; } while(0)
 
 // get/set IO_RC0 aliases
 #define IO_RC0_TRIS                 TRISCbits.TRISC0
