@@ -53,7 +53,7 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 #define LED     PORTAbits.RA4
 
 #define MUTE_OFF_BIT    0x10
-#define CHAN_SEL_MASK   0x1f
+#define CHAN_SEL_MASK   0x0f
 
 #define __ROTARY_CONTINUOUS__
 #define ROTARY_MIN       0 /* minimum channel */
@@ -129,12 +129,17 @@ static uint8_t get_chan_sel(void)
 
 void set_input(uint8_t input)
 {
-    /* clear and mute */
+    /* mute output */
+     PORTC &= ~MUTE_OFF_BIT;
+
+    __delay_ms(100);
+
+    /* clear and set new channel */
     PORTC &= ~CHAN_SEL_MASK;
-    __delay_ms(100);
-    /* set new input */
     PORTC |= ((1 << input) & CHAN_SEL_MASK);
+    
     __delay_ms(100);
+    
     /* unmute outputs */
     PORTC |= MUTE_OFF_BIT;
 }
