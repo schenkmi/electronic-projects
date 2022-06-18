@@ -141,15 +141,15 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 #define INPUT_RX4   3
 #define MAX_INPUTS  INPUT_RX4
 
-//#define SRC_OUTPUT_BITS 20
-#define SRC_OUTPUT_BITS 24
+#define SRC_OUTPUT_BITS 20
+//#define SRC_OUTPUT_BITS 24
 
 #define __ROTARY_CONTINUOUS__
 #define ROTARY_MIN       0
 #define ROTARY_MAX       3
 #define ROTARY_MULTI     6 /* on 12PPR this gaves 3 clicks */
 
-uint8_t upsample_rate = UPSAMPLE_192KHZ;
+uint8_t upsample_rate = UPSAMPLE_96KHZ;
 uint8_t	dit_mode = DIT_UPSAMPLE;
 volatile int encoder_count = 0;
 volatile int next_up = ROTARY_MULTI;
