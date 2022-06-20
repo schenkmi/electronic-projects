@@ -149,7 +149,12 @@ __EEPROM_DATA(0x00 /* channel 0 initial */, 0xff, 0xff, 0xff,
 #define ROTARY_MAX       3
 #define ROTARY_MULTI     6 /* on 12PPR this gaves 3 clicks */
 
-uint8_t upsample_rate = UPSAMPLE_96KHZ;
+/**
+ * PCM1702 supports x16 oversampling (44.1kHz) so upsampling to
+ * 192kHz is totaly fine. This results in a bit clock of
+ * 2 channels x 32Bit x 192kHz = 12.288MHz
+ */
+uint8_t upsample_rate = UPSAMPLE_192KHZ;
 uint8_t	dit_mode = DIT_UPSAMPLE;
 volatile int encoder_count = 0;
 volatile int next_up = ROTARY_MULTI;
