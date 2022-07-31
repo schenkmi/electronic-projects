@@ -44,7 +44,7 @@ void PIN_MANAGER_Initialize(void)
     */
     LATA = 0x0;
     LATB = 0x0;
-    LATC = 0xC;
+    LATC = 0x18;
     LATE = 0x0;
 
     /**
@@ -60,7 +60,7 @@ void PIN_MANAGER_Initialize(void)
     */
     ANSELA = 0x0;
     ANSELB = 0xE0;
-    ANSELC = 0xF0;
+    ANSELC = 0xE0;
 
     /**
     WPUx registers
@@ -99,10 +99,10 @@ void PIN_MANAGER_Initialize(void)
     /**
     PPS registers
     */
-    SSP1CLKPPS = 0x12;  //RC2->MSSP1:SCL1;
-    RC2PPS = 0x15;  //RC2->MSSP1:SCL1;
-    SSP1DATPPS = 0x13;  //RC3->MSSP1:SDA1;
-    RC3PPS = 0x16;  //RC3->MSSP1:SDA1;
+    SSP1CLKPPS = 0x13;  //RC3->MSSP1:SCL1;
+    RC3PPS = 0x15;  //RC3->MSSP1:SCL1;
+    SSP1DATPPS = 0x14;  //RC4->MSSP1:SDA1;
+    RC4PPS = 0x16;  //RC4->MSSP1:SDA1;
 
    /**
     IOCx registers 
