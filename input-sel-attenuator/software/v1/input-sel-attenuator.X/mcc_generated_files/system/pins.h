@@ -370,24 +370,24 @@
 #define ENCCHANB_SetDigitalMode()     do { ANSELCbits.ANSC1 = 0; } while(0)
 
 // get/set IO_RC2 aliases
-#define MUTE_TRIS                 TRISCbits.TRISC2
-#define MUTE_LAT                  LATCbits.LATC2
-#define MUTE_PORT                 PORTCbits.RC2
-#define MUTE_WPU                  WPUCbits.WPUC2
-#define MUTE_OD                   ODCONCbits.ODCC2
-#define MUTE_ANS                  ANSELCbits.ANSC2
-#define MUTE_SetHigh()            do { LATCbits.LATC2 = 1; } while(0)
-#define MUTE_SetLow()             do { LATCbits.LATC2 = 0; } while(0)
-#define MUTE_Toggle()             do { LATCbits.LATC2 = ~LATCbits.LATC2; } while(0)
-#define MUTE_GetValue()           PORTCbits.RC2
-#define MUTE_SetDigitalInput()    do { TRISCbits.TRISC2 = 1; } while(0)
-#define MUTE_SetDigitalOutput()   do { TRISCbits.TRISC2 = 0; } while(0)
-#define MUTE_SetPullup()          do { WPUCbits.WPUC2 = 1; } while(0)
-#define MUTE_ResetPullup()        do { WPUCbits.WPUC2 = 0; } while(0)
-#define MUTE_SetPushPull()        do { ODCONCbits.ODCC2 = 0; } while(0)
-#define MUTE_SetOpenDrain()       do { ODCONCbits.ODCC2 = 1; } while(0)
-#define MUTE_SetAnalogMode()      do { ANSELCbits.ANSC2 = 1; } while(0)
-#define MUTE_SetDigitalMode()     do { ANSELCbits.ANSC2 = 0; } while(0)
+#define ENCSWITCH_TRIS                 TRISCbits.TRISC2
+#define ENCSWITCH_LAT                  LATCbits.LATC2
+#define ENCSWITCH_PORT                 PORTCbits.RC2
+#define ENCSWITCH_WPU                  WPUCbits.WPUC2
+#define ENCSWITCH_OD                   ODCONCbits.ODCC2
+#define ENCSWITCH_ANS                  ANSELCbits.ANSC2
+#define ENCSWITCH_SetHigh()            do { LATCbits.LATC2 = 1; } while(0)
+#define ENCSWITCH_SetLow()             do { LATCbits.LATC2 = 0; } while(0)
+#define ENCSWITCH_Toggle()             do { LATCbits.LATC2 = ~LATCbits.LATC2; } while(0)
+#define ENCSWITCH_GetValue()           PORTCbits.RC2
+#define ENCSWITCH_SetDigitalInput()    do { TRISCbits.TRISC2 = 1; } while(0)
+#define ENCSWITCH_SetDigitalOutput()   do { TRISCbits.TRISC2 = 0; } while(0)
+#define ENCSWITCH_SetPullup()          do { WPUCbits.WPUC2 = 1; } while(0)
+#define ENCSWITCH_ResetPullup()        do { WPUCbits.WPUC2 = 0; } while(0)
+#define ENCSWITCH_SetPushPull()        do { ODCONCbits.ODCC2 = 0; } while(0)
+#define ENCSWITCH_SetOpenDrain()       do { ODCONCbits.ODCC2 = 1; } while(0)
+#define ENCSWITCH_SetAnalogMode()      do { ANSELCbits.ANSC2 = 1; } while(0)
+#define ENCSWITCH_SetDigitalMode()     do { ANSELCbits.ANSC2 = 0; } while(0)
 
 // get/set IO_RC3 aliases
 #define SCL1_TRIS                 TRISCbits.TRISC3
