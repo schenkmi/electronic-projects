@@ -525,6 +525,46 @@ extern void (*RC1_InterruptHandler)(void);
  */
 void RC1_DefaultInterruptHandler(void);
 
+/**
+ * @ingroup  pinsdriver
+ * @brief Interrupt on Change Handler for the RC2 pin functionality
+ * @param none
+ * @return none
+ */
+void RC2_ISR(void);
+
+/**
+ * @ingroup  pinsdriver
+ * @brief Interrupt Handler Setter for RC2 pin interrupt-on-change functionality.
+ *        Allows selecting an interrupt handler for RC2 at application runtime.
+ * @pre Pins intializer called
+ * @param InterruptHandler function pointer.
+ * @return none
+ */
+void RC2_SetInterruptHandler(void (* InterruptHandler)(void));
+
+/**
+ * @ingroup  pinsdriver
+ * @brief Dynamic Interrupt Handler for RC2 pin.
+ *        This is a dynamic interrupt handler to be used together with the RC2_SetInterruptHandler() method.
+ *        This handler is called every time the RC2 ISR is executed and allows any function to be registered at runtime.
+ * @pre Pins intializer called
+ * @param none
+ * @return none
+ */
+extern void (*RC2_InterruptHandler)(void);
+
+/**
+ * @ingroup  pinsdriver
+ * @brief Default Interrupt Handler for RC2 pin. 
+ *        This is a predefined interrupt handler to be used together with the RC2_SetInterruptHandler() method.
+ *        This handler is called every time the RC2 ISR is executed. 
+ * @pre Pins intializer called
+ * @param none
+ * @return none
+ */
+void RC2_DefaultInterruptHandler(void);
+
 
 #endif // PINS_H
 /**
