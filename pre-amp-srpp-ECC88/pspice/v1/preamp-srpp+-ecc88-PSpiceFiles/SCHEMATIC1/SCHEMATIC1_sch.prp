@@ -108,6 +108,7 @@
                 ("device_max_ops")
             )
         )
+        ("6DJ8")
     )
     ("instances"
         ("V1"
@@ -118,6 +119,10 @@
                 ("DC"
                     ("value"	"200Vdc")
                     ("pspice_param"	"DC")
+                )
+                ("BiasValue Power"
+                    ("value"	"-2.039W")
+                    ("pspice_param"	"BiasValue Power")
                 )
                 ("PSpice Model Type"
                     ("value"	"0011")
@@ -131,20 +136,24 @@
             ("level"	"0")
             ("model_params"
                 ("AC"
-                    ("value"	"0.5V")
+                    ("value"	"1V")
                     ("pspice_param"	"AC")
                 )
-                ("FREQ"
-                    ("value"	"1kHz")
-                    ("pspice_param"	"FREQ")
+                ("VAMPL"
+                    ("value"	"0.5V")
+                    ("pspice_param"	"VAMPL")
                 )
                 ("VOFF"
                     ("value"	"0V")
                     ("pspice_param"	"VOFF")
                 )
-                ("VAMPL"
-                    ("value"	"0.5V")
-                    ("pspice_param"	"VAMPL")
+                ("FREQ"
+                    ("value"	"1kHz")
+                    ("pspice_param"	"FREQ")
+                )
+                ("BiasValue Power"
+                    ("value"	"0W")
+                    ("pspice_param"	"BiasValue Power")
                 )
                 ("PHASE"
                     ("value"	"0")
@@ -174,9 +183,13 @@
             ("level"	"0")
             ("model_params"
                 ("VALUE"
-                    ("value"	"47k")
+                    ("value"	"10k")
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
+                )
+                ("BiasValue Power"
+                    ("value"	"39.21e-18W")
+                    ("pspice_param"	"BiasValue Power")
                 )
                 ("PSpice Model Type"
                     ("value"	"0011")
@@ -231,6 +244,10 @@
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
                 )
+                ("BiasValue Power"
+                    ("value"	"3.921fW")
+                    ("pspice_param"	"BiasValue Power")
+                )
                 ("PSpice Model Type"
                     ("value"	"0011")
                     ("pspice_param"	"PSpice Model Type")
@@ -284,6 +301,10 @@
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
                 )
+                ("BiasValue Power"
+                    ("value"	"20.80mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
                 ("PSpice Model Type"
                     ("value"	"0011")
                     ("pspice_param"	"PSpice Model Type")
@@ -336,6 +357,10 @@
                     ("value"	"1000k")
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
+                )
+                ("BiasValue Power"
+                    ("value"	"1.813fW")
+                    ("pspice_param"	"BiasValue Power")
                 )
                 ("PSpice Model Type"
                     ("value"	"0011")
@@ -457,7 +482,7 @@
             ("level"	"0")
             ("model_params"
                 ("VALUE"
-                    ("value"	"3.3u")
+                    ("value"	"3.3uF")
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
                 )
@@ -528,9 +553,13 @@
             ("level"	"0")
             ("model_params"
                 ("VALUE"
-                    ("value"	"100k")
+                    ("value"	"22k")
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
+                )
+                ("BiasValue Power"
+                    ("value"	"19.42fW")
+                    ("pspice_param"	"BiasValue Power")
                 )
                 ("PSpice Model Type"
                     ("value"	"0011")
@@ -575,6 +604,17 @@
                 ("MAX_TEMP"	"200.0")
             )
         )
+        ("VL1"
+            ("device_name"	"6DJ8")
+            ("pspice_path"	"X_VL1")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"0.999W")
+                    ("pspice_param"	"BiasValue Power")
+                )
+            )
+        )
         ("R9"
             ("device_name"	"R")
             ("pspice_path"	"R_R9")
@@ -584,6 +624,10 @@
                     ("value"	"470")
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
+                )
+                ("BiasValue Power"
+                    ("value"	"378.0e-18W")
+                    ("pspice_param"	"BiasValue Power")
                 )
                 ("PSpice Model Type"
                     ("value"	"0011")
@@ -638,6 +682,10 @@
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
                 )
+                ("BiasValue Power"
+                    ("value"	"37.80fW")
+                    ("pspice_param"	"BiasValue Power")
+                )
                 ("PSpice Model Type"
                     ("value"	"0011")
                     ("pspice_param"	"PSpice Model Type")
@@ -687,9 +735,13 @@
             ("level"	"0")
             ("model_params"
                 ("VALUE"
-                    ("value"	"47k")
+                    ("value"	"300")
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
+                )
+                ("BiasValue Power"
+                    ("value"	"301.2e-18W")
+                    ("pspice_param"	"BiasValue Power")
                 )
                 ("PSpice Model Type"
                     ("value"	"0011")
@@ -744,6 +796,10 @@
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
                 )
+                ("BiasValue Power"
+                    ("value"	"5.210mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
                 ("PSpice Model Type"
                     ("value"	"0011")
                     ("pspice_param"	"PSpice Model Type")
@@ -797,6 +853,10 @@
                     ("pspice_param"	"VALUE")
                     ("distrib"	"FLAT")
                 )
+                ("BiasValue Power"
+                    ("value"	"15.60mW")
+                    ("pspice_param"	"BiasValue Power")
+                )
                 ("PSpice Model Type"
                     ("value"	"0011")
                     ("pspice_param"	"PSpice Model Type")
@@ -838,6 +898,17 @@
                 ("POWER"	"0.25")
                 ("SLOPE"	"0.005")
                 ("MAX_TEMP"	"200.0")
+            )
+        )
+        ("VL2"
+            ("device_name"	"6DJ8")
+            ("pspice_path"	"X_VL2")
+            ("level"	"0")
+            ("model_params"
+                ("BiasValue Power"
+                    ("value"	"0.999W")
+                    ("pspice_param"	"BiasValue Power")
+                )
             )
         )
     )
