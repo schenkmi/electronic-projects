@@ -55,10 +55,19 @@ __EEPROM_DATA(0xff /* channel 0 volume initial */,
 #define SELIN4  PORTBbits.RB3
 #define LED     PORTBbits.RB4
 
+#define MUTE_OFF_BIT    0x10
+#define CHAN_SEL_MASK   0x0f
+
+#define __ROTARY_CONTINUOUS__
+#define ROTARY_MIN       0 /* minimum channel */
+#define ROTARY_MAX       3 /* maximum channel */
+#define ROTARY_MULTI     6 /* on 12PPR this gaves 3 clicks */
 
 enum Control { Volume = 1, Channel = 0 };
 
 volatile int channel = 0;
+volatile uint8_t volume = 0xff;
+
 
 static uint8_t init(void)
 {
@@ -84,45 +93,104 @@ void push_button(void)
 {
     /* start always with volume control */
     static enum Control control = Volume;
-    
+
+    if (control == Volume) {
+        control = Channel;
+    } else {
+        control = Volume;
+    }
 }
+
+const int8_t table[] = { 0, -1, +1, 0, +1, 0, 0, -1, -1, 0, 0, +1, 0, +1, -1, 0 };
 
 void encoder_click(void)
 {
+    static uint8_t enc_val = 0;
+    static int encoder_count = 0;
+    int tmp_channel = channel;
 
+    /* read CHANA and CHANB, CW => up, CCW => down */
+    uint8_t curr_enc_val = (uint8_t)((ENCCHANA_GetValue() << 1) | ENCCHANB_GetValue());
+    enc_val = (uint8_t)((enc_val << 2) | curr_enc_val);
+    encoder_count += table[enc_val & 0x0f];
+
+    if (encoder_count >= ROTARY_MULTI) {
+        tmp_channel++;
+        encoder_count = 0;
+    }
+    else if (encoder_count <= -ROTARY_MULTI) {
+        tmp_channel--;
+        encoder_count = 0;
+    }
+
+#ifdef __ROTARY_CONTINUOUS__
+    if (tmp_channel > ROTARY_MAX) {
+        channel = 0;
+    } else if (tmp_channel < ROTARY_MIN) {
+        channel = ROTARY_MAX;
+    } else {
+        channel = tmp_channel;
+    }
+#else
+    if (tmp_channel > ROTARY_MAX) {
+        channel = ROTARY_MAX;
+    } else if (tmp_channel < ROTARY_MIN) {
+        channel = 0;
+    } else {
+        channel = tmp_channel;
+    }
+#endif
 }
 
-/*
-    Main application
-*/
+static uint8_t get_chan_sel(void)
+{
+    return (uint8_t)channel;
+}
 
+void set_input(uint8_t input)
+{
+    /* clear and set new channel */
+    PORTB &= ~CHAN_SEL_MASK;
+
+    __delay_ms(100);
+
+    PORTB |= ((1 << input) & CHAN_SEL_MASK);
+}
+
+/**
+ * Main application
+ */
 int main(void)
 {
+    uint8_t selected = 0xff;
+    uint8_t last_selected = 0xff;
+    
     SYSTEM_Initialize();
-
-    // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts
-    // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global and Peripheral Interrupts
-    // Use the following macros to:
 
     /* install irq handlers */
     RC0_SetInterruptHandler(encoder_click);
     RC1_SetInterruptHandler(encoder_click);
     RC2_SetInterruptHandler(push_button);
 
-    // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
+    /* Enable the Global Interrupts */
+    INTERRUPT_GlobalInterruptEnable();
 
-    // Disable the Global Interrupts
-    //INTERRUPT_GlobalInterruptDisable();
+    /* Enable the Peripheral Interrupts */
+    INTERRUPT_PeripheralInterruptEnable();
 
-    // Enable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptEnable();
+    selected = init();
 
-    // Disable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptDisable();
+    set_input(selected);
+    last_selected = selected;
 
-
-    while(1)
-    {
+    while (1) {
+        __delay_ms(20);
+        selected = get_chan_sel();
+        if (selected != last_selected) {
+            set_input(selected);
+            /* store current selected channel */
+            eeprom_write(EEPROM_ADR_CHANNEL, selected);
+            last_selected = selected;
+        }
     }
 }
