@@ -34,4 +34,4 @@ MP_AS_DIR="/Applications/microchip/xc8/v2.40/bin"
 MP_LD_DIR="/Applications/microchip/xc8/v2.40/bin"
 MP_AR_DIR="/Applications/microchip/xc8/v2.40/bin"
 # MP_BC_DIR is not defined
-DFP_DIR=/Users/schenk/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.14.187
+DFP_DIR=/Users/schenk/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.15.191
