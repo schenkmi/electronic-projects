@@ -63,15 +63,53 @@ __EEPROM_DATA(0xff /* channel 0 volume initial */,
 #define ROTARY_MAX       3 /* maximum channel */
 #define ROTARY_MULTI     6 /* on 12PPR this gaves 3 clicks */
 
-enum Control { Volume = 1, Channel = 0 };
-
-volatile int channel = 0;
-volatile uint8_t volume = 0xff;
 
 
-static uint8_t init(void)
+#define ROTARY_MIN_VOLUME       0 /* minimum channel */
+#define ROTARY_MAX_VOLUME       255 /* maximum channel */
+#define ROTARY_MULTI_VOLUME     2 /* on 12PPR this gaves 1 clicks */
+
+
+enum Control { Volume = 0, Channel = 1, Last = 2 };
+
+enum Direction  { Undefined = 0, Down = 1, Up = 2 };
+
+typedef struct {
+
+    int selected;
+    int last_selected;
+    int volume;
+    int last_volume;
+
+
+
+    /* irq changed */
+    volatile enum Control control;
+    volatile enum Direction direction;
+
+    volatile int rotary_counter[2];
+    //volatile int volume_counter;
+
+    uint8_t encoder_value[2 /* Volume & Channel */];// = { 0, 0 };
+    int encoder_count[2];// = { 0, 0 };
+
+} Instance_t;
+
+volatile Instance_t instance = {  .selected = -1, .last_selected = -1, .volume = -1, .last_volume = -1,
+    .control = Volume, .direction = Undefined, .rotary_counter = {0,0 },
+.encoder_value = {0,0 },  .encoder_count = {0,0 } };
+
+
+//volatile int channel = 0;
+//volatile int volume = 0;
+
+
+static void init(volatile Instance_t* instance)
 {
-    PORTB &= ~0x0f;
+//control = { .control = Volume, .selected = 0xff, .last_selected = 0xff };
+
+    PORTA = 0xff; /* max attenuation */
+    PORTB &= ~CHAN_SEL_MASK;
     LED = 1;
 
     /* one channel after the others */
@@ -83,37 +121,85 @@ static uint8_t init(void)
     }
 
     /* read last used channel */
-    channel = eeprom_read(EEPROM_ADR_CHANNEL);
+    instance->selected = eeprom_read(EEPROM_ADR_CHANNEL);
 
-    return (uint8_t)channel;
+    //instance.rotary_counter[0] = instance->selected;
+
+
+    instance->volume = eeprom_read((unsigned char)instance->selected);
+    //instance.rotary_counter[1] = instance->volume;
 }
 
 
 void push_button(void)
 {
-    /* start always with volume control */
-    static enum Control control = Volume;
-
-    if (control == Volume) {
-        control = Channel;
+    if (instance.control == Volume) {
+        instance.control = Channel;
     } else {
-        control = Volume;
+        instance.control = Volume;
     }
+
+    //instance.rotary_counter = 0;
+
+    instance.encoder_value[0] = 0;
+    instance.encoder_value[1] = 0;
+    instance.encoder_count[0] = 0;
+    instance.encoder_count[1] = 0;
 }
 
 const int8_t table[] = { 0, -1, +1, 0, +1, 0, 0, -1, -1, 0, 0, +1, 0, +1, -1, 0 };
 
 void encoder_click(void)
 {
-    static uint8_t enc_val = 0;
-    static int encoder_count = 0;
-    int tmp_channel = channel;
+    //static uint8_t enc_val[2] = { 0, 0 };
+    //static int encoder_count[2] = { 0, 0 };
+
+
+
+
+
+    //int tmp_channel = channel;
+
 
     /* read CHANA and CHANB, CW => up, CCW => down */
     uint8_t curr_enc_val = (uint8_t)((ENCCHANA_GetValue() << 1) | ENCCHANB_GetValue());
-    enc_val = (uint8_t)((enc_val << 2) | curr_enc_val);
-    encoder_count += table[enc_val & 0x0f];
+    instance.encoder_value[instance.control] = (uint8_t)((instance.encoder_value[instance.control] << 2) | curr_enc_val);
 
+    /* TODO: detect direction, if changes reset the encoder_count to 0 */
+
+    if (table[instance.encoder_value[instance.control] & 0x0f] == -1 ){
+
+}
+
+
+    instance.encoder_count[instance.control] += table[instance.encoder_value[instance.control] & 0x0f];
+
+    if (instance.control == Volume)  {
+        int value = instance.volume;
+
+
+        if (instance.encoder_count[instance.control] >= ROTARY_MULTI_VOLUME) {
+            value++;
+            instance.encoder_count[instance.control] = 0;
+        }
+        else if (instance.encoder_count[instance.control] <= -ROTARY_MULTI_VOLUME) {
+            value--;
+            instance.encoder_count[instance.control] = 0;
+        }
+
+        if (value > ROTARY_MAX_VOLUME) {
+            instance.volume = ROTARY_MAX_VOLUME;
+        } else if (value < ROTARY_MIN_VOLUME) {
+            instance.volume = 0;
+        } else {
+            instance.volume = value;
+        }
+
+
+    } else {
+        //int tmp = instance.rotary_counter[instance.control];
+    }
+#if 0
     if (encoder_count >= ROTARY_MULTI) {
         tmp_channel++;
         encoder_count = 0;
@@ -122,6 +208,8 @@ void encoder_click(void)
         tmp_channel--;
         encoder_count = 0;
     }
+
+
 
 #ifdef __ROTARY_CONTINUOUS__
     if (tmp_channel > ROTARY_MAX) {
@@ -140,31 +228,60 @@ void encoder_click(void)
         channel = tmp_channel;
     }
 #endif
+#endif
 }
 
+#if 0
 static uint8_t get_chan_sel(void)
 {
-    return (uint8_t)channel;
+    return (uint8_t)instance.rotary_counter[0];
+    //return 0;
+}
+#endif
+
+void set_volume(volatile Instance_t* instance)
+{
+
 }
 
-void set_input(uint8_t input)
+void set_input(volatile Instance_t* instance)
 {
     /* clear and set new channel */
     PORTB &= ~CHAN_SEL_MASK;
 
+    /* mute, read volume and apply */
+    instance->volume = eeprom_read((unsigned char)instance->selected);
+    instance->last_volume = instance->volume;
+
+    if (PORTA != (unsigned char)instance->volume) {
+        PORTA = (unsigned char)instance->volume;
+    }
+
     __delay_ms(100);
 
-    PORTB |= ((1 << input) & CHAN_SEL_MASK);
+    PORTB |= ((1 << instance->selected) & CHAN_SEL_MASK);
+
+    if (instance->last_selected != -1) {
+        /* store current selected channel */
+        eeprom_write(EEPROM_ADR_CHANNEL, (unsigned char)instance->selected);
+    }
+
+    instance->last_selected = instance->selected;
 }
+
+
+
+
+
 
 /**
  * Main application
  */
 int main(void)
 {
-    uint8_t selected = 0xff;
-    uint8_t last_selected = 0xff;
-    
+    //uint8_t selected = 0xff;
+    //uint8_t last_selected = 0xff;
+
     SYSTEM_Initialize();
 
     /* install irq handlers */
@@ -178,13 +295,26 @@ int main(void)
     /* Enable the Peripheral Interrupts */
     INTERRUPT_PeripheralInterruptEnable();
 
-    selected = init();
-
-    set_input(selected);
-    last_selected = selected;
+    init(&instance);
+    set_input(&instance);
+    //last_selected = selected;
 
     while (1) {
         __delay_ms(20);
+
+        //instance.selected = get_chan_sel();
+
+        if (instance.selected != instance.last_selected)  {
+            set_input(&instance);
+            /* store current selected channel */
+            //eeprom_write(EEPROM_ADR_CHANNEL, control.selected);
+        }
+
+        if (instance.volume != instance.last_volume)  {
+            set_volume(&instance);
+        }
+
+        #if 0
         selected = get_chan_sel();
         if (selected != last_selected) {
             set_input(selected);
@@ -192,5 +322,6 @@ int main(void)
             eeprom_write(EEPROM_ADR_CHANNEL, selected);
             last_selected = selected;
         }
+        #endif
     }
 }
