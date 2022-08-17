@@ -58,10 +58,10 @@ __EEPROM_DATA(0xff /* channel 0 volume initial */,
 #define MUTE_OFF_BIT    0x10
 #define CHAN_SEL_MASK   0x0f
 
-#define __ROTARY_CONTINUOUS__
-#define ROTARY_MIN       0 /* minimum channel */
-#define ROTARY_MAX       3 /* maximum channel */
-#define ROTARY_MULTI     6 /* on 12PPR this gaves 3 clicks */
+
+#define ROTARY_MIN_CHANNEL       0 /* minimum channel */
+#define ROTARY_MAX_CHANNEL       3 /* maximum channel */
+#define ROTARY_MULTI_CHANNEL     6 /* on 12PPR this gaves 3 clicks */
 
 
 
@@ -69,15 +69,23 @@ __EEPROM_DATA(0xff /* channel 0 volume initial */,
 #define ROTARY_MAX_VOLUME       255 /* maximum channel */
 #define ROTARY_MULTI_VOLUME     2 /* on 12PPR this gaves 1 clicks */
 
+#define MAIN_LOOP_WAIT  20 /* 20ms */
+#define EEPROM_SAVE_STATUS_VALUE      250 /* 5 seconds on a 20ms loop */
 
-enum Control { Volume = 0, Channel = 1, Last = 2 };
+enum Control { Volume = 0, Channel = 1};
 
-enum Direction  { Undefined = 0, Down = 1, Up = 2 };
+enum Direction  { Undefined = 0, CCW = 1 /* counter clock wise */, CW = 2 /* clock wise */ };
 
 typedef struct {
 
-    int selected;
-    int last_selected;
+    //int selected;
+    int channel;
+
+    //int last_selected;
+    int last_channel;
+
+
+
     int volume;
     int last_volume;
 
@@ -91,13 +99,17 @@ typedef struct {
     //volatile int volume_counter;
 
     uint8_t encoder_value[2 /* Volume & Channel */];// = { 0, 0 };
-    int encoder_count[2];// = { 0, 0 };
+    int encoder_count[2 /* Volume & Channel */];// = { 0, 0 };
+
+
+    /* eeprom store */
+    int eeprom_save_status_counter;
 
 } Instance_t;
 
-volatile Instance_t instance = {  .selected = -1, .last_selected = -1, .volume = -1, .last_volume = -1,
+volatile Instance_t instance = {  .channel = -1, .last_channel = -1, .volume = -1, .last_volume = -1,
     .control = Volume, .direction = Undefined, .rotary_counter = {0,0 },
-.encoder_value = {0,0 },  .encoder_count = {0,0 } };
+.encoder_value = {0,0 },  .encoder_count = {0,0 }, .eeprom_save_status_counter = -1 };
 
 
 //volatile int channel = 0;
@@ -120,14 +132,16 @@ static void init(volatile Instance_t* instance)
         PORTB &= ~in;
     }
 
-    /* read last used channel */
-    instance->selected = eeprom_read(EEPROM_ADR_CHANNEL);
+    /* read last used channel, channels volume will be handler inside process_channel() */
+    instance->channel = eeprom_read(EEPROM_ADR_CHANNEL);
 
     //instance.rotary_counter[0] = instance->selected;
 
 
-    instance->volume = eeprom_read((unsigned char)instance->selected);
+//    instance->volume = eeprom_read((unsigned char)instance->channel);
     //instance.rotary_counter[1] = instance->volume;
+
+    instance->direction = Undefined;
 }
 
 
@@ -139,51 +153,62 @@ void push_button(void)
         instance.control = Volume;
     }
 
-    //instance.rotary_counter = 0;
+
+instance.direction = Undefined;
 
     instance.encoder_value[0] = 0;
     instance.encoder_value[1] = 0;
     instance.encoder_count[0] = 0;
     instance.encoder_count[1] = 0;
+
+
+
+
 }
 
 const int8_t table[] = { 0, -1, +1, 0, +1, 0, 0, -1, -1, 0, 0, +1, 0, +1, -1, 0 };
 
 void encoder_click(void)
 {
-    //static uint8_t enc_val[2] = { 0, 0 };
-    //static int encoder_count[2] = { 0, 0 };
-
-
-
-
-
-    //int tmp_channel = channel;
-
-
     /* read CHANA and CHANB, CW => up, CCW => down */
     uint8_t curr_enc_val = (uint8_t)((ENCCHANA_GetValue() << 1) | ENCCHANB_GetValue());
     instance.encoder_value[instance.control] = (uint8_t)((instance.encoder_value[instance.control] << 2) | curr_enc_val);
 
     /* TODO: detect direction, if changes reset the encoder_count to 0 */
-
-    if (table[instance.encoder_value[instance.control] & 0x0f] == -1 ){
-
-}
-
+    if (instance.direction == Undefined) {
+        if (table[instance.encoder_value[instance.control] & 0x0f] == -1) {
+            instance.direction = CCW;
+        } else if (table[instance.encoder_value[instance.control] & 0x0f] == +1) {
+            instance.direction = CW;
+        }
+    } else if ((instance.direction == CCW) && (table[instance.encoder_value[instance.control] & 0x0f] == +1)) {
+        /* change from down to up, reset */
+        instance.direction = CW;
+        instance.encoder_count[instance.control] = 0;
+        instance.encoder_value[instance.control] = curr_enc_val;
+    } else if ((instance.direction == CW) && (table[instance.encoder_value[instance.control] & 0x0f] == -1)) {
+        /* change from up to down, reset */
+        instance.direction = CCW;
+        instance.encoder_count[instance.control] = 0;
+        instance.encoder_value[instance.control] = curr_enc_val;
+    }
 
     instance.encoder_count[instance.control] += table[instance.encoder_value[instance.control] & 0x0f];
 
     if (instance.control == Volume)  {
+        /**
+         * volume works inverse as it is a attenuator
+         * 0   : 0dB attenuation
+         * 255 : 127dB attenuation
+         */
         int value = instance.volume;
 
-
         if (instance.encoder_count[instance.control] >= ROTARY_MULTI_VOLUME) {
-            value++;
+            value--;
             instance.encoder_count[instance.control] = 0;
         }
         else if (instance.encoder_count[instance.control] <= -ROTARY_MULTI_VOLUME) {
-            value--;
+            value++;
             instance.encoder_count[instance.control] = 0;
         }
 
@@ -194,41 +219,29 @@ void encoder_click(void)
         } else {
             instance.volume = value;
         }
-
-
     } else {
-        //int tmp = instance.rotary_counter[instance.control];
-    }
-#if 0
-    if (encoder_count >= ROTARY_MULTI) {
-        tmp_channel++;
-        encoder_count = 0;
-    }
-    else if (encoder_count <= -ROTARY_MULTI) {
-        tmp_channel--;
-        encoder_count = 0;
-    }
+        int value = instance.channel;
+
+        if (instance.encoder_count[instance.control] >= ROTARY_MULTI_CHANNEL) {
+            value++;
+            instance.encoder_count[instance.control] = 0;
+        }
+        else if (instance.encoder_count[instance.control] <= -ROTARY_MULTI_CHANNEL) {
+            value--;
+            instance.encoder_count[instance.control] = 0;
+        }
 
 
+        /* channel is rotary continous */
+        if (value > ROTARY_MAX_CHANNEL) {
+            instance.channel = 0;
+        } else if (value < ROTARY_MIN_CHANNEL) {
+            instance.channel = ROTARY_MAX_CHANNEL;
+        } else {
+            instance.channel = value;
+        }
+    }
 
-#ifdef __ROTARY_CONTINUOUS__
-    if (tmp_channel > ROTARY_MAX) {
-        channel = 0;
-    } else if (tmp_channel < ROTARY_MIN) {
-        channel = ROTARY_MAX;
-    } else {
-        channel = tmp_channel;
-    }
-#else
-    if (tmp_channel > ROTARY_MAX) {
-        channel = ROTARY_MAX;
-    } else if (tmp_channel < ROTARY_MIN) {
-        channel = 0;
-    } else {
-        channel = tmp_channel;
-    }
-#endif
-#endif
 }
 
 #if 0
@@ -239,9 +252,19 @@ static uint8_t get_chan_sel(void)
 }
 #endif
 
+#if 0
 void set_volume(volatile Instance_t* instance)
 {
+    if (PORTA != (unsigned char)instance->volume) {
+        PORTA = (unsigned char)instance->volume;
+    }
 
+    if (instance->last_volume != -1) {
+        /* store current channels volume */
+        eeprom_write((unsigned char)instance->selected, (unsigned char)instance->volume);
+    }
+
+    instance->last_volume = instance->volume;
 }
 
 void set_input(volatile Instance_t* instance)
@@ -268,11 +291,63 @@ void set_input(volatile Instance_t* instance)
 
     instance->last_selected = instance->selected;
 }
+#endif
 
+static void process_channel(volatile Instance_t* instance)
+{
+    if (instance->channel != instance->last_channel)  {
+        /* clear all channels (mute) */
+        PORTB &= ~CHAN_SEL_MASK;
 
+        /* read stored volume from new channel and apply */
+        instance->volume = eeprom_read((unsigned char)instance->channel);
+        instance->last_volume = instance->volume;
 
+        if (PORTA != (unsigned char)instance->volume) {
+            PORTA = (unsigned char)instance->volume;
+        }
 
+        __delay_ms(100);
 
+        /* set new channel */
+        PORTB |= ((1 << instance->channel) & CHAN_SEL_MASK);
+
+        instance->last_channel = instance->channel;
+
+        instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
+
+    }
+}
+
+static void process_volume(volatile Instance_t* instance)
+{
+    if (instance->volume != instance->last_volume)  {
+        if (PORTA != (unsigned char)instance->volume) {
+            PORTA = (unsigned char)instance->volume;
+            instance->last_volume = instance->volume;
+            instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
+        }
+    }
+}
+
+static void eeprom_save_status(volatile Instance_t* instance)
+{
+    if (instance->eeprom_save_status_counter != -1) {
+        if (--instance->eeprom_save_status_counter == 0) {
+            if (eeprom_read(EEPROM_ADR_CHANNEL) != (unsigned char)instance->channel) {
+                /* store current selected channel */
+                eeprom_write(EEPROM_ADR_CHANNEL, (unsigned char)instance->channel);
+            }
+            if (eeprom_read((unsigned char)instance->channel) != (unsigned char)instance->volume) {
+                /* store current volume of channel */
+                eeprom_write((unsigned char)instance->channel, (unsigned char)instance->volume);
+            }
+
+            instance->eeprom_save_status_counter = -1;
+        }
+    }
+
+}
 
 /**
  * Main application
@@ -296,23 +371,19 @@ int main(void)
     INTERRUPT_PeripheralInterruptEnable();
 
     init(&instance);
-    set_input(&instance);
+    //set_input(&instance);
     //last_selected = selected;
 
     while (1) {
-        __delay_ms(20);
 
-        //instance.selected = get_chan_sel();
 
-        if (instance.selected != instance.last_selected)  {
-            set_input(&instance);
-            /* store current selected channel */
-            //eeprom_write(EEPROM_ADR_CHANNEL, control.selected);
-        }
 
-        if (instance.volume != instance.last_volume)  {
-            set_volume(&instance);
-        }
+
+        process_channel(&instance);
+        process_volume(&instance);
+        eeprom_save_status(&instance);
+
+        __delay_ms(MAIN_LOOP_WAIT);
 
         #if 0
         selected = get_chan_sel();
