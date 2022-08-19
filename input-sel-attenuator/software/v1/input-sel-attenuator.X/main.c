@@ -32,8 +32,8 @@
 
  /**
   * Save hex
-  * cd ~/Documents/GitHub/electronic-projects/input-sel/software/v2b-rotary
-  * cp input-sel.X/dist/default/production/input-sel.X.production.hex hex
+  * cd ~/Documents/GitHub/electronic-projects/input-sel-attenuator/software/v1
+  * cp input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
   */
 
 #include "mcc_generated_files/system/system.h"
