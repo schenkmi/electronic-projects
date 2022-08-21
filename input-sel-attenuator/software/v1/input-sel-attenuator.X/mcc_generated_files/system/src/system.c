@@ -44,7 +44,6 @@ void SYSTEM_Initialize(void)
 {
     CLOCK_Initialize();
     PIN_MANAGER_Initialize();
-    I2C1_Host_Initialize();
     INTERRUPT_Initialize();
 }
 
