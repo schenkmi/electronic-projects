@@ -105,31 +105,19 @@ typedef struct {
 
 } Instance_t;
 
-volatile Instance_t instance = {  .channel = -1, .last_channel = -1, .volume = -1, .last_volume = -1,
-    .control = Volume, .direction = Undefined, .rotary_counter = {0,0 },
-.encoder_value = {0,0 },  .encoder_count = {0,0 }, .eeprom_save_status_counter = -1 };
-
-
-//volatile int channel = 0;
-//volatile int volume = 0;
-
+volatile Instance_t instance = { .channel = -1, .last_channel = -1,
+                                 .volume = -1, .last_volume = -1,
+                                 .control = Volume, .direction = Undefined,
+                                 .rotary_counter = { 0, 0 }, .encoder_value = { 0,0 },
+                                 .encoder_count = { 0,0 }, .eeprom_save_status_counter = -1 };
 
 static void init(volatile Instance_t* instance)
 {
-//control = { .control = Volume, .selected = 0xff, .last_selected = 0xff };
-
     PORTA = 0xff; /* max attenuation */
     PORTB &= ~CHAN_SEL_MASK;
     LED = 1;
 
     /* one channel after the others */
- 
-    
-    
-    
-    
-    
-        /* one channel after the others */
     for (int cnt = 0; cnt < 4; cnt++) {
         uint8_t in = ((1 << cnt) & 0xff);
         PORTB |= in;
@@ -137,24 +125,17 @@ static void init(volatile Instance_t* instance)
         PORTB &= ~in;
     }
 
+#if 0 /* test code */
     PORTB = 0x01;
-            /* one channel after the others */
-    for (uint8_t test = 255; test != 0 ; test--) {
-        //uint8_t in = ((1 << cnt) & 0xff);
+    /* increase volume by 0.5dB steps */
+    for (int test = 255; test < 0 ; test--) {
         PORTA = (unsigned char)test;
         __delay_ms(100);
-        //PORTB &= ~in;
     }
+#endif
 
-    
     /* read last used channel, channels volume will be handler inside process_channel() */
     instance->channel = eeprom_read(EEPROM_ADR_CHANNEL);
-
-    //instance.rotary_counter[0] = instance->selected;
-
-
-//    instance->volume = eeprom_read((unsigned char)instance->channel);
-    //instance.rotary_counter[1] = instance->volume;
 
     instance->direction = Undefined;
 }
