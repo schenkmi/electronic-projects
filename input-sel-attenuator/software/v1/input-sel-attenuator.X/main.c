@@ -123,6 +123,13 @@ static void init(volatile Instance_t* instance)
     LED = 1;
 
     /* one channel after the others */
+ 
+    
+    
+    
+    
+    
+        /* one channel after the others */
     for (int cnt = 0; cnt < 4; cnt++) {
         uint8_t in = ((1 << cnt) & 0xff);
         PORTB |= in;
@@ -130,6 +137,16 @@ static void init(volatile Instance_t* instance)
         PORTB &= ~in;
     }
 
+    PORTB = 0x01;
+            /* one channel after the others */
+    for (uint8_t test = 255; test != 0 ; test--) {
+        //uint8_t in = ((1 << cnt) & 0xff);
+        PORTA = (unsigned char)test;
+        __delay_ms(100);
+        //PORTB &= ~in;
+    }
+
+    
     /* read last used channel, channels volume will be handler inside process_channel() */
     instance->channel = eeprom_read(EEPROM_ADR_CHANNEL);
 
