@@ -64,7 +64,7 @@ __EEPROM_DATA(0xff /* channel 0 volume initial */,
 #define ROTARY_MULTI_CHANNEL     6 /* on 12PPR this gaves 3 clicks */
 
 #define ROTARY_MIN_VOLUME             0 /* minimum channel */
-#define ROTARY_MAX_VOLUME           255 /* maximum channel */
+#define ROTARY_MAX_VOLUME           255 /*255*/ /* maximum channel */
 #define ROTARY_MULTI_VOLUME           2 /* on 12PPR this gaves 1 clicks */
 
 #define MAIN_LOOP_WAIT               20 /* 20ms */
@@ -240,6 +240,9 @@ static void process_channel(volatile Instance_t* instance)
 
         /* read stored volume from new channel and apply */
         instance->volume = eeprom_read((unsigned char)instance->channel);
+        
+        instance->volume &= 0xfc;
+        
         instance->last_volume = instance->volume;
 
         if (PORTA != (unsigned char)instance->volume) {
@@ -260,15 +263,54 @@ static void process_channel(volatile Instance_t* instance)
 static void process_volume(volatile Instance_t* instance)
 {
     if (instance->volume != instance->last_volume)  {
-        unsigned char volume = (unsigned char)instance->volume;
-        volume &= 0xfc;
+        unsigned char volume = ((unsigned char)instance->volume & 0xfc);
+        //volume &= 0xfc;
         
         
-        if (PORTA != (unsigned char)instance->volume) {
+        if (PORTA != volume /*(unsigned char)instance->volume*/) {
            // PORTA = PORTA | 0x80;
             
             //__delay_ms(10);
+#if 1
             
+            if (instance->direction == CW) {
+          //  uint8_t current_porta = PORTA;
+            for (int cnt = 2; cnt < 8; cnt++) {
+                //__delay_ms(1);
+                uint8_t bit = ((1 << cnt) & 0xff);
+
+                if ((PORTA & bit) != (volume & bit)) {
+                    if (volume & bit) {
+                       PORTA |= bit; 
+                    }
+                    else {
+                        PORTA &= ~bit ;
+                    } 
+                    __delay_ms(1);
+                }
+                
+            }
+            }
+            else {
+                
+                  for (int cnt = 7; cnt >= 2; cnt--) {
+              //  __delay_ms(1);
+                //uint8_t bit = ((1 << cnt) & 0xff);
+                uint8_t bit = ((1 << cnt) & 0xff);
+
+                if ((PORTA & bit) != (volume & bit)) {
+                    if (volume & bit) {
+                       PORTA |= bit; 
+                    }
+                    else {
+                        PORTA &= ~bit ;
+                    }  
+                    __delay_ms(1);
+                }
+                
+            }         
+            }
+#else
             //if ()
            PORTA = 0xfc;
             for (int cnt = 7; cnt > 1; cnt--) {
@@ -282,7 +324,7 @@ static void process_volume(volatile Instance_t* instance)
                     PORTA &= ~in;
                 }
             }
-   
+#endif
             
         
             
