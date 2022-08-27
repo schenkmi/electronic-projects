@@ -260,16 +260,20 @@ static void process_channel(volatile Instance_t* instance)
 static void process_volume(volatile Instance_t* instance)
 {
     if (instance->volume != instance->last_volume)  {
+        unsigned char volume = (unsigned char)instance->volume;
+        volume &= 0xfc;
+        
+        
         if (PORTA != (unsigned char)instance->volume) {
            // PORTA = PORTA | 0x80;
             
             //__delay_ms(10);
             
             //if ()
-            PORTA = 0xff;
-            for (int cnt = 7; cnt >= 0; cnt--) {
+           PORTA = 0xfc;
+            for (int cnt = 7; cnt > 1; cnt--) {
             //for (int cnt = 0; cnt < 8; cnt++) {    
-                __delay_ms(10);
+                __delay_ms(2);
                 uint8_t in = ((1 << cnt) & 0xff);
                 if ((unsigned char)instance->volume & in) {
                     PORTA |= in;
