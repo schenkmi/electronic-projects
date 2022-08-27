@@ -173,12 +173,10 @@ void encoder_click(void)
         /* change from down to up, reset */
         instance.direction = CW;
         instance.encoder_count[instance.control] = 0;
-        instance.encoder_value[instance.control] = curr_enc_val;
     } else if ((instance.direction == CW) && (table[instance.encoder_value[instance.control] & 0x0f] == -1)) {
         /* change from up to down, reset */
         instance.direction = CCW;
         instance.encoder_count[instance.control] = 0;
-        instance.encoder_value[instance.control] = curr_enc_val;
     }
 
     instance.encoder_count[instance.control] += table[instance.encoder_value[instance.control] & 0x0f];
