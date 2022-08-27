@@ -190,11 +190,13 @@ void encoder_click(void)
         int value = instance.volume;
 
         if (instance.encoder_count[instance.control] >= ROTARY_MULTI_VOLUME) {
-            value--;
+            //value--;
+              value -=  4;
             instance.encoder_count[instance.control] = 0;
         }
         else if (instance.encoder_count[instance.control] <= -ROTARY_MULTI_VOLUME) {
-            value++;
+            //value++;
+            value += 4;
             instance.encoder_count[instance.control] = 0;
         }
 
@@ -259,7 +261,27 @@ static void process_volume(volatile Instance_t* instance)
 {
     if (instance->volume != instance->last_volume)  {
         if (PORTA != (unsigned char)instance->volume) {
-            PORTA = (unsigned char)instance->volume;
+           // PORTA = PORTA | 0x80;
+            
+            //__delay_ms(10);
+            
+            //if ()
+            PORTA = 0xff;
+            for (int cnt = 7; cnt >= 0; cnt--) {
+            //for (int cnt = 0; cnt < 8; cnt++) {    
+                __delay_ms(10);
+                uint8_t in = ((1 << cnt) & 0xff);
+                if ((unsigned char)instance->volume & in) {
+                    PORTA |= in;
+                }
+                else {
+                    PORTA &= ~in;
+                }
+            }
+   
+            
+        
+            
             instance->last_volume = instance->volume;
             instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
         }
@@ -296,7 +318,7 @@ int main(void)
     /* install irq handlers */
     RC0_SetInterruptHandler(encoder_click);
     RC1_SetInterruptHandler(encoder_click);
-    RC2_SetInterruptHandler(push_button);
+    //RC2_SetInterruptHandler(push_button);
 
     /* Enable the Global Interrupts */
     INTERRUPT_GlobalInterruptEnable();
@@ -307,7 +329,7 @@ int main(void)
     while (1) {
         process_channel(&instance);
         process_volume(&instance);
-        eeprom_save_status(&instance);
+      // eeprom_save_status(&instance);
 
         __delay_ms(MAIN_LOOP_WAIT);
     }
