@@ -191,12 +191,12 @@ void encoder_click(void)
 
         if (instance.encoder_count[instance.control] >= ROTARY_MULTI_VOLUME) {
             //value--;
-              value -=  4;
+            value -=  4; /* 2dB steps */
             instance.encoder_count[instance.control] = 0;
         }
         else if (instance.encoder_count[instance.control] <= -ROTARY_MULTI_VOLUME) {
             //value++;
-            value += 4;
+            value += 4; /* 2dB steps */
             instance.encoder_count[instance.control] = 0;
         }
 
@@ -240,9 +240,9 @@ static void process_channel(volatile Instance_t* instance)
 
         /* read stored volume from new channel and apply */
         instance->volume = eeprom_read((unsigned char)instance->channel);
-        
+
         instance->volume &= 0xfc;
-        
+
         instance->last_volume = instance->volume;
 
         if (PORTA != (unsigned char)instance->volume) {
@@ -263,71 +263,58 @@ static void process_channel(volatile Instance_t* instance)
 static void process_volume(volatile Instance_t* instance)
 {
     if (instance->volume != instance->last_volume)  {
+        /* hack, we only adjust in 2dB steps instead of 0.5dB which is enough */
         unsigned char volume = ((unsigned char)instance->volume & 0xfc);
-        //volume &= 0xfc;
-        
-        
-        if (PORTA != volume /*(unsigned char)instance->volume*/) {
-           // PORTA = PORTA | 0x80;
-            
-            //__delay_ms(10);
-#if 1
-            
-            if (instance->direction == CW) {
-          //  uint8_t current_porta = PORTA;
-            for (int cnt = 2; cnt < 8; cnt++) {
-                //__delay_ms(1);
-                uint8_t bit = ((1 << cnt) & 0xff);
 
-                if ((PORTA & bit) != (volume & bit)) {
-                    if (volume & bit) {
-                       PORTA |= bit; 
-                    }
-                    else {
-                        PORTA &= ~bit ;
-                    } 
-                    __delay_ms(1);
-                }
-                
-            }
-            }
-            else {
-                
-                  for (int cnt = 7; cnt >= 2; cnt--) {
-              //  __delay_ms(1);
-                //uint8_t bit = ((1 << cnt) & 0xff);
-                uint8_t bit = ((1 << cnt) & 0xff);
+        if (PORTA != volume) {
+            /* something needs to be changed */
+#if 1 /* improved setting algo, with direction in mind */
+            if (instance->direction == CW) { /* clockwise, volume increase */
+                for (int cnt = 2; cnt < 8; cnt++) {
+                    uint8_t bit = ((1 << cnt) & 0xff);
 
-                if ((PORTA & bit) != (volume & bit)) {
-                    if (volume & bit) {
-                       PORTA |= bit; 
+                    if ((PORTA & bit) != (volume & bit)) {
+                        /* port bit needs to be changed */
+                        if (volume & bit) {
+                           PORTA |= bit;
+                        }
+                        else {
+                            PORTA &= ~bit ;
+                        }
+                        /* changed relay, wait a bit */
+                        __delay_ms(1);
                     }
-                    else {
-                        PORTA &= ~bit ;
-                    }  
-                    __delay_ms(1);
                 }
-                
-            }         
+            } else { /* counter clockwise, volume decrease */
+                for (int cnt = 7; cnt >= 2; cnt--) {
+                    uint8_t bit = ((1 << cnt) & 0xff);
+
+                    if ((PORTA & bit) != (volume & bit)) {
+                        /* port bit needs to be changed */
+                        if (volume & bit) {
+                           PORTA |= bit;
+                        } else {
+                            PORTA &= ~bit ;
+                        }
+                        /* changed relay, wait a bit */
+                        __delay_ms(1);
+                    }
+                }
             }
 #else
-            //if ()
-           PORTA = 0xfc;
+            PORTA = 0xfc;
             for (int cnt = 7; cnt > 1; cnt--) {
-            //for (int cnt = 0; cnt < 8; cnt++) {    
+            //for (int cnt = 0; cnt < 8; cnt++) {
                 __delay_ms(2);
                 uint8_t in = ((1 << cnt) & 0xff);
                 if ((unsigned char)instance->volume & in) {
                     PORTA |= in;
-                }
-                else {
+                } else {
                     PORTA &= ~in;
                 }
             }
 #endif
-            
-        
-            
+
             instance->last_volume = instance->volume;
             instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
         }
