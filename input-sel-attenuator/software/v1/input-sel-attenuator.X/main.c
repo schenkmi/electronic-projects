@@ -58,7 +58,6 @@ __EEPROM_DATA(0xff /* channel 0 volume initial */,
 //#define MUTE_OFF_BIT    0x10
 #define CHAN_SEL_MASK   0x0f
 
-
 #define ROTARY_MIN_CHANNEL       0 /* minimum channel */
 #define ROTARY_MAX_CHANNEL       3 /* maximum channel */
 #define ROTARY_MULTI_CHANNEL     6 /* on 12PPR this gaves 3 clicks */
@@ -75,34 +74,18 @@ enum Control { Volume = 0, Channel = 1};
 enum Direction  { Undefined = 0, CCW = 1 /* counter clock wise */, CW = 2 /* clock wise */ };
 
 typedef struct {
-
-    //int selected;
     int channel;
-
-    //int last_selected;
     int last_channel;
-
-
-
     int volume;
     int last_volume;
-
-
-
     /* irq changed */
     volatile enum Control control;
     volatile enum Direction direction;
-
     volatile int rotary_counter[2];
-    //volatile int volume_counter;
-
-    uint8_t encoder_value[2 /* Volume & Channel */];// = { 0, 0 };
-    int encoder_count[2 /* Volume & Channel */];// = { 0, 0 };
-
-
+    uint8_t encoder_value[2 /* Volume & Channel */];
+    int encoder_count[2 /* Volume & Channel */];
     /* eeprom store */
     int eeprom_save_status_counter;
-
 } Instance_t;
 
 volatile Instance_t instance = { .channel = -1, .last_channel = -1,
