@@ -243,6 +243,24 @@ uint8_t encoder_read(void)
 }
 
 
+
+
+
+
+int irq_counter = 0;
+
+void encoder_query(void)
+{
+       uint8_t ret = encoder_read();
+        if (ret == DIR_CW) {
+            irq_counter++;
+            
+        } else if (ret == DIR_CCW) {
+            irq_counter--;
+        }  
+}
+
+
 /**
  * Main application
  */
@@ -259,11 +277,14 @@ void main(void)
     //IOCBF6_SetInterruptHandler(encoder_click);
     //IOCBF7_SetInterruptHandler(encoder_click);
 
+    TMR0_SetInterruptHandler(encoder_query);
+    
+    
     /* Enable the Global Interrupts */
-    //INTERRUPT_GlobalInterruptEnable();
+    INTERRUPT_GlobalInterruptEnable();
 
     /* Enable the Peripheral Interrupts */
-    //INTERRUPT_PeripheralInterruptEnable();
+    INTERRUPT_PeripheralInterruptEnable();
 
     selected = init();
 
@@ -275,6 +296,8 @@ void main(void)
     
     while (1) {
         __delay_ms(1);
+        
+#if 0
         ret = encoder_read();
         if (ret == DIR_CW) {
             cnt++;
@@ -290,7 +313,16 @@ void main(void)
         }
         
         selected = cnt;
+#else
+              if (irq_counter < 0) {
+            irq_counter = 3;
+        } else if (irq_counter > 3) {
+            irq_counter = 0;
+        }
         
+        selected = irq_counter;  
+        
+#endif
         //selected = get_chan_sel();
         if (selected != last_selected) {
             set_input(selected);
