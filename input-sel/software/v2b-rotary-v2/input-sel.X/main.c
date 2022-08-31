@@ -132,13 +132,13 @@ void set_input(uint8_t input)
     /* mute output */
      PORTC &= ~MUTE_OFF_BIT;
 
-    __delay_ms(100);
+    __delay_ms(1);
 
     /* clear and set new channel */
     PORTC &= ~CHAN_SEL_MASK;
     PORTC |= ((1 << input) & CHAN_SEL_MASK);
     
-    __delay_ms(100);
+    __delay_ms(1);
     
     /* unmute outputs */
     PORTC |= MUTE_OFF_BIT;
@@ -248,6 +248,7 @@ uint8_t encoder_read(void)
  */
 void main(void)
 {
+    int cnt = 0;
     uint8_t selected = 0xff;
     uint8_t last_selected = 0xff;
 
@@ -259,10 +260,10 @@ void main(void)
     //IOCBF7_SetInterruptHandler(encoder_click);
 
     /* Enable the Global Interrupts */
-    INTERRUPT_GlobalInterruptEnable();
+    //INTERRUPT_GlobalInterruptEnable();
 
     /* Enable the Peripheral Interrupts */
-    INTERRUPT_PeripheralInterruptEnable();
+    //INTERRUPT_PeripheralInterruptEnable();
 
     selected = init();
 
@@ -270,25 +271,25 @@ void main(void)
     last_selected = selected;
 
     uint8_t ret;
-    
+    cnt = selected;
     
     while (1) {
-        __delay_ms(10);
+        __delay_ms(1);
         ret = encoder_read();
         if (ret == DIR_CW) {
-            selected++;
+            cnt++;
             
         } else if (ret == DIR_CCW) {
-            selected--;
+            cnt--;
         }
         
-        if (selected < 0) {
-            selected = 0;
-        } else if (selected > 3) {
-            selected = 0;
+        if (cnt < 0) {
+            cnt = 3;
+        } else if (cnt > 3) {
+            cnt = 0;
         }
         
-        
+        selected = cnt;
         
         //selected = get_chan_sel();
         if (selected != last_selected) {
