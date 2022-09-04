@@ -269,8 +269,11 @@ static void process_channel(volatile Instance_t* instance)
         PORTA = ((PORTA & ~ROTARY_MAX_VOLUME) | ((unsigned char)instance->volume & ROTARY_MAX_VOLUME));
 
         /* clear and set new channel */
-        PORTB &= ~CHAN_SEL_MASK;
-        PORTB |= ((1 << instance->channel) & CHAN_SEL_MASK);
+        //PORTB &= ~CHAN_SEL_MASK;
+        //PORTB |= ((1 << instance->channel) & CHAN_SEL_MASK);
+        PORTB = ((PORTB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
+
+
 
         __delay_ms(RELAIS_SETUP_TIME);
 
