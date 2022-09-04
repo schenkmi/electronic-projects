@@ -37,17 +37,13 @@
   */
 
 #include "mcc_generated_files/system/system.h"
-
+#include "rotary_encoder.h"
 
 
 /* EEPROM address of current channel */
 #define EEPROM_ADR_CHANNEL 0x04
 
-#define SELIN1  PORTBbits.RB0
-#define SELIN2  PORTBbits.RB1
-#define SELIN3  PORTBbits.RB2
-#define SELIN4  PORTBbits.RB3
-#define LED     PORTBbits.RB4
+
 
 #define MUTE_OFF_BIT    0x10
 #define CHAN_SEL_MASK   0x0f
@@ -88,23 +84,6 @@ enum Control { Volume = 0, Channel = 1};
 
 
 
-
-//  Direction values returned by read() method
-/**
- \def DIR_NONE
-  read() return value - No complete step/movement
- */
-#define DIR_NONE  0x00
-/**
- \def DIR_CW
- read() return value - Clockwise step/movement
- */
-#define DIR_CW    0x10
-/**
- \def DIR_CCW
- read() return value - Counter-clockwise step/movement
- */
-#define DIR_CCW   0x20
 
 
 
@@ -150,7 +129,9 @@ static void init(volatile Instance_t* instance)
 {
     //PORTA = 0xff; /* max attenuation */
     //PORTB &= ~CHAN_SEL_MASK;
-    LED = 1;
+    //LED = 1;
+    LED_SetHigh();
+
 
     /* mute output */
      PORTB &= ~MUTE_OFF_BIT;
@@ -389,69 +370,11 @@ static void eeprom_save_status(volatile Instance_t* instance)
 
 
 
-/*
- * The below state table has, for each state (row), the new state
- * to set based on the next encoder output. From left to right in,
- * the table, the encoder outputs are 00, 01, 10, 11, and the value
- * in that position is the new state to set.
- */
-#define R_START 0x0
-
-#if 0 /*ENABLE_HALF_STEP*/
-// Use the half-step state table (emits a code at 00 and 11)
-#define R_CCW_BEGIN   0x1
-#define R_CW_BEGIN    0x2
-#define R_START_M     0x3
-#define R_CW_BEGIN_M  0x4
-#define R_CCW_BEGIN_M 0x5
-
-const unsigned char ttable[][4] =
-{
-  // 00                  01              10            11
-  {R_START_M,           R_CW_BEGIN,     R_CCW_BEGIN,  R_START},           // R_START (00)
-  {R_START_M | DIR_CCW, R_START,        R_CCW_BEGIN,  R_START},           // R_CCW_BEGIN
-  {R_START_M | DIR_CW,  R_CW_BEGIN,     R_START,      R_START},           // R_CW_BEGIN
-  {R_START_M,           R_CCW_BEGIN_M,  R_CW_BEGIN_M, R_START},           // R_START_M (11)
-  {R_START_M,           R_START_M,      R_CW_BEGIN_M, R_START | DIR_CW},  // R_CW_BEGIN_M
-  {R_START_M,           R_CCW_BEGIN_M,  R_START_M,    R_START | DIR_CCW}  // R_CCW_BEGIN_M
-};
-#else
-// Use the full-step state table (emits a code at 00 only)
-#define R_CW_FINAL   0x1
-#define R_CW_BEGIN   0x2
-#define R_CW_NEXT    0x3
-#define R_CCW_BEGIN  0x4
-#define R_CCW_FINAL  0x5
-#define R_CCW_NEXT   0x6
-
-const unsigned char ttable[][4] =
-{
-  // 00         01           10           11
-  {R_START,    R_CW_BEGIN,  R_CCW_BEGIN, R_START},           // R_START
-  {R_CW_NEXT,  R_START,     R_CW_FINAL,  R_START | DIR_CW},  // R_CW_FINAL
-  {R_CW_NEXT,  R_CW_BEGIN,  R_START,     R_START},           // R_CW_BEGIN
-  {R_CW_NEXT,  R_CW_BEGIN,  R_CW_FINAL,  R_START},           // R_CW_NEXT
-  {R_CCW_NEXT, R_START,     R_CCW_BEGIN, R_START},           // R_CCW_BEGIN
-  {R_CCW_NEXT, R_CCW_FINAL, R_START,     R_START | DIR_CCW}, // R_CCW_FINAL
-  {R_CCW_NEXT, R_CCW_FINAL, R_CCW_BEGIN, R_START}            // R_CCW_NEXT
-};
-#endif
-
-uint8_t encoder_read(void)
-// Grab state of input pins, determine new state from the pins
-// and state table, and return the emit bits (ie the generated event).
-{
-    /* read CHANA and CHANB, CW => up, CCW => down */
-    uint8_t pinstate = (uint8_t)((ENCCHANA_GetValue() << 1) | ENCCHANB_GetValue());
-    instance.rotary_encoder_state = ttable[instance.rotary_encoder_state & 0xf][pinstate];
-    return (instance.rotary_encoder_state & 0x30);
-}
-
 
 
 void timer_callback(void)
 {
-    uint8_t encoder_direction = encoder_read();
+    uint8_t encoder_direction = encoder_read(&instance.rotary_encoder_state);
     if (encoder_direction != DIR_NONE) {
         /* detect direction, if changed, reset rotary encoder vars */
         if (instance.direction != encoder_direction) {
