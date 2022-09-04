@@ -12,7 +12,7 @@
 */
 
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+? [2022] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -170,44 +170,44 @@
 #define ATT5_SetDigitalMode()     do { ANSELAbits.ANSA5 = 0; } while(0)
 
 // get/set IO_RA6 aliases
-#define ATT6_TRIS                 TRISAbits.TRISA6
-#define ATT6_LAT                  LATAbits.LATA6
-#define ATT6_PORT                 PORTAbits.RA6
-#define ATT6_WPU                  WPUAbits.WPUA6
-#define ATT6_OD                   ODCONAbits.ODCA6
-#define ATT6_ANS                  ANSELAbits.ANSA6
-#define ATT6_SetHigh()            do { LATAbits.LATA6 = 1; } while(0)
-#define ATT6_SetLow()             do { LATAbits.LATA6 = 0; } while(0)
-#define ATT6_Toggle()             do { LATAbits.LATA6 = ~LATAbits.LATA6; } while(0)
-#define ATT6_GetValue()           PORTAbits.RA6
-#define ATT6_SetDigitalInput()    do { TRISAbits.TRISA6 = 1; } while(0)
-#define ATT6_SetDigitalOutput()   do { TRISAbits.TRISA6 = 0; } while(0)
-#define ATT6_SetPullup()          do { WPUAbits.WPUA6 = 1; } while(0)
-#define ATT6_ResetPullup()        do { WPUAbits.WPUA6 = 0; } while(0)
-#define ATT6_SetPushPull()        do { ODCONAbits.ODCA6 = 0; } while(0)
-#define ATT6_SetOpenDrain()       do { ODCONAbits.ODCA6 = 1; } while(0)
-#define ATT6_SetAnalogMode()      do { ANSELAbits.ANSA6 = 1; } while(0)
-#define ATT6_SetDigitalMode()     do { ANSELAbits.ANSA6 = 0; } while(0)
+#define _TRIS                 TRISAbits.TRISA6
+#define _LAT                  LATAbits.LATA6
+#define _PORT                 PORTAbits.RA6
+#define _WPU                  WPUAbits.WPUA6
+#define _OD                   ODCONAbits.ODCA6
+#define _ANS                  ANSELAbits.ANSA6
+#define _SetHigh()            do { LATAbits.LATA6 = 1; } while(0)
+#define _SetLow()             do { LATAbits.LATA6 = 0; } while(0)
+#define _Toggle()             do { LATAbits.LATA6 = ~LATAbits.LATA6; } while(0)
+#define _GetValue()           PORTAbits.RA6
+#define _SetDigitalInput()    do { TRISAbits.TRISA6 = 1; } while(0)
+#define _SetDigitalOutput()   do { TRISAbits.TRISA6 = 0; } while(0)
+#define _SetPullup()          do { WPUAbits.WPUA6 = 1; } while(0)
+#define _ResetPullup()        do { WPUAbits.WPUA6 = 0; } while(0)
+#define _SetPushPull()        do { ODCONAbits.ODCA6 = 0; } while(0)
+#define _SetOpenDrain()       do { ODCONAbits.ODCA6 = 1; } while(0)
+#define _SetAnalogMode()      do { ANSELAbits.ANSA6 = 1; } while(0)
+#define _SetDigitalMode()     do { ANSELAbits.ANSA6 = 0; } while(0)
 
 // get/set IO_RA7 aliases
-#define ATT7_TRIS                 TRISAbits.TRISA7
-#define ATT7_LAT                  LATAbits.LATA7
-#define ATT7_PORT                 PORTAbits.RA7
-#define ATT7_WPU                  WPUAbits.WPUA7
-#define ATT7_OD                   ODCONAbits.ODCA7
-#define ATT7_ANS                  ANSELAbits.ANSA7
-#define ATT7_SetHigh()            do { LATAbits.LATA7 = 1; } while(0)
-#define ATT7_SetLow()             do { LATAbits.LATA7 = 0; } while(0)
-#define ATT7_Toggle()             do { LATAbits.LATA7 = ~LATAbits.LATA7; } while(0)
-#define ATT7_GetValue()           PORTAbits.RA7
-#define ATT7_SetDigitalInput()    do { TRISAbits.TRISA7 = 1; } while(0)
-#define ATT7_SetDigitalOutput()   do { TRISAbits.TRISA7 = 0; } while(0)
-#define ATT7_SetPullup()          do { WPUAbits.WPUA7 = 1; } while(0)
-#define ATT7_ResetPullup()        do { WPUAbits.WPUA7 = 0; } while(0)
-#define ATT7_SetPushPull()        do { ODCONAbits.ODCA7 = 0; } while(0)
-#define ATT7_SetOpenDrain()       do { ODCONAbits.ODCA7 = 1; } while(0)
-#define ATT7_SetAnalogMode()      do { ANSELAbits.ANSA7 = 1; } while(0)
-#define ATT7_SetDigitalMode()     do { ANSELAbits.ANSA7 = 0; } while(0)
+#define _TRIS                 TRISAbits.TRISA7
+#define _LAT                  LATAbits.LATA7
+#define _PORT                 PORTAbits.RA7
+#define _WPU                  WPUAbits.WPUA7
+#define _OD                   ODCONAbits.ODCA7
+#define _ANS                  ANSELAbits.ANSA7
+#define _SetHigh()            do { LATAbits.LATA7 = 1; } while(0)
+#define _SetLow()             do { LATAbits.LATA7 = 0; } while(0)
+#define _Toggle()             do { LATAbits.LATA7 = ~LATAbits.LATA7; } while(0)
+#define _GetValue()           PORTAbits.RA7
+#define _SetDigitalInput()    do { TRISAbits.TRISA7 = 1; } while(0)
+#define _SetDigitalOutput()   do { TRISAbits.TRISA7 = 0; } while(0)
+#define _SetPullup()          do { WPUAbits.WPUA7 = 1; } while(0)
+#define _ResetPullup()        do { WPUAbits.WPUA7 = 0; } while(0)
+#define _SetPushPull()        do { ODCONAbits.ODCA7 = 0; } while(0)
+#define _SetOpenDrain()       do { ODCONAbits.ODCA7 = 1; } while(0)
+#define _SetAnalogMode()      do { ANSELAbits.ANSA7 = 1; } while(0)
+#define _SetDigitalMode()     do { ANSELAbits.ANSA7 = 0; } while(0)
 
 // get/set IO_RB0 aliases
 #define INPSEL0_TRIS                 TRISBbits.TRISB0
@@ -404,126 +404,6 @@ void PIN_MANAGER_Initialize (void);
  * @return none
  */
 void PIN_MANAGER_IOC(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Interrupt on Change Handler for the RC0 pin functionality
- * @param none
- * @return none
- */
-void RC0_ISR(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Interrupt Handler Setter for RC0 pin interrupt-on-change functionality.
- *        Allows selecting an interrupt handler for RC0 at application runtime.
- * @pre Pins intializer called
- * @param InterruptHandler function pointer.
- * @return none
- */
-void RC0_SetInterruptHandler(void (* InterruptHandler)(void));
-
-/**
- * @ingroup  pinsdriver
- * @brief Dynamic Interrupt Handler for RC0 pin.
- *        This is a dynamic interrupt handler to be used together with the RC0_SetInterruptHandler() method.
- *        This handler is called every time the RC0 ISR is executed and allows any function to be registered at runtime.
- * @pre Pins intializer called
- * @param none
- * @return none
- */
-extern void (*RC0_InterruptHandler)(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Default Interrupt Handler for RC0 pin. 
- *        This is a predefined interrupt handler to be used together with the RC0_SetInterruptHandler() method.
- *        This handler is called every time the RC0 ISR is executed. 
- * @pre Pins intializer called
- * @param none
- * @return none
- */
-void RC0_DefaultInterruptHandler(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Interrupt on Change Handler for the RC1 pin functionality
- * @param none
- * @return none
- */
-void RC1_ISR(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Interrupt Handler Setter for RC1 pin interrupt-on-change functionality.
- *        Allows selecting an interrupt handler for RC1 at application runtime.
- * @pre Pins intializer called
- * @param InterruptHandler function pointer.
- * @return none
- */
-void RC1_SetInterruptHandler(void (* InterruptHandler)(void));
-
-/**
- * @ingroup  pinsdriver
- * @brief Dynamic Interrupt Handler for RC1 pin.
- *        This is a dynamic interrupt handler to be used together with the RC1_SetInterruptHandler() method.
- *        This handler is called every time the RC1 ISR is executed and allows any function to be registered at runtime.
- * @pre Pins intializer called
- * @param none
- * @return none
- */
-extern void (*RC1_InterruptHandler)(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Default Interrupt Handler for RC1 pin. 
- *        This is a predefined interrupt handler to be used together with the RC1_SetInterruptHandler() method.
- *        This handler is called every time the RC1 ISR is executed. 
- * @pre Pins intializer called
- * @param none
- * @return none
- */
-void RC1_DefaultInterruptHandler(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Interrupt on Change Handler for the RC2 pin functionality
- * @param none
- * @return none
- */
-void RC2_ISR(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Interrupt Handler Setter for RC2 pin interrupt-on-change functionality.
- *        Allows selecting an interrupt handler for RC2 at application runtime.
- * @pre Pins intializer called
- * @param InterruptHandler function pointer.
- * @return none
- */
-void RC2_SetInterruptHandler(void (* InterruptHandler)(void));
-
-/**
- * @ingroup  pinsdriver
- * @brief Dynamic Interrupt Handler for RC2 pin.
- *        This is a dynamic interrupt handler to be used together with the RC2_SetInterruptHandler() method.
- *        This handler is called every time the RC2 ISR is executed and allows any function to be registered at runtime.
- * @pre Pins intializer called
- * @param none
- * @return none
- */
-extern void (*RC2_InterruptHandler)(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Default Interrupt Handler for RC2 pin. 
- *        This is a predefined interrupt handler to be used together with the RC2_SetInterruptHandler() method.
- *        This handler is called every time the RC2 ISR is executed. 
- * @pre Pins intializer called
- * @param none
- * @return none
- */
-void RC2_DefaultInterruptHandler(void);
 
 
 #endif // PINS_H

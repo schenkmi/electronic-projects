@@ -11,7 +11,7 @@
 */
 
 /*
-© [2022] Microchip Technology Inc. and its subsidiaries.
+? [2022] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -64,10 +64,17 @@ void __interrupt() INTERRUPT_InterruptManager (void)
         PIN_MANAGER_IOC();
     }
     // interrupt handler
-    if(PIE0bits.IOCIE == 1 && PIR0bits.IOCIF == 1)
+    if(INTCONbits.PEIE == 1)
     {
-        PIN_MANAGER_IOC();
-    }
+        if(PIE0bits.TMR0IE == 1 && PIR0bits.TMR0IF == 1)
+        {
+            Timer0_OverflowISR();
+        } 
+        else
+        {
+            //Unhandled Interrupt
+        }
+    }      
     else
     {
         //Unhandled Interrupt
