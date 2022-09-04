@@ -148,9 +148,13 @@ volatile Instance_t instance = { .channel = -1, .last_channel = -1,
 
 static void init(volatile Instance_t* instance)
 {
-    PORTA = 0xff; /* max attenuation */
-    PORTB &= ~CHAN_SEL_MASK;
+    //PORTA = 0xff; /* max attenuation */
+    //PORTB &= ~CHAN_SEL_MASK;
     LED = 1;
+
+    /* mute output */
+     PORTB &= ~MUTE_OFF_BIT;
+    __delay_ms(RELAIS_SETUP_TIME);
 
     /* one channel after the others */
     for (int cnt = 0; cnt < 4; cnt++) {
@@ -278,10 +282,10 @@ static void process_channel(volatile Instance_t* instance)
         //instance->volume = eeprom_read((unsigned char)instance->channel);
         instance->last_volume = instance->volume = ROTARY_MAX_VOLUME;
 
-        uint8_t porta_value = PORTA & ~ROTARY_MAX_VOLUME;
-        porta_value |= ((unsigned char)instance->volume & ROTARY_MAX_VOLUME);
-        PORTA = porta_value;
-
+        //uint8_t porta_value = PORTA & ~ROTARY_MAX_VOLUME;
+        //porta_value |= ((unsigned char)instance->volume & ROTARY_MAX_VOLUME);
+        //PORTA = porta_value;
+        PORTA = ((PORTA & ~ROTARY_MAX_VOLUME) | ((unsigned char)instance->volume & ROTARY_MAX_VOLUME));
 
         /* clear and set new channel */
         PORTB &= ~CHAN_SEL_MASK;
@@ -310,9 +314,11 @@ static void process_volume(volatile Instance_t* instance)
              PORTB &= ~MUTE_OFF_BIT;
             __delay_ms(RELAIS_SETUP_TIME);
 
-            uint8_t porta_value = PORTA & ~ROTARY_MAX_VOLUME;
-            porta_value |= ((unsigned char)instance->volume & ROTARY_MAX_VOLUME);
-            PORTA = porta_value;
+            //uint8_t porta_value = PORTA & ~ROTARY_MAX_VOLUME;
+            //porta_value |= ((unsigned char)instance->volume & ROTARY_MAX_VOLUME);
+            //PORTA = porta_value;
+
+            PORTA = ((PORTA & ~ROTARY_MAX_VOLUME) | ((unsigned char)instance->volume & ROTARY_MAX_VOLUME));
 
 
             __delay_ms(RELAIS_SETUP_TIME);
@@ -445,32 +451,13 @@ uint8_t encoder_read(void)
 
 void timer_callback(void)
 {
-#if 0
-       uint8_t ret = encoder_read();
-        if (ret == DIR_CW) {
-            irq_counter++;
-
-        } else if (ret == DIR_CCW) {
-            irq_counter--;
-        }
-#endif
-
     uint8_t encoder_direction = encoder_read();
     if (encoder_direction != DIR_NONE) {
-
-
-
-
-
-/* detect direction, if changed, reset rotary encoder vars */
+        /* detect direction, if changed, reset rotary encoder vars */
         if (instance.direction != encoder_direction) {
             instance.encoder_count[instance.control] = 0;
         }
-
-
         instance.direction = encoder_direction;
-
-
 
         if (encoder_direction == DIR_CW) {
             instance.encoder_count[instance.control]++;
@@ -524,18 +511,11 @@ void timer_callback(void)
                 instance.channel = value;
             }
         }
-
-
-
     }
-
-
-
 
     if ((ENCSWITCH_GetValue() == 0) && (instance.switch_debounce_counter != -1)) {
         if (++instance.switch_debounce_counter > 50) {
             /* changed mode */
-
             if (instance.control == Volume) {
                 instance.control = Channel;
             } else {
@@ -544,9 +524,7 @@ void timer_callback(void)
 
             /* reset rotary encoder vars */
             instance.direction = DIR_NONE;
-            //instance.encoder_value[instance.control] = 0;
             instance.encoder_count[instance.control] = 0;
-
             instance.switch_debounce_counter = -1;
         }
     } else {
@@ -581,8 +559,7 @@ int main(void)
     while (1) {
         process_channel(&instance);
         process_volume(&instance);
-      // eeprom_save_status(&instance);
-
+        eeprom_save_status(&instance);
         __delay_ms(MAIN_LOOP_WAIT);
     }
 }
