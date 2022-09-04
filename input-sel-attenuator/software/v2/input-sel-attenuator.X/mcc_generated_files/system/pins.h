@@ -169,46 +169,6 @@
 #define ATT5_SetAnalogMode()      do { ANSELAbits.ANSA5 = 1; } while(0)
 #define ATT5_SetDigitalMode()     do { ANSELAbits.ANSA5 = 0; } while(0)
 
-// get/set IO_RA6 aliases
-#define _TRIS                 TRISAbits.TRISA6
-#define _LAT                  LATAbits.LATA6
-#define _PORT                 PORTAbits.RA6
-#define _WPU                  WPUAbits.WPUA6
-#define _OD                   ODCONAbits.ODCA6
-#define _ANS                  ANSELAbits.ANSA6
-#define _SetHigh()            do { LATAbits.LATA6 = 1; } while(0)
-#define _SetLow()             do { LATAbits.LATA6 = 0; } while(0)
-#define _Toggle()             do { LATAbits.LATA6 = ~LATAbits.LATA6; } while(0)
-#define _GetValue()           PORTAbits.RA6
-#define _SetDigitalInput()    do { TRISAbits.TRISA6 = 1; } while(0)
-#define _SetDigitalOutput()   do { TRISAbits.TRISA6 = 0; } while(0)
-#define _SetPullup()          do { WPUAbits.WPUA6 = 1; } while(0)
-#define _ResetPullup()        do { WPUAbits.WPUA6 = 0; } while(0)
-#define _SetPushPull()        do { ODCONAbits.ODCA6 = 0; } while(0)
-#define _SetOpenDrain()       do { ODCONAbits.ODCA6 = 1; } while(0)
-#define _SetAnalogMode()      do { ANSELAbits.ANSA6 = 1; } while(0)
-#define _SetDigitalMode()     do { ANSELAbits.ANSA6 = 0; } while(0)
-
-// get/set IO_RA7 aliases
-#define _TRIS                 TRISAbits.TRISA7
-#define _LAT                  LATAbits.LATA7
-#define _PORT                 PORTAbits.RA7
-#define _WPU                  WPUAbits.WPUA7
-#define _OD                   ODCONAbits.ODCA7
-#define _ANS                  ANSELAbits.ANSA7
-#define _SetHigh()            do { LATAbits.LATA7 = 1; } while(0)
-#define _SetLow()             do { LATAbits.LATA7 = 0; } while(0)
-#define _Toggle()             do { LATAbits.LATA7 = ~LATAbits.LATA7; } while(0)
-#define _GetValue()           PORTAbits.RA7
-#define _SetDigitalInput()    do { TRISAbits.TRISA7 = 1; } while(0)
-#define _SetDigitalOutput()   do { TRISAbits.TRISA7 = 0; } while(0)
-#define _SetPullup()          do { WPUAbits.WPUA7 = 1; } while(0)
-#define _ResetPullup()        do { WPUAbits.WPUA7 = 0; } while(0)
-#define _SetPushPull()        do { ODCONAbits.ODCA7 = 0; } while(0)
-#define _SetOpenDrain()       do { ODCONAbits.ODCA7 = 1; } while(0)
-#define _SetAnalogMode()      do { ANSELAbits.ANSA7 = 1; } while(0)
-#define _SetDigitalMode()     do { ANSELAbits.ANSA7 = 0; } while(0)
-
 // get/set IO_RB0 aliases
 #define INPSEL0_TRIS                 TRISBbits.TRISB0
 #define INPSEL0_LAT                  LATBbits.LATB0
