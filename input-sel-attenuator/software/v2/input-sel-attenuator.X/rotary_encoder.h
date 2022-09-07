@@ -37,29 +37,11 @@
 extern "C" {
 #endif
 
-
-//  Direction values returned by read() method
-/**
- \def DIR_NONE
-  read() return value - No complete step/movement
- */
-#define DIR_NONE  0x00
-/**
- \def DIR_CW
- read() return value - Clockwise step/movement
- */
-#define DIR_CW    0x10
-/**
- \def DIR_CCW
- read() return value - Counter-clockwise step/movement
- */
-#define DIR_CCW   0x20
-
-
+#define DIR_NONE  0x00 /* read() return value - No complete step/movement */
+#define DIR_CW    0x10 /* read() return value - Clockwise step/movement */
+#define DIR_CCW   0x20 /* return value - Counter-clockwise step/movement */
 
 uint8_t encoder_read(volatile uint8_t* rotary_encoder_state);
-
-
 
 #ifdef	__cplusplus
 }
