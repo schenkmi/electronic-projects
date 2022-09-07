@@ -41,7 +41,7 @@
  */
 #define R_START 0x0
 
-#if 1 /*ENABLE_HALF_STEP*/
+#if 1 /* ENABLE_HALF_STEP */
 // Use the half-step state table (emits a code at 00 and 11)
 #define R_CCW_BEGIN   0x1
 #define R_CW_BEGIN    0x2
