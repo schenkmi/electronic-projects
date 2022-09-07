@@ -293,7 +293,7 @@ static void process_volume(volatile Instance_t* instance)
 
         if ((PORTA & ROTARY_MAX_VOLUME) != volume) {
             /* something needs to be changed */
-#if 1
+#if 0
             /* mute output */
              PORTB &= ~MUTE_OFF_BIT;
             __delay_ms(RELAIS_SETUP_TIME);
