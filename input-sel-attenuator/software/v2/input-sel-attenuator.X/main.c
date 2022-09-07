@@ -65,7 +65,7 @@
 #define MAIN_LOOP_WAIT               1 /* 1ms */
 #define EEPROM_SAVE_STATUS_VALUE    1000 /* 1 seconds on a 1ms loop */
 
-#define RELAIS_SETUP_TIME           3 /* 3ms */
+#define RELAIS_SETUP_TIME           1 //3 /* 3ms */
 
 
 /* eeprom initialize 0x00..0x07 */
@@ -374,9 +374,10 @@ static void eeprom_save_status(volatile Instance_t* instance)
 
 
 
-
+/* uses 10us time, measured with LED_Toggle();*/
 void timer_callback(void)
 {
+    //LED_Toggle();
     uint8_t encoder_direction = encoder_read(&instance.rotary_encoder_state);
     if (encoder_direction != DIR_NONE) {
         /* detect direction, if changed, reset rotary encoder vars */
@@ -404,7 +405,7 @@ void timer_callback(void)
                 instance.encoder_count[instance.control] = 0;
             }
             else if (instance.encoder_count[instance.control] <= -ROTARY_MULTI_VOLUME) {
-                //value++;
+                value++;
                 instance.encoder_count[instance.control] = 0;
             }
 
@@ -439,7 +440,8 @@ void timer_callback(void)
         }
     }
 
-    if ((ENCSWITCH_GetValue() == 0) && (instance.switch_debounce_counter != -1)) {
+    uint8_t encoder_switch_level = ENCSWITCH_GetValue();
+    if ((encoder_switch_level == 0) && (instance.switch_debounce_counter != -1)) {
         if (++instance.switch_debounce_counter > 50) {
             /* changed mode */
             if (instance.control == Volume) {
@@ -447,15 +449,17 @@ void timer_callback(void)
             } else {
                 instance.control = Volume;
             }
-
+LED_Toggle();
             /* reset rotary encoder vars */
             instance.direction = DIR_NONE;
             instance.encoder_count[instance.control] = 0;
             instance.switch_debounce_counter = -1;
         }
-    } else {
+    } else if (encoder_switch_level == 1){
         instance.switch_debounce_counter = 0;
     }
+    
+    //LED_Toggle();
 }
 
 
@@ -485,7 +489,7 @@ int main(void)
     while (1) {
         process_channel(&instance);
         process_volume(&instance);
-        eeprom_save_status(&instance);
+        //eeprom_save_status(&instance);
         __delay_ms(MAIN_LOOP_WAIT);
     }
 }
