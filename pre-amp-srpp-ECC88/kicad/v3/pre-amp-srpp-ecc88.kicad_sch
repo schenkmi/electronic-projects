@@ -6,8 +6,8 @@
 
   (title_block
     (title "SRPP+ Pre-Amp ECC88/E88CC")
-    (date "2022-09-15")
-    (rev "V2")
+    (date "2022-09-16")
+    (rev "V3")
   )
 
   (lib_symbols
@@ -775,11 +775,11 @@
         )
       )
     )
-    (symbol "Valve:ECC88" (pin_names (offset 0)) (in_bom yes) (on_board yes)
+    (symbol "kicad-snk:ECC88-Shield" (pin_names (offset 0)) (in_bom yes) (on_board yes)
       (property "Reference" "U" (id 0) (at 4.318 7.112 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
-      (property "Value" "ECC88" (id 1) (at 5.08 -7.62 0)
+      (property "Value" "ECC88-Shield" (id 1) (at 5.08 -7.62 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
       (property "Footprint" "Valve:Valve_Noval_P" (id 2) (at 6.858 -10.16 0)
@@ -800,7 +800,7 @@
       (property "ki_fp_filters" "VALVE*NOVAL*P*" (id 7) (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "ECC88_0_1"
+      (symbol "ECC88-Shield_0_1"
         (arc (start -5.08 -2.54) (mid 0 -7.62) (end 5.08 -2.54)
           (stroke (width 0) (type default) (color 0 0 0 0))
           (fill (type none))
@@ -834,7 +834,7 @@
           (fill (type none))
         )
       )
-      (symbol "ECC88_1_0"
+      (symbol "ECC88-Shield_1_0"
         (polyline
           (pts
             (xy -2.54 -5.08)
@@ -852,7 +852,7 @@
           (fill (type none))
         )
       )
-      (symbol "ECC88_1_1"
+      (symbol "ECC88-Shield_1_1"
         (polyline
           (pts
             (xy -5.08 0)
@@ -911,7 +911,7 @@
           (number "3" (effects (font (size 1.27 1.27))))
         )
       )
-      (symbol "ECC88_2_0"
+      (symbol "ECC88-Shield_2_0"
         (polyline
           (pts
             (xy -5.08 0)
@@ -970,7 +970,7 @@
           (fill (type none))
         )
       )
-      (symbol "ECC88_2_1"
+      (symbol "ECC88-Shield_2_1"
         (arc (start 2.54 -5.08) (mid 0 -3.0968) (end -2.54 -5.08)
           (stroke (width 0.254) (type default) (color 0 0 0 0))
           (fill (type none))
@@ -988,7 +988,7 @@
           (number "8" (effects (font (size 1.27 1.27))))
         )
       )
-      (symbol "ECC88_3_1"
+      (symbol "ECC88-Shield_3_1"
         (arc (start 2.54 -6.35) (mid 0 -5.1292) (end -2.54 -6.35)
           (stroke (width 0) (type default) (color 0 0 0 0))
           (fill (type none))
@@ -1000,6 +1000,10 @@
         (pin power_in line (at 2.54 -11.43 90) (length 5.08)
           (name "F2" (effects (font (size 1.27 1.27))))
           (number "5" (effects (font (size 1.27 1.27))))
+        )
+        (pin passive line (at -7.62 -2.54 0) (length 2.54)
+          (name "S" (effects (font (size 1.27 1.27))))
+          (number "9" (effects (font (size 1.27 1.27))))
         )
       )
     )
@@ -1284,6 +1288,10 @@
   (no_connect (at 226.695 176.53) (uuid 7bf3bdae-74b4-4a77-9cb4-1926212d4756))
   (no_connect (at 205.74 247.65) (uuid fae0252c-2e9e-4015-bbc5-f19802216ea3))
 
+  (wire (pts (xy 43.815 121.285) (xy 46.355 121.285))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid 02ca9588-4e5a-463a-b1b3-a28277c10298)
+  )
   (wire (pts (xy 157.48 52.705) (xy 153.67 52.705))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 059c716f-ba11-42ff-88b0-59f6a5017738)
@@ -1383,6 +1391,10 @@
   (wire (pts (xy 139.7 38.1) (xy 139.7 33.02))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 2c1a88a1-f9b8-44f0-be70-8b2310fc6324)
+  )
+  (wire (pts (xy 43.815 35.56) (xy 43.815 31.75))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid 2dd42f89-f101-4020-a22f-14ddb2841106)
   )
   (wire (pts (xy 109.855 30.48) (xy 114.3 30.48))
     (stroke (width 0) (type default) (color 0 0 0 0))
@@ -1591,6 +1603,10 @@
   (wire (pts (xy 138.43 242.57) (xy 138.43 254))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 6d9a6ebc-2f08-40c3-b640-4d03bf1ca310)
+  )
+  (wire (pts (xy 43.815 31.75) (xy 46.355 31.75))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid 6dcce7cd-8cb6-40c7-afcd-1e13096d3c4a)
   )
   (wire (pts (xy 149.86 113.03) (xy 152.4 113.03))
     (stroke (width 0) (type default) (color 0 0 0 0))
@@ -2003,6 +2019,10 @@
   (wire (pts (xy 121.92 17.78) (xy 139.7 17.78))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid ee54df19-839a-4ff1-a141-89116d1f31ad)
+  )
+  (wire (pts (xy 43.815 125.095) (xy 43.815 121.285))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid ee5576a3-f4b9-44d0-ae17-baa2752e7cd0)
   )
   (wire (pts (xy 116.84 179.705) (xy 116.84 181.61))
     (stroke (width 0) (type default) (color 0 0 0 0))
@@ -3286,7 +3306,7 @@
     (pin "1" (uuid 48ba65a5-82e3-42e7-ae64-31b4907e593b))
   )
 
-  (symbol (lib_id "Valve:ECC88") (at 53.975 118.745 0) (unit 3)
+  (symbol (lib_id "kicad-snk:ECC88-Shield") (at 53.975 118.745 0) (unit 3)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 0ada8a0f-54f4-4a2d-92ec-1151d5636244)
     (property "Reference" "U3" (id 0) (at 60.325 117.4749 0)
@@ -3295,7 +3315,7 @@
     (property "Value" "ECC88" (id 1) (at 60.325 120.0149 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "kicad-snk:TubeNoval-ECC88" (id 2) (at 60.833 128.905 0)
+    (property "Footprint" "w_vacuum:socket_gzc9-b" (id 2) (at 60.833 128.905 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.r-type.org/pdfs/ecc88.pdf" (id 3) (at 53.975 118.745 0)
@@ -3309,6 +3329,7 @@
     (pin "8" (uuid 136a0053-5f43-499b-809f-0541d3ed0ce9))
     (pin "4" (uuid 93e5dea0-59cc-4540-9947-b62edae8dfee))
     (pin "5" (uuid b4470d67-3121-4325-bb9a-01e291e7065a))
+    (pin "9" (uuid 56031381-4968-4dc1-a6cb-5c6645eeaaba))
   )
 
   (symbol (lib_id "Device:R") (at 102.235 169.545 90) (unit 1)
@@ -3365,7 +3386,7 @@
     (pin "1" (uuid e84422b9-763d-47ce-9e85-9f71f49b3c6e))
   )
 
-  (symbol (lib_id "Valve:ECC88") (at 119.38 74.295 0) (unit 1)
+  (symbol (lib_id "kicad-snk:ECC88-Shield") (at 119.38 74.295 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 23e48058-9216-4339-bd89-b03695966960)
     (property "Reference" "U2" (id 0) (at 125.73 73.0249 0)
@@ -3374,7 +3395,7 @@
     (property "Value" "ECC88" (id 1) (at 125.73 75.5649 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "kicad-snk:TubeNoval-ECC88" (id 2) (at 126.238 84.455 0)
+    (property "Footprint" "w_vacuum:socket_gzc9-b" (id 2) (at 126.238 84.455 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.r-type.org/pdfs/ecc88.pdf" (id 3) (at 119.38 74.295 0)
@@ -3388,6 +3409,7 @@
     (pin "8" (uuid 0f04f891-7eed-4e58-8670-207b51ac7c09))
     (pin "4" (uuid fb8cf9a5-203a-4277-9aff-2e593f68b0c5))
     (pin "5" (uuid 79811aba-a81c-428d-a76b-b9e73ea9cca5))
+    (pin "9" (uuid 205804f9-8b31-45df-929b-8efe5eca414b))
   )
 
   (symbol (lib_id "Device:R") (at 116.84 90.17 0) (unit 1)
@@ -3409,7 +3431,23 @@
     (pin "2" (uuid 122be73b-9000-4eaf-a2e0-8abebe1906db))
   )
 
-  (symbol (lib_id "Valve:ECC88") (at 121.92 30.48 0) (unit 2)
+  (symbol (lib_id "power:GND") (at 43.815 35.56 0) (unit 1)
+    (in_bom yes) (on_board yes)
+    (uuid 2bf3da04-eab7-4829-ba9c-4cec4eba7116)
+    (property "Reference" "#PWR0109" (id 0) (at 43.815 41.91 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND" (id 1) (at 43.942 39.9542 0))
+    (property "Footprint" "" (id 2) (at 43.815 35.56 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (id 3) (at 43.815 35.56 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 7dcb027f-396b-4cd5-87d6-bb828f716411))
+  )
+
+  (symbol (lib_id "kicad-snk:ECC88-Shield") (at 121.92 30.48 0) (unit 2)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 2f37f13c-e20a-4b1f-9b5d-4a2268804978)
     (property "Reference" "U2" (id 0) (at 127.635 29.2099 0)
@@ -3418,7 +3456,7 @@
     (property "Value" "ECC88" (id 1) (at 127.635 31.7499 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "kicad-snk:TubeNoval-ECC88" (id 2) (at 128.778 40.64 0)
+    (property "Footprint" "w_vacuum:socket_gzc9-b" (id 2) (at 128.778 40.64 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.r-type.org/pdfs/ecc88.pdf" (id 3) (at 121.92 30.48 0)
@@ -3432,6 +3470,7 @@
     (pin "8" (uuid 73771eb3-34da-41c9-87ab-7fcfa08b16ef))
     (pin "4" (uuid cb9ae8c2-0b82-452d-ad89-eb2080a32ac7))
     (pin "5" (uuid 79d48baf-eecd-4d76-8ee8-f6e6c02961c9))
+    (pin "9" (uuid 12b8562a-118c-4aab-bb98-0d3d62d6e1ca))
   )
 
   (symbol (lib_id "Device:R") (at 119.38 142.24 0) (unit 1)
@@ -3472,7 +3511,23 @@
     (pin "2" (uuid 973d36e7-a117-40a7-9596-ea124d975b7e))
   )
 
-  (symbol (lib_id "Valve:ECC88") (at 53.975 29.21 0) (unit 3)
+  (symbol (lib_id "power:GND") (at 43.815 125.095 0) (unit 1)
+    (in_bom yes) (on_board yes)
+    (uuid 77c32112-ab02-4bf5-81d6-50bae02ad139)
+    (property "Reference" "#PWR0108" (id 0) (at 43.815 131.445 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND" (id 1) (at 43.942 129.4892 0))
+    (property "Footprint" "" (id 2) (at 43.815 125.095 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (id 3) (at 43.815 125.095 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 81c0feda-9f44-4a72-9d10-1dc1e1cbd8c9))
+  )
+
+  (symbol (lib_id "kicad-snk:ECC88-Shield") (at 53.975 29.21 0) (unit 3)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 7c4d3d8f-4fb4-4797-a92b-d33c91e718e5)
     (property "Reference" "U2" (id 0) (at 60.325 27.9399 0)
@@ -3481,7 +3536,7 @@
     (property "Value" "ECC88" (id 1) (at 60.325 30.4799 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "kicad-snk:TubeNoval-ECC88" (id 2) (at 60.833 39.37 0)
+    (property "Footprint" "w_vacuum:socket_gzc9-b" (id 2) (at 60.833 39.37 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.r-type.org/pdfs/ecc88.pdf" (id 3) (at 53.975 29.21 0)
@@ -3495,6 +3550,7 @@
     (pin "8" (uuid 136a0053-5f43-499b-809f-0541d3ed0cea))
     (pin "4" (uuid a11d398e-6632-471f-9c97-31c3ff119047))
     (pin "5" (uuid 95ab5724-2cf1-4f66-8c1e-36f7e34a49e8))
+    (pin "9" (uuid 10555c56-196b-4153-ab3a-7cdf39da7eda))
   )
 
   (symbol (lib_id "Device:R") (at 119.38 153.035 0) (unit 1)
@@ -3585,7 +3641,7 @@
     (pin "2" (uuid d1a9f8da-2650-4aa4-9adf-887f16c9f669))
   )
 
-  (symbol (lib_id "Valve:ECC88") (at 119.38 169.545 0) (unit 1)
+  (symbol (lib_id "kicad-snk:ECC88-Shield") (at 119.38 169.545 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid b2122a13-00b8-4a8b-a77c-7cb26463186a)
     (property "Reference" "U3" (id 0) (at 125.73 168.2749 0)
@@ -3594,7 +3650,7 @@
     (property "Value" "ECC88" (id 1) (at 125.73 170.8149 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "kicad-snk:TubeNoval-ECC88" (id 2) (at 126.238 179.705 0)
+    (property "Footprint" "w_vacuum:socket_gzc9-b" (id 2) (at 126.238 179.705 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.r-type.org/pdfs/ecc88.pdf" (id 3) (at 119.38 169.545 0)
@@ -3608,6 +3664,7 @@
     (pin "8" (uuid 0f04f891-7eed-4e58-8670-207b51ac7c0a))
     (pin "4" (uuid fb8cf9a5-203a-4277-9aff-2e593f68b0c6))
     (pin "5" (uuid 79811aba-a81c-428d-a76b-b9e73ea9cca6))
+    (pin "9" (uuid de2ba32b-d4c8-4616-8e75-5d2306971d8a))
   )
 
   (symbol (lib_id "Device:R") (at 107.315 142.24 180) (unit 1)
@@ -3629,7 +3686,7 @@
     (pin "2" (uuid 54d8f42d-d4d9-410e-80f8-8d298b49f785))
   )
 
-  (symbol (lib_id "Valve:ECC88") (at 121.92 125.73 0) (unit 2)
+  (symbol (lib_id "kicad-snk:ECC88-Shield") (at 121.92 125.73 0) (unit 2)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid e1bb724d-d0df-4d75-b34a-bbd65c85195f)
     (property "Reference" "U3" (id 0) (at 127.635 124.4599 0)
@@ -3638,7 +3695,7 @@
     (property "Value" "ECC88" (id 1) (at 127.635 126.9999 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "kicad-snk:TubeNoval-ECC88" (id 2) (at 128.778 135.89 0)
+    (property "Footprint" "w_vacuum:socket_gzc9-b" (id 2) (at 128.778 135.89 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://www.r-type.org/pdfs/ecc88.pdf" (id 3) (at 121.92 125.73 0)
@@ -3652,6 +3709,7 @@
     (pin "8" (uuid 9d8e6929-3fe1-4ac9-bf41-e2c47e063df0))
     (pin "4" (uuid cb9ae8c2-0b82-452d-ad89-eb2080a32ac8))
     (pin "5" (uuid 79d48baf-eecd-4d76-8ee8-f6e6c02961ca))
+    (pin "9" (uuid 474ae56a-fd71-400d-a277-785c1f900a6b))
   )
 
   (symbol (lib_id "Jumper:SolderJumper_2_Open") (at 57.15 83.82 0) (unit 1)
@@ -3764,6 +3822,12 @@
     )
     (path "/00000000-0000-0000-0000-00006086b54a"
       (reference "#PWR0107") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/77c32112-ab02-4bf5-81d6-50bae02ad139"
+      (reference "#PWR0108") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/2bf3da04-eab7-4829-ba9c-4cec4eba7116"
+      (reference "#PWR0109") (unit 1) (value "GND") (footprint "")
     )
     (path "/00000000-0000-0000-0000-00006006e781"
       (reference "C1") (unit 1) (value "3.3uF") (footprint "Capacitor_THT:C_Rect_L7.2mm_W7.2mm_P5.00mm_FKS2_FKP2_MKS2_MKP2")
@@ -3949,22 +4013,22 @@
       (reference "U1") (unit 1) (value "TLC555xD") (footprint "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm")
     )
     (path "/23e48058-9216-4339-bd89-b03695966960"
-      (reference "U2") (unit 1) (value "ECC88") (footprint "kicad-snk:TubeNoval-ECC88")
+      (reference "U2") (unit 1) (value "ECC88") (footprint "w_vacuum:socket_gzc9-b")
     )
     (path "/2f37f13c-e20a-4b1f-9b5d-4a2268804978"
-      (reference "U2") (unit 2) (value "ECC88") (footprint "kicad-snk:TubeNoval-ECC88")
+      (reference "U2") (unit 2) (value "ECC88") (footprint "w_vacuum:socket_gzc9-b")
     )
     (path "/7c4d3d8f-4fb4-4797-a92b-d33c91e718e5"
-      (reference "U2") (unit 3) (value "ECC88") (footprint "kicad-snk:TubeNoval-ECC88")
+      (reference "U2") (unit 3) (value "ECC88") (footprint "w_vacuum:socket_gzc9-b")
     )
     (path "/b2122a13-00b8-4a8b-a77c-7cb26463186a"
-      (reference "U3") (unit 1) (value "ECC88") (footprint "kicad-snk:TubeNoval-ECC88")
+      (reference "U3") (unit 1) (value "ECC88") (footprint "w_vacuum:socket_gzc9-b")
     )
     (path "/e1bb724d-d0df-4d75-b34a-bbd65c85195f"
-      (reference "U3") (unit 2) (value "ECC88") (footprint "kicad-snk:TubeNoval-ECC88")
+      (reference "U3") (unit 2) (value "ECC88") (footprint "w_vacuum:socket_gzc9-b")
     )
     (path "/0ada8a0f-54f4-4a2d-92ec-1151d5636244"
-      (reference "U3") (unit 3) (value "ECC88") (footprint "kicad-snk:TubeNoval-ECC88")
+      (reference "U3") (unit 3) (value "ECC88") (footprint "w_vacuum:socket_gzc9-b")
     )
   )
 )
