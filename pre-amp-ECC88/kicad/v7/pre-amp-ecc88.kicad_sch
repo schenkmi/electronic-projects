@@ -6,8 +6,8 @@
 
   (title_block
     (title "Pre-Amp ECC88/E88CC")
-    (date "2022-09-16")
-    (rev "V6")
+    (date "2022-10-09")
+    (rev "V7")
   )
 
   (lib_symbols
@@ -2512,7 +2512,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060068443)
     (property "Reference" "R2" (id 0) (at 81.28 60.7822 90))
-    (property "Value" "47k" (id 1) (at 81.28 63.0936 90))
+    (property "Value" "10k/47k" (id 1) (at 81.28 63.0936 90))
     (property "Footprint" "Resistor_SMD:R_MELF_MMB-0207" (id 2) (at 81.28 64.262 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -2919,7 +2919,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00006007e95e)
     (property "Reference" "R6" (id 0) (at 127 96.3422 90))
-    (property "Value" "100k" (id 1) (at 127 98.6536 90))
+    (property "Value" "22k/100k" (id 1) (at 127 98.6536 90))
     (property "Footprint" "Resistor_SMD:R_MELF_MMB-0207" (id 2) (at 127 99.822 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -3213,7 +3213,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00006010b707)
     (property "Reference" "R11" (id 0) (at 81.28 159.8422 90))
-    (property "Value" "47k" (id 1) (at 81.28 162.1536 90))
+    (property "Value" "10k/47k" (id 1) (at 81.28 162.1536 90))
     (property "Footprint" "Resistor_SMD:R_MELF_MMB-0207" (id 2) (at 81.28 163.322 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -3438,7 +3438,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00006010b789)
     (property "Reference" "R15" (id 0) (at 127 195.4022 90))
-    (property "Value" "100k" (id 1) (at 127 197.7136 90))
+    (property "Value" "22k/100k" (id 1) (at 127 197.7136 90))
     (property "Footprint" "Resistor_SMD:R_MELF_MMB-0207" (id 2) (at 127 198.882 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -3806,8 +3806,8 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-0000606b8c32)
     (property "Reference" "K1" (id 0) (at 281.1018 156.21 90))
-    (property "Value" "G6K-2" (id 1) (at 278.7904 156.21 90))
-    (property "Footprint" "Relay_SMD:Relay_DPDT_Omron_G6K-2F-Y" (id 2) (at 261.62 156.21 0)
+    (property "Value" "G6K-2F-TR DC6" (id 1) (at 278.7904 156.21 90))
+    (property "Footprint" "Relay_SMD:Relay_DPDT_Omron_G6K-2F" (id 2) (at 261.62 156.21 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Datasheet" "http://omronfs.omron.com/en_US/ecb/products/pdf/en-g6k.pdf" (id 3) (at 261.62 156.21 0)
@@ -4428,7 +4428,7 @@
       (reference "JP3") (unit 1) (value "SolderJumper_2_Open") (footprint "Jumper:SolderJumper-2_P1.3mm_Open_Pad1.0x1.5mm")
     )
     (path "/00000000-0000-0000-0000-0000606b8c32"
-      (reference "K1") (unit 1) (value "G6K-2") (footprint "Relay_SMD:Relay_DPDT_Omron_G6K-2F-Y")
+      (reference "K1") (unit 1) (value "G6K-2F-TR DC6") (footprint "Relay_SMD:Relay_DPDT_Omron_G6K-2F")
     )
     (path "/00000000-0000-0000-0000-0000606d875d"
       (reference "Q1") (unit 1) (value "MMBT3904") (footprint "Package_TO_SOT_SMD:SOT-23")
@@ -4437,7 +4437,7 @@
       (reference "R1") (unit 1) (value "1Meg") (footprint "Resistor_SMD:R_MELF_MMB-0207")
     )
     (path "/00000000-0000-0000-0000-000060068443"
-      (reference "R2") (unit 1) (value "47k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
+      (reference "R2") (unit 1) (value "10k/47k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
     )
     (path "/00000000-0000-0000-0000-0000600aa562"
       (reference "R3") (unit 1) (value "1.21k") (footprint "Resistor_SMD:R_MiniMELF_MMA-0204")
@@ -4449,7 +4449,7 @@
       (reference "R5") (unit 1) (value "39k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
     )
     (path "/00000000-0000-0000-0000-00006007e95e"
-      (reference "R6") (unit 1) (value "100k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
+      (reference "R6") (unit 1) (value "22k/100k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
     )
     (path "/00000000-0000-0000-0000-00006007c853"
       (reference "R7") (unit 1) (value "56k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
@@ -4464,7 +4464,7 @@
       (reference "R10") (unit 1) (value "1Meg") (footprint "Resistor_SMD:R_MELF_MMB-0207")
     )
     (path "/00000000-0000-0000-0000-00006010b707"
-      (reference "R11") (unit 1) (value "47k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
+      (reference "R11") (unit 1) (value "10k/47k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
     )
     (path "/00000000-0000-0000-0000-00006010b82f"
       (reference "R12") (unit 1) (value "1.21k") (footprint "Resistor_SMD:R_MiniMELF_MMA-0204")
@@ -4476,7 +4476,7 @@
       (reference "R14") (unit 1) (value "39k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
     )
     (path "/00000000-0000-0000-0000-00006010b789"
-      (reference "R15") (unit 1) (value "100k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
+      (reference "R15") (unit 1) (value "22k/100k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
     )
     (path "/00000000-0000-0000-0000-00006010b76b"
       (reference "R16") (unit 1) (value "56k") (footprint "Resistor_SMD:R_MELF_MMB-0207")
