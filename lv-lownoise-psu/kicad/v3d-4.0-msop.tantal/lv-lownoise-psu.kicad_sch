@@ -1916,6 +1916,10 @@
     (uuid ffad9ae2-2f85-4f3c-8e55-eb06ee4e16a5)
   )
 
+  (text "13,4°/W" (at 282.575 209.55 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 7a9b7d43-57e1-4e2a-aed6-bdf6c43a26be)
+  )
   (text "Snubber" (at 27.94 101.6 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 81aaa532-a957-4ce8-bc52-7fd9da74654f)
@@ -1923,6 +1927,10 @@
   (text "Cs=100nF/50\nRs=25.8R/0.125W" (at 27.94 154.94 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 96d22b72-2553-498f-b612-57b9122fc303)
+  )
+  (text "13,4°/W" (at 295.91 48.26 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid f39b8e64-8934-4b62-9fdd-3d0e2002a1ad)
   )
 
   (symbol (lib_id "Connector_Generic:Conn_01x01") (at 22.86 127 180) (unit 1)
@@ -3139,7 +3147,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x01") (at 22.86 191.135 180) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 11936b0a-663c-49b1-825c-3278bd212564)
-    (property "Reference" "J?" (id 0) (at 24.9428 185.42 0))
+    (property "Reference" "J13" (id 0) (at 24.9428 185.42 0))
     (property "Value" "EARTH" (id 1) (at 24.9428 187.7314 0))
     (property "Footprint" "Connector_Pin:Pin_D1.3mm_L11.0mm" (id 2) (at 22.86 191.135 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -3189,7 +3197,7 @@
   (symbol (lib_id "power:GND") (at 38.1 213.36 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 6ef8b8a9-3b6c-4035-b63c-a849275e4543)
-    (property "Reference" "#PWR?" (id 0) (at 38.1 219.71 0)
+    (property "Reference" "#PWR0101" (id 0) (at 38.1 219.71 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (id 1) (at 38.227 217.7542 0))
@@ -3241,7 +3249,7 @@
   (symbol (lib_id "power:GND") (at 54.61 213.36 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid ea06e694-403f-4d63-bd1a-eac49c45ba0c)
-    (property "Reference" "#PWR?" (id 0) (at 54.61 219.71 0)
+    (property "Reference" "#PWR0102" (id 0) (at 54.61 219.71 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (id 1) (at 54.737 217.7542 0))
@@ -3275,10 +3283,10 @@
       (reference "#PWR05") (unit 1) (value "GND") (footprint "")
     )
     (path "/6ef8b8a9-3b6c-4035-b63c-a849275e4543"
-      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+      (reference "#PWR0101") (unit 1) (value "GND") (footprint "")
     )
     (path "/ea06e694-403f-4d63-bd1a-eac49c45ba0c"
-      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+      (reference "#PWR0102") (unit 1) (value "GND") (footprint "")
     )
     (path "/00000000-0000-0000-0000-00005f961063"
       (reference "C1") (unit 1) (value "2200uF") (footprint "Capacitor_THT:CP_Radial_D16.0mm_P7.50mm")
@@ -3434,7 +3442,7 @@
       (reference "J12") (unit 1) (value "-5V") (footprint "Connector_Pin:Pin_D1.0mm_L10.0mm")
     )
     (path "/11936b0a-663c-49b1-825c-3278bd212564"
-      (reference "J?") (unit 1) (value "EARTH") (footprint "Connector_Pin:Pin_D1.3mm_L11.0mm")
+      (reference "J13") (unit 1) (value "EARTH") (footprint "Connector_Pin:Pin_D1.3mm_L11.0mm")
     )
     (path "/00000000-0000-0000-0000-0000613b0ed5"
       (reference "Q1") (unit 1) (value "BD139") (footprint "Package_TO_SOT_THT:TO-126-3_Vertical")
