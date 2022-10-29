@@ -6,8 +6,8 @@
 
   (title_block
     (title "Discrete Pre-Amp")
-    (date "2021-07-28")
-    (rev "V6 BC850C/BC860C")
+    (date "2022-10-29")
+    (rev "V7 BC850C/BC860C")
   )
 
   (lib_symbols
@@ -690,7 +690,6 @@
       )
     )
   )
-
 
   (junction (at 140.97 43.18) (diameter 0) (color 0 0 0 0)
     (uuid 02f19a3d-6dbc-4337-aa65-72e23e367abb)
@@ -1581,6 +1580,27 @@
     (uuid fc85b023-e835-4f4d-8a11-4e326e903c11)
   )
 
+  (text "R8//R14 = 11k" (at 160.655 112.395 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 3e5116d3-e411-43a8-9501-c3a48ee42098)
+  )
+  (text "14mA" (at 283.845 72.39 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 59ff345b-fc6d-46dd-bf8b-47d020d03ff7)
+  )
+  (text "3.8mA" (at 141.605 72.39 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 70aa671f-06ae-4be2-bc8b-28f0d657f399)
+  )
+  (text "not equipped" (at 193.675 87.63 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid c3e3d2fb-f2ea-40c1-aa1e-9705dbde0f3f)
+  )
+  (text "7.6mA" (at 217.805 72.39 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid f500cc11-a2df-4ab2-9191-edcf80e3695d)
+  )
+
   (global_label "DCSERVO_IN" (shape output) (at 302.26 91.44 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 0be97825-76c8-45fe-a851-7a0f6706ab94)
@@ -1704,7 +1724,7 @@
     (property "Reference" "R8" (id 0) (at 182.118 111.8616 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10k" (id 1) (at 182.118 114.173 0)
+    (property "Value" "22k" (id 1) (at 182.118 114.173 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 178.562 113.03 90)
@@ -1888,7 +1908,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005f82148c)
     (property "Reference" "C7" (id 0) (at 208.28 133.2992 90))
-    (property "Value" "0pF" (id 1) (at 208.28 135.6106 90))
+    (property "Value" "270pF" (id 1) (at 208.28 135.6106 90))
     (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (id 2) (at 204.47 140.6652 0)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -2130,7 +2150,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005f95f591)
     (property "Reference" "C12" (id 0) (at 199.39 88.8492 90))
-    (property "Value" "0pF" (id 1) (at 199.39 91.1606 90))
+    (property "Value" "xpF" (id 1) (at 199.39 91.1606 90))
     (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (id 2) (at 195.58 96.2152 0)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -2346,7 +2366,7 @@
     (property "Reference" "C10" (id 0) (at 260.731 256.6416 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Value" "1uF" (id 1) (at 260.731 258.953 0)
+    (property "Value" "1uF/16V" (id 1) (at 260.731 258.953 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" (id 2) (at 256.8448 254 0)
@@ -2384,7 +2404,7 @@
     (property "Reference" "C6" (id 0) (at 208.1784 260.731 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Value" "1uF" (id 1) (at 205.867 260.731 0)
+    (property "Value" "1uF/16V" (id 1) (at 205.867 260.731 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" (id 2) (at 210.82 256.8448 0)
@@ -2547,7 +2567,7 @@
     (property "Reference" "R14" (id 0) (at 182.118 97.8916 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10k" (id 1) (at 182.118 100.203 0)
+    (property "Value" "22k" (id 1) (at 182.118 100.203 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 178.562 99.06 90)
@@ -3252,7 +3272,7 @@
     (property "Reference" "C1" (id 0) (at 105.791 114.4016 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Value" "47p" (id 1) (at 105.791 116.713 0)
+    (property "Value" "33p" (id 1) (at 105.791 116.713 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (id 2) (at 101.9048 111.76 0)
@@ -3539,7 +3559,7 @@
       (reference "#PWR0125") (unit 1) (value "GND") (footprint "")
     )
     (path "/e019f0e7-38a0-41ab-9dbe-4fecd8793cde"
-      (reference "C1") (unit 1) (value "47p") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
+      (reference "C1") (unit 1) (value "33p") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f7fc412"
       (reference "C2") (unit 1) (value "2.2uF") (footprint "Capacitor_THT:C_Rect_L7.2mm_W7.2mm_P5.00mm_FKS2_FKP2_MKS2_MKP2")
@@ -3554,10 +3574,10 @@
       (reference "C5") (unit 1) (value "220uF") (footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
     )
     (path "/00000000-0000-0000-0000-000060aa9d97"
-      (reference "C6") (unit 1) (value "1uF") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
+      (reference "C6") (unit 1) (value "1uF/16V") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f82148c"
-      (reference "C7") (unit 1) (value "0pF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
+      (reference "C7") (unit 1) (value "270pF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060aa9d9d"
       (reference "C8") (unit 1) (value "100nF") (footprint "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder")
@@ -3566,13 +3586,13 @@
       (reference "C9") (unit 1) (value "100nF") (footprint "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060aa9d8b"
-      (reference "C10") (unit 1) (value "1uF") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
+      (reference "C10") (unit 1) (value "1uF/16V") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
     )
     (path "/63e2881d-a410-4fbd-9479-17ee2d46e7c8"
       (reference "C11") (unit 1) (value "220uF") (footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
     )
     (path "/00000000-0000-0000-0000-00005f95f591"
-      (reference "C12") (unit 1) (value "0pF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
+      (reference "C12") (unit 1) (value "xpF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/e60c9481-5dd8-4908-9959-4d82b02e5b5f"
       (reference "C13") (unit 1) (value "100nF") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
@@ -3704,7 +3724,7 @@
       (reference "R7") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f7fe6d0"
-      (reference "R8") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R8") (unit 1) (value "22k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f7ff6ab"
       (reference "R9") (unit 1) (value "22k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
@@ -3722,7 +3742,7 @@
       (reference "R13") (unit 1) (value "47R") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060ac5fe2"
-      (reference "R14") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R14") (unit 1) (value "22k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060aa9d91"
       (reference "R15") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
