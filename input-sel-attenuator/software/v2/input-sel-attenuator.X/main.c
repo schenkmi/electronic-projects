@@ -39,7 +39,8 @@
 #include "mcc_generated_files/system/system.h"
 #include "rotary_encoder.h"
 
-#define EEPROM_ADR_CHANNEL           0x04 /* EEPROM address of current channel */
+#define EEPROM_ADDR_CHANNEL          0x04 /* EEPROM address of current channel */
+#define EEPROM_ADDR_DEFAULT_VOLUME   0x05 /* EEPROM address to store the default volume after a channel switch */
 
 #define MUTE_OFF_BIT                 0x10
 #define CHAN_SEL_MASK                0x0f
@@ -57,13 +58,17 @@
 #define EEPROM_SAVE_STATUS_VALUE     1000 /* 1 seconds on a 1ms loop */
 #define RELAIS_SETUP_TIME               1 /* 1ms */
 
+#define ROTARY_PUSH_DEBOUNCE            20 /* 20 ms on a 1ms timer IRQ */
+#define STORE_DEFAULT_VOLUME_TIME       ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE)
+
 /* eeprom initialize 0x00..0x07 */
 __EEPROM_DATA(ROTARY_MAX_VOLUME /* channel 0 volume initial */,
               ROTARY_MAX_VOLUME /* channel 1 volume initial */,
               ROTARY_MAX_VOLUME /* channel 2 volume initial */,
               ROTARY_MAX_VOLUME /* channel 3 volume initial */,
               0x00 /* channel selection initial */,
-              0xff, 0xff, 0xff);
+              ROTARY_MAX_VOLUME, 
+              0xff, 0xff);
 
 enum Control { Volume = 0, Channel = 1};
 
@@ -72,6 +77,7 @@ typedef struct {
     int last_channel;
     int volume;
     int last_volume;
+    int default_volume;
     /* irq changed */
     volatile enum Control control;
     uint8_t  direction;
@@ -80,15 +86,19 @@ typedef struct {
     int eeprom_save_status_counter;
     /* rotary encoder state */
     uint8_t rotary_encoder_state;
-    /* switch debounce */
-    int switch_debounce_counter;
+    /* encoder push button */
+    int encoder_push_debounce_counter;
+    int encoder_push_counter;
+    int encoder_push_action;
 } Instance_t;
 
 volatile Instance_t instance = { .channel = -1, .last_channel = -1,
                                  .volume = -1, .last_volume = -1,
+                                 .default_volume = ROTARY_MAX_VOLUME,
                                  .control = Volume, .direction = DIR_NONE,
                                  .encoder_count = { 0,0 }, .eeprom_save_status_counter = -1,
-                                 .rotary_encoder_state = 0, .switch_debounce_counter = 0 };
+                                 .rotary_encoder_state = 0, .encoder_push_debounce_counter = 0, 
+                                 .encoder_push_counter = 0, .encoder_push_action = 0 };
 
 static void init(volatile Instance_t* instance)
 {
@@ -116,7 +126,10 @@ static void init(volatile Instance_t* instance)
 #endif
 
     /* read last used channel, channels volume will be handler inside process_channel() */
-    instance->channel = eeprom_read(EEPROM_ADR_CHANNEL);
+    instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
+    
+    /* read default volume */
+    instance->default_volume = eeprom_read(EEPROM_ADDR_DEFAULT_VOLUME);
 }
 
 /* channel selection relais are on RB0...RB3 */
@@ -129,7 +142,8 @@ static void process_channel(volatile Instance_t* instance)
 
         /* always start with max attenuation after a channel switch */
         //instance->volume = eeprom_read((unsigned char)instance->channel);
-        instance->last_volume = instance->volume = ROTARY_MAX_VOLUME;
+        //instance->last_volume = instance->volume = ROTARY_MAX_VOLUME;
+        instance->last_volume = instance->volume = instance->default_volume;
 
         PORTA = ((PORTA & ~ROTARY_MAX_VOLUME) | ((unsigned char)instance->volume & ROTARY_MAX_VOLUME));
 
@@ -207,18 +221,48 @@ static void eeprom_save_status(volatile Instance_t* instance)
 {
     if (instance->eeprom_save_status_counter != -1) {
         if (--instance->eeprom_save_status_counter == 0) {
-            if (eeprom_read(EEPROM_ADR_CHANNEL) != (unsigned char)instance->channel) {
+            if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char)instance->channel) {
                 /* store current selected channel */
-                eeprom_write(EEPROM_ADR_CHANNEL, (unsigned char)instance->channel);
+                eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char)instance->channel);
             }
             if (eeprom_read((unsigned char)instance->channel) != (unsigned char)instance->volume) {
                 /* store current volume of channel */
                 eeprom_write((unsigned char)instance->channel, (unsigned char)instance->volume);
             }
-
+            if (eeprom_read(EEPROM_ADDR_DEFAULT_VOLUME) != (unsigned char)instance->default_volume) {
+                /* store current default volume which is applied after a channel switch */
+                eeprom_write(EEPROM_ADDR_DEFAULT_VOLUME, (unsigned char)instance->default_volume);
+            }
             instance->eeprom_save_status_counter = -1;
         }
     }
+}
+
+static void process_encoder_button(volatile Instance_t* instance)
+{
+    if (instance->encoder_push_action) {
+        if (instance->encoder_push_counter >= STORE_DEFAULT_VOLUME_TIME) {
+            /* store current volume as default value */
+            instance->default_volume = instance->volume;
+        } else {
+            /* switch control mode */
+            if (instance->control == Volume) {
+                instance->control = Channel;
+            } else {
+                instance->control = Volume;
+            }
+/* for debugging switching between attenuation and channel */
+#if 0
+            LED_Toggle();
+#endif
+            /* reset rotary encoder vars */
+            instance->direction = DIR_NONE;
+            instance->encoder_count[instance->control] = 0;  
+        }
+        
+        /* reset after operation */
+        instance->encoder_push_counter = instance->encoder_push_action = 0;
+    } 
 }
 
 /* uses 10us time, measured with LED_Toggle();*/
@@ -290,26 +334,18 @@ void timer_callback(void)
         }
     }
 
-    uint8_t encoder_switch_level = ENCSWITCH_GetValue();
-    if ((encoder_switch_level == 0) && (instance.switch_debounce_counter != -1)) {
-        if (++instance.switch_debounce_counter > 50) {
-            /* changed mode */
-            if (instance.control == Volume) {
-                instance.control = Channel;
-            } else {
-                instance.control = Volume;
+    if (instance.encoder_push_action != 1) {
+        /* no push action pending */
+        uint8_t encoder_switch_level = ENCSWITCH_GetValue();
+        if (encoder_switch_level == 0) {
+            instance.encoder_push_counter = (++instance.encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
+        } else {
+            if (instance.encoder_push_counter >= 1) {
+                /* flag push action to be processed */
+                instance.encoder_push_action = 1;
             }
-/* for debugging switching between attenuation and channel */
-#if 0
-            LED_Toggle();
-#endif
-            /* reset rotary encoder vars */
-            instance.direction = DIR_NONE;
-            instance.encoder_count[instance.control] = 0;
-            instance.switch_debounce_counter = -1;
+            instance.encoder_push_debounce_counter = 0;
         }
-    } else if (encoder_switch_level == 1) {
-        instance.switch_debounce_counter = 0;
     }
 
 /* use for measure irq execution time (10us) */
@@ -317,7 +353,6 @@ void timer_callback(void)
     LED_Toggle();
 #endif
 }
-
 
 /**
  * Main application
@@ -340,7 +375,8 @@ int main(void)
     while (1) {
         process_channel(&instance);
         process_volume(&instance);
-        //eeprom_save_status(&instance);
+        process_encoder_button(&instance);
+        eeprom_save_status(&instance);
         __delay_ms(MAIN_LOOP_WAIT);
     }
 }
