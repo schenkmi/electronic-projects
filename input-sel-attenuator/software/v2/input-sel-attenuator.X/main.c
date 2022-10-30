@@ -36,6 +36,13 @@
   * cp input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
   */
 
+/**
+ * History
+ * V1.1     2022.10.30 Implement default volume which can be set by pressing
+ *                     encoder button for > 3 seconds
+ */
+
+
 #include "mcc_generated_files/system/system.h"
 #include "rotary_encoder.h"
 
