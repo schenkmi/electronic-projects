@@ -5,9 +5,9 @@
   (paper "A3")
 
   (title_block
-    (title "Discrete Pre-Amp Elektor")
-    (date "2022-10-20")
-    (rev "V2c DC Servo")
+    (title "Discrete Pre-Amp Elektor with DC Servo")
+    (date "2022-10-30")
+    (rev "v2d")
   )
 
   (lib_symbols
@@ -2228,7 +2228,8 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 3f95726a-c625-4f54-a4a4-1239554212d6)
   )
-  (text "Optional\nR9=10k, C12=6.8pF" (at 200.025 121.92 0)
+  (text "Optional\nR9=10k, C12=6.8pF\nR9=10k, R8=4.7k, R19=47k"
+    (at 200.025 121.92 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 7b403bd5-7fe2-4d63-83db-653b2ec96aa1)
   )
@@ -3623,7 +3624,7 @@
     (property "Value" "10k" (id 1) (at 235.712 125.603 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "Potentiometer_SMD:Potentiometer_Bourns_3214X_Vertical" (id 2) (at 237.49 124.46 0)
+    (property "Footprint" "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" (id 2) (at 237.49 124.46 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 237.49 124.46 0)
@@ -3903,7 +3904,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-000060a70bbb)
     (property "Reference" "R26" (id 0) (at 204.47 230.9622 90))
-    (property "Value" "100k" (id 1) (at 204.47 233.2736 90))
+    (property "Value" "160k" (id 1) (at 204.47 233.2736 90))
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 204.47 234.442 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -3920,10 +3921,10 @@
     (property "Reference" "C17" (id 0) (at 198.501 250.2916 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Value" "1uF" (id 1) (at 198.501 252.603 0)
+    (property "Value" "1uF/16V" (id 1) (at 198.501 252.603 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (id 2) (at 194.6148 247.65 0)
+    (property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" (id 2) (at 194.6148 247.65 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 195.58 251.46 0)
@@ -3939,7 +3940,7 @@
     (property "Reference" "R18" (id 0) (at 173.228 255.3716 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "100k" (id 1) (at 173.228 257.683 0)
+    (property "Value" "160k" (id 1) (at 173.228 257.683 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 169.672 256.54 90)
@@ -3958,10 +3959,10 @@
     (property "Reference" "C6" (id 0) (at 145.9484 254.381 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Value" "1uF" (id 1) (at 143.637 254.381 0)
+    (property "Value" "1uF/16V" (id 1) (at 143.637 254.381 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (id 2) (at 148.59 250.4948 0)
+    (property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder" (id 2) (at 148.59 250.4948 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 144.78 251.46 0)
@@ -4432,7 +4433,7 @@
       (reference "C5") (unit 1) (value "100nF") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060a70bcd"
-      (reference "C6") (unit 1) (value "1uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
+      (reference "C6") (unit 1) (value "1uF/16V") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060615484"
       (reference "C7") (unit 1) (value "150p") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
@@ -4465,7 +4466,7 @@
       (reference "C16") (unit 1) (value "220uF") (footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
     )
     (path "/00000000-0000-0000-0000-000060a70bc1"
-      (reference "C17") (unit 1) (value "1uF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
+      (reference "C17") (unit 1) (value "1uF/16V") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00006014a5f6"
       (reference "C18") (unit 1) (value "220uF") (footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
@@ -4615,7 +4616,7 @@
       (reference "R17") (unit 1) (value "10R") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060a70bc7"
-      (reference "R18") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R18") (unit 1) (value "160k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060a95f32"
       (reference "R19") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
@@ -4639,7 +4640,7 @@
       (reference "R25") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060a70bbb"
-      (reference "R26") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R26") (unit 1) (value "160k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-0000600f8ec4"
       (reference "R27") (unit 1) (value "249R") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
@@ -4648,7 +4649,7 @@
       (reference "R32") (unit 1) (value "470R") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-0000604bd4aa"
-      (reference "RV1") (unit 1) (value "10k") (footprint "Potentiometer_SMD:Potentiometer_Bourns_3214X_Vertical")
+      (reference "RV1") (unit 1) (value "10k") (footprint "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical")
     )
     (path "/00000000-0000-0000-0000-000060a70c02"
       (reference "U1") (unit 1) (value "OPA188xxDBV") (footprint "Package_TO_SOT_SMD:TSOT-23-5")
