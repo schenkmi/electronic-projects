@@ -6,7 +6,7 @@
 
   (title_block
     (title "Discrete Pre-Amp")
-    (date "2022-11-06")
+    (date "2022-11-26")
     (rev "V7 Servo")
   )
 
@@ -1708,6 +1708,14 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 06ea2e24-91f6-4e8d-be3a-f3a928bbf94f)
   )
+  (text "C7:\n150pF = 120ns\n100pF = 80ns, fg(-3dB) = 4MHz" (at 219.71 133.985 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 0b8ad5ad-ff4b-43c3-92f2-0def6123b461)
+  )
+  (text "32mA" (at 105.41 27.305 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 4f3e12b8-1102-40c1-a233-054afd280005)
+  )
   (text "R8//R14 = 4.27k" (at 160.02 112.395 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 6b0d5534-0a00-4ca9-9568-de6c025c114f)
@@ -1725,9 +1733,18 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 8ff37195-e77d-4c1e-987a-7dc103e36047)
   )
+  (text "28.5mA" (at 104.775 197.485 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid b1ce7207-a561-4101-9d56-cf3e17c942d5)
+  )
   (text "fg = 1Hz (160k, 1uF)" (at 233.68 237.49 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid dd33b6ae-787b-4d96-9bab-d390e970e3ef)
+  )
+  (text "VINpp=500mV, VOUTpp=1.77V\n-3dB@VOUTpp = 1.77Vpp * 0.707 = 1.25Vpp"
+    (at 338.455 64.77 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid defdfdb9-ab14-47e7-a726-bb411768b39d)
   )
   (text "not equipped" (at 194.31 86.995 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -1790,7 +1807,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005f7fc412)
     (property "Reference" "C2" (id 0) (at 81.28 100.2792 90))
-    (property "Value" "2.2uF" (id 1) (at 81.28 102.5906 90))
+    (property "Value" "3.3uF" (id 1) (at 81.28 102.5906 90))
     (property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W7.2mm_P5.00mm_FKS2_FKP2_MKS2_MKP2" (id 2) (at 77.47 107.6452 0)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -1985,7 +2002,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005f82148c)
     (property "Reference" "C7" (id 0) (at 208.28 133.2992 90))
-    (property "Value" "270pF" (id 1) (at 208.28 135.6106 90))
+    (property "Value" "100pF" (id 1) (at 208.28 135.6106 90))
     (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (id 2) (at 204.47 140.6652 0)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -3735,7 +3752,7 @@
       (reference "C1") (unit 1) (value "33p") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f7fc412"
-      (reference "C2") (unit 1) (value "2.2uF") (footprint "Capacitor_THT:C_Rect_L7.2mm_W7.2mm_P5.00mm_FKS2_FKP2_MKS2_MKP2")
+      (reference "C2") (unit 1) (value "3.3uF") (footprint "Capacitor_THT:C_Rect_L7.2mm_W7.2mm_P5.00mm_FKS2_FKP2_MKS2_MKP2")
     )
     (path "/9ee4507d-fe1a-4844-a949-6845990c5529"
       (reference "C3") (unit 1) (value "100nF") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
@@ -3750,7 +3767,7 @@
       (reference "C6") (unit 1) (value "1uF/16V") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f82148c"
-      (reference "C7") (unit 1) (value "270pF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
+      (reference "C7") (unit 1) (value "100pF") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060aa9d9d"
       (reference "C8") (unit 1) (value "100nF") (footprint "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder")
