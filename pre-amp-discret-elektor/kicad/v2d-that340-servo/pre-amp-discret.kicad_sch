@@ -6,7 +6,7 @@
 
   (title_block
     (title "Discrete Pre-Amp Elektor THAT340 with DC Servo")
-    (date "2022-11-06")
+    (date "2022-12-29")
     (rev "v2d")
   )
 
@@ -2549,9 +2549,21 @@
     (uuid fb26a109-2e6d-4bb7-8c73-46d312cc303f)
   )
 
+  (text "V = 1 + (R9 / (R8//R14) = 3.34" (at 185.42 92.075 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 027fdc69-e2c6-49e0-8aca-e48f1000fc5d)
+  )
+  (text "R8//R19 = 4.27k" (at 173.355 119.38 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 3b7af9d6-bc84-4732-98bb-45af693d4b15)
+  )
   (text "2021.02.06\nDC Service not needed!" (at 326.39 214.63 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 3f95726a-c625-4f54-a4a4-1239554212d6)
+  )
+  (text "fg = 1Hz (160k, 1uF)" (at 177.165 231.14 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 4a5a1296-9516-4718-8c9a-9519d1cf4578)
   )
   (text "Optional\nR9=10k, C12=6.8pF\nR9=10k, R8=4.7k, R19=47k"
     (at 200.025 121.92 0)
@@ -2561,6 +2573,11 @@
   (text "Todo:\nC12 < 4.7pF" (at 200.025 86.36 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 9977e9c3-1fd9-49ae-a3be-be3c2a96c776)
+  )
+  (text "Servo Inject Ratio: 1:10 (4.7k : 47k)\nExample: Offset = 30mV, DCSERVO_OUT = 300mV"
+    (at 88.9 233.045 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid ebce0516-1f11-48d2-92c8-af165c2ed5b1)
   )
   (text "Iq:15mA" (at 325.755 66.04 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -2671,7 +2688,7 @@
     (property "Reference" "R1" (id 0) (at 50.038 120.7516 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10k" (id 1) (at 50.038 123.063 0)
+    (property "Value" "47k" (id 1) (at 50.038 123.063 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 46.482 121.92 90)
@@ -4958,7 +4975,7 @@
       (reference "Q11") (unit 2) (value "BCM847DS,115") (footprint "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm")
     )
     (path "/00000000-0000-0000-0000-00005f7fe1a1"
-      (reference "R1") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R1") (unit 1) (value "47k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f7ffbf9"
       (reference "R2") (unit 1) (value "80.6R") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
