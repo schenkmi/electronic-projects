@@ -6,7 +6,7 @@
 
   (title_block
     (title "Discrete Pre-Amp Elektor with DC Servo")
-    (date "2022-11-06")
+    (date "2022-12-29")
     (rev "v2d")
   )
 
@@ -2281,9 +2281,22 @@
     (uuid fb26a109-2e6d-4bb7-8c73-46d312cc303f)
   )
 
+  (text "R8//R19 = 4.27k" (at 173.355 119.38 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 0dca9f46-05cd-4724-8cb8-5b36d6a716d8)
+  )
+  (text "Servo Inject Ratio: 1:10 (4.7k : 47k)\nExample: Offset = 30mV, DCSERVO_OUT = 300mV"
+    (at 88.9 231.775 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 1c6ed2b7-ec4e-4ad8-9509-a8e5ac7728fe)
+  )
   (text "2021.02.06\nDC Service not needed!" (at 326.39 214.63 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 3f95726a-c625-4f54-a4a4-1239554212d6)
+  )
+  (text "V = 1 + (R9 / (R8//R14) = 3.34" (at 182.245 91.44 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 4b07954d-40d8-4a77-be59-54c3ab1518c3)
   )
   (text "Optional\nR9=10k, C12=6.8pF\nR9=10k, R8=4.7k, R19=47k"
     (at 200.025 121.92 0)
@@ -2293,6 +2306,10 @@
   (text "Todo:\nC12 < 4.7pF" (at 200.025 86.36 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 9977e9c3-1fd9-49ae-a3be-be3c2a96c776)
+  )
+  (text "fg = 1Hz (160k, 1uF)" (at 183.515 225.425 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid be96f1ab-87a0-41ec-8926-c5e90456986d)
   )
   (text "Iq:15mA" (at 325.755 66.04 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -2403,7 +2420,7 @@
     (property "Reference" "R1" (id 0) (at 50.038 120.7516 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10k" (id 1) (at 50.038 123.063 0)
+    (property "Value" "47k" (id 1) (at 50.038 123.063 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 46.482 121.92 90)
@@ -2422,7 +2439,7 @@
     (property "Reference" "R8" (id 0) (at 193.548 122.0216 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10k" (id 1) (at 193.548 124.333 0)
+    (property "Value" "4.7k" (id 1) (at 193.548 124.333 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 189.992 123.19 90)
@@ -2439,7 +2456,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005f7ff6ab)
     (property "Reference" "R9" (id 0) (at 208.28 107.7722 90))
-    (property "Value" "22k" (id 1) (at 208.28 110.0836 90))
+    (property "Value" "10k" (id 1) (at 208.28 110.0836 90))
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 208.28 111.252 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -4179,7 +4196,7 @@
     (property "Reference" "R19" (id 0) (at 193.548 104.2416 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10k" (id 1) (at 193.548 106.553 0)
+    (property "Value" "47k" (id 1) (at 193.548 106.553 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 189.992 105.41 90)
@@ -4658,7 +4675,7 @@
       (reference "Q13") (unit 2) (value "BCM847DS,115") (footprint "Package_SO:SC-74-6_1.5x2.9mm_P0.95mm")
     )
     (path "/00000000-0000-0000-0000-00005f7fe1a1"
-      (reference "R1") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R1") (unit 1) (value "47k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f7ffbf9"
       (reference "R2") (unit 1) (value "80.6R") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
@@ -4679,10 +4696,10 @@
       (reference "R7") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f7fe6d0"
-      (reference "R8") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R8") (unit 1) (value "4.7k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f7ff6ab"
-      (reference "R9") (unit 1) (value "22k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R9") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060614824"
       (reference "R10") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
@@ -4712,7 +4729,7 @@
       (reference "R18") (unit 1) (value "160k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060a95f32"
-      (reference "R19") (unit 1) (value "10k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R19") (unit 1) (value "47k") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00006028f687"
       (reference "R20") (unit 1) (value "806R") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
