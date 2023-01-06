@@ -7,7 +7,7 @@
   (title_block
     (title "Discrete Pre-Amp")
     (date "2023-01-05")
-    (rev "V8 Servo")
+    (rev "V9 Servo")
   )
 
   (lib_symbols
@@ -1708,11 +1708,6 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 06ea2e24-91f6-4e8d-be3a-f3a928bbf94f)
   )
-  (text "C7:\nOld: 150pF = 120ns, fg(-3dB) = 2.7MHz\nNew: 270pF"
-    (at 219.71 133.985 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 0b8ad5ad-ff4b-43c3-92f2-0def6123b461)
-  )
   (text "168pF" (at 205.105 126.365 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 0fbad52d-1e1d-4588-875c-e1c82eaa187d)
@@ -1750,6 +1745,10 @@
     (at 25.4 151.13 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid b61e7158-f1f0-481c-a1d8-9924cce0ebb2)
+  )
+  (text "TODO\n2023.01.05 Test\nC12=10pF\nC7=150pF" (at 221.615 97.155 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid c41bb589-a3d2-4843-8281-794395f188bc)
   )
   (text "fg = 1Hz (160k, 1uF)" (at 233.68 237.49 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -2016,7 +2015,7 @@
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00005f82148c)
     (property "Reference" "C7" (id 0) (at 208.28 133.2992 90))
-    (property "Value" "270pF/2%/Film" (id 1) (at 208.28 135.6106 90))
+    (property "Value" "150pF/2%/Film" (id 1) (at 208.28 135.6106 90))
     (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (id 2) (at 204.47 140.6652 0)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -2803,7 +2802,7 @@
   (symbol (lib_id "Device:C") (at 199.39 97.155 270) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 14b39e7e-3a42-4359-a066-8e6d0f9b6552)
-    (property "Reference" "C?" (id 0) (at 199.39 90.7542 90))
+    (property "Reference" "C12" (id 0) (at 199.39 90.7542 90))
     (property "Value" "10pF/COG" (id 1) (at 199.39 93.0656 90))
     (property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" (id 2) (at 195.58 98.1202 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -3781,7 +3780,7 @@
       (reference "C6") (unit 1) (value "1uF/16V") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f82148c"
-      (reference "C7") (unit 1) (value "270pF/2%/Film") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
+      (reference "C7") (unit 1) (value "150pF/2%/Film") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-000060aa9d9d"
       (reference "C8") (unit 1) (value "100nF") (footprint "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder")
@@ -3794,6 +3793,9 @@
     )
     (path "/63e2881d-a410-4fbd-9479-17ee2d46e7c8"
       (reference "C11") (unit 1) (value "220uF") (footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
+    )
+    (path "/14b39e7e-3a42-4359-a066-8e6d0f9b6552"
+      (reference "C12") (unit 1) (value "10pF/COG") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/e60c9481-5dd8-4908-9959-4d82b02e5b5f"
       (reference "C13") (unit 1) (value "100nF") (footprint "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder")
@@ -3818,9 +3820,6 @@
     )
     (path "/5b5cccef-9532-435d-8d35-e005a9f0bd4d"
       (reference "C20") (unit 1) (value "220uF") (footprint "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm")
-    )
-    (path "/14b39e7e-3a42-4359-a066-8e6d0f9b6552"
-      (reference "C?") (unit 1) (value "10pF/COG") (footprint "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder")
     )
     (path "/00000000-0000-0000-0000-00005f826ef7"
       (reference "H1") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
