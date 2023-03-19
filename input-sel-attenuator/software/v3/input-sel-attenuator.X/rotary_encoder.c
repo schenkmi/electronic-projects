@@ -1,7 +1,7 @@
 /**
  * PIC16F18056 based input channel selection + attenuator
  *
- * Copyright (c) 2022-2022, Michael Schenk
+ * Copyright (c) 2022-2023, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -42,15 +42,14 @@
 #define R_START 0x0
 
 #if 1 /* ENABLE_HALF_STEP */
-// Use the half-step state table (emits a code at 00 and 11)
+/* Use the half-step state table (emits a code at 00 and 11) */
 #define R_CCW_BEGIN   0x1
 #define R_CW_BEGIN    0x2
 #define R_START_M     0x3
 #define R_CW_BEGIN_M  0x4
 #define R_CCW_BEGIN_M 0x5
 
-const unsigned char ttable[][4] =
-{
+const unsigned char ttable[][4] = {
   // 00                  01              10            11
   {R_START_M,           R_CW_BEGIN,     R_CCW_BEGIN,  R_START},           // R_START (00)
   {R_START_M | DIR_CCW, R_START,        R_CCW_BEGIN,  R_START},           // R_CCW_BEGIN
@@ -60,7 +59,7 @@ const unsigned char ttable[][4] =
   {R_START_M,           R_CCW_BEGIN_M,  R_START_M,    R_START | DIR_CCW}  // R_CCW_BEGIN_M
 };
 #else
-// Use the full-step state table (emits a code at 00 only)
+/* Use the full-step state table (emits a code at 00 only) */
 #define R_CW_FINAL   0x1
 #define R_CW_BEGIN   0x2
 #define R_CW_NEXT    0x3
@@ -68,8 +67,7 @@ const unsigned char ttable[][4] =
 #define R_CCW_FINAL  0x5
 #define R_CCW_NEXT   0x6
 
-const unsigned char ttable[][4] =
-{
+const unsigned char ttable[][4] = {
   // 00         01           10           11
   {R_START,    R_CW_BEGIN,  R_CCW_BEGIN, R_START},           // R_START
   {R_CW_NEXT,  R_START,     R_CW_FINAL,  R_START | DIR_CW},  // R_CW_FINAL
@@ -81,12 +79,28 @@ const unsigned char ttable[][4] =
 };
 #endif
 
-uint8_t encoder_read(volatile uint8_t* rotary_encoder_state)
-// Grab state of input pins, determine new state from the pins
-// and state table, and return the emit bits (ie the generated event).
-{
+/**
+ * Grab state of input pins, determine new state from the pins
+ * and state table, and return the emit bits (ie the generated event).
+ * @param rotary_encoder_state
+ * @return 
+ */
+uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
     /* read CHANA and CHANB, CW => up, CCW => down */
     uint8_t pinstate = (uint8_t)((ENC1CHANA_GetValue() << 1) | ENC1CHANB_GetValue());
+    *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
+    return (*rotary_encoder_state & 0x30);
+}
+
+/**
+ * Grab state of input pins, determine new state from the pins
+ * and state table, and return the emit bits (ie the generated event).
+ * @param rotary_encoder_state
+ * @return 
+ */
+uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state) {
+    /* read CHANA and CHANB, CW => up, CCW => down */
+    uint8_t pinstate = (uint8_t)((ENC2CHANA_GetValue() << 1) | ENC2CHANB_GetValue());
     *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
     return (*rotary_encoder_state & 0x30);
 }

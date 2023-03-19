@@ -1,7 +1,7 @@
 /**
  * PIC16F18056 based input channel selection + attenuator
  *
- * Copyright (c) 2022-2022, Michael Schenk
+ * Copyright (c) 2022-2023, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -41,7 +41,8 @@ extern "C" {
 #define DIR_CW    0x10 /* read() return value - Clockwise step/movement */
 #define DIR_CCW   0x20 /* return value - Counter-clockwise step/movement */
 
-uint8_t encoder_read(volatile uint8_t* rotary_encoder_state);
+uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state);
+uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state);
 
 #ifdef	__cplusplus
 }
