@@ -1,7 +1,7 @@
 /**
  * PIC16F18056 based input channel selection + attenuator
  *
- * Copyright (c) 2022-2022, Michael Schenk
+ * Copyright (c) 2022-2023, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -77,7 +77,18 @@ __EEPROM_DATA(ROTARY_MAX_VOLUME /* channel 0 volume initial */,
               ROTARY_MAX_VOLUME, 
               0xff, 0xff);
 
-enum Control { Volume = 0, Channel = 1};
+enum Control { Dual = 0, Volume = 1, Channel = 2};
+
+typedef struct {
+    uint8_t direction;
+    int encoder_count[3 /* Dual, Volume & Channel */];
+    /* rotary encoder state */
+    uint8_t rotary_encoder_state;
+    /* encoder push button */
+    int encoder_push_debounce_counter;
+    int encoder_push_counter;
+    int encoder_push_action;
+} RotaryEncoder_t;
 
 typedef struct {
     int channel;
@@ -85,27 +96,41 @@ typedef struct {
     int volume;
     int last_volume;
     int default_volume;
+       int eeprom_save_status_counter;
     /* irq changed */
     volatile enum Control control;
-    uint8_t  direction;
-    int encoder_count[2 /* Volume & Channel */];
-    /* eeprom store */
-    int eeprom_save_status_counter;
-    /* rotary encoder state */
-    uint8_t rotary_encoder_state;
-    /* encoder push button */
-    int encoder_push_debounce_counter;
-    int encoder_push_counter;
-    int encoder_push_action;
+    
+    RotaryEncoder_t encoder1; /* volume or volume & channel */
+    RotaryEncoder_t encoder2; /* channel */
+    
+    /* TODO: add pointers */
+
+   volatile RotaryEncoder_t* enc_volume;
+   volatile RotaryEncoder_t* enc_channel;
+    
+//    uint8_t  direction;
+//    int encoder_count[2 /* Volume & Channel */];
+//    /* eeprom store */
+
+//    /* rotary encoder state */
+//    uint8_t rotary_encoder_state;
+//    /* encoder push button */
+//    int encoder_push_debounce_counter;
+//    int encoder_push_counter;
+//    int encoder_push_action;
 } Instance_t;
 
 volatile Instance_t instance = { .channel = -1, .last_channel = -1,
                                  .volume = -1, .last_volume = -1,
                                  .default_volume = ROTARY_MAX_VOLUME,
-                                 .control = Volume, .direction = DIR_NONE,
-                                 .encoder_count = { 0,0 }, .eeprom_save_status_counter = -1,
-                                 .rotary_encoder_state = 0, .encoder_push_debounce_counter = 0, 
-                                 .encoder_push_counter = 0, .encoder_push_action = 0 };
+.eeprom_save_status_counter = -1,
+                                 .control = Dual /*Volume*/, 
+.encoder1 = { .direction = DIR_NONE,  .encoder_count = { 0, 0, 0 },  .rotary_encoder_state = 0, .encoder_push_debounce_counter = 0, 
+                                 .encoder_push_counter = 0, .encoder_push_action = 0  },
+.encoder2 = { .direction = DIR_NONE,  .encoder_count = { 0, 0, 0 },  .rotary_encoder_state = 0, .encoder_push_debounce_counter = 0, 
+                                 .encoder_push_counter = 0, .encoder_push_action = 0  },
+.enc_volume = NULL, .enc_channel = NULL, 
+};
 
 static void init(volatile Instance_t* instance)
 {
@@ -131,7 +156,17 @@ static void init(volatile Instance_t* instance)
         __delay_ms(100);
     }
 #endif
+    if (instance->control == Dual) {
+    instance->enc_volume = &instance->encoder1;
+    instance->enc_channel = &instance->encoder2;
+    } else {
+    instance->enc_volume = &instance->encoder1;
+    instance->enc_channel = &instance->encoder1;
+    }
 
+
+    
+    
     /* read last used channel, channels volume will be handler inside process_channel() */
     instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
     
@@ -176,7 +211,7 @@ static void process_volume(volatile Instance_t* instance)
         if ((PORTA & ROTARY_MAX_VOLUME) != volume) {
             /* something needs to be changed */
 #if 1 /* improved setting algo, with direction in mind */
-            if (instance->direction == DIR_CW) { /* clockwise, volume increase */
+            if (instance->encoder1.direction == DIR_CW) { /* clockwise, volume increase */
                 for (int cnt = 0; cnt < ROTARY_VOLUME_BITS; cnt++) {
                     uint8_t bit = ((1 << cnt) & 0xff);
 
@@ -247,50 +282,182 @@ static void eeprom_save_status(volatile Instance_t* instance)
 
 static void process_encoder_button(volatile Instance_t* instance)
 {
-    if (instance->encoder_push_action) {
-        if (instance->encoder_push_counter >= STORE_DEFAULT_VOLUME_TIME) {
-            /* store current volume as default value */
-            instance->default_volume = instance->volume;
-        } else {
-            /* switch control mode */
-            if (instance->control == Volume) {
-                instance->control = Channel;
+    if (instance->control == Dual) {
+        /* both encoders are used encoder1 for volume, encoder2 for channel */
+        
+        /* Encoder 1 volume */
+        if (instance->encoder1.encoder_push_action) {
+            if (instance->encoder1.encoder_push_counter >= STORE_DEFAULT_VOLUME_TIME) {
+                /* store current volume as default value */
+                instance->default_volume = instance->volume;
             } else {
-                instance->control = Volume;
+ 
             }
+
+            /* reset after operation */
+            instance->encoder1.encoder_push_counter = instance->encoder1.encoder_push_action = 0;
+        } 
+        
+        /* Encoder 2 channel */
+        /* TODO: store default channel */
+        
+        
+       
+    } else {
+        if (instance->encoder1.encoder_push_action) {
+            if (instance->encoder1.encoder_push_counter >= STORE_DEFAULT_VOLUME_TIME) {
+                /* store current volume as default value */
+                instance->default_volume = instance->volume;
+            } else {
+                /* switch control mode */
+                if (instance->control == Volume) {
+                    instance->control = Channel;
+                } else {
+                    instance->control = Volume;
+                }
 /* for debugging switching between attenuation and channel */
 #if 0
-            LED_Toggle();
+                LED_Toggle();
 #endif
-            /* reset rotary encoder vars */
-            instance->direction = DIR_NONE;
-            instance->encoder_count[instance->control] = 0;  
-        }
-        
-        /* reset after operation */
-        instance->encoder_push_counter = instance->encoder_push_action = 0;
-    } 
+                /* reset rotary encoder vars */
+                instance->encoder1.direction = DIR_NONE;
+                instance->encoder1.encoder_count[instance->control] = 0;  
+            }
+
+            /* reset after operation */
+            instance->encoder1.encoder_push_counter = instance->encoder1.encoder_push_action = 0;
+        } 
+    }
+    
+
 }
 
-/* uses 10us time, measured with LED_Toggle();*/
-void timer_callback(void)
-{
-/* use to measure irq call time */
-#if 0
-    LED_Toggle();
-#endif
-    uint8_t encoder_direction = encoder_read(&instance.rotary_encoder_state);
+static void timer_callback_process_dual(void) {
+    uint8_t encoder_direction = encoder1_read(&instance.encoder1.rotary_encoder_state);
+   // uint8_t encoder2_direction = encoder2_read(&instance.encoder2.rotary_encoder_state);
+    
+    /* encoder1 used for volume */
     if (encoder_direction != DIR_NONE) {
         /* detect direction, if changed, reset rotary encoder vars */
-        if (instance.direction != encoder_direction) {
-            instance.encoder_count[instance.control] = 0;
+        if (instance.encoder1.direction != encoder_direction) {
+            instance.encoder1.encoder_count[instance.control] = 0;
         }
-        instance.direction = encoder_direction;
+        instance.encoder1.direction = encoder_direction;
 
         if (encoder_direction == DIR_CW) {
-            instance.encoder_count[instance.control]++;
+            instance.encoder1.encoder_count[instance.control]++;
         } else if (encoder_direction == DIR_CCW) {
-            instance.encoder_count[instance.control]--;
+            instance.encoder1.encoder_count[instance.control]--;
+        }
+        
+        
+        /**
+         * volume works inverse as it is a attenuator
+         * 0   : 0dB attenuation
+         * 255 : 127dB attenuation
+         */
+        int value = instance.volume;
+
+        if (instance.encoder1.encoder_count[instance.control] >= ROTARY_MULTI_VOLUME) {
+            value--;
+            instance.encoder1.encoder_count[instance.control] = 0;
+        }
+        else if (instance.encoder1.encoder_count[instance.control] <= -ROTARY_MULTI_VOLUME) {
+            value++;
+            instance.encoder1.encoder_count[instance.control] = 0;
+        }
+
+        /* for volume stop on max or min */
+        if (value > ROTARY_MAX_VOLUME) {
+            instance.volume = ROTARY_MAX_VOLUME;
+        } else if (value < ROTARY_MIN_VOLUME) {
+            instance.volume = 0;
+        } else {
+            instance.volume = value;
+        }
+        
+        
+        
+    }
+    
+    /* encoder2 used for channel */
+    encoder_direction = encoder2_read(&instance.encoder2.rotary_encoder_state);
+    if (encoder_direction != DIR_NONE) {
+        /* detect direction, if changed, reset rotary encoder vars */
+        if (instance.encoder2.direction != encoder_direction) {
+            instance.encoder2.encoder_count[instance.control] = 0;
+        }
+        instance.encoder2.direction = encoder_direction;
+
+        if (encoder_direction == DIR_CW) {
+            instance.encoder2.encoder_count[instance.control]++;
+        } else if (encoder_direction == DIR_CCW) {
+            instance.encoder2.encoder_count[instance.control]--;
+        }
+        
+        int value = instance.channel;
+
+        if (instance.encoder2.encoder_count[instance.control] >= ROTARY_MULTI_CHANNEL) {
+            value++;
+            instance.encoder2.encoder_count[instance.control] = 0;
+        }
+        else if (instance.encoder2.encoder_count[instance.control] <= -ROTARY_MULTI_CHANNEL) {
+            value--;
+            instance.encoder2.encoder_count[instance.control] = 0;
+        }
+
+        /* channel is rotary continous */
+        if (value > ROTARY_MAX_CHANNEL) {
+            instance.channel = 0;
+        } else if (value < ROTARY_MIN_CHANNEL) {
+            instance.channel = ROTARY_MAX_CHANNEL;
+        } else {
+            instance.channel = value;
+        }
+    }
+
+    if (instance.encoder1.encoder_push_action != 1) {
+        /* no push action pending */
+        uint8_t encoder_switch_level = ENC1SWITCH_GetValue();
+        if (encoder_switch_level == 0) {
+            instance.encoder1.encoder_push_counter = (++instance.encoder1.encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
+        } else {
+            if (instance.encoder1.encoder_push_counter >= 1) {
+                /* flag push action to be processed */
+                instance.encoder1.encoder_push_action = 1;
+            }
+            instance.encoder1.encoder_push_debounce_counter = 0;
+        }
+    }
+    
+    if (instance.encoder2.encoder_push_action != 1) {
+        /* no push action pending */
+        uint8_t encoder_switch_level = ENC2SWITCH_GetValue();
+        if (encoder_switch_level == 0) {
+            instance.encoder2.encoder_push_counter = (++instance.encoder2.encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
+        } else {
+            if (instance.encoder2.encoder_push_counter >= 1) {
+                /* flag push action to be processed */
+                instance.encoder2.encoder_push_action = 1;
+            }
+            instance.encoder2.encoder_push_debounce_counter = 0;
+        }
+    }
+}
+
+static void timer_callback_process_single(void) {
+    uint8_t encoder_direction = encoder1_read(&instance.encoder1.rotary_encoder_state);
+    if (encoder_direction != DIR_NONE) {
+        /* detect direction, if changed, reset rotary encoder vars */
+        if (instance.encoder1.direction != encoder_direction) {
+            instance.encoder1.encoder_count[instance.control] = 0;
+        }
+        instance.encoder1.direction = encoder_direction;
+
+        if (encoder_direction == DIR_CW) {
+            instance.encoder1.encoder_count[instance.control]++;
+        } else if (encoder_direction == DIR_CCW) {
+            instance.encoder1.encoder_count[instance.control]--;
         }
 
         if (instance.control == Volume)  {
@@ -301,13 +468,13 @@ void timer_callback(void)
              */
             int value = instance.volume;
 
-            if (instance.encoder_count[instance.control] >= ROTARY_MULTI_VOLUME) {
+            if (instance.encoder1.encoder_count[instance.control] >= ROTARY_MULTI_VOLUME) {
                 value--;
-                instance.encoder_count[instance.control] = 0;
+                instance.encoder1.encoder_count[instance.control] = 0;
             }
-            else if (instance.encoder_count[instance.control] <= -ROTARY_MULTI_VOLUME) {
+            else if (instance.encoder1.encoder_count[instance.control] <= -ROTARY_MULTI_VOLUME) {
                 value++;
-                instance.encoder_count[instance.control] = 0;
+                instance.encoder1.encoder_count[instance.control] = 0;
             }
 
             /* for volume stop on max or min */
@@ -321,13 +488,13 @@ void timer_callback(void)
         } else {
             int value = instance.channel;
 
-            if (instance.encoder_count[instance.control] >= ROTARY_MULTI_CHANNEL) {
+            if (instance.encoder1.encoder_count[instance.control] >= ROTARY_MULTI_CHANNEL) {
                 value++;
-                instance.encoder_count[instance.control] = 0;
+                instance.encoder1.encoder_count[instance.control] = 0;
             }
-            else if (instance.encoder_count[instance.control] <= -ROTARY_MULTI_CHANNEL) {
+            else if (instance.encoder1.encoder_count[instance.control] <= -ROTARY_MULTI_CHANNEL) {
                 value--;
-                instance.encoder_count[instance.control] = 0;
+                instance.encoder1.encoder_count[instance.control] = 0;
             }
 
             /* channel is rotary continous */
@@ -341,19 +508,41 @@ void timer_callback(void)
         }
     }
 
-    if (instance.encoder_push_action != 1) {
+    if (instance.encoder1.encoder_push_action != 1) {
         /* no push action pending */
         uint8_t encoder_switch_level = ENC1SWITCH_GetValue();
         if (encoder_switch_level == 0) {
-            instance.encoder_push_counter = (++instance.encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
+            instance.encoder1.encoder_push_counter = (++instance.encoder1.encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
         } else {
-            if (instance.encoder_push_counter >= 1) {
+            if (instance.encoder1.encoder_push_counter >= 1) {
                 /* flag push action to be processed */
-                instance.encoder_push_action = 1;
+                instance.encoder1.encoder_push_action = 1;
             }
-            instance.encoder_push_debounce_counter = 0;
+            instance.encoder1.encoder_push_debounce_counter = 0;
         }
     }
+}
+
+/* uses 10us time, measured with LED_Toggle();*/
+void timer_callback(void)
+{
+/* use to measure irq call time */
+#if 0
+    LED_Toggle();
+#endif
+    if (instance.control == Dual) {
+        /* both encoders are used encoder1 for volume, encoder2 for channel */
+
+        timer_callback_process_dual();
+        
+    } else {
+        /* single encoder for both volume and channel */
+        timer_callback_process_single();
+    }
+    
+    
+    
+
 
 /* use for measure irq execution time (10us) */
 #if 0
