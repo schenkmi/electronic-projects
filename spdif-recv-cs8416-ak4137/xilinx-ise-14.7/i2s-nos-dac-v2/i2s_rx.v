@@ -59,6 +59,13 @@ wire			lrclk_nedge;
 
 reg [AUDIO_DW-1:0]	dac_left; // output shift reg
 reg [AUDIO_DW-1:0]	dac_right; // output shift reg
+
+// ping/pong register 32bit
+
+reg ping_pong;
+
+reg [AUDIO_DW-1:0]	dac_right_dbl [0:1];
+
 // see https://systemverilogdesign.com/tag/fall-edge-detect/
 // see https://rtldigitaldesign.blogspot.com/2014/06/pos-n-neg-edge-detector.html
 // https://cospandesign.github.io/fpga,fifo/2016/05/02/ppfifo.html
@@ -89,7 +96,9 @@ always @(posedge sclk)
 	if (rst) begin
 		left_chan <= 0;
 		right_chan <= 0;
+		ping_pong <= 1'b0;
 	end else if (lrclk_nedge) begin
+	   ping_pong <= ~ping_pong;
 		left_chan <= left;
 		right_chan <= {right[AUDIO_DW-2:0], sdata};
 	end
@@ -103,6 +112,10 @@ begin
    if (lrclk_nedge) begin
       dac_left <= left_chan;
 		dac_right <= right_chan;
+		
+		dac_right_dbl[0] <= right_chan;
+		dac_right_dbl[1] <= left_chan;
+		
    end else
    begin
      data_left <= dac_left[0];
