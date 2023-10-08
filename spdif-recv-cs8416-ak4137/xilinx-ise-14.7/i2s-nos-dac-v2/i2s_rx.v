@@ -98,9 +98,11 @@ always @(posedge sclk)
 		right_chan <= 0;
 		ping_pong <= 1'b0;
 	end else if (lrclk_nedge) begin
-	   ping_pong <= ~ping_pong;
+	   
 		left_chan <= left;
 		right_chan <= {right[AUDIO_DW-2:0], sdata};
+		
+		ping_pong <= ~ping_pong;
 	end
 
 
