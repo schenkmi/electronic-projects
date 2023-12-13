@@ -38,10 +38,10 @@
 
 /**
  * History
+ * V1.2     2023.12.13 Set attenuator to maximum in init()
  * V1.1     2022.10.30 Implement default volume which can be set by pressing
  *                     encoder button for > 3 seconds
  */
-
 
 #include "mcc_generated_files/system/system.h"
 #include "rotary_encoder.h"
@@ -123,6 +123,9 @@ static void init(volatile Instance_t* instance)
     /* mute output */
      PORTB &= ~MUTE_OFF_BIT;
     __delay_ms(RELAIS_SETUP_TIME);
+
+    /* max possible attenuation on volume */
+    PORTA = ((PORTA & ~ROTARY_MAX_VOLUME) | ROTARY_MAX_VOLUME);
 
     /* one channel after the others */
     for (int cnt = 0; cnt < 4; cnt++) {
