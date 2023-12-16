@@ -61,7 +61,6 @@
 #define CHAN_SEL_MASK                  0x0f
 
 #define EEPROM_ADDR_CHANNEL            0x04 /* EEPROM address of current channel */
-#define EEPROM_ADDR_DEFAULT_VOLUME     0x05 /* EEPROM address to store the default attenuation after a channel switch */
 
 #define ROTARY_MIN_CHANNEL                0 /* minimum channel */
 #define ROTARY_MAX_CHANNEL                3 /* maximum channel */
@@ -84,9 +83,8 @@ __EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 attenuation initial */,
               ROTARY_MAX_ATTENUATION /* channel 1 attenuation initial */,
               ROTARY_MAX_ATTENUATION /* channel 2 attenuation initial */,
               ROTARY_MAX_ATTENUATION /* channel 3 attenuation initial */,
-              ROTARY_MIN_CHANNEL /* channel selection initial */,
-              ROTARY_MAX_ATTENUATION, 
-              0xff, 0xff);
+              ROTARY_MIN_CHANNEL     /* channel selection initial     */,
+              0xff, 0xff, 0xff);
 
 enum Control { Combined = 0, Volume = 0, Channel = 1};
 enum Mode { Single = 0, Dual = 1 };
@@ -265,7 +263,7 @@ static void eeprom_save_status(volatile Instance_t* instance) {
       /* if default value for channel changed, store it */
       if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation) {
         /* store current default attenuation which is applied after a channel switch */
-        eeprom_write(EEPROM_ADDR_DEFAULT_VOLUME, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
+        eeprom_write((unsigned char) instance->channel, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
       }
       instance->eeprom_save_status_counter = -1; /* not action */
     }
