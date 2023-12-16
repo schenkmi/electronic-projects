@@ -38,53 +38,52 @@
 
 /**
  * History
+ * V1.3     2023.12.16 Improve usability
  * V1.2     2023.12.13 Set attenuator to maximum in init()
- * V1.1     2022.10.30 Implement default volume which can be set by pressing
+ * V1.1     2022.10.30 Implement default attenuation which can be set by pressing
  *                     encoder button for > 3 seconds
  */
 
-
 /**
- * On start the default volume for each channel will be read and set.
- * If default volume was never set the maximum attenuation will be used.
+ * On start the default attenuation for each channel will be read and set.
+ * If default attenuation was never set the maximum attenuation will be used.
  *
- * The default volume for the current channel can be set by pressing
- * volume for more than 3 seconds.
+ * The default attenuation for the current channel can be set by pressing
+ * attenuation for more than 3 seconds.
  *
- * On channel change the current volume of this channel will be set and
+ * On channel change the current attenuation of this channel will be set and
  * the channel will be stored as default channel.
  */
 
 #include "mcc_generated_files/system/system.h"
 #include "rotary_encoder.h"
 
-#define EEPROM_ADDR_CHANNEL          0x04 /* EEPROM address of current channel */
-#define EEPROM_ADDR_DEFAULT_VOLUME   0x05 /* EEPROM address to store the default volume after a channel switch */
+#define CHAN_SEL_MASK                  0x0f
 
-#define MUTE_OFF_BIT                 0x10
-#define CHAN_SEL_MASK                0x0f
+#define EEPROM_ADDR_CHANNEL            0x04 /* EEPROM address of current channel */
+#define EEPROM_ADDR_DEFAULT_VOLUME     0x05 /* EEPROM address to store the default attenuation after a channel switch */
 
-#define ROTARY_MIN_CHANNEL              0 /* minimum channel */
-#define ROTARY_MAX_CHANNEL              3 /* maximum channel */
-#define ROTARY_MULTI_CHANNEL            3 /* on 12PPR this gaves 3 clicks */
+#define ROTARY_MIN_CHANNEL                0 /* minimum channel */
+#define ROTARY_MAX_CHANNEL                3 /* maximum channel */
+#define ROTARY_MULTI_CHANNEL              3 /* on 12PPR this gaves 3 clicks */
 
-#define ROTARY_VOLUME_BITS              6 /* 6 bits */
-#define ROTARY_MIN_ATTENUATION          0 /* minimum attenuation */
-#define ROTARY_MAX_ATTENUATION          ((1 << ROTARY_VOLUME_BITS) - 1) /* (0x3f) maximum attenuation */
-#define ROTARY_MULTI_VOLUME             1 /* on 12PPR this gaves 1 clicks */
+#define ROTARY_ATTENUATION_BITS           6 /* 6 bits */
+#define ROTARY_MIN_ATTENUATION            0 /* minimum attenuation */
+#define ROTARY_MAX_ATTENUATION         ((1 << ROTARY_ATTENUATION_BITS) - 1) /* (0x3f) maximum attenuation */
+#define ROTARY_MULTI_ATTENUATION          1 /* on 12PPR this gaves 1 clicks */
 
-#define MAIN_LOOP_WAIT                  1 /* 1ms */
-#define EEPROM_SAVE_STATUS_VALUE     1000 /* 1 seconds on a 1ms loop */
-#define RELAIS_SETUP_TIME               1 /* 1ms */
+#define MAIN_LOOP_WAIT                    1 /* 1ms */
+#define EEPROM_SAVE_STATUS_VALUE       1000 /* 1 seconds on a 1ms loop */
+#define RELAIS_SETUP_TIME                 1 /* 1ms */
 
-#define ROTARY_PUSH_DEBOUNCE            20 /* 20 ms on a 1ms timer IRQ */
-#define STORE_DEFAULT_VOLUME_TIME       ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE)
+#define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
+#define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE) /* 3 seconds till storing default attenuation */
 
 /* eeprom initialize 0x00..0x07 */
-__EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 volume initial */,
-              ROTARY_MAX_ATTENUATION /* channel 1 volume initial */,
-              ROTARY_MAX_ATTENUATION /* channel 2 volume initial */,
-              ROTARY_MAX_ATTENUATION /* channel 3 volume initial */,
+__EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 attenuation initial */,
+              ROTARY_MAX_ATTENUATION /* channel 1 attenuation initial */,
+              ROTARY_MAX_ATTENUATION /* channel 2 attenuation initial */,
+              ROTARY_MAX_ATTENUATION /* channel 3 attenuation initial */,
               ROTARY_MIN_CHANNEL /* channel selection initial */,
               ROTARY_MAX_ATTENUATION, 
               0xff, 0xff);
@@ -104,16 +103,16 @@ typedef struct {
 } RotaryEncoder_t;
 
 typedef struct {
-  int default_volume;
-  int volume;
+  int default_attenuation;
+  int attenuation;
 } ChannelVolume_t;
 
 typedef struct {
   enum Mode mode; /* single or dual encoder mode */
   int channel;
   int last_channel;
-  int volume;
-  int last_volume;
+  int attenuation;
+  int last_attenuation;
   int eeprom_save_status_counter;
   ChannelVolume_t channel_attenuation[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
   /* irq changed */
@@ -123,13 +122,13 @@ typedef struct {
 
 volatile Instance_t instance = {
   .mode = Dual, .channel = -1, .last_channel = -1,
-  .volume = -1, .last_volume = -1,
+  .attenuation = -1, .last_attenuation = -1,
   .eeprom_save_status_counter = -1,
   .channel_attenuation = {
-    { .default_volume = ROTARY_MAX_ATTENUATION, .volume = -1 },
-    { .default_volume = ROTARY_MAX_ATTENUATION, .volume = -1 },
-    { .default_volume = ROTARY_MAX_ATTENUATION, .volume = -1 },
-    { .default_volume = ROTARY_MAX_ATTENUATION, .volume = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
   },
   .control =  Volume,
   .encoder = {
@@ -145,10 +144,10 @@ static void init(volatile Instance_t* instance)
   LED_SetHigh();
 
   /* mute output */
-   PORTB &= ~MUTE_OFF_BIT;
+   PORTB &= ~CHAN_SEL_MASK;
   __delay_ms(RELAIS_SETUP_TIME);
 
-  /* max possible attenuation on volume */
+  /* max possible attenuation on attenuation */
   PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ROTARY_MAX_ATTENUATION);
 
   /* one channel after the others */
@@ -161,19 +160,19 @@ static void init(volatile Instance_t* instance)
 
 #if 0 /* test code */
   PORTB = 0x01;
-  /* increase volume by 0.5dB steps */
+  /* increase attenuation by 0.5dB steps */
   for (int test = ROTARY_MAX_ATTENUATION; test < 0 ; test--) {
     PORTA = (unsigned char)test;
     __delay_ms(100);
   }
 #endif
 
-  /* read last used channel, channels volume will be handler inside process_channel() */
+  /* read last used channel, channels attenuation will be handler inside process_channel() */
   instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
 
-  /* read default volume for each channel and assign to channel volume */
+  /* read default attenuation for each channel and assign to channel attenuation */
   for (uint8_t cnt = 0; cnt <= ROTARY_MAX_CHANNEL; cnt++) {
-    instance->channel_attenuation[cnt].volume = instance->channel_attenuation[cnt].default_volume = eeprom_read(cnt);
+    instance->channel_attenuation[cnt].attenuation = instance->channel_attenuation[cnt].default_attenuation = eeprom_read(cnt);
   }
 }
 
@@ -182,24 +181,21 @@ static void process_channel(volatile Instance_t* instance)
 {
   if (instance->channel != instance->last_channel)  {
     if (instance->last_channel != -1) {
-      /* store current volume on channel */
-      instance->channel_attenuation[instance->last_channel].volume = instance->volume;
+      /* store current used attenuation on channel */
+      instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
     /* mute output */
-     PORTB &= ~MUTE_OFF_BIT;
+     PORTB &= ~CHAN_SEL_MASK;
     __delay_ms(RELAIS_SETUP_TIME);
 
-    /* always start with last volume used for this channel */
-    instance->last_volume = instance->volume = instance->channel_attenuation[instance->channel].volume;
-    PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->volume & ROTARY_MAX_ATTENUATION));
+    /* always start with last attenuation used for this channel */
+    instance->last_attenuation = instance->attenuation = instance->channel_attenuation[instance->channel].attenuation;
+    PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->attenuation & ROTARY_MAX_ATTENUATION));
 
     /* clear and set new channel */
     PORTB = ((PORTB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
     __delay_ms(RELAIS_SETUP_TIME);
-
-    /* unmute outputs */
-    PORTB |= MUTE_OFF_BIT;
 
     instance->last_channel = instance->channel;
     instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
@@ -207,56 +203,53 @@ static void process_channel(volatile Instance_t* instance)
 }
 
 /* attenuator relay are on RA0...RA5 */
-static void process_volume(volatile Instance_t* instance) {
-  if (instance->volume != instance->last_volume) {
-    unsigned char volume = ((unsigned char) instance->volume & ROTARY_MAX_ATTENUATION);
+static void process_attenuation(volatile Instance_t* instance) {
+  if (instance->attenuation != instance->last_attenuation) {
+    unsigned char attenuation = ((unsigned char) instance->attenuation & ROTARY_MAX_ATTENUATION);
 
-    if ((PORTA & ROTARY_MAX_ATTENUATION) != volume) {
+    if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
       /* something needs to be changed */
 #if 1 /* improved setting algo, with direction in mind */
-      if (instance->encoder[Volume].direction == DIR_CW) { /* clockwise, volume increase */
-        for (int cnt = 0; cnt < ROTARY_VOLUME_BITS; cnt++) {
+      if (instance->encoder[Volume].direction == DIR_CW) { /* clockwise, attenuation increase */
+        for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
           uint8_t bit = ((1 << cnt) & 0xff);
 
-          if ((PORTA & bit) != (volume & bit)) {
+          if ((PORTA & bit) != (attenuation & bit)) {
             /* port bit needs to be changed */
-            if (volume & bit) {
+            if (attenuation & bit) {
               PORTA |= bit;
             } else {
               PORTA &= ~bit;
             }
             /* changed relay, wait a bit */
-            __delay_ms(1);
+            __delay_ms(RELAIS_SETUP_TIME);
           }
         }
-      } else { /* counter clockwise, volume decrease */
-        for (int cnt = (ROTARY_VOLUME_BITS - 1); cnt >= 0; cnt--) {
+      } else { /* counter clockwise, attenuation decrease */
+        for (int cnt = (ROTARY_ATTENUATION_BITS - 1); cnt >= 0; cnt--) {
           uint8_t bit = ((1 << cnt) & 0xff);
 
-          if ((PORTA & bit) != (volume & bit)) {
+          if ((PORTA & bit) != (attenuation & bit)) {
             /* port bit needs to be changed */
-            if (volume & bit) {
+            if (attenuation & bit) {
               PORTA |= bit;
             } else {
               PORTA &= ~bit;
             }
             /* changed relay, wait a bit */
-            __delay_ms(1);
+            __delay_ms(RELAIS_SETUP_TIME);
           }
         }
       }
 #else
       /* mute output */
-       PORTB &= ~MUTE_OFF_BIT;
+       PORTB &= ~CHAN_SEL_MASK;
       __delay_ms(RELAIS_SETUP_TIME);
 
-      PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->volume & ROTARY_MAX_ATTENUATION));
+      PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->attenuation & ROTARY_MAX_ATTENUATION));
       __delay_ms(RELAIS_SETUP_TIME);
-
-      /* unmute outputs */
-      PORTB |= MUTE_OFF_BIT;
 #endif
-      instance->last_volume = instance->volume;
+      instance->last_attenuation = instance->attenuation;
     }
   }
 }
@@ -270,9 +263,9 @@ static void eeprom_save_status(volatile Instance_t* instance) {
       }
 
       /* if default value for channel changed, store it */
-      if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_volume) {
-        /* store current default volume which is applied after a channel switch */
-        eeprom_write(EEPROM_ADDR_DEFAULT_VOLUME, (unsigned char) instance->channel_attenuation[instance->channel].default_volume);
+      if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation) {
+        /* store current default attenuation which is applied after a channel switch */
+        eeprom_write(EEPROM_ADDR_DEFAULT_VOLUME, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
       }
       instance->eeprom_save_status_counter = -1; /* not action */
     }
@@ -280,12 +273,12 @@ static void eeprom_save_status(volatile Instance_t* instance) {
 }
 
 static void process_encoder_button(volatile Instance_t* instance) {
-  if (instance->mode == Dual) { /* both encoders are used encoder1 for volume, encoder2 for channel */
-    /* Encoder 1 volume */
+  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
+    /* Encoder 1 attenuation */
     if (instance->encoder[Volume].encoder_push_action) {
-      if (instance->encoder[Volume].encoder_push_counter >= STORE_DEFAULT_VOLUME_TIME) {
-        /* store current volume as default value */
-        instance->channel_attenuation[instance->channel].default_volume = instance->volume;
+      if (instance->encoder[Volume].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
+        /* store current attenuation as default value */
+        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
         instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
       } else {
         /* no short press function for now */
@@ -301,9 +294,9 @@ static void process_encoder_button(volatile Instance_t* instance) {
     }
   } else {
     if (instance->encoder[Combined].encoder_push_action) {
-      if (instance->encoder[Combined].encoder_push_counter >= STORE_DEFAULT_VOLUME_TIME) {
-        /* store current volume as default value */
-        instance->channel_attenuation[instance->channel].default_volume = instance->volume;
+      if (instance->encoder[Combined].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
+        /* store current attenuation as default value */
+        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
         instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
       } else {
         /* switch control mode */
@@ -328,7 +321,7 @@ static void process_encoder_button(volatile Instance_t* instance) {
 }
 
 static void timer_callback_process_dual(void) {
-  /* encoder1 used for volume */
+  /* encoder1 used for attenuation */
   uint8_t encoder_direction = encoder1_read(&instance.encoder[Volume].rotary_encoder_state);
   if (encoder_direction != DIR_NONE) {
     /* detect direction, if changed, reset rotary encoder vars */
@@ -344,27 +337,27 @@ static void timer_callback_process_dual(void) {
     }
 
     /**
-     * volume works inverse as it is a attenuator
+     * attenuation works inverse as it is a attenuator
      * 0   : 0dB attenuation
      * 255 : 127dB attenuation
      */
-    int value = instance.volume;
+    int value = instance.attenuation;
 
-    if (instance.encoder[Volume].encoder_count[0] >= ROTARY_MULTI_VOLUME) {
+    if (instance.encoder[Volume].encoder_count[0] >= ROTARY_MULTI_ATTENUATION) {
       value--;
       instance.encoder[Volume].encoder_count[0] = 0;
-    } else if (instance.encoder[Volume].encoder_count[0] <= -ROTARY_MULTI_VOLUME) {
+    } else if (instance.encoder[Volume].encoder_count[0] <= -ROTARY_MULTI_ATTENUATION) {
       value++;
       instance.encoder[Volume].encoder_count[0] = 0;
     }
 
-    /* for volume stop on max or min */
+    /* for attenuation stop on max or min */
     if (value > ROTARY_MAX_ATTENUATION) {
-      instance.volume = ROTARY_MAX_ATTENUATION;
+      instance.attenuation = ROTARY_MAX_ATTENUATION;
     } else if (value < ROTARY_MIN_ATTENUATION) {
-      instance.volume = 0;
+      instance.attenuation = 0;
     } else {
-      instance.volume = value;
+      instance.attenuation = value;
     }
   }
 
@@ -451,27 +444,27 @@ static void timer_callback_process_single(void) {
 
     if (instance.control == Volume) {
       /**
-       * volume works inverse as it is a attenuator
+       * attenuation works inverse as it is a attenuator
        * 0   : 0dB attenuation
        * 255 : 127dB attenuation
        */
-      int value = instance.volume;
+      int value = instance.attenuation;
 
-      if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_VOLUME) {
+      if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_ATTENUATION) {
         value--;
         instance.encoder[Combined].encoder_count[instance.control] = 0;
-      } else if (instance.encoder[Combined].encoder_count[instance.control] <= -ROTARY_MULTI_VOLUME) {
+      } else if (instance.encoder[Combined].encoder_count[instance.control] <= -ROTARY_MULTI_ATTENUATION) {
         value++;
         instance.encoder[Combined].encoder_count[instance.control] = 0;
       }
 
-      /* for volume stop on max or min */
+      /* for attenuation stop on max or min */
       if (value > ROTARY_MAX_ATTENUATION) {
-        instance.volume = ROTARY_MAX_ATTENUATION;
+        instance.attenuation = ROTARY_MAX_ATTENUATION;
       } else if (value < ROTARY_MIN_ATTENUATION) {
-        instance.volume = 0;
+        instance.attenuation = 0;
       } else {
-        instance.volume = value;
+        instance.attenuation = value;
       }
     } else {
       int value = instance.channel;
@@ -518,10 +511,10 @@ void timer_callback(void)
   LED_Toggle();
 #endif
   if (instance.mode == Dual) {
-    /* both encoders are used encoder1 for volume, encoder2 for channel */
+    /* both encoders are used encoder1 for attenuation, encoder2 for channel */
     timer_callback_process_dual();
   } else {
-    /* single encoder for both volume and channel */
+    /* single encoder for both attenuation and channel */
     timer_callback_process_single();
   }
 /* use for measure irq execution time (10us) */
@@ -550,7 +543,7 @@ int main(void)
 
   while (1) {
     process_channel(&instance);
-    process_volume(&instance);
+    process_attenuation(&instance);
     process_encoder_button(&instance);
     eeprom_save_status(&instance);
     __delay_ms(MAIN_LOOP_WAIT);
