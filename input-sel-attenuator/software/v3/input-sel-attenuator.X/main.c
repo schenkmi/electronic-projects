@@ -115,7 +115,7 @@ typedef struct {
   int volume;
   int last_volume;
   int eeprom_save_status_counter;
-  ChannelVolume_t channel_volume[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
+  ChannelVolume_t channel_attenuation[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
   /* irq changed */
   volatile enum Control control;
   RotaryEncoder_t encoder[2 /* 0 = Combined/Volume, 1 = Channel */];
@@ -125,7 +125,7 @@ volatile Instance_t instance = {
   .mode = Dual, .channel = -1, .last_channel = -1,
   .volume = -1, .last_volume = -1,
   .eeprom_save_status_counter = -1,
-  .channel_volume = {
+  .channel_attenuation = {
     { .default_volume = ROTARY_MAX_ATTENUATION, .volume = -1 },
     { .default_volume = ROTARY_MAX_ATTENUATION, .volume = -1 },
     { .default_volume = ROTARY_MAX_ATTENUATION, .volume = -1 },
@@ -173,7 +173,7 @@ static void init(volatile Instance_t* instance)
 
   /* read default volume for each channel and assign to channel volume */
   for (uint8_t cnt = 0; cnt <= ROTARY_MAX_CHANNEL; cnt++) {
-    instance->channel_volume[cnt].volume = instance->channel_volume[cnt].default_volume = eeprom_read(cnt);
+    instance->channel_attenuation[cnt].volume = instance->channel_attenuation[cnt].default_volume = eeprom_read(cnt);
   }
 }
 
@@ -183,7 +183,7 @@ static void process_channel(volatile Instance_t* instance)
   if (instance->channel != instance->last_channel)  {
     if (instance->last_channel != -1) {
       /* store current volume on channel */
-      instance->channel_volume[instance->last_channel].volume = instance->volume;
+      instance->channel_attenuation[instance->last_channel].volume = instance->volume;
     }
 
     /* mute output */
@@ -191,7 +191,7 @@ static void process_channel(volatile Instance_t* instance)
     __delay_ms(RELAIS_SETUP_TIME);
 
     /* always start with last volume used for this channel */
-    instance->last_volume = instance->volume = instance->channel_volume[instance->channel].volume;
+    instance->last_volume = instance->volume = instance->channel_attenuation[instance->channel].volume;
     PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->volume & ROTARY_MAX_ATTENUATION));
 
     /* clear and set new channel */
@@ -270,9 +270,9 @@ static void eeprom_save_status(volatile Instance_t* instance) {
       }
 
       /* if default value for channel changed, store it */
-      if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_volume[instance->channel].default_volume) {
+      if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_volume) {
         /* store current default volume which is applied after a channel switch */
-        eeprom_write(EEPROM_ADDR_DEFAULT_VOLUME, (unsigned char) instance->channel_volume[instance->channel].default_volume);
+        eeprom_write(EEPROM_ADDR_DEFAULT_VOLUME, (unsigned char) instance->channel_attenuation[instance->channel].default_volume);
       }
       instance->eeprom_save_status_counter = -1; /* not action */
     }
@@ -285,7 +285,7 @@ static void process_encoder_button(volatile Instance_t* instance) {
     if (instance->encoder[Volume].encoder_push_action) {
       if (instance->encoder[Volume].encoder_push_counter >= STORE_DEFAULT_VOLUME_TIME) {
         /* store current volume as default value */
-        instance->channel_volume[instance->channel].default_volume = instance->volume;
+        instance->channel_attenuation[instance->channel].default_volume = instance->volume;
         instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
       } else {
         /* no short press function for now */
@@ -303,7 +303,7 @@ static void process_encoder_button(volatile Instance_t* instance) {
     if (instance->encoder[Combined].encoder_push_action) {
       if (instance->encoder[Combined].encoder_push_counter >= STORE_DEFAULT_VOLUME_TIME) {
         /* store current volume as default value */
-        instance->channel_volume[instance->channel].default_volume = instance->volume;
+        instance->channel_attenuation[instance->channel].default_volume = instance->volume;
         instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
       } else {
         /* switch control mode */
