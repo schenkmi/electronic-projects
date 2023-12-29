@@ -55,6 +55,7 @@ reg [AUDIO_DW-1:0]	right;
 reg			lrclk_r;
 wire			lrclk_nedge;
 
+reg clk_div;
 
 
 reg [AUDIO_DW-1:0]	dac_left; // output shift reg
@@ -73,10 +74,24 @@ reg [AUDIO_DW-1:0]	dac_right_dbl [0:1];
 
 assign lrclk_nedge = !lrclk & lrclk_r;
 
+// 2023.12.29
+// better use always_ff @
+
 always @(posedge sclk)
 	lrclk_r <= lrclk;
 
 
+
+
+
+
+// Divide sclk to get CLKOUTR and CLKOUTL
+always_ff @(posedge sclk) begin
+    clk_div <= ~clk_div;
+end
+
+
+// Divide sclk 
 always @(posedge sclk) 
 	if (rst) begin 
 		clk_out <= 1'b0;
@@ -84,6 +99,10 @@ always @(posedge sclk)
 		clk_out <=  ! clk_out ; 
 end
  
+
+
+
+
 
 // sdata msb is valid one clock cycle after lrclk switches
 always @(posedge sclk)
