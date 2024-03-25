@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(title "DAC PCM1792A")
-		(date "2024-03-24")
+		(date "2024-03-25")
 		(rev "V3")
 	)
 	(lib_symbols
@@ -1779,6 +1779,151 @@
 				)
 			)
 		)
+		(symbol "Diode:1N4002"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "1N4002"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
+				(at 0 -4.445 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://www.vishay.com/docs/88503/1n4001.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "100V 1A General Purpose Rectifier Diode, DO-41"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "D*DO?41*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "1N4002_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "1N4002_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Mechanical:MountingHole"
 			(pin_names
 				(offset 1.016)
@@ -1861,12 +2006,23 @@
 				)
 			)
 		)
-		(symbol "Regulator_Linear:TC1017-xCT"
+		(symbol "Regulator_Linear:TLV1117-33"
+			(pin_names
+				(offset 0.254)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "U"
-				(at -6.35 6.35 0)
+				(at -3.81 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TLV1117-33"
+				(at 0 3.175 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1874,36 +2030,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "TC1017-xCT"
-				(at 0 6.35 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-				(at -6.35 8.89 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/21813F.pdf"
-				(at 0 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "150mA, Tiny CMOS LDO With Shutdown, SOT-23-5"
+			(property "Footprint" ""
 				(at 0 0 0)
 				(effects
 					(font
@@ -1912,7 +2039,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "LDO Linear Voltage Regulator"
+			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tlv1117.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1921,7 +2048,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "SOT?23*"
+			(property "Description" "800mA Low-Dropout Linear Regulator, 3.3V fixed output, TO-220/TO-252/TO-263/SOT-223"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1930,10 +2057,28 @@
 					(hide yes)
 				)
 			)
-			(symbol "TC1017-xCT_0_1"
+			(property "ki_keywords" "linear regulator ldo fixed positive"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?223* TO?263* TO?252* TO?220*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TLV1117-33_0_1"
 				(rectangle
-					(start -7.62 5.08)
-					(end 7.62 -5.08)
+					(start -5.08 -5.08)
+					(end 5.08 1.905)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -1943,11 +2088,11 @@
 					)
 				)
 			)
-			(symbol "TC1017-xCT_1_1"
+			(symbol "TLV1117-33_1_1"
 				(pin power_in line
-					(at -10.16 2.54 0)
+					(at 0 -7.62 90)
 					(length 2.54)
-					(name "VIN"
+					(name "GND"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1962,10 +2107,10 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at 0 -7.62 90)
+				(pin power_out line
+					(at 7.62 0 180)
 					(length 2.54)
-					(name "GND"
+					(name "VO"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1980,10 +2125,10 @@
 						)
 					)
 				)
-				(pin input line
-					(at -10.16 0 0)
+				(pin power_in line
+					(at -7.62 0 0)
 					(length 2.54)
-					(name "~{SHDN}"
+					(name "VI"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1991,42 +2136,6 @@
 						)
 					)
 					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin no_connect line
-					(at 7.62 0 180)
-					(length 2.54) hide
-					(name "NC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 10.16 2.54 180)
-					(length 2.54)
-					(name "VOUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3224,6 +3333,12 @@
 		(uuid "c45cc4c6-4d65-410e-9744-f9c2946307a0")
 	)
 	(junction
+		(at 72.39 259.08)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c498f4bb-6ea3-41b9-83a6-659963fbcf5a")
+	)
+	(junction
 		(at 238.76 107.95)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3258,12 +3373,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cdc76080-b9b2-44f5-8931-9f832e33d5fc")
-	)
-	(junction
-		(at 74.93 259.08)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d15da20c-1ab1-4f2f-aeb2-71760a204e4f")
 	)
 	(junction
 		(at 208.28 110.49)
@@ -3390,16 +3499,6 @@
 			(type default)
 		)
 		(uuid "0921f836-61a7-4fdf-89ae-e70edb5cd0d0")
-	)
-	(wire
-		(pts
-			(xy 74.93 261.62) (xy 74.93 259.08)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "09384794-33ba-4434-b143-109d6467baf8")
 	)
 	(wire
 		(pts
@@ -3633,16 +3732,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 273.05) (xy 87.63 269.24)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "255952b5-7c42-4c1c-98cc-7d40eed948bb")
-	)
-	(wire
-		(pts
 			(xy 184.15 163.83) (xy 184.15 152.4)
 		)
 		(stroke
@@ -3770,6 +3859,16 @@
 			(type default)
 		)
 		(uuid "2e85d2a7-6ed3-4f49-bfde-348f6ed3747a")
+	)
+	(wire
+		(pts
+			(xy 83.82 248.92) (xy 72.39 248.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2ff0459a-733f-437a-bf18-12b339165657")
 	)
 	(wire
 		(pts
@@ -3963,6 +4062,26 @@
 	)
 	(wire
 		(pts
+			(xy 72.39 259.08) (xy 80.01 259.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ed6c9aa-f7ad-4c27-a682-c07c3ba6c483")
+	)
+	(wire
+		(pts
+			(xy 72.39 248.92) (xy 72.39 259.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3fcfe23a-718a-453b-803a-e9202c821666")
+	)
+	(wire
+		(pts
 			(xy 24.13 33.02) (xy 48.26 33.02)
 		)
 		(stroke
@@ -4083,6 +4202,16 @@
 	)
 	(wire
 		(pts
+			(xy 102.87 259.08) (xy 102.87 248.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4aee73d1-4abe-4ca3-83d3-07e36d5885eb")
+	)
+	(wire
+		(pts
 			(xy 273.05 24.13) (xy 273.05 25.4)
 		)
 		(stroke
@@ -4200,6 +4329,16 @@
 			(type default)
 		)
 		(uuid "59a989f9-50d8-4033-b71a-a512d6bbbcfc")
+	)
+	(wire
+		(pts
+			(xy 87.63 266.7) (xy 87.63 273.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a508295-f45c-4e45-9ea9-bf19f16129b5")
 	)
 	(wire
 		(pts
@@ -4483,16 +4622,6 @@
 	)
 	(wire
 		(pts
-			(xy 97.79 259.08) (xy 102.87 259.08)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "75c4083e-f179-4018-ac05-fbb2a38c4278")
-	)
-	(wire
-		(pts
 			(xy 200.66 110.49) (xy 208.28 110.49)
 		)
 		(stroke
@@ -4640,6 +4769,16 @@
 			(type default)
 		)
 		(uuid "829fa017-0bb3-4311-89e5-fcf87fdf83de")
+	)
+	(wire
+		(pts
+			(xy 102.87 248.92) (xy 91.44 248.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83228065-5352-4070-a151-6c576eab33ff")
 	)
 	(wire
 		(pts
@@ -5153,6 +5292,16 @@
 	)
 	(wire
 		(pts
+			(xy 95.25 259.08) (xy 102.87 259.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b329d0f1-36ae-47bf-bb46-38ff7e499a4d")
+	)
+	(wire
+		(pts
 			(xy 64.77 128.27) (xy 68.58 128.27)
 		)
 		(stroke
@@ -5643,16 +5792,6 @@
 	)
 	(wire
 		(pts
-			(xy 77.47 261.62) (xy 74.93 261.62)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "db8be0c7-f3fd-466a-b9ac-ac468a6f1bf9")
-	)
-	(wire
-		(pts
 			(xy 68.58 45.72) (xy 93.98 45.72)
 		)
 		(stroke
@@ -5773,16 +5912,6 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 259.08) (xy 74.93 259.08)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e9b645de-2d9e-4a41-8a47-ff1a7e8e02d8")
-	)
-	(wire
-		(pts
 			(xy 222.25 201.93) (xy 228.6 201.93)
 		)
 		(stroke
@@ -5803,7 +5932,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 259.08) (xy 77.47 259.08)
+			(xy 63.5 259.08) (xy 72.39 259.08)
 		)
 		(stroke
 			(width 0)
@@ -6810,222 +6939,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Regulator_Linear:TC1017-xCT")
-		(at 87.63 261.62 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-0000607d58fb")
-		(property "Reference" "U3"
-			(at 87.63 252.2982 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TC1185-3.3VCT713"
-			(at 87.63 254.6096 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 81.28 252.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/21813F.pdf"
-			(at 87.63 264.16 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 87.63 261.62 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d7236bbb-c2ac-4b79-bd84-3e3c0c899d11")
-		)
-		(pin "2"
-			(uuid "b8a23ca7-acb1-45bf-baa1-0afeea84734b")
-		)
-		(pin "3"
-			(uuid "93d62c25-0edc-49d0-bd60-a4b8603a19ca")
-		)
-		(pin "4"
-			(uuid "ad633edc-80ca-4cf8-85d5-147ae8d17187")
-		)
-		(pin "5"
-			(uuid "c7da88d3-2766-4b53-a1f6-ce113d0214a7")
-		)
-		(instances
-			(project "dac-pcm1792a"
-				(path "/6a492d85-ccef-440c-a6f0-cbd66687dcd2"
-					(reference "U3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Polarized")
-		(at 63.5 265.43 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-000060848366")
-		(property "Reference" "C2"
-			(at 66.4972 264.2616 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10uF"
-			(at 66.4972 266.573 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 64.4652 269.24 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 63.5 265.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Polarized capacitor"
-			(at 63.5 265.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "19c596cc-0dbb-4aa9-8cd4-9d6417690b5f")
-		)
-		(pin "2"
-			(uuid "f796a9e6-92ff-4ff3-8114-63d785cc95f3")
-		)
-		(instances
-			(project "dac-pcm1792a"
-				(path "/6a492d85-ccef-440c-a6f0-cbd66687dcd2"
-					(reference "C2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Polarized")
-		(at 102.87 265.43 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-0000608ef8d1")
-		(property "Reference" "C4"
-			(at 105.8672 264.2616 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10uF"
-			(at 105.8672 266.573 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 103.8352 269.24 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 102.87 265.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Polarized capacitor"
-			(at 102.87 265.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1fbc43ea-f434-4c20-900f-9ac8e99b742e")
-		)
-		(pin "2"
-			(uuid "83aab42b-c8c8-4d76-ae78-b1c804cd163e")
-		)
-		(instances
-			(project "dac-pcm1792a"
-				(path "/6a492d85-ccef-440c-a6f0-cbd66687dcd2"
-					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 87.63 275.59 0)
 		(unit 1)
@@ -7108,7 +7021,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF/20V"
 			(at 259.5372 30.353 0)
 			(effects
 				(font
@@ -7177,7 +7090,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF/20V"
 			(at 253.5428 44.577 0)
 			(effects
 				(font
@@ -13970,7 +13883,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF/20V"
 			(at 193.4972 229.743 0)
 			(effects
 				(font
@@ -14039,7 +13952,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF/20V"
 			(at 187.5028 243.967 0)
 			(effects
 				(font
@@ -14899,7 +14812,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF/20V"
 			(at 194.7672 29.083 0)
 			(effects
 				(font
@@ -14968,7 +14881,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10uF/25V"
+		(property "Value" "10uF/20V"
 			(at 188.7728 43.307 0)
 			(effects
 				(font
@@ -16314,6 +16227,283 @@
 			(project "dac-pcm1792a"
 				(path "/6a492d85-ccef-440c-a6f0-cbd66687dcd2"
 					(reference "#PWR0154")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 102.87 265.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "08965a2c-c694-4a14-93c6-56b7485cb2b5")
+		(property "Reference" "C25"
+			(at 106.68 264.1599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1uF/50V"
+			(at 106.68 266.6999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 103.8352 269.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 102.87 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 102.87 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "497f4e6d-a2bd-47d5-81cb-ca77109fb49a")
+		)
+		(pin "1"
+			(uuid "6945b778-3f31-497f-ae6a-f26cbef8c561")
+		)
+		(instances
+			(project "dac-pcm1792a"
+				(path "/6a492d85-ccef-440c-a6f0-cbd66687dcd2"
+					(reference "C25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized")
+		(at 63.5 265.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "173b0666-e942-4ffb-bc03-f6a914d7123f")
+		(property "Reference" "C2"
+			(at 66.4972 264.2616 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF/20V"
+			(at 66.4972 266.573 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder"
+			(at 64.4652 269.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Polarized capacitor"
+			(at 63.5 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a1f8ed95-f34a-4742-9206-e5ae637fa5ad")
+		)
+		(pin "2"
+			(uuid "d76c82c5-5d07-4660-811a-36e8ac8b527b")
+		)
+		(instances
+			(project "dac-pcm1792a"
+				(path "/6a492d85-ccef-440c-a6f0-cbd66687dcd2"
+					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Regulator_Linear:TLV1117-33")
+		(at 87.63 259.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9077af25-b818-406d-9e59-7b39689ae919")
+		(property "Reference" "U1"
+			(at 87.63 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TLV1117-33"
+			(at 87.63 255.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
+			(at 87.63 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tlv1117.pdf"
+			(at 87.63 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "800mA Low-Dropout Linear Regulator, 3.3V fixed output, TO-220/TO-252/TO-263/SOT-223"
+			(at 87.63 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "240c422a-1057-4945-bd9d-7dee5d452845")
+		)
+		(pin "2"
+			(uuid "63e4820d-fb1a-496a-b901-6368a14c33b0")
+		)
+		(pin "1"
+			(uuid "45aa047a-a4a9-4c1a-9354-f6d2121f5190")
+		)
+		(instances
+			(project "dac-pcm1792a"
+				(path "/6a492d85-ccef-440c-a6f0-cbd66687dcd2"
+					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Diode:1N4002")
+		(at 87.63 248.92 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d395d505-286d-4a42-8375-16ed59762be3")
+		(property "Reference" "D1"
+			(at 87.63 243.4082 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SM4002PL-TP"
+			(at 87.63 245.7196 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_SMD:D_SOD-123F"
+			(at 87.63 253.365 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.vishay.com/docs/88503/1n4001.pdf"
+			(at 87.63 248.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 87.63 248.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "557e5b43-b713-4762-8cad-9803994d72c8")
+		)
+		(pin "2"
+			(uuid "b2846a1f-162c-4805-adda-ee675353d9ca")
+		)
+		(instances
+			(project "dac-pcm1792a"
+				(path "/6a492d85-ccef-440c-a6f0-cbd66687dcd2"
+					(reference "D1")
 					(unit 1)
 				)
 			)
