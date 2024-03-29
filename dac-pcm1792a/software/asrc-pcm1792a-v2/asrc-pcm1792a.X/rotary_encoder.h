@@ -32,34 +32,19 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-#include "mcc_generated_files/system/system.h"
+#pragma once
 
-/*
-    Main application
-*/
+#ifdef	__cplusplus
+extern "C" {
+#endif
 
-int main(void)
-{
-    SYSTEM_Initialize();
+#define DIR_NONE  0x00 /* read() return value - No complete step/movement */
+#define DIR_CW    0x10 /* read() return value - Clockwise step/movement */
+#define DIR_CCW   0x20 /* return value - Counter-clockwise step/movement */
 
-    // If using interrupts in PIC18 High/Low Priority Mode you need to enable the Global High and Low Interrupts 
-    // If using interrupts in PIC Mid-Range Compatibility Mode you need to enable the Global and Peripheral Interrupts 
-    // Use the following macros to: 
+uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state);
+uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state);
 
-    // Enable the Global Interrupts 
-    //INTERRUPT_GlobalInterruptEnable(); 
-
-    // Disable the Global Interrupts 
-    //INTERRUPT_GlobalInterruptDisable(); 
-
-    // Enable the Peripheral Interrupts 
-    //INTERRUPT_PeripheralInterruptEnable(); 
-
-    // Disable the Peripheral Interrupts 
-    //INTERRUPT_PeripheralInterruptDisable(); 
-
-
-    while(1)
-    {
-    }    
+#ifdef	__cplusplus
 }
+#endif
