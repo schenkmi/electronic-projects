@@ -154,25 +154,25 @@ uint8_t		upsample_rate = UPSAMPLE_192KHZ;
 // ---- Rotary
 
 
-#define CHAN_SEL_MASK                  0x0f
-
-#define EEPROM_ADDR_CHANNEL            0x04 /* EEPROM address of current channel */
-
-#define ROTARY_MIN_CHANNEL                0 /* minimum channel */
-#define ROTARY_MAX_CHANNEL                3 /* maximum channel */
-#define ROTARY_MULTI_CHANNEL              3 /* on 12PPR this gaves 3 clicks */
-
-#define ROTARY_ATTENUATION_BITS           6 /* 6 bits */
-#define ROTARY_MIN_ATTENUATION            0 /* minimum attenuation */
-#define ROTARY_MAX_ATTENUATION         ((1 << ROTARY_ATTENUATION_BITS) - 1) /* (0x3f) maximum attenuation */
-#define ROTARY_MULTI_ATTENUATION          1 /* on 12PPR this gaves 1 clicks */
-
-#define MAIN_LOOP_WAIT                    1 /* 1ms */
-#define EEPROM_SAVE_STATUS_VALUE       1000 /* 1 seconds on a 1ms loop */
-#define RELAIS_SETUP_TIME                 1 /* 1ms */
-
-#define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
-#define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE) /* 3 seconds till storing default attenuation */
+//#define CHAN_SEL_MASK                  0x0f
+//
+//#define EEPROM_ADDR_CHANNEL            0x04 /* EEPROM address of current channel */
+//
+//#define ROTARY_MIN_CHANNEL                0 /* minimum channel */
+//#define ROTARY_MAX_CHANNEL                3 /* maximum channel */
+//#define ROTARY_MULTI_CHANNEL              3 /* on 12PPR this gaves 3 clicks */
+//
+//#define ROTARY_ATTENUATION_BITS           6 /* 6 bits */
+//#define ROTARY_MIN_ATTENUATION            0 /* minimum attenuation */
+//#define ROTARY_MAX_ATTENUATION         ((1 << ROTARY_ATTENUATION_BITS) - 1) /* (0x3f) maximum attenuation */
+//#define ROTARY_MULTI_ATTENUATION          1 /* on 12PPR this gaves 1 clicks */
+//
+//#define MAIN_LOOP_WAIT                    1 /* 1ms */
+//#define EEPROM_SAVE_STATUS_VALUE       1000 /* 1 seconds on a 1ms loop */
+//#define RELAIS_SETUP_TIME                 1 /* 1ms */
+//
+//#define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
+//#define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE) /* 3 seconds till storing default attenuation */
 
 /* eeprom initialize 0x00..0x07 */
 __EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 attenuation initial */,
@@ -182,37 +182,37 @@ __EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 attenuation initial */,
               ROTARY_MIN_CHANNEL     /* channel selection initial     */,
               0xff, 0xff, 0xff);
 
-enum Control { Combined = 0, Volume = 0, Channel = 1};
-enum Mode { Single = 0, Dual = 1 };
-
-typedef struct {
-  uint8_t direction;
-  int encoder_count[2 /* Volume = 0,  Channel = 1 */];
-  /* rotary encoder state */
-  uint8_t rotary_encoder_state;
-  /* encoder push button */
-  int encoder_push_debounce_counter;
-  int encoder_push_counter;
-  int encoder_push_action;
-} RotaryEncoder_t;
-
-typedef struct {
-  int default_attenuation;
-  int attenuation;
-} ChannelVolume_t;
-
-typedef struct {
-  enum Mode mode; /* single or dual encoder mode */
-  int channel;
-  int last_channel;
-  int attenuation;
-  int last_attenuation;
-  int eeprom_save_status_counter;
-  ChannelVolume_t channel_attenuation[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
-  /* irq changed */
-  volatile enum Control control;
-  RotaryEncoder_t encoder[2 /* 0 = Combined/Volume, 1 = Channel */];
-} Instance_t;
+//enum Control { Combined = 0, Volume = 0, Channel = 1};
+//enum Mode { Single = 0, Dual = 1 };
+//
+//typedef struct {
+//  uint8_t direction;
+//  int encoder_count[2 /* Volume = 0,  Channel = 1 */];
+//  /* rotary encoder state */
+//  uint8_t rotary_encoder_state;
+//  /* encoder push button */
+//  int encoder_push_debounce_counter;
+//  int encoder_push_counter;
+//  int encoder_push_action;
+//} RotaryEncoder_t;
+//
+//typedef struct {
+//  int default_attenuation;
+//  int attenuation;
+//} ChannelVolume_t;
+//
+//typedef struct {
+//  enum Mode mode; /* single or dual encoder mode */
+//  int channel;
+//  int last_channel;
+//  int attenuation;
+//  int last_attenuation;
+//  int eeprom_save_status_counter;
+//  ChannelVolume_t channel_attenuation[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
+//  /* irq changed */
+//  volatile enum Control control;
+//  RotaryEncoder_t encoder[2 /* 0 = Combined/Volume, 1 = Channel */];
+//} Instance_t;
 
 volatile Instance_t instance = {
   .mode = Single, .channel = -1, .last_channel = -1,
@@ -686,165 +686,165 @@ static void process_attenuation(volatile Instance_t* instance) {
   }
 }
 
-static void eeprom_save_status(volatile Instance_t* instance) {
-  if (instance->eeprom_save_status_counter != -1) {
-    if (--instance->eeprom_save_status_counter == 0) {
-      /* if stored default channel not equal current one, update default channel */
-      if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char) instance->channel) {
-        eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char) instance->channel);
-      }
+//static void eeprom_save_status(volatile Instance_t* instance) {
+//  if (instance->eeprom_save_status_counter != -1) {
+//    if (--instance->eeprom_save_status_counter == 0) {
+//      /* if stored default channel not equal current one, update default channel */
+//      if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char) instance->channel) {
+//        eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char) instance->channel);
+//      }
+//
+//      /* if default value for channel changed, store it */
+//      if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation) {
+//        /* store current default attenuation which is applied after a channel switch */
+//        eeprom_write((unsigned char) instance->channel, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
+//      }
+//      instance->eeprom_save_status_counter = -1; /* not action */
+//    }
+//  }
+//}
 
-      /* if default value for channel changed, store it */
-      if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation) {
-        /* store current default attenuation which is applied after a channel switch */
-        eeprom_write((unsigned char) instance->channel, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
-      }
-      instance->eeprom_save_status_counter = -1; /* not action */
-    }
-  }
-}
+//static void process_encoder_button(volatile Instance_t* instance) {
+//  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
+//    /* Encoder 1 attenuation */
+//    if (instance->encoder[Volume].encoder_push_action) {
+//      if (instance->encoder[Volume].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
+//        /* store current attenuation as default value */
+//        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
+//        instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
+//      } else {
+//        /* no short press function for now */
+//      }
+//      /* reset after operation */
+//      instance->encoder[Volume].encoder_push_counter = instance->encoder[Volume].encoder_push_action = 0;
+//    }
+//
+//    /* Encoder 2 channel */
+//    if (instance->encoder[Channel].encoder_push_action) {
+//      /* reset after operation */
+//      instance->encoder[Volume].encoder_push_counter = instance->encoder[Volume].encoder_push_action = 0;
+//    }
+//  } else {
+//    if (instance->encoder[Combined].encoder_push_action) {
+//      if (instance->encoder[Combined].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
+//        /* store current attenuation as default value */
+//        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
+//        instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
+//      } else {
+//        /* switch control mode */
+//        if (instance->control == Volume) {
+//          instance->control = Channel;
+//        } else {
+//          instance->control = Volume;
+//        }
+//        /* for debugging switching between attenuation and channel */
+//#if 0
+//        LED_Toggle();
+//#endif
+//        /* reset rotary encoder vars */
+//        instance->encoder[Combined].direction = DIR_NONE;
+//        instance->encoder[Combined].encoder_count[instance->control] = 0;
+//      }
+//
+//      /* reset after operation */
+//      instance->encoder[Combined].encoder_push_counter = instance->encoder[Combined].encoder_push_action = 0;
+//    }
+//  }
+//}
 
-static void process_encoder_button(volatile Instance_t* instance) {
-  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
-    /* Encoder 1 attenuation */
-    if (instance->encoder[Volume].encoder_push_action) {
-      if (instance->encoder[Volume].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
-        /* store current attenuation as default value */
-        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-        instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
-      } else {
-        /* no short press function for now */
-      }
-      /* reset after operation */
-      instance->encoder[Volume].encoder_push_counter = instance->encoder[Volume].encoder_push_action = 0;
-    }
-
-    /* Encoder 2 channel */
-    if (instance->encoder[Channel].encoder_push_action) {
-      /* reset after operation */
-      instance->encoder[Volume].encoder_push_counter = instance->encoder[Volume].encoder_push_action = 0;
-    }
-  } else {
-    if (instance->encoder[Combined].encoder_push_action) {
-      if (instance->encoder[Combined].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
-        /* store current attenuation as default value */
-        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-        instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
-      } else {
-        /* switch control mode */
-        if (instance->control == Volume) {
-          instance->control = Channel;
-        } else {
-          instance->control = Volume;
-        }
-        /* for debugging switching between attenuation and channel */
-#if 0
-        LED_Toggle();
-#endif
-        /* reset rotary encoder vars */
-        instance->encoder[Combined].direction = DIR_NONE;
-        instance->encoder[Combined].encoder_count[instance->control] = 0;
-      }
-
-      /* reset after operation */
-      instance->encoder[Combined].encoder_push_counter = instance->encoder[Combined].encoder_push_action = 0;
-    }
-  }
-}
-
-static void timer_callback_process_single(void) {
-  uint8_t encoder_direction = encoder1_read(&instance.encoder[Combined].rotary_encoder_state);
-  if (encoder_direction != DIR_NONE) {
-    /* detect direction, if changed, reset rotary encoder vars */
-    if (instance.encoder[Combined].direction != encoder_direction) {
-      instance.encoder[Combined].encoder_count[instance.control] = 0;
-    }
-    instance.encoder[Combined].direction = encoder_direction;
-
-    if (encoder_direction == DIR_CW) {
-      instance.encoder[Combined].encoder_count[instance.control]++;
-    } else if (encoder_direction == DIR_CCW) {
-      instance.encoder[Combined].encoder_count[instance.control]--;
-    }
-
-    if (instance.control == Volume) {
-      /**
-       * attenuation works inverse as it is a attenuator
-       * 0   : 0dB attenuation
-       * 255 : 127dB attenuation
-       */
-      int value = instance.attenuation;
-
-      if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_ATTENUATION) {
-        value--;
-        instance.encoder[Combined].encoder_count[instance.control] = 0;
-      } else if (instance.encoder[Combined].encoder_count[instance.control] <= -ROTARY_MULTI_ATTENUATION) {
-        value++;
-        instance.encoder[Combined].encoder_count[instance.control] = 0;
-      }
-
-      /* for attenuation stop on max or min */
-      if (value > ROTARY_MAX_ATTENUATION) {
-        instance.attenuation = ROTARY_MAX_ATTENUATION;
-      } else if (value < ROTARY_MIN_ATTENUATION) {
-        instance.attenuation = 0;
-      } else {
-        instance.attenuation = value;
-      }
-    } else {
-      int value = instance.channel;
-
-      if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_CHANNEL) {
-        value++;
-        instance.encoder[Combined].encoder_count[instance.control] = 0;
-      } else if (instance.encoder[Combined].encoder_count[instance.control] <= -ROTARY_MULTI_CHANNEL) {
-        value--;
-        instance.encoder[Combined].encoder_count[instance.control] = 0;
-      }
-
-      /* channel is rotary continous */
-      if (value > ROTARY_MAX_CHANNEL) {
-        instance.channel = 0;
-      } else if (value < ROTARY_MIN_CHANNEL) {
-        instance.channel = ROTARY_MAX_CHANNEL;
-      } else {
-        instance.channel = value;
-      }
-    }
-  }
-
-  if (instance.encoder[Combined].encoder_push_action != 1) {
-    /* no push action pending */
-    uint8_t encoder_switch_level = ENC1_SWITCH_GetValue();
-    if (encoder_switch_level == 0) {
-      instance.encoder[Combined].encoder_push_counter = (++instance.encoder[Combined].encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
-    } else {
-      if (instance.encoder[Combined].encoder_push_counter >= 1) {
-        /* flag push action to be processed */
-        instance.encoder[Combined].encoder_push_action = 1;
-      }
-      instance.encoder[Combined].encoder_push_debounce_counter = 0;
-    }
-  }
-}
+//static void timer_callback_process_single(void) {
+//  uint8_t encoder_direction = encoder1_read(&instance.encoder[Combined].rotary_encoder_state);
+//  if (encoder_direction != DIR_NONE) {
+//    /* detect direction, if changed, reset rotary encoder vars */
+//    if (instance.encoder[Combined].direction != encoder_direction) {
+//      instance.encoder[Combined].encoder_count[instance.control] = 0;
+//    }
+//    instance.encoder[Combined].direction = encoder_direction;
+//
+//    if (encoder_direction == DIR_CW) {
+//      instance.encoder[Combined].encoder_count[instance.control]++;
+//    } else if (encoder_direction == DIR_CCW) {
+//      instance.encoder[Combined].encoder_count[instance.control]--;
+//    }
+//
+//    if (instance.control == Volume) {
+//      /**
+//       * attenuation works inverse as it is a attenuator
+//       * 0   : 0dB attenuation
+//       * 255 : 127dB attenuation
+//       */
+//      int value = instance.attenuation;
+//
+//      if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_ATTENUATION) {
+//        value--;
+//        instance.encoder[Combined].encoder_count[instance.control] = 0;
+//      } else if (instance.encoder[Combined].encoder_count[instance.control] <= -ROTARY_MULTI_ATTENUATION) {
+//        value++;
+//        instance.encoder[Combined].encoder_count[instance.control] = 0;
+//      }
+//
+//      /* for attenuation stop on max or min */
+//      if (value > ROTARY_MAX_ATTENUATION) {
+//        instance.attenuation = ROTARY_MAX_ATTENUATION;
+//      } else if (value < ROTARY_MIN_ATTENUATION) {
+//        instance.attenuation = 0;
+//      } else {
+//        instance.attenuation = value;
+//      }
+//    } else {
+//      int value = instance.channel;
+//
+//      if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_CHANNEL) {
+//        value++;
+//        instance.encoder[Combined].encoder_count[instance.control] = 0;
+//      } else if (instance.encoder[Combined].encoder_count[instance.control] <= -ROTARY_MULTI_CHANNEL) {
+//        value--;
+//        instance.encoder[Combined].encoder_count[instance.control] = 0;
+//      }
+//
+//      /* channel is rotary continous */
+//      if (value > ROTARY_MAX_CHANNEL) {
+//        instance.channel = 0;
+//      } else if (value < ROTARY_MIN_CHANNEL) {
+//        instance.channel = ROTARY_MAX_CHANNEL;
+//      } else {
+//        instance.channel = value;
+//      }
+//    }
+//  }
+//
+//  if (instance.encoder[Combined].encoder_push_action != 1) {
+//    /* no push action pending */
+//    uint8_t encoder_switch_level = ENC1_SWITCH_GetValue();
+//    if (encoder_switch_level == 0) {
+//      instance.encoder[Combined].encoder_push_counter = (++instance.encoder[Combined].encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
+//    } else {
+//      if (instance.encoder[Combined].encoder_push_counter >= 1) {
+//        /* flag push action to be processed */
+//        instance.encoder[Combined].encoder_push_action = 1;
+//      }
+//      instance.encoder[Combined].encoder_push_debounce_counter = 0;
+//    }
+//  }
+//}
 
 
-/* uses 10us time, measured with LED_Toggle();*/
-void timer_callback(void)
-{
-/* use to measure irq call time */
-#if 1
-  //LED_Toggle();
-  LED_D5_SetDigitalInput();
-#endif
-  /* single encoder for both attenuation and channel */
-  timer_callback_process_single();
-/* use for measure irq execution time (10us) */
-#if 1
-  //LED_Toggle();
-  LED_D5_SetDigitalOutput();
-#endif
-}
+///* uses 10us time, measured with LED_Toggle();*/
+//void timer_callback(void)
+//{
+///* use to measure irq call time */
+//#if 1
+//  //LED_Toggle();
+//  LED_D5_SetDigitalInput();
+//#endif
+//  /* single encoder for both attenuation and channel */
+//  timer_callback_process_single();
+///* use for measure irq execution time (10us) */
+//#if 1
+//  //LED_Toggle();
+//  LED_D5_SetDigitalOutput();
+//#endif
+//}
 
 /**
  * Main application
@@ -858,7 +858,7 @@ int main(void)
   /* install irq handlers */
   //Timer0_OverflowCallbackRegister(timer_callback);
   
-  TMR0_SetInterruptHandler(timer_callback);
+  TMR0_SetInterruptHandler(rotary_encoder_timer_callback);
   
 
   /* Enable the Global Interrupts */
