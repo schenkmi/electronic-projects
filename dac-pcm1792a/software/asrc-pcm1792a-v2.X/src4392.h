@@ -45,12 +45,15 @@ extern "C" {
 #define DIT_UPSAMPLE		0	// upsample
 #define DIT_LOOPOUT		1	// loop-back
 
+enum SRC4392DigitalAudioInterfaceTransmitter { DITUpsample = 0, DITPassthrough = 1 /*Loopout = 1 */}; 
+
 /*
  * Digital de-emphasis enums
  */
 #define DEEMPH_AUTO		0	// auto
 #define DEEMPH_OFF		1	// off
 
+enum SRC4392DeEmphasis { DeEmphasisAuto = 0, DeEmphasisOff = 1};
     
 enum UpsamplingRate { fs192kHz = 0, fs96kHz = 1 };
 
@@ -62,10 +65,10 @@ typedef struct {
     
 void src4392_init(SRC4392_t* instance);
 
-void set_deemphasis(uint8_t mode);
+void set_deemphasis(enum SRC4392DeEmphasis de_emphasis);
 void set_upsample(enum UpsamplingRate rate);
-void set_dit_mode(SRC4392_t* instance, uint8_t input, uint8_t mode);
-void set_input(uint8_t input, uint8_t mode);
+void set_dit_mode(SRC4392_t* instance, uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit);
+void set_input(uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit);
 uint8_t get_sample_rate(SRC4392_t* instance);
 
 
