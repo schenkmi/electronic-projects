@@ -1,4 +1,4 @@
-# 1 "mcc_generated_files/mcc.c"
+# 1 "rotary_encoder.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,10 +6,10 @@
 # 1 "<built-in>" 2
 # 1 "/Applications/microchip/xc8/v2.46/pic/include/language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "mcc_generated_files/mcc.c" 2
-# 47 "mcc_generated_files/mcc.c"
-# 1 "mcc_generated_files/mcc.h" 1
-# 49 "mcc_generated_files/mcc.h"
+# 1 "rotary_encoder.c" 2
+# 35 "rotary_encoder.c"
+# 1 "./mcc_generated_files/pin_manager.h" 1
+# 54 "./mcc_generated_files/pin_manager.h"
 # 1 "/Applications/microchip/xc8/v2.46/pic/include/xc.h" 1 3
 # 18 "/Applications/microchip/xc8/v2.46/pic/include/xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -18396,338 +18396,48 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 29 "/Applications/microchip/xc8/v2.46/pic/include/xc.h" 2 3
-# 49 "mcc_generated_files/mcc.h" 2
-
-# 1 "mcc_generated_files/device_config.h" 1
-# 50 "mcc_generated_files/mcc.h" 2
-
-# 1 "mcc_generated_files/pin_manager.h" 1
-# 162 "mcc_generated_files/pin_manager.h"
+# 54 "./mcc_generated_files/pin_manager.h" 2
+# 162 "./mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_Initialize (void);
-# 174 "mcc_generated_files/pin_manager.h"
+# 174 "./mcc_generated_files/pin_manager.h"
 void PIN_MANAGER_IOC(void);
-# 51 "mcc_generated_files/mcc.h" 2
-
-
-# 1 "/Applications/microchip/xc8/v2.46/pic/include/c99/stdbool.h" 1 3
-# 53 "mcc_generated_files/mcc.h" 2
-
-# 1 "/Applications/microchip/xc8/v2.46/pic/include/c99/conio.h" 1 3
-
-
-
-
-
-
-# 1 "/Applications/microchip/xc8/v2.46/pic/include/c99/stdio.h" 1 3
-# 24 "/Applications/microchip/xc8/v2.46/pic/include/c99/stdio.h" 3
-# 1 "/Applications/microchip/xc8/v2.46/pic/include/c99/bits/alltypes.h" 1 3
-# 12 "/Applications/microchip/xc8/v2.46/pic/include/c99/bits/alltypes.h" 3
-typedef void * va_list[1];
-
-
-
-
-typedef void * __isoc_va_list[1];
-# 143 "/Applications/microchip/xc8/v2.46/pic/include/c99/bits/alltypes.h" 3
-typedef short ssize_t;
-# 255 "/Applications/microchip/xc8/v2.46/pic/include/c99/bits/alltypes.h" 3
-typedef long long off_t;
-# 409 "/Applications/microchip/xc8/v2.46/pic/include/c99/bits/alltypes.h" 3
-typedef struct _IO_FILE FILE;
-# 25 "/Applications/microchip/xc8/v2.46/pic/include/c99/stdio.h" 2 3
-# 52 "/Applications/microchip/xc8/v2.46/pic/include/c99/stdio.h" 3
-typedef union _G_fpos64_t {
- char __opaque[16];
- double __align;
-} fpos_t;
-
-extern FILE *const stdin;
-extern FILE *const stdout;
-extern FILE *const stderr;
-
-
-
-
-
-FILE *fopen(const char *restrict, const char *restrict);
-FILE *freopen(const char *restrict, const char *restrict, FILE *restrict);
-int fclose(FILE *);
-
-int remove(const char *);
-int rename(const char *, const char *);
-
-int feof(FILE *);
-int ferror(FILE *);
-int fflush(FILE *);
-void clearerr(FILE *);
-
-int fseek(FILE *, long, int);
-long ftell(FILE *);
-void rewind(FILE *);
-
-int fgetpos(FILE *restrict, fpos_t *restrict);
-int fsetpos(FILE *, const fpos_t *);
-
-size_t fread(void *restrict, size_t, size_t, FILE *restrict);
-size_t fwrite(const void *restrict, size_t, size_t, FILE *restrict);
-
-int fgetc(FILE *);
-int getc(FILE *);
-int getchar(void);
-
-
-
-
-
-int ungetc(int, FILE *);
-int getch(void);
-
-int fputc(int, FILE *);
-int putc(int, FILE *);
-int putchar(int);
-
-
-
-
-
-void putch(char);
-
-char *fgets(char *restrict, int, FILE *restrict);
-
-char *gets(char *);
-
-
-int fputs(const char *restrict, FILE *restrict);
-int puts(const char *);
-
-__attribute__((__format__(__printf__, 1, 2)))
-int printf(const char *restrict, ...);
-__attribute__((__format__(__printf__, 2, 3)))
-int fprintf(FILE *restrict, const char *restrict, ...);
-__attribute__((__format__(__printf__, 2, 3)))
-int sprintf(char *restrict, const char *restrict, ...);
-__attribute__((__format__(__printf__, 3, 4)))
-int snprintf(char *restrict, size_t, const char *restrict, ...);
-
-__attribute__((__format__(__printf__, 1, 0)))
-int vprintf(const char *restrict, __isoc_va_list);
-int vfprintf(FILE *restrict, const char *restrict, __isoc_va_list);
-__attribute__((__format__(__printf__, 2, 0)))
-int vsprintf(char *restrict, const char *restrict, __isoc_va_list);
-__attribute__((__format__(__printf__, 3, 0)))
-int vsnprintf(char *restrict, size_t, const char *restrict, __isoc_va_list);
-
-__attribute__((__format__(__scanf__, 1, 2)))
-int scanf(const char *restrict, ...);
-__attribute__((__format__(__scanf__, 2, 3)))
-int fscanf(FILE *restrict, const char *restrict, ...);
-__attribute__((__format__(__scanf__, 2, 3)))
-int sscanf(const char *restrict, const char *restrict, ...);
-
-__attribute__((__format__(__scanf__, 1, 0)))
-int vscanf(const char *restrict, __isoc_va_list);
-int vfscanf(FILE *restrict, const char *restrict, __isoc_va_list);
-__attribute__((__format__(__scanf__, 2, 0)))
-int vsscanf(const char *restrict, const char *restrict, __isoc_va_list);
-
-void perror(const char *);
-
-int setvbuf(FILE *restrict, char *restrict, int, size_t);
-void setbuf(FILE *restrict, char *restrict);
-
-char *tmpnam(char *);
-FILE *tmpfile(void);
-
-
-
-
-FILE *fmemopen(void *restrict, size_t, const char *restrict);
-FILE *open_memstream(char **, size_t *);
-FILE *fdopen(int, const char *);
-FILE *popen(const char *, const char *);
-int pclose(FILE *);
-int fileno(FILE *);
-int fseeko(FILE *, off_t, int);
-off_t ftello(FILE *);
-int dprintf(int, const char *restrict, ...);
-int vdprintf(int, const char *restrict, __isoc_va_list);
-void flockfile(FILE *);
-int ftrylockfile(FILE *);
-void funlockfile(FILE *);
-int getc_unlocked(FILE *);
-int getchar_unlocked(void);
-int putc_unlocked(int, FILE *);
-int putchar_unlocked(int);
-ssize_t getdelim(char **restrict, size_t *restrict, int, FILE *restrict);
-ssize_t getline(char **restrict, size_t *restrict, FILE *restrict);
-int renameat(int, const char *, int, const char *);
-char *ctermid(char *);
-
-
-
-
-
-
-
-char *tempnam(const char *, const char *);
-# 8 "/Applications/microchip/xc8/v2.46/pic/include/c99/conio.h" 2 3
-# 54 "mcc_generated_files/mcc.h" 2
-
-# 1 "mcc_generated_files/interrupt_manager.h" 1
-# 55 "mcc_generated_files/mcc.h" 2
-
-# 1 "mcc_generated_files/i2c1_master.h" 1
-# 58 "mcc_generated_files/i2c1_master.h"
-typedef enum {
-    I2C1_NOERR,
-    I2C1_BUSY,
-    I2C1_FAIL
-
-
-} i2c1_error_t;
-
-typedef enum
-{
-    I2C1_STOP=1,
-    I2C1_RESTART_READ,
-    I2C1_RESTART_WRITE,
-    I2C1_CONTINUE,
-    I2C1_RESET_LINK
-} i2c1_operations_t;
-
-typedef uint8_t i2c1_address_t;
-typedef i2c1_operations_t (*i2c1_callback_t)(void *funPtr);
-
-
-i2c1_operations_t I2C1_CallbackReturnStop(void *funPtr);
-i2c1_operations_t I2C1_CallbackReturnReset(void *funPtr);
-i2c1_operations_t I2C1_CallbackRestartWrite(void *funPtr);
-i2c1_operations_t I2C1_CallbackRestartRead(void *funPtr);
-
-
-
-
-
-
-void I2C1_Initialize(void);
-# 101 "mcc_generated_files/i2c1_master.h"
-i2c1_error_t I2C1_Open(i2c1_address_t address);
-# 111 "mcc_generated_files/i2c1_master.h"
-i2c1_error_t I2C1_Close(void);
-# 123 "mcc_generated_files/i2c1_master.h"
-i2c1_error_t I2C1_MasterOperation(_Bool read);
-
-
-
-
-i2c1_error_t I2C1_MasterWrite(void);
-
-
-
-
-i2c1_error_t I2C1_MasterRead(void);
-# 142 "mcc_generated_files/i2c1_master.h"
-void I2C1_SetTimeout(uint8_t timeOut);
-# 152 "mcc_generated_files/i2c1_master.h"
-void I2C1_SetBuffer(void *buffer, size_t bufferSize);
-# 164 "mcc_generated_files/i2c1_master.h"
-void I2C1_SetDataCompleteCallback(i2c1_callback_t cb, void *ptr);
-# 174 "mcc_generated_files/i2c1_master.h"
-void I2C1_SetWriteCollisionCallback(i2c1_callback_t cb, void *ptr);
-# 184 "mcc_generated_files/i2c1_master.h"
-void I2C1_SetAddressNackCallback(i2c1_callback_t cb, void *ptr);
-# 194 "mcc_generated_files/i2c1_master.h"
-void I2C1_SetDataNackCallback(i2c1_callback_t cb, void *ptr);
-# 204 "mcc_generated_files/i2c1_master.h"
-void I2C1_SetTimeoutCallback(i2c1_callback_t cb, void *ptr);
-# 56 "mcc_generated_files/mcc.h" 2
-
-# 1 "mcc_generated_files/tmr0.h" 1
-# 106 "mcc_generated_files/tmr0.h"
-void TMR0_Initialize(void);
-# 135 "mcc_generated_files/tmr0.h"
-void TMR0_StartTimer(void);
-# 167 "mcc_generated_files/tmr0.h"
-void TMR0_StopTimer(void);
-# 202 "mcc_generated_files/tmr0.h"
-uint8_t TMR0_ReadTimer(void);
-# 241 "mcc_generated_files/tmr0.h"
-void TMR0_WriteTimer(uint8_t timerVal);
-# 278 "mcc_generated_files/tmr0.h"
-void TMR0_Reload(uint8_t periodVal);
-# 297 "mcc_generated_files/tmr0.h"
-void TMR0_ISR(void);
-# 315 "mcc_generated_files/tmr0.h"
-void TMR0_CallBack(void);
-# 333 "mcc_generated_files/tmr0.h"
- void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
-# 351 "mcc_generated_files/tmr0.h"
-extern void (*TMR0_InterruptHandler)(void);
-# 369 "mcc_generated_files/tmr0.h"
-void TMR0_DefaultInterruptHandler(void);
-# 57 "mcc_generated_files/mcc.h" 2
-
-# 1 "mcc_generated_files/drivers/i2c_simple_master.h" 1
-# 37 "mcc_generated_files/drivers/i2c_simple_master.h"
-uint8_t i2c_read1ByteRegister(i2c1_address_t address, uint8_t reg);
-uint16_t i2c_read2ByteRegister(i2c1_address_t address, uint8_t reg);
-void i2c_write1ByteRegister(i2c1_address_t address, uint8_t reg, uint8_t data);
-void i2c_write2ByteRegister(i2c1_address_t address, uint8_t reg, uint16_t data);
-
-void i2c_writeNBytes(i2c1_address_t address, void* data, size_t len);
-void i2c_readDataBlock(i2c1_address_t address, uint8_t reg, void *data, size_t len);
-void i2c_readNBytes(i2c1_address_t address, void *data, size_t len);
-# 58 "mcc_generated_files/mcc.h" 2
-# 73 "mcc_generated_files/mcc.h"
-void SYSTEM_Initialize(void);
-# 86 "mcc_generated_files/mcc.h"
-void OSCILLATOR_Initialize(void);
-# 99 "mcc_generated_files/mcc.h"
-void PMD_Initialize(void);
-# 47 "mcc_generated_files/mcc.c" 2
-
-
-
-void SYSTEM_Initialize(void)
-{
-    PMD_Initialize();
-    I2C1_Initialize();
-    PIN_MANAGER_Initialize();
-    OSCILLATOR_Initialize();
-    TMR0_Initialize();
+# 36 "rotary_encoder.c" 2
+# 1 "./rotary_encoder.h" 1
+# 47 "./rotary_encoder.h"
+uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state);
+uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state);
+# 37 "rotary_encoder.c" 2
+# 54 "rotary_encoder.c"
+const unsigned char ttable[][4] = {
+
+  {0x3, 0x2, 0x1, 0x0},
+  {0x3 | 0x20, 0x0, 0x1, 0x0},
+  {0x3 | 0x10, 0x2, 0x0, 0x0},
+  {0x3, 0x5, 0x4, 0x0},
+  {0x3, 0x3, 0x4, 0x0 | 0x10},
+  {0x3, 0x5, 0x3, 0x0 | 0x20}
+};
+# 90 "rotary_encoder.c"
+uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
+
+    uint8_t pinstate = (uint8_t)((PORTCbits.RC6 << 1) | PORTCbits.RC7);
+    *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
+    return (*rotary_encoder_state & 0x30);
 }
 
-void OSCILLATOR_Initialize(void)
-{
 
-    OSCCON1 = 0x60;
 
-    OSCCON3 = 0x00;
 
-    OSCEN = 0x00;
 
-    OSCFRQ = 0x06;
 
-    OSCTUNE = 0x00;
-}
 
-void PMD_Initialize(void)
-{
+uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state) {
 
-    PMD0 = 0x00;
+    return 0;
 
-    PMD1 = 0x00;
 
-    PMD2 = 0x00;
 
-    PMD3 = 0x00;
 
-    PMD4 = 0x00;
 
-    PMD5 = 0x00;
 
-    PMD6 = 0x00;
-
-    PMD7 = 0x00;
 }
