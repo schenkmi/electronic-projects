@@ -555,6 +555,14 @@ uint8_t get_sample_rate(void)
 
 static void init(volatile Instance_t* instance)
 {
+    
+    LED_D4_SetDigitalInput();
+    LED_D5_SetDigitalInput();
+    LED_D4_SetLow();
+    LED_D4_SetLow();
+    
+    
+    
     __delay_ms(100);
     RESET_SetLow();
     __delay_ms(100);
@@ -859,14 +867,16 @@ static void timer_callback_process_single(void) {
 void timer_callback(void)
 {
 /* use to measure irq call time */
-#if 0
-  LED_Toggle();
+#if 1
+  //LED_Toggle();
+  LED_D5_SetDigitalInput();
 #endif
   /* single encoder for both attenuation and channel */
   timer_callback_process_single();
 /* use for measure irq execution time (10us) */
-#if 0
-  LED_Toggle();
+#if 1
+  //LED_Toggle();
+  LED_D5_SetDigitalOutput();
 #endif
 }
 
@@ -891,6 +901,11 @@ int main(void)
   /* Enable the Peripheral Interrupts */
   INTERRUPT_PeripheralInterruptEnable();
 
+  
+    LED_D5_SetDigitalOutput();
+    LED_D4_SetDigitalOutput();
+                    
+  
   /* DAC */
       set_upsample(upsample_rate);
     
