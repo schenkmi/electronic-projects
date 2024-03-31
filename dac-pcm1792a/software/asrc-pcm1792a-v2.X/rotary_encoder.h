@@ -44,8 +44,8 @@ extern "C" {
 #define DIR_CW    0x10 /* read() return value - Clockwise step/movement */
 #define DIR_CCW   0x20 /* return value - Counter-clockwise step/movement */
 
-uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state);
-uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state);
+//uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state);
+//uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state);
 
 
 #define CHAN_SEL_MASK                  0x0f
