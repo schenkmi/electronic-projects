@@ -89,6 +89,66 @@
 #define RB6_SetAnalogMode()         do { ANSELBbits.ANSB6 = 1; } while(0)
 #define RB6_SetDigitalMode()        do { ANSELBbits.ANSB6 = 0; } while(0)
 
+// get/set ENC1_SWITCH aliases
+#define ENC1_SWITCH_TRIS                 TRISCbits.TRISC4
+#define ENC1_SWITCH_LAT                  LATCbits.LATC4
+#define ENC1_SWITCH_PORT                 PORTCbits.RC4
+#define ENC1_SWITCH_WPU                  WPUCbits.WPUC4
+#define ENC1_SWITCH_OD                   ODCONCbits.ODCC4
+#define ENC1_SWITCH_ANS                  ANSELCbits.ANSC4
+#define ENC1_SWITCH_SetHigh()            do { LATCbits.LATC4 = 1; } while(0)
+#define ENC1_SWITCH_SetLow()             do { LATCbits.LATC4 = 0; } while(0)
+#define ENC1_SWITCH_Toggle()             do { LATCbits.LATC4 = ~LATCbits.LATC4; } while(0)
+#define ENC1_SWITCH_GetValue()           PORTCbits.RC4
+#define ENC1_SWITCH_SetDigitalInput()    do { TRISCbits.TRISC4 = 1; } while(0)
+#define ENC1_SWITCH_SetDigitalOutput()   do { TRISCbits.TRISC4 = 0; } while(0)
+#define ENC1_SWITCH_SetPullup()          do { WPUCbits.WPUC4 = 1; } while(0)
+#define ENC1_SWITCH_ResetPullup()        do { WPUCbits.WPUC4 = 0; } while(0)
+#define ENC1_SWITCH_SetPushPull()        do { ODCONCbits.ODCC4 = 0; } while(0)
+#define ENC1_SWITCH_SetOpenDrain()       do { ODCONCbits.ODCC4 = 1; } while(0)
+#define ENC1_SWITCH_SetAnalogMode()      do { ANSELCbits.ANSC4 = 1; } while(0)
+#define ENC1_SWITCH_SetDigitalMode()     do { ANSELCbits.ANSC4 = 0; } while(0)
+
+// get/set ENC1_CHANA aliases
+#define ENC1_CHANA_TRIS                 TRISCbits.TRISC6
+#define ENC1_CHANA_LAT                  LATCbits.LATC6
+#define ENC1_CHANA_PORT                 PORTCbits.RC6
+#define ENC1_CHANA_WPU                  WPUCbits.WPUC6
+#define ENC1_CHANA_OD                   ODCONCbits.ODCC6
+#define ENC1_CHANA_ANS                  ANSELCbits.ANSC6
+#define ENC1_CHANA_SetHigh()            do { LATCbits.LATC6 = 1; } while(0)
+#define ENC1_CHANA_SetLow()             do { LATCbits.LATC6 = 0; } while(0)
+#define ENC1_CHANA_Toggle()             do { LATCbits.LATC6 = ~LATCbits.LATC6; } while(0)
+#define ENC1_CHANA_GetValue()           PORTCbits.RC6
+#define ENC1_CHANA_SetDigitalInput()    do { TRISCbits.TRISC6 = 1; } while(0)
+#define ENC1_CHANA_SetDigitalOutput()   do { TRISCbits.TRISC6 = 0; } while(0)
+#define ENC1_CHANA_SetPullup()          do { WPUCbits.WPUC6 = 1; } while(0)
+#define ENC1_CHANA_ResetPullup()        do { WPUCbits.WPUC6 = 0; } while(0)
+#define ENC1_CHANA_SetPushPull()        do { ODCONCbits.ODCC6 = 0; } while(0)
+#define ENC1_CHANA_SetOpenDrain()       do { ODCONCbits.ODCC6 = 1; } while(0)
+#define ENC1_CHANA_SetAnalogMode()      do { ANSELCbits.ANSC6 = 1; } while(0)
+#define ENC1_CHANA_SetDigitalMode()     do { ANSELCbits.ANSC6 = 0; } while(0)
+
+// get/set ENC1_CHANB aliases
+#define ENC1_CHANB_TRIS                 TRISCbits.TRISC7
+#define ENC1_CHANB_LAT                  LATCbits.LATC7
+#define ENC1_CHANB_PORT                 PORTCbits.RC7
+#define ENC1_CHANB_WPU                  WPUCbits.WPUC7
+#define ENC1_CHANB_OD                   ODCONCbits.ODCC7
+#define ENC1_CHANB_ANS                  ANSELCbits.ANSC7
+#define ENC1_CHANB_SetHigh()            do { LATCbits.LATC7 = 1; } while(0)
+#define ENC1_CHANB_SetLow()             do { LATCbits.LATC7 = 0; } while(0)
+#define ENC1_CHANB_Toggle()             do { LATCbits.LATC7 = ~LATCbits.LATC7; } while(0)
+#define ENC1_CHANB_GetValue()           PORTCbits.RC7
+#define ENC1_CHANB_SetDigitalInput()    do { TRISCbits.TRISC7 = 1; } while(0)
+#define ENC1_CHANB_SetDigitalOutput()   do { TRISCbits.TRISC7 = 0; } while(0)
+#define ENC1_CHANB_SetPullup()          do { WPUCbits.WPUC7 = 1; } while(0)
+#define ENC1_CHANB_ResetPullup()        do { WPUCbits.WPUC7 = 0; } while(0)
+#define ENC1_CHANB_SetPushPull()        do { ODCONCbits.ODCC7 = 0; } while(0)
+#define ENC1_CHANB_SetOpenDrain()       do { ODCONCbits.ODCC7 = 1; } while(0)
+#define ENC1_CHANB_SetAnalogMode()      do { ANSELCbits.ANSC7 = 1; } while(0)
+#define ENC1_CHANB_SetDigitalMode()     do { ANSELCbits.ANSC7 = 0; } while(0)
+
 /**
    @Param
     none
