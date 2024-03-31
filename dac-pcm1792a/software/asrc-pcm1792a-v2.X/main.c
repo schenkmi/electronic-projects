@@ -236,7 +236,7 @@ volatile Instance_t instance = {
 
 
 SRC4392_t src4392 = {
-    .upsample_rate = fs192kHz,
+    .upsample_rate = UpsamplingTo192kHz,
     .output_word_length = 24
 };
 
@@ -763,8 +763,6 @@ int main(void)
   init(&instance);
 
   /* install irq handlers */
-  //Timer0_OverflowCallbackRegister(timer_callback);
-  
   TMR0_SetInterruptHandler(rotary_encoder_timer_callback);
   
 
@@ -780,13 +778,10 @@ int main(void)
                     
   
   /* DAC */
-      set_upsample(src4392.upsample_rate);
-    
-    set_dit_mode(&src4392, instance.channel, DITUpsample);
-    
-    set_deemphasis(DeEmphasisAuto);
-    
-    set_input(instance.channel, DITUpsample);
+  set_upsample(src4392.upsample_rate);
+  set_dit_mode(&src4392, instance.channel, DITUpsample);
+  set_deemphasis(DeEmphasisAuto); 
+  set_input(instance.channel, DITUpsample);
     
   
   while (1) {

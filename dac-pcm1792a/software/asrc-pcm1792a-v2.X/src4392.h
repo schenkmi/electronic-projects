@@ -55,18 +55,18 @@ enum SRC4392DigitalAudioInterfaceTransmitter { DITUpsample = 0, DITPassthrough =
 
 enum SRC4392DeEmphasis { DeEmphasisAuto = 0, DeEmphasisOff = 1};
     
-enum UpsamplingRate { fs192kHz = 0, fs96kHz = 1 };
+enum SRC4392UpsamplingRate { UpsamplingTo192kHz = 0, UpsamplingTo96kHz = 1 };
 
 typedef struct {
   
-  enum UpsamplingRate upsample_rate;
+  enum SRC4392UpsamplingRate upsample_rate;
   uint8_t output_word_length;
 } SRC4392_t;
     
 void src4392_init(SRC4392_t* instance);
 
 void set_deemphasis(enum SRC4392DeEmphasis de_emphasis);
-void set_upsample(enum UpsamplingRate rate);
+void set_upsample(enum SRC4392UpsamplingRate rate);
 void set_dit_mode(SRC4392_t* instance, uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit);
 void set_input(uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit);
 uint8_t get_sample_rate(SRC4392_t* instance);

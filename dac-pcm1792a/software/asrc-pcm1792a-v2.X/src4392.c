@@ -171,10 +171,10 @@ void set_deemphasis(enum SRC4392DeEmphasis de_emphasis)
 }
 
 // Set the upsample rate
-// rate: fs192kHz or fs96kHz
-void set_upsample(enum UpsamplingRate rate)
+// rate: UpsamplingTo192kHz or UpsamplingTo96kHz
+void set_upsample(enum SRC4392UpsamplingRate rate)
 {
-	if (rate != fs192kHz && rate != fs96kHz)
+	if (rate != UpsamplingTo192kHz && rate != UpsamplingTo96kHz)
 		return;		// error checking
 
     // mute audio
@@ -182,7 +182,7 @@ void set_upsample(enum UpsamplingRate rate)
 	// Select SRC4392 page 0
 	src4392_write(SRC_REG7F, 0x00);
 
-	if (rate == fs192kHz) {
+	if (rate == UpsamplingTo192kHz) {
 		// SRC4392 DIT setup:
 		// - SRC as the input data source
 		// - MCLK as master clock
@@ -206,7 +206,7 @@ void set_upsample(enum UpsamplingRate rate)
 		// - clock divider 128
 		src4392_write(SRC_REG04, 0x00);
 	}
-	else if (rate == fs96kHz) {
+	else if (rate == UpsamplingTo96kHz) {
 		// SRC4392 DIT setup:
 		// - SRC as the input data source
 		// - MCLK as master clock
@@ -249,7 +249,7 @@ void set_dit_mode(SRC4392_t* instance, uint8_t input, enum SRC4392DigitalAudioIn
 	src4392_write(SRC_REG7F, 0x00);
 
 	if (dit == DITUpsample) {
-		if (instance->upsample_rate == fs192kHz) {
+		if (instance->upsample_rate == UpsamplingTo192kHz) {
 			// DIT setup
 			// - SRC as the input data source
 			// - MCLK as master clock
@@ -269,7 +269,7 @@ void set_dit_mode(SRC4392_t* instance, uint8_t input, enum SRC4392DigitalAudioIn
 			src4392_write(SRC_REG7F, 0x00);
 			src4392_write(SRC_REG08, 0x00);
 		}
-		else if (instance->upsample_rate == fs96kHz) {
+		else if (instance->upsample_rate == UpsamplingTo96kHz) {
 			// DIT setup
 			// - SRC as the input data source
 			// - MCLK as master clock
@@ -339,7 +339,7 @@ uint8_t get_sample_rate(SRC4392_t* instance)
 	val0 = src4392_read(SRC_REG32);
 	val1 = src4392_read(SRC_REG33);
 
-	if (instance->upsample_rate == fs192kHz) {
+	if (instance->upsample_rate == UpsamplingTo192kHz) {
 		// for output sample rate = 192K
 		if ((val0 == 0x07 && val1 == 0xff) ||
 		    (val0 == 0x08 && val1 == 0x00)) {
@@ -372,7 +372,7 @@ uint8_t get_sample_rate(SRC4392_t* instance)
 			return SAMPLERATE_32KHZ;
 		}
 	}
-	else if (instance->upsample_rate == fs96kHz) {
+	else if (instance->upsample_rate == UpsamplingTo96kHz) {
 		// for output sample rate of 96KHz
 		if ((val0 == 0x0f && val1 == 0xff) ||
 		    (val0 == 0x10 && val1 == 0x00)) {
