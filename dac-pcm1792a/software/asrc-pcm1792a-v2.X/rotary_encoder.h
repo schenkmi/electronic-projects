@@ -47,6 +47,70 @@ extern "C" {
 uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state);
 uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state);
 
+
+#define CHAN_SEL_MASK                  0x0f
+
+#define EEPROM_ADDR_CHANNEL            0x04 /* EEPROM address of current channel */
+
+#define ROTARY_MIN_CHANNEL                0 /* minimum channel */
+#define ROTARY_MAX_CHANNEL                3 /* maximum channel */
+#define ROTARY_MULTI_CHANNEL              3 /* on 12PPR this gaves 3 clicks */
+
+#define ROTARY_ATTENUATION_BITS           6 /* 6 bits */
+#define ROTARY_MIN_ATTENUATION            0 /* minimum attenuation */
+#define ROTARY_MAX_ATTENUATION         ((1 << ROTARY_ATTENUATION_BITS) - 1) /* (0x3f) maximum attenuation */
+#define ROTARY_MULTI_ATTENUATION          1 /* on 12PPR this gaves 1 clicks */
+
+#define MAIN_LOOP_WAIT                    1 /* 1ms */
+#define EEPROM_SAVE_STATUS_VALUE       1000 /* 1 seconds on a 1ms loop */
+#define RELAIS_SETUP_TIME                 1 /* 1ms */
+
+#define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
+#define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE) /* 3 seconds till storing default attenuation */
+
+
+enum Control { Combined = 0, Volume = 0, Channel = 1};
+enum Mode { Single = 0, Dual = 1 };
+
+typedef struct {
+  uint8_t direction;
+  int encoder_count[2 /* Volume = 0,  Channel = 1 */];
+  /* rotary encoder state */
+  uint8_t rotary_encoder_state;
+  /* encoder push button */
+  int encoder_push_debounce_counter;
+  int encoder_push_counter;
+  int encoder_push_action;
+} RotaryEncoder_t;
+
+typedef struct {
+  int default_attenuation;
+  int attenuation;
+} ChannelVolume_t;
+
+typedef struct {
+  enum Mode mode; /* single or dual encoder mode */
+  int channel;
+  int last_channel;
+  int attenuation;
+  int last_attenuation;
+  int eeprom_save_status_counter;
+  ChannelVolume_t channel_attenuation[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
+  /* irq changed */
+  volatile enum Control control;
+  RotaryEncoder_t encoder[2 /* 0 = Combined/Volume, 1 = Channel */];
+} Instance_t;
+
+
+
+
+
+void eeprom_save_status(volatile Instance_t* instance);
+
+void process_encoder_button(volatile Instance_t* instance);
+
+void rotary_encoder_timer_callback(void);
+
 #ifdef	__cplusplus
 }
 #endif
