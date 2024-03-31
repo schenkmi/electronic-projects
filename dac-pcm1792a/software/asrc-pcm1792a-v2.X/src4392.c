@@ -154,18 +154,18 @@ static void src4392_write(uint8_t reg, uint8_t val)
 
 // Set the digital de-emphasis mode
 // mode: DEEMPH_AUTO or DEEMPH_OFF
-void set_deemphasis(uint8_t mode)
+void set_deemphasis(enum SRC4392DeEmphasis de_emphasis)
 {
-	if (mode != DEEMPH_AUTO && mode != DEEMPH_OFF)
+	if (de_emphasis != DeEmphasisAuto && de_emphasis != DeEmphasisOff)
 		return;		// error checking
 
 	// Select SRC4392 page 0
 	src4392_write(SRC_REG7F, 0x00);
 
-	if (mode == DEEMPH_AUTO) {
+	if (de_emphasis == DeEmphasisAuto) {
 		src4392_write(SRC_REG2E, 0x20);
 	}
-	else if (mode == DEEMPH_OFF) {
+	else if (de_emphasis == DeEmphasisOff) {
 		src4392_write(SRC_REG2E, 0x00);
 	}
 }
@@ -237,18 +237,18 @@ void set_upsample(enum UpsamplingRate rate)
 
 // Set the DIT (digital output) routing
 // input: input number, mode: DIT_LOOPOUT or DIT_UPSAMPLE
-void set_dit_mode(SRC4392_t* instance, uint8_t input, uint8_t mode)
+void set_dit_mode(SRC4392_t* instance, uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit)
 {
 	uint8_t	val;
 
-	if ((mode != DIT_UPSAMPLE && mode != DIT_LOOPOUT) ||
+	if ((dit != DITUpsample && dit != DITPassthrough) ||
 	    input > MAX_INPUTS)
 		return;		// error checking
 
 	// Select SRC4392 page 0
 	src4392_write(SRC_REG7F, 0x00);
 
-	if (mode == DIT_UPSAMPLE) {
+	if (dit == DITUpsample) {
 		if (instance->upsample_rate == fs192kHz) {
 			// DIT setup
 			// - SRC as the input data source
@@ -290,7 +290,7 @@ void set_dit_mode(SRC4392_t* instance, uint8_t input, uint8_t mode)
 			src4392_write(SRC_REG08, 0x00);
 		}
 	}
-	else if (mode == DIT_LOOPOUT) {
+	else if (dit == DITPassthrough) {
 		// set both AES and TX outputs to receive their
 		// data via the bypass multiplexor without going
 		// through the DIT block.
@@ -301,12 +301,12 @@ void set_dit_mode(SRC4392_t* instance, uint8_t input, uint8_t mode)
 
 // Set the input
 // input: 0..4, mode: DIT_UPSAMPLE or DIT_LOOPOUT
-void set_input(uint8_t input, uint8_t mode)
+void set_input(uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit)
 {
 	uint8_t	val;
 
 	if ((input > MAX_INPUTS) ||
-	    (mode != DIT_UPSAMPLE && mode != DIT_LOOPOUT))
+	    (dit != DITUpsample && dit != DITPassthrough))
 		return;		// error checking
 
 	// Select page 0
@@ -325,7 +325,7 @@ void set_input(uint8_t input, uint8_t mode)
     src4392_write(SRC_REG2D, 0x02);
 
 	// update DIT mode
-	set_dit_mode(&src4392, input, mode);
+	set_dit_mode(&src4392, input, dit);
 }
 
 // Return the enum representing the current sample rate (SAMPLERATE_xxKHZ).

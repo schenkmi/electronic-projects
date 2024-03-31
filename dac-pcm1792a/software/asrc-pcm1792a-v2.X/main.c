@@ -782,11 +782,11 @@ int main(void)
   /* DAC */
       set_upsample(src4392.upsample_rate);
     
-    set_dit_mode(&src4392, instance.channel, DIT_UPSAMPLE);
+    set_dit_mode(&src4392, instance.channel, DITUpsample);
     
-    set_deemphasis(DEEMPH_AUTO);
+    set_deemphasis(DeEmphasisAuto);
     
-    set_input(instance.channel, DIT_UPSAMPLE);
+    set_input(instance.channel, DITUpsample);
     
   
   while (1) {
