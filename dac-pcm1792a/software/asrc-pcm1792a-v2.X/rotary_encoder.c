@@ -37,6 +37,7 @@
 
 extern volatile Instance_t instance;
 
+
 /*
  * The below state table has, for each state (row), the new state
  * to set based on the next encoder output. From left to right in,
@@ -89,7 +90,7 @@ const unsigned char ttable[][4] = {
  * @param rotary_encoder_state
  * @return 
  */
-uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
+static uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
     /* read CHANA and CHANB, CW => up, CCW => down */
     uint8_t pinstate = (uint8_t)((ENC1_CHANA_GetValue() << 1) | ENC1_CHANB_GetValue());
     *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
@@ -102,7 +103,7 @@ uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
  * @param rotary_encoder_state
  * @return 
  */
-uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state) {
+static uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state) {
 #if 1
     return 0;
 #else
