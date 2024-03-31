@@ -35,7 +35,7 @@
 #include "mcc_generated_files/mcc.h"
 #include "mcc_generated_files/examples/i2c1_master_example.h"
 #include "rotary_encoder.h"
-
+#include "pcm1792a.h"
 
 
 // ---- DAC
@@ -149,29 +149,6 @@ uint8_t		upsample_rate = UPSAMPLE_192KHZ;
 //#define SRC_OUTPUT_BITS 20
 #define SRC_OUTPUT_BITS 24
 
-#define __PCM1972A__
-
-
-#define PCM1792A_I2C_SLAVE_ADDR              0x4c
-
-// Register 18 => default
-
-// Register 19 
-//#define PCM1792A_REG19_VALUE        0x1302 /* 0x13 == Reg 19, 0x02 FLT = Slow rolloff */
-
-
-#define PCM1792A_REG16        0x10 /* 0x10 == Reg 16, Digital Attenuation Level Setting left */
-#define PCM1792A_REG16_VALUE        0xff /* 0dB, not attenuation */
-
-#define PCM1792A_REG17        0x11 /* 0x11 == Reg 17, Digital Attenuation Level Setting left */
-#define PCM1792A_REG17_VALUE        0xff /* 0dB, not attenuation */
-
-
-
-#define PCM1792A_REG19        0x13 /* 0x13 == Reg 19 */
-#define PCM1792A_REG19_VALUE        0x02 /* 0x02 FLT = Slow rolloff */
-
-
 
 
 // ---- Rotary
@@ -275,10 +252,7 @@ void src4392_write(uint8_t reg, uint8_t val)
 }
 
 
-void pcm1792a_write(uint8_t reg, uint8_t val)
-{
-    I2C1_Write1ByteRegister(PCM1792A_I2C_SLAVE_ADDR, reg, val);
-}
+
 
 
 
@@ -670,15 +644,7 @@ static void init(volatile Instance_t* instance)
     
 
     
-#ifdef __PCM1972A__
-    pcm1792a_write(PCM1792A_REG19, PCM1792A_REG19_VALUE);
-    
-    // attenuation left -31.5dB
-    //pcm1792a_write(PCM1792A_REG16, 0xc0);
-    // attenuation right -31.5dB
-    //pcm1792a_write(PCM1792A_REG17, 0xc0);
-                 
-#endif
+pcm1792a_init();
     
     
   /* read last used channel, channels attenuation will be handler inside process_channel() */
