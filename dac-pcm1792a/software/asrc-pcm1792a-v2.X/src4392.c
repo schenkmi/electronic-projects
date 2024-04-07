@@ -36,11 +36,11 @@
 #include "src4392.h"
 
 
-static SRC4392_t* src4392_instance = NULL;
+
 
 
 // Page 38 
-#define SRC4392_I2C_SLAVE_ADDR              0x70
+#define SRC4392_I2C_SLAVE_ADDR              0x70   /* 1110000 R(1) or /W(0) => 0xe0 write, 0xe1 read */
 
 
 // SRC4392 control/status registers
@@ -143,7 +143,7 @@ static SRC4392_t* src4392_instance = NULL;
 //#define SRC_OUTPUT_BITS 24
 
 
-
+static SRC4392_t* src4392_instance = NULL;
 
 // Read one byte from the SRC4392
 static uint8_t src4392_read(uint8_t reg)
