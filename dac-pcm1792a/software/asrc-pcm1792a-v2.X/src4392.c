@@ -36,7 +36,7 @@
 #include "src4392.h"
 
 
-extern SRC4392_t src4392;
+static SRC4392_t* src4392_instance = NULL;
 
 
 // Page 38 
@@ -98,18 +98,18 @@ extern SRC4392_t src4392;
 #define SRC_REG7F	0x7f		// page selection
 
 
-
-// Sample rate enums
-#define SAMPLERATE_UNKNOWN	0	// unknown
-#define SAMPLERATE_32KHZ	1	// 32.0KHz
-#define SAMPLERATE_44KHZ	2	// 44.1KHz
-#define SAMPLERATE_48KHZ	3	// 48.0KHz
-#define SAMPLERATE_64KHZ	4	// 64.0KHz
-#define SAMPLERATE_88KHZ	5	// 88.2KHz
-#define SAMPLERATE_96KHZ	6	// 96.0KHz
-#define SAMPLERATE_128KHZ	7	// 128.0KHz
-#define SAMPLERATE_176KHZ	8	// 176.4KHz
-#define SAMPLERATE_192KHZ	9	// 192.0KHz
+//
+//// Sample rate enums
+//#define SAMPLERATE_UNKNOWN	0	// unknown
+//#define SAMPLERATE_32KHZ	1	// 32.0KHz
+//#define SAMPLERATE_44KHZ	2	// 44.1KHz
+//#define SAMPLERATE_48KHZ	3	// 48.0KHz
+//#define SAMPLERATE_64KHZ	4	// 64.0KHz
+//#define SAMPLERATE_88KHZ	5	// 88.2KHz
+//#define SAMPLERATE_96KHZ	6	// 96.0KHz
+//#define SAMPLERATE_128KHZ	7	// 128.0KHz
+//#define SAMPLERATE_176KHZ	8	// 176.4KHz
+//#define SAMPLERATE_192KHZ	9	// 192.0KHz
 
 /*
  * Upsampling enums
@@ -125,14 +125,14 @@ extern SRC4392_t src4392;
 
 // input 0,1,2 or 3
 
-#define INPUT_RX1   0
-#define INPUT_RX2   1
-#define INPUT_RX3   2
-#define INPUT_RX4   3
-#define MAX_INPUTS  INPUT_RX4
+//#define INPUT_RX1   0
+//#define INPUT_RX2   1
+//#define INPUT_RX3   2
+//#define INPUT_RX4   3
+#define MAX_INPUTS  4
 
 //#define SRC_OUTPUT_BITS 20
-#define SRC_OUTPUT_BITS 24
+//#define SRC_OUTPUT_BITS 24
 
 
 
@@ -153,264 +153,263 @@ static void src4392_write(uint8_t reg, uint8_t val)
 
 
 // Set the digital de-emphasis mode
-// mode: DEEMPH_AUTO or DEEMPH_OFF
-void set_deemphasis(enum SRC4392DeEmphasis de_emphasis)
+static void set_deemphasis(SRC4392_t* instance)
 {
-	if (de_emphasis != DeEmphasisAuto && de_emphasis != DeEmphasisOff)
-		return;		// error checking
+    if (instance) {
+        // Select SRC4392 page 0
+        src4392_write(SRC_REG7F, 0x00);
 
-	// Select SRC4392 page 0
-	src4392_write(SRC_REG7F, 0x00);
-
-	if (de_emphasis == DeEmphasisAuto) {
-		src4392_write(SRC_REG2E, 0x20);
-	}
-	else if (de_emphasis == DeEmphasisOff) {
-		src4392_write(SRC_REG2E, 0x00);
-	}
+        if (instance->deemphases == DeEmphasisAuto) {
+            src4392_write(SRC_REG2E, 0x20);
+        }
+        else if (instance->deemphases == DeEmphasisOff) {
+            src4392_write(SRC_REG2E, 0x00);
+        }
+    }
 }
 
 // Set the upsample rate
 // rate: UpsamplingTo192kHz or UpsamplingTo96kHz
-void set_upsample(enum SRC4392UpsamplingRate rate)
+static void set_upsample(SRC4392_t* instance)
 {
-	if (rate != UpsamplingTo192kHz && rate != UpsamplingTo96kHz)
-		return;		// error checking
-
-    // mute audio
+    if (instance) {
     
-	// Select SRC4392 page 0
-	src4392_write(SRC_REG7F, 0x00);
+        // mute audio
 
-	if (rate == UpsamplingTo192kHz) {
-		// SRC4392 DIT setup:
-		// - SRC as the input data source
-		// - MCLK as master clock
-		// - clock divider 128 to set the output frame rate
-		// - block start is an output and valid audio is indicated
-		// - c and u data will not be updated
-		src4392_write(SRC_REG07, 0x1c);
+        // Select SRC4392 page 0
+        src4392_write(SRC_REG7F, 0x00);
 
-		// set up for 192KHz output 
-		src4392_write(SRC_REG08, 0x08);
-		src4392_write(SRC_REG7F, 0x02);
-		src4392_write(0x00, 0x80);
-		src4392_write(0x01, 0x80);
-		src4392_write(0x08, 0x18);
-		src4392_write(0x09, 0x18);
-		src4392_write(SRC_REG7F, 0x00);
-		src4392_write(SRC_REG08, 0x00);
+        if (instance->upsample_rate == UpsamplingTo192kHz) {
+            // SRC4392 DIT setup:
+            // - SRC as the input data source
+            // - MCLK as master clock
+            // - clock divider 128 to set the output frame rate
+            // - block start is an output and valid audio is indicated
+            // - c and u data will not be updated
+            src4392_write(SRC_REG07, 0x1c);
 
-		// SRC4392 Port A setup:
-		// - MCLK as clock source
-		// - clock divider 128
-		src4392_write(SRC_REG04, 0x00);
-	}
-	else if (rate == UpsamplingTo96kHz) {
-		// SRC4392 DIT setup:
-		// - SRC as the input data source
-		// - MCLK as master clock
-		// - clock divider 256 to set the output frame rate
-		// - block start is an output and valid audio is indicated
-		// - c and u data will not be updated
-		src4392_write(SRC_REG07, 0x3c);
+            // set up for 192KHz output 
+            src4392_write(SRC_REG08, 0x08);
+            src4392_write(SRC_REG7F, 0x02);
+            src4392_write(0x00, 0x80);
+            src4392_write(0x01, 0x80);
+            src4392_write(0x08, 0x18);
+            src4392_write(0x09, 0x18);
+            src4392_write(SRC_REG7F, 0x00);
+            src4392_write(SRC_REG08, 0x00);
 
-		// set up for 96KHz output 
-		src4392_write(SRC_REG08, 0x08);
-		src4392_write(SRC_REG7F, 0x02);
-		src4392_write(0x00, 0x80);
-		src4392_write(0x01, 0x80);
-		src4392_write(0x08, 0x08);
-		src4392_write(0x09, 0x08);
-		src4392_write(SRC_REG7F, 0x00);
-		src4392_write(SRC_REG08, 0x00);
+            // SRC4392 Port A setup:
+            // - MCLK as clock source
+            // - clock divider 128
+            src4392_write(SRC_REG04, 0x00);
+        }
+        else if (instance->upsample_rate == UpsamplingTo96kHz) {
+            // SRC4392 DIT setup:
+            // - SRC as the input data source
+            // - MCLK as master clock
+            // - clock divider 256 to set the output frame rate
+            // - block start is an output and valid audio is indicated
+            // - c and u data will not be updated
+            src4392_write(SRC_REG07, 0x3c);
 
-		// SRC4392 Port A setup:
-		// - MCLK as clock source
-		// - clock divider 256
-		src4392_write(SRC_REG04, 0x01);
-	}
+            // set up for 96KHz output 
+            src4392_write(SRC_REG08, 0x08);
+            src4392_write(SRC_REG7F, 0x02);
+            src4392_write(0x00, 0x80);
+            src4392_write(0x01, 0x80);
+            src4392_write(0x08, 0x08);
+            src4392_write(0x09, 0x08);
+            src4392_write(SRC_REG7F, 0x00);
+            src4392_write(SRC_REG08, 0x00);
 
-	// Un-mute audio
+            // SRC4392 Port A setup:
+            // - MCLK as clock source
+            // - clock divider 256
+            src4392_write(SRC_REG04, 0x01);
+        }
+
+        // Un-mute audio
+    
+    }
 }
 
 
 // Set the DIT (digital output) routing
 // input: input number, mode: DIT_LOOPOUT or DIT_UPSAMPLE
-void set_dit_mode(SRC4392_t* instance, uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit)
+static void set_dit_mode(SRC4392_t* instance, int input)
 {
-	uint8_t	val;
+    if (instance && (input < MAX_INPUTS)) {
+        uint8_t	val;
 
-	if ((dit != DITUpsample && dit != DITPassthrough) ||
-	    input > MAX_INPUTS)
-		return;		// error checking
+        // Select SRC4392 page 0
+        src4392_write(SRC_REG7F, 0x00);
 
-	// Select SRC4392 page 0
-	src4392_write(SRC_REG7F, 0x00);
+        if (instance->digital_audio_interface_transmitter == DITUpsample) {
+            if (instance->upsample_rate == UpsamplingTo192kHz) {
+                // DIT setup
+                // - SRC as the input data source
+                // - MCLK as master clock
+                // - clock divider 128 to set the output frame rate
+                // - block start is an output and valid audio
+                //   is indicated
+                // - c and u data will not be updated
+                src4392_write(SRC_REG07, 0x1c);
 
-	if (dit == DITUpsample) {
-		if (instance->upsample_rate == UpsamplingTo192kHz) {
-			// DIT setup
-			// - SRC as the input data source
-			// - MCLK as master clock
-			// - clock divider 128 to set the output frame rate
-			// - block start is an output and valid audio
-			//   is indicated
-			// - c and u data will not be updated
-			src4392_write(SRC_REG07, 0x1c);
+                // set up for 192KHz output 
+                src4392_write(SRC_REG08, 0x08);
+                src4392_write(SRC_REG7F, 0x02);
+                src4392_write(0x00, 0x80);
+                src4392_write(0x01, 0x80);
+                src4392_write(0x08, 0x18);
+                src4392_write(0x09, 0x18);
+                src4392_write(SRC_REG7F, 0x00);
+                src4392_write(SRC_REG08, 0x00);
+            }
+            else if (instance->upsample_rate == UpsamplingTo96kHz) {
+                // DIT setup
+                // - SRC as the input data source
+                // - MCLK as master clock
+                // - clock divider 256 to set the output frame rate
+                // - block start is an output and valid audio
+                //   is indicated
+                // - c and u data will not be updated
+                src4392_write(SRC_REG07, 0x3c);
 
-			// set up for 192KHz output 
-			src4392_write(SRC_REG08, 0x08);
-			src4392_write(SRC_REG7F, 0x02);
-			src4392_write(0x00, 0x80);
-			src4392_write(0x01, 0x80);
-			src4392_write(0x08, 0x18);
-			src4392_write(0x09, 0x18);
-			src4392_write(SRC_REG7F, 0x00);
-			src4392_write(SRC_REG08, 0x00);
-		}
-		else if (instance->upsample_rate == UpsamplingTo96kHz) {
-			// DIT setup
-			// - SRC as the input data source
-			// - MCLK as master clock
-			// - clock divider 256 to set the output frame rate
-			// - block start is an output and valid audio
-			//   is indicated
-			// - c and u data will not be updated
-			src4392_write(SRC_REG07, 0x3c);
-
-			// set up for 96KHz output 
-			src4392_write(SRC_REG08, 0x08);
-			src4392_write(SRC_REG7F, 0x02);
-			src4392_write(0x00, 0x80);
-			src4392_write(0x01, 0x80);
-			src4392_write(0x08, 0x08);
-			src4392_write(0x09, 0x08);
-			src4392_write(SRC_REG7F, 0x00);
-			src4392_write(SRC_REG08, 0x00);
-		}
-	}
-	else if (dit == DITPassthrough) {
-		// set both AES and TX outputs to receive their
-		// data via the bypass multiplexor without going
-		// through the DIT block.
-		val = (uint8_t)((input) << 6 | 0x30);       
-		src4392_write(SRC_REG08, val);
-	}
+                // set up for 96KHz output 
+                src4392_write(SRC_REG08, 0x08);
+                src4392_write(SRC_REG7F, 0x02);
+                src4392_write(0x00, 0x80);
+                src4392_write(0x01, 0x80);
+                src4392_write(0x08, 0x08);
+                src4392_write(0x09, 0x08);
+                src4392_write(SRC_REG7F, 0x00);
+                src4392_write(SRC_REG08, 0x00);
+            }
+        }
+        else if (instance->digital_audio_interface_transmitter == DITPassthrough) {
+            // set both AES and TX outputs to receive their
+            // data via the bypass multiplexor without going
+            // through the DIT block.
+            val = (uint8_t)((input) << 6 | 0x30);       
+            src4392_write(SRC_REG08, val);
+        }
+    }
 }
 
 // Set the input
 // input: 0..4, mode: DIT_UPSAMPLE or DIT_LOOPOUT
-void set_input(uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit)
+//void set_input(uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit)
+
+
+void set_input(int input)
 {
-	uint8_t	val;
+    if (src4392_instance && (input < MAX_INPUTS)) {
+        uint8_t	val;
+        
+        // Select page 0
+        src4392_write(SRC_REG7F, 0x00);
 
-	if ((input > MAX_INPUTS) ||
-	    (dit != DITUpsample && dit != DITPassthrough))
-		return;		// error checking
+        // - set DIR input source to the appropriate RX port
+        // - use MCLK as clock source
+        // - audio muted for loss of lock condition
+        // - PLL free runs for loss of lock condition
+        // - RXCKO output disabled
+        val = 0x08 | (uint8_t)input;
+        src4392_write(SRC_REG0D, val);
+        src4392_write(SRC_REG0E, 0x18);
 
-	// Select page 0
-	src4392_write(SRC_REG7F, 0x00);
+        // set SRC input source to DIR
+        src4392_write(SRC_REG2D, 0x02);
 
-    // - set DIR input source to the appropriate RX port
-    // - use MCLK as clock source
-    // - audio muted for loss of lock condition
-    // - PLL free runs for loss of lock condition
-    // - RXCKO output disabled
-    val = 0x08 | input;
-    src4392_write(SRC_REG0D, val);
-    src4392_write(SRC_REG0E, 0x18);
-
-    // set SRC input source to DIR
-    src4392_write(SRC_REG2D, 0x02);
-
-	// update DIT mode
-	set_dit_mode(&src4392, input, dit);
+        // update DIT mode
+        set_dit_mode(src4392_instance, input);       
+    }
 }
 
 // Return the enum representing the current sample rate (SAMPLERATE_xxKHZ).
-uint8_t get_sample_rate(SRC4392_t* instance)
+enum SRC4392SamplingRate get_sample_rate(void)
 {
-	uint8_t	val0, val1;
+	if (src4392_instance) {
+        uint8_t	val0, val1;
 
-	// Select SRC4392 page 0
-	src4392_write(SRC_REG7F, 0x00);
+        // Select SRC4392 page 0
+        src4392_write(SRC_REG7F, 0x00);
 
-	val0 = src4392_read(SRC_REG32);
-	val1 = src4392_read(SRC_REG33);
+        val0 = src4392_read(SRC_REG32);
+        val1 = src4392_read(SRC_REG33);
 
-	if (instance->upsample_rate == UpsamplingTo192kHz) {
-		// for output sample rate = 192K
-		if ((val0 == 0x07 && val1 == 0xff) ||
-		    (val0 == 0x08 && val1 == 0x00)) {
-			return SAMPLERATE_192KHZ;
-		}
-		else if (val0 == 0x07 && val1 == 0x59) {
-			return SAMPLERATE_176KHZ;
-		}
-		else if (val0 == 0x05 && val1 == 0x55) {
-			return SAMPLERATE_128KHZ;
-		}
-		else if ((val0 == 0x03 && val1 == 0xff) ||
-			 (val0 == 0x04 && val1 == 0x00)) {
-			return SAMPLERATE_96KHZ;
-		}
-		else if (val0 == 0x03 && val1 == 0xac) {
-			return SAMPLERATE_88KHZ;
-		}
-		else if (val0 == 0x02 && val1 == 0xaa) {
-			return SAMPLERATE_64KHZ;
-		}
-		else if ((val0 == 0x01 && val1 == 0xff) ||
-			 (val0 == 0x02 && val1 == 0x00)) {
-			return SAMPLERATE_48KHZ;
-		}
-		else if (val0 == 0x01 && val1 == 0xd6) {
-			return SAMPLERATE_44KHZ;
-		}
-		else if (val0 == 0x01 && val1 == 0x55) {
-			return SAMPLERATE_32KHZ;
-		}
-	}
-	else if (instance->upsample_rate == UpsamplingTo96kHz) {
-		// for output sample rate of 96KHz
-		if ((val0 == 0x0f && val1 == 0xff) ||
-		    (val0 == 0x10 && val1 == 0x00)) {
-			return SAMPLERATE_192KHZ;
-		}
-		else if (val0 == 0x0e && val1 == 0xb3) {
-			return SAMPLERATE_176KHZ;
-		}
-		else if (val0 == 0x0a && val1 == 0xaa) {
-			return SAMPLERATE_128KHZ;
-		}
-		else if ((val0 == 0x07 && val1 == 0xff) ||
-			 (val0 == 0x08 && val1 == 0x00)) {
-			return SAMPLERATE_96KHZ;
-		}
-		else if (val0 == 0x07 && val1 == 0x59) {
-			return SAMPLERATE_88KHZ;
-		}
-		else if (val0 == 0x05 && val1 == 0x55) {
-			return SAMPLERATE_64KHZ;
-		}
-		else if ((val0 == 0x03 && val1 == 0xff) ||
-			 (val0 == 0x04 && val1 == 0x00)) {
-			return SAMPLERATE_48KHZ;
-		}
-		else if (val0 == 0x03 && val1 == 0xac) {
-			return SAMPLERATE_44KHZ;
-		}
-		else if (val0 == 0x02 && val1 == 0xaa) {
-			return SAMPLERATE_32KHZ;
-		}
-	}
-
-	return SAMPLERATE_UNKNOWN;
+        if (src4392_instance->upsample_rate == UpsamplingTo192kHz) {
+            // for output sample rate = 192K
+            if ((val0 == 0x07 && val1 == 0xff) ||
+                (val0 == 0x08 && val1 == 0x00)) {
+                return SamplingRate192_kHz;
+            }
+            else if (val0 == 0x07 && val1 == 0x59) {
+                return SamplingRate176_4_kHz;
+            }
+            else if (val0 == 0x05 && val1 == 0x55) {
+                return SamplingRate128_kHz;
+            }
+            else if ((val0 == 0x03 && val1 == 0xff) ||
+                 (val0 == 0x04 && val1 == 0x00)) {
+                return SamplingRate96_kHz;
+            }
+            else if (val0 == 0x03 && val1 == 0xac) {
+                return SamplingRate88_2_kHz;
+            }
+            else if (val0 == 0x02 && val1 == 0xaa) {
+                return SamplingRate64_kHz;
+            }
+            else if ((val0 == 0x01 && val1 == 0xff) ||
+                 (val0 == 0x02 && val1 == 0x00)) {
+                return SamplingRate48_kHz;
+            }
+            else if (val0 == 0x01 && val1 == 0xd6) {
+                return SamplingRate44_1_kHz;
+            }
+            else if (val0 == 0x01 && val1 == 0x55) {
+                return SamplingRate32_kHz;
+            }
+        }
+        else if (src4392_instance->upsample_rate == UpsamplingTo96kHz) {
+            // for output sample rate of 96KHz
+            if ((val0 == 0x0f && val1 == 0xff) ||
+                (val0 == 0x10 && val1 == 0x00)) {
+                return SamplingRate192_kHz;
+            }
+            else if (val0 == 0x0e && val1 == 0xb3) {
+                return SamplingRate176_4_kHz;
+            }
+            else if (val0 == 0x0a && val1 == 0xaa) {
+                return SamplingRate128_kHz;
+            }
+            else if ((val0 == 0x07 && val1 == 0xff) ||
+                 (val0 == 0x08 && val1 == 0x00)) {
+                return SamplingRate96_kHz;
+            }
+            else if (val0 == 0x07 && val1 == 0x59) {
+                return SamplingRate88_2_kHz;
+            }
+            else if (val0 == 0x05 && val1 == 0x55) {
+                return SamplingRate64_kHz;
+            }
+            else if ((val0 == 0x03 && val1 == 0xff) ||
+                 (val0 == 0x04 && val1 == 0x00)) {
+                return SamplingRate48_kHz;
+            }
+            else if (val0 == 0x03 && val1 == 0xac) {
+                return SamplingRate44_1_kHz;
+            }
+            else if (val0 == 0x02 && val1 == 0xaa) {
+                return SamplingRate32_kHz;
+            }
+        }
+    }
+	return SamplingRateUnknown;
 }
 
 void src4392_init(SRC4392_t* instance) {
-    
+    src4392_instance = instance;
     
     
         // Select page 0
@@ -453,13 +452,20 @@ void src4392_init(SRC4392_t* instance) {
 	src4392_write(SRC_REG2E, 0x20);
 
 
-    // TODO: 24,20,18,16 page 80
-    if (instance->output_word_length == 24) {
-        src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
-    } else {
-        src4392_write(SRC_REG2F, 0x40); // SRC output 20 Bit
+    switch (instance->output_word_length) {
+        case OWL20Bit:
+            src4392_write(SRC_REG2F, 0x40); // SRC output 20 Bit
+            break;
+        case OWL18Bit:
+            src4392_write(SRC_REG2F, 0x80); // SRC output 18 Bit
+            break;  
+        case OWL16Bit:
+            src4392_write(SRC_REG2F, 0xc0); // SRC output 16 Bit
+            break; 
+        default:
+             src4392_write(SRC_REG2F, 0x00); // SRC output 24 Bit
+            break;
     }
-    
     
 	src4392_write(SRC_REG30, 0x00);
 	src4392_write(SRC_REG31, 0x00);
@@ -502,7 +508,9 @@ void src4392_init(SRC4392_t* instance) {
 	src4392_write(SRC_REG05, 0x01);
 	src4392_write(SRC_REG06, 0x00);
     
-    
+ 
+    set_deemphasis(instance);
+    set_upsample(instance);
 }
 
 

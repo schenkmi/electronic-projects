@@ -259,14 +259,16 @@ static void timer_callback_process_single(void) {
 
 void rotary_encoder_timer_callback(void) {
     /* use to measure irq call time */
-#if 1
+#if 0
   //LED_Toggle();
   LED_D5_SetDigitalInput();
 #endif
+
   /* single encoder for both attenuation and channel */
   timer_callback_process_single();
-/* use for measure irq execution time (10us) */
-#if 1
+/* use for measure irq execution time (81us) */
+
+#if 0
   //LED_Toggle();
   LED_D5_SetDigitalOutput();
 #endif
