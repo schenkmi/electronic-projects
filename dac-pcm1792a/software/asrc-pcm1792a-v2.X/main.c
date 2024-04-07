@@ -82,7 +82,11 @@ SRC4392_t src4392 = {
     .deemphases = DeEmphasisAuto,
     .digital_audio_interface_transmitter = DITUpsample,
     .upsample_rate = UpsamplingTo192kHz,
-    .output_word_length = OWL24Bit
+    .output_word_length = OWL24Bit,
+};
+
+PCM1792A_t pcm1792a = {
+    .filter_rolloff = Slow,
 };
 
 static void init(volatile Instance_t* instance)
@@ -126,9 +130,12 @@ static void init(volatile Instance_t* instance)
     
 src4392_init(&src4392);
     
-pcm1792a_init();
+pcm1792a_init(&pcm1792a);
     
-    
+  
+ __delay_ms(1000 /*MAIN_LOOP_WAIT*/);
+
+
   /* read last used channel, channels attenuation will be handler inside process_channel() */
   instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
 
@@ -166,7 +173,7 @@ static void process_attenuation(volatile Instance_t* instance) {
   if (instance->attenuation != instance->last_attenuation) {
     unsigned char attenuation = ((unsigned char) instance->attenuation & ROTARY_MAX_ATTENUATION);
 
-    /* TODO */
+    src4392_set_attenuation(attenuation, attenuation);
 
     instance->last_attenuation = instance->attenuation;
   }
@@ -214,11 +221,7 @@ int main(void)
   
   //__delay_ms(500 /*MAIN_LOOP_WAIT*/);
   
-  
 
-  
-  pcm1792a_init();
-  
   while (1) {
     process_channel(&instance);
     process_attenuation(&instance);
