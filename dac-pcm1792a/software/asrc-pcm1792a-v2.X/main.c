@@ -69,7 +69,7 @@ volatile Instance_t instance = {
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
   },
-  .control =  Volume,
+  .control =  Channel,
   .encoder = {
     { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0,
       .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
@@ -79,8 +79,10 @@ volatile Instance_t instance = {
 };
 
 SRC4392_t src4392 = {
+    .deemphases = DeEmphasisAuto,
+    .digital_audio_interface_transmitter = DITUpsample,
     .upsample_rate = UpsamplingTo192kHz,
-    .output_word_length = 24
+    .output_word_length = OWL24Bit
 };
 
 static void init(volatile Instance_t* instance)
@@ -119,14 +121,14 @@ static void process_channel(volatile Instance_t* instance)
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
-    /* TODO */
+    set_input(instance->channel);
 
     instance->last_channel = instance->channel;
     instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
   }
 }
 
-/* attenuator relay are on RA0...RA5 */
+
 static void process_attenuation(volatile Instance_t* instance) {
   if (instance->attenuation != instance->last_attenuation) {
     unsigned char attenuation = ((unsigned char) instance->attenuation & ROTARY_MAX_ATTENUATION);
@@ -162,17 +164,35 @@ int main(void)
                     
   
   /* DAC */
-  set_upsample(src4392.upsample_rate);
-  set_dit_mode(&src4392, instance.channel, DITUpsample);
-  set_deemphasis(DeEmphasisAuto); 
-  set_input(instance.channel, DITUpsample);
-    
+  //set_upsample(src4392.upsample_rate);
+  //set_dit_mode(&src4392, instance.channel, DITUpsample);
+  //set_deemphasis(DeEmphasisAuto); 
+  //set_input(instance.channel, DITUpsample);
+  
+  
+  //int on = 1;
+  
+  __delay_ms(500 /*MAIN_LOOP_WAIT*/);
+  
+  
+
+  
+  pcm1792a_init();
   
   while (1) {
     process_channel(&instance);
     process_attenuation(&instance);
     process_encoder_button(&instance);
     eeprom_save_status(&instance);
-    __delay_ms(MAIN_LOOP_WAIT);
+//    __delay_ms(500 /*MAIN_LOOP_WAIT*/);
+//    if (on) {
+//            LED_D4_SetDigitalInput();
+//    LED_D5_SetDigitalInput();
+//    on = 0;
+//    } else {
+//            LED_D5_SetDigitalOutput();
+//    LED_D4_SetDigitalOutput();
+//    on = 1;
+//    }
   }
 }

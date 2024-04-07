@@ -35,7 +35,7 @@
 #include "mcc_generated_files/examples/i2c1_master_example.h"
 #include "pcm1792a.h"
 
-#define PCM1792A_I2C_SLAVE_ADDR     0x4c
+#define PCM1792A_I2C_SLAVE_ADDR     0x4c /* 1001100 R /W => 0x98 write, 0x99 read */
 
 #define PCM1792A_REG16              0x10 /* 0x10 == Reg 16, Digital Attenuation Level Setting left */
 #define PCM1792A_REG16_VALUE        0xff /* 0dB, not attenuation */
