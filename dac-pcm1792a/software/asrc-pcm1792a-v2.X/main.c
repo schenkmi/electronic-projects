@@ -52,10 +52,10 @@
 #include "pcm1792a.h"
 
 /* eeprom initialize 0x00..0x07 */
-__EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 attenuation initial */,
-              ROTARY_MAX_ATTENUATION /* channel 1 attenuation initial */,
-              ROTARY_MAX_ATTENUATION /* channel 2 attenuation initial */,
-              ROTARY_MAX_ATTENUATION /* channel 3 attenuation initial */,
+__EEPROM_DATA(ROTARY_MIN_ATTENUATION /* channel 0 attenuation initial */,
+              ROTARY_MIN_ATTENUATION /* channel 1 attenuation initial */,
+              ROTARY_MIN_ATTENUATION /* channel 2 attenuation initial */,
+              ROTARY_MIN_ATTENUATION /* channel 3 attenuation initial */,
               ROTARY_MIN_CHANNEL     /* channel selection initial     */,
               0xff, 0xff, 0xff);
 
@@ -64,10 +64,10 @@ volatile Instance_t instance = {
   .attenuation = -1, .last_attenuation = -1,
   .eeprom_save_status_counter = -1,
   .channel_attenuation = {
-    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
-    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
-    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
-    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MIN_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MIN_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MIN_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MIN_ATTENUATION, .attenuation = -1 },
   },
   .control =  Channel,
   .encoder = {
@@ -99,6 +99,31 @@ static void init(volatile Instance_t* instance)
     RESET_SetHigh();
     __delay_ms(10);
 	
+    
+    
+    
+    
+    
+//      __delay_ms(500 /*MAIN_LOOP_WAIT*/);
+//  for (int cnt = 0; cnt < 100; cnt++) {
+//      src4392_test();
+//      __delay_ms(100 /*MAIN_LOOP_WAIT*/);
+//  }
+  
+    
+    
+//     __delay_ms(500 /*MAIN_LOOP_WAIT*/);
+//     for (int cnt = 0; cnt < 10; cnt++) {
+//    src4392_mute(true);
+//     __delay_ms(100 /*MAIN_LOOP_WAIT*/);
+//    src4392_mute(false);
+//      __delay_ms(100 /*MAIN_LOOP_WAIT*/);
+//     }
+//    
+//      __delay_ms(500 /*MAIN_LOOP_WAIT*/);
+//    
+    
+    
 src4392_init(&src4392);
     
 pcm1792a_init();
@@ -121,7 +146,15 @@ static void process_channel(volatile Instance_t* instance)
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
-    set_input(instance->channel);
+    src4392_mute(true);
+    
+    /* always start with last attenuation used for this channel */
+    instance->last_attenuation = instance->attenuation = instance->channel_attenuation[instance->channel].attenuation;
+
+    src4392_set_attenuation(instance->attenuation, instance->attenuation);
+    src4392_set_input(instance->channel);
+    
+    src4392_mute(false);
 
     instance->last_channel = instance->channel;
     instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
@@ -145,6 +178,13 @@ static void process_attenuation(volatile Instance_t* instance) {
 int main(void)
 {
   SYSTEM_Initialize();
+  
+  
+  /* TODO: Query rotary switch press and to a factory reset if so */
+
+
+
+
 
   init(&instance);
 
@@ -172,7 +212,7 @@ int main(void)
   
   //int on = 1;
   
-  __delay_ms(500 /*MAIN_LOOP_WAIT*/);
+  //__delay_ms(500 /*MAIN_LOOP_WAIT*/);
   
   
 

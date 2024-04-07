@@ -89,10 +89,18 @@ static SRC4392_t* src4392_instance = NULL;
 #define SRC_REG2B	0x2b		// PD burst preamble, high byte
 #define SRC_REG2C	0x2c		// PD burst preamble, low byte
 #define SRC_REG2D	0x2d		// SRC control
+
+#define   SRC_REG2D_SRCIS (0x3 << 0) 
+#define   SRC_REG2D_SRCIS_DIR (0x2 << 0)
+
+
+#define   SRC_REG2D_MUTE (1 << 4)
+
+
 #define SRC_REG2E	0x2e		// SRC control
 #define SRC_REG2F	0x2f		// SRC control
-#define SRC_REG30	0x30		// SRC control
-#define SRC_REG31	0x31		// SRC control
+#define SRC_REG30	0x30		// SRC control attenuation left channel 0.5dB
+#define SRC_REG31	0x31		// SRC control attenuation right channel 0.5dB
 #define SRC_REG32	0x32		// SRC input/output ratio
 #define SRC_REG33	0x33		// SRC input/output ratio
 #define SRC_REG7F	0x7f		// page selection
@@ -140,7 +148,7 @@ static SRC4392_t* src4392_instance = NULL;
 // Read one byte from the SRC4392
 static uint8_t src4392_read(uint8_t reg)
 {
-    return I2C1_Read1ByteRegister(SRC4392_I2C_SLAVE_ADDR, reg);   
+  return I2C1_Read1ByteRegister(SRC4392_I2C_SLAVE_ADDR, reg); 
 }
 
 
@@ -301,7 +309,7 @@ static void set_dit_mode(SRC4392_t* instance, int input)
 //void set_input(uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit)
 
 
-void set_input(int input)
+void src4392_set_input(int input)
 {
     if (src4392_instance && (input < MAX_INPUTS)) {
         uint8_t	val;
@@ -319,15 +327,51 @@ void set_input(int input)
         src4392_write(SRC_REG0E, 0x18);
 
         // set SRC input source to DIR
-        src4392_write(SRC_REG2D, 0x02);
+        val = src4392_read(SRC_REG2D);
+       // val &= ~SRC_REG2D_SRCIS;
+      //  val |= SRC_REG2D_SRCIS_DIR;
+        
+        val = ((val & ~SRC_REG2D_SRCIS) | SRC_REG2D_SRCIS_DIR);
+        
+        
+        
+        src4392_write(SRC_REG2D, val);
 
         // update DIT mode
         set_dit_mode(src4392_instance, input);       
     }
 }
 
+void src4392_set_attenuation(int right, int left)
+{
+    uint8_t right_att = (right < 0) ? 0 : (right > 0xff) ? 0xff : (uint8_t)right;
+    uint8_t left_att = (left < 0) ? 0 : (left > 0xff) ? 0xff : (uint8_t)left;
+    
+    // Select SRC4392 page 0
+    src4392_write(SRC_REG7F, 0x00);   
+    // Output Attenuation (dB) = ?N × 0.5, where N = AL[7:0]DEC.
+    src4392_write(SRC_REG30, left_att);
+    // Output Attenuation (dB) = ?N × 0.5, where N = AR[7:0]DEC.
+    src4392_write(SRC_REG31, right_att);
+}
+
+void src4392_mute(bool mute) {
+     // Select SRC4392 page 0
+    src4392_write(SRC_REG7F, 0x00);
+    
+    
+    uint8_t	val = src4392_read(SRC_REG2D);
+    
+    if (mute) {
+        val |= SRC_REG2D_MUTE;
+    } else {
+        val &= ~SRC_REG2D_MUTE; 
+    }
+    src4392_write(SRC_REG2D, val);
+}
+
 // Return the enum representing the current sample rate (SAMPLERATE_xxKHZ).
-enum SRC4392SamplingRate get_sample_rate(void)
+enum SRC4392SamplingRate src4392_get_sample_rate(void)
 {
 	if (src4392_instance) {
         uint8_t	val0, val1;
@@ -513,4 +557,8 @@ void src4392_init(SRC4392_t* instance) {
     set_upsample(instance);
 }
 
+void src4392_test() {
+    
+    uint8_t	val = src4392_read(SRC_REG2D);
+}
 
