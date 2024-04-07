@@ -119,9 +119,18 @@ void src4392_init(SRC4392_t* instance);
 //void set_input(uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit);
 
 
-void set_input(int input);
+void src4392_set_input(int input);
 
-enum SRC4392SamplingRate get_sample_rate(void);
+void src4392_set_attenuation(int right, int left);
+
+void src4392_mute(bool mute);
+
+
+enum SRC4392SamplingRate src4392_get_sample_rate(void);
+
+
+void src4392_test();
+
 
 
 

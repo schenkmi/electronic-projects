@@ -56,9 +56,9 @@ extern "C" {
 #define ROTARY_MAX_CHANNEL                3 /* maximum channel */
 #define ROTARY_MULTI_CHANNEL              3 /* on 12PPR this gaves 3 clicks */
 
-#define ROTARY_ATTENUATION_BITS           6 /* 6 bits */
+#define ROTARY_ATTENUATION_BITS           8 /* 8 bits */
 #define ROTARY_MIN_ATTENUATION            0 /* minimum attenuation */
-#define ROTARY_MAX_ATTENUATION         ((1 << ROTARY_ATTENUATION_BITS) - 1) /* (0x3f) maximum attenuation */
+#define ROTARY_MAX_ATTENUATION         ((1 << ROTARY_ATTENUATION_BITS) - 1) /* (0xff) maximum attenuation */
 #define ROTARY_MULTI_ATTENUATION          1 /* on 12PPR this gaves 1 clicks */
 
 #define MAIN_LOOP_WAIT                    1 /* 1ms */
