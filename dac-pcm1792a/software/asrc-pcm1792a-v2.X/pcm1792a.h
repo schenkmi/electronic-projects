@@ -38,23 +38,16 @@
 extern "C" {
 #endif
 
-    
 enum PCM1792AFilterRolloff {
     Sharp = 0,
     Slow = 1,
 };
 
-
 typedef struct {
   enum PCM1792AFilterRolloff filter_rolloff;
 } PCM1792A_t;
 
-
-
 void pcm1792a_init(PCM1792A_t* instance);
-
-
-
 
 #ifdef	__cplusplus
 }

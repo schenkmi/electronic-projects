@@ -38,49 +38,43 @@
 extern "C" {
 #endif
 
-// TODO define enum
-/*
- * DIT routing mode enums
+/**
+ * DIT routing mode enum
  */
-//#define DIT_UPSAMPLE		0	// upsample
-//#define DIT_LOOPOUT		1	// loop-back
+enum SRC4392DigitalAudioInterfaceTransmitter { 
+    DITUpsample = 0,
+    DITPassthrough = 1,
+}; 
 
-enum SRC4392DigitalAudioInterfaceTransmitter { DITUpsample = 0, DITPassthrough = 1 /*Loopout = 1 */}; 
-
-/*
- * Digital de-emphasis enums
+/**
+ * Digital de-emphasis enum
  */
-//#define DEEMPH_AUTO		0	// auto
-//#define DEEMPH_OFF		1	// off
+enum SRC4392DeEmphasis {
+    DeEmphasisAuto = 0,
+    DeEmphasisOff = 1,
+};
 
-enum SRC4392DeEmphasis { DeEmphasisAuto = 0, DeEmphasisOff = 1};
-    
-enum SRC4392UpsamplingRate { UpsamplingTo192kHz = 0, UpsamplingTo96kHz = 1 };
+/**
+ * Upsampling rate enum
+ */
+enum SRC4392UpsamplingRate {
+    UpsamplingTo192kHz = 0,
+    UpsamplingTo96kHz = 1,
+};
 
+/**
+ * Output world length enum
+ */
+enum SRC4392OutputWordLength {
+    OWL24Bit = 0x00,
+    OWL20Bit = 0x40,
+    OWL18Bit = 0x80,
+    OWL16Bit = 0xc0,
+};
 
-enum SRC4392OutputWordLength { OWL24Bit = 0x00, OWL20Bit = 0x40, OWL18Bit = 0x80, OWL16Bit = 0xc0 };
-
-
-
-
-
-
-
-
-//// Sample rate enums
-//#define SAMPLERATE_UNKNOWN	0	// unknown
-//#define SAMPLERATE_32KHZ	1	// 32.0KHz
-//#define SAMPLERATE_44KHZ	2	// 44.1KHz
-//#define SAMPLERATE_48KHZ	3	// 48.0KHz
-//#define SAMPLERATE_64KHZ	4	// 64.0KHz
-//#define SAMPLERATE_88KHZ	5	// 88.2KHz
-//#define SAMPLERATE_96KHZ	6	// 96.0KHz
-//#define SAMPLERATE_128KHZ	7	// 128.0KHz
-//#define SAMPLERATE_176KHZ	8	// 176.4KHz
-//#define SAMPLERATE_192KHZ	9	// 192.0KHz
-
-
-
+/**
+ * Sampling rate enum
+ */
 enum SRC4392SamplingRate {
     SamplingRateUnknown = 0,
     SamplingRate32_kHz = 1,
@@ -94,45 +88,19 @@ enum SRC4392SamplingRate {
     SamplingRate192_kHz = 9,
 };
 
-
-
-
 typedef struct {
-  enum SRC4392DeEmphasis deemphases;
-  
+  enum SRC4392DeEmphasis deemphases; 
   enum SRC4392DigitalAudioInterfaceTransmitter digital_audio_interface_transmitter;
-  
   enum SRC4392UpsamplingRate upsample_rate;
   enum SRC4392OutputWordLength output_word_length;
 } SRC4392_t;
 
-
-
 void src4392_init(SRC4392_t* instance);
-
-//void set_deemphasis(enum SRC4392DeEmphasis de_emphasis);
-//void set_upsample(enum SRC4392UpsamplingRate rate);
-//void set_dit_mode(SRC4392_t* instance, uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit);
-
-
-
-//void set_input(uint8_t input, enum SRC4392DigitalAudioInterfaceTransmitter dit);
-
-
 void src4392_set_input(int input);
-
 void src4392_set_attenuation(int right, int left);
-
 void src4392_mute(bool mute);
-
-
 enum SRC4392SamplingRate src4392_get_sample_rate(void);
-
-
 void src4392_test();
-
-
-
 
 #ifdef	__cplusplus
 }

@@ -73,7 +73,7 @@ void pcm1792a_init(PCM1792A_t* instance) {
         
     pcm1792a_write(PCM1792A_REG19, value);
 
-    /* not attenuation */
+    /* no attenuation */
     pcm1792a_write(PCM1792A_REG16, PCM1792A_REG16_VALUE);
     pcm1792a_write(PCM1792A_REG17, PCM1792A_REG16_VALUE);
 }

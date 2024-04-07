@@ -35,10 +35,6 @@
 #include "mcc_generated_files/examples/i2c1_master_example.h"
 #include "src4392.h"
 
-
-
-
-
 // Page 38 
 #define SRC4392_I2C_SLAVE_ADDR              0x70   /* 1110000 R(1) or /W(0) => 0xe0 write, 0xe1 read */
 
@@ -89,14 +85,9 @@
 #define SRC_REG2B	0x2b		// PD burst preamble, high byte
 #define SRC_REG2C	0x2c		// PD burst preamble, low byte
 #define SRC_REG2D	0x2d		// SRC control
-
 #define   SRC_REG2D_SRCIS (0x3 << 0) 
 #define   SRC_REG2D_SRCIS_DIR (0x2 << 0)
-
-
 #define   SRC_REG2D_MUTE (1 << 4)
-
-
 #define SRC_REG2E	0x2e		// SRC control
 #define SRC_REG2F	0x2f		// SRC control
 #define SRC_REG30	0x30		// SRC control attenuation left channel 0.5dB
@@ -105,43 +96,7 @@
 #define SRC_REG33	0x33		// SRC input/output ratio
 #define SRC_REG7F	0x7f		// page selection
 
-
-//
-//// Sample rate enums
-//#define SAMPLERATE_UNKNOWN	0	// unknown
-//#define SAMPLERATE_32KHZ	1	// 32.0KHz
-//#define SAMPLERATE_44KHZ	2	// 44.1KHz
-//#define SAMPLERATE_48KHZ	3	// 48.0KHz
-//#define SAMPLERATE_64KHZ	4	// 64.0KHz
-//#define SAMPLERATE_88KHZ	5	// 88.2KHz
-//#define SAMPLERATE_96KHZ	6	// 96.0KHz
-//#define SAMPLERATE_128KHZ	7	// 128.0KHz
-//#define SAMPLERATE_176KHZ	8	// 176.4KHz
-//#define SAMPLERATE_192KHZ	9	// 192.0KHz
-
-/*
- * Upsampling enums
- */
-//#define UPSAMPLE_192KHZ		0	// 192KHz
-//#define UPSAMPLE_96KHZ		1	// 96KHz
-
-
-
-//uint8_t		upsample_rate = UPSAMPLE_192KHZ;
-//uint8_t		dit_mode = DIT_UPSAMPLE;
-
-
-// input 0,1,2 or 3
-
-//#define INPUT_RX1   0
-//#define INPUT_RX2   1
-//#define INPUT_RX3   2
-//#define INPUT_RX4   3
 #define MAX_INPUTS  4
-
-//#define SRC_OUTPUT_BITS 20
-//#define SRC_OUTPUT_BITS 24
-
 
 static SRC4392_t* src4392_instance = NULL;
 
@@ -157,8 +112,6 @@ static void src4392_write(uint8_t reg, uint8_t val)
 {
     I2C1_Write1ByteRegister(SRC4392_I2C_SLAVE_ADDR, reg, val);
 }
-
-
 
 // Set the digital de-emphasis mode
 static void set_deemphasis(SRC4392_t* instance)
@@ -327,14 +280,8 @@ void src4392_set_input(int input)
         src4392_write(SRC_REG0E, 0x18);
 
         // set SRC input source to DIR
-        val = src4392_read(SRC_REG2D);
-       // val &= ~SRC_REG2D_SRCIS;
-      //  val |= SRC_REG2D_SRCIS_DIR;
-        
+        val = src4392_read(SRC_REG2D);       
         val = ((val & ~SRC_REG2D_SRCIS) | SRC_REG2D_SRCIS_DIR);
-        
-        
-        
         src4392_write(SRC_REG2D, val);
 
         // update DIT mode
@@ -558,7 +505,6 @@ void src4392_init(SRC4392_t* instance) {
 }
 
 void src4392_test() {
-    
     uint8_t	val = src4392_read(SRC_REG2D);
 }
 
