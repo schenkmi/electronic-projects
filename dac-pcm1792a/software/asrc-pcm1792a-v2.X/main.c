@@ -44,7 +44,6 @@
  * V1.0     2024.04.01 First testable version
  */
 
-
 #include "mcc_generated_files/mcc.h"
 #include "mcc_generated_files/examples/i2c1_master_example.h"
 #include "rotary_encoder.h"
@@ -91,7 +90,6 @@ PCM1792A_t pcm1792a = {
 
 static void init(volatile Instance_t* instance)
 {
-    
     LED_D4_SetDigitalInput();
     LED_D5_SetDigitalInput();
     LED_D4_SetLow();
@@ -102,47 +100,17 @@ static void init(volatile Instance_t* instance)
     __delay_ms(100);
     RESET_SetHigh();
     __delay_ms(10);
-	
     
-    
-    
-    
-    
-//      __delay_ms(500 /*MAIN_LOOP_WAIT*/);
-//  for (int cnt = 0; cnt < 100; cnt++) {
-//      src4392_test();
-//      __delay_ms(100 /*MAIN_LOOP_WAIT*/);
-//  }
-  
-    
-    
-//     __delay_ms(500 /*MAIN_LOOP_WAIT*/);
-//     for (int cnt = 0; cnt < 10; cnt++) {
-//    src4392_mute(true);
-//     __delay_ms(100 /*MAIN_LOOP_WAIT*/);
-//    src4392_mute(false);
-//      __delay_ms(100 /*MAIN_LOOP_WAIT*/);
-//     }
-//    
-//      __delay_ms(500 /*MAIN_LOOP_WAIT*/);
-//    
-    
-    
-src4392_init(&src4392);
-    
-pcm1792a_init(&pcm1792a);
-    
-  
- __delay_ms(1000 /*MAIN_LOOP_WAIT*/);
+    src4392_init(&src4392);
+    pcm1792a_init(&pcm1792a);
 
+    /* read last used channel, channels attenuation will be handler inside process_channel() */
+    instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
 
-  /* read last used channel, channels attenuation will be handler inside process_channel() */
-  instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
-
-  /* read default attenuation for each channel and assign to channel attenuation */
-  for (uint8_t cnt = 0; cnt <= ROTARY_MAX_CHANNEL; cnt++) {
-    instance->channel_attenuation[cnt].attenuation = instance->channel_attenuation[cnt].default_attenuation = eeprom_read(cnt);
-  }
+    /* read default attenuation for each channel and assign to channel attenuation */
+    for (uint8_t cnt = 0; cnt <= ROTARY_MAX_CHANNEL; cnt++) {
+        instance->channel_attenuation[cnt].attenuation = instance->channel_attenuation[cnt].default_attenuation = eeprom_read(cnt);
+    }
 }
 
 static void process_channel(volatile Instance_t* instance)
@@ -179,63 +147,57 @@ static void process_attenuation(volatile Instance_t* instance) {
   }
 }
 
+/* Factory reset */
+static void factory_reset() {
+    if (ENC1_SWITCH_GetValue() == 0) {
+        while(ENC1_SWITCH_GetValue() == 0) {
+            __delay_ms(100);  
+        }
+
+        for (int cnt = 0; cnt < 10; cnt++) {
+            /* LED on */
+            LED_D4_SetDigitalInput();
+             __delay_ms(250);  
+            /* LED off */
+            LED_D4_SetDigitalOutput();
+            __delay_ms(250);  
+        }
+
+        eeprom_write(0x00, ROTARY_MIN_ATTENUATION);
+        eeprom_write(0x01, ROTARY_MIN_ATTENUATION);
+        eeprom_write(0x02, ROTARY_MIN_ATTENUATION);
+        eeprom_write(0x03, ROTARY_MIN_ATTENUATION);
+        eeprom_write(0x04, ROTARY_MIN_CHANNEL);
+    }
+}
+
 /**
  * Main application
  */
 int main(void)
 {
-  SYSTEM_Initialize();
-  
-  
-  /* TODO: Query rotary switch press and to a factory reset if so */
+    SYSTEM_Initialize();
 
+    factory_reset();
 
+    init(&instance);
 
+    /* install irq handlers */
+    TMR0_SetInterruptHandler(rotary_encoder_timer_callback);
 
+    /* Enable the Global Interrupts */
+    INTERRUPT_GlobalInterruptEnable();
 
-  init(&instance);
+    /* Enable the Peripheral Interrupts */
+    INTERRUPT_PeripheralInterruptEnable();
 
-  /* install irq handlers */
-  TMR0_SetInterruptHandler(rotary_encoder_timer_callback);
-  
-
-  /* Enable the Global Interrupts */
-  INTERRUPT_GlobalInterruptEnable();
-
-  /* Enable the Peripheral Interrupts */
-  INTERRUPT_PeripheralInterruptEnable();
-
-  
     LED_D5_SetDigitalOutput();
     LED_D4_SetDigitalOutput();
-                    
-  
-  /* DAC */
-  //set_upsample(src4392.upsample_rate);
-  //set_dit_mode(&src4392, instance.channel, DITUpsample);
-  //set_deemphasis(DeEmphasisAuto); 
-  //set_input(instance.channel, DITUpsample);
-  
-  
-  //int on = 1;
-  
-  //__delay_ms(500 /*MAIN_LOOP_WAIT*/);
-  
 
-  while (1) {
-    process_channel(&instance);
-    process_attenuation(&instance);
-    process_encoder_button(&instance);
-    eeprom_save_status(&instance);
-//    __delay_ms(500 /*MAIN_LOOP_WAIT*/);
-//    if (on) {
-//            LED_D4_SetDigitalInput();
-//    LED_D5_SetDigitalInput();
-//    on = 0;
-//    } else {
-//            LED_D5_SetDigitalOutput();
-//    LED_D4_SetDigitalOutput();
-//    on = 1;
-//    }
-  }
+    while (1) {
+        process_channel(&instance);
+        process_attenuation(&instance);
+        process_encoder_button(&instance);
+        eeprom_save_status(&instance);
+    }
 }
