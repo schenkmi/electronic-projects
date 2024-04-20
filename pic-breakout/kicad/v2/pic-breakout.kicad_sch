@@ -3778,16 +3778,6 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 81.28) (xy 210.82 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c07d664c-1836-4cc7-a741-2f236e3dc08e")
-	)
-	(wire
-		(pts
 			(xy 82.55 142.24) (xy 91.44 142.24)
 		)
 		(stroke
@@ -4386,7 +4376,7 @@
 			)
 		)
 	)
-	(global_label "RB7-SDA2"
+	(global_label "RB7-SDA2-TX"
 		(shape bidirectional)
 		(at 30.48 124.46 180)
 		(effects
@@ -4506,7 +4496,7 @@
 			)
 		)
 	)
-	(global_label "RB6-SCL"
+	(global_label "RB7-SDA2-TX"
 		(shape bidirectional)
 		(at 303.53 128.27 180)
 		(effects
@@ -4746,7 +4736,7 @@
 			)
 		)
 	)
-	(global_label "RB5-SCL2"
+	(global_label "RB5-SCL2-RX"
 		(shape bidirectional)
 		(at 30.48 119.38 180)
 		(effects
@@ -4846,7 +4836,7 @@
 			)
 		)
 	)
-	(global_label "RB5-SCL2"
+	(global_label "RB5-SCL2-RX"
 		(shape bidirectional)
 		(at 303.53 125.73 180)
 		(effects
@@ -7334,7 +7324,8 @@
 	)
 	(symbol
 		(lib_id "Device:LED")
-		(at 182.88 81.28 0)
+		(at 196.85 81.28 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7342,7 +7333,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-000060c9cb08")
 		(property "Reference" "D4"
-			(at 182.7022 75.7682 0)
+			(at 197.0278 75.7682 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7350,15 +7341,15 @@
 			)
 		)
 		(property "Value" "LED"
-			(at 182.7022 78.0796 0)
+			(at 197.0278 78.0796 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder"
-			(at 182.88 81.28 0)
+		(property "Footprint" "LED_SMD:LED_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
+			(at 196.85 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7367,7 +7358,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 182.88 81.28 0)
+			(at 196.85 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7376,7 +7367,7 @@
 			)
 		)
 		(property "Description" "Light emitting diode"
-			(at 182.88 81.28 0)
+			(at 196.85 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7385,7 +7376,7 @@
 			)
 		)
 		(property "manf#" "LG R971-KN-1"
-			(at 182.7022 73.2282 0)
+			(at 197.0278 73.2282 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7486,7 +7477,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 196.85 81.28 270)
+		(at 182.88 81.28 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7494,7 +7485,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-000060c9cb16")
 		(property "Reference" "R6"
-			(at 196.85 76.0222 90)
+			(at 182.88 76.0222 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7502,7 +7493,7 @@
 			)
 		)
 		(property "Value" "330R"
-			(at 196.85 78.3336 90)
+			(at 182.88 78.3336 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7510,7 +7501,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
-			(at 196.85 79.502 90)
+			(at 182.88 79.502 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7519,7 +7510,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 196.85 81.28 0)
+			(at 182.88 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7528,7 +7519,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 196.85 81.28 0)
+			(at 182.88 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7537,7 +7528,7 @@
 			)
 		)
 		(property "manf#" "RT0603FRD07330RL"
-			(at 199.39 76.0222 0)
+			(at 185.42 76.0222 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7631,71 +7622,6 @@
 			(project "pic-breakout"
 				(path "/dcb244d6-7e82-4af7-8fee-a62c5f513cd4"
 					(reference "R9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VCC")
-		(at 210.82 78.74 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-000060c9cb2b")
-		(property "Reference" "#PWR0104"
-			(at 210.82 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VCC"
-			(at 211.201 74.3458 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 210.82 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 210.82 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VCC\""
-			(at 210.82 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5329b5fe-8be5-44d1-8371-8729dbdf8b35")
-		)
-		(instances
-			(project "pic-breakout"
-				(path "/dcb244d6-7e82-4af7-8fee-a62c5f513cd4"
-					(reference "#PWR0104")
 					(unit 1)
 				)
 			)
@@ -8254,6 +8180,71 @@
 			(project "pic-breakout"
 				(path "/dcb244d6-7e82-4af7-8fee-a62c5f513cd4"
 					(reference "J2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 210.82 81.28 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b49321c6-3587-4b88-8dc4-be63c1dedc1d")
+		(property "Reference" "#PWR01"
+			(at 217.17 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 215.2142 81.153 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 210.82 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 210.82 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 210.82 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3e01d110-1c44-472f-ad96-c1b21c8eeff7")
+		)
+		(instances
+			(project "pic-breakout"
+				(path "/dcb244d6-7e82-4af7-8fee-a62c5f513cd4"
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
