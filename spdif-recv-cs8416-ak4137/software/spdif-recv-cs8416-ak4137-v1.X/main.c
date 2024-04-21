@@ -94,8 +94,14 @@ CS8416_t cs8416 = {
 
 static void init(volatile Instance_t* instance)
 {
+    //LED_D3_SetDigitalOutput();
+    //LED_D4_SetDigitalOutput();
+   // LED_D5_SetDigitalOutput();
+    
     LED_D3_SetHigh();
-    LED_D4_SetLow();
+    LED_D4_SetHigh();
+    
+    /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
     LED_D5_SetHigh();
 
     __delay_ms(100);
@@ -142,7 +148,7 @@ static void factory_reset() {
     }
 }
 
-void test_timer_callback(void) {
+void test_timer_callback(void) {   
     LED_D5_Toggle();
 }
 
@@ -169,12 +175,14 @@ int main(void)
     /* Enable the Peripheral Interrupts */
     INTERRUPT_PeripheralInterruptEnable();
 
+    TMR0_Start();
+    
     /* IRQs need to be enabled for I2C */
     init(&instance);
     
     while(1)
     {
         __delay_ms(500);  
-        LED_D3_Toggle();
+        LED_D4_Toggle();
     }    
 }
