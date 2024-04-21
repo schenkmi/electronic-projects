@@ -37,7 +37,7 @@
 #include <stddef.h>
 
 
-#define CS8416_I2C_SLAVE_ADDR     0x10 /* Page 34: 0010 AD2 AD1 AD0 R(1) or /W(0) => 0x10 write, 0x11 read */
+#define CS8416_I2C_SLAVE_ADDR     0x10 /* Page 34: [0010 AD2 AD1 AD0] added R(1) or /W(0) => 0x20 write, 0x21 read */
 
 
 
