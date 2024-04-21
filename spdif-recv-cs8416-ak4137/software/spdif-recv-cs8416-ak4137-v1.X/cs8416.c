@@ -208,14 +208,14 @@
 
 static CS8416_t* cs8416_instance = NULL;
 
-/* Read one byte from the PCM1792A via I2C */
+/* Read one byte from the CS8416 via I2C */
 static uint8_t cs8416_read(uint8_t reg)
 {
   return I2C1_Read1ByteRegister(CS8416_I2C_SLAVE_ADDR, reg); 
 }
 
 
-/* Write one byte to the PCM1792A via I2C */
+/* Write one byte to the CS8416 via I2C */
 static void cs8416_write(uint8_t reg, uint8_t val) {
     I2C1_Write1ByteRegister(CS8416_I2C_SLAVE_ADDR, reg, val);
 }
