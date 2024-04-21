@@ -11,7 +11,7 @@
  */
 
 /*
-© [2024] Microchip Technology Inc. and its subsidiaries.
+? [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -35,7 +35,7 @@
 #define TMR_INTERFACE_H
 
 /**
- * @brief This file contains API prototypes and other data types for Timer interface.
+ * @brief This file contains API prototypes and other data types for the Timer interface.
  * @{
  */
 
