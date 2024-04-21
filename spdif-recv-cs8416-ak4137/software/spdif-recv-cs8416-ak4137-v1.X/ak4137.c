@@ -1,0 +1,75 @@
+/**
+ * PIC16F18056 based async sample rate converter
+ * for CS8416 / AK4137
+ *
+ * Copyright (c) 2024-2024, Michael Schenk
+ * All Rights Reserved
+ *
+ * Author: Michael Schenk
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * OEMs, ISVs, VARs and other distributors that combine and distribute
+ * commercially licensed software with Michael Schenks software
+ * and do not wish to distribute the source code for the commercially
+ * licensed software under version 2, or (at your option) any later
+ * version, of the GNU General Public License (the "GPL") must enter
+ * into a commercial license agreement with Michael Schenk.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; see the file LICENSE.txt. If not, write to
+ * the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ */
+
+#include "i2c.h"
+#include "ak4137.h"
+
+#include <stddef.h>
+
+
+#define AK4137_I2C_SLAVE_ADDR     0x11 /* Page 34: [00100 CAD1 CAD0] added R(1) or /W(0) => 0x22 write, 0x23 read */
+
+
+
+#define AK4137_REG_RESET_MUTE         0x00
+
+
+#define AK4137_REG_PCMCONT0         0x01
+
+
+
+
+
+
+
+
+static AK4137_t* ak4137_instance = NULL;
+
+/* Read one byte from the AK4137 via I2C */
+static uint8_t ak4137_instance_read(uint8_t reg)
+{
+  return I2C1_Read1ByteRegister(AK4137_I2C_SLAVE_ADDR, reg); 
+}
+
+
+/* Write one byte to the AK4137 via I2C */
+static void ak4137_instance_write(uint8_t reg, uint8_t val) {
+    I2C1_Write1ByteRegister(AK4137_I2C_SLAVE_ADDR, reg, val);
+}
+
+void ak4137_init(AK4137_t* instance) {
+    ak4137_instance = instance;
+    
+    
+    ak4137_instance_write(AK4137_REG_RESET_MUTE, 0x00);
+}

@@ -49,6 +49,7 @@
 
 #include "rotary_encoder.h"
 #include "cs8416.h"
+#include "ak4137.h"
 //#include "pcm1792a.h"
 
 /* eeprom initialize 0x00..0x07 */
@@ -90,7 +91,9 @@ CS8416_t cs8416 = {
     .dummy = 0,
 };
 
-
+AK4137_t ak4137 = {
+       .dummy = 0, 
+};
 
 static void init(volatile Instance_t* instance)
 {
@@ -111,7 +114,8 @@ static void init(volatile Instance_t* instance)
     __delay_ms(10);
 
     cs8416_init(&cs8416);
-    //ak4137_init(&ak4137);
+    __delay_ms(500);
+    ak4137_init(&ak4137);
     //pcm1792a_init(&pcm1792a);
 
     /* read last used channel, channels attenuation will be handler inside process_channel() */
