@@ -41,6 +41,8 @@ typedef struct {
     int dummy;
 } AK4137_t;
 
+void ak4137_preinit(AK4137_t* instance);
+
 void ak4137_init(AK4137_t* instance);
 
 #ifdef	__cplusplus

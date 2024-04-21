@@ -31,6 +31,7 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+#include "mcc_generated_files/system/system.h"
 #include "i2c.h"
 #include "ak4137.h"
 
@@ -66,6 +67,27 @@ static uint8_t ak4137_instance_read(uint8_t reg)
 static void ak4137_instance_write(uint8_t reg, uint8_t val) {
     I2C1_Write1ByteRegister(AK4137_I2C_SLAVE_ADDR, reg, val);
 }
+
+void ak4137_preinit(AK4137_t* instance) {
+    /* 24Bit output */
+    OBIT0_SetHigh();
+    OBIT1_SetLow();
+    
+    /* I2S format see page 48 */
+    ODIF0_SetHigh();
+    ODIF1_SetLow();
+    
+    /* enable dither */
+    DITHER_SetHigh();
+    
+    
+    /* mode 0 see page 46 */
+    CM0_SetLow();
+    CM1_SetLow();
+    CM2_SetLow();
+    CM3_SetLow();
+}
+
 
 void ak4137_init(AK4137_t* instance) {
     ak4137_instance = instance;
