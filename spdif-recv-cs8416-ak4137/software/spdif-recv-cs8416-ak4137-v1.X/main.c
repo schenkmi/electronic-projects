@@ -154,9 +154,10 @@ int main(void)
 {
     SYSTEM_Initialize();
 
+    /* if rotary enc board not connected, don't call this */
     factory_reset();
 
-    init(&instance);
+
 
     /* install irq handlers */
     TMR0_OverflowCallbackRegister(test_timer_callback /*rotary_encoder_timer_callback*/);
@@ -168,8 +169,12 @@ int main(void)
     /* Enable the Peripheral Interrupts */
     INTERRUPT_PeripheralInterruptEnable();
 
+    /* IRQs need to be enabled for I2C */
+    init(&instance);
+    
     while(1)
     {
-        __delay_ms(100);  
+        __delay_ms(500);  
+        LED_D3_Toggle();
     }    
 }
