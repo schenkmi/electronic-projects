@@ -5,12 +5,12 @@
  * 
  * @ingroup tmr0
  * 
- * @brief This is the generated driver implementation file for the TMR0 driver
+ * @brief  Driver implementation for the TMR0 driver
  *
- * @version TMR0 Driver Version 2.0.2
+ * @version TMR0 Driver Version 2.1.1
 */
 /*
-© [2024] Microchip Technology Inc. and its subsidiaries.
+? [2024] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -35,31 +35,35 @@
 
 
 const struct TMR_INTERFACE Timer0 = {
-    .Initialize = Timer0_Initialize,
-    .Start = Timer0_Start,
-    .Stop = Timer0_Stop,
-    .PeriodCountSet = Timer0_Write,
-    .TimeoutCallbackRegister = Timer0_OverflowCallbackRegister,
+    .Initialize = TMR0_Initialize,
+    .Start = TMR0_Start,
+    .Stop = TMR0_Stop,
+    .PeriodCountSet = TMR0_Reload,
+    .TimeoutCallbackRegister = TMR0_OverflowCallbackRegister,
     .Tasks = NULL
 };
 
-static void (*Timer0_OverflowCallback)(void);
-static void Timer0_DefaultOverflowCallback(void);
+static void (*TMR0_OverflowCallback)(void);
+static void TMR0_DefaultOverflowCallback(void);
 
-void Timer0_Initialize(void)
-{
+/**
+  Section: TMR0 APIs
+*/ 
+
+void TMR0_Initialize(void){
+
     //TMR0H 249; 
     TMR0H = 0xF9;
 
     //TMR0L 0; 
     TMR0L = 0x0;
 
-    //T0CS HFINTOSC; T0CKPS 1:128; T0ASYNC synchronised; 
-    T0CON1 = 0x67;
+    //T0CS HFINTOSC; T0CKPS 1:128; T0ASYNC not_synchronised; 
+    T0CON1 = 0x77;
 
 
     //Set default callback for TMR0 overflow interrupt
-    Timer0_OverflowCallbackRegister(Timer0_DefaultOverflowCallback);
+    TMR0_OverflowCallbackRegister(TMR0_DefaultOverflowCallback);
 
     //Clear Interrupt flag before enabling the interrupt
     PIR0bits.TMR0IF = 0;
@@ -71,17 +75,17 @@ void Timer0_Initialize(void)
     T0CON0 = 0x80;
 }
 
-void Timer0_Start(void)
+void TMR0_Start(void)
 {
     T0CON0bits.T0EN = 1;
 }
 
-void Timer0_Stop(void)
+void TMR0_Stop(void)
 {
     T0CON0bits.T0EN = 0;
 }
 
-uint8_t Timer0_Read(void)
+uint8_t TMR0_Read(void)
 {
     uint8_t readVal;
 
@@ -91,38 +95,38 @@ uint8_t Timer0_Read(void)
     return readVal;
 }
 
-void Timer0_Write(size_t timerVal)
+void TMR0_Write(uint8_t timerVal)
 {
     //Write to TMR0 register, low byte only
-    TMR0L = (uint8_t)timerVal;
+    TMR0L = timerVal;
  }
 
-void Timer0_Reload(uint8_t periodVal)
+void TMR0_Reload(size_t periodVal)
 {
    //Write to TMR0 register, high byte only
-   TMR0H = periodVal;
+   TMR0H = (uint8_t)periodVal;
 }
 
-void Timer0_OverflowISR(void)
+void TMR0_OverflowISR(void)
 {
     //Clear the TMR0 interrupt flag
     PIR0bits.TMR0IF = 0;
     //Ticker function call;
     //Ticker is 1 -> Callback function gets called every time this ISR executes
-    if(Timer0_OverflowCallback)
+    if(TMR0_OverflowCallback)
     {
-        Timer0_OverflowCallback();
+        TMR0_OverflowCallback();
     }
 }
 
-void Timer0_OverflowCallbackRegister(void (* CallbackHandler)(void))
+void TMR0_OverflowCallbackRegister(void (* CallbackHandler)(void))
 {
-    Timer0_OverflowCallback = CallbackHandler;
+    TMR0_OverflowCallback = CallbackHandler;
 }
 
-static void Timer0_DefaultOverflowCallback(void)
+static void TMR0_DefaultOverflowCallback(void)
 {
     //Add your interrupt code here or
-    //Use Timer0_OverflowCallbackRegister function to use Custom ISR
+    //Use TMR0_OverflowCallbackRegister function to use Custom ISR
 }
 
