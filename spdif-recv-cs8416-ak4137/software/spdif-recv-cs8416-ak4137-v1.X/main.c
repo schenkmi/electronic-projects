@@ -48,7 +48,7 @@
 
 
 #include "rotary_encoder.h"
-//#include "src4392.h"
+#include "cs8416.h"
 //#include "pcm1792a.h"
 
 /* eeprom initialize 0x00..0x07 */
@@ -86,9 +86,9 @@ volatile Instance_t instance = {
 //    .output_word_length = OWL24Bit,
 //};
 
-//PCM1792A_t pcm1792a = {
-//    .filter_rolloff = Slow,
-//};
+CS8416_t cs8416 = {
+    .dummy = 0,
+};
 
 
 
@@ -104,7 +104,7 @@ static void init(volatile Instance_t* instance)
     RESET_SetHigh();
     __delay_ms(10);
 
-    //cs8416_init(&cs8416);
+    cs8416_init(&cs8416);
     //ak4137_init(&ak4137);
     //pcm1792a_init(&pcm1792a);
 
@@ -142,6 +142,11 @@ static void factory_reset() {
     }
 }
 
+void test_timer_callback(void) {
+    LED_D5_Toggle();
+}
+
+
 /**
  * Main application
  */
@@ -154,7 +159,7 @@ int main(void)
     init(&instance);
 
     /* install irq handlers */
-    TMR0_OverflowCallbackRegister(rotary_encoder_timer_callback);
+    TMR0_OverflowCallbackRegister(test_timer_callback /*rotary_encoder_timer_callback*/);
 
             
     /* Enable the Global Interrupts */
@@ -165,5 +170,6 @@ int main(void)
 
     while(1)
     {
+        __delay_ms(100);  
     }    
 }
