@@ -37,8 +37,19 @@
 extern "C" {
 #endif
 
+    
+/**
+ * Output world length enum
+ */
+enum AK4137OutputWordLength {
+    OWL32Bit = 0,
+    OWL24Bit = 1,
+    OWL20Bit = 2,
+    OWL16Bit = 3,
+};
+
 typedef struct {
-    int dummy;
+    enum AK4137OutputWordLength output_word_length;
 } AK4137_t;
 
 void ak4137_preinit(AK4137_t* instance);

@@ -69,6 +69,29 @@ static void ak4137_instance_write(uint8_t reg, uint8_t val) {
 }
 
 void ak4137_preinit(AK4137_t* instance) {
+    
+    /* output word length page 48 */
+    switch (instance->output_word_length) {
+        case OWL32Bit:
+            OBIT0_SetLow();
+            OBIT1_SetLow();
+            break;
+        case OWL20Bit:
+            OBIT0_SetLow();
+            OBIT1_SetHigh();
+            break;
+        case OWL16Bit:
+            OBIT0_SetHigh();
+            OBIT1_SetHigh();
+            break;
+        case OWL24Bit:   
+        default:
+            /* 24Bit output */
+            OBIT0_SetHigh();
+            OBIT1_SetLow();
+            break;
+    }
+    
     /* 24Bit output */
     OBIT0_SetHigh();
     OBIT1_SetLow();

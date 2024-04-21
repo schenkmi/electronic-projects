@@ -92,7 +92,7 @@ CS8416_t cs8416 = {
 };
 
 AK4137_t ak4137 = {
-       .dummy = 0, 
+    .output_word_length = OWL24Bit, 
 };
 
 static void init(volatile Instance_t* instance)
