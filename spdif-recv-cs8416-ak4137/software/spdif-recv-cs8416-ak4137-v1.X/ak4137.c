@@ -46,12 +46,13 @@
 
 
 #define AK4137_REG_PCMCONT0         0x01
+#define  AK4137_REG_PCMCONT0_SLOW     (1 << 7) 
+#define  AK4137_REG_PCMCONT0_SHORT_DELAY     (1 << 6) 
+#define  AK4137_REG_PCMCONT0_DEEMPHASIS_OFF     (1 << 4) 
+#define AK4137_REG_PCMCONT0_INPUT_FMT_24LSB (1 << 0)
+#define AK4137_REG_PCMCONT0_INPUT_FMT_I2S (3 << 0)
 
-
-
-
-
-
+#define AK4137_REG_PCMCONT1         0x02
 
 
 static AK4137_t* ak4137_instance = NULL;
@@ -92,10 +93,6 @@ void ak4137_preinit(AK4137_t* instance) {
             break;
     }
     
-    /* 24Bit output */
-    OBIT0_SetHigh();
-    OBIT1_SetLow();
-    
     /* I2S format see page 48 */
     ODIF0_SetHigh();
     ODIF1_SetLow();
@@ -113,8 +110,16 @@ void ak4137_preinit(AK4137_t* instance) {
 
 
 void ak4137_init(AK4137_t* instance) {
+    uint8_t reg;
     ak4137_instance = instance;
     
     
     ak4137_instance_write(AK4137_REG_RESET_MUTE, 0x00);
+    
+    reg = (AK4137_REG_PCMCONT0_SLOW | AK4137_REG_PCMCONT0_SHORT_DELAY | \
+           AK4137_REG_PCMCONT0_DEEMPHASIS_OFF | AK4137_REG_PCMCONT0_INPUT_FMT_I2S);
+    
+     ak4137_instance_write(AK4137_REG_PCMCONT0, reg);
+     
+     
 }
