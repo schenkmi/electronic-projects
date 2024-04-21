@@ -107,6 +107,9 @@ static void init(volatile Instance_t* instance)
     /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
     LED_D5_SetHigh();
 
+    
+    ak4137_preinit(&ak4137);
+    
     __delay_ms(100);
     RESET_SetLow();
     __delay_ms(100);
