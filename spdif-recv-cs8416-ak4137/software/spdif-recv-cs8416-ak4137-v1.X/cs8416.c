@@ -229,7 +229,7 @@ void cs8416_init(CS8416_t* instance) {
     // RMCKF[1] : 0 => RMCK output frequency is 256*FS.
     cs8416_write(SPDIF_CONTROL1, 0x00);
     // RMCKF[1] : 1 => RMCK output frequency is 128*FS.
-    //cs8416_write(CS8416_CTRL1, 0x02); 
+    //cs8416_write(SPDIF_CONTROL1, 0x02); 
     
     // DETCI[7] : 0 => D to E status transfer inhibit allow update
     // EMPH_CNTL[2:0] : 0x4 => 50 ?s/15 ?s de-emphasis filter auto-select on.
