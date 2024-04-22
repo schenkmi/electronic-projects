@@ -191,5 +191,10 @@ int main(void)
     {
         __delay_ms(500);  
         LED_D4_Toggle();
+        if (SRCEN_GetValue()) {
+            LED_D3_SetHigh();
+        } else {
+            LED_D3_SetLow();
+        }
     }    
 }
