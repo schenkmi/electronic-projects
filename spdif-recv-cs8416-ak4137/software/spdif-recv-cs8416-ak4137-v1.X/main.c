@@ -50,7 +50,7 @@
 #include "rotary_encoder.h"
 #include "cs8416.h"
 #include "ak4137.h"
-//#include "pcm1792a.h"
+#include "pcm1792a.h"
 
 /* eeprom initialize 0x00..0x07 */
 __EEPROM_DATA(ROTARY_MIN_ATTENUATION /* channel 0 attenuation initial */,
@@ -95,6 +95,11 @@ AK4137_t ak4137 = {
     .output_word_length = OWL24Bit, 
 };
 
+PCM1792A_t pcm1792a = {
+    .filter_rolloff = Slow,
+};
+
+
 static void init(volatile Instance_t* instance)
 {
     //LED_D3_SetDigitalOutput();
@@ -119,7 +124,7 @@ static void init(volatile Instance_t* instance)
     cs8416_init(&cs8416);
     __delay_ms(500);
     ak4137_init(&ak4137);
-    //pcm1792a_init(&pcm1792a);
+    pcm1792a_init(&pcm1792a);
 
     /* read last used channel, channels attenuation will be handler inside process_channel() */
     instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
