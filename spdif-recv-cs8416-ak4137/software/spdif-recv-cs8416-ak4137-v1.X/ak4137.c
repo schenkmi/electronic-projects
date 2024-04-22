@@ -113,8 +113,8 @@ void ak4137_init(AK4137_t* instance) {
     uint8_t reg;
     ak4137_instance = instance;
     
-    
-    ak4137_instance_write(AK4137_REG_RESET_MUTE, 0x00);
+    /* reset release */
+    ak4137_instance_write(AK4137_REG_RESET_MUTE, 0x01);
     
     reg = (AK4137_REG_PCMCONT0_SLOW | AK4137_REG_PCMCONT0_SHORT_DELAY | \
            AK4137_REG_PCMCONT0_DEEMPHASIS_OFF | AK4137_REG_PCMCONT0_INPUT_FMT_I2S);
