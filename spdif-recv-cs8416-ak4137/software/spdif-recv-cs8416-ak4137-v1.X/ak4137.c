@@ -100,7 +100,6 @@ void ak4137_preinit(AK4137_t* instance) {
     /* enable dither */
     DITHER_SetHigh();
     
-    
     /* mode 0 see page 46 */
     CM0_SetLow();
     CM1_SetLow();
@@ -117,9 +116,22 @@ void ak4137_init(AK4137_t* instance) {
     ak4137_instance_write(AK4137_REG_RESET_MUTE, 0x01);
     
     reg = (AK4137_REG_PCMCONT0_SLOW | AK4137_REG_PCMCONT0_SHORT_DELAY | \
-           AK4137_REG_PCMCONT0_DEEMPHASIS_OFF | AK4137_REG_PCMCONT0_INPUT_FMT_I2S);
+           AK4137_REG_PCMCONT0_DEEMPHASIS_OFF);
     
-     ak4137_instance_write(AK4137_REG_PCMCONT0, reg);
-     
-     
+    switch (ak4137_instance->input_format) {
+        case LSB32Bit:
+            reg |= (0x00 << 0);
+            break;
+        case LSB24Bit:
+            reg |= (0x01 << 0);
+            break;
+        case MSB32Bit:
+            reg |= (0x02 << 0);
+            break;
+        case I2S32or16Bit:
+            reg |= (0x03 << 0);
+            break;
+    }
+  
+    ak4137_instance_write(AK4137_REG_PCMCONT0, reg);   
 }

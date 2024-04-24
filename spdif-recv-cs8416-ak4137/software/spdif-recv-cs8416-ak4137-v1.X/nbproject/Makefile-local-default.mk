@@ -33,4 +33,3 @@ MP_CC_DIR="/opt/microchip/xc8/v2.46/bin"
 MP_AS_DIR="/opt/microchip/xc8/v2.46/bin"
 MP_LD_DIR="/opt/microchip/xc8/v2.46/bin"
 MP_AR_DIR="/opt/microchip/xc8/v2.46/bin"
-DFP_DIR=/home/schenk/.mchp_packs/Microchip/PIC16F1xxxx_DFP/1.25.389
