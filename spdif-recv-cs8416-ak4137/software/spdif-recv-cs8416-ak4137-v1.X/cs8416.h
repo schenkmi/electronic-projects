@@ -37,8 +37,14 @@
 extern "C" {
 #endif
 
+enum CS8416OutputFormat {
+    MSB = 0, /* Left justified (MSB justified) */
+    LSB = 1,      /* Right justified (LSB justified) */
+    I2S = 2, /* I2S format */
+};
+
 typedef struct {
-    int dummy;
+    enum CS8416OutputFormat output_format;
 } CS8416_t;
 
 void cs8416_init(CS8416_t* instance);

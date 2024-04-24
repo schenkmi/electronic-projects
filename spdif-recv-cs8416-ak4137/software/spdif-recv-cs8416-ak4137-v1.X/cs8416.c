@@ -243,7 +243,28 @@ void cs8416_init(CS8416_t* instance) {
     // OSCLK frequency = 128*Fs
     cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
                              (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
-	
+
+    
+    switch(cs8416_instance->output_format) {
+        MSB:
+            /* Master, 128*Fs, 24Bit, Left Justified (LSB Justified) */
+            cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF));
+            break;
+        LSB:
+            /* Master, 128*Fs, 24Bit, Right Justified (MSB Justified) */
+            cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
+                             (1 << SPDIF_SOJUST) );
+            break;
+        I2S:
+        default:
+            /* Master, 128*Fs, 24Bit, I2S */
+            cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
+                             (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
+            break;
+        
+        
+    }
+    
 	cs8416_write(SPDIF_REM, 0x7F);								// Enable all errors
 	//cs8416_write(SPDIF_IM, _BV(SPDIF_RERRM) | _BV(SPDIF_FCHM));	// Enable error and format change interrupts
     

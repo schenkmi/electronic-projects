@@ -48,7 +48,18 @@ enum AK4137OutputWordLength {
     OWL16Bit = 3,
 };
 
+
+enum AK4137InputFormat {
+    LSB32Bit = 0,
+    LSB24Bit = 1,
+    MSB32Bit = 2,
+    I2S32or16Bit = 3,
+};
+
+
+
 typedef struct {
+    enum AK4137InputFormat input_format;
     enum AK4137OutputWordLength output_word_length;
 } AK4137_t;
 
