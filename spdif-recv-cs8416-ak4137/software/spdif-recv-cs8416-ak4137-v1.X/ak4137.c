@@ -141,8 +141,26 @@ void ak4137_init(AK4137_t* instance) {
     /* reset release */
     ak4137_instance_write(AK4137_REG_RESET_MUTE, 0x01);
     
-    reg = (AK4137_REG_PCMCONT0_SLOW | AK4137_REG_PCMCONT0_SHORT_DELAY | \
-           AK4137_REG_PCMCONT0_DEEMPHASIS_OFF);
+  //  reg = (AK4137_REG_PCMCONT0_SLOW | AK4137_REG_PCMCONT0_SHORT_DELAY | \
+   //        AK4137_REG_PCMCONT0_DEEMPHASIS_OFF);
+    
+    reg = AK4137_REG_PCMCONT0_DEEMPHASIS_OFF;
+    
+    switch (ak4137_instance->digital_filter) {
+        case AK_SharpRollOff:
+            // not bit's to set
+            break;
+        case AK_SlowRollOff:
+            reg |= (AK4137_REG_PCMCONT0_SLOW);
+            break;
+        case AK_ShortDelaySharpRollOff:
+            reg |= (AK4137_REG_PCMCONT0_SHORT_DELAY);
+            break;
+        case AK_ShortDelaySlowRollOff:
+            reg |= (AK4137_REG_PCMCONT0_SLOW | AK4137_REG_PCMCONT0_SHORT_DELAY);
+            break;
+    }
+    
     
     switch (ak4137_instance->input_format) {
         case LSB32Bit:
