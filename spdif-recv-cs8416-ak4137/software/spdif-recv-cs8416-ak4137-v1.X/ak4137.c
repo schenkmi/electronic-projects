@@ -108,13 +108,19 @@ void ak4137_preinit(AK4137_t* instance) {
     
     /* For MCLK = 24.576MHz */
     switch (instance->output_sampling_frequency) {
-        case AKFS384kHz:
+        case AKFS384kHz: // Mode 8
             CM0_SetHigh();
             CM1_SetLow();
             CM2_SetHigh();
             CM3_SetHigh();
             break;
-        case AKFS192kHz:
+        case AKFS96kHz: // Mode 0
+            CM0_SetLow();
+            CM1_SetLow();
+            CM2_SetLow();
+            CM3_SetLow();
+            break;
+        case AKFS192kHz: // Mode 5
         default:
             CM0_SetHigh();
             CM1_SetLow();

@@ -94,7 +94,7 @@ CS8416_t cs8416 = {
 AK4137_t ak4137 = {
     .input_format = I2S32or16Bit, //AK4137InputFormat.LSB24Bit,
     .output_sampling_frequency = AKFS384kHz, 
-    .output_word_length = OWL24Bit, //AK4137OutputWordLength.OWL20Bit, 
+    .output_word_length = OWL24Bit, //OWL24Bit, //AK4137OutputWordLength.OWL20Bit, 
 };
 
 PCM1792A_t pcm1792a = {
