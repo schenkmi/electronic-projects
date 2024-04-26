@@ -38,19 +38,19 @@ extern "C" {
 #endif
 
 enum CS8416OutputFormat {
-    CSMSB = 0, /* Left justified (MSB justified) */
-    CSLSB = 1,      /* Right justified (LSB justified) */
-    CSI2S = 2, /* I2S format */
+    CS_MSB = 0, /* Left justified (MSB justified) */
+    CS_LSB = 1,      /* Right justified (LSB justified) */
+    CS_I2S = 2, /* I2S format */
 };
 
 /**
  * Output world length enum
  */
 enum CS8416OutputWordLength {
-    CSOWL24Bit = 0,
-    CSOWL20Bit = 1,
-    CSOWL16Bit = 2,
-    CSOWLDirect = 3,
+    CS_OWL24Bit = 0,
+    CS_OWL20Bit = 1,
+    CS_OWL16Bit = 2,
+    CS_OWLDirect = 3,
 };
 
 

@@ -42,25 +42,25 @@ extern "C" {
  * Output world length enum
  */
 enum AK4137OutputWordLength {
-    OWL32Bit = 0,
-    OWL24Bit = 1,
-    OWL20Bit = 2,
-    OWL16Bit = 3,
+    AK_OWL32Bit = 0,
+    AK_OWL24Bit = 1,
+    AK_OWL20Bit = 2,
+    AK_OWL16Bit = 3,
 };
 
 
 enum AK4137InputFormat {
-    LSB32Bit = 0,
-    LSB24Bit = 1,
-    MSB32Bit = 2,
-    I2S32or16Bit = 3,
+    AK_LSB32Bit = 0,
+    AK_LSB24Bit = 1,
+    AK_MSB32Bit = 2,
+    AK_I2S32or16Bit = 3,
 };
 
 /* MCLK 24.576MHz */
 enum AK4137OutputSamplingFrequency {
-    AKFS96kHz = 0,
-    AKFS192kHz = 1,
-    AKFS384kHz = 2,
+    AK_FS96kHz = 0,
+    AK_FS192kHz = 1,
+    AK_FS384kHz = 2,
 };
 
 enum AK4137DigitalFilter {

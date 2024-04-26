@@ -66,9 +66,9 @@ void pcm1792a_init(PCM1792A_t* instance) {
     
     /* digital filter setup */
     uint8_t value = pcm1792a_read(PCM1792A_REG19);
-    if (instance->filter_rolloff == Sharp) {
+    if (instance->filter_rolloff == TI_Sharp) {
         value &= ~PCM1792A_REG19_FLT_SLOW;
-    } else if (instance->filter_rolloff == Slow) {
+    } else if (instance->filter_rolloff == TI_Slow) {
         value |= PCM1792A_REG19_FLT_SLOW; 
     }
         
