@@ -104,11 +104,23 @@ void ak4137_preinit(AK4137_t* instance) {
     
     // CM0 ... CM3
     // 1 0 1 0 => LRCLK 192kHz (Mode 5 128FSO)
-    
+    // X X X 1 => LRCLK 384kHz (Mode 6 64FSO)
+
+#if 0 
+    // 192kHz
     CM0_SetHigh();
     CM1_SetLow();
     CM2_SetHigh();
     CM3_SetLow();
+#else
+    // 384kHz
+    CM0_SetHigh();
+    CM1_SetLow();
+    CM2_SetHigh();
+    CM3_SetHigh();
+#endif
+    
+
 }
 
 
