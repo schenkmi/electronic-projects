@@ -58,8 +58,9 @@ enum AK4137InputFormat {
 
 /* MCLK 24.576MHz */
 enum AK4137OutputSamplingFrequency {
-    AKFS192kHz = 0,
-    AKFS384kHz = 1,
+    AKFS96kHz = 0,
+    AKFS192kHz = 1,
+    AKFS384kHz = 2,
 };
 
 
