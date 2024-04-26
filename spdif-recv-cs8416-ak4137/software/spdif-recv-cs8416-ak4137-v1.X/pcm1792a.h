@@ -39,8 +39,8 @@ extern "C" {
 #endif
 
 enum PCM1792AFilterRolloff {
-    Sharp = 0,
-    Slow = 1,
+    TI_Sharp = 0,
+    TI_Slow = 1,
 };
 
 typedef struct {

@@ -73,19 +73,19 @@ void ak4137_preinit(AK4137_t* instance) {
     
     /* output word length page 48 */
     switch (instance->output_word_length) {
-        case OWL32Bit:
+        case AK_OWL32Bit:
             OBIT0_SetLow();
             OBIT1_SetLow();
             break;
-        case OWL20Bit:
+        case AK_OWL20Bit:
             OBIT0_SetLow();
             OBIT1_SetHigh();
             break;
-        case OWL16Bit:
+        case AK_OWL16Bit:
             OBIT0_SetHigh();
             OBIT1_SetHigh();
             break;
-        case OWL24Bit:   
+        case AK_OWL24Bit:   
         default:
             /* 24Bit output */
             OBIT0_SetHigh();
@@ -108,19 +108,19 @@ void ak4137_preinit(AK4137_t* instance) {
     
     /* For MCLK = 24.576MHz */
     switch (instance->output_sampling_frequency) {
-        case AKFS384kHz: // Mode 8
+        case AK_FS384kHz: // Mode 8
             CM0_SetHigh();
             CM1_SetLow();
             CM2_SetHigh();
             CM3_SetHigh();
             break;
-        case AKFS96kHz: // Mode 0
+        case AK_FS96kHz: // Mode 0
             CM0_SetLow();
             CM1_SetLow();
             CM2_SetLow();
             CM3_SetLow();
             break;
-        case AKFS192kHz: // Mode 5
+        case AK_FS192kHz: // Mode 5
         default:
             CM0_SetHigh();
             CM1_SetLow();
@@ -163,16 +163,16 @@ void ak4137_init(AK4137_t* instance) {
     
     
     switch (ak4137_instance->input_format) {
-        case LSB32Bit:
+        case AK_LSB32Bit:
             reg |= (0x00 << 0);
             break;
-        case LSB24Bit:
+        case AK_LSB24Bit:
             reg |= (0x01 << 0);
             break;
-        case MSB32Bit:
+        case AK_MSB32Bit:
             reg |= (0x02 << 0);
             break;
-        case I2S32or16Bit:
+        case AK_I2S32or16Bit:
             reg |= (0x03 << 0);
             break;
     }

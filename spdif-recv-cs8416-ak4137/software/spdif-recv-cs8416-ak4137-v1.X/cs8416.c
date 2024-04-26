@@ -248,16 +248,16 @@ void cs8416_init(CS8416_t* instance) {
 
     
     switch(cs8416_instance->output_word_length) {
-        case CSOWLDirect:
+        case CS_OWLDirect:
             reg |= (0x3 << 4);
             break;
-        case CSOWL16Bit:
+        case CS_OWL16Bit:
             reg |= (0x2 << 4);
             break;
-        case CSOWL20Bit:
+        case CS_OWL20Bit:
             reg |= (0x1 << 4);
             break;
-        case CSOWL24Bit:
+        case CS_OWL24Bit:
         default:
             reg |= (0x0 << 4);
             break;
@@ -265,19 +265,19 @@ void cs8416_init(CS8416_t* instance) {
     //reg =
     
     switch(cs8416_instance->output_format) {
-        case CSMSB:
+        case CS_MSB:
             /* Master, 128*Fs, 24Bit, Left Justified (LSB Justified) */
            // cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF));
             
             reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF));
             break;
-        case CSLSB:
+        case CS_LSB:
             /* Master, 128*Fs, 24Bit, Right Justified (MSB Justified) */
             //cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
             //                 (1 << SPDIF_SOJUST) );
              reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) | (1 << SPDIF_SOJUST));
             break;
-        case CSI2S:
+        case CS_I2S:
         default:
             /* Master, 128*Fs, 24Bit, I2S */
             

@@ -88,19 +88,19 @@ volatile Instance_t instance = {
 //};
 
 CS8416_t cs8416 = {
-    .output_format = CSI2S,//LSB,
-    .output_word_length = CSOWL24Bit,
+    .output_format = CS_I2S,//LSB,
+    .output_word_length = CS_OWL24Bit,
 };
 
 AK4137_t ak4137 = {
-    .input_format = I2S32or16Bit, //AK4137InputFormat.LSB24Bit,
+    .input_format = AK_I2S32or16Bit, //AK4137InputFormat.LSB24Bit,
     .digital_filter = AK_ShortDelaySlowRollOff,
-    .output_sampling_frequency = AKFS384kHz, 
-    .output_word_length = OWL24Bit, //OWL24Bit, //AK4137OutputWordLength.OWL20Bit, 
+    .output_sampling_frequency = AK_FS384kHz, 
+    .output_word_length = AK_OWL24Bit, //OWL24Bit, //AK4137OutputWordLength.OWL20Bit, 
 };
 
 PCM1792A_t pcm1792a = {
-    .filter_rolloff = Slow,
+    .filter_rolloff = TI_Slow,
 };
 
 
