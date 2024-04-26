@@ -56,10 +56,16 @@ enum AK4137InputFormat {
     I2S32or16Bit = 3,
 };
 
+/* MCLK 24.576MHz */
+enum AK4137OutputSamplingFrequency {
+    AKFS192kHz = 0,
+    AKFS384kHz = 1,
+};
 
 
 typedef struct {
     enum AK4137InputFormat input_format;
+    enum AK4137OutputSamplingFrequency output_sampling_frequency;
     enum AK4137OutputWordLength output_word_length;
 } AK4137_t;
 
