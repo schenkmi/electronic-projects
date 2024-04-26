@@ -196,6 +196,9 @@ int main(void)
     /* IRQs need to be enabled for I2C */
     init(&instance);
     
+    
+    //pcm1792a_set_attenuation(0xff, 0xff);
+    
     while(1)
     {
         __delay_ms(500);  
