@@ -221,6 +221,8 @@ static void cs8416_write(uint8_t reg, uint8_t val) {
 }
 
 void cs8416_init(CS8416_t* instance) {
+    uint8_t reg = 0x00;
+    
     cs8416_instance = instance;
 
     
@@ -245,25 +247,52 @@ void cs8416_init(CS8416_t* instance) {
                              (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
 
     
+    switch(cs8416_instance->output_word_length) {
+        case CSOWLDirect:
+            reg |= (0x3 << 4);
+            break;
+        case CSOWL16Bit:
+            reg |= (0x2 << 4);
+            break;
+        case CSOWL20Bit:
+            reg |= (0x1 << 4);
+            break;
+        case CSOWL24Bit:
+        default:
+            reg |= (0x0 << 4);
+            break;
+    }
+    //reg =
+    
     switch(cs8416_instance->output_format) {
-        MSB:
+        case CSMSB:
             /* Master, 128*Fs, 24Bit, Left Justified (LSB Justified) */
-            cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF));
+           // cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF));
+            
+            reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF));
             break;
-        LSB:
+        case CSLSB:
             /* Master, 128*Fs, 24Bit, Right Justified (MSB Justified) */
-            cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
-                             (1 << SPDIF_SOJUST) );
+            //cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
+            //                 (1 << SPDIF_SOJUST) );
+             reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) | (1 << SPDIF_SOJUST));
             break;
-        I2S:
+        case CSI2S:
         default:
             /* Master, 128*Fs, 24Bit, I2S */
-            cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (0 << 4) | (1 << SPDIF_SOSF) |
-                             (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
+            
+          //  cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (0 << 4) | (1 << SPDIF_SOSF) |
+            //                 (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
+             reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) | (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
             break;
         
         
     }
+    
+    
+    cs8416_write(SPDIF_SADF, reg);
+    
+    
     
 	cs8416_write(SPDIF_REM, 0x7F);								// Enable all errors
 	//cs8416_write(SPDIF_IM, _BV(SPDIF_RERRM) | _BV(SPDIF_FCHM));	// Enable error and format change interrupts

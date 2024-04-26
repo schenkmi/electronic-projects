@@ -38,13 +38,25 @@ extern "C" {
 #endif
 
 enum CS8416OutputFormat {
-    MSB = 0, /* Left justified (MSB justified) */
-    LSB = 1,      /* Right justified (LSB justified) */
-    I2S = 2, /* I2S format */
+    CSMSB = 0, /* Left justified (MSB justified) */
+    CSLSB = 1,      /* Right justified (LSB justified) */
+    CSI2S = 2, /* I2S format */
 };
+
+/**
+ * Output world length enum
+ */
+enum CS8416OutputWordLength {
+    CSOWL24Bit = 0,
+    CSOWL20Bit = 1,
+    CSOWL16Bit = 2,
+    CSOWLDirect = 3,
+};
+
 
 typedef struct {
     enum CS8416OutputFormat output_format;
+    enum CS8416OutputWordLength output_word_length;
 } CS8416_t;
 
 void cs8416_init(CS8416_t* instance);
