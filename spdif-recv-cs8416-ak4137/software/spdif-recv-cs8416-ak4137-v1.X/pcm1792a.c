@@ -41,8 +41,14 @@
 #define PCM1792A_REG16              0x10 /* 0x10 == Reg 16, Digital Attenuation Level Setting left */
 #define  PCM1792A_REG16_VALUE        0xff /* 0dB, not attenuation */
 
-#define PCM1792A_REG17              0x11 /* 0x11 == Reg 17, Digital Attenuation Level Setting left */
+#define PCM1792A_REG17              0x11 /* 0x11 == Reg 17, Digital Attenuation Level Setting right */
 #define  PCM1792A_REG17_VALUE        0xff /* 0dB, not attenuation */
+
+
+
+#define PCM1792A_REG18              0x12 /* 0x13 == Reg 18 */
+#define  PCM1792A_REG18_ATT_CTRL_EN     (1 << 7) 
+
 
 #define PCM1792A_REG19              0x13 /* 0x13 == Reg 19 */
 #define  PCM1792A_REG19_FLT_SLOW     (1 << 1) 
@@ -76,5 +82,20 @@ void pcm1792a_init(PCM1792A_t* instance) {
 
     /* no attenuation */
     pcm1792a_write(PCM1792A_REG16, PCM1792A_REG16_VALUE);
-    pcm1792a_write(PCM1792A_REG17, PCM1792A_REG16_VALUE);
+    pcm1792a_write(PCM1792A_REG17, PCM1792A_REG17_VALUE);
+}
+
+void pcm1792a_set_attenuation(int right, int left) {
+    uint8_t right_att = (right < 0) ? 0 : (right > 0xff) ? 0xff : (uint8_t)right;
+    uint8_t left_att = (left < 0) ? 0 : (left > 0xff) ? 0xff : (uint8_t)left;
+ 
+    pcm1792a_write(PCM1792A_REG16, left_att);
+    pcm1792a_write(PCM1792A_REG17, right_att);
+    
+    /* we must enable attenuation control in register 18*/
+    uint8_t reg = pcm1792a_read(PCM1792A_REG18);
+    reg |= PCM1792A_REG18_ATT_CTRL_EN;
+
+    pcm1792a_write(PCM1792A_REG18, reg);
+    
 }
