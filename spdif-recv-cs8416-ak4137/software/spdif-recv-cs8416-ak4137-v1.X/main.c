@@ -88,12 +88,12 @@ volatile Instance_t instance = {
 //};
 
 CS8416_t cs8416 = {
-    .output_format = LSB,
+    .output_format = I2S,//LSB,
 };
 
 AK4137_t ak4137 = {
-    .input_format = LSB24Bit, //AK4137InputFormat.LSB24Bit,
-    .output_word_length = OWL20Bit, //AK4137OutputWordLength.OWL20Bit, 
+    .input_format = I2S32or16Bit, //AK4137InputFormat.LSB24Bit,
+    .output_word_length = OWL24Bit, //AK4137OutputWordLength.OWL20Bit, 
 };
 
 PCM1792A_t pcm1792a = {
