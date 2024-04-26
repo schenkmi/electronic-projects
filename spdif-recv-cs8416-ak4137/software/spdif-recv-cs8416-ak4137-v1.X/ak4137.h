@@ -63,9 +63,16 @@ enum AK4137OutputSamplingFrequency {
     AKFS384kHz = 2,
 };
 
+enum AK4137DigitalFilter {
+    AK_SharpRollOff = 0,
+    AK_SlowRollOff = 1,
+    AK_ShortDelaySharpRollOff = 2,
+    AK_ShortDelaySlowRollOff = 3,
+};
 
 typedef struct {
     enum AK4137InputFormat input_format;
+    enum AK4137DigitalFilter digital_filter;
     enum AK4137OutputSamplingFrequency output_sampling_frequency;
     enum AK4137OutputWordLength output_word_length;
 } AK4137_t;
