@@ -98,27 +98,31 @@ void ak4137_preinit(AK4137_t* instance) {
     ODIF1_SetLow();
     
     /* enable dither */
-    DITHER_SetLow();
+    DITHER_SetHigh();
     
     /* mode 0 see page 46 */
     
     // CM0 ... CM3
     // 1 0 1 0 => LRCLK 192kHz (Mode 5 128FSO)
     // X X X 1 => LRCLK 384kHz (Mode 6 64FSO)
+    
+    /* For MCLK = 24.576MHz */
+    switch (instance->output_sampling_frequency) {
+        case AKFS384kHz:
+            CM0_SetHigh();
+            CM1_SetLow();
+            CM2_SetHigh();
+            CM3_SetHigh();
+            break;
+        case AKFS192kHz:
+        default:
+            CM0_SetHigh();
+            CM1_SetLow();
+            CM2_SetHigh();
+            CM3_SetLow();
+            break;
+    }
 
-#if 0 
-    // 192kHz
-    CM0_SetHigh();
-    CM1_SetLow();
-    CM2_SetHigh();
-    CM3_SetLow();
-#else
-    // 384kHz
-    CM0_SetHigh();
-    CM1_SetLow();
-    CM2_SetHigh();
-    CM3_SetHigh();
-#endif
     
 
 }

@@ -93,6 +93,7 @@ CS8416_t cs8416 = {
 
 AK4137_t ak4137 = {
     .input_format = I2S32or16Bit, //AK4137InputFormat.LSB24Bit,
+    .output_sampling_frequency = AKFS384kHz, 
     .output_word_length = OWL24Bit, //AK4137OutputWordLength.OWL20Bit, 
 };
 
@@ -197,7 +198,8 @@ int main(void)
     {
         __delay_ms(500);  
         LED_D4_Toggle();
-        if (SRCEN_GetValue()) {
+        if (!SRCEN_GetValue()) {
+            /* SRCEN = L, */
             LED_D3_SetHigh();
         } else {
             LED_D3_SetLow();
