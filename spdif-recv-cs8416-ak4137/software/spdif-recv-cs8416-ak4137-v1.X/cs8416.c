@@ -258,7 +258,7 @@ void cs8416_init(CS8416_t* instance) {
         I2S:
         default:
             /* Master, 128*Fs, 24Bit, I2S */
-            cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
+            cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (0 << 4) | (1 << SPDIF_SOSF) |
                              (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
             break;
         

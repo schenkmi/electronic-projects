@@ -98,12 +98,16 @@ void ak4137_preinit(AK4137_t* instance) {
     ODIF1_SetLow();
     
     /* enable dither */
-    DITHER_SetHigh();
+    DITHER_SetLow();
     
     /* mode 0 see page 46 */
-    CM0_SetLow();
+    
+    // CM0 ... CM3
+    // 1 0 1 0 => LRCLK 192kHz (Mode 5 128FSO)
+    
+    CM0_SetHigh();
     CM1_SetLow();
-    CM2_SetLow();
+    CM2_SetHigh();
     CM3_SetLow();
 }
 
