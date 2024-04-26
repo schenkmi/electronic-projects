@@ -88,7 +88,8 @@ volatile Instance_t instance = {
 //};
 
 CS8416_t cs8416 = {
-    .output_format = I2S,//LSB,
+    .output_format = CSI2S,//LSB,
+    .output_word_length = CSOWL24Bit,
 };
 
 AK4137_t ak4137 = {
