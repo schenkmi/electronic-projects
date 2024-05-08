@@ -36,7 +36,7 @@
 // Configuration bits: selected in the GUI
 
 //CONFIG1
-#pragma config FEXTOSC = ECH    // External Oscillator Selection bits->EC above 8MHz; PFM set to high power
+#pragma config FEXTOSC = OFF    // External Oscillator Selection bits->Oscillator not enabled
 #pragma config RSTOSC = HFINT32    // Reset Oscillator Selection bits->HFINTOSC with OSCFRQ= 32 MHz and CDIV = 1:1
 #pragma config CLKOUTEN = OFF    // Clock Out Enable bit->CLKOUT function is disabled; i/o or oscillator function on OSC2
 #pragma config CSWEN = ON    // Clock Switch Enable bit->Writing to NOSC and NDIV is allowed
