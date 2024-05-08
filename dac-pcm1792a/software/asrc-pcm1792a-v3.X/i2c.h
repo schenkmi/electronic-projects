@@ -1,8 +1,9 @@
 /**
- * PIC16F18056 based async sample rate converter
- * for CS8416 / AK4137
+ * PIC16F18446 based async sample rate converter
+ * for TI/BB SRC4392/SRC4382
+ * PCM1792A
  *
- * Copyright (c) 2024-2024, Michael Schenk
+ * Copyright (c) 2021-2024, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk

@@ -1,8 +1,9 @@
 /**
- * PIC16F18056 based async sample rate converter
- * for CS8416 / AK4137
+ * PIC16F18446 based async sample rate converter
+ * for TI/BB SRC4392/SRC4382
+ * PCM1792A
  *
- * Copyright (c) 2024-2024, Michael Schenk
+ * Copyright (c) 2021-2024, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -31,44 +32,27 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-
 #include "mcc_generated_files/system/system.h"
 
-uint8_t  I2C1_Read1ByteRegister(uint16_t address, uint8_t reg) {
-bool i2c_status;
-uint8_t value;
+uint8_t I2C1_Read1ByteRegister(uint16_t address, uint8_t reg) {
+    bool i2c_status;
+    uint8_t value;
 
-i2c_status = I2C1_WriteRead(address, &reg, 1, &value, 1);
-if (i2c_status) {
-    while (I2C1_IsBusy());
-    return value;
-} else {
-    return 0;
-}
-
-}
-
-#if 0
-static void AT24CM02_DataToSendSet(block_t *block, uint8_t *dataToSend)
-{
-    dataToSend[0] = (block->wordAdress >> 8) &0xFF;
-    dataToSend[1] = block->wordAdress & 0xFF;
- 
-    for (uint16_t index = 0; index < block->dataSize; ++index) {
-        dataToSend[index + 2] = *(block->data + index);
+    i2c_status = I2C1_WriteRead(address, &reg, 1, &value, 1);
+    if (i2c_status) {
+        while (I2C1_IsBusy());
+        return value;
+    } else {
+        return 0;
     }
 }
-#endif
+
 void I2C1_Write1ByteRegister(uint16_t address, uint8_t reg, uint8_t data) {
     bool i2c_status;
-    
-    //uint16_t to_write = (reg << 8 || data);
-    uint8_t blob[2] = { reg, data};
-    
-    i2c_status = I2C1_Write(address, blob, (sizeof(blob) / sizeof(blob[0])));
-if (i2c_status) {
-    while (I2C1_IsBusy());
-}
-    
-}
+    uint8_t blob[2] = {reg, data};
 
+    i2c_status = I2C1_Write(address, blob, (sizeof (blob) / sizeof (blob[0])));
+    if (i2c_status) {
+        while (I2C1_IsBusy());
+    }
+}
