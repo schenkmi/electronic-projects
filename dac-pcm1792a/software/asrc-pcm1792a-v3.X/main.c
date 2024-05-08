@@ -49,6 +49,7 @@
 
 
 #include "rotary_encoder.h"
+#include "src4392.h"
 #include "pcm1792a.h"
 
 /* eeprom initialize 0x00..0x07 */
@@ -79,12 +80,12 @@ volatile Instance_t instance = {
   },
 };
 
-//SRC4392_t src4392 = {
-//    .deemphases = DeEmphasisAuto,
-//    .digital_audio_interface_transmitter = DITUpsample,
-//    .upsample_rate = UpsamplingTo192kHz,
-//    .output_word_length = OWL24Bit,
-//};
+SRC4392_t src4392 = {
+    .deemphases = DeEmphasisAuto,
+    .digital_audio_interface_transmitter = DITUpsample,
+    .upsample_rate = UpsamplingTo192kHz,
+    .output_word_length = OWL24Bit,
+};
 
 
 
@@ -111,6 +112,7 @@ static void init(volatile Instance_t* instance)
     RESET_SetHigh();
     __delay_ms(10);
 
+    src4392_init(&src4392);
     pcm1792a_init(&pcm1792a);
 
     /* read last used channel, channels attenuation will be handler inside process_channel() */
