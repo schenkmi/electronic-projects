@@ -111,6 +111,14 @@ static void init(volatile Instance_t* instance)
     __delay_ms(100);
     RESET_SetHigh();
     __delay_ms(10);
+    
+#if 0
+    if (IO_RA2_GetValue()) {
+        src4392.output_word_length = OWL24Bit;
+    } else {
+        src4392.output_word_length = OWL20Bit;
+    }
+#endif
 
     src4392_init(&src4392);
     pcm1792a_init(&pcm1792a);
@@ -161,13 +169,14 @@ int main(void)
 {
     SYSTEM_Initialize();
 
-    /* if rotary enc board not connected, don't call this */
+    /* weak pull-up so safe to call without connected rotary board */
     factory_reset();
 
 
 
     /* install irq handlers */
-    TMR0_OverflowCallbackRegister(test_timer_callback /*rotary_encoder_timer_callback*/);
+    TMR0_OverflowCallbackRegister(rotary_encoder_timer_callback);
+    //TMR0_OverflowCallbackRegister(test_timer_callback);
 
             
     /* Enable the Global Interrupts */
