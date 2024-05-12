@@ -126,7 +126,7 @@ static void init(volatile Instance_t* instance)
     __delay_ms(10);
 
     cs8416_init(&cs8416);
-    __delay_ms(500);
+   // __delay_ms(500);
     ak4137_init(&ak4137);
     pcm1792a_init(&pcm1792a);
 
