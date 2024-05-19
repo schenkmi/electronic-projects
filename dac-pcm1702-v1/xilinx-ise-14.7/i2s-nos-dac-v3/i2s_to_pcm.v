@@ -19,6 +19,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
+// program with Digilent HS3
+//   openFPGALoader -c digilent_hs3 --freq 1000000 -v *.jed
+// or 
+//   xc3sprog -c jtaghs2 -m /opt/Xilinx/14.7/ISE_DS/ISE/xbr/data -J 1000000 -p 0 -v *.jed
+
 // git clean -d -x -f .
 module i2s_to_pcm(
     input BCK,
@@ -29,7 +34,8 @@ module i2s_to_pcm(
     output DATAOUTR,
     output CLKOUTL,
     output LEOUTL,  
-    output DATAOUTL
+    output DATAOUTL,
+	 output LED1
 );
 
     // Build an array type for the shift register
@@ -56,5 +62,6 @@ module i2s_to_pcm(
     assign CLKOUTL = BCK;
     assign LEOUTL = LRCK;
     assign DATAOUTL = sr_left[31];
-
+	
+    assign LED1 = 0; // 0 => LED on, 1 => LED off
 endmodule
