@@ -521,6 +521,27 @@ void timer_callback(void)
 #endif
 }
 
+/* Factory reset */
+static void factory_reset() {
+    if (ENC1SWITCH_GetValue() == 0) {
+        while(ENC1SWITCH_GetValue() == 0) {
+            __delay_ms(100);  
+        }
+
+        for (int cnt = 0; cnt < 10; cnt++) {
+            /* LED on */
+            LED_Toggle();
+             __delay_ms(500);  
+        }
+
+        eeprom_write(0x00, ROTARY_MAX_ATTENUATION);
+        eeprom_write(0x01, ROTARY_MAX_ATTENUATION);
+        eeprom_write(0x02, ROTARY_MAX_ATTENUATION);
+        eeprom_write(0x03, ROTARY_MAX_ATTENUATION);
+        eeprom_write(0x04, ROTARY_MIN_CHANNEL);
+    }
+}
+
 /**
  * Main application
  */
@@ -528,7 +549,10 @@ int main(void)
 {
   SYSTEM_Initialize();
 
-  init(&instance);
+  /* weak pull-up so safe to call without connected rotary board */
+  factory_reset();
+    
+  //init(&instance);
 
   /* install irq handlers */
   Timer0_OverflowCallbackRegister(timer_callback);
@@ -539,6 +563,11 @@ int main(void)
   /* Enable the Peripheral Interrupts */
   INTERRUPT_PeripheralInterruptEnable();
 
+  // needed ?
+  //TMR0_Start();
+  
+  init(&instance);
+  
   while (1) {
     process_channel(&instance);
     process_attenuation(&instance);
