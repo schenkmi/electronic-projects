@@ -32,12 +32,13 @@
 
  /**
   * Save hex
-  * cd ~/Documents/GitHub/electronic-projects/input-sel-attenuator/software/v2
-  * cp input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
+  * cd /work/electronic-projects/input-sel-attenuator/software/v4
+  * cp ./input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
   */
 
 /**
  * History
+ * V1.4     2024.05.26 New MCC, factory reset
  * V1.3     2023.12.16 Improve usability
  * V1.2     2023.12.13 Set attenuator to maximum in init()
  * V1.1     2022.10.30 Implement default attenuation which can be set by pressing
