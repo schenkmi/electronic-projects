@@ -38,6 +38,7 @@
 
 /**
  * History
+ * V1.5     2024.06.01 Add delay between SYSTEM_Initialize and factory reset
  * V1.4     2024.05.26 New MCC, factory reset
  * V1.3     2023.12.16 Improve usability
  * V1.2     2023.12.13 Set attenuator to maximum in init()
@@ -58,6 +59,8 @@
 
 #include "mcc_generated_files/system/system.h"
 #include "rotary_encoder.h"
+
+#define STARTUP_WAIT                    250 /* wait 250ms after SYSTEM_Initialize */
 
 #define CHAN_SEL_MASK                  0x0f
 
@@ -524,8 +527,8 @@ void timer_callback(void)
 
 /* Factory reset */
 static void factory_reset() {
-    if (ENC1SWITCH_GetValue() == 0) {
-        while(ENC1SWITCH_GetValue() == 0) {
+    if (ENC2SWITCH_GetValue() == 0) {
+        while(ENC2SWITCH_GetValue() == 0) {
             __delay_ms(100);  
         }
 
@@ -550,10 +553,10 @@ int main(void)
 {
   SYSTEM_Initialize();
 
+   __delay_ms(STARTUP_WAIT);  
+   
   /* weak pull-up so safe to call without connected rotary board */
   factory_reset();
-    
-  //init(&instance);
 
   /* install irq handlers */
   Timer0_OverflowCallbackRegister(timer_callback);
@@ -563,9 +566,6 @@ int main(void)
 
   /* Enable the Peripheral Interrupts */
   INTERRUPT_PeripheralInterruptEnable();
-
-  // needed ?
-  //TMR0_Start();
   
   init(&instance);
   
