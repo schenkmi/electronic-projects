@@ -44,11 +44,8 @@
 #define PCM1792A_REG17              0x11 /* 0x11 == Reg 17, Digital Attenuation Level Setting right */
 #define  PCM1792A_REG17_VALUE        0xff /* 0dB, not attenuation */
 
-
-
 #define PCM1792A_REG18              0x12 /* 0x13 == Reg 18 */
 #define  PCM1792A_REG18_ATT_CTRL_EN     (1 << 7) 
-
 
 #define PCM1792A_REG19              0x13 /* 0x13 == Reg 19 */
 #define  PCM1792A_REG19_FLT_SLOW     (1 << 1) 
@@ -60,7 +57,6 @@ static uint8_t pcm1792a_read(uint8_t reg)
 {
   return I2C1_Read1ByteRegister(PCM1792A_I2C_SLAVE_ADDR, reg); 
 }
-
 
 /* Write one byte to the PCM1792A via I2C */
 static void pcm1792a_write(uint8_t reg, uint8_t val) {
@@ -97,5 +93,4 @@ void pcm1792a_set_attenuation(int right, int left) {
     reg |= PCM1792A_REG18_ATT_CTRL_EN;
 
     pcm1792a_write(PCM1792A_REG18, reg);
-    
 }

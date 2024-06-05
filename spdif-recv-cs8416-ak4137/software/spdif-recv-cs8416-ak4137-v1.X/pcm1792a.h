@@ -48,10 +48,8 @@ typedef struct {
 } PCM1792A_t;
 
 void pcm1792a_init(PCM1792A_t* instance);
-
 void pcm1792a_set_attenuation(int right, int left);
 
 #ifdef	__cplusplus
 }
 #endif
-

@@ -53,7 +53,6 @@ enum CS8416OutputWordLength {
     CS_OWLDirect = 3,
 };
 
-
 typedef struct {
     enum CS8416OutputFormat output_format;
     enum CS8416OutputWordLength output_word_length;
@@ -64,4 +63,3 @@ void cs8416_init(CS8416_t* instance);
 #ifdef	__cplusplus
 }
 #endif
-
