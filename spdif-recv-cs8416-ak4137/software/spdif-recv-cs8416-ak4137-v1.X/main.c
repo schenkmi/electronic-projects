@@ -34,23 +34,26 @@
 
  /**
   * Save hex
-  * cd /work/electronic-projects/dac-pcm1792a/software/asrc-pcm1792a-v2.X
-  * cp ./dist/default/production/asrc-pcm1792a-v2.X.production.hex hex/
+  * cd /work/electronic-projects/input-sel-attenuator/software/v4
+  * cp ./input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
   */
 
 /**
  * History
+ * V1.1     2024.06.05 PCM1702 drop
  * V1.0     2024.04.21 Start develop
  */
 
-
 #include "mcc_generated_files/system/system.h"
-
-
 #include "rotary_encoder.h"
 #include "cs8416.h"
 #include "ak4137.h"
 #include "pcm1792a.h"
+
+//#define __USE_PCM1792A__
+#define __USE_PCM1702__
+
+#define STARTUP_WAIT                    250 /* wait 250ms after SYSTEM_Initialize */
 
 /* eeprom initialize 0x00..0x07 */
 __EEPROM_DATA(ROTARY_MIN_ATTENUATION /* channel 0 attenuation initial */,
@@ -80,43 +83,36 @@ volatile Instance_t instance = {
   },
 };
 
-//SRC4392_t src4392 = {
-//    .deemphases = DeEmphasisAuto,
-//    .digital_audio_interface_transmitter = DITUpsample,
-//    .upsample_rate = UpsamplingTo192kHz,
-//    .output_word_length = OWL24Bit,
-//};
-
 CS8416_t cs8416 = {
-    .output_format = CS_I2S,//LSB,
+    .output_format = CS_I2S,
     .output_word_length = CS_OWL24Bit,
 };
 
 AK4137_t ak4137 = {
-    .input_format = AK_I2S32or16Bit, //AK4137InputFormat.LSB24Bit,
+    .input_format = AK_I2S32or16Bit,
     .digital_filter = AK_ShortDelaySlowRollOff,
     .output_sampling_frequency = AK_FS384kHz, 
-    .output_word_length = AK_OWL24Bit, //OWL24Bit, //AK4137OutputWordLength.OWL20Bit, 
+#ifdef __USE_PCM1702__
+    .output_word_length = AK_OWL20Bit, 
+#else
+    .output_word_length = AK_OWL24Bit,
+#endif
 };
 
+#ifdef __USE_PCM1792A__
 PCM1792A_t pcm1792a = {
     .filter_rolloff = TI_Slow,
 };
-
+#endif
 
 static void init(volatile Instance_t* instance)
 {
-    //LED_D3_SetDigitalOutput();
-    //LED_D4_SetDigitalOutput();
-   // LED_D5_SetDigitalOutput();
-    
     LED_D3_SetHigh();
     LED_D4_SetHigh();
     
     /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
     LED_D5_SetHigh();
 
-    
     ak4137_preinit(&ak4137);
     
     __delay_ms(100);
@@ -126,9 +122,12 @@ static void init(volatile Instance_t* instance)
     __delay_ms(10);
 
     cs8416_init(&cs8416);
-   // __delay_ms(500);
+
     ak4137_init(&ak4137);
+    
+#ifdef __USE_PCM1792A__
     pcm1792a_init(&pcm1792a);
+#endif
 
     /* read last used channel, channels attenuation will be handler inside process_channel() */
     instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
@@ -138,7 +137,6 @@ static void init(volatile Instance_t* instance)
         instance->channel_attenuation[cnt].attenuation = instance->channel_attenuation[cnt].default_attenuation = eeprom_read(cnt);
     }
 }
-
 
 /* Factory reset */
 static void factory_reset() {
@@ -168,7 +166,6 @@ void test_timer_callback(void) {
     LED_D5_Toggle();
 }
 
-
 /**
  * Main application
  */
@@ -176,15 +173,14 @@ int main(void)
 {
     SYSTEM_Initialize();
 
+    __delay_ms(STARTUP_WAIT);  
+    
     /* if rotary enc board not connected, don't call this */
     factory_reset();
 
-
-
     /* install irq handlers */
     TMR0_OverflowCallbackRegister(test_timer_callback /*rotary_encoder_timer_callback*/);
-
-            
+ 
     /* Enable the Global Interrupts */
     INTERRUPT_GlobalInterruptEnable();
 
@@ -195,8 +191,7 @@ int main(void)
     
     /* IRQs need to be enabled for I2C */
     init(&instance);
-    
-    
+
     //pcm1792a_set_attenuation(0xff, 0xff);
     
     while(1)
