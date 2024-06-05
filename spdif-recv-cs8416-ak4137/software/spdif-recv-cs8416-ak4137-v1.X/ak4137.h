@@ -37,7 +37,6 @@
 extern "C" {
 #endif
 
-    
 /**
  * Output world length enum
  */
@@ -47,7 +46,6 @@ enum AK4137OutputWordLength {
     AK_OWL20Bit = 2,
     AK_OWL16Bit = 3,
 };
-
 
 enum AK4137InputFormat {
     AK_LSB32Bit = 0,
@@ -78,7 +76,6 @@ typedef struct {
 } AK4137_t;
 
 void ak4137_preinit(AK4137_t* instance);
-
 void ak4137_init(AK4137_t* instance);
 
 #ifdef	__cplusplus

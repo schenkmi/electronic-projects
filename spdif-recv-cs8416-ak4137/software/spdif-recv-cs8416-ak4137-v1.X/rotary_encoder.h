@@ -43,10 +43,6 @@ extern "C" {
 #define DIR_CW    0x10 /* read() return value - Clockwise step/movement */
 #define DIR_CCW   0x20 /* return value - Counter-clockwise step/movement */
 
-//uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state);
-//uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state);
-
-
 #define CHAN_SEL_MASK                  0x0f
 
 #define EEPROM_ADDR_CHANNEL            0x04 /* EEPROM address of current channel */
@@ -66,7 +62,6 @@ extern "C" {
 
 #define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
 #define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE) /* 3 seconds till storing default attenuation */
-
 
 enum Control { Combined = 0, Volume = 0, Channel = 1};
 enum Mode { Single = 0, Dual = 1 };
@@ -100,14 +95,8 @@ typedef struct {
   RotaryEncoder_t encoder[2 /* 0 = Combined/Volume, 1 = Channel */];
 } Instance_t;
 
-
-
-
-
 void eeprom_save_status(volatile Instance_t* instance);
-
 void process_encoder_button(volatile Instance_t* instance);
-
 void rotary_encoder_timer_callback(void);
 
 #ifdef	__cplusplus

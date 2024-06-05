@@ -36,11 +36,7 @@
 
 #include <stddef.h>
 
-
 #define CS8416_I2C_SLAVE_ADDR     0x10 /* Page 34: [0010 AD2 AD1 AD0] added R(1) or /W(0) => 0x20 write, 0x21 read */
-
-
-
 
 #define SPDIF_CONTROL0	0x00
 #define SPDIF_CONTROL1	0x01
@@ -63,15 +59,12 @@
 #define SPDIF_IEC61937BP 	0x23	// IEC61937 Burst Preamble (23h - 26h)
 #define SPDIF_VREG		0x7f		// CS8416 I.D. and Version Register (7Fh)
 
-
 // Bit definitions for SPDIF_CONTROL0
-
 #define SPDIF_FSWCLK	6			// Forces the clock signal on OMCK to be output on RMCK regardless of the SWCLK
 #define	SPDIF_PDUR		3			// Normal/High Update Rate phase detector
 #define SPDIF_TRUNC		2			// Truncate incoming data
 
 // Bit definitions for SPDIF_CONTROL1
-
 #define	SPDIF_SWCLK		7			// Lets OMCK determine RMCK, OSCLK, OLRCLK when PLL loses lock
 #define SPDIF_MUTESAO	6			// Mute control for the serial audio output port
 #define SPDIF_INT1		5			// Interrupt output pin control
@@ -80,7 +73,6 @@
 #define SPDIF_HOLD0		2			// How received audio sample is affected if receiver error occurs
 #define SPDIF_RMCKF		1			// 0: RMCK = 256*Fs, 1: RMCK = 128*Fs
 #define SPDIF_CHS		0			// Receiver Channel Status register decoded from A(0) channel or B(1) channel
-
 
 // Bit definitions for SPDIF_CONTROL2
 #define SPDIF_DETCI		7 			// D to E status transfer inhibit
@@ -101,7 +93,6 @@
 #define SPDIF_GPO2SEL2	2
 #define SPDIF_GPO2SEL1	1
 #define SPDIF_GPO2SEL0	0
-
 
 // Bit definitions for SPDIF_CONTROL4
 #define SPDIF_RUN 		7			// 1 = power on
@@ -182,29 +173,11 @@
 #define SPDIF_QCH		1
 #define SPDIF_FCH		0
 
-
 // Bit definitions for spdif_readStatus()
 #define SPDIF_STATUS_SILENCE 	0			// digital silence detected
 #define SPDIF_STATUS_PCM		1			// input data is in PCM format
 #define SPDIF_CONFIDENCE_ERROR	2			// parity+biphase error
 #define SPDIF_INTERRUPT			7
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 static CS8416_t* cs8416_instance = NULL;
 
@@ -213,7 +186,6 @@ static uint8_t cs8416_read(uint8_t reg)
 {
   return I2C1_Read1ByteRegister(CS8416_I2C_SLAVE_ADDR, reg); 
 }
-
 
 /* Write one byte to the CS8416 via I2C */
 static void cs8416_write(uint8_t reg, uint8_t val) {
@@ -246,7 +218,6 @@ void cs8416_init(CS8416_t* instance) {
     cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
                              (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
 
-    
     switch(cs8416_instance->output_word_length) {
         case CS_OWLDirect:
             reg |= (0x3 << 4);
@@ -262,44 +233,28 @@ void cs8416_init(CS8416_t* instance) {
             reg |= (0x0 << 4);
             break;
     }
-    //reg =
-    
+
     switch(cs8416_instance->output_format) {
         case CS_MSB:
             /* Master, 128*Fs, 24Bit, Left Justified (LSB Justified) */
-           // cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF));
-            
             reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF));
             break;
         case CS_LSB:
             /* Master, 128*Fs, 24Bit, Right Justified (MSB Justified) */
-            //cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) |
-            //                 (1 << SPDIF_SOJUST) );
-             reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) | (1 << SPDIF_SOJUST));
+            reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) | (1 << SPDIF_SOJUST));
             break;
         case CS_I2S:
         default:
             /* Master, 128*Fs, 24Bit, I2S */
-            
-          //  cs8416_write(SPDIF_SADF, (1 << SPDIF_SOMS) | (0 << 4) | (1 << SPDIF_SOSF) |
-            //                 (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
-             reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) | (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
+            reg |= ((1 << SPDIF_SOMS) | (1 << SPDIF_SOSF) | (1 << SPDIF_SODEL) | (1 << SPDIF_SOLRPOL));
             break;
-        
-        
     }
-    
-    
+
     cs8416_write(SPDIF_SADF, reg);
-    
-    
-    
+
 	cs8416_write(SPDIF_REM, 0x7F);								// Enable all errors
 	//cs8416_write(SPDIF_IM, _BV(SPDIF_RERRM) | _BV(SPDIF_FCHM));	// Enable error and format change interrupts
-    
-    
-    
-    
+
     // RUN[7] : 1
     // RXD[6] : 0
     // RXSEL[5..3] : input

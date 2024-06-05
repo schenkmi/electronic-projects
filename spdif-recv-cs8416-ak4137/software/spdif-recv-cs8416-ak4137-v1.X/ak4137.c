@@ -37,23 +37,16 @@
 
 #include <stddef.h>
 
-
 #define AK4137_I2C_SLAVE_ADDR     0x11 /* Page 34: [00100 CAD1 CAD0] added R(1) or /W(0) => 0x22 write, 0x23 read */
 
-
-
 #define AK4137_REG_RESET_MUTE         0x00
-
-
 #define AK4137_REG_PCMCONT0         0x01
 #define  AK4137_REG_PCMCONT0_SLOW     (1 << 7) 
 #define  AK4137_REG_PCMCONT0_SHORT_DELAY     (1 << 6) 
 #define  AK4137_REG_PCMCONT0_DEEMPHASIS_OFF     (1 << 4) 
 #define AK4137_REG_PCMCONT0_INPUT_FMT_24LSB (1 << 0)
 #define AK4137_REG_PCMCONT0_INPUT_FMT_I2S (3 << 0)
-
 #define AK4137_REG_PCMCONT1         0x02
-
 
 static AK4137_t* ak4137_instance = NULL;
 
@@ -63,14 +56,12 @@ static uint8_t ak4137_instance_read(uint8_t reg)
   return I2C1_Read1ByteRegister(AK4137_I2C_SLAVE_ADDR, reg); 
 }
 
-
 /* Write one byte to the AK4137 via I2C */
 static void ak4137_instance_write(uint8_t reg, uint8_t val) {
     I2C1_Write1ByteRegister(AK4137_I2C_SLAVE_ADDR, reg, val);
 }
 
 void ak4137_preinit(AK4137_t* instance) {
-    
     /* output word length page 48 */
     switch (instance->output_word_length) {
         case AK_OWL32Bit:
@@ -128,11 +119,7 @@ void ak4137_preinit(AK4137_t* instance) {
             CM3_SetLow();
             break;
     }
-
-    
-
 }
-
 
 void ak4137_init(AK4137_t* instance) {
     uint8_t reg;
@@ -140,10 +127,7 @@ void ak4137_init(AK4137_t* instance) {
     
     /* reset release */
     ak4137_instance_write(AK4137_REG_RESET_MUTE, 0x01);
-    
-  //  reg = (AK4137_REG_PCMCONT0_SLOW | AK4137_REG_PCMCONT0_SHORT_DELAY | \
-   //        AK4137_REG_PCMCONT0_DEEMPHASIS_OFF);
-    
+
     reg = AK4137_REG_PCMCONT0_DEEMPHASIS_OFF;
     
     switch (ak4137_instance->digital_filter) {
@@ -160,8 +144,7 @@ void ak4137_init(AK4137_t* instance) {
             reg |= (AK4137_REG_PCMCONT0_SLOW | AK4137_REG_PCMCONT0_SHORT_DELAY);
             break;
     }
-    
-    
+
     switch (ak4137_instance->input_format) {
         case AK_LSB32Bit:
             reg |= (0x00 << 0);

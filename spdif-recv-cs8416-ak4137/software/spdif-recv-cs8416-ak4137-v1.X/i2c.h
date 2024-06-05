@@ -31,8 +31,7 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-#ifndef I2C_H
-#define	I2C_H
+#pragma once
 
 #include <stdint.h>
 
@@ -46,6 +45,3 @@ void I2C1_Write1ByteRegister(uint16_t address, uint8_t reg, uint8_t data);
 #ifdef	__cplusplus
 }
 #endif
-
-#endif	/* I2C_H */
-
