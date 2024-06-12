@@ -262,3 +262,25 @@ void cs8416_init(CS8416_t* instance) {
     uint8_t val = (uint8_t)((1<<SPDIF_RUN) | ((0x00 /* input */ & 0x7) << SPDIF_RXSEL0) | (0x0 << SPDIF_TXSEL0));
     cs8416_write(SPDIF_CONTROL4, val);
 }
+
+void cs8416_set_input(CS8416_t* instance, int input) {
+    // RUN[7] : 1
+    // RXD[6] : 0
+    // RXSEL[5..3] : input
+    // TXSEL[2..0] : 0
+    uint8_t val = cs8416_read(SPDIF_CONTROL4);
+    val &= ~(0x07 << SPDIF_RXSEL0);
+    val |= ((input & 0x07) << SPDIF_RXSEL0);
+    cs8416_write(SPDIF_CONTROL4, val);
+}
+
+void cs8416_set_output(CS8416_t* instance, int output) {
+    // RUN[7] : 1
+    // RXD[6] : 0
+    // RXSEL[5..3] : input
+    // TXSEL[2..0] : 0
+    uint8_t val = cs8416_read(SPDIF_CONTROL4);
+    val &= ~(0x07 << SPDIF_TXSEL0);
+    val |= ((output & 0x07) << SPDIF_TXSEL0);
+    cs8416_write(SPDIF_CONTROL4, val);
+}

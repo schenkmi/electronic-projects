@@ -59,6 +59,8 @@ typedef struct {
 } CS8416_t;
 
 void cs8416_init(CS8416_t* instance);
+void cs8416_set_input(CS8416_t* instance, int input);
+void cs8416_set_output(CS8416_t* instance, int output);
 
 #ifdef	__cplusplus
 }
