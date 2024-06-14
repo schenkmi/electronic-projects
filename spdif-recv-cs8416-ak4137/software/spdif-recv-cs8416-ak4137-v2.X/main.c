@@ -166,6 +166,29 @@ void test_timer_callback(void) {
     LED_D5_Toggle();
 }
 
+/* channel selection relay are on RB0...RB3 */
+static void process_channel(volatile Instance_t* instance)
+{
+  if (instance->channel != instance->last_channel)  {
+    if (instance->last_channel != -1) {
+      /* store current used attenuation on channel */
+      instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
+    }
+
+    cs8416_set_input(&cs8416, instance->channel);
+
+    instance->last_channel = instance->channel;
+    instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
+  }
+}
+
+/* attenuator relay are on RA0...RA5 */
+static void process_attenuation(volatile Instance_t* instance) {
+  if (instance->attenuation != instance->last_attenuation) {
+      instance->last_attenuation = instance->attenuation;
+  }
+}
+
 /**
  * Main application
  */
@@ -179,7 +202,7 @@ int main(void)
     factory_reset();
 
     /* install irq handlers */
-    TMR0_OverflowCallbackRegister(test_timer_callback /*rotary_encoder_timer_callback*/);
+    TMR0_OverflowCallbackRegister(rotary_encoder_timer_callback);
  
     /* Enable the Global Interrupts */
     INTERRUPT_GlobalInterruptEnable();
@@ -193,16 +216,12 @@ int main(void)
     init(&instance);
 
     //pcm1792a_set_attenuation(0xff, 0xff);
-    
-    while(1)
-    {
-        __delay_ms(500);  
-        LED_D4_Toggle();
-        if (!SRCEN_GetValue()) {
-            /* SRCEN = L, */
-            LED_D3_SetHigh();
-        } else {
-            LED_D3_SetLow();
-        }
-    }    
+
+    while (1) {
+      process_channel(&instance);
+      process_attenuation(&instance);
+      process_encoder_button(&instance);
+      eeprom_save_status(&instance);
+      __delay_ms(MAIN_LOOP_WAIT);
+    } 
 }
