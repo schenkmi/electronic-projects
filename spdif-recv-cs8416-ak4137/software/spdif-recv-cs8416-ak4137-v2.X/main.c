@@ -90,7 +90,7 @@ CS8416_t cs8416 = {
 
 AK4137_t ak4137 = {
     .input_format = AK_I2S32or16Bit,
-    .digital_filter = AK_ShortDelaySlowRollOff,
+    .digital_filter = AK_ShortDelaySharpRollOff,
     .output_sampling_frequency = AK_FS384kHz, 
 #ifdef __USE_PCM1702__
     .output_word_length = AK_OWL20Bit, 
