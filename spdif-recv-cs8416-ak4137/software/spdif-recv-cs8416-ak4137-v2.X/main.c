@@ -35,7 +35,7 @@
  /**
   * Save hex
   * cd /work/electronic-projects/spdif-recv-cs8416-ak4137/software
-  * cp spdif-recv-cs8416-ak4137-v1.X/dist/default/production/spdif-recv-cs8416-ak4137-v1.X.production.hex hex/
+  * cp spdif-recv-cs8416-ak4137-v2.X/dist/default/production/spdif-recv-cs8416-ak4137-v2.X.production.hex hex/
   */
 
 /**
