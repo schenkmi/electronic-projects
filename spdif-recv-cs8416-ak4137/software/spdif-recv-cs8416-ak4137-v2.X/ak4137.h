@@ -61,6 +61,27 @@ enum AK4137OutputSamplingFrequency {
     AK_FS384kHz = 2,
 };
 
+/**
+ * Neutrik A2-D
+ *
+ * Reference PCM1702 DAC 1kHz 0dBFs sinus => 0dB reference (Vout = 2.12 Veff)
+ * 
+ * Short Delay Slow Rolloff
+ * ------------------------
+ * Freq       Attenuation  
+ * 2kHz      -0.02dB
+ * 4kHz      -0.43dB
+ * 10kHz    -11.43dB
+ * 
+ * Short Delay Sharp Rolloff
+ * ------------------------
+ * Freq       Attenuation  
+ * 2kHz       0.00dB
+ * 4kHz       0.00dB
+ * 10kHz     -0.03dB
+ * 16kHz     -0.12dB
+ * 20kHz     -0.23dB
+ */
 enum AK4137DigitalFilter {
     AK_SharpRollOff = 0,
     AK_SlowRollOff = 1,
