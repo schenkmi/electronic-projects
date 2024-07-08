@@ -1,5 +1,5 @@
-* TUBE LIBRARY 26-Jan-2016
-* updated and by GaLeX including some new models of Derk Reefman and 
+* TUBE LIBRARY 15-Oct-2023
+* updated by GaLeX including some new models of Derk Reefman and 
 * some data  from dos4ever.com and www.bartola.co.uk web sites
 
 * Tube list
@@ -192,6 +192,7 @@
 * 6N21B
 * 6P30B_T (triode mode)
 * 6J45B
+* 6S28B
 * 6S32B
 * 6S46G
 * 6S46G_H (half-triode)
@@ -209,6 +210,10 @@
 * EL500 (beam tetrode)
 * 807 (beam tetrode)
 * 6P21S (beam tetrode)
+* ECC960 (E90CC)
+* 6SJ7 (pentode, jet another model)
+* 6948
+*
 
 *Norman Koren library
 
@@ -280,6 +285,35 @@ R1 2 5 {RGI}  ;
 .MODEL DX D(IS=1N RS=1 CJO=10PF TT=1N)
 .ENDS
 *$
+
+.SUBCKT 2A3_C 1 2 3 4 ; P G K1 K2
+  + PARAMS:  RGI=2000
+  + MU=4.58 EX=1.512 KG1=1710.0 KP=40.8 KVB=1188.0 VCT=-2.24 ; Vp_MAX=600.0 
+  + CCG=7.5P  CGP=16P CCP=5.5P
+  * cathode resistor is 1 ohm, the pins K1 and K2 are .25 ohms from the ends of it
+  RFIL_LEFT    3 31 .25
+  RFIL_RIGHT   4 41 .25
+  RFIL_MIDDLE  31 41 .5
+  E11 32 0  
+  VALUE={V(1,31)/KP*LOG(1+EXP(KP*(1/MU+V(2,31)/SQRT(KVB+V(1,31)*V(1,31)))))}
+  E12 42 0  
+  VALUE={V(1,41)/KP*LOG(1+EXP(KP*(1/MU+V(2,41)/SQRT(KVB+V(1,41)*V(1,41)))))}
+  RE11 32 0 1G
+  RE12 42 0 1G
+  G11 1 31 VALUE={(PWR(V(32),EX)+PWRS(V(32),EX))/(2*KG1)}
+  G12 1 41 VALUE={(PWR(V(42),EX)+PWRS(V(42),EX))/(2*KG1)}
+  RCP1 1 3 1G
+  RCP2 1 4 1G
+  C1 2 3 {CCG} ; CATHODE-GRID
+  C2 2 1 {CGP} ; GRID=PLATE
+  C3 1 3 {CCP} ; CATHODE-PLATE
+  D3 5 3 DX ; FOR GRID CURRENT
+  D4 6 4 DX ; FOR GRID CURRENT
+  RG1 2 5 {RGI} ; FOR GRID CURRENT
+  RG2 2 6 {RGI} ; FOR GRID CURRENT
+  .MODEL DX D(IS=1N RS=1 CJO=10PF TT=1N)
+  .ENDS
+  *$
 
 .SUBCKT 300B 1 2 3  ; P G C; NEW MODEL
 + PARAMS: MU=3.95 EX=1.4 KG1=1550 KP=65 KVB=300 RGI=1000
@@ -1731,42 +1765,42 @@ R1 2 5 {RGI}  ;
 .ENDS
 
 *$
-.SUBCKT 5C3S A K by GaLeX
+.SUBCKT 5C3S A K ;by GaLeX
 RCP A K 1G    ; TO AVOID FLOATING NODES
 GP  A  K  VALUE={7.9E-4*(PWR(V(A,K),1.45213)+PWRS(V(A,K),1.45213))/2}
 CP  A  K  5p
 .ENDS
 
 *$
-.SUBCKT 5C4S A K by GaLeX
+.SUBCKT 5C4S A K ;by GaLeX
 RCP A K 1G    ;
 GP  A  K  VALUE={2.56E-3*(PWR(V(A,K),1.32431)+PWRS(V(A,K),1.32431))/2}
 CP  A  K  5p
 .ENDS
 
 *$
-.SUBCKT 6C5S A K by GaLeX
+.SUBCKT 6C5S A K ;by GaLeX
 RCP A K 1G    ;
 GP  A  K  VALUE={1.11E-3*(PWR(V(A,K),1.37199)+PWRS(V(A,K),1.37199))/2}
 CP  A  K  5p
 .ENDS
 
 *$
-.SUBCKT 5C8S A K by GaLeX
+.SUBCKT 5C8S A K ;by GaLeX
 RCP A K 1G    ;
 GP  A  K  VALUE={1.35E-3*(PWR(V(A,K),1.44725)+PWRS(V(A,K),1.44725))/2}
 CP  A  K  5p
 .ENDS
 
 *$
-.SUBCKT 6D20P A K by GaLeX
+.SUBCKT 6D20P A K ;by GaLeX
 RCP A K 1G    ;
 GP  A  K  VALUE={4.09E-3*(PWR(V(A,K),1.39877)+PWRS(V(A,K),1.39877))/2}
 CP  A  K  8p
 .ENDS
 
 *$
-.SUBCKT 6X2P A K by GaLeX
+.SUBCKT 6X2P A K ;by GaLeX
 RCP A K 1G    ;
 GP  A  K  VALUE={2.14E-3*(PWR(V(A,K),1.35039)+PWRS(V(A,K),1.35039))/2}
 CP  A  K  3.4p
@@ -2651,7 +2685,7 @@ R1 2 5 {RGI} ;
 .ENDS
 
 *$
-.SUBCKT TRIODE_6F12P_PT 1 2 3 ; P G K ;  07-Nov-2011, valid for Ia>5 mA at Ug1<-2V, by GaLeX 
+.SUBCKT 6F12P_PT 1 2 3 ; P G K ;  07-Nov-2011, valid for Ia>5 mA at Ug1<-2V, by GaLeX 
 + PARAMS: CCG=3P  CGP=1.4P CCP=1.9P RGI=2000
 + MU=96.096 EX=1.4 KG1=127.5 KP=2052.0 KVB=75.0 VCT=0.342 ;
 E1 7 0 VALUE={V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(V(2,3)+VCT)/SQRT(KVB+V(1,3)*V(1,3)))))} 
@@ -3415,9 +3449,9 @@ R1 2 5 {RGI} ;
 .ENDS
 
 *$
-.SUBCKT 6P44S_T  1 2 3 ; P G C (Triode) 25-Nov-2012 by GaLeX
-+ PARAMS: MU=7.1 KG1=330.0 KP=30.0
-+ KVB=274.5 EX=1.414 VCT=0.00125 RGI=1000
+.SUBCKT 6P44S_T  1 2 3 ; P G C (Triode) mod 15-Oct-2023 by GaLeX
++ PARAMS: MU=7.14 KG1=255.0 KP=20.25
++ KVB=0.9375 EX=1.33 VCT=0.0003125 RGI=1000
 + CCG=22P CGP=12P CCP=9P
 E1 7 0 VALUE={V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(V(2,3)+VCT)/SQRT(KVB+V(1,3)*V(1,3)))))} 
 RE1 7 0 1G 
@@ -3541,6 +3575,23 @@ R1 2 5 {RGI} ;
 .ENDS
 
 *$
+.SUBCKT 6S28B  1 2 3 ; P G C (Triode) 19-Jul-2023 by GaLeX
++ PARAMS: MU=43.2 EX=2.32 KG1=333.8 KP=132
++ KVB=21.4 VCT=0.112 RGI=2000
++ PARAMS: CCG=5.75P  CGP=3P CCP=1.85P
+E1 7 0 VALUE={V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(V(2,3)+VCT)/SQRT(KVB+V(1,3)*V(1,3)))))} 
+RE1 7 0 1G 
+G1 1 3 VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG1} 
+RCP 1 3 1G ;
+C1 2 3 {CCG} ;
+C2 2 1 {CGP} ;
+C3 1 3 {CCP} ;
+D3 5 3 DX ;
+R1 2 5 {RGI} ;
+.MODEL DX D(IS=1N RS=1 CJO=10PF TT=1N) 
+.ENDS
+
+*$
 .SUBCKT 6S46G_H  1 2 3 ; P G C (Triode) 21-Mar-2014 by GaLeX
 + PARAMS: MU=7.686 EX=1.456 KG1=600.0 KP=45.0
 + KVB=36.0 VCT=0.276 RGI=2000
@@ -3616,40 +3667,11 @@ R1 2 5 {RGI} ;
 .MODEL DX D(IS=1N RS=1 CJO=10PF TT=1N) ;
 .ENDS
 
-*$
-* Generic pentode model: C3G
-* Copyright 2003--2008 by Ayumi Nakabayashi, All rights reserved
-* Version 3.10, Generated on Tue Jun 23 00:59:12 2009
-*           Plate
-*           | Screen Grid
-*           | | Control Grid
-*           | | | Cathode
-*           | | | |
-.SUBCKT C3G A S G K
-.PARAM X1=-0.16053394 X2=0.0043084008 X3=-0.28973288.
-.PARAM X4=0.8381139 X5=37.574522 X6=1.7897329
-.PARAM X7=0.0098836949 X8=44.832238 X9=0.0061379447
-.PARAM Y1=0.0049418474 Y2=0.79240682 Y3=0.20759318
-.PARAM Y4=0.005274374 EA=7975
-BK IK 0 V=U(V(G,K)+X1)*X7*URAMP(V(G,K)+X1+URAMP(V(S,K))/X8)^1.5+(1-U(V(G,K)+X1))*X9*(X2*URAMP(V(S,K)))^X3*(X4*URAMP(V(G,K)+X1+URAMP(V(S,K))/X5))^X6
-BL IL 0 V=(V(IK)-Y1*URAMP(V(G,K))^1.5*(URAMP(V(G,K))/(URAMP(V(A,K))+URAMP(V(G,K)))*1.2+.4))*(1-.4*(EXP(-URAMP(V(A,K))/URAMP(V(S,K))*15)-EXP(-15)))
-BM IM 0 V=V(IL)*(URAMP(V(A,K))+EA)/(URAMP(V(S,K))+EA)-URAMP(V(IL)*(URAMP(V(A,K))+EA)/(URAMP(V(S,K))+EA)-(Y4*(URAMP(V(A,K))+URAMP(URAMP(V(S,K))-URAMP(V(A,K))))^1.5))
-BA A K I=URAMP(Y4*URAMP(V(A,K))^1.5-URAMP(Y4*URAMP(V(A,K))^1.5-V(IM)+V(IL)*(Y2*(1-URAMP(V(A,K))/(URAMP(V(A,K))+10))^1.5+Y3)))+1E-10*V(A,K)
-BS S K I=URAMP(V(IM)-URAMP(Y4*URAMP(V(A,K))^1.5-URAMP(Y4*URAMP(V(A,K))^1.5-V(IM)+V(IL)*(Y2*(1-URAMP(V(A,K))/(URAMP(V(A,K))+10))^1.5+Y3))))
-BG G K I=Y1*URAMP(V(G,K))^1.5*(URAMP(V(G,K))/(URAMP(V(A,K))+URAMP(V(G,K)))*1.2+.4)
-* CAPS
-CGA G A 0.012p
-CGK G K 4.9p
-CGS G S 3.3p
-CAK A K 3.5p
-.ENDS
 
 *$
 .SUBCKT 3A5_2 1 2 3 ; P G K ;
 + PARAMS: CCG=.9P CGP=3.2P CCP=1.0P RGI=2000
-+ MU=12.46 EX=1.3857 KG1=1965.0 KP=132.0 KVB=1.875 VCT=-1.6 ; Vp_MAX=200.0 Ip_MAX=0.032 Vg_step=2.0
-*————————————————E
-E1 7 0 VALUE={V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(VCT+V(2,3))/SQRT(KVB+V(1,3)*V(1,3)))))}
++ MU=12.46 EX=1.3857 KG1=1965.0 KP=132.0 KVB=1.875 VCT=-1.6 ; E1 7 0 VALUE={V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(VCT+V(2,3))/SQRT(KVB+V(1,3)*V(1,3)))))}
 RE1 7 0 1G
 G1 1 3 VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG1}
 RCP 1 3 1G ; TO AVOID FLOATING NODES
@@ -3665,7 +3687,6 @@ R1 2 5 {RGI} ; FOR GRID CURRENT
 .SUBCKT 3A5 1 2 3; P G K
 + PARAMS: CCG=3P  CGP=1.4P CCP=1.9P 
 + MU=15.2 KG1=3510 KP=126 KVB=0.94 VCT=0 EX=1.57 
-*----------------------------------------------------------------------------------
 E1 7 0 VALUE={V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(VCT+V(2,3))/SQRT(KVB+V(1,3)*V(1,3)))))}
 RE1 7 0 1G
 G1 1 3 VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG1}
@@ -3916,4 +3937,58 @@ R1   2 5  {RGI}   ; FOR GRID CURRENT	G1 - 5
 D3   5 3  DX      ; FOR GRID CURRENT	5  - C                                                             
 .MODEL DX D(IS=1N RS=1 CJO=10PF TT=1N)
 .ENDS
+
+*$
+.SUBCKT ECC960 1 2 3 ; P G C 31-Jan-2016 by GaLeX
++ PARAMS: CCG=3.4P CGP=3.5P CCP=0.35P RGI=2000
++ MU=28.7 KG1=615 KP=152 KVB=3.75 VCT=0.616 EX=1.41 
+E1 7 0 VALUE=
++{V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(V(2,3)+VCT)/SQRT(KVB+V(1,3)*V(1,3)))))}
+RE1 7 0 1G
+G1 1 3 VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG1}
+RCP 1 3 1G    ;
+C1 2 3 {CCG}  ;
+C2 2 1 {CGP}  ;
+C3 1 3 {CCP}  ;
+D3 5 3 DX     ;
+R1 2 5 {RGI}  ;
+.MODEL DX D(IS=1N RS=1 CJO=10PF TT=1N)
+.ENDS
+
+*$
+.SUBCKT 6SJ7 1 2 3 4 ; P G K G2
++ PARAMS: CCG=6P  CGP=0.005P CCP=7P RGI=2000
++ MU=30 KG1=1219 KP=81.2 KVB=4.2 KVC=3.37 VCT=0.222 EX=1.06 KG2=2610 
+RE1  7 0  1G    ; DUMMY SO NODE 7 HAS 2 CONNECTIONS
+E1   7 0  VALUE=  ; E1 BREAKS UP LONG EQUATION FOR G1.
++{V(4,3)/KP*LOG(1+EXP((1/MU+(VCT+V(2,3))/V(4,3))*KP))}
+G1   1 3  VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG1*ATAN(V(1,3)/KVB)}
+G2   4 3  VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG2*(KVC-ATAN(V(1,3)/KVB))}
+RCP  1 3  1G      ; FOR CONVERGENCE
+C1   2 3  {CCG}    ; CATHODE-GRID 1
+C2   1 2  {CGP}  ; GRID 1-PLATE
+C3   1 3  {CCP}   ; CATHODE-PLATE
+R1   2 5  {RGI}   ; FOR GRID CURRENT
+D3   5 3  DX      ; FOR GRID CURRENT
+.MODEL DX D(IS=1N RS=1 CJO=10PF TT=1N)
+.ENDS
+
+*$
+.SUBCKT 6948 1 2 3 ; Plate Grid Cathode 04.10.2023 by GaleX
++ PARAMS: CCG=1.6P  CGP=0.75P CCP=0.22P RGI=2000
++ MU=88.7 KG1=855 KP=360 KVB=2904 VCT=0.452 EX=1.3 
+E1 7 0 VALUE=
++{V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(V(2,3)+VCT)/SQRT(KVB+V(1,3)*V(1,3)))))}
+RE1 7 0 1G
+G1 1 3 VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG1}
+RCP 1 3 1G    ;
+C1 2 3 {CCG}  ;
+C2 2 1 {CGP}  ;
+C3 1 3 {CCP}  ;
+D3 5 3 DX     ;
+R1 2 5 {RGI}  ;
+.MODEL DX D(IS=1N RS=1 CJO=10PF TT=1N)
+.ENDS 
+*$
+
 
