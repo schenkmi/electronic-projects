@@ -1989,6 +1989,12 @@
 		(uuid "305a8770-ad8b-4c23-9488-d86198146fee")
 	)
 	(junction
+		(at 157.48 154.94)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "308f6a4d-919d-4127-a697-c19272333843")
+	)
+	(junction
 		(at 248.92 127.635)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2129,6 +2135,16 @@
 			(type default)
 		)
 		(uuid "113d69c2-6f22-42aa-bb2c-ba331d9798bc")
+	)
+	(wire
+		(pts
+			(xy 157.48 154.94) (xy 170.18 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1558ef9c-7186-4ea6-998a-944eeb3e3aa6")
 	)
 	(wire
 		(pts
@@ -2322,6 +2338,16 @@
 	)
 	(wire
 		(pts
+			(xy 157.48 162.56) (xy 157.48 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4418a5b0-e71d-450b-9dc1-725fa7471fb9")
+	)
+	(wire
+		(pts
 			(xy 101.6 120.015) (xy 101.6 125.73)
 		)
 		(stroke
@@ -2479,6 +2505,16 @@
 			(type default)
 		)
 		(uuid "7e14518b-a895-484d-991d-ad97de8f0c25")
+	)
+	(wire
+		(pts
+			(xy 157.48 175.26) (xy 157.48 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7fb183e0-7fed-4282-ab81-3c5faf8fa192")
 	)
 	(wire
 		(pts
@@ -2782,7 +2818,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 154.94) (xy 170.18 154.94)
+			(xy 139.7 154.94) (xy 157.48 154.94)
 		)
 		(stroke
 			(width 0)
@@ -3324,7 +3360,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 340.36 27.94 0)
 			(effects
 				(font
@@ -3387,7 +3423,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 361.95 27.94 0)
 			(effects
 				(font
@@ -3450,7 +3486,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 340.36 41.91 0)
 			(effects
 				(font
@@ -3513,7 +3549,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 361.95 41.91 0)
 			(effects
 				(font
@@ -5038,6 +5074,71 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 157.48 175.26 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2e51ce1e-95e7-49e0-a320-9002ea33d70c")
+		(property "Reference" "#PWR08"
+			(at 157.48 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 157.607 179.6542 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 157.48 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 157.48 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 157.48 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "85045d48-ab3e-4d20-855b-d5c1e1ab5a5d")
+		)
+		(instances
+			(project "ecc88-test-setup"
+				(path "/6d79c786-c0d9-408e-b1e8-12604a93d907"
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 101.6 125.73 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6350,6 +6451,75 @@
 			(project "ecc88-test-setup"
 				(path "/6d79c786-c0d9-408e-b1e8-12604a93d907"
 					(reference "#PWR01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 157.48 166.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "af567c97-24fe-4983-be2f-68dc97239b51")
+		(property "Reference" "C6"
+			(at 160.401 165.2016 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 160.401 167.513 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Rect_L16.5mm_W5.0mm_P15.00mm_MKT"
+			(at 158.4452 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 157.48 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 157.48 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5825282d-a377-4889-8864-aa34b84a64f4")
+		)
+		(pin "2"
+			(uuid "e715d2ab-2dcf-4ce4-887b-a776f073b2c1")
+		)
+		(instances
+			(project "ecc88-test-setup"
+				(path "/6d79c786-c0d9-408e-b1e8-12604a93d907"
+					(reference "C6")
 					(unit 1)
 				)
 			)
