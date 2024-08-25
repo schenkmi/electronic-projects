@@ -1756,7 +1756,7 @@
 			)
 		)
 		(property ki_fp_filters "VALVE*NOVAL*P*")
-		(path "/7c4d3d8f-4fb4-4797-a92b-d33c91e718e5")
+		(path "/326aa04b-00bc-4981-b0e6-6f0523231e62")
 		(sheetname "Root")
 		(sheetfile "6sn7-gm-test-setup.kicad_sch")
 		(attr through_hole)
@@ -1889,7 +1889,7 @@
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R8"
-			(at 5.5372 2.286 360)
+			(at 5.5372 2.286 0)
 			(layer "F.SilkS")
 			(uuid "f1e7255e-3a83-4dbc-822d-bfc6c724c060")
 			(effects
@@ -1900,7 +1900,7 @@
 			)
 		)
 		(property "Value" "200k/0.6W"
-			(at 5.08 2.37 360)
+			(at 5.08 2.37 0)
 			(layer "F.Fab")
 			(uuid "a64bda01-b280-44b5-a33e-34afa0c10424")
 			(effects
@@ -2115,7 +2115,7 @@
 			(uuid "61d1a103-a9f3-4f0e-9ec5-f7cb7f52f3d2")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 5.08 0 360)
+			(at 5.08 0 0)
 			(layer "F.Fab")
 			(uuid "1d853610-d477-48c7-a708-f9a3d4408b5f")
 			(effects
@@ -3033,7 +3033,7 @@
 		(descr "C, Rect series, Radial, pin pitch=5.00mm, , length*width=7.2*2.5mm^2, Capacitor, http://www.wima.com/EN/WIMA_FKS_2.pdf")
 		(tags "C Rect series Radial pin pitch 5.00mm  length 7.2mm width 2.5mm Capacitor")
 		(property "Reference" "C9"
-			(at 2.4892 -2.4384 360)
+			(at 2.4892 -2.4384 0)
 			(layer "F.SilkS")
 			(uuid "a11b46fd-9369-4f6a-87d1-7894a581f222")
 			(effects
@@ -3044,7 +3044,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 2.5 2.5 360)
+			(at 2.5 2.5 0)
 			(layer "F.Fab")
 			(uuid "a6a69b05-90d8-4ea0-acbb-a65e70b3a51b")
 			(effects
@@ -3219,7 +3219,7 @@
 			(uuid "705a9b3f-b4dc-4a6d-9559-6c553de8149b")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 2.5 0 360)
+			(at 2.5 0 0)
 			(layer "F.Fab")
 			(uuid "d466262d-12db-4783-adde-707f3f328082")
 			(effects
@@ -5068,16 +5068,6 @@
 		)
 	)
 	(gr_line
-		(start 50.763415 45.667109)
-		(end 50.763415 151.585109)
-		(stroke
-			(width 0.12)
-			(type default)
-		)
-		(layer "F.SilkS")
-		(uuid "90cc55c8-4052-4b9a-b1ad-59b4459a0e67")
-	)
-	(gr_line
 		(start 140.288 147.32)
 		(end 50.72 147.32)
 		(stroke
@@ -5274,7 +5264,7 @@
 			)
 		)
 	)
-	(gr_text "Ua=250V, Ug=-8V, Ia=9mA, gm=2600uS (2.6mA/V)\nIa is VDC over R7 of 90mV\ngm is VAC pver R7 of 26mV (Ug=-8VDC + 1Vrms@1kHz)\n"
+	(gr_text "Ua=250V, Ug=-8V, Ia=9mA, gm=2600uS (2.6mA/V)\nIa is VDC over R7 of 90mV\ngm is VAC over R7 of 26mVrms (Ug=-8VDC + 1Vrms@1kHz)\n"
 		(at 59.5884 143.1036 0)
 		(layer "F.SilkS")
 		(uuid "98dbb885-c937-41a2-aaa9-669c88ff8a41")
@@ -5309,7 +5299,7 @@
 		)
 	)
 	(gr_text "https://github.com/schenkmi/electronic-projects\nmichaelschenk72@gmail.com"
-		(at 66.1924 68.5292 0)
+		(at 95.377 63.627 0)
 		(layer "F.SilkS")
 		(uuid "b2beea91-a9ba-4cda-b757-cb681fa34ea0")
 		(effects
@@ -5397,105 +5387,6 @@
 			)
 			(justify left bottom)
 		)
-	)
-	(dimension
-		(type aligned)
-		(layer "F.SilkS")
-		(uuid "3b5ab56b-eec6-4085-985b-7cec9f6dd247")
-		(pts
-			(xy 45.72 47.752) (xy 95.504 47.752)
-		)
-		(height 107.188)
-		(gr_text "49.7840 mm"
-			(at 70.612 153.79 0)
-			(layer "F.SilkS")
-			(uuid "3b5ab56b-eec6-4085-985b-7cec9f6dd247")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(format
-			(prefix "")
-			(suffix "")
-			(units 3)
-			(units_format 1)
-			(precision 4)
-		)
-		(style
-			(thickness 0.12)
-			(arrow_length 1.27)
-			(text_position_mode 0)
-			(extension_height 0.58642)
-			(extension_offset 0.5) keep_text_aligned)
-	)
-	(dimension
-		(type aligned)
-		(layer "F.SilkS")
-		(uuid "653157ba-a555-4aa2-8454-24d431efff48")
-		(pts
-			(xy 41.227516 92.340763) (xy 41.197663 102.500763)
-		)
-		(height -19.166679)
-		(gr_text "10.1600 mm"
-			(at 59.22919 97.473701 89.83164338)
-			(layer "F.SilkS")
-			(uuid "653157ba-a555-4aa2-8454-24d431efff48")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(format
-			(prefix "")
-			(suffix "")
-			(units 3)
-			(units_format 1)
-			(precision 4)
-		)
-		(style
-			(thickness 0.12)
-			(arrow_length 1.27)
-			(text_position_mode 0)
-			(extension_height 0.58642)
-			(extension_offset 0.5) keep_text_aligned)
-	)
-	(dimension
-		(type aligned)
-		(layer "F.SilkS")
-		(uuid "7228dfd7-69c4-4f51-8842-9fb76286354c")
-		(pts
-			(xy 145.288 47.752) (xy 145.288 97.536)
-		)
-		(height 121.158)
-		(gr_text "49.7840 mm"
-			(at 22.98 72.644 90)
-			(layer "F.SilkS")
-			(uuid "7228dfd7-69c4-4f51-8842-9fb76286354c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(format
-			(prefix "")
-			(suffix "")
-			(units 3)
-			(units_format 1)
-			(precision 4)
-		)
-		(style
-			(thickness 0.12)
-			(arrow_length 1.27)
-			(text_position_mode 0)
-			(extension_height 0.58642)
-			(extension_offset 0.5) keep_text_aligned)
 	)
 	(segment
 		(start 111.412174 52.705)
