@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "Low voltage power supply DC/DC ")
-		(date "2024-10-28")
+		(date "2024-11-20")
 		(rev "v1")
 	)
 	(lib_symbols
@@ -1219,6 +1219,17 @@
 			(justify left)
 		)
 		(uuid "e4e96f6b-b4d5-4ccb-aac3-f1249e4d9b65")
+	)
+	(text "VIN  IIN     VOUT     IOUT     VOUTRMS BW 2MHz      \n20V  79uA    4.99V    0A       9.7mV\n20V  31mA    4.97V    0.1A     14.98mV\n20V  145mA   4.95V    0.5A     12.08mV\n20V  290mA   4.92V    1A       12.04mV\n20V  440mA   4.89V    1.5A     12.32mV (TU1 after 20 minutes 67°C)\n\nLoad > 1.5A results in thermal shutdown\n\n\n"
+		(exclude_from_sim no)
+		(at 21.59 135.89 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "eff85e92-175a-4313-a067-973ab0a63078")
 	)
 	(label "VIN"
 		(at 93.98 81.28 0)
