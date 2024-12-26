@@ -43,6 +43,7 @@
 #include "../system/clock.h"
 #include "../system/pins.h"
 #include "../timer/tmr0.h"
+#include "../timer/tmr2.h"
 #include "../system/interrupt.h"
 
 /**
