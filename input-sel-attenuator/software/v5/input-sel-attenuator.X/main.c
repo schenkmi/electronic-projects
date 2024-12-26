@@ -59,6 +59,7 @@
 
 #include "mcc_generated_files/system/system.h"
 #include "rotary_encoder.h"
+#include "irmp/irmp.h"
 
 #define STARTUP_WAIT                    250 /* wait 250ms after SYSTEM_Initialize */
 
@@ -506,7 +507,7 @@ static void timer_callback_process_single(void) {
 }
 
 /* uses 10us time, measured with LED_Toggle();*/
-void timer_callback(void)
+void encoder_timer_callback(void)
 {
 /* use to measure irq call time */
 #if 0
@@ -520,6 +521,19 @@ void timer_callback(void)
     timer_callback_process_single();
   }
 /* use for measure irq execution time (10us) */
+#if 0
+  LED_Toggle();
+#endif
+}
+
+/* every 66us (15.151kHz) */
+void ir_timer_callback(void)
+{
+/* use to measure irq call time */
+#if 0
+  LED_Toggle();
+#endif
+  irmp_ISR ();
 #if 0
   LED_Toggle();
 #endif
@@ -559,7 +573,8 @@ int main(void)
   factory_reset();
 
   /* install irq handlers */
-  Timer0_OverflowCallbackRegister(timer_callback);
+  Timer0_OverflowCallbackRegister(encoder_timer_callback);
+  Timer2_OverflowCallbackRegister(ir_timer_callback);
 
   /* Enable the Global Interrupts */
   INTERRUPT_GlobalInterruptEnable();
