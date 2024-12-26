@@ -4,6 +4,12 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="irmp" displayName="irmp" projectFiles="true">
+        <itemPath>irmp/irmp.h</itemPath>
+        <itemPath>irmp/irmpconfig.h</itemPath>
+        <itemPath>irmp/irmpprotocols.h</itemPath>
+        <itemPath>irmp/irmpsystem.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
                      projectFiles="true">
@@ -34,6 +40,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="irmp" displayName="irmp" projectFiles="true">
+        <itemPath>irmp/irmp.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
                      projectFiles="true">
@@ -56,6 +65,9 @@
       <itemPath>rotary_encoder.c</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>irmp</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">
@@ -185,6 +197,11 @@
         <property key="programmerToGoFilePath"
                   value="/work/electronic-projects/input-sel-attenuator/software/v4/input-sel-attenuator.X/debug/default/input-sel-attenuator_ptg"/>
       </PK5Tool>
+      <Tool>
+        <property key="memories.programmemory.ranges" value="0-3fff"/>
+        <property key="programmerToGoFilePath"
+                  value="/work/electronic-projects/input-sel-attenuator/software/v4/input-sel-attenuator.X/debug/default/input-sel-attenuator_ptg"/>
+      </Tool>
       <XC8-CO>
         <property key="coverage-enable" value=""/>
         <property key="stack-guidance" value="false"/>
