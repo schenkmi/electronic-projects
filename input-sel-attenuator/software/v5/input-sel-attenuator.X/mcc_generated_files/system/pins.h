@@ -239,6 +239,25 @@
 #define INPSEL3_SetOpenDrain()       do { ODCONBbits.ODCB3 = 1; } while(0)
 #define INPSEL3_SetAnalogMode()      do { ANSELBbits.ANSB3 = 1; } while(0)
 #define INPSEL3_SetDigitalMode()     do { ANSELBbits.ANSB3 = 0; } while(0)
+// get/set IO_RB4 aliases
+#define IRIN_TRIS                 TRISBbits.TRISB4
+#define IRIN_LAT                  LATBbits.LATB4
+#define IRIN_PORT                 PORTBbits.RB4
+#define IRIN_WPU                  WPUBbits.WPUB4
+#define IRIN_OD                   ODCONBbits.ODCB4
+#define IRIN_ANS                  ANSELBbits.ANSB4
+#define IRIN_SetHigh()            do { LATBbits.LATB4 = 1; } while(0)
+#define IRIN_SetLow()             do { LATBbits.LATB4 = 0; } while(0)
+#define IRIN_Toggle()             do { LATBbits.LATB4 = ~LATBbits.LATB4; } while(0)
+#define IRIN_GetValue()           PORTBbits.RB4
+#define IRIN_SetDigitalInput()    do { TRISBbits.TRISB4 = 1; } while(0)
+#define IRIN_SetDigitalOutput()   do { TRISBbits.TRISB4 = 0; } while(0)
+#define IRIN_SetPullup()          do { WPUBbits.WPUB4 = 1; } while(0)
+#define IRIN_ResetPullup()        do { WPUBbits.WPUB4 = 0; } while(0)
+#define IRIN_SetPushPull()        do { ODCONBbits.ODCB4 = 0; } while(0)
+#define IRIN_SetOpenDrain()       do { ODCONBbits.ODCB4 = 1; } while(0)
+#define IRIN_SetAnalogMode()      do { ANSELBbits.ANSB4 = 1; } while(0)
+#define IRIN_SetDigitalMode()     do { ANSELBbits.ANSB4 = 0; } while(0)
 // get/set IO_RB5 aliases
 #define LED_TRIS                 TRISBbits.TRISB5
 #define LED_LAT                  LATBbits.LATB5
