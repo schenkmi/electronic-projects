@@ -3852,126 +3852,6 @@
 				)
 			)
 		)
-		(symbol "power:+5V"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+5V"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+5V\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+5V_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+5V_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "power:GND"
 			(power)
 			(pin_numbers hide)
@@ -6099,17 +5979,6 @@
 		)
 		(uuid "31f5b6eb-c263-4b07-9cfa-45b0178519c8")
 	)
-	(text "History\n-------\nV4 2024.05.12 Add D1, change C6, C4"
-		(exclude_from_sim no)
-		(at 469.9 293.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3c393786-2dfc-462c-b2b8-f9cc4e4c0f5f")
-	)
 	(text "ENC2_CHAN_A"
 		(exclude_from_sim no)
 		(at 133.35 107.95 0)
@@ -6186,17 +6055,6 @@
 		)
 		(uuid "8051fc1f-0c2a-4a56-8e9d-62e0df6ced3d")
 	)
-	(text "Remarks:\nR3,R4 DNP if next input stage has 10k Zin\n\nThis attenuator provides 64 positions ranging from 0 to -94.4dB\nwith average stepsizes of 1.499dB.\nInput resistance ranges from	9.948k	to	10.04k.\nOutput resistance ranges from	0	to	4.672k.\n\nhttp://www.vaneijndhoven.net/jos/attenuator-calculator/index.html\n"
-		(exclude_from_sim no)
-		(at 471.17 238.76 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b0443e4f-80b7-47d1-8611-80435f96b9f1")
-	)
 	(text "Console connector"
 		(exclude_from_sim no)
 		(at 220.98 172.72 0)
@@ -6232,7 +6090,7 @@
 	)
 	(text "Volume"
 		(exclude_from_sim no)
-		(at 62.23 35.56 0)
+		(at 62.23 36.83 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6273,17 +6131,6 @@
 			(justify left bottom)
 		)
 		(uuid "f070104d-8aae-493a-9123-e4fedd5356cb")
-	)
-	(text "Zout = 47k\nR3/R4 = 47.5k/0.1%"
-		(exclude_from_sim no)
-		(at 471.17 261.62 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f734131f-c512-48b7-b75f-dac070255b38")
 	)
 	(text "TXD"
 		(exclude_from_sim no)
@@ -7262,7 +7109,7 @@
 		(fields_autoplaced yes)
 		(uuid "1503146b-05af-4cd7-ba4f-722b5a845b02")
 		(property "Reference" "C6"
-			(at 190.4976 283.2099 0)
+			(at 190.5 283.2099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7270,8 +7117,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22uF/25V/X5R"
-			(at 190.4976 285.7499 0)
+		(property "Value" "22uF/10V/X5R"
+			(at 190.5 285.7499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7279,7 +7126,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 187.6552 288.29 0)
 			(effects
 				(font
@@ -8204,6 +8051,73 @@
 		)
 	)
 	(symbol
+		(lib_name "+3.3V_1")
+		(lib_id "power:+3.3V")
+		(at 48.26 27.94 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3479019e-5b53-4f30-b84e-1426e87aa1cb")
+		(property "Reference" "#PWR07"
+			(at 48.26 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 48.26 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 48.26 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.26 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 48.26 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a416d75c-8612-48c8-8ac7-1677350bd3f3")
+		)
+		(instances
+			(project "input-sel-attenuator"
+				(path "/dd6d280d-0828-4aa2-a58c-1dcf455133bb"
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Regulator_Switching:AP63205WU")
 		(at 106.68 278.13 0)
 		(unit 1)
@@ -9103,71 +9017,6 @@
 			(project "input-sel-attenuator"
 				(path "/dd6d280d-0828-4aa2-a58c-1dcf455133bb"
 					(reference "#PWR022")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 48.26 27.94 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "56a4d595-1d66-4732-a76a-0afc6f9ed8a8")
-		(property "Reference" "#PWR04"
-			(at 48.26 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 48.641 23.5458 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 48.26 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 48.26 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 48.26 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b625ba3f-2ee8-49a1-832d-7fa73effc9da")
-		)
-		(instances
-			(project "input-sel-attenuator"
-				(path "/dd6d280d-0828-4aa2-a58c-1dcf455133bb"
-					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -10128,71 +9977,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
-		(at 48.26 46.99 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "7ef54205-5609-4692-987f-8afeffbb0d06")
-		(property "Reference" "#PWR03"
-			(at 48.26 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 48.641 42.5958 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 48.26 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 48.26 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 48.26 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "fb4b222c-5620-4b06-9d03-4310f24a819e")
-		)
-		(instances
-			(project "input-sel-attenuator"
-				(path "/dd6d280d-0828-4aa2-a58c-1dcf455133bb"
-					(reference "#PWR03")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_name "+3.3V_1")
 		(lib_id "power:+3.3V")
 		(at 116.84 62.23 0)
@@ -10319,6 +10103,73 @@
 			(project "input-sel-attenuator"
 				(path "/dd6d280d-0828-4aa2-a58c-1dcf455133bb"
 					(reference "#PWR025")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "+3.3V_1")
+		(lib_id "power:+3.3V")
+		(at 48.26 46.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8dbf08f4-6528-494b-992b-d1e24686f245")
+		(property "Reference" "#PWR03"
+			(at 48.26 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 48.26 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 48.26 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.26 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 48.26 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7a3597c1-010c-48b7-a4db-a670a6c842fb")
+		)
+		(instances
+			(project "input-sel-attenuator"
+				(path "/dd6d280d-0828-4aa2-a58c-1dcf455133bb"
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -11245,7 +11096,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1N4148W"
+		(property "Value" "TS4148RCG"
 			(at 129.667 70.358 90)
 			(effects
 				(font
@@ -11254,7 +11105,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_SOD-123"
+		(property "Footprint" "Diode_SMD:D_0603_1608Metric_Pad1.05x0.95mm_HandSolder"
 			(at 130.81 76.835 0)
 			(effects
 				(font
@@ -11263,7 +11114,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.vishay.com/docs/85748/1n4148w.pdf"
+		(property "Datasheet" ""
 			(at 130.81 72.39 0)
 			(effects
 				(font
@@ -11272,7 +11123,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "75V 0.15A Fast Switching Diode, SOD-123"
+		(property "Description" "75V 0.1A Fast Switching Diode, 0603"
 			(at 130.81 72.39 0)
 			(effects
 				(font
@@ -11555,7 +11406,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10uF/50V/X5R"
+		(property "Value" "10uF/25V/X5R"
 			(at 80.01 285.7499 0)
 			(effects
 				(font
@@ -11564,7 +11415,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 77.1652 288.29 0)
 			(effects
 				(font
@@ -11982,7 +11833,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 123.19 272.7452 0)
 			(effects
 				(font
@@ -12308,7 +12159,7 @@
 		(fields_autoplaced yes)
 		(uuid "e4f6c654-a009-4154-84a2-ef3574a77f25")
 		(property "Reference" "C4"
-			(at 167.6376 283.2099 0)
+			(at 167.64 283.2099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12316,8 +12167,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22uF/25V/X5R"
-			(at 167.6376 285.7499 0)
+		(property "Value" "22uF/10V/X5R"
+			(at 167.64 285.7499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12325,7 +12176,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
 			(at 164.7952 288.29 0)
 			(effects
 				(font
