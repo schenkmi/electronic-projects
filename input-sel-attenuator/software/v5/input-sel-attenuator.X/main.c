@@ -582,6 +582,8 @@ int main(void)
   /* Enable the Peripheral Interrupts */
   INTERRUPT_PeripheralInterruptEnable();
   
+  printf("Hello world\n");
+  
   init(&instance);
   
   while (1) {
