@@ -180,7 +180,11 @@ typedef unsigned short                  uint_fast16_t;
 #endif
 
 #if defined (PIC_C18)                                                               // PIC C18 or XC8 compiler
+#if(__XC8_VERSION < 3000)
 #  include <p18cxxx.h>                                                              // main PIC18 h file
+#else
+#  include <xc.h>                                                                   // main xc h file
+#endif
 #ifndef __XC8
 #  include <timers.h>                                                               // timer lib
 #  include <pwm.h>                                                                  // pwm lib
