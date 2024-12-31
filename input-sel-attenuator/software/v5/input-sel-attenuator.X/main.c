@@ -583,14 +583,30 @@ int main(void)
   INTERRUPT_PeripheralInterruptEnable();
   
   printf("Hello world\n");
-  
+
   init(&instance);
   
+  
+  irmp_init();
+  IRMP_DATA irmp_data;
+  
   while (1) {
+#if 0
     process_channel(&instance);
     process_attenuation(&instance);
     process_encoder_button(&instance);
     eeprom_save_status(&instance);
     __delay_ms(MAIN_LOOP_WAIT);
+#endif
+    
+    if (irmp_get_data (&irmp_data)) {
+        // ir signal decoded, do something here...
+        // irmp_data.protocol is the protocol, see irmp.h
+        // irmp_data.address is the address/manufacturer code of ir sender
+        // irmp_data.command is the command code
+        // irmp_protocol_names[irmp_data.protocol] is the protocol name (if enabled, see irmpconfig.h)
+        printf("proto %d addr %d cmd %d\n", irmp_data.protocol, irmp_data.address, irmp_data.command );
+    }
+    
   }
 }
