@@ -142,6 +142,19 @@ volatile Instance_t instance = {
   },
 };
 
+static void led_toggel_RA6(void)
+{
+    ATT6_Toggle();
+}
+
+void led_callback_RA7(uint_fast8_t on) {
+  if (on) {
+     ATT7_SetHigh();
+  } else {
+     ATT7_SetLow();
+  }
+}
+
 static void init(volatile Instance_t* instance)
 {
   LED_SetHigh();
@@ -511,7 +524,7 @@ void encoder_timer_callback(void)
 {
 /* use to measure irq call time */
 #if 0
-  LED_Toggle();
+  led_toggel_RA6();
 #endif
   if (instance.mode == Dual) {
     /* both encoders are used encoder1 for attenuation, encoder2 for channel */
@@ -522,7 +535,7 @@ void encoder_timer_callback(void)
   }
 /* use for measure irq execution time (10us) */
 #if 0
-  LED_Toggle();
+  led_toggel_RA6();
 #endif
 }
 
@@ -530,12 +543,12 @@ void encoder_timer_callback(void)
 void ir_timer_callback(void)
 {
 /* use to measure irq call time */
-#if 0
-  LED_Toggle();
+#if 1
+  led_toggel_RA6();
 #endif
   irmp_ISR();
-#if 0
-  LED_Toggle();
+#if 1
+  led_toggel_RA6();
 #endif
 }
 
@@ -588,8 +601,13 @@ int main(void)
   
   
   irmp_init();
+  irmp_set_callback_ptr (led_callback_RA7);
+  
   IRMP_DATA irmp_data;
   
+  
+  
+          
   while (1) {
 #if 0
     process_channel(&instance);
@@ -599,7 +617,7 @@ int main(void)
     __delay_ms(MAIN_LOOP_WAIT);
 #endif
     
-    if (irmp_get_data (&irmp_data)) {
+    if (irmp_get_data(&irmp_data)) {
         // ir signal decoded, do something here...
         // irmp_data.protocol is the protocol, see irmp.h
         // irmp_data.address is the address/manufacturer code of ir sender
