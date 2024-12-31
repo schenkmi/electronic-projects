@@ -533,7 +533,7 @@ void ir_timer_callback(void)
 #if 0
   LED_Toggle();
 #endif
-  irmp_ISR ();
+  irmp_ISR();
 #if 0
   LED_Toggle();
 #endif
@@ -605,7 +605,7 @@ int main(void)
         // irmp_data.address is the address/manufacturer code of ir sender
         // irmp_data.command is the command code
         // irmp_protocol_names[irmp_data.protocol] is the protocol name (if enabled, see irmpconfig.h)
-        printf("proto %d addr %d cmd %d\n", irmp_data.protocol, irmp_data.address, irmp_data.command );
+        printf("proto %d addr %d cmd %d flags %d\n", irmp_data.protocol, irmp_data.address, irmp_data.command, irmp_data.flags);
     }
     
   }
