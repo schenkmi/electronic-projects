@@ -163,6 +163,44 @@
 #define ATT5_SetOpenDrain()       do { ODCONAbits.ODCA5 = 1; } while(0)
 #define ATT5_SetAnalogMode()      do { ANSELAbits.ANSA5 = 1; } while(0)
 #define ATT5_SetDigitalMode()     do { ANSELAbits.ANSA5 = 0; } while(0)
+// get/set IO_RA6 aliases
+#define ATT6_TRIS                 TRISAbits.TRISA6
+#define ATT6_LAT                  LATAbits.LATA6
+#define ATT6_PORT                 PORTAbits.RA6
+#define ATT6_WPU                  WPUAbits.WPUA6
+#define ATT6_OD                   ODCONAbits.ODCA6
+#define ATT6_ANS                  ANSELAbits.ANSA6
+#define ATT6_SetHigh()            do { LATAbits.LATA6 = 1; } while(0)
+#define ATT6_SetLow()             do { LATAbits.LATA6 = 0; } while(0)
+#define ATT6_Toggle()             do { LATAbits.LATA6 = ~LATAbits.LATA6; } while(0)
+#define ATT6_GetValue()           PORTAbits.RA6
+#define ATT6_SetDigitalInput()    do { TRISAbits.TRISA6 = 1; } while(0)
+#define ATT6_SetDigitalOutput()   do { TRISAbits.TRISA6 = 0; } while(0)
+#define ATT6_SetPullup()          do { WPUAbits.WPUA6 = 1; } while(0)
+#define ATT6_ResetPullup()        do { WPUAbits.WPUA6 = 0; } while(0)
+#define ATT6_SetPushPull()        do { ODCONAbits.ODCA6 = 0; } while(0)
+#define ATT6_SetOpenDrain()       do { ODCONAbits.ODCA6 = 1; } while(0)
+#define ATT6_SetAnalogMode()      do { ANSELAbits.ANSA6 = 1; } while(0)
+#define ATT6_SetDigitalMode()     do { ANSELAbits.ANSA6 = 0; } while(0)
+// get/set IO_RA7 aliases
+#define ATT7_TRIS                 TRISAbits.TRISA7
+#define ATT7_LAT                  LATAbits.LATA7
+#define ATT7_PORT                 PORTAbits.RA7
+#define ATT7_WPU                  WPUAbits.WPUA7
+#define ATT7_OD                   ODCONAbits.ODCA7
+#define ATT7_ANS                  ANSELAbits.ANSA7
+#define ATT7_SetHigh()            do { LATAbits.LATA7 = 1; } while(0)
+#define ATT7_SetLow()             do { LATAbits.LATA7 = 0; } while(0)
+#define ATT7_Toggle()             do { LATAbits.LATA7 = ~LATAbits.LATA7; } while(0)
+#define ATT7_GetValue()           PORTAbits.RA7
+#define ATT7_SetDigitalInput()    do { TRISAbits.TRISA7 = 1; } while(0)
+#define ATT7_SetDigitalOutput()   do { TRISAbits.TRISA7 = 0; } while(0)
+#define ATT7_SetPullup()          do { WPUAbits.WPUA7 = 1; } while(0)
+#define ATT7_ResetPullup()        do { WPUAbits.WPUA7 = 0; } while(0)
+#define ATT7_SetPushPull()        do { ODCONAbits.ODCA7 = 0; } while(0)
+#define ATT7_SetOpenDrain()       do { ODCONAbits.ODCA7 = 1; } while(0)
+#define ATT7_SetAnalogMode()      do { ANSELAbits.ANSA7 = 1; } while(0)
+#define ATT7_SetDigitalMode()     do { ANSELAbits.ANSA7 = 0; } while(0)
 // get/set IO_RB0 aliases
 #define INPSEL0_TRIS                 TRISBbits.TRISB0
 #define INPSEL0_LAT                  LATBbits.LATB0
