@@ -595,7 +595,7 @@ int main(void)
   /* Enable the Peripheral Interrupts */
   INTERRUPT_PeripheralInterruptEnable();
   
-  printf("Hello world\n");
+  printf("Hello world\r\n");
 
   init(&instance);
   
@@ -607,14 +607,16 @@ int main(void)
   
   
   
+  int last_channel = -1;
+  int last_attenuation = -1;
+            
+  
           
   while (1) {
-#if 0
-    process_channel(&instance);
-    process_attenuation(&instance);
-    process_encoder_button(&instance);
-    eeprom_save_status(&instance);
-    __delay_ms(MAIN_LOOP_WAIT);
+#if 1
+
+    
+    
 #endif
     
     if (irmp_get_data(&irmp_data)) {
@@ -623,8 +625,148 @@ int main(void)
         // irmp_data.address is the address/manufacturer code of ir sender
         // irmp_data.command is the command code
         // irmp_protocol_names[irmp_data.protocol] is the protocol name (if enabled, see irmpconfig.h)
-        printf("proto %d addr %d cmd %d flags %d\n", irmp_data.protocol, irmp_data.address, irmp_data.command, irmp_data.flags);
+        //printf("proto %u addr %u cmd %u flags %u\r\n", irmp_data.protocol, irmp_data.address, irmp_data.command, irmp_data.flags);
+        
+        
+        
+        /**
+         * RC 8073 38kHz
+         * irmp_data.protocol : 00002 (IRMP_NEC_PROTOCOL)
+         * irmp_data.address  : 58246 (0xe386)
+         * irmp_data.command:
+         * 17 => Key 1
+         * 18 => Key 2
+         * 19 => Kex 3
+         * 20 => Key 4
+         * 14 => Key OK
+         * 00 => CH+
+         * 01 => CH-
+         * 02 => VOL+
+         * 03 => VOL-
+         */
+        
+        if (irmp_data.protocol == IRMP_NEC_PROTOCOL && irmp_data.address == 0xe386) {
+            
+            int channel = instance.channel;
+            int attenuation = instance.attenuation;
+            
+            if (irmp_data.flags == 0x00) {
+                switch (irmp_data.command) {
+                    case 0:
+                        printf("Key CH+\r\n");
+                        channel++;
+                        break;
+                    case 1:
+                        printf("Key CH-\r\n");
+                        channel--;
+                        break;
+                        
+                    case 2:
+                        printf("Key VOL+\r\n");
+                        attenuation--;
+                        break;
+                    case 3:
+                        printf("Key VOL-\r\n");
+                        attenuation++;
+                        break;
+                    
+                    case 14:
+                        printf("Key OK\r\n");
+                        instance.channel_attenuation[instance.channel].default_attenuation = instance.attenuation;
+                        instance.eeprom_save_status_counter = 1;
+                        break;
+                        
+                    case 17:
+                        printf("Key 1\r\n");
+                        channel = 0;
+                        break;
+                    case 18:
+                        printf("Key 2\r\n");
+                        channel = 1;
+                        break;
+                    case 19:
+                        printf("Key 3\r\n");
+                        channel = 2;
+                        break;
+                    case 20:
+                        printf("Key 4\r\n");
+                        channel = 3;
+                        break;
+                }
+            } else {
+                switch (irmp_data.command) {
+//                    case 0:
+//                        printf("Key CH+\r\n");
+//                        channel++;
+//                        break;
+//                    case 1:
+//                        printf("Key CH-\r\n");
+//                        channel--;
+//                        break;
+                        
+                    case 2:
+                        printf("Key VOL+\r\n");
+                        attenuation--;
+                        break;
+                    case 3:
+                        printf("Key VOL-\r\n");
+                        attenuation++;
+                        break;
+                        
+                }
+            }
+            
+            
+            
+            
+            
+            /* channel is rotary continuous */
+            if (channel > ROTARY_MAX_CHANNEL) {
+              instance.channel = 0;
+            } else if (channel < ROTARY_MIN_CHANNEL) {
+              instance.channel = ROTARY_MAX_CHANNEL;
+            } else {
+              instance.channel = channel;
+            }
+
+            
+            
+             
+             
+            /* for attenuation stop on max or min */
+            if (attenuation > ROTARY_MAX_ATTENUATION) {
+              instance.attenuation = ROTARY_MAX_ATTENUATION;
+            } else if (attenuation < ROTARY_MIN_ATTENUATION) {
+              instance.attenuation = 0;
+            } else {
+              instance.attenuation = attenuation;
+            }
+            
+           // printf("Attenuation %u\r\n", instance.attenuation);
+            
+        }
+        
     }
+    
+    
+    process_channel(&instance);
+    process_attenuation(&instance);
+    process_encoder_button(&instance);
+    eeprom_save_status(&instance);
+    
+    if (instance.channel != last_channel) {
+        last_channel = instance.channel;
+        printf("Channel %u\r\n", instance.channel);
+    }
+    
+    if (instance.attenuation != last_attenuation) {
+        last_attenuation = instance.attenuation;
+        printf("Attenuation %u\r\n", instance.attenuation);
+    }
+
+    
+    
+    __delay_ms(MAIN_LOOP_WAIT);
     
   }
 }
