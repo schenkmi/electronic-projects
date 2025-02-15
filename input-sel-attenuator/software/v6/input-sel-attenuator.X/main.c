@@ -38,6 +38,7 @@
 
 /**
  * History
+ * V2.0     2025.02.15 Add support for IR control (IRMP)
  * V1.5     2024.06.01 Add delay between SYSTEM_Initialize and factory reset
  * V1.4     2024.05.26 New MCC, factory reset
  * V1.3     2023.12.16 Improve usability
@@ -82,6 +83,8 @@
 
 #define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
 #define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE) /* 3 seconds till storing default attenuation */
+
+#define IR_REMOTE_ADDRESS            0xe386
 
 /* eeprom initialize 0x00..0x07 */
 __EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 attenuation initial */,
@@ -142,26 +145,24 @@ volatile Instance_t instance = {
   },
 };
 
-static void led_toggel_RA6(void)
+static void led_toggel(void)
 {
-    ATT6_Toggle();
+    LED_Toggle();
 }
 
-void led_callback_RA7(uint_fast8_t on) {
+void led_callback(uint_fast8_t on) {
   /* inverse, default is LED on */
   if (on) {
-     ATT7_SetLow();
+     LED_SetLow();
   } else {
-     ATT7_SetHigh();    
+     LED_SetHigh();    
   }
 }
 
 static void init(volatile Instance_t* instance)
 {
-  LED_SetHigh();
-
   /* Set LED on */
-  ATT7_SetHigh();  
+  LED_SetHigh();
   
   /* mute output */
    PORTB &= ~CHAN_SEL_MASK;
@@ -528,7 +529,7 @@ void encoder_timer_callback(void)
 {
 /* use to measure irq call time */
 #if 0
-  led_toggel_RA6();
+  led_toggel();
 #endif
   if (instance.mode == Dual) {
     /* both encoders are used encoder1 for attenuation, encoder2 for channel */
@@ -539,7 +540,7 @@ void encoder_timer_callback(void)
   }
 /* use for measure irq execution time (10us) */
 #if 0
-  led_toggel_RA6();
+  led_toggel();
 #endif
 }
 
@@ -547,12 +548,12 @@ void encoder_timer_callback(void)
 void ir_timer_callback(void)
 {
 /* use to measure irq call time */
-#if 1
-  led_toggel_RA6();
+#if 0
+  led_toggel();
 #endif
   irmp_ISR();
-#if 1
-  led_toggel_RA6();
+#if 0
+  led_toggel();
 #endif
 }
 
@@ -598,41 +599,18 @@ int main(void)
 
   /* Enable the Peripheral Interrupts */
   INTERRUPT_PeripheralInterruptEnable();
-  
-  printf("Hello world\r\n");
 
   init(&instance);
   
-  
   irmp_init();
-  irmp_set_callback_ptr (led_callback_RA7);
+  irmp_set_callback_ptr (led_callback);
   
   IRMP_DATA irmp_data;
-  
-  
-  
   int last_channel = -1;
   int last_attenuation = -1;
-            
-  
-          
-  while (1) {
-#if 1
 
-    
-    
-#endif
-    
+  while (1) {
     if (irmp_get_data(&irmp_data)) {
-        // ir signal decoded, do something here...
-        // irmp_data.protocol is the protocol, see irmp.h
-        // irmp_data.address is the address/manufacturer code of ir sender
-        // irmp_data.command is the command code
-        // irmp_protocol_names[irmp_data.protocol] is the protocol name (if enabled, see irmpconfig.h)
-        //printf("proto %u addr %u cmd %u flags %u\r\n", irmp_data.protocol, irmp_data.address, irmp_data.command, irmp_data.flags);
-        
-        
-        
         /**
          * RC 8073 38kHz
          * irmp_data.protocol : 00002 (IRMP_NEC_PROTOCOL)
@@ -647,10 +625,8 @@ int main(void)
          * 01 => CH-
          * 02 => VOL+
          * 03 => VOL-
-         */
-        
-        if (irmp_data.protocol == IRMP_NEC_PROTOCOL && irmp_data.address == 0xe386) {
-            
+         */        
+        if (irmp_data.protocol == IRMP_NEC_PROTOCOL && irmp_data.address == IR_REMOTE_ADDRESS) {
             int channel = instance.channel;
             int attenuation = instance.attenuation;
             
