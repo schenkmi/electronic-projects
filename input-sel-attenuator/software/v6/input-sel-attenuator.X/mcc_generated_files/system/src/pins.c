@@ -12,7 +12,7 @@
 */
 
 /*
-? [2024] Microchip Technology Inc. and its subsidiaries.
+? [2025] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -49,7 +49,7 @@ void PIN_MANAGER_Initialize(void)
     TRISx registers
     */
     TRISA = 0x0;
-    TRISB = 0x50;
+    TRISB = 0xD0;
     TRISC = 0xFF;
     TRISE = 0x8;
 
@@ -57,7 +57,7 @@ void PIN_MANAGER_Initialize(void)
     ANSELx registers
     */
     ANSELA = 0x0;
-    ANSELB = 0x0;
+    ANSELB = 0xC0;
     ANSELC = 0x18;
 
     /**
@@ -92,8 +92,6 @@ void PIN_MANAGER_Initialize(void)
     /**
     PPS registers
     */
-    RX1PPS = 0xE; //RB6->EUSART1:RX1;
-    RB7PPS = 0x0E;  //RB7->EUSART1:TX1;
 
     /**
     APFCON registers
