@@ -148,10 +148,11 @@ static void led_toggel_RA6(void)
 }
 
 void led_callback_RA7(uint_fast8_t on) {
+  /* inverse, default is LED on */
   if (on) {
-     ATT7_SetHigh();
-  } else {
      ATT7_SetLow();
+  } else {
+     ATT7_SetHigh();    
   }
 }
 
@@ -159,6 +160,9 @@ static void init(volatile Instance_t* instance)
 {
   LED_SetHigh();
 
+  /* Set LED on */
+  ATT7_SetHigh();  
+  
   /* mute output */
    PORTB &= ~CHAN_SEL_MASK;
   __delay_ms(RELAIS_SETUP_TIME);
