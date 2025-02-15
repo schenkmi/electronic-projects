@@ -633,72 +633,44 @@ int main(void)
             if (irmp_data.flags == 0x00) {
                 switch (irmp_data.command) {
                     case 0:
-                        printf("Key CH+\r\n");
                         channel++;
                         break;
                     case 1:
-                        printf("Key CH-\r\n");
                         channel--;
                         break;
-                        
                     case 2:
-                        printf("Key VOL+\r\n");
                         attenuation--;
                         break;
                     case 3:
-                        printf("Key VOL-\r\n");
                         attenuation++;
                         break;
-                    
                     case 14:
-                        printf("Key OK\r\n");
                         instance.channel_attenuation[instance.channel].default_attenuation = instance.attenuation;
                         instance.eeprom_save_status_counter = 1;
                         break;
-                        
                     case 17:
-                        printf("Key 1\r\n");
                         channel = 0;
                         break;
                     case 18:
-                        printf("Key 2\r\n");
                         channel = 1;
                         break;
                     case 19:
-                        printf("Key 3\r\n");
                         channel = 2;
                         break;
                     case 20:
-                        printf("Key 4\r\n");
                         channel = 3;
                         break;
                 }
             } else {
                 switch (irmp_data.command) {
-//                    case 0:
-//                        printf("Key CH+\r\n");
-//                        channel++;
-//                        break;
-//                    case 1:
-//                        printf("Key CH-\r\n");
-//                        channel--;
-//                        break;
-                        
                     case 2:
-                        printf("Key VOL+\r\n");
                         attenuation--;
                         break;
                     case 3:
-                        printf("Key VOL-\r\n");
                         attenuation++;
                         break;
-                        
                 }
             }
-            
-            
-            
-            
             
             /* channel is rotary continuous */
             if (channel > ROTARY_MAX_CHANNEL) {
@@ -709,10 +681,6 @@ int main(void)
               instance.channel = channel;
             }
 
-            
-            
-             
-             
             /* for attenuation stop on max or min */
             if (attenuation > ROTARY_MAX_ATTENUATION) {
               instance.attenuation = ROTARY_MAX_ATTENUATION;
@@ -720,14 +688,9 @@ int main(void)
               instance.attenuation = 0;
             } else {
               instance.attenuation = attenuation;
-            }
-            
-           // printf("Attenuation %u\r\n", instance.attenuation);
-            
+            }            
         }
-        
     }
-    
     
     process_channel(&instance);
     process_attenuation(&instance);
@@ -736,17 +699,12 @@ int main(void)
     
     if (instance.channel != last_channel) {
         last_channel = instance.channel;
-        printf("Channel %u\r\n", instance.channel);
     }
     
     if (instance.attenuation != last_attenuation) {
         last_attenuation = instance.attenuation;
-        printf("Attenuation %u\r\n", instance.attenuation);
     }
-
     
-    
-    __delay_ms(MAIN_LOOP_WAIT);
-    
+    __delay_ms(MAIN_LOOP_WAIT);    
   }
 }
