@@ -1,5 +1,71 @@
 # PLA replacement for the C64
 
+## Schenk program JEDEC using xc3sprog and Digilent JTAG-HS3 Rev. A
+
+### Install xc3sprog
+
+```
+sudo apt install xc3sprog
+```
+
+### Program
+Apply +5V power to the board
+
+```
+cd /work/electronic-projects/retro/c64-dodgypla/hdl/v1
+xc3sprog -c jtaghs2 -J 1000000 -p 0 -v dodgypla.jed
+```
+
+
+## Schenk program JEDEC using openFPGALoader and Digilent JTAG-HS3 Rev. A
+
+### Build openFPGALoader from sources
+#### Install dependencies to build openFPGALoader
+```
+sudo apt install \
+  git \
+  gzip \
+  libftdi1-2 \
+  libftdi1-dev \
+  libhidapi-hidraw0 \
+  libhidapi-dev \
+  libudev-dev \
+  zlib1g-dev \
+  cmake \
+  pkg-config \
+  make \
+  g++
+```
+
+#### Build and install openFPGALoader (tag v0.13.1)
+As tag (v0.13.1) use latest official
+```
+cd /work
+git clone https://github.com/trabucayre/openFPGALoader
+cd openFPGALoader
+git checkout v0.13.1
+mkdir build
+cd build
+cmake ..
+cmake --build .
+sudo make install
+```
+
+#### Prepare udev
+```
+cd /work/openFPGALoader
+sudo cp 99-openfpgaloader.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules && sudo udevadm trigger # force udev to take new rule
+sudo usermod -a $USER -G plugdev # add user to plugdev group
+```
+
+### Program with openFPGALoader
+```
+cd /work/electronic-projects/retro/c64-dodgypla/hdl/v1
+openFPGALoader -c digilent_hs3 --freq 1000000 -v dodgypla.jed
+```
+
+
 ## XCPLA
 ![XCPLA picture](xcpla_shot.jpg)
 
