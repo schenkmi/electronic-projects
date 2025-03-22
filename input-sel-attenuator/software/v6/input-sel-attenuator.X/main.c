@@ -1,7 +1,7 @@
 /**
  * PIC16F18056 based input channel selection + attenuator
  *
- * Copyright (c) 2022-2024, Michael Schenk
+ * Copyright (c) 2022-2025, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -32,12 +32,13 @@
 
  /**
   * Save hex
-  * cd /work/electronic-projects/input-sel-attenuator/software/v4
+  * cd /work/electronic-projects/input-sel-attenuator/software/v6
   * cp ./input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
   */
 
 /**
  * History
+ * V2.1     2025.03.22 Little bit of cleanup
  * V2.0     2025.02.15 Add support for IR control (IRMP)
  * V1.5     2024.06.01 Add delay between SYSTEM_Initialize and factory reset
  * V1.4     2024.05.26 New MCC, factory reset
@@ -114,6 +115,12 @@ typedef struct {
 } ChannelVolume_t;
 
 typedef struct {
+  IRMP_DATA data;
+  //int last_channel;
+  //int last_attenuation;
+} IR_t;
+
+typedef struct {
   enum Mode mode; /* single or dual encoder mode */
   int channel;
   int last_channel;
@@ -124,6 +131,8 @@ typedef struct {
   /* irq changed */
   volatile enum Control control;
   RotaryEncoder_t encoder[2 /* 0 = Combined/Volume, 1 = Channel */];
+  /* IR receiver */
+  IR_t ir;
 } Instance_t;
 
 volatile Instance_t instance = {
@@ -143,6 +152,9 @@ volatile Instance_t instance = {
     { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0,
       .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
   },
+//  .ir = {
+//    .last_channel = -1, .last_attenuation = -1
+//  }
 };
 
 static void led_toggel(void)
@@ -603,14 +615,12 @@ int main(void)
   init(&instance);
   
   irmp_init();
-  irmp_set_callback_ptr (led_callback);
+  irmp_set_callback_ptr(led_callback);
   
-  IRMP_DATA irmp_data;
-  int last_channel = -1;
-  int last_attenuation = -1;
+
 
   while (1) {
-    if (irmp_get_data(&irmp_data)) {
+    if (irmp_get_data(&instance.ir.data)) {
         /**
          * RC 8073 38kHz
          * irmp_data.protocol : 00002 (IRMP_NEC_PROTOCOL)
@@ -626,12 +636,12 @@ int main(void)
          * 02 => VOL+
          * 03 => VOL-
          */        
-        if (irmp_data.protocol == IRMP_NEC_PROTOCOL && irmp_data.address == IR_REMOTE_ADDRESS) {
+        if (instance.ir.data.protocol == IRMP_NEC_PROTOCOL && instance.ir.data.address == IR_REMOTE_ADDRESS) {
             int channel = instance.channel;
             int attenuation = instance.attenuation;
             
-            if (irmp_data.flags == 0x00) {
-                switch (irmp_data.command) {
+            if (instance.ir.data.flags == 0x00) {
+                switch (instance.ir.data.command) {
                     case 0:
                         channel++;
                         break;
@@ -662,7 +672,7 @@ int main(void)
                         break;
                 }
             } else {
-                switch (irmp_data.command) {
+                switch (instance.ir.data.command) {
                     case 2:
                         attenuation--;
                         break;
@@ -672,7 +682,7 @@ int main(void)
                 }
             }
             
-            /* channel is rotary continuous */
+            /* channel is rotating */
             if (channel > ROTARY_MAX_CHANNEL) {
               instance.channel = 0;
             } else if (channel < ROTARY_MIN_CHANNEL) {
@@ -697,13 +707,8 @@ int main(void)
     process_encoder_button(&instance);
     eeprom_save_status(&instance);
     
-    if (instance.channel != last_channel) {
-        last_channel = instance.channel;
-    }
-    
-    if (instance.attenuation != last_attenuation) {
-        last_attenuation = instance.attenuation;
-    }
+   // instance.ir.last_channel = instance.channel;
+   // instance.ir.last_attenuation = instance.attenuation;
     
     __delay_ms(MAIN_LOOP_WAIT);    
   }
