@@ -48,6 +48,12 @@
  *                     encoder button for > 3 seconds
  */
 
+ /**
+  * Next steps
+  * Implement mute via RC
+  * Implement acceleration for volume control
+  */
+
 /**
  * On start the default attenuation for each channel will be read and set.
  * If default attenuation was never set the maximum attenuation will be used.
