@@ -116,8 +116,6 @@ typedef struct {
 
 typedef struct {
   IRMP_DATA data;
-  //int last_channel;
-  //int last_attenuation;
 } IR_t;
 
 typedef struct {
@@ -152,9 +150,6 @@ volatile Instance_t instance = {
     { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0,
       .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
   },
-//  .ir = {
-//    .last_channel = -1, .last_attenuation = -1
-//  }
 };
 
 static void led_toggel(void)
@@ -617,8 +612,6 @@ int main(void)
   irmp_init();
   irmp_set_callback_ptr(led_callback);
   
-
-
   while (1) {
     if (irmp_get_data(&instance.ir.data)) {
         /**
@@ -706,10 +699,7 @@ int main(void)
     process_attenuation(&instance);
     process_encoder_button(&instance);
     eeprom_save_status(&instance);
-    
-   // instance.ir.last_channel = instance.channel;
-   // instance.ir.last_attenuation = instance.attenuation;
-    
+
     __delay_ms(MAIN_LOOP_WAIT);    
   }
 }
