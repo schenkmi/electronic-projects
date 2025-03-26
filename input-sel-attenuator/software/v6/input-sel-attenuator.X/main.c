@@ -245,7 +245,7 @@ static void process_attenuation(volatile Instance_t* instance) {
     if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
       /* something needs to be changed */
 #if 1 /* improved setting algo, with direction in mind */
-      if (instance->attenuation > instance->last_attenuation) { /* attenuation increase */
+      if (instance->attenuation < instance->last_attenuation) {
         for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
           uint8_t bit = ((1 << cnt) & 0xff);
 
