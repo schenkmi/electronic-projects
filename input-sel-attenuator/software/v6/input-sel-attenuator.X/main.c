@@ -38,6 +38,7 @@
 
 /**
  * History
+ * V2.2     2025.03.26 Improve detection of attenuation inc/dec for relay control
  * V2.1     2025.03.22 Little bit of cleanup
  * V2.0     2025.02.15 Add support for IR control (IRMP)
  * V1.5     2024.06.01 Add delay between SYSTEM_Initialize and factory reset
@@ -244,7 +245,7 @@ static void process_attenuation(volatile Instance_t* instance) {
     if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
       /* something needs to be changed */
 #if 1 /* improved setting algo, with direction in mind */
-      if (instance->encoder[Volume].direction == DIR_CW) { /* clockwise, attenuation increase */
+      if (instance->attenuation > instance->last_attenuation) { /* attenuation increase */
         for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
           uint8_t bit = ((1 << cnt) & 0xff);
 
