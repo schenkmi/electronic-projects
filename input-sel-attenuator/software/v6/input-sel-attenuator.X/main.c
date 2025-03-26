@@ -245,7 +245,12 @@ static void process_attenuation(volatile Instance_t* instance) {
     if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
       /* something needs to be changed */
 #if 1 /* improved setting algo, with direction in mind */
-      if (instance->attenuation < instance->last_attenuation) {
+      if (instance->attenuation < instance->last_attenuation) {      
+        /**
+         * quieter -> louder (decrease of attenuation)
+         * Set LSB to MSB relay to avoid peak level 000000
+         * 48dB -> 46.5dB / 100000 -> 011111
+         */
         for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
           uint8_t bit = ((1 << cnt) & 0xff);
 
@@ -260,7 +265,13 @@ static void process_attenuation(volatile Instance_t* instance) {
             __delay_ms(RELAIS_SETUP_TIME);
           }
         }
-      } else { /* counter clockwise, attenuation decrease */
+      } else {
+        /**
+         * louder -> quieter (increase of attenuation)
+         * Set MSB to LSB relay to avoid peak level 000000
+         * 48dB -> 46.5dB / 100000 -> 011111
+         * 46.5dB -> 48dB / 011111 -> 100000
+         */
         for (int cnt = (ROTARY_ATTENUATION_BITS - 1); cnt >= 0; cnt--) {
           uint8_t bit = ((1 << cnt) & 0xff);
 
