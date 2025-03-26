@@ -623,6 +623,7 @@ int main(void)
     if (irmp_get_data(&instance.ir.data)) {
         /**
          * RC 8073 38kHz
+         * customizing/vendor/mc/remote-controls/sys_rcmap_mc.conf
          * irmp_data.protocol : 00002 (IRMP_NEC_PROTOCOL)
          * irmp_data.address  : 58246 (0xe386)
          * irmp_data.command:
@@ -635,6 +636,7 @@ int main(void)
          * 01 => CH-
          * 02 => VOL+
          * 03 => VOL-
+         * 89 => Mute
          */        
         if (instance.ir.data.protocol == IRMP_NEC_PROTOCOL && instance.ir.data.address == IR_REMOTE_ADDRESS) {
             int channel = instance.channel;
