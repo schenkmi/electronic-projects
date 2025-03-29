@@ -38,6 +38,7 @@
 
 /**
  * History
+ * V2.3     2025.03.29 Implement make before break algorithm to control the attenuator relay
  * V2.2     2025.03.26 Improve detection of attenuation inc/dec for relay control
  * V2.1     2025.03.22 Little bit of cleanup
  * V2.0     2025.02.15 Add support for IR control (IRMP)
@@ -72,9 +73,7 @@
 
 #define ATT_CTRL_DIRECTION                1 /* attenuator relay control with direction algorithm */
 #define ATT_CTRL_MAKE_BEFORE_BREAK        2 /* attenuator relay control with make before break algorithm */
-#define ATT_CTRL ATT_CTRL_MAKE_BEFORE_BREAK
-
-
+#define ATT_CTRL ATT_CTRL_MAKE_BEFORE_BREAK /* define algorithm to be used for attenuator relay control */
 
 #define STARTUP_WAIT                    250 /* wait 250ms after SYSTEM_Initialize */
 
@@ -93,7 +92,7 @@
 
 #define MAIN_LOOP_WAIT                    1 /* 1ms */
 #define EEPROM_SAVE_STATUS_VALUE       1000 /* 1 seconds on a 1ms loop */
-#define RELAIS_SETUP_TIME                 1 /* 1ms */
+#define RELAIS_MAX_SETUP_TIME             3 /* 3ms for G6K-2F DC5 */
 
 #define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
 #define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE) /* 3 seconds till storing default attenuation */
@@ -186,7 +185,7 @@ static void init(volatile Instance_t* instance)
   
   /* mute output */
    PORTB &= ~CHAN_SEL_MASK;
-  __delay_ms(RELAIS_SETUP_TIME);
+  __delay_ms(RELAIS_MAX_SETUP_TIME);
 
   /* max possible attenuation on attenuation */
   PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ROTARY_MAX_ATTENUATION);
@@ -228,7 +227,7 @@ static void process_channel(volatile Instance_t* instance)
 
     /* mute output */
      PORTB &= ~CHAN_SEL_MASK;
-    __delay_ms(RELAIS_SETUP_TIME);
+    __delay_ms(RELAIS_MAX_SETUP_TIME);
 
     /* always start with last attenuation used for this channel */
     instance->last_attenuation = instance->attenuation = instance->channel_attenuation[instance->channel].attenuation;
@@ -236,15 +235,12 @@ static void process_channel(volatile Instance_t* instance)
 
     /* clear and set new channel */
     PORTB = ((PORTB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
-    __delay_ms(RELAIS_SETUP_TIME);
+    __delay_ms(RELAIS_MAX_SETUP_TIME);
 
     instance->last_channel = instance->channel;
     instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
   }
 }
-
-
-
 
 /* attenuator relay are on RA0...RA5 */
 static void process_attenuation(volatile Instance_t* instance) {
@@ -253,7 +249,7 @@ static void process_attenuation(volatile Instance_t* instance) {
 
     if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
       /* something needs to be changed */
-#if 1 /* improved setting algo, with direction in mind */
+#if ATT_CTRL == ATT_CTRL_DIRECTION
       if (instance->attenuation < instance->last_attenuation) {      
         /**
          * quieter -> louder (decrease of attenuation)
@@ -271,7 +267,7 @@ static void process_attenuation(volatile Instance_t* instance) {
               PORTA &= ~bit;
             }
             /* changed relay, wait a bit */
-            __delay_ms(RELAIS_SETUP_TIME);
+            __delay_ms(RELAIS_MAX_SETUP_TIME);
           }
         }
       } else {
@@ -292,30 +288,12 @@ static void process_attenuation(volatile Instance_t* instance) {
               PORTA &= ~bit;
             }
             /* changed relay, wait a bit */
-            __delay_ms(RELAIS_SETUP_TIME);
+            __delay_ms(RELAIS_MAX_SETUP_TIME);
           }
         }
       }
-#else
-      /* mute output */
-       PORTB &= ~CHAN_SEL_MASK;
-      __delay_ms(RELAIS_SETUP_TIME);
-
-      PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->attenuation & ROTARY_MAX_ATTENUATION));
-      __delay_ms(RELAIS_SETUP_TIME);
-#endif
-      instance->last_attenuation = instance->attenuation;
-    }
-  }
-}
-
-
-static void process_attenuation_make_befor_break(volatile Instance_t* instance) {
-  if (instance->attenuation != instance->last_attenuation) {
-    uint8_t attenuation = ((uint8_t)instance->attenuation & ROTARY_MAX_ATTENUATION);
-
-    if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
-        /* make */
+#elif ATT_CTRL == ATT_CTRL_MAKE_BEFORE_BREAK
+        /* 1th do make operation */
         for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
           uint8_t bit = ((1 << cnt) & 0xff);
 
@@ -325,13 +303,11 @@ static void process_attenuation_make_befor_break(volatile Instance_t* instance) 
               PORTA |= bit;
             }
             /* changed relay, wait a bit */
-            __delay_ms(3);
+            __delay_ms(RELAIS_MAX_SETUP_TIME);
           }
         }
-        
-        //__delay_ms(10);
-        
-        /* break */
+   
+        /* 2nd do the break operation */
         for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
           uint8_t bit = ((1 << cnt) & 0xff);
 
@@ -341,10 +317,12 @@ static void process_attenuation_make_befor_break(volatile Instance_t* instance) 
               PORTA &= ~bit;
             }
             /* changed relay, wait a bit */
-            __delay_ms(3);
+            __delay_ms(RELAIS_MAX_SETUP_TIME);
           }
         }
-    
+#else
+      #error Unkown ATT_CTRL
+#endif
       instance->last_attenuation = instance->attenuation;
     }
   }
@@ -766,15 +744,7 @@ int main(void)
     }
     
     process_channel(&instance);
- 
-#if ATT_CTRL == ATT_CTRL_DIRECTION
     process_attenuation(&instance);
-#elif ATT_CTRL == ATT_CTRL_MAKE_BEFORE_BREAK
-    process_attenuation_make_befor_break(&instance);
-#else
-    #error Unkown ATT_CTRL
-#endif
-
     process_encoder_button(&instance);
     eeprom_save_status(&instance);
 
