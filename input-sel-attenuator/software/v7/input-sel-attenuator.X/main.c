@@ -164,27 +164,25 @@ volatile Instance_t instance = {
   },
 };
 
-static void led_toggel(void)
-{
-    LED_Toggle();
+static void led_toggel(void) {
+  LED_Toggle();
 }
 
 void led_callback(uint_fast8_t on) {
   /* inverse, default is LED on */
   if (on) {
-     LED_SetLow();
+    LED_SetLow();
   } else {
-     LED_SetHigh();    
+    LED_SetHigh();
   }
 }
 
-static void init(volatile Instance_t* instance)
-{
+static void init(volatile Instance_t* instance) {
   /* Set LED on */
   LED_SetHigh();
-  
+
   /* mute output */
-   PORTB &= ~CHAN_SEL_MASK;
+  PORTB &= ~CHAN_SEL_MASK;
   __delay_ms(RELAIS_MAX_SETUP_TIME);
 
   /* max possible attenuation on attenuation */
@@ -198,15 +196,6 @@ static void init(volatile Instance_t* instance)
     PORTB &= ~in;
   }
 
-#if 0 /* test code */
-  PORTB = 0x01;
-  /* increase attenuation by 0.5dB steps */
-  for (int test = ROTARY_MAX_ATTENUATION; test < 0 ; test--) {
-    PORTA = (unsigned char)test;
-    __delay_ms(100);
-  }
-#endif
-
   /* read last used channel, channels attenuation will be handler inside process_channel() */
   instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
 
@@ -217,8 +206,7 @@ static void init(volatile Instance_t* instance)
 }
 
 /* channel selection relay are on RB0...RB3 */
-static void process_channel(volatile Instance_t* instance)
-{
+static void process_channel(volatile Instance_t* instance) {
   if (instance->channel != instance->last_channel)  {
     if (instance->last_channel != -1) {
       /* store current used attenuation on channel */
@@ -250,7 +238,7 @@ static void process_attenuation(volatile Instance_t* instance) {
     if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
       /* something needs to be changed */
 #if ATT_CTRL == ATT_CTRL_DIRECTION
-      if (instance->attenuation < instance->last_attenuation) {      
+       if (instance->attenuation < instance->last_attenuation) {
         /**
          * quieter -> louder (decrease of attenuation)
          * Set LSB to MSB relay to avoid peak level 000000
@@ -293,33 +281,33 @@ static void process_attenuation(volatile Instance_t* instance) {
         }
       }
 #elif ATT_CTRL == ATT_CTRL_MAKE_BEFORE_BREAK
-        /* 1th do make operation */
-        for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
-          uint8_t bit = ((1 << cnt) & 0xff);
+      /* 1th do make operation */
+      for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
+        uint8_t bit = ((1 << cnt) & 0xff);
 
-          if ((PORTA & bit) != (attenuation & bit)) {
-            /* port bit needs to be changed */
-            if (attenuation & bit) {
-              PORTA |= bit;
-            }
-            /* changed relay, wait a bit */
-            __delay_ms(RELAIS_MAX_SETUP_TIME);
+        if ((PORTA & bit) != (attenuation & bit)) {
+          /* port bit needs to be changed */
+          if (attenuation & bit) {
+            PORTA |= bit;
           }
+          /* changed relay, wait a bit */
+          __delay_ms(RELAIS_MAX_SETUP_TIME);
         }
-   
-        /* 2nd do the break operation */
-        for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
-          uint8_t bit = ((1 << cnt) & 0xff);
+      }
 
-          if ((PORTA & bit) != (attenuation & bit)) {
-            /* port bit needs to be changed */
-            if ((attenuation & bit) == 0) {
-              PORTA &= ~bit;
-            }
-            /* changed relay, wait a bit */
-            __delay_ms(RELAIS_MAX_SETUP_TIME);
+      /* 2nd do the break operation */
+      for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
+        uint8_t bit = ((1 << cnt) & 0xff);
+
+        if ((PORTA & bit) != (attenuation & bit)) {
+          /* port bit needs to be changed */
+          if ((attenuation & bit) == 0) {
+            PORTA &= ~bit;
           }
+          /* changed relay, wait a bit */
+          __delay_ms(RELAIS_MAX_SETUP_TIME);
         }
+      }
 #else
       #error Unkown ATT_CTRL
 #endif
@@ -578,8 +566,7 @@ static void timer_callback_process_single(void) {
 }
 
 /* uses 10us time, measured with LED_Toggle();*/
-void encoder_timer_callback(void)
-{
+void encoder_timer_callback(void) {
 /* use to measure irq call time */
 #if 0
   led_toggel();
@@ -598,8 +585,7 @@ void encoder_timer_callback(void)
 }
 
 /* every 66us (15.151kHz) */
-void ir_timer_callback(void)
-{
+void ir_timer_callback(void) {
 /* use to measure irq call time */
 #if 0
   led_toggel();
@@ -612,30 +598,29 @@ void ir_timer_callback(void)
 
 /* Factory reset */
 static void factory_reset() {
-    if (ENC2SWITCH_GetValue() == 0) {
-        while(ENC2SWITCH_GetValue() == 0) {
-            __delay_ms(100);  
-        }
-
-        for (int cnt = 0; cnt < 10; cnt++) {
-            /* LED on */
-            LED_Toggle();
-             __delay_ms(500);  
-        }
-
-        eeprom_write(0x00, ROTARY_MAX_ATTENUATION);
-        eeprom_write(0x01, ROTARY_MAX_ATTENUATION);
-        eeprom_write(0x02, ROTARY_MAX_ATTENUATION);
-        eeprom_write(0x03, ROTARY_MAX_ATTENUATION);
-        eeprom_write(0x04, ROTARY_MIN_CHANNEL);
+  if (ENC2SWITCH_GetValue() == 0) {
+    while(ENC2SWITCH_GetValue() == 0) {
+      __delay_ms(100);
     }
+
+    for (int cnt = 0; cnt < 10; cnt++) {
+      /* LED on */
+      LED_Toggle();
+      __delay_ms(500);
+    }
+
+    eeprom_write(0x00, ROTARY_MAX_ATTENUATION);
+    eeprom_write(0x01, ROTARY_MAX_ATTENUATION);
+    eeprom_write(0x02, ROTARY_MAX_ATTENUATION);
+    eeprom_write(0x03, ROTARY_MAX_ATTENUATION);
+    eeprom_write(0x04, ROTARY_MIN_CHANNEL);
+  }
 }
 
 /**
  * Main application
  */
-int main(void)
-{
+int main(void) {
   SYSTEM_Initialize();
 
    __delay_ms(STARTUP_WAIT);  
@@ -660,87 +645,87 @@ int main(void)
   
   while (1) {
     if (irmp_get_data(&instance.ir.data)) {
-        /**
-         * RC 8073 38kHz
-         * customizing/vendor/mc/remote-controls/sys_rcmap_mc.conf
-         * irmp_data.protocol : 00002 (IRMP_NEC_PROTOCOL)
-         * irmp_data.address  : 58246 (0xe386)
-         * irmp_data.command:
-         * 17 => Key 1
-         * 18 => Key 2
-         * 19 => Kex 3
-         * 20 => Key 4
-         * 14 => Key OK
-         * 00 => CH+
-         * 01 => CH-
-         * 02 => VOL+
-         * 03 => VOL-
-         * 89 => Mute
-         */        
-        if (instance.ir.data.protocol == IRMP_NEC_PROTOCOL && instance.ir.data.address == IR_REMOTE_ADDRESS) {
-            int channel = instance.channel;
-            int attenuation = instance.attenuation;
-            
-            if (instance.ir.data.flags == 0x00) {
-                switch (instance.ir.data.command) {
-                    case 0:
-                        channel++;
-                        break;
-                    case 1:
-                        channel--;
-                        break;
-                    case 2:
-                        attenuation--;
-                        break;
-                    case 3:
-                        attenuation++;
-                        break;
-                    case 14:
-                        instance.channel_attenuation[instance.channel].default_attenuation = instance.attenuation;
-                        instance.eeprom_save_status_counter = 1;
-                        break;
-                    case 17:
-                        channel = 0;
-                        break;
-                    case 18:
-                        channel = 1;
-                        break;
-                    case 19:
-                        channel = 2;
-                        break;
-                    case 20:
-                        channel = 3;
-                        break;
-                }
-            } else {
-                switch (instance.ir.data.command) {
-                    case 2:
-                        attenuation--;
-                        break;
-                    case 3:
-                        attenuation++;
-                        break;
-                }
-            }
-            
-            /* channel is rotating */
-            if (channel > ROTARY_MAX_CHANNEL) {
-              instance.channel = 0;
-            } else if (channel < ROTARY_MIN_CHANNEL) {
-              instance.channel = ROTARY_MAX_CHANNEL;
-            } else {
-              instance.channel = channel;
-            }
+      /**
+       * RC 8073 38kHz
+       * customizing/vendor/mc/remote-controls/sys_rcmap_mc.conf
+       * irmp_data.protocol : 00002 (IRMP_NEC_PROTOCOL)
+       * irmp_data.address  : 58246 (0xe386)
+       * irmp_data.command:
+       * 17 => Key 1
+       * 18 => Key 2
+       * 19 => Kex 3
+       * 20 => Key 4
+       * 14 => Key OK
+       * 00 => CH+
+       * 01 => CH-
+       * 02 => VOL+
+       * 03 => VOL-
+       * 89 => Mute
+       */
+      if (instance.ir.data.protocol == IRMP_NEC_PROTOCOL && instance.ir.data.address == IR_REMOTE_ADDRESS) {
+          int channel = instance.channel;
+          int attenuation = instance.attenuation;
 
-            /* for attenuation stop on max or min */
-            if (attenuation > ROTARY_MAX_ATTENUATION) {
-              instance.attenuation = ROTARY_MAX_ATTENUATION;
-            } else if (attenuation < ROTARY_MIN_ATTENUATION) {
-              instance.attenuation = 0;
-            } else {
-              instance.attenuation = attenuation;
-            }            
+          if (instance.ir.data.flags == 0x00) {
+            switch (instance.ir.data.command) {
+              case 0:
+                channel++;
+                break;
+              case 1:
+                channel--;
+                break;
+              case 2:
+                attenuation--;
+                break;
+              case 3:
+                attenuation++;
+                break;
+              case 14:
+                instance.channel_attenuation[instance.channel].default_attenuation = instance.attenuation;
+                instance.eeprom_save_status_counter = 1;
+                break;
+              case 17:
+                channel = 0;
+                break;
+              case 18:
+                channel = 1;
+                break;
+              case 19:
+                channel = 2;
+                break;
+              case 20:
+                channel = 3;
+                break;
+            }
+        } else {
+          switch (instance.ir.data.command) {
+            case 2:
+              attenuation--;
+              break;
+            case 3:
+              attenuation++;
+              break;
+          }
         }
+
+        /* channel is rotating */
+        if (channel > ROTARY_MAX_CHANNEL) {
+          instance.channel = 0;
+        } else if (channel < ROTARY_MIN_CHANNEL) {
+          instance.channel = ROTARY_MAX_CHANNEL;
+        } else {
+          instance.channel = channel;
+        }
+
+        /* for attenuation stop on max or min */
+        if (attenuation > ROTARY_MAX_ATTENUATION) {
+          instance.attenuation = ROTARY_MAX_ATTENUATION;
+        } else if (attenuation < ROTARY_MIN_ATTENUATION) {
+          instance.attenuation = 0;
+        } else {
+          instance.attenuation = attenuation;
+        }
+      }
     }
     
     process_channel(&instance);
