@@ -30,13 +30,7 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-
-//#include "rotary_encoder.h"
 #include "definitions.h"
-
-
-
-
 
 static void timer_callback_process_dual(void) {
   /* encoder1 used for attenuation */
@@ -221,11 +215,6 @@ static void timer_callback_process_single(void) {
   }
 }
 
-
-
-
-
-
 /* uses 10us time, measured with LED_Toggle();*/
 void encoder_timer_callback(void) {
 /* use to measure irq call time */
@@ -256,4 +245,3 @@ void ir_timer_callback(void) {
   led_toggel();
 #endif
 }
-

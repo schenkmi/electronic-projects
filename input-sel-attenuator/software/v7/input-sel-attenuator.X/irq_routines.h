@@ -34,4 +34,3 @@
 
 void encoder_timer_callback(void);
 void ir_timer_callback(void);
-
