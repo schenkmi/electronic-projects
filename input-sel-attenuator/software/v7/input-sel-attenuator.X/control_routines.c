@@ -289,47 +289,47 @@ void process_ir(Instance_t* instance) {
      * 17 => VOL-
      * 13 => Mute
      */
-    if (instance->ir.data.protocol == IRMP_RC5_PROTOCOL && instance->ir.data.address == IR_REMOTE_ADDRESS) {
+    if (instance->ir.data.protocol == IR_PROTOCOL && instance->ir.data.address == IR_REMOTE_ADDRESS) {
         int channel = instance->channel;
         int attenuation = instance->attenuation;
 
         if (instance->ir.data.flags == 0x00) {
           switch (instance->ir.data.command) {
-            case 32:
+            case IR_KEY_CH_UP:
               channel++;
               break;
-            case 33:
+            case IR_KEY_CH_DOWN:
               channel--;
               break;
-            case 16:
+            case IR_KEY_VOL_UP:
               attenuation--;
               break;
-            case 17:
+            case IR_KEY_VOL_DOWN:
               attenuation++;
               break;
-            case 53:
+            case IR_KEY_OK:
               instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
               instance->eeprom_save_status_counter = 1;
               break;
-            case 1:
+            case IR_KEY_1:
               channel = 0;
               break;
-            case 2:
+            case IR_KEY_2:
               channel = 1;
               break;
-            case 3:
+            case IR_KEY_3:
               channel = 2;
               break;
-            case 4:
+            case IR_KEY_4:
               channel = 3;
               break;
           }
       } else {
         switch (instance->ir.data.command) {
-          case 16:
+          case IR_KEY_VOL_UP:
             attenuation--;
             break;
-          case 17:
+          case IR_KEY_VOL_DOWN:
             attenuation++;
             break;
         }
