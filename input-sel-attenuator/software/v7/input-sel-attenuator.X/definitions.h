@@ -62,7 +62,19 @@
 #define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
 #define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE) /* 3 seconds till storing default attenuation */
 
+/* One For All TV Hitachi 2676 */
+#define IR_PROTOCOL       IRMP_RC5_PROTOCOL
 #define IR_REMOTE_ADDRESS            0x0001
+#define IR_KEY_1                          1
+#define IR_KEY_2                          2
+#define IR_KEY_3                          3
+#define IR_KEY_4                          4
+#define IR_KEY_OK                        53
+#define IR_KEY_CH_UP                     32
+#define IR_KEY_CH_DOWN                   33
+#define IR_KEY_VOL_UP                    16
+#define IR_KEY_VOL_DOWN                  17
+#define IR_KEY_MUTE                      13
 
 
 enum Control { Combined = 0, Volume = 0, Channel = 1};
