@@ -244,12 +244,7 @@ static void process_channel(volatile Instance_t* instance)
 static void process_attenuation(volatile Instance_t* instance) {
   if (instance->attenuation != instance->last_attenuation) {
     uint8_t attenuation = ((uint8_t)instance->attenuation & ROTARY_MAX_ATTENUATION);
-    uint8_t last_attenuation = ((uint8_t)instance->last_attenuation & ROTARY_MAX_ATTENUATION);
-    
-    uint8_t xor_diff = attenuation ^ last_attenuation;
-    
-    
-    
+
     if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
       /* something needs to be changed */
 #if 1 /* improved setting algo, with direction in mind */
@@ -303,6 +298,47 @@ static void process_attenuation(volatile Instance_t* instance) {
       PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->attenuation & ROTARY_MAX_ATTENUATION));
       __delay_ms(RELAIS_SETUP_TIME);
 #endif
+      instance->last_attenuation = instance->attenuation;
+    }
+  }
+}
+
+
+static void process_attenuation_make_befor_break(volatile Instance_t* instance) {
+  if (instance->attenuation != instance->last_attenuation) {
+    uint8_t attenuation = ((uint8_t)instance->attenuation & ROTARY_MAX_ATTENUATION);
+
+    if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
+        /* make */
+        for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
+          uint8_t bit = ((1 << cnt) & 0xff);
+
+          if ((PORTA & bit) != (attenuation & bit)) {
+            /* port bit needs to be changed */
+            if (attenuation & bit) {
+              PORTA |= bit;
+            }
+            /* changed relay, wait a bit */
+            __delay_ms(3);
+          }
+        }
+        
+        //__delay_ms(10);
+        
+        /* break */
+        for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
+          uint8_t bit = ((1 << cnt) & 0xff);
+
+          if ((PORTA & bit) != (attenuation & bit)) {
+            /* port bit needs to be changed */
+            if ((attenuation & bit) == 0) {
+              PORTA &= ~bit;
+            }
+            /* changed relay, wait a bit */
+            __delay_ms(3);
+          }
+        }
+    
       instance->last_attenuation = instance->attenuation;
     }
   }
@@ -805,7 +841,10 @@ int main(void)
     }
     
     process_channel(&instance);
-    process_attenuation(&instance);
+    //process_attenuation(&instance);
+    
+    process_attenuation_make_befor_break(&instance);
+    
     process_encoder_button(&instance);
     eeprom_save_status(&instance);
 
