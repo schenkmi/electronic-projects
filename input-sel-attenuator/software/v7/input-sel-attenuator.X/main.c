@@ -90,8 +90,6 @@ volatile Instance_t instance = {
   },
 };
 
-
-
 /**
  * Main application
  */
@@ -119,92 +117,7 @@ int main(void) {
   irmp_set_callback_ptr(led_callback);
   
   while (1) {
-      process_ir(&instance);
-#if 0
-    if (irmp_get_data(&instance.ir.data)) {
-      /**
-       * One For All
-       * TV Hitachi 2676
-       * irmp_data.protocol : 00007 (IRMP_RC5_PROTOCOL)
-       * irmp_data.address  : 1 (0x0001)
-       * irmp_data.command:
-       * 1 => Key 1
-       * 2 => Key 2
-       * 3 => Kex 3
-       * 4 => Key 4
-       * 53 => Key OK
-       * 32 => CH+
-       * 33 => CH-
-       * 16 => VOL+
-       * 17 => VOL-
-       * 13 => Mute
-       */
-      if (instance.ir.data.protocol == IRMP_NEC_PROTOCOL && instance.ir.data.address == IR_REMOTE_ADDRESS) {
-          int channel = instance.channel;
-          int attenuation = instance.attenuation;
-
-          if (instance.ir.data.flags == 0x00) {
-            switch (instance.ir.data.command) {
-              case 0:
-                channel++;
-                break;
-              case 1:
-                channel--;
-                break;
-              case 2:
-                attenuation--;
-                break;
-              case 3:
-                attenuation++;
-                break;
-              case 14:
-                instance.channel_attenuation[instance.channel].default_attenuation = instance.attenuation;
-                instance.eeprom_save_status_counter = 1;
-                break;
-              case 17:
-                channel = 0;
-                break;
-              case 18:
-                channel = 1;
-                break;
-              case 19:
-                channel = 2;
-                break;
-              case 20:
-                channel = 3;
-                break;
-            }
-        } else {
-          switch (instance.ir.data.command) {
-            case 2:
-              attenuation--;
-              break;
-            case 3:
-              attenuation++;
-              break;
-          }
-        }
-
-        /* channel is rotating */
-        if (channel > ROTARY_MAX_CHANNEL) {
-          instance.channel = 0;
-        } else if (channel < ROTARY_MIN_CHANNEL) {
-          instance.channel = ROTARY_MAX_CHANNEL;
-        } else {
-          instance.channel = channel;
-        }
-
-        /* for attenuation stop on max or min */
-        if (attenuation > ROTARY_MAX_ATTENUATION) {
-          instance.attenuation = ROTARY_MAX_ATTENUATION;
-        } else if (attenuation < ROTARY_MIN_ATTENUATION) {
-          instance.attenuation = 0;
-        } else {
-          instance.attenuation = attenuation;
-        }
-      }
-    }
-#endif
+    process_ir(&instance);
     process_channel(&instance);
     process_attenuation(&instance);
     process_encoder_button(&instance);

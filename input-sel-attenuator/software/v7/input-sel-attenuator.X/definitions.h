@@ -36,7 +36,6 @@
 #include "rotary_encoder.h"
 #include "irmp/irmp.h"
 
-
 #define ATT_CTRL_DIRECTION                1 /* attenuator relay control with direction algorithm */
 #define ATT_CTRL_MAKE_BEFORE_BREAK        2 /* attenuator relay control with make before break algorithm */
 #define ATT_CTRL ATT_CTRL_MAKE_BEFORE_BREAK /* define algorithm to be used for attenuator relay control */
@@ -105,4 +104,3 @@ typedef struct {
 } Instance_t;
 
 extern volatile Instance_t instance;
-
