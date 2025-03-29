@@ -70,6 +70,12 @@
 #include "rotary_encoder.h"
 #include "irmp/irmp.h"
 
+#define ATT_CTRL_DIRECTION                1 /* attenuator relay control with direction algorithm */
+#define ATT_CTRL_MAKE_BEFORE_BREAK        2 /* attenuator relay control with make before break algorithm */
+#define ATT_CTRL ATT_CTRL_MAKE_BEFORE_BREAK
+
+
+
 #define STARTUP_WAIT                    250 /* wait 250ms after SYSTEM_Initialize */
 
 #define CHAN_SEL_MASK                  0x0f
@@ -343,87 +349,6 @@ static void process_attenuation_make_befor_break(volatile Instance_t* instance) 
     }
   }
 }
-
-uint8_t msb8(uint8_t x)
-{
-    x |= (x >> 1);
-    x |= (x >> 2);
-    x |= (x >> 4);
-    return(x & ~(x >> 1));
-}
-
-
-/* attenuator relay are on RA0...RA5 */
-static void process_attenuation_xor(volatile Instance_t* instance) {
-  if (instance->attenuation != instance->last_attenuation) {
-    uint8_t attenuation = ((uint8_t)instance->attenuation & ROTARY_MAX_ATTENUATION);
-    uint8_t last_attenuation = ((uint8_t)instance->last_attenuation & ROTARY_MAX_ATTENUATION);
-    uint8_t xor_diff = attenuation ^ last_attenuation;
-    
-    
-    
-    if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
-       
-      int high_bit_pos = msb8(xor_diff);
-        
-        
-      /* something needs to be changed */
-#if 1 /* improved setting algo, with direction in mind */
-      if (instance->attenuation < instance->last_attenuation) {      
-        /**
-         * quieter -> louder (decrease of attenuation)
-         * Set LSB to MSB relay to avoid peak level 000000
-         * 48dB -> 46.5dB / 100000 -> 011111
-         */
-        for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
-          uint8_t bit = ((1 << cnt) & 0xff);
-
-          if ((PORTA & bit) != (attenuation & bit)) {
-            /* port bit needs to be changed */
-            if (attenuation & bit) {
-              PORTA |= bit;
-            } else {
-              PORTA &= ~bit;
-            }
-            /* changed relay, wait a bit */
-            __delay_ms(RELAIS_SETUP_TIME);
-          }
-        }
-      } else {
-        /**
-         * louder -> quieter (increase of attenuation)
-         * Set MSB to LSB relay to avoid peak level 000000
-         * 48dB -> 46.5dB / 100000 -> 011111
-         * 46.5dB -> 48dB / 011111 -> 100000
-         */
-        for (int cnt = (ROTARY_ATTENUATION_BITS - 1); cnt >= 0; cnt--) {
-          uint8_t bit = ((1 << cnt) & 0xff);
-
-          if ((PORTA & bit) != (attenuation & bit)) {
-            /* port bit needs to be changed */
-            if (attenuation & bit) {
-              PORTA |= bit;
-            } else {
-              PORTA &= ~bit;
-            }
-            /* changed relay, wait a bit */
-            __delay_ms(RELAIS_SETUP_TIME);
-          }
-        }
-      }
-#else
-      /* mute output */
-       PORTB &= ~CHAN_SEL_MASK;
-      __delay_ms(RELAIS_SETUP_TIME);
-
-      PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->attenuation & ROTARY_MAX_ATTENUATION));
-      __delay_ms(RELAIS_SETUP_TIME);
-#endif
-      instance->last_attenuation = instance->attenuation;
-    }
-  }
-}
-
 
 static void eeprom_save_status(volatile Instance_t* instance) {
   if (instance->eeprom_save_status_counter != -1) {
@@ -841,10 +766,15 @@ int main(void)
     }
     
     process_channel(&instance);
-    //process_attenuation(&instance);
-    
+ 
+#if ATT_CTRL == ATT_CTRL_DIRECTION
+    process_attenuation(&instance);
+#elif ATT_CTRL == ATT_CTRL_MAKE_BEFORE_BREAK
     process_attenuation_make_befor_break(&instance);
-    
+#else
+    #error Unkown ATT_CTRL
+#endif
+
     process_encoder_button(&instance);
     eeprom_save_status(&instance);
 
