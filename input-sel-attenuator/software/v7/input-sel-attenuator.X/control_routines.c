@@ -272,23 +272,6 @@ void process_encoder_button(volatile Instance_t* instance) {
 
 void process_ir(Instance_t* instance) {
   if (irmp_get_data(&instance->ir.data)) {
-    /**
-     * One For All
-     * TV Hitachi 2676
-     * irmp_data.protocol : 00007 (IRMP_RC5_PROTOCOL)
-     * irmp_data.address  : 1 (0x0001)
-     * irmp_data.command:
-     * 1 => Key 1
-     * 2 => Key 2
-     * 3 => Kex 3
-     * 4 => Key 4
-     * 53 => Key OK
-     * 32 => CH+
-     * 33 => CH-
-     * 16 => VOL+
-     * 17 => VOL-
-     * 13 => Mute
-     */
     if (instance->ir.data.protocol == IR_PROTOCOL && instance->ir.data.address == IR_REMOTE_ADDRESS) {
         int channel = instance->channel;
         int attenuation = instance->attenuation;
