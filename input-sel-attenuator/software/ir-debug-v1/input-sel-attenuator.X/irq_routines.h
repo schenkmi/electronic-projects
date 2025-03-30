@@ -1,7 +1,7 @@
 /**
  * PIC16F18056 based input channel selection + attenuator
  *
- * Copyright (c) 2022-2024, Michael Schenk
+ * Copyright (c) 2025-2025, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -30,22 +30,7 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-
 #pragma once
 
-#include <stdint.h>
-
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-#define DIR_NONE  0x00 /* read() return value - No complete step/movement */
-#define DIR_CW    0x10 /* read() return value - Clockwise step/movement */
-#define DIR_CCW   0x20 /* return value - Counter-clockwise step/movement */
-
-uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state);
-uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state);
-
-#ifdef	__cplusplus
-}
-#endif
+void encoder_timer_callback(void);
+void ir_timer_callback(void);
