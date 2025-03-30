@@ -38,6 +38,7 @@
 
 /**
  * History
+ * V2.4     2025.03.30 Fix missing __EEPROM_DATA
  * V2.3     2025.03.29 Implement make before break algorithm to control the attenuator relay
  * V2.2     2025.03.26 Improve detection of attenuation inc/dec for relay control
  * V2.1     2025.03.22 Little bit of cleanup
@@ -70,6 +71,14 @@
 #include "definitions.h"
 #include "irq_routines.h"
 #include "control_routines.h"
+
+/* eeprom initialize 0x00..0x07 */
+__EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 attenuation initial */,
+              ROTARY_MAX_ATTENUATION /* channel 1 attenuation initial */,
+              ROTARY_MAX_ATTENUATION /* channel 2 attenuation initial */,
+              ROTARY_MAX_ATTENUATION /* channel 3 attenuation initial */,
+              ROTARY_MIN_CHANNEL     /* channel selection initial     */,
+              0xff, 0xff, 0xff);
 
 volatile Instance_t instance = {
   .mode = Dual, .channel = -1, .last_channel = -1,
