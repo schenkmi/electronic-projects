@@ -619,7 +619,11 @@ int main(void)
   while (1) {
 #if 1
 
-    
+    /**
+     * One For All 
+     * TV Hitachi 2676 => IRMP_RC5_PROTOCOL 7
+     *  
+     */
     
 #endif
     
@@ -629,70 +633,72 @@ int main(void)
         // irmp_data.address is the address/manufacturer code of ir sender
         // irmp_data.command is the command code
         // irmp_protocol_names[irmp_data.protocol] is the protocol name (if enabled, see irmpconfig.h)
-        //printf("proto %u addr %u cmd %u flags %u\r\n", irmp_data.protocol, irmp_data.address, irmp_data.command, irmp_data.flags);
+        printf("proto %u addr %u cmd %u flags %u\r\n", irmp_data.protocol, irmp_data.address, irmp_data.command, irmp_data.flags);
         
         
         
-        /**
-         * RC 8073 38kHz
-         * irmp_data.protocol : 00002 (IRMP_NEC_PROTOCOL)
-         * irmp_data.address  : 58246 (0xe386)
-         * irmp_data.command:
-         * 17 => Key 1
-         * 18 => Key 2
-         * 19 => Kex 3
-         * 20 => Key 4
-         * 14 => Key OK
-         * 00 => CH+
-         * 01 => CH-
-         * 02 => VOL+
-         * 03 => VOL-
-         */
+      /**
+       * One For All 
+       * TV Hitachi 2676
+       * irmp_data.protocol : 00007 (IRMP_RC5_PROTOCOL)
+       * irmp_data.address  : 1 (0x0001)
+       * irmp_data.command:
+       * 1 => Key 1
+       * 2 => Key 2
+       * 3 => Kex 3
+       * 4 => Key 4
+       * 53 => Key OK
+       * 32 => CH+
+       * 33 => CH-
+       * 16 => VOL+
+       * 17 => VOL-
+       * 13 => Mute
+       */
         
-        if (irmp_data.protocol == IRMP_NEC_PROTOCOL && irmp_data.address == 0xe386) {
+        if (irmp_data.protocol == IRMP_RC5_PROTOCOL && irmp_data.address == 0x0001) {
             
             int channel = instance.channel;
             int attenuation = instance.attenuation;
             
             if (irmp_data.flags == 0x00) {
                 switch (irmp_data.command) {
-                    case 0:
+                    case 32:
                         printf("Key CH+\r\n");
                         channel++;
                         break;
-                    case 1:
+                    case 33:
                         printf("Key CH-\r\n");
                         channel--;
                         break;
                         
-                    case 2:
+                    case 16:
                         printf("Key VOL+\r\n");
                         attenuation--;
                         break;
-                    case 3:
+                    case 17:
                         printf("Key VOL-\r\n");
                         attenuation++;
                         break;
                     
-                    case 14:
+                    case 53:
                         printf("Key OK\r\n");
                         instance.channel_attenuation[instance.channel].default_attenuation = instance.attenuation;
                         instance.eeprom_save_status_counter = 1;
                         break;
                         
-                    case 17:
+                    case 1:
                         printf("Key 1\r\n");
                         channel = 0;
                         break;
-                    case 18:
+                    case 2:
                         printf("Key 2\r\n");
                         channel = 1;
                         break;
-                    case 19:
+                    case 3:
                         printf("Key 3\r\n");
                         channel = 2;
                         break;
-                    case 20:
+                    case 4:
                         printf("Key 4\r\n");
                         channel = 3;
                         break;
@@ -708,11 +714,11 @@ int main(void)
 //                        channel--;
 //                        break;
                         
-                    case 2:
+                    case 16:
                         printf("Key VOL+\r\n");
                         attenuation--;
                         break;
-                    case 3:
+                    case 17:
                         printf("Key VOL-\r\n");
                         attenuation++;
                         break;
