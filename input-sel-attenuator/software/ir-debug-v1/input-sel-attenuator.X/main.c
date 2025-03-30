@@ -32,7 +32,7 @@
 
  /**
   * Save hex
-  * cd /work/electronic-projects/input-sel-attenuator/software/v7
+  * cd /work/electronic-projects/input-sel-attenuator/software/ir-debug-v1
   * cp ./input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
   */
 
