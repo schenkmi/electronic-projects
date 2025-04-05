@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(title "DAC PCM1704 I2S NOS")
-		(date "2025-04-04")
+		(date "2025-04-05")
 		(rev "V1")
 	)
 	(lib_symbols
@@ -4799,6 +4799,17 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "App Note\n--------\nC42=2.2n, C43=560p => fc(-3db)=46.7kHz\n\nOptimized for 192kHz\n--------------------\nC42=560pF, C43=180pF => fc(-3db)=163kHz"
+		(exclude_from_sim no)
+		(at 326.644 87.376 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0f45ec2b-a08a-474a-b12d-372d8bc7e0bd")
+	)
 	(text "All CP are tantal polymer\nCeramic capacitor 50V/0805"
 		(exclude_from_sim no)
 		(at 248.92 246.38 0)
@@ -4864,7 +4875,7 @@
 		)
 		(uuid "9f5e1709-dd19-48cf-b766-0663af64743e")
 	)
-	(text "Input from ASRC is 192kHz\nPCM1704 support x16 oversampling (44.1kHz)\nCLKOUTR/CLKOUTL are 12.288MHz\n2 channels x 32 bits x 192kHz => 12288000"
+	(text "Input from ASRC is 384kHz\nPCM1704 support x8 oversampling at 96kHz => 768kHz\nCLKOUTR/CLKOUTL are 24.576MHz\n2 channels x 32 bits x 384kHz => 24.576MHz"
 		(exclude_from_sim no)
 		(at 137.795 27.305 0)
 		(effects
@@ -11676,7 +11687,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2n2"
+		(property "Value" "560pF"
 			(at 336.931 149.733 0)
 			(effects
 				(font
@@ -12215,7 +12226,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "560p"
+		(property "Value" "180pF"
 			(at 350.901 134.493 0)
 			(effects
 				(font
@@ -17805,7 +17816,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2n2"
+		(property "Value" "560pF"
 			(at 336.931 62.103 0)
 			(effects
 				(font
@@ -18090,7 +18101,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "560p"
+		(property "Value" "180pF"
 			(at 350.901 46.863 0)
 			(effects
 				(font
