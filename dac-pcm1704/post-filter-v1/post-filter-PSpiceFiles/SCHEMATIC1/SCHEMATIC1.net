@@ -1,17 +1,17 @@
 * source POST-FILTER
 .EXTERNAL OUTPUT +15V
 .EXTERNAL OUTPUT -15V
-X_U1         0 N14700 +15V -15V N14707 OPA161X
 X_U2         0 N15108 +15V -15V N15069 OPA161X
-V_V1         +15V 0 0Vdc
-V_V2         -15V 0 0Vdc
-I_I1         N14700 0 DC 0Adc AC 0.8484mac
-+SIN 0mA 1mA 1kHz 0 0 0
+V_V1         +15V 0 15Vdc
+V_V2         -15V 0 -15Vdc
 R_R1         N14700 N14707  2.5k TC=0,0 
-C_C1         N14700 N14707  1p  TC=0,0 
-R_R2         N14707 N15122  4.7k TC=0,0 
+C_C1         N14700 N14707  47p  TC=0,0 
 R_R3         N15122 N15108  2k TC=0,0 
 R_R4         N15122 N15069  4.7k TC=0,0 
-C_C2         N15108 N15069  560p  TC=0,0 
+C_C2         N15108 N15069  180p  TC=0,0 
 R_R5         0 N15069  47k TC=0,0 
-C_C3         0 N15122  2.2n  TC=0,0 
+C_C3         0 N15122  560p  TC=0,0 
+X_U3         0 N14700 +15V -15V N14707 OPA161X
+R_R2         N15122 N14707  4.7k TC=0,0 
+I_I2         N14700 0 DC 0Adc AC 1mAac
++SIN 0mA 1.2mA 1kHz 0 0 0

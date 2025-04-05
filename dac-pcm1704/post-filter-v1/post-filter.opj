@@ -1,6 +1,6 @@
 (ExpressProject "post-filter"
   (ProjectVersion "19981106")
-  (SoftwareVersion "17.4-2019 S (3842415DEV319) [2/13/2020]-[08/12/09]")
+  (SoftwareVersion "24.1 S003 (4280230)  [3/6/2025]-[04/05/25]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -32,21 +32,50 @@
     (ANNOTATE_No_Page_Number_Change "TRUE")
     (ANNOTATE_Property_Combine "{Value}{Source Package}")
     (DOCKED "TRUE")
-    (DOCKING_POSITION "59420"))
+    (DOCKING_POSITION "59420")
+    (PSPICE_Regenerate_Netlist_Flag "FALSE"))
   (Folder "Layout")
-  (Folder "Outputs")
+  (Folder "Outputs"
+    (File ".\post-filter-pspicefiles\schematic1\schematic1.net"
+      (Type "Report")))
   (Folder "PSpice Resources"
-    (Folder "Model Libraries")
-    (Folder "Stimulus Files")
-    (Folder "Include Files")
+    (Folder "Model Libraries"
+      (Sort User))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User))
     (Folder "Simulation Profiles"
-      (ActiveProfile ".\post-filter-pspicefiles\schematic1\bias.sim")
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
          ".\post-filter-pspicefiles\schematic1\bias.sim"
         (DisplayName "SCHEMATIC1-bias")
-        (Type "PSpice Profile"))))
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\post-filter-pspicefiles\schematic1\ac.sim"
+        (DisplayName "SCHEMATIC1-AC")
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\post-filter-pspicefiles\schematic1\tran.sim"
+        (DisplayName "SCHEMATIC1-Tran")
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\post-filter-pspicefiles\schematic1\ac.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
+    (ISIN
+      (FullPartName "ISIN.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
+    (OPA2604/BB
+      (FullPartName "OPA2604/BB.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\PSPICE\BURR_BRN.OLB")
+      (DeviceIndex "0"))
+    (IAC
+      (FullPartName "IAC.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
     (R
       (FullPartName "R.Normal")
       (LibraryName "..\..\LIBRARY\PSPICE\ANALOG.OLB")
@@ -67,6 +96,36 @@
       (FullPartName "VDC.Normal")
       (LibraryName "..\..\LIBRARY\PSPICE\SOURCE.OLB")
       (DeviceIndex "0")))
-  (LastUsedLibraryBrowseDirectory "LIBRARY\PSPICE")
-  (MPSSessionName "nitint")
-  (Folder "Logs"))
+  (LastUsedLibraryBrowseDirectory
+     "C:\Cadence\SPB_24.1\tools\capture\library\pspice")
+  (MPSSessionName "schenk")
+  (Folder "Logs")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\dac-pcm1704\post-filter-v1\post-filter.dsn")
+      (Path "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\dac-pcm1704\post-filter-v1\post-filter.dsn"
+         "SCHEMATIC1")
+      (Path "Outputs")
+      (Select "Design Resources"
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\dac-pcm1704\post-filter-v1\post-filter.dsn"
+         "SCHEMATIC1" "PAGE1"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 567"))
+      (Tab 0))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 5 24 5 913 24 585")
+        (Scroll "0 173")
+        (Zoom "100")
+        (Occurrence "/"))
+      (Path
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\DAC-PCM1704\POST-FILTER-V1\POST-FILTER.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1"))))
