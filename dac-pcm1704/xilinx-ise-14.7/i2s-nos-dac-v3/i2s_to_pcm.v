@@ -19,6 +19,10 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 
+// I2S to PCM 24Bit version for PCM1704U
+// Right 7bit data delay
+// Left 32bit data delay
+
 // program with Digilent HS3
 //   openFPGALoader -c digilent_hs3 --freq 1000000 -v *.jed
 // or 
@@ -35,29 +39,29 @@ module i2s_to_pcm(
     output CLKOUTL,
     output LEOUTL,  
     output DATAOUTL,
-	 output LED1
+    output LED1
 );
 
     // Build an array type for the shift register
-    reg [11:0] sr_right;
+    reg [7:0] sr_right;
     reg [31:0] sr_left;
 
     always @(posedge BCK) begin
         // Shift data by one stage; data from last stage is lost
-        sr_right[11:1] <= sr_right[10:0];
+        sr_right[7:1] <= sr_right[6:0];
 
         // Load new data into the first stage
         sr_right[0] <= DATAIN;
 
         // Shift data for the left channel
         sr_left[31:1] <= sr_left[30:0];
-        sr_left[0] <= sr_right[11];
+        sr_left[0] <= sr_right[7];
     end
 
     // Capture the data from the last stage, before it is lost
     assign CLKOUTR = BCK;
     assign LEOUTR = LRCK;
-    assign DATAOUTR = sr_right[11];
+    assign DATAOUTR = sr_right[7];
 
     assign CLKOUTL = BCK;
     assign LEOUTL = LRCK;
