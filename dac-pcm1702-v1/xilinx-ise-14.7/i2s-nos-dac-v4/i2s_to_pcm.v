@@ -3,7 +3,7 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    15:15:31 05/15/2024 
+// Create Date:    12.04.2025
 // Design Name: 
 // Module Name:    i2s_to_pcm 
 // Project Name: 
@@ -18,6 +18,10 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
+
+// I2S to PCM 24Bit version for PCM1702
+// Right 11bit data delay
+// Left  41bit (11bit + 32bit) data delay
 
 // program with Digilent HS3
 //   openFPGALoader -c digilent_hs3 --freq 1000000 -v *.jed
@@ -35,29 +39,26 @@ module i2s_to_pcm(
     output CLKOUTL,
     output LEOUTL,  
     output DATAOUTL,
-	 output LED1
+    output LED1
 );
 
-    // Build an array type for the shift register
-    reg [11:0] sr_right;
-    reg [31:0] sr_left;
+    reg [10:0] sr_right; // 7bit shift register
+    reg [31:0] sr_left; // 32bit shift register
 
     always @(posedge BCK) begin
-        // Shift data by one stage; data from last stage is lost
-        sr_right[11:1] <= sr_right[10:0];
-
-        // Load new data into the first stage
-        sr_right[0] <= DATAIN;
-
-        // Shift data for the left channel
-        sr_left[31:1] <= sr_left[30:0];
-        sr_left[0] <= sr_right[11];
+		  // shift DATAIN by 7 bit right channel
+		  // 32bit - 20bit -1bit (I2S)
+		  sr_right <= {sr_right[9:0], DATAIN};  
+		  
+		  // shift DATAIN by 39 bit (32bit + 11bit) left channel
+		  // delay left channel by 32bit
+		  sr_left <= {sr_left[30:0], sr_right[10]};
     end
 
     // Capture the data from the last stage, before it is lost
     assign CLKOUTR = BCK;
     assign LEOUTR = LRCK;
-    assign DATAOUTR = sr_right[11];
+    assign DATAOUTR = sr_right[10];
 
     assign CLKOUTL = BCK;
     assign LEOUTL = LRCK;
