@@ -21,7 +21,7 @@
 
 // I2S to PCM 24Bit version for PCM1704U
 // Right 7bit data delay
-// Left 32bit data delay
+// Left 39bit (32bit + 7bit) data delay
 
 // program with Digilent HS3
 //   openFPGALoader -c digilent_hs3 --freq 1000000 -v *.jed
