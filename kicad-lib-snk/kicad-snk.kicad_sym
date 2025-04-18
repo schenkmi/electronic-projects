@@ -5226,7 +5226,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TSSOP-16_4.4x5mm_P0.65mm"
+		(property "Footprint" "Package_SO:TSSOP-16_4.4x5mm_P0.65mm"
 			(at -2.54 -24.13 0)
 			(effects
 				(font
@@ -5253,7 +5253,7 @@
 			)
 		)
 		(property "Manufacturer" "ON Semiconductor"
-			(at 0 0 0)
+			(at 0 -2.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5262,7 +5262,7 @@
 			)
 		)
 		(property "Part Number" "FIN1047MTCX"
-			(at 0 0 0)
+			(at 0 -2.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5271,7 +5271,7 @@
 			)
 		)
 		(property "Type" "SMT"
-			(at 0 0 0)
+			(at 0 -2.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5327,7 +5327,7 @@
 			)
 			(polyline
 				(pts
-					(xy 1.905 13.208) (xy 1.905 13.589)
+					(xy 1.905 14.732) (xy 1.905 14.351)
 				)
 				(stroke
 					(width 0)
@@ -5351,7 +5351,7 @@
 			)
 			(polyline
 				(pts
-					(xy 1.905 -2.032) (xy 1.905 -1.651)
+					(xy 1.905 -0.508) (xy 1.905 -0.889)
 				)
 				(stroke
 					(width 0)
@@ -5375,7 +5375,7 @@
 			)
 			(polyline
 				(pts
-					(xy 3.81 0) (xy 1.905 0) (xy 1.905 -0.889)
+					(xy 3.81 -2.54) (xy 1.905 -2.54) (xy 1.905 -1.651)
 				)
 				(stroke
 					(width 0)
@@ -5526,10 +5526,9 @@
 					(type none)
 				)
 			)
-			(polyline
-				(pts
-					(xy 1.905 14.351) (xy 1.905 15.24) (xy 3.81 15.24)
-				)
+			(circle
+				(center 1.905 15.24)
+				(radius 0.508)
 				(stroke
 					(width 0)
 					(type default)
@@ -5538,9 +5537,10 @@
 					(type none)
 				)
 			)
-			(circle
-				(center 1.905 12.7)
-				(radius 0.508)
+			(polyline
+				(pts
+					(xy 1.905 13.589) (xy 1.905 12.7) (xy 3.81 12.7)
+				)
 				(stroke
 					(width 0)
 					(type default)
@@ -5573,7 +5573,7 @@
 				)
 			)
 			(circle
-				(center 1.905 -2.54)
+				(center 1.905 0)
 				(radius 0.508)
 				(stroke
 					(width 0)
@@ -5608,7 +5608,7 @@
 			)
 			(polyline
 				(pts
-					(xy 3.81 12.7) (xy 2.413 12.7)
+					(xy 3.81 15.24) (xy 2.413 15.24)
 				)
 				(stroke
 					(width 0)
@@ -5632,7 +5632,7 @@
 			)
 			(polyline
 				(pts
-					(xy 3.81 -2.54) (xy 2.413 -2.54)
+					(xy 3.81 0) (xy 2.413 0)
 				)
 				(stroke
 					(width 0)
@@ -5738,7 +5738,7 @@
 			)
 			(polyline
 				(pts
-					(xy -2.54 16.51) (xy -2.54 11.43) (xy 2.54 13.97) (xy -2.54 16.51)
+					(xy -2.54 11.43) (xy -2.54 16.51) (xy 2.54 13.97) (xy -2.54 11.43)
 				)
 				(stroke
 					(width 0.254)
@@ -5762,7 +5762,7 @@
 			)
 			(polyline
 				(pts
-					(xy -2.54 1.27) (xy -2.54 -3.81) (xy 2.54 -1.27) (xy -2.54 1.27)
+					(xy -2.54 -3.81) (xy -2.54 1.27) (xy 2.54 -1.27) (xy -2.54 -3.81)
 				)
 				(stroke
 					(width 0.254)
@@ -5931,14 +5931,14 @@
 			(pin output line
 				(at 15.24 15.24 180)
 				(length 2.54)
-				(name "DOUT1+"
+				(name "DOUT1-"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "15"
+				(number "16"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -5949,14 +5949,14 @@
 			(pin output line
 				(at 15.24 12.7 180)
 				(length 2.54)
-				(name "DOUT1-"
+				(name "DOUT1+"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "16"
+				(number "15"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -6003,14 +6003,14 @@
 			(pin output line
 				(at 15.24 0 180)
 				(length 2.54)
-				(name "DOUT3+"
+				(name "DOUT3-"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "11"
+				(number "12"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -6021,14 +6021,14 @@
 			(pin output line
 				(at 15.24 -2.54 180)
 				(length 2.54)
-				(name "DOUT3-"
+				(name "DOUT3+"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "12"
+				(number "11"
 					(effects
 						(font
 							(size 1.27 1.27)
