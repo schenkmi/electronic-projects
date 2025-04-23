@@ -43,7 +43,9 @@ module i2s_to_pcm(
 );
     reg [11:0] sr_right; // 7bit shift register
     reg [31:0] sr_left; // 32bit shift register
-
+    reg delay_bck;
+    reg delay_lrck;
+	 
     always @(posedge BCK) begin
 		  // shift DATAIN by 7 bit right channel
 		  // 32bit - 20bit -1bit (I2S)
@@ -53,15 +55,24 @@ module i2s_to_pcm(
 		  // delay left channel by 32bit
 		  sr_left <= {sr_left[30:0], sr_right[11]};
     end
+	 
+	 // to maintain timing 
+	 always @(posedge BCK or negedge BCK) begin
+		delay_bck <= BCK;
+		delay_lrck <= LRCK;
+	 end
 
     // Capture the data from the last stage, before it is lost
-    assign CLKOUTR = BCK;
-    assign LEOUTR = LRCK;
+    assign CLKOUTR = delay_bck;
+    assign LEOUTR = delay_lrck;
     assign DATAOUTR = sr_right[11];
 
-    assign CLKOUTL = BCK;
-    assign LEOUTL = LRCK;
+    assign CLKOUTL = delay_bck;
+    assign LEOUTL = delay_lrck;
     assign DATAOUTL = sr_left[31];
 	
     assign LED1 = 0; // 0 => LED on, 1 => LED off
 endmodule
+
+
+
