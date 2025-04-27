@@ -57,7 +57,8 @@ module i2s_to_pcm(
 		  sr_left <= {sr_left[30:0], sr_right[7]};
     end
 
-	 // to maintain timing 
+	 // to maintain timing
+	 // Xilinx XC2C64A supports dual edge flip flops
 	 always @(posedge BCK or negedge BCK) begin
 		delay_bck <= BCK;
 		delay_lrck <= LRCK;
