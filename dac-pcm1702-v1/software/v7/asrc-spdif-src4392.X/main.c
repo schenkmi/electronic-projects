@@ -1,6 +1,6 @@
 /**
  * PIC16F18056 based async sample rate converter
- * for CS8416 / AK4137
+ * for SRC4392
  *
  * Copyright (c) 2024-2025, Michael Schenk
  * All Rights Reserved
@@ -40,15 +40,12 @@
 
 /**
  * History
- * V3.0     2025.04.09 PCM1704 drop
- * V1.1     2024.06.05 PCM1702 drop
- * V1.0     2024.04.21 Start develop
+ * V7.0     2025.05.04 Using PIC16F18056-I/SS MPLAB-X 6.25
  */
 
 #include "mcc_generated_files/system/system.h"
 #include "rotary_encoder.h"
-#include "cs8416.h"
-#include "ak4137.h"
+#include "src4392.h"
 #include "pcm1792a.h"
 
 //#define __USE_PCM1792A__
@@ -85,20 +82,14 @@ volatile Instance_t instance = {
   },
 };
 
-CS8416_t cs8416 = {
-    .output_format = CS_I2S,
-    .output_word_length = CS_OWL24Bit,
-};
-
-AK4137_t ak4137 = {
-    .input_format = AK_I2S32or16Bit,
-    .digital_filter = AK_ShortDelaySharpRollOff,
-    .output_format = AK_I2S,
-    .output_sampling_frequency = AK_FS384kHz, 
+SRC4392_t src4392 = {
+    .deemphases = DeEmphasisAuto,
+    .digital_audio_interface_transmitter = DITUpsample,
+    .upsample_rate = UpsamplingTo192kHz,
 #ifdef __USE_PCM1702__
-    .output_word_length = AK_OWL20Bit, 
+    .output_word_length = OWL20Bit,
 #else
-    .output_word_length = AK_OWL24Bit,
+    .output_word_length = OWL24Bit,
 #endif
 };
 
@@ -108,15 +99,16 @@ PCM1792A_t pcm1792a = {
 };
 #endif
 
+
 static void init(volatile Instance_t* instance)
 {
-    LED_D3_SetHigh();
-    LED_D4_SetHigh();
-    
-    /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
-    LED_D5_SetHigh();
 
-    ak4137_preinit(&ak4137);
+    LED_RA5_SetHigh();
+    LED_RA6_SetHigh();
+    LED_RA7_SetHigh();
+
+    
+
     
     __delay_ms(100);
     RESET_SetLow();
@@ -124,14 +116,11 @@ static void init(volatile Instance_t* instance)
     RESET_SetHigh();
     __delay_ms(10);
 
-    cs8416_init(&cs8416);
-
-    ak4137_init(&ak4137);
+    src4392_init(&src4392);
     
 #ifdef __USE_PCM1792A__
     pcm1792a_init(&pcm1792a);
 #endif
-
     /* read last used channel, channels attenuation will be handler inside process_channel() */
     instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
 
@@ -140,6 +129,7 @@ static void init(volatile Instance_t* instance)
         instance->channel_attenuation[cnt].attenuation = instance->channel_attenuation[cnt].default_attenuation = eeprom_read(cnt);
     }
 }
+
 
 /* Factory reset */
 static void factory_reset() {
@@ -150,10 +140,10 @@ static void factory_reset() {
 
         for (int cnt = 0; cnt < 10; cnt++) {
             /* LED on */
-            LED_D4_SetDigitalInput();
+            LED_RA5_SetDigitalInput();
              __delay_ms(250);  
             /* LED off */
-            LED_D4_SetDigitalOutput();
+            LED_RA5_SetDigitalOutput();
             __delay_ms(250);  
         }
 
@@ -166,10 +156,9 @@ static void factory_reset() {
 }
 
 void test_timer_callback(void) {   
-    LED_D5_Toggle();
+    LED_RA5_Toggle();
 }
 
-/* channel selection relay are on RB0...RB3 */
 static void process_channel(volatile Instance_t* instance)
 {
   if (instance->channel != instance->last_channel)  {
@@ -178,14 +167,15 @@ static void process_channel(volatile Instance_t* instance)
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
-    cs8416_set_input(&cs8416, instance->channel);
+
+    src4392_set_input( instance->channel);
 
     instance->last_channel = instance->channel;
     instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
   }
 }
 
-/* attenuator relay are on RA0...RA5 */
+
 static void process_attenuation(volatile Instance_t* instance) {
   if (instance->attenuation != instance->last_attenuation) {
       instance->last_attenuation = instance->attenuation;
@@ -197,6 +187,7 @@ static void process_attenuation(volatile Instance_t* instance) {
  */
 int main(void)
 {
+    /* External Oscillator Selection bits: Oscillator not enabled otherwise RA5 is CLKIN */
     SYSTEM_Initialize();
 
     __delay_ms(STARTUP_WAIT);  
