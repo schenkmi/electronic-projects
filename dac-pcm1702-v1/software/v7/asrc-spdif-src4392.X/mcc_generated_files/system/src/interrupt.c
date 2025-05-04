@@ -11,7 +11,7 @@
 */
 
 /*
-© [2024] Microchip Technology Inc. and its subsidiaries.
+? [2025] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -65,17 +65,17 @@ void __interrupt() INTERRUPT_InterruptManager (void)
     }
     else if(INTCONbits.PEIE == 1)
     {
-        if(PIE3bits.BCL1IE == 1 && PIR3bits.BCL1IF == 1)
+        if(PIE0bits.TMR0IE == 1 && PIR0bits.TMR0IF == 1)
+        {
+            Timer0_OverflowISR();
+        } 
+        else if(PIE3bits.BCL1IE == 1 && PIR3bits.BCL1IF == 1)
         {
             I2C1_ERROR_ISR();
         } 
         else if(PIE3bits.SSP1IE == 1 && PIR3bits.SSP1IF == 1)
         {
             I2C1_ISR();
-        } 
-        else if(PIE0bits.TMR0IE == 1 && PIR0bits.TMR0IF == 1)
-        {
-            Timer0_OverflowISR();
         } 
         else
         {
