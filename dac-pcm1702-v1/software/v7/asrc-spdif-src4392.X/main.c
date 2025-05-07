@@ -104,8 +104,15 @@ static void init(volatile Instance_t* instance)
 {
 
     LED_RA5_SetHigh();
-    LED_RA6_SetHigh();
-    LED_RA7_SetHigh();
+    __delay_ms(500);
+    LED_RA5_SetLow();
+        LED_RA7_SetHigh();
+    __delay_ms(500);
+    
+    LED_RA7_SetLow();
+            LED_RA6_SetHigh();
+    __delay_ms(500);
+    LED_RA6_SetLow();
 
     
 
@@ -140,10 +147,10 @@ static void factory_reset() {
 
         for (int cnt = 0; cnt < 10; cnt++) {
             /* LED on */
-            LED_RA5_SetDigitalInput();
+            LED_RA5_SetHigh();
              __delay_ms(250);  
             /* LED off */
-            LED_RA5_SetDigitalOutput();
+            LED_RA5_SetLow();
             __delay_ms(250);  
         }
 
