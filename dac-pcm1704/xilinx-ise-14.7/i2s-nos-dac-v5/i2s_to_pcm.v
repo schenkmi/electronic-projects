@@ -3,7 +3,7 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    12.04.2025
+// Create Date:    07.05.2025
 // Design Name: 
 // Module Name:    i2s_to_pcm 
 // Project Name: 
@@ -29,6 +29,33 @@
 //   xc3sprog -c jtaghs2 -m /opt/Xilinx/14.7/ISE_DS/ISE/xbr/data -J 1000000 -p 0 -v *.jed
 
 // git clean -d -x -f .
+
+
+// double edge triggered flip-fop
+module double_edge_flip_flop(
+  input clock, reset, in,
+  output out
+);
+  reg trig1, trig2;
+
+  assign out = trig1^trig2;
+
+  always @(posedge clock, posedge reset) begin
+    if (reset)
+      trig1 <= 0;
+    else
+      trig1 <= in^trig2;
+  end
+
+  always @(negedge clock, posedge reset) begin
+    if (reset)
+      trig2 <= 0;
+    else
+      trig2 <= in^trig1;
+  end
+endmodule
+
+
 module i2s_to_pcm(
     input BCK,
     input LRCK,
@@ -44,8 +71,13 @@ module i2s_to_pcm(
 
     reg [7:0] sr_right; // 7bit shift register
     reg [31:0] sr_left; // 32bit shift register
-    reg delay_bck;
-    reg delay_lrck;
+    //reg delay_bck;
+    //reg delay_lrck;	 
+    wire delay_bck;
+    wire delay_lrck;
+
+    double_edge_flip_flop deff_bck (.clock(BCK), .reset(0), .in(BCK), .out(delay_bck));
+    double_edge_flip_flop deff_lrck (.clock(BCK), .reset(0),.in(LRCK), .out(delay_lrck));
 
     always @(posedge BCK) begin
 		  // shift DATAIN by 7 bit right channel
@@ -57,13 +89,13 @@ module i2s_to_pcm(
 		  sr_left <= {sr_left[30:0], sr_right[7]};
     end
 
-	 // to maintain timing
+/*	 // to maintain timing
 	 // Xilinx XC2C64A supports dual edge flip flops
 	 always @(posedge BCK or negedge BCK) begin
 		delay_bck <= BCK;
 		delay_lrck <= LRCK;
 	 end
-	 
+	 */
     // Capture the data from the last stage, before it is lost
     assign CLKOUTR = delay_bck;
     assign LEOUTR = delay_lrck;
