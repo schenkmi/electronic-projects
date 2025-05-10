@@ -6,8 +6,8 @@
 	(paper "A3")
 	(title_block
 		(title "DAC I2S NOS")
-		(date "2022-06-16")
-		(rev "V5")
+		(date "2025-05-09")
+		(rev "V6")
 	)
 	(lib_symbols
 		(symbol "Amplifier_Operational:OPA1678"
@@ -5734,7 +5734,18 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "All CP are tantal polymer\nCeramic capacitor 50V/0603"
+	(text "v6 : LVDS, J1 14pin micro match, Footprint"
+		(exclude_from_sim no)
+		(at 216.916 213.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "06f4aa67-34c4-4d5c-8f9e-30092845d2b3")
+	)
+	(text "All CP are tantal polymer\nCeramic capacitor 25V/0603"
 		(exclude_from_sim no)
 		(at 248.92 246.38 0)
 		(effects
@@ -5789,9 +5800,9 @@
 		)
 		(uuid "9163021f-893f-49ad-bab3-cfbcaae2c4e2")
 	)
-	(text "Input from ASRC is 192kHz\nPCM1702 support x16 oversampling (44.1kHz)\nCLKOUTR/CLKOUTL are 12.288MHz\n2 channels x 32 bits x 192kHz => 12288000"
+	(text "Input from ASRC is 192kHz\nPCM1702 support x16 oversampling (44.1kHz)\nCLKOUTR/CLKOUTL are 12.288MHz\n2 channels x 32 bits x 192kHz => 12288000\n\nInput from ASRC is 384kHz\nPCM1702 support x16 oversampling at 44.1kHz => 705.6kHz\nCLKOUTR/CLKOUTL are 24.576MHz\n2 channels x 32 bits x 384kHz => 24.576MHz"
 		(exclude_from_sim no)
-		(at 137.795 27.305 0)
+		(at 136.652 36.322 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6670,16 +6681,6 @@
 			(type default)
 		)
 		(uuid "1f0094de-7295-4404-88b3-4bbc8f4b0544")
-	)
-	(wire
-		(pts
-			(xy 30.48 173.99) (xy 44.45 173.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1fd1ed62-d7c7-44e7-a057-2db8c68ce02b")
 	)
 	(wire
 		(pts
@@ -9665,28 +9666,6 @@
 			)
 		)
 	)
-	(global_label "MCLK"
-		(shape input)
-		(at 30.48 173.99 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "3f0c6fbb-0ef3-44c8-a1bc-44ae3486371f")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 23.1295 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "CLKOUTL"
 		(shape output)
 		(at 35.56 196.85 180)
@@ -11973,7 +11952,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 274.0152 172.72 0)
 			(effects
 				(font
@@ -12041,7 +12020,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 272.0848 181.61 0)
 			(effects
 				(font
@@ -16347,7 +16326,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A_Pad1.58x1.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 239.7252 154.94 0)
 			(effects
 				(font
@@ -16611,7 +16590,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A_Pad1.58x1.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 240.9952 113.03 0)
 			(effects
 				(font
@@ -16940,7 +16919,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A_Pad1.58x1.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 240.9952 124.46 0)
 			(effects
 				(font
@@ -17205,7 +17184,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A_Pad1.58x1.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 239.7252 166.37 0)
 			(effects
 				(font
@@ -17661,7 +17640,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A_Pad1.58x1.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 239.7252 25.4 0)
 			(effects
 				(font
@@ -17990,7 +17969,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A_Pad1.58x1.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 239.7252 36.83 0)
 			(effects
 				(font
@@ -18318,7 +18297,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A_Pad1.58x1.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 239.7252 67.31 0)
 			(effects
 				(font
@@ -18583,7 +18562,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-18_Kemet-A_Pad1.58x1.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 239.7252 78.74 0)
 			(effects
 				(font
@@ -19631,7 +19610,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 274.0152 85.09 0)
 			(effects
 				(font
@@ -19699,7 +19678,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3528-21_Kemet-B_Pad1.50x2.35mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
 			(at 272.0848 93.98 0)
 			(effects
 				(font
