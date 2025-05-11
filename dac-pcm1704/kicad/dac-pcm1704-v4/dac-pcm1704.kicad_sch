@@ -6,8 +6,8 @@
 	(paper "A3")
 	(title_block
 		(title "DAC PCM1704 I2S NOS")
-		(date "2025-04-26")
-		(rev "V3")
+		(date "2025-05-11")
+		(rev "V4")
 	)
 	(lib_symbols
 		(symbol "Amplifier_Operational:OPA1678"
@@ -5811,7 +5811,7 @@
 		)
 		(uuid "0f45ec2b-a08a-474a-b12d-372d8bc7e0bd")
 	)
-	(text "All CP are tantal polymer\nCeramic capacitor 50V/0805"
+	(text "All CP are tantal polymer\nCeramic capacitor 25V/0805"
 		(exclude_from_sim no)
 		(at 248.666 278.638 0)
 		(effects
@@ -5833,9 +5833,9 @@
 		)
 		(uuid "26fe34b2-bd14-4af6-9c94-25092ca2b400")
 	)
-	(text "v1 : Initial version\nv2 : LVDS, C30 polarity marking fix on PCB\nv3 : J1 14pin micro match"
+	(text "v1 : Initial version\nv2 : LVDS, C30 polarity marking fix on PCB\nv3 : J1 14pin micro match\nv4 : Using ceramic caps for PSU, small layout adaption"
 		(exclude_from_sim no)
-		(at 195.072 275.336 0)
+		(at 208.28 208.788 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -22683,74 +22683,6 @@
 		)
 	)
 	(symbol
-		(lib_id "dac-i2s-nos-rescue:CP-Device")
-		(at 107.95 265.43 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-000060848366")
-		(property "Reference" "C2"
-			(at 110.9472 264.2616 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10uF/6.3V"
-			(at 110.9472 266.573 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 108.9152 269.24 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 107.95 265.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 107.95 265.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f8571d89-e6d2-4c41-b254-cc1b99285043")
-		)
-		(pin "2"
-			(uuid "bd93600d-5e56-465f-80f6-a76d531fde68")
-		)
-		(instances
-			(project ""
-				(path "/1325c957-ddc4-42ef-86f2-41ec3c4ffcdb"
-					(reference "C2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Power_Protection:USBLC6-4SC6")
 		(at 337.82 233.68 0)
 		(unit 1)
@@ -23458,74 +23390,6 @@
 		)
 	)
 	(symbol
-		(lib_id "dac-i2s-nos-rescue:CP-Device")
-		(at 184.15 265.43 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-0000608ef8d1")
-		(property "Reference" "C4"
-			(at 187.1472 264.2616 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10uF{slash}6.3V"
-			(at 187.1472 266.573 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 185.1152 269.24 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 184.15 265.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 184.15 265.43 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f984b19d-6957-4571-a432-d3fd82ad7ca3")
-		)
-		(pin "2"
-			(uuid "fe6a8a93-df66-449b-90a2-5d3e5d9ce79c")
-		)
-		(instances
-			(project ""
-				(path "/1325c957-ddc4-42ef-86f2-41ec3c4ffcdb"
-					(reference "C4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 168.91 275.59 0)
 		(unit 1)
@@ -23584,74 +23448,6 @@
 			(project ""
 				(path "/1325c957-ddc4-42ef-86f2-41ec3c4ffcdb"
 					(reference "#PWR0102")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "dac-i2s-nos-rescue:CP-Device")
-		(at 182.88 231.14 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-0000608f794b")
-		(property "Reference" "C3"
-			(at 185.8772 229.9716 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10uF{slash}6.3V"
-			(at 185.8772 232.283 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 183.8452 234.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 182.88 231.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 182.88 231.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d78f4c08-aa24-49a0-a931-f02ef2c39d4b")
-		)
-		(pin "2"
-			(uuid "00884829-ad1a-4e1c-adb7-b7f2b7128014")
-		)
-		(instances
-			(project ""
-				(path "/1325c957-ddc4-42ef-86f2-41ec3c4ffcdb"
-					(reference "C3")
 					(unit 1)
 				)
 			)
@@ -33364,6 +33160,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 182.88 231.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c1ce001b-94c0-4e1c-86b0-5138a20fb4ed")
+		(property "Reference" "C3"
+			(at 185.801 229.9716 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF/50V"
+			(at 185.801 232.283 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+			(at 183.8452 234.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 182.88 231.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 182.88 231.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "597b60dd-32c4-4581-87f5-7d6385cfc738")
+		)
+		(pin "2"
+			(uuid "9a8abff3-7925-4aa0-87a1-9895fcfd83bb")
+		)
+		(instances
+			(project "dac-pcm1704"
+				(path "/1325c957-ddc4-42ef-86f2-41ec3c4ffcdb"
+					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 71.12 63.5 270)
 		(unit 1)
@@ -33616,6 +33480,142 @@
 			(project "dac-pcm1704"
 				(path "/1325c957-ddc4-42ef-86f2-41ec3c4ffcdb"
 					(reference "#PWR0186")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 184.15 265.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ecfb4a65-e08b-4d54-abdb-6956eaf51807")
+		(property "Reference" "C4"
+			(at 187.071 264.2616 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF/50V"
+			(at 187.071 266.573 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder"
+			(at 185.1152 269.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 184.15 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 184.15 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "079cc950-48b8-43a0-b460-692f113adc2c")
+		)
+		(pin "2"
+			(uuid "9f439cf6-53f3-4ea3-bba8-dac2bfffba1a")
+		)
+		(instances
+			(project "dac-pcm1704"
+				(path "/1325c957-ddc4-42ef-86f2-41ec3c4ffcdb"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 107.95 265.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ed40ea41-ce14-4618-98a7-50a152deaabc")
+		(property "Reference" "C2"
+			(at 110.871 264.2616 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "22uF/25V"
+			(at 110.871 266.573 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
+			(at 108.9152 269.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 107.95 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 107.95 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a6d6d3b8-c2c8-4e04-b2db-733d2e33f144")
+		)
+		(pin "2"
+			(uuid "684e10da-6265-40c4-ad28-b65723b44eee")
+		)
+		(instances
+			(project "dac-pcm1704"
+				(path "/1325c957-ddc4-42ef-86f2-41ec3c4ffcdb"
+					(reference "C2")
 					(unit 1)
 				)
 			)
