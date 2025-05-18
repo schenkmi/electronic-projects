@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(title "SPDIF Receiver / ASRC")
-		(date "2025-05-17")
+		(date "2025-05-18")
 		(rev "V5")
 	)
 	(lib_symbols
@@ -17738,6 +17738,12 @@
 		(uuid "16910b16-ce73-4248-a9ff-d0d235236a29")
 	)
 	(junction
+		(at 332.74 240.03)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1b49a1aa-6016-4200-a915-3ba04c7a3fa2")
+	)
+	(junction
 		(at 314.96 161.29)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -17880,6 +17886,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "61b4b298-e48a-428d-895f-8139da60777e")
+	)
+	(junction
+		(at 332.74 226.06)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "621ada32-d602-43a2-b52d-2d64ded1b7a2")
 	)
 	(junction
 		(at 181.61 33.02)
@@ -18179,7 +18191,7 @@
 	)
 	(wire
 		(pts
-			(xy 322.58 226.06) (xy 351.79 226.06)
+			(xy 322.58 226.06) (xy 332.74 226.06)
 		)
 		(stroke
 			(width 0)
@@ -19619,7 +19631,7 @@
 	)
 	(wire
 		(pts
-			(xy 308.61 240.03) (xy 351.79 240.03)
+			(xy 308.61 240.03) (xy 332.74 240.03)
 		)
 		(stroke
 			(width 0)
@@ -19776,6 +19788,16 @@
 			(type default)
 		)
 		(uuid "7ccb477a-c8cc-47b2-a7e4-a1881f856cef")
+	)
+	(wire
+		(pts
+			(xy 332.74 226.06) (xy 351.79 226.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7daa660b-8e0e-4e8d-b447-730424b3154b")
 	)
 	(wire
 		(pts
@@ -20179,6 +20201,16 @@
 	)
 	(wire
 		(pts
+			(xy 332.74 226.06) (xy 332.74 228.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a040d5c2-1c7f-48a1-bb77-7e304a987727")
+	)
+	(wire
+		(pts
 			(xy 375.92 134.62) (xy 392.43 134.62)
 		)
 		(stroke
@@ -20536,6 +20568,16 @@
 			(type default)
 		)
 		(uuid "babe5627-ac22-4fb1-9642-cfab572c7144")
+	)
+	(wire
+		(pts
+			(xy 332.74 236.22) (xy 332.74 240.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "baddb5e9-2200-4cae-a81b-5238afaad95c")
 	)
 	(wire
 		(pts
@@ -20916,6 +20958,16 @@
 			(type default)
 		)
 		(uuid "e0890149-1d57-4c12-8c26-cd0e7e614c88")
+	)
+	(wire
+		(pts
+			(xy 332.74 240.03) (xy 351.79 240.03)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e1935d2a-5d5a-4409-9d35-d2da548c840a")
 	)
 	(wire
 		(pts
@@ -23748,7 +23800,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Oscillator:Oscillator_SMD_EuroQuartz_XO32-4Pin_3.2x2.5mm_HandSoldering"
+		(property "Footprint" "Oscillator:Oscillator_SMD_EuroQuartz_XO32-4Pin_3.2x2.5mm_RotB_HandSoldering"
 			(at 302.26 46.99 0)
 			(effects
 				(font
@@ -23879,6 +23931,84 @@
 			(project "spdif_recv_cs8416_ak4137"
 				(path "/30ca7edf-6c81-4328-9145-ca1ed5e07e9a"
 					(reference "U10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:CP")
+		(at 332.74 232.41 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "00000000-0000-0000-0000-00006077ae0b")
+		(property "Reference" "C18"
+			(at 335.7372 231.2416 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "220uF/10V"
+			(at 335.7372 233.553 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
+			(at 333.7052 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 332.74 232.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 332.74 232.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "manf#" "35YXF100MEFC8X11.5"
+			(at 335.7372 228.7016 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "554ad18e-6093-4c5e-b410-5a5b19cfb470")
+		)
+		(pin "2"
+			(uuid "783f9191-bb86-4f7e-8337-e0885c4ce760")
+		)
+		(instances
+			(project "spdif_recv_cs8416_ak4137"
+				(path "/30ca7edf-6c81-4328-9145-ca1ed5e07e9a"
+					(reference "C18")
 					(unit 1)
 				)
 			)
