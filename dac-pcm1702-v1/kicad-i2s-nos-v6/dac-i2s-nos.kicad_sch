@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(title "DAC I2S NOS")
-		(date "2025-05-11")
+		(date "2025-05-25")
 		(rev "V6")
 	)
 	(lib_symbols
@@ -5734,7 +5734,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "v6 : LVDS, J1 14pin micro match, Footprint"
+	(text "v6 : LVDS, J1 14pin micro match, Footprint\n     U2 is MIC5317-1.8YM5-TR, U3 is MIC5317-3.3YM5-TR"
 		(exclude_from_sim no)
 		(at 216.916 213.36 0)
 		(effects
@@ -5800,6 +5800,17 @@
 		)
 		(uuid "9163021f-893f-49ad-bab3-cfbcaae2c4e2")
 	)
+	(text "TC1185-3.3VCT713\nMIC5504-3.3YM5-TR"
+		(exclude_from_sim no)
+		(at 173.482 276.352 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a621fcd5-c08d-48c8-a3ca-0526402b63d8")
+	)
 	(text "Input from ASRC is 192kHz\nPCM1702 support x16 oversampling (44.1kHz)\nCLKOUTR/CLKOUTL are 12.288MHz\n2 channels x 32 bits x 192kHz => 12288000\n\nInput from ASRC is 384kHz\nPCM1702 support x16 oversampling at 44.1kHz => 705.6kHz\nCLKOUTR/CLKOUTL are 24.576MHz\n2 channels x 32 bits x 384kHz => 24.576MHz"
 		(exclude_from_sim no)
 		(at 136.652 36.322 0)
@@ -5831,6 +5842,17 @@
 			)
 		)
 		(uuid "cfc86f48-9085-4b01-acb3-be141d42f649")
+	)
+	(text "TC1185-1.8VCT713\nMIC5504-1.8YM5-TR"
+		(exclude_from_sim no)
+		(at 173.736 241.808 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e65e5b1f-e992-4f4f-ae2a-b8dd7ef1a04e")
 	)
 	(junction
 		(at 372.11 57.15)
@@ -10671,7 +10693,7 @@
 				)
 			)
 		)
-		(property "Value" "TC1185-1.8VCT713"
+		(property "Value" "MIC5317-1.8YM5-TR"
 			(at 167.64 220.3196 0)
 			(effects
 				(font
@@ -10748,7 +10770,7 @@
 				)
 			)
 		)
-		(property "Value" "TC1185-3.3VCT713"
+		(property "Value" "MIC5317-3.3YM5-TR"
 			(at 168.91 254.6096 0)
 			(effects
 				(font
