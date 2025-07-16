@@ -1,6 +1,6 @@
 (ExpressProject "SE-211-Driver"
   (ProjectVersion "19981106")
-  (SoftwareVersion "23.1 S005 (4202337)  [6/12/2024]-[07/07/24]")
+  (SoftwareVersion "24.1 S005 (4301626)  [6/2/2025]-[07/16/25]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -46,13 +46,26 @@
     (Folder "Include Files"
       (Sort User))
     (Folder "Simulation Profiles"
-      (ActiveProfile ".\se-211-driver-pspicefiles\schematic1\bias.sim")
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
          ".\se-211-driver-pspicefiles\schematic1\bias.sim"
         (DisplayName "SCHEMATIC1-bias")
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\se-211-driver-pspicefiles\schematic1\ac.sim"
+        (DisplayName "SCHEMATIC1-AC")
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\se-211-driver-pspicefiles\schematic1\tran.sim")
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\se-211-driver-pspicefiles\schematic1\tran.sim"
+        (DisplayName "SCHEMATIC1-TRAN")
         (Type "PSpice Profile"))))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
+    (VSIN
+      (FullPartName "VSIN.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
+      (DeviceIndex "0"))
     (6SN7
       (FullPartName "6SN7.Normal")
       (LibraryName
@@ -100,19 +113,18 @@
          "SCHEMATIC1")
       (Path "Outputs")
       (Select "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\211-SE-Amp\pspice\Driver\v1\se-211-driver.dsn"
-         "SCHEMATIC1" "PAGE1"))
+         "C:\Users\schenk\Documents\GitHub\electronic-projects\211-SE-Amp\pspice\Driver\v1\se-211-driver.dsn"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 1367"))
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 787"))
       (Tab 0))
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 2481 24 1385")
-        (Scroll "-276 0")
+        (Placement "44 0 1 -1 -1 -1 -1 5 1546 24 805")
+        (Scroll "0 333")
         (Zoom "115")
         (Occurrence "/"))
       (Path
