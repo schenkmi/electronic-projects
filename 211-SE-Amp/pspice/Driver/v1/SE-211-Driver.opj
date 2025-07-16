@@ -54,13 +54,18 @@
          ".\se-211-driver-pspicefiles\schematic1\ac.sim"
         (DisplayName "SCHEMATIC1-AC")
         (Type "PSpice Profile"))
-      (ActiveProfile ".\se-211-driver-pspicefiles\schematic1\tran.sim")
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
          ".\se-211-driver-pspicefiles\schematic1\tran.sim"
         (DisplayName "SCHEMATIC1-TRAN")
-        (Type "PSpice Profile"))))
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\se-211-driver-pspicefiles\schematic1\tran.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
+    (L
+      (FullPartName "L.Normal")
+      (LibraryName
+         "C:\CADENCE\SPB_24.1\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
+      (DeviceIndex "0"))
     (VSIN
       (FullPartName "VSIN.Normal")
       (LibraryName
@@ -90,11 +95,6 @@
       (LibraryName
          "C:\CADENCE\SPB_23.1\TOOLS\CAPTURE\LIBRARY\PSPICE\SOURCE.OLB")
       (DeviceIndex "0"))
-    (L
-      (FullPartName "L.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_23.1\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
-      (DeviceIndex "0"))
     (VSTIM
       (FullPartName "VSTIM.Normal")
       (LibraryName "..\..\LIBRARY\PSPICE\SOURCSTM.OLB")
@@ -111,9 +111,7 @@
       (Path "Design Resources"
          "C:\Users\schenk\Documents\GitHub\electronic-projects\211-SE-Amp\pspice\Driver\v1\se-211-driver.dsn"
          "SCHEMATIC1")
-      (Path "Outputs")
-      (Select "Design Resources"
-         "C:\Users\schenk\Documents\GitHub\electronic-projects\211-SE-Amp\pspice\Driver\v1\se-211-driver.dsn"))
+      (Path "Outputs"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
@@ -124,7 +122,7 @@
       (Type "COrSchematicDoc")
       (Frame
         (Placement "44 0 1 -1 -1 -1 -1 5 1546 24 805")
-        (Scroll "0 333")
+        (Scroll "0 84")
         (Zoom "115")
         (Occurrence "/"))
       (Path
