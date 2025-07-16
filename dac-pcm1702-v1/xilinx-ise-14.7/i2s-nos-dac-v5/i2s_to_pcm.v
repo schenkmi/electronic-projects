@@ -3,7 +3,7 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    27.04.2025
+// Create Date:    28.04.2025
 // Design Name: 
 // Module Name:    i2s_to_pcm 
 // Project Name: 
@@ -32,25 +32,29 @@
 
 // git clean -d -x -f .
 
-
-module DEFF (
-  input clock, in,
+// double edge triggered flip-fop
+module double_edge_flip_flop(
+  input clock, reset, in,
   output out
 );
-
   reg trig1, trig2;
 
   assign out = trig1^trig2;
 
-  always @(posedge clock) begin
-    trig1 <= in^trig2;
+  always @(posedge clock, posedge reset) begin
+    if (reset)
+      trig1 <= 0;
+    else
+      trig1 <= in^trig2;
   end
 
-  always @(negedge clock) begin
-    trig2 <= in^trig1;
+  always @(negedge clock, posedge reset) begin
+    if (reset)
+      trig2 <= 0;
+    else
+      trig2 <= in^trig1;
   end
 endmodule
-
 
 module i2s_to_pcm(
     input BCK,
@@ -67,16 +71,13 @@ module i2s_to_pcm(
     reg [11:0] sr_right; // 7bit shift register
     reg [31:0] sr_left; // 32bit shift register
     //reg delay_bck;
-    //reg delay_lrck;
-	 
-	 
+    //reg delay_lrck;	 
     wire delay_bck;
     wire delay_lrck;
 
-DEFF u0 (.clock(BCK), .in(BCK), .out(delay_bck));
-DEFF u1 (.clock(BCK), .in(LRCK), .out(delay_lrck));
+    double_edge_flip_flop deff_bck (.clock(BCK), .reset(0), .in(BCK), .out(delay_bck));
+    double_edge_flip_flop deff_lrck (.clock(BCK), .reset(0),.in(LRCK), .out(delay_lrck));
 
-	 
     always @(posedge BCK) begin
 		  // shift DATAIN by 7 bit right channel
 		  // 32bit - 20bit -1bit (I2S)
@@ -87,11 +88,13 @@ DEFF u1 (.clock(BCK), .in(LRCK), .out(delay_lrck));
 		  sr_left <= {sr_left[30:0], sr_right[11]};
     end
 	 
-	 // to maintain timing 
-	// always @(posedge BCK or negedge BCK) begin
-//		delay_bck <= BCK;
-//		delay_lrck <= LRCK;
-//	 end
+/*	 // to maintain timing
+	 // Xilinx XC2C64A supports dual edge flip flops
+	 always @(posedge BCK or negedge BCK) begin
+		delay_bck <= BCK;
+		delay_lrck <= LRCK;
+	 end*/
+
 
     // Capture the data from the last stage, before it is lost
     assign CLKOUTR = delay_bck;
@@ -104,6 +107,3 @@ DEFF u1 (.clock(BCK), .in(LRCK), .out(delay_lrck));
 	
     assign LED1 = 0; // 0 => LED on, 1 => LED off
 endmodule
-
-
-
