@@ -1,0 +1,21 @@
+*
+*   F-2012
+*
+.SUBCKT F-2012 P1 B1 B2 P2 S1 S0
+* Primary inductance (p-p 2500ohm 210H)
+L11 P1 11 52.5H
+L12 12 P2 52.5H
+* Primary DC resistance
+R11 11 B1 86.75
+R12 B2 12 86.75
+* Primary stray capacitance
+CP P1 P2 1.05997311012445e-09
+* Secondary inductance (8ohm)
+L13 S1 21 0.746305609284333H
+* Secondary DC resistance
+R13 S0 21 0.268
+* coupling factor
+K1 L11 L13 0.999991822559063
+K2 L12 L13 0.999991822559063
+K3 L11 L12 0.999991822559063
+.ENDS
