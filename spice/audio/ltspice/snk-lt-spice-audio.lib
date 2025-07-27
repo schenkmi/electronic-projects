@@ -31,3 +31,89 @@ CGA   G    A 1.4p
 CGK   G    K 3.3p
 CAK   A    K 1.8p
 .ENDS
+
+* From https://www.diyaudio.com/community/threads/vacuum-tube-spice-models.243950/print
+
+* GE 211-VT4C model
+.SUBCKT 211_GE 1 2 3 ; Plate Grid Cathode
++ PARAMS: CCG=6P  CGP=14P CCP=5.5P 
++ MU=12 KG1=3928.74 KP=451.14 KVB=249.72 VCT=-2.52 EX=1.458 
++ VGOFF=-2.62 IGA=8.906E-6 IGB=0.04944 IGC=2.4 IGEX=2 
+* Vp_MAX=2200 Ip_MAX=160 Vg_step=20 Vg_start=40 Vg_count=15
+* Rp=4000 Vg_ac=55 P_max=75 Vg_qui=-48 Vp_qui=300
+* X_MIN=90 Y_MIN=40 X_SIZE=765 Y_SIZE=563 FSZ_X=1296 FSZ_Y=736 XYGrid=false
+* showLoadLine=n showIp=y isDHT=n isPP=n isAsymPP=n showDissipLimit=y 
+* showIg1=y gridLevel2=y isInputSnapped=n  
+* XYProjections=n harmonicPlot=n dissipPlot=n 
+*----------------------------------------------------------------------------------
+E1 7 0 VALUE={V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(VCT+V(2,3))/SQRT(KVB+V(1,3)*V(1,3)))))} 
+RE1 7 0 1G  ; TO AVOID FLOATING NODES
+G1 1 3 VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG1} 
+RCP 1 3 1G   ; TO AVOID FLOATING NODES
+C1 2 3 {CCG} ; CATHODE-GRID 
+C2 2 1 {CGP} ; GRID=PLATE 
+C3 1 3 {CCP} ; CATHODE-PLATE 
+RE2 2 0 1G 
+EGC 8 0 VALUE={V(2,3)-VGOFF} ; POSITIVE GRID THRESHOLD
+GG 2 3 VALUE={(IGA+IGB/(IGC+V(1,3)))*(MU/KG1)*(PWR(V(8),IGEX)+PWRS(V(8),IGEX))}
+.ENDS
+
+**** 211_TII ** Advanced Grid Current **********************************
+* Created on 08/31/2021 04:28 using paint_kit.jar 3.1
+* [url=http://www.dmitrynizh.com/tubeparams_image.htm]Model Paint Tools: Trace Tube Parameters over Plate Curves, Interactively[/url]
+* Plate Curves image file: 211-TII.png
+* Data source link: 
+*----------------------------------------------------------------------------------
+.SUBCKT 211_TII 1 2 3 ; Plate Grid Cathode
++ PARAMS: CCG=6P  CGP=14.5P CCP=5.5P 
++ MU=11.64 KG1=2208.15 KP=589.39 KVB=889.01 VCT=-3.98 EX=1.346 
++ VGOFF=-4 IGA=8.906E-6 IGB=0.04944 IGC=2.4 IGEX=2 
+* Vp_MAX=1800 Ip_MAX=400 Vg_step=20 Vg_start=20 Vg_count=15
+* Rp=4000 Vg_ac=55 P_max=75 Vg_qui=-48 Vp_qui=300
+* X_MIN=56 Y_MIN=16 X_SIZE=787 Y_SIZE=475 FSZ_X=1296 FSZ_Y=736 XYGrid=false
+* showLoadLine=n showIp=y isDHT=n isPP=n isAsymPP=n showDissipLimit=y 
+* showIg1=y gridLevel2=y isInputSnapped=n  
+* XYProjections=n harmonicPlot=n dissipPlot=n 
+*----------------------------------------------------------------------------------
+E1 7 0 VALUE={V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(VCT+V(2,3))/SQRT(KVB+V(1,3)*V(1,3)))))} 
+RE1 7 0 1G  ; TO AVOID FLOATING NODES
+G1 1 3 VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG1} 
+RCP 1 3 1G   ; TO AVOID FLOATING NODES
+C1 2 3 {CCG} ; CATHODE-GRID 
+C2 2 1 {CGP} ; GRID=PLATE 
+C3 1 3 {CCP} ; CATHODE-PLATE 
+RE2 2 0 1G 
+EGC 8 0 VALUE={V(2,3)-VGOFF} ; POSITIVE GRID THRESHOLD
+GG 2 3 VALUE={(IGA+IGB/(IGC+V(1,3)))*(MU/KG1)*(PWR(V(8),IGEX)+PWRS(V(8),IGEX))}
+.ENDS
+
+* Created on 08/31/2021 04:50 using paint_kit.jar 3.1
+* [URL="http://www.dmitrynizh.com/tubeparams_image.htm"]Model Paint Tools: Trace Tube Parameters over Plate Curves, Interactively[/URL]
+* Plate Curves image file: 211-RCA.png
+* Data source link: 
+*----------------------------------------------------------------------------------
+.SUBCKT 211_RCA 1 2 3 ; Plate Grid Cathode
++ PARAMS: CCG=5.4P  CGP=14P CCP=4.8P 
++ MU=11.64 KG1=1397.72 KP=3536.33 KVB=4994.4 VCT=-7.995 EX=1.27 
++ VGOFF=-12 IGA=8.906E-6 IGB=0.04944 IGC=2.4 IGEX=2 
+* Vp_MAX=2000 Ip_MAX=1600 Vg_step=25 Vg_start=200 Vg_count=15
+* Rp=4000 Vg_ac=55 P_max=75 Vg_qui=-48 Vp_qui=300
+* X_MIN=38 Y_MIN=8 X_SIZE=802 Y_SIZE=647 FSZ_X=1296 FSZ_Y=736 XYGrid=false
+* showLoadLine=n showIp=y isDHT=n isPP=n isAsymPP=n showDissipLimit=y 
+* showIg1=y gridLevel2=y isInputSnapped=n  
+* XYProjections=n harmonicPlot=n dissipPlot=n 
+*----------------------------------------------------------------------------------
+E1 7 0 VALUE={V(1,3)/KP*LOG(1+EXP(KP*(1/MU+(VCT+V(2,3))/SQRT(KVB+V(1,3)*V(1,3)))))} 
+RE1 7 0 1G  ; TO AVOID FLOATING NODES
+G1 1 3 VALUE={(PWR(V(7),EX)+PWRS(V(7),EX))/KG1} 
+RCP 1 3 1G   ; TO AVOID FLOATING NODES
+C1 2 3 {CCG} ; CATHODE-GRID 
+C2 2 1 {CGP} ; GRID=PLATE 
+C3 1 3 {CCP} ; CATHODE-PLATE 
+RE2 2 0 1G 
+EGC 8 0 VALUE={V(2,3)-VGOFF} ; POSITIVE GRID THRESHOLD
+GG 2 3 VALUE={(IGA+IGB/(IGC+V(1,3)))*(MU/KG1)*(PWR(V(8),IGEX)+PWRS(V(8),IGEX))}
+.ENDS
+
+
+
