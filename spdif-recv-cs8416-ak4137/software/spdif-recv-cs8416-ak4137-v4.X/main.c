@@ -110,10 +110,7 @@ PCM1792A_t pcm1792a = {
 
 static void init(volatile Instance_t* instance)
 {
-
-    
-    
-        LED_D3_SetHigh();
+    LED_D3_SetHigh();
     __delay_ms(500);
     LED_D3_SetLow();
         LED_D4_SetHigh();
