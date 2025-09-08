@@ -240,7 +240,7 @@ void process_encoder_button(volatile Instance_t* instance) {
     /* Encoder 2 channel */
     if (instance->encoder[Channel].encoder_push_action) {
       /* reset after operation */
-      instance->encoder[Volume].encoder_push_counter = instance->encoder[Volume].encoder_push_action = 0;
+      instance->encoder[Channel].encoder_push_counter = instance->encoder[Channel].encoder_push_action = 0;
     }
   } else {
     if (instance->encoder[Combined].encoder_push_action) {
