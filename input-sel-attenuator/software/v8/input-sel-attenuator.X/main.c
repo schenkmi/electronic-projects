@@ -37,6 +37,13 @@
   */
 
 /**
+ * TODO
+ * 2025.09.08
+ * Separate usage of encoder push button. Long press volume => store current volume.
+ * Long press channel => store current channel
+ */
+
+/**
  * History
  * V2.4     2025.03.30 Fix missing __EEPROM_DATA
  * V2.3     2025.03.29 Implement make before break algorithm to control the attenuator relay
