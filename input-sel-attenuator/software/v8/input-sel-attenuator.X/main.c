@@ -45,6 +45,7 @@
 
 /**
  * History
+ * V2.5     2025.09.08 Improve encoder push button usage.
  * V2.4     2025.03.30 Fix missing __EEPROM_DATA
  * V2.3     2025.03.29 Implement make before break algorithm to control the attenuator relay
  * V2.2     2025.03.26 Improve detection of attenuation inc/dec for relay control
