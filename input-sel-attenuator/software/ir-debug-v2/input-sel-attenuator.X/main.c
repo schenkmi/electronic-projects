@@ -98,7 +98,8 @@ volatile Instance_t instance = {
     { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0,
       .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
   },
-  .button = { .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .ms_counter = 0, .press_time = 0, .release_time = 0 , .result = 0},
+  .ms_counter = 0,
+  .button = { .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0 , .result = 0},
   
   
   

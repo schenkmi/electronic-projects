@@ -108,21 +108,27 @@ static void timer_callback_process_dual(void) {
     }
   }
 
-  instance.button.ms_counter++;
+  instance.ms_counter++;
   
   if (ENC1SWITCH_GetValue() == 0) { // Button pressed
             if (!instance.button.button_pressed) {
-                instance.button.press_time = instance.button.ms_counter;
-                instance.button.button_pressed = 1;
+                instance.button.press_time = instance.ms_counter;
+                instance.button.button_pressed = true;
             }
   } else {
             if (instance.button.button_pressed) {
-                uint16_t duration = instance.button.ms_counter - instance.button.press_time;
-                if (duration >= 10 /*DEBOUNCE_TIME*/) {
-                    instance.button.release_time = instance.button.ms_counter;
-                    instance.button.button_pressed = 0;
+                uint16_t duration = instance.ms_counter - instance.button.press_time;
+                
+                
+                 instance.button.button_pressed = false;
 
-                    if (duration >= 3000 /*LONG_PRESS_TIME*/) {
+                
+                
+                if (duration >= ROTARY_PUSH_DEBOUNCE_TIME /*DEBOUNCE_TIME*/) {
+                    instance.button.release_time = instance.ms_counter;
+                   // instance.button.button_pressed = false;
+
+                    if (duration >= ROTARY_PUSH_LONG_PRESS_TIME /*LONG_PRESS_TIME*/) {
                         // Long press detected
                         //printf("Long press\r\n");  
                         
@@ -138,7 +144,7 @@ static void timer_callback_process_dual(void) {
                     } else {
                         // Short press
                         instance.button.click_count++;
-                        instance.button.waiting_for_double = 1;
+                        instance.button.waiting_for_double = true;
                     }
                 }
             }
@@ -147,7 +153,7 @@ static void timer_callback_process_dual(void) {
   
   
         // Check for double click timeout
-        if (instance.button.waiting_for_double && (instance.button.ms_counter - instance.button.release_time > 500 /*DOUBLE_CLICK_TIME*/)) {
+        if (instance.button.waiting_for_double && (instance.ms_counter - instance.button.release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME /*DOUBLE_CLICK_TIME*/)) {
             if (instance.button.click_count == 1) {
                 // Single click
                // LED_LAT = 1;
@@ -169,7 +175,7 @@ static void timer_callback_process_dual(void) {
 //                LED_LAT = 0;
             }
             instance.button.click_count = 0;
-            instance.button.waiting_for_double = 0;
+            instance.button.waiting_for_double = false;
         }
   
   

@@ -60,6 +60,16 @@
 #define RELAIS_MAX_SETUP_TIME             3 /* 3ms for G6K-2F DC5 */
 
 #define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
+
+
+
+#define ROTARY_PUSH_DEBOUNCE_TIME      20    /* 20 ms on a 1ms timer IRQ */
+#define ROTARY_PUSH_LONG_PRESS_TIME  1000    /* 1000 ms on a 1ms timer IRQ */
+#define ROTARY_PUSH_DOUBLE_CLICK_TIME 500    /* 500 ms on a 1ms timer IRQ */
+
+
+
+
 #define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE) /* 3 seconds till storing default attenuation */
 
 /* One For All TV Hitachi 2676 */
@@ -107,11 +117,11 @@ typedef struct {
 
 
 typedef struct {
-  int button_pressed;
-  int   waiting_for_double;
+  bool button_pressed;
+  bool   waiting_for_double;
   int click_count;
     
-  uint16_t ms_counter; 
+  //uint16_t ms_counter; 
   uint16_t press_time;
   uint16_t release_time;
 
@@ -138,7 +148,7 @@ typedef struct {
   /* IR receiver */
   IR_t ir;
   
-  
+  uint16_t ms_counter; 
   Button_t button;
   
 } Instance_t;
