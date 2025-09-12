@@ -226,6 +226,19 @@ void eeprom_save_status(volatile Instance_t* instance) {
            
            
            instance->save_action &= ~SaveVolume;
+           
+        
+        /* store current attenuation as default value */
+        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
+        
+        
+        printf("Save Volume %d\r\n", instance->channel_attenuation[instance->channel].default_attenuation); 
+           
+        /* if default value for channel changed, store it */
+        if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation) {
+          /* store current default attenuation which is applied after a channel switch */
+          eeprom_write((unsigned char) instance->channel, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
+        }
       }
       
       
@@ -234,6 +247,12 @@ void eeprom_save_status(volatile Instance_t* instance) {
            
            
            instance->save_action &= ~SaveChannel;
+           
+           
+       /* if stored default channel not equal current one, update default channel */
+        if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char) instance->channel) {
+          eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char) instance->channel);
+        }
       }
   } else {
       
@@ -463,17 +482,7 @@ void process_ir(Instance_t* instance) {
               attenuation++;
               break;
             case IR_KEY_OK:
-              instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-             // instance->eeprom_save_status_counter = 1;
-              
-              
-              if (instance->mode == Dual) {
-              instance->eeprom_save_status_counter[Volume] = 1;
-              //instance->eeprom_save_status_counter[Volume] = 1;
-              } else {
-                  
-              }
-              
+              /* possible location to store current volume */
               break;
             case IR_KEY_1:
               channel = 0;
