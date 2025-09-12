@@ -115,24 +115,14 @@ void process_channel(volatile Instance_t* instance) {
     
     /* no save on first start (e.g last_channel == -1) */
     if (instance->last_channel != -1) {
-     //  instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE; 
-       
-      if (instance->save_mode[Volume] == SaveOnChange) {
-          
+      if (instance->save_mode[Volume] == SaveOnChange) {  
         printf("process_channel instance->channel_save_mode == OnChange \r\n");  
-//        instance->eeprom_save_status_counter[(instance->mode == Dual) ? Channel : Combined] = EEPROM_SAVE_STATUS_VALUE;
-        
         instance->save_action |= SaveChannel;
         instance->save_countdown_counter = 1000;
       }
-               
-               
-       
     }
     
-
     instance->last_channel = instance->channel;
-    
   }
 }
 
@@ -223,108 +213,40 @@ void process_attenuation(volatile Instance_t* instance) {
 }
 
 void eeprom_save_status(volatile Instance_t* instance) {
-  
-    if (instance->save_countdown_counter > 0) {
-        instance->save_countdown_counter--;
-        //printf("Counter %d\r\n", instance->save_countdown_counter);
-        return;
-    }
-    
-    if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
-      if (instance->save_action & SaveVolume) {
-           printf("Save Volume\r\n"); 
-           
-           
-           instance->save_action &= ~SaveVolume;
-           
-        
-        /* store current attenuation as default value */
-        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-        
-        
-        printf("Save Volume %d\r\n", instance->channel_attenuation[instance->channel].default_attenuation); 
-           
-        /* if default value for channel changed, store it */
-        if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation) {
-          /* store current default attenuation which is applied after a channel switch */
-          eeprom_write((unsigned char) instance->channel, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
-        }
-      }
-      
-      
-      if (instance->save_action & SaveChannel) {
-           printf("Save Channel\r\n"); 
-           
-           
-           instance->save_action &= ~SaveChannel;
-           
-           
-       /* if stored default channel not equal current one, update default channel */
-        if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char) instance->channel) {
-          eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char) instance->channel);
-        }
-      }
-  } else {
-      
+  /* delayed save to prevent unneeded writes to the eeprom */
+  if (instance->save_countdown_counter > 0) {
+    instance->save_countdown_counter--;
+    return;
   }
-#if 0
-  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
-    if (instance->eeprom_save_status_counter[Volume] != -1) {
-      if (--instance->eeprom_save_status_counter[Volume] == 0) {
-          
-        printf("Save volume\r\n");  
-          
-        /* if default value for channel changed, store it */
-        if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation) {
-          /* store current default attenuation which is applied after a channel switch */
-          eeprom_write((unsigned char) instance->channel, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
-        }
-        
-        instance->eeprom_save_status_counter[Volume] = -1; /* no action */
-      }
-    }
     
-    if (instance->eeprom_save_status_counter[Channel] != -1) {
-      if (--instance->eeprom_save_status_counter[Channel] == 0) {
-        
-          printf("Save channel\r\n");  
-          
-          /* if stored default channel not equal current one, update default channel */
-        if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char) instance->channel) {
-          eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char) instance->channel);
-        }
-        
-        instance->eeprom_save_status_counter[Channel] = -1; /* no action */
-      }
-    }
-  } else {
+  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
+    if (instance->save_action & SaveVolume) {
+      printf("Save Volume\r\n"); 
+      instance->save_action &= ~SaveVolume;
       
-      
-        if (instance->eeprom_save_status_counter[Combined] != -1) {
-      
-      printf("eeprom_save_status_counter[Combined] %d\r\n", instance->eeprom_save_status_counter[Combined]);
-    if (--instance->eeprom_save_status_counter[Combined] == 0) {
-      
-        printf("Save\r\n");
-        
-        /* if stored default channel not equal current one, update default channel */
-      if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char) instance->channel) {
-        eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char) instance->channel);
-      }
-
+      /* store current attenuation as default value */
+      instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
+      printf("Save Volume %d\r\n", instance->channel_attenuation[instance->channel].default_attenuation); 
+           
       /* if default value for channel changed, store it */
       if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation) {
         /* store current default attenuation which is applied after a channel switch */
         eeprom_write((unsigned char) instance->channel, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
       }
-      instance->eeprom_save_status_counter[Combined] = -1; /* not action */
     }
+      
+    if (instance->save_action & SaveChannel) {
+      printf("Save Channel\r\n"); 
+      instance->save_action &= ~SaveChannel;
+     
+      /* if stored default channel not equal current one, update default channel */
+      if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char) instance->channel) {
+        eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char) instance->channel);
+      }
+    }
+  } else {
+      
   }
-        
-  } 
-  
-#endif
-
 }
 
 void process_encoder_button(volatile Instance_t* instance) {
@@ -332,19 +254,17 @@ void process_encoder_button(volatile Instance_t* instance) {
     if (instance->encoder[Volume].button.press != NoPress) {
       switch (instance->encoder[Volume].button.press) {
         case SinglePress:
-             printf("Volume Single click\r\n");  
+          printf("Volume Single click\r\n");  
           break;
         case DoublePress:
-             printf("Volume Double click\r\n"); 
+          printf("Volume Double click\r\n"); 
           break;
         case LongPress:
-             printf("Volume Long press\r\n");
-             
-             if (instance->save_mode[Volume] == SaveOnLongPress) {
-                 instance->save_countdown_counter = 1000;
-                 instance->save_action |= SaveVolume;
-             }
-             
+          printf("Volume Long press\r\n");
+          if (instance->save_mode[Volume] == SaveOnLongPress) {
+            instance->save_countdown_counter = 1000;
+            instance->save_action |= SaveVolume;
+          }   
           break;
         default:
           break;
@@ -352,24 +272,21 @@ void process_encoder_button(volatile Instance_t* instance) {
         
       instance->encoder[Volume].button.press = NoPress;
     }
-      
-      
+
     if (instance->encoder[Channel].button.press != NoPress) {
       switch (instance->encoder[Channel].button.press) {
         case SinglePress:
-             printf("Channel Single click\r\n");  
+          printf("Channel Single click\r\n");  
           break;
         case DoublePress:
-             printf("Channel Double click\r\n"); 
+          printf("Channel Double click\r\n"); 
           break;
         case LongPress:
-             printf("Channel Long press\r\n");  
-             
-             if (instance->save_mode[Channel] == SaveOnLongPress) {
-                 instance->save_countdown_counter = 1000;
-                 instance->save_action |= SaveChannel;
-             }
-             
+          printf("Channel Long press\r\n");  
+          if (instance->save_mode[Channel] == SaveOnLongPress) {
+            instance->save_countdown_counter = 1000;
+            instance->save_action |= SaveChannel;
+          }   
           break;
         default:
           break;
@@ -377,19 +294,17 @@ void process_encoder_button(volatile Instance_t* instance) {
         
       instance->encoder[Channel].button.press = NoPress;
     }
-      
-      
   } else {
     if (instance->encoder[Combined].button.press != NoPress) {
       switch (instance->encoder[Combined].button.press) {
         case SinglePress:
-             printf("Combined Single click\r\n");  
+          printf("Combined Single click\r\n");  
           break;
         case DoublePress:
-             printf("Combined Double click\r\n"); 
+          printf("Combined Double click\r\n"); 
           break;
         case LongPress:
-             printf("Combined Long press\r\n");  
+          printf("Combined Long press\r\n");  
           break;
         default:
           break;
@@ -398,72 +313,6 @@ void process_encoder_button(volatile Instance_t* instance) {
       instance->encoder[Combined].button.press = NoPress;
     }
   }
-#if 0
-  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
-    /* Encoder 1 attenuation */
-    if (instance->encoder[Volume].encoder_push_action) {
-      if (instance->encoder[Volume].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
-        /* store current attenuation as default value */
-        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-        instance->eeprom_save_status_counter[Volume] = EEPROM_SAVE_STATUS_VALUE;
-        
-        printf("instance->encoder[Volume].encoder_push_action %d encoder_push_counter %d\r\n", instance->encoder[Volume].encoder_push_action, instance->encoder[Volume].encoder_push_counter);
-      } else {
-        /* no short press function for now */
-      }
-      
-      
-      
-      /* reset after operation */
-      instance->encoder[Volume].encoder_push_counter = instance->encoder[Volume].encoder_push_action = 0;
-    }
-
-    /* Encoder 2 channel */
-    if (instance->encoder[Channel].encoder_push_action) {
-      if (instance->encoder[Channel].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
-        /* store current attenuation as default value */
-        //instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-        instance->eeprom_save_status_counter[Channel] = EEPROM_SAVE_STATUS_VALUE;
-        
-        printf("instance->encoder[Channel].encoder_push_action %d encoder_push_counter %d\r\n", instance->encoder[Channel].encoder_push_action, instance->encoder[Channel].encoder_push_counter);
-        
-      } else {
-        /* no short press function for now */
-      }
-      
-        
-        
-        
-      /* reset after operation */
-      instance->encoder[Channel].encoder_push_counter = instance->encoder[Channel].encoder_push_action = 0;
-    }
-  } else {
-    if (instance->encoder[Combined].encoder_push_action) {
-      if (instance->encoder[Combined].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
-        /* store current attenuation as default value */
-        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-        instance->eeprom_save_status_counter[Combined] = EEPROM_SAVE_STATUS_VALUE;
-      } else {
-        /* switch control mode */
-        if (instance->control == Volume) {
-          instance->control = Channel;
-        } else {
-          instance->control = Volume;
-        }
-        /* for debugging switching between attenuation and channel */
-#if 0
-        LED_Toggle();
-#endif
-        /* reset rotary encoder vars */
-        instance->encoder[Combined].direction = DIR_NONE;
-        instance->encoder[Combined].encoder_count[instance->control] = 0;
-      }
-
-      /* reset after operation */
-      instance->encoder[Combined].encoder_push_counter = instance->encoder[Combined].encoder_push_action = 0;
-    }
-  }
-#endif
 }
 
 void process_ir(Instance_t* instance) {
@@ -476,39 +325,39 @@ void process_ir(Instance_t* instance) {
     printf("proto %u addr %u cmd %u flags %u\r\n", instance->ir.data.protocol, instance->ir.data.address, instance->ir.data.command, instance->ir.data.flags);
 
     if (instance->ir.data.protocol == IR_PROTOCOL && instance->ir.data.address == IR_REMOTE_ADDRESS) {
-        int channel = instance->channel;
-        int attenuation = instance->attenuation;
+      int channel = instance->channel;
+      int attenuation = instance->attenuation;
 
-        if (instance->ir.data.flags == 0x00) {
-          switch (instance->ir.data.command) {
-            case IR_KEY_CH_UP:
-              channel++;
-              break;
-            case IR_KEY_CH_DOWN:
-              channel--;
-              break;
-            case IR_KEY_VOL_UP:
-              attenuation--;
-              break;
-            case IR_KEY_VOL_DOWN:
-              attenuation++;
-              break;
-            case IR_KEY_OK:
-              /* possible location to store current volume */
-              break;
-            case IR_KEY_1:
-              channel = 0;
-              break;
-            case IR_KEY_2:
-              channel = 1;
-              break;
-            case IR_KEY_3:
-              channel = 2;
-              break;
-            case IR_KEY_4:
-              channel = 3;
-              break;
-          }
+      if (instance->ir.data.flags == 0x00) {
+        switch (instance->ir.data.command) {
+          case IR_KEY_CH_UP:
+            channel++;
+            break;
+          case IR_KEY_CH_DOWN:
+            channel--;
+            break;
+          case IR_KEY_VOL_UP:
+            attenuation--;
+            break;
+          case IR_KEY_VOL_DOWN:
+            attenuation++;
+            break;
+          case IR_KEY_OK:
+            /* possible location to store current volume */
+            break;
+          case IR_KEY_1:
+            channel = 0;
+            break;
+          case IR_KEY_2:
+            channel = 1;
+            break;
+          case IR_KEY_3:
+            channel = 2;
+            break;
+          case IR_KEY_4:
+            channel = 3;
+            break;
+        }
       } else {
         switch (instance->ir.data.command) {
           case IR_KEY_VOL_UP:

@@ -59,18 +59,12 @@
 #define EEPROM_SAVE_STATUS_VALUE       1000 /* 1 seconds on a 1ms loop */
 #define RELAIS_MAX_SETUP_TIME             3 /* 3ms for G6K-2F DC5 */
 
-//#define ROTARY_PUSH_DEBOUNCE             20 /* 20 ms on a 1ms timer IRQ */
+#define ROTARY_PUSH_DEBOUNCE_TIME        20 /* 20 ms on a 1ms timer IRQ */
+#define ROTARY_PUSH_LONG_PRESS_TIME    1000 /* 1000 ms on a 1ms timer IRQ */
+#define ROTARY_PUSH_DOUBLE_CLICK_TIME   500 /* 500 ms on a 1ms timer IRQ */
 
+#define DEFAULT_SAVE_COUNTDOWN         1000 /* 1000 ms on a 1ms timer IRQ */
 
-
-#define ROTARY_PUSH_DEBOUNCE_TIME      20    /* 20 ms on a 1ms timer IRQ */
-#define ROTARY_PUSH_LONG_PRESS_TIME  1000    /* 1000 ms on a 1ms timer IRQ */
-#define ROTARY_PUSH_DOUBLE_CLICK_TIME 500    /* 500 ms on a 1ms timer IRQ */
-
-
-
-
-#define STORE_DEFAULT_ATTENUATION_TIME ((3 /* seconds */ * 1000) / ROTARY_PUSH_DEBOUNCE_TIME) /* 3 seconds till storing default attenuation */
 
 /* One For All TV Hitachi 2676 */
 #define IR_PROTOCOL       IRMP_RC5_PROTOCOL
@@ -86,14 +80,9 @@
 #define IR_KEY_VOL_DOWN                  17
 #define IR_KEY_MUTE                      13
 
-
 enum Control { Combined = 0, Volume = 0, Channel = 1};
 enum Mode { Single = 0, Dual = 1 };
-
-
 enum SaveMode { SaveNever = 0, SaveOnChange = 1, SaveOnLongPress = 2 };
-
-
 
 enum ButtonPress { NoPress = 0,  SinglePress = 1, DoublePress = 2, LongPress = 3 };
 typedef struct {
@@ -105,19 +94,13 @@ typedef struct {
   enum ButtonPress press;
 } Button_t;
 
-
 typedef struct {
   uint8_t direction;
   int encoder_count[2 /* Volume = 0,  Channel = 1 */];
   /* rotary encoder state */
   uint8_t rotary_encoder_state;
   /* encoder push button */
-  //int encoder_push_debounce_counter;
-  //int encoder_push_counter;
-  //int encoder_push_action;
-  
   Button_t button;
-  
 } RotaryEncoder_t;
 
 typedef struct {
@@ -125,48 +108,28 @@ typedef struct {
   int attenuation;
 } ChannelVolume_t;
 
-
- enum SaveAction { NoSaveAction = 0,  SaveVolume = 0x1, SaveChannel = 0x2 };
+enum SaveAction { NoSaveAction = 0,  SaveVolume = 0x1, SaveChannel = 0x2 };
 
 typedef struct {
   IRMP_DATA data;
 } IR_t;
 
-
-
 typedef struct {
   enum Mode mode; /* single or dual encoder mode */
-  
- // enum SaveMode channel_save_mode;
- // enum SaveMode volume_save_mode;
-  
   enum SaveMode save_mode[2 /* 0 = Volume, 1 = Channel */];
-  
   uint8_t save_action;
   int save_countdown_counter;
-  
-  
   int channel;
   int last_channel;
   int attenuation;
   int last_attenuation;
-  //int eeprom_save_status_counter[2 /* 0 = Combined/Volume, 1 = Channel */];
   ChannelVolume_t channel_attenuation[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
-  
-  
-  
-  
   /* irq changed */
   volatile enum Control control;
-  
   uint16_t ms_counter; 
-  
   RotaryEncoder_t encoder[2 /* 0 = Combined/Volume, 1 = Channel */];
   /* IR receiver */
   IR_t ir;
-  
-  //uint16_t ms_counter; 
-  //Button_t button[2 /* 0 = Combined/Volume, 1 = Channel */];
 } Instance_t;
 
 extern volatile Instance_t instance;

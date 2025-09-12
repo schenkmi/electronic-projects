@@ -117,7 +117,6 @@ static void timer_callback_process_dual(void) {
     instance.encoder[Volume].button.waiting_for_double = false;
   }
   
-  
   /* encoder2 used for channel */
   encoder_direction = encoder2_read(&instance.encoder[Channel].rotary_encoder_state);
   if (encoder_direction != DIR_NONE) {
@@ -193,37 +192,6 @@ static void timer_callback_process_dual(void) {
     instance.encoder[Channel].button.click_count = 0;
     instance.encoder[Channel].button.waiting_for_double = false;
   }
-  
-  
-//  if (instance.encoder[Volume].encoder_push_action != 1) {
-//    /* no push action pending */
-//    uint8_t encoder_switch_level = ENC1SWITCH_GetValue();
-//    if (encoder_switch_level == 0) {
-//      instance.encoder[Volume].encoder_push_counter =
-//          (++instance.encoder[Volume].encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
-//    } else {
-//      if (instance.encoder[Volume].encoder_push_counter >= 1) {
-//        /* flag push action to be processed */
-//        instance.encoder[Volume].encoder_push_action = 1;
-//      }
-//      instance.encoder[Volume].encoder_push_debounce_counter = 0;
-//    }
-//  }
-
-//  if (instance.encoder[Channel].encoder_push_action != 1) {
-//    /* no push action pending */
-//    uint8_t encoder_switch_level = ENC2SWITCH_GetValue();
-//    if (encoder_switch_level == 0) {
-//      instance.encoder[Channel].encoder_push_counter =
-//          (++instance.encoder[Channel].encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
-//    } else {
-//      if (instance.encoder[Channel].encoder_push_counter >= 1) {
-//        /* flag push action to be processed */
-//        instance.encoder[Channel].encoder_push_action = 1;
-//      }
-//      instance.encoder[Channel].encoder_push_debounce_counter = 0;
-//    }
-//  }
 }
 
 static void timer_callback_process_single(void) {
