@@ -143,13 +143,14 @@ typedef struct {
   enum SaveMode save_mode[2 /* 0 = Volume, 1 = Channel */];
   
   uint8_t save_action;
+  int save_countdown_counter;
   
   
   int channel;
   int last_channel;
   int attenuation;
   int last_attenuation;
-  int eeprom_save_status_counter[2 /* 0 = Combined/Volume, 1 = Channel */];
+  //int eeprom_save_status_counter[2 /* 0 = Combined/Volume, 1 = Channel */];
   ChannelVolume_t channel_attenuation[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
   
   

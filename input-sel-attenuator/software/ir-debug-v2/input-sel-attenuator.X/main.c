@@ -84,9 +84,10 @@ volatile Instance_t instance = {
   .mode = Dual,
   .save_mode = { SaveOnLongPress /* Volume */ , SaveOnLongPress /* Channel */ },
   .save_action = NoSaveAction,
+  .save_countdown_counter = -1,
   .channel = -1, .last_channel = -1,
   .attenuation = -1, .last_attenuation = -1,
-  .eeprom_save_status_counter = { -1, -1 },
+  //.eeprom_save_status_counter = { -1, -1 },
   .channel_attenuation = {
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },

@@ -120,7 +120,10 @@ void process_channel(volatile Instance_t* instance) {
       if (instance->save_mode[Volume] == SaveOnChange) {
           
         printf("process_channel instance->channel_save_mode == OnChange \r\n");  
-        instance->eeprom_save_status_counter[(instance->mode == Dual) ? Channel : Combined] = EEPROM_SAVE_STATUS_VALUE;
+//        instance->eeprom_save_status_counter[(instance->mode == Dual) ? Channel : Combined] = EEPROM_SAVE_STATUS_VALUE;
+        
+        instance->save_action |= SaveChannel;
+        instance->save_countdown_counter = 1000;
       }
                
                
@@ -220,7 +223,14 @@ void process_attenuation(volatile Instance_t* instance) {
 }
 
 void eeprom_save_status(volatile Instance_t* instance) {
-  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
+  
+    if (instance->save_countdown_counter > 0) {
+        instance->save_countdown_counter--;
+        //printf("Counter %d\r\n", instance->save_countdown_counter);
+        return;
+    }
+    
+    if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
       if (instance->save_action & SaveVolume) {
            printf("Save Volume\r\n"); 
            
@@ -331,6 +341,7 @@ void process_encoder_button(volatile Instance_t* instance) {
              printf("Volume Long press\r\n");
              
              if (instance->save_mode[Volume] == SaveOnLongPress) {
+                 instance->save_countdown_counter = 1000;
                  instance->save_action |= SaveVolume;
              }
              
@@ -355,6 +366,7 @@ void process_encoder_button(volatile Instance_t* instance) {
              printf("Channel Long press\r\n");  
              
              if (instance->save_mode[Channel] == SaveOnLongPress) {
+                 instance->save_countdown_counter = 1000;
                  instance->save_action |= SaveChannel;
              }
              
