@@ -81,7 +81,9 @@ __EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 attenuation initial */,
               0xff, 0xff, 0xff);
 
 volatile Instance_t instance = {
-  .mode = Dual, .channel_save_mode = OnLongPress, .volume_save_mode = OnLongPress,
+  .mode = Dual,
+  .save_mode = { SaveOnLongPress /* Volume */ , SaveOnLongPress /* Channel */ },
+  .save_action = NoSaveAction,
   .channel = -1, .last_channel = -1,
   .attenuation = -1, .last_attenuation = -1,
   .eeprom_save_status_counter = { -1, -1 },
@@ -156,32 +158,32 @@ int main(void) {
     process_encoder_button(&instance);
     
     
-    if (instance.encoder[Volume].button.press == LongPress) {
-        printf("Volume Long press\r\n");  
-    }
-    if (instance.encoder[Volume].button.press == SinglePress) {
-        printf("Volume Single click\r\n");  
-    }
-    if (instance.encoder[Volume].button.press == DoublePress) {
-        printf("Volume Double click\r\n");  
-    }
+//    if (instance.encoder[Volume].button.press == LongPress) {
+//        printf("Volume Long press\r\n");  
+//    }
+//    if (instance.encoder[Volume].button.press == SinglePress) {
+//        printf("Volume Single click\r\n");  
+//    }
+//    if (instance.encoder[Volume].button.press == DoublePress) {
+//        printf("Volume Double click\r\n");  
+//    }
+//    
+//    instance.encoder[Volume].button.press = NoPress;
+//    
+//    if (instance.encoder[Channel].button.press == LongPress) {
+//        printf("Channel Long press\r\n");  
+//    }
+//    if (instance.encoder[Channel].button.press == SinglePress) {
+//        printf("Channel Single click\r\n");  
+//    }
+//    if (instance.encoder[Channel].button.press == DoublePress) {
+//        printf("Channel Double click\r\n");  
+//    }
+//    
+//    instance.encoder[Channel].button.press = NoPress;
+//    
     
-    instance.encoder[Volume].button.press = NoPress;
-    
-    if (instance.encoder[Channel].button.press == LongPress) {
-        printf("Channel Long press\r\n");  
-    }
-    if (instance.encoder[Channel].button.press == SinglePress) {
-        printf("Channel Single click\r\n");  
-    }
-    if (instance.encoder[Channel].button.press == DoublePress) {
-        printf("Channel Double click\r\n");  
-    }
-    
-    instance.encoder[Channel].button.press = NoPress;
-    
-    
-   // eeprom_save_status(&instance);
+    eeprom_save_status(&instance);
 
         if (instance.channel != last_channel) {
         last_channel = instance.channel;

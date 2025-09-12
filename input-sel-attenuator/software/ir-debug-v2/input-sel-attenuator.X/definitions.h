@@ -91,7 +91,7 @@ enum Control { Combined = 0, Volume = 0, Channel = 1};
 enum Mode { Single = 0, Dual = 1 };
 
 
-enum SaveMode { Never = 0, OnChange = 1, OnLongPress = 2 };
+enum SaveMode { SaveNever = 0, SaveOnChange = 1, SaveOnLongPress = 2 };
 
 
 
@@ -125,6 +125,9 @@ typedef struct {
   int attenuation;
 } ChannelVolume_t;
 
+
+ enum SaveAction { NoSaveAction = 0,  SaveVolume = 0x1, SaveChannel = 0x2 };
+
 typedef struct {
   IRMP_DATA data;
 } IR_t;
@@ -134,8 +137,13 @@ typedef struct {
 typedef struct {
   enum Mode mode; /* single or dual encoder mode */
   
-  enum SaveMode channel_save_mode;
-  enum SaveMode volume_save_mode;
+ // enum SaveMode channel_save_mode;
+ // enum SaveMode volume_save_mode;
+  
+  enum SaveMode save_mode[2 /* 0 = Volume, 1 = Channel */];
+  
+  uint8_t save_action;
+  
   
   int channel;
   int last_channel;
@@ -143,6 +151,10 @@ typedef struct {
   int last_attenuation;
   int eeprom_save_status_counter[2 /* 0 = Combined/Volume, 1 = Channel */];
   ChannelVolume_t channel_attenuation[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
+  
+  
+  
+  
   /* irq changed */
   volatile enum Control control;
   
