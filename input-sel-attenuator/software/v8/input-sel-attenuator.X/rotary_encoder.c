@@ -2,7 +2,7 @@
 /**
  * PIC16F18056 based input channel selection + attenuator
  *
- * Copyright (c) 2022-2024, Michael Schenk
+ * Copyright (c) 2022-2025, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -87,10 +87,10 @@ const unsigned char ttable[][4] = {
  * @return 
  */
 uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
-    /* read CHANA and CHANB, CW => up, CCW => down */
-    uint8_t pinstate = (uint8_t)((ENC1CHANA_GetValue() << 1) | ENC1CHANB_GetValue());
-    *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
-    return (*rotary_encoder_state & 0x30);
+  /* read CHANA and CHANB, CW => up, CCW => down */
+  uint8_t pinstate = (uint8_t)((ENC1CHANA_GetValue() << 1) | ENC1CHANB_GetValue());
+  *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
+  return (*rotary_encoder_state & 0x30);
 }
 
 /**
@@ -100,8 +100,8 @@ uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
  * @return 
  */
 uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state) {
-    /* read CHANA and CHANB, CW => up, CCW => down */
-    uint8_t pinstate = (uint8_t)((ENC2CHANA_GetValue() << 1) | ENC2CHANB_GetValue());
-    *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
-    return (*rotary_encoder_state & 0x30);
+  /* read CHANA and CHANB, CW => up, CCW => down */
+  uint8_t pinstate = (uint8_t)((ENC2CHANA_GetValue() << 1) | ENC2CHANB_GetValue());
+  *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
+  return (*rotary_encoder_state & 0x30);
 }
