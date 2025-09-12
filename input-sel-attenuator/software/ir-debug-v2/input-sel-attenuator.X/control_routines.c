@@ -93,6 +93,98 @@ void factory_reset() {
   }
 }
 
+/* attenuator relay are on RA0...RA5 */
+static void configure_attenuation(uint8_t attenuation) {
+  if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
+    /* something needs to be changed */
+#if ATT_CTRL == ATT_CTRL_DIRECTION
+     if (instance->attenuation < instance->last_attenuation) {
+      /**
+       * quieter -> louder (decrease of attenuation)
+       * Set LSB to MSB relay to avoid peak level 000000
+       * 48dB -> 46.5dB / 100000 -> 011111
+       */
+      for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
+        uint8_t bit = ((1 << cnt) & 0xff);
+
+        if ((PORTA & bit) != (attenuation & bit)) {
+          /* port bit needs to be changed */
+          if (attenuation & bit) {
+            PORTA |= bit;
+          } else {
+            PORTA &= ~bit;
+          }
+          /* changed relay, wait a bit */
+          __delay_ms(RELAIS_MAX_SETUP_TIME);
+        }
+      }
+    } else {
+      /**
+       * louder -> quieter (increase of attenuation)
+       * Set MSB to LSB relay to avoid peak level 000000
+       * 48dB -> 46.5dB / 100000 -> 011111
+       * 46.5dB -> 48dB / 011111 -> 100000
+       */
+      for (int cnt = (ROTARY_ATTENUATION_BITS - 1); cnt >= 0; cnt--) {
+        uint8_t bit = ((1 << cnt) & 0xff);
+
+        if ((PORTA & bit) != (attenuation & bit)) {
+          /* port bit needs to be changed */
+          if (attenuation & bit) {
+            PORTA |= bit;
+          } else {
+            PORTA &= ~bit;
+          }
+          /* changed relay, wait a bit */
+          __delay_ms(RELAIS_MAX_SETUP_TIME);
+        }
+      }
+    }
+#elif ATT_CTRL == ATT_CTRL_MAKE_BEFORE_BREAK
+    /* 1th do make operation */
+    for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
+      uint8_t bit = ((1 << cnt) & 0xff);
+
+      if ((PORTA & bit) != (attenuation & bit)) {
+        /* port bit needs to be changed */
+        if (attenuation & bit) {
+          PORTA |= bit;
+        }
+        /* changed relay, wait a bit */
+        __delay_ms(RELAIS_MAX_SETUP_TIME);
+      }
+    }
+
+    /* 2nd do the break operation */
+    for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
+      uint8_t bit = ((1 << cnt) & 0xff);
+
+      if ((PORTA & bit) != (attenuation & bit)) {
+        /* port bit needs to be changed */
+        if ((attenuation & bit) == 0) {
+          PORTA &= ~bit;
+        }
+        /* changed relay, wait a bit */
+        __delay_ms(RELAIS_MAX_SETUP_TIME);
+      }
+    }
+#else
+    #error Unkown ATT_CTRL
+#endif
+  }
+}
+
+/* attenuator relay are on RA0...RA5 */
+void process_attenuation(volatile Instance_t* instance) {
+  if (instance->attenuation != instance->last_attenuation) {
+    uint8_t attenuation = ((uint8_t)instance->attenuation & ROTARY_MAX_ATTENUATION);
+
+    configure_attenuation(attenuation);
+    
+    instance->last_attenuation = instance->attenuation;
+  }
+}
+
 /* channel selection relay are on RB0...RB3 */
 void process_channel(volatile Instance_t* instance) {
   if (instance->channel != instance->last_channel)  {
@@ -100,7 +192,7 @@ void process_channel(volatile Instance_t* instance) {
       /* store current used attenuation on channel */
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
-
+#if 0
     /* mute output */
      PORTB &= ~CHAN_SEL_MASK;
     __delay_ms(RELAIS_MAX_SETUP_TIME);
@@ -112,7 +204,17 @@ void process_channel(volatile Instance_t* instance) {
     /* clear and set new channel */
     PORTB = ((PORTB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
     __delay_ms(RELAIS_MAX_SETUP_TIME);
+#else
+    configure_attenuation(ROTARY_MAX_ATTENUATION);
     
+    /* clear and set new channel */
+    PORTB = ((PORTB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
+    __delay_ms(RELAIS_MAX_SETUP_TIME);
+    
+    instance->last_attenuation = instance->attenuation = instance->channel_attenuation[instance->channel].attenuation;
+
+    configure_attenuation(((uint8_t)instance->attenuation & ROTARY_MAX_ATTENUATION));
+#endif
     /* no save on first start (e.g last_channel == -1) */
     if (instance->last_channel != -1) {
       if (instance->save_mode[Volume] == SaveOnChange) {  
@@ -123,92 +225,6 @@ void process_channel(volatile Instance_t* instance) {
     }
     
     instance->last_channel = instance->channel;
-  }
-}
-
-/* attenuator relay are on RA0...RA5 */
-void process_attenuation(volatile Instance_t* instance) {
-  if (instance->attenuation != instance->last_attenuation) {
-    uint8_t attenuation = ((uint8_t)instance->attenuation & ROTARY_MAX_ATTENUATION);
-
-    if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
-      /* something needs to be changed */
-#if ATT_CTRL == ATT_CTRL_DIRECTION
-       if (instance->attenuation < instance->last_attenuation) {
-        /**
-         * quieter -> louder (decrease of attenuation)
-         * Set LSB to MSB relay to avoid peak level 000000
-         * 48dB -> 46.5dB / 100000 -> 011111
-         */
-        for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
-          uint8_t bit = ((1 << cnt) & 0xff);
-
-          if ((PORTA & bit) != (attenuation & bit)) {
-            /* port bit needs to be changed */
-            if (attenuation & bit) {
-              PORTA |= bit;
-            } else {
-              PORTA &= ~bit;
-            }
-            /* changed relay, wait a bit */
-            __delay_ms(RELAIS_MAX_SETUP_TIME);
-          }
-        }
-      } else {
-        /**
-         * louder -> quieter (increase of attenuation)
-         * Set MSB to LSB relay to avoid peak level 000000
-         * 48dB -> 46.5dB / 100000 -> 011111
-         * 46.5dB -> 48dB / 011111 -> 100000
-         */
-        for (int cnt = (ROTARY_ATTENUATION_BITS - 1); cnt >= 0; cnt--) {
-          uint8_t bit = ((1 << cnt) & 0xff);
-
-          if ((PORTA & bit) != (attenuation & bit)) {
-            /* port bit needs to be changed */
-            if (attenuation & bit) {
-              PORTA |= bit;
-            } else {
-              PORTA &= ~bit;
-            }
-            /* changed relay, wait a bit */
-            __delay_ms(RELAIS_MAX_SETUP_TIME);
-          }
-        }
-      }
-#elif ATT_CTRL == ATT_CTRL_MAKE_BEFORE_BREAK
-      /* 1th do make operation */
-      for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
-        uint8_t bit = ((1 << cnt) & 0xff);
-
-        if ((PORTA & bit) != (attenuation & bit)) {
-          /* port bit needs to be changed */
-          if (attenuation & bit) {
-            PORTA |= bit;
-          }
-          /* changed relay, wait a bit */
-          __delay_ms(RELAIS_MAX_SETUP_TIME);
-        }
-      }
-
-      /* 2nd do the break operation */
-      for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
-        uint8_t bit = ((1 << cnt) & 0xff);
-
-        if ((PORTA & bit) != (attenuation & bit)) {
-          /* port bit needs to be changed */
-          if ((attenuation & bit) == 0) {
-            PORTA &= ~bit;
-          }
-          /* changed relay, wait a bit */
-          __delay_ms(RELAIS_MAX_SETUP_TIME);
-        }
-      }
-#else
-      #error Unkown ATT_CTRL
-#endif
-      instance->last_attenuation = instance->attenuation;
-    }
   }
 }
 

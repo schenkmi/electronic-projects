@@ -32,13 +32,14 @@
 
  /**
   * Save hex
-  * cd /work/electronic-projects/input-sel-attenuator/software/ir-debug-v1
+  * cd /work/electronic-projects/input-sel-attenuator/software/ir-debug-v2
   * cp ./input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
   */
 
 /**
  * History
- * V2.5     2025.09.12 Shiny new push button and saving handling 
+ * V2.5     2025.09.12 Shiny new push button and saving handling
+ *                     Use volume when doing channel switch.
  * V2.4     2025.03.30 Fix missing __EEPROM_DATA
  * V2.3     2025.03.29 Implement make before break algorithm to control the attenuator relay
  * V2.2     2025.03.26 Improve detection of attenuation inc/dec for relay control
