@@ -63,7 +63,7 @@
 #define ROTARY_PUSH_LONG_PRESS_TIME    1000 /* 1000 ms on a 1ms timer IRQ */
 #define ROTARY_PUSH_DOUBLE_CLICK_TIME   500 /* 500 ms on a 1ms timer IRQ */
 
-#define DEFAULT_SAVE_COUNTDOWN         1000 /* 1000 ms on a 1ms timer IRQ */
+#define DEFAULT_SAVE_COUNTDOWN         1000 /* 1000 times MAIN_LOOP_WAIT */
 
 /* One For All TV Hitachi 2676 */
 #define IR_PROTOCOL       IRMP_RC5_PROTOCOL
