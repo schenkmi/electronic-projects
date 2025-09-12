@@ -95,7 +95,7 @@ volatile Instance_t instance = {
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
   },
   .control =  Volume,
-   .ms_counter = 0,
+  .ms_counter = 0,
   .encoder = {
     { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
       .button = {

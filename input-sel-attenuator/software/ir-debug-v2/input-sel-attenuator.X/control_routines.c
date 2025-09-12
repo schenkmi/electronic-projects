@@ -118,7 +118,7 @@ void process_channel(volatile Instance_t* instance) {
       if (instance->save_mode[Volume] == SaveOnChange) {  
         printf("process_channel instance->channel_save_mode == OnChange \r\n");  
         instance->save_action |= SaveChannel;
-        instance->save_countdown_counter = 1000;
+        instance->save_countdown_counter = DEFAULT_SAVE_COUNTDOWN;
       }
     }
     
@@ -262,7 +262,7 @@ void process_encoder_button(volatile Instance_t* instance) {
         case LongPress:
           printf("Volume Long press\r\n");
           if (instance->save_mode[Volume] == SaveOnLongPress) {
-            instance->save_countdown_counter = 1000;
+            instance->save_countdown_counter = DEFAULT_SAVE_COUNTDOWN;
             instance->save_action |= SaveVolume;
           }   
           break;
@@ -284,7 +284,7 @@ void process_encoder_button(volatile Instance_t* instance) {
         case LongPress:
           printf("Channel Long press\r\n");  
           if (instance->save_mode[Channel] == SaveOnLongPress) {
-            instance->save_countdown_counter = 1000;
+            instance->save_countdown_counter = DEFAULT_SAVE_COUNTDOWN;
             instance->save_action |= SaveChannel;
           }   
           break;
