@@ -30,22 +30,20 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+/**
+ * TODO
+ * 2025.XX.XX
+ */
+
  /**
   * Save hex
-  * cd /work/electronic-projects/input-sel-attenuator/software/v7
+  * cd /work/electronic-projects/input-sel-attenuator/software/v8
   * cp ./input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
   */
 
 /**
- * TODO
- * 2025.09.08
- * Separate usage of encoder push button. Long press volume => store current volume.
- * Long press channel => store current channel
- */
-
-/**
  * History
- * V2.5     2025.09.08 Improve encoder push button usage.
+ * V2.5     2025.09.12 Shiny new push button and saving handling 
  * V2.4     2025.03.30 Fix missing __EEPROM_DATA
  * V2.3     2025.03.29 Implement make before break algorithm to control the attenuator relay
  * V2.2     2025.03.26 Improve detection of attenuation inc/dec for relay control
@@ -89,9 +87,12 @@ __EEPROM_DATA(ROTARY_MAX_ATTENUATION /* channel 0 attenuation initial */,
               0xff, 0xff, 0xff);
 
 volatile Instance_t instance = {
-  .mode = Dual, .channel = -1, .last_channel = -1,
+  .mode = Dual,
+  .save_mode = { SaveOnLongPress /* Volume */ , SaveOnLongPress /* Channel */ },
+  .save_action = NoSaveAction,
+  .save_countdown_counter = -1,
+  .channel = -1, .last_channel = -1,
   .attenuation = -1, .last_attenuation = -1,
-  .eeprom_save_status_counter = -1,
   .channel_attenuation = {
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
@@ -99,11 +100,18 @@ volatile Instance_t instance = {
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
   },
   .control =  Volume,
+   .ms_counter = 0,
   .encoder = {
-    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0,
-      .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
-    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0,
-      .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
+    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
+      .button = {
+        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, 
+       }, 
+    },
+    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
+      .button = {
+        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, 
+       }, 
+    },
   },
 };
 
@@ -129,10 +137,10 @@ int main(void) {
   INTERRUPT_PeripheralInterruptEnable();
 
   init(&instance);
-  
+
   irmp_init();
   irmp_set_callback_ptr(led_callback);
-  
+
   while (1) {
     process_ir(&instance);
     process_channel(&instance);

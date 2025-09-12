@@ -112,9 +112,16 @@ void process_channel(volatile Instance_t* instance) {
     /* clear and set new channel */
     PORTB = ((PORTB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
     __delay_ms(RELAIS_MAX_SETUP_TIME);
-
+    
+    /* no save on first start (e.g last_channel == -1) */
+    if (instance->last_channel != -1) {
+      if (instance->save_mode[Volume] == SaveOnChange) {    
+        instance->save_action |= SaveChannel;
+        instance->save_countdown_counter = 1000;
+      }
+    }
+    
     instance->last_channel = instance->channel;
-    instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
   }
 }
 
@@ -205,67 +212,92 @@ void process_attenuation(volatile Instance_t* instance) {
 }
 
 void eeprom_save_status(volatile Instance_t* instance) {
-  if (instance->eeprom_save_status_counter != -1) {
-    if (--instance->eeprom_save_status_counter == 0) {
-      /* if stored default channel not equal current one, update default channel */
-      if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char) instance->channel) {
-        eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char) instance->channel);
-      }
-
+  /* delayed save to prevent unneeded writes to the eeprom */
+  if (instance->save_countdown_counter > 0) {
+    instance->save_countdown_counter--;
+    return;
+  }
+    
+  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
+    if (instance->save_action & SaveVolume) {
+      instance->save_action &= ~SaveVolume;
+      
+      /* store current attenuation as default value */
+      instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
+  
       /* if default value for channel changed, store it */
       if (eeprom_read((unsigned char) instance->channel) != (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation) {
         /* store current default attenuation which is applied after a channel switch */
         eeprom_write((unsigned char) instance->channel, (unsigned char) instance->channel_attenuation[instance->channel].default_attenuation);
       }
-      instance->eeprom_save_status_counter = -1; /* not action */
     }
+      
+    if (instance->save_action & SaveChannel) {
+      instance->save_action &= ~SaveChannel;
+     
+      /* if stored default channel not equal current one, update default channel */
+      if (eeprom_read(EEPROM_ADDR_CHANNEL) != (unsigned char) instance->channel) {
+        eeprom_write(EEPROM_ADDR_CHANNEL, (unsigned char) instance->channel);
+      }
+    }
+  } else {
+      
   }
 }
 
 void process_encoder_button(volatile Instance_t* instance) {
   if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
-    /* Encoder 1 attenuation */
-    if (instance->encoder[Volume].encoder_push_action) {
-      if (instance->encoder[Volume].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
-        /* store current attenuation as default value */
-        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-        instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
-      } else {
-        /* no short press function for now */
+    if (instance->encoder[Volume].button.press != NoPress) {
+      switch (instance->encoder[Volume].button.press) {
+        case SinglePress: 
+          break;
+        case DoublePress: 
+          break;
+        case LongPress:
+          if (instance->save_mode[Volume] == SaveOnLongPress) {
+            instance->save_countdown_counter = 1000;
+            instance->save_action |= SaveVolume;
+          }   
+          break;
+        default:
+          break;
       }
-      /* reset after operation */
-      instance->encoder[Volume].encoder_push_counter = instance->encoder[Volume].encoder_push_action = 0;
+        
+      instance->encoder[Volume].button.press = NoPress;
     }
 
-    /* Encoder 2 channel */
-    if (instance->encoder[Channel].encoder_push_action) {
-      /* reset after operation */
-      instance->encoder[Channel].encoder_push_counter = instance->encoder[Channel].encoder_push_action = 0;
+    if (instance->encoder[Channel].button.press != NoPress) {
+      switch (instance->encoder[Channel].button.press) {
+        case SinglePress:  
+          break;
+        case DoublePress:
+          break;
+        case LongPress:
+          if (instance->save_mode[Channel] == SaveOnLongPress) {
+            instance->save_countdown_counter = 1000;
+            instance->save_action |= SaveChannel;
+          }   
+          break;
+        default:
+          break;
+      }
+        
+      instance->encoder[Channel].button.press = NoPress;
     }
   } else {
-    if (instance->encoder[Combined].encoder_push_action) {
-      if (instance->encoder[Combined].encoder_push_counter >= STORE_DEFAULT_ATTENUATION_TIME) {
-        /* store current attenuation as default value */
-        instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-        instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
-      } else {
-        /* switch control mode */
-        if (instance->control == Volume) {
-          instance->control = Channel;
-        } else {
-          instance->control = Volume;
-        }
-        /* for debugging switching between attenuation and channel */
-#if 0
-        LED_Toggle();
-#endif
-        /* reset rotary encoder vars */
-        instance->encoder[Combined].direction = DIR_NONE;
-        instance->encoder[Combined].encoder_count[instance->control] = 0;
+    if (instance->encoder[Combined].button.press != NoPress) {
+      switch (instance->encoder[Combined].button.press) {
+        case SinglePress:
+          break;
+        case DoublePress:
+          break;
+        case LongPress:
+          break;
+        default:
+          break;
       }
-
-      /* reset after operation */
-      instance->encoder[Combined].encoder_push_counter = instance->encoder[Combined].encoder_push_action = 0;
+        
+      instance->encoder[Combined].button.press = NoPress;
     }
   }
 }
@@ -273,40 +305,39 @@ void process_encoder_button(volatile Instance_t* instance) {
 void process_ir(Instance_t* instance) {
   if (irmp_get_data(&instance->ir.data)) {
     if (instance->ir.data.protocol == IR_PROTOCOL && instance->ir.data.address == IR_REMOTE_ADDRESS) {
-        int channel = instance->channel;
-        int attenuation = instance->attenuation;
+      int channel = instance->channel;
+      int attenuation = instance->attenuation;
 
-        if (instance->ir.data.flags == 0x00) {
-          switch (instance->ir.data.command) {
-            case IR_KEY_CH_UP:
-              channel++;
-              break;
-            case IR_KEY_CH_DOWN:
-              channel--;
-              break;
-            case IR_KEY_VOL_UP:
-              attenuation--;
-              break;
-            case IR_KEY_VOL_DOWN:
-              attenuation++;
-              break;
-            case IR_KEY_OK:
-              instance->channel_attenuation[instance->channel].default_attenuation = instance->attenuation;
-              instance->eeprom_save_status_counter = 1;
-              break;
-            case IR_KEY_1:
-              channel = 0;
-              break;
-            case IR_KEY_2:
-              channel = 1;
-              break;
-            case IR_KEY_3:
-              channel = 2;
-              break;
-            case IR_KEY_4:
-              channel = 3;
-              break;
-          }
+      if (instance->ir.data.flags == 0x00) {
+        switch (instance->ir.data.command) {
+          case IR_KEY_CH_UP:
+            channel++;
+            break;
+          case IR_KEY_CH_DOWN:
+            channel--;
+            break;
+          case IR_KEY_VOL_UP:
+            attenuation--;
+            break;
+          case IR_KEY_VOL_DOWN:
+            attenuation++;
+            break;
+          case IR_KEY_OK:
+            /* possible location to store current volume */
+            break;
+          case IR_KEY_1:
+            channel = 0;
+            break;
+          case IR_KEY_2:
+            channel = 1;
+            break;
+          case IR_KEY_3:
+            channel = 2;
+            break;
+          case IR_KEY_4:
+            channel = 3;
+            break;
+        }
       } else {
         switch (instance->ir.data.command) {
           case IR_KEY_VOL_UP:
