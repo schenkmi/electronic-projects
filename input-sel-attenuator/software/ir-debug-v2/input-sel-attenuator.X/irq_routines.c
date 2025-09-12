@@ -108,47 +108,94 @@ static void timer_callback_process_dual(void) {
     }
   }
 
+  /* push button logic */
   instance.ms_counter++;
   
-  if (ENC1SWITCH_GetValue() == 0) { /* Button pressed */
-    if (!instance.button.button_pressed) {
-      instance.button.press_time = instance.ms_counter;
-      instance.button.button_pressed = true;
+  if (ENC1SWITCH_GetValue() == 0) {
+    /* Button pressed */
+    if (!instance.button[Volume].button_pressed) {
+      instance.button[Volume].press_time = instance.ms_counter;
+      instance.button[Volume].button_pressed = true;
     }
-  } else { /* Button released */
-    if (instance.button.button_pressed) {
-      uint16_t duration = instance.ms_counter - instance.button.press_time;
-      instance.button.button_pressed = false;
+  } else { 
+    /* Button released */
+    if (instance.button[Volume].button_pressed) {
+      uint16_t duration = instance.ms_counter - instance.button[Volume].press_time;
+      instance.button[Volume].button_pressed = false;
    
       if (duration >= ROTARY_PUSH_DEBOUNCE_TIME) {
-        instance.button.release_time = instance.ms_counter;
+        instance.button[Volume].release_time = instance.ms_counter;
 
         if (duration >= ROTARY_PUSH_LONG_PRESS_TIME) {
-          instance.button.press = LongPress; 
-          instance.button.click_count = 0;
-          instance.button.waiting_for_double = false;
+          instance.button[Volume].press = LongPress; 
+          instance.button[Volume].click_count = 0;
+          instance.button[Volume].waiting_for_double = false;
         } else {
             /* Short press */
-            instance.button.click_count++;
-            instance.button.waiting_for_double = true;
+            instance.button[Volume].click_count++;
+            instance.button[Volume].waiting_for_double = true;
         }
       }
     }
   }
 
-  // Check for double click timeout
-  if (instance.button.waiting_for_double && (instance.ms_counter - instance.button.release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME)) {
-    if (instance.button.click_count == 1) {
+  
+  
+  /* Check for double click timeout */
+  if (instance.button[Volume].waiting_for_double && (instance.ms_counter - instance.button[Volume].release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME)) {
+    if (instance.button[Volume].click_count == 1) {
       /* Single click */
-      instance.button.press = SinglePress;
-    } else if (instance.button.click_count == 2) {
+      instance.button[Volume].press = SinglePress;
+    } else if (instance.button[Volume].click_count == 2) {
       /* Double click */
-      instance.button.press = DoublePress;
+      instance.button[Volume].press = DoublePress;
     }
-    instance.button.click_count = 0;
-    instance.button.waiting_for_double = false;
+    instance.button[Volume].click_count = 0;
+    instance.button[Volume].waiting_for_double = false;
   }
   
+  
+  
+  if (ENC2SWITCH_GetValue() == 0) {
+    /* Button pressed */
+    if (!instance.button[Channel].button_pressed) {
+      instance.button[Channel].press_time = instance.ms_counter;
+      instance.button[Channel].button_pressed = true;
+    }
+  } else { 
+    /* Button released */
+    if (instance.button[Channel].button_pressed) {
+      uint16_t duration = instance.ms_counter - instance.button[Channel].press_time;
+      instance.button[Channel].button_pressed = false;
+   
+      if (duration >= ROTARY_PUSH_DEBOUNCE_TIME) {
+        instance.button[Channel].release_time = instance.ms_counter;
+
+        if (duration >= ROTARY_PUSH_LONG_PRESS_TIME) {
+          instance.button[Channel].press = LongPress; 
+          instance.button[Channel].click_count = 0;
+          instance.button[Channel].waiting_for_double = false;
+        } else {
+            /* Short press */
+            instance.button[Channel].click_count++;
+            instance.button[Channel].waiting_for_double = true;
+        }
+      }
+    }
+  }
+  
+    /* Check for double click timeout */
+  if (instance.button[Channel].waiting_for_double && (instance.ms_counter - instance.button[Channel].release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME)) {
+    if (instance.button[Channel].click_count == 1) {
+      /* Single click */
+      instance.button[Channel].press = SinglePress;
+    } else if (instance.button[Channel].click_count == 2) {
+      /* Double click */
+      instance.button[Channel].press = DoublePress;
+    }
+    instance.button[Channel].click_count = 0;
+    instance.button[Channel].waiting_for_double = false;
+  }
   
   
 //  if (instance.encoder[Volume].encoder_push_action != 1) {
@@ -166,20 +213,20 @@ static void timer_callback_process_dual(void) {
 //    }
 //  }
 
-  if (instance.encoder[Channel].encoder_push_action != 1) {
-    /* no push action pending */
-    uint8_t encoder_switch_level = ENC2SWITCH_GetValue();
-    if (encoder_switch_level == 0) {
-      instance.encoder[Channel].encoder_push_counter =
-          (++instance.encoder[Channel].encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
-    } else {
-      if (instance.encoder[Channel].encoder_push_counter >= 1) {
-        /* flag push action to be processed */
-        instance.encoder[Channel].encoder_push_action = 1;
-      }
-      instance.encoder[Channel].encoder_push_debounce_counter = 0;
-    }
-  }
+//  if (instance.encoder[Channel].encoder_push_action != 1) {
+//    /* no push action pending */
+//    uint8_t encoder_switch_level = ENC2SWITCH_GetValue();
+//    if (encoder_switch_level == 0) {
+//      instance.encoder[Channel].encoder_push_counter =
+//          (++instance.encoder[Channel].encoder_push_debounce_counter / ROTARY_PUSH_DEBOUNCE);
+//    } else {
+//      if (instance.encoder[Channel].encoder_push_counter >= 1) {
+//        /* flag push action to be processed */
+//        instance.encoder[Channel].encoder_push_action = 1;
+//      }
+//      instance.encoder[Channel].encoder_push_debounce_counter = 0;
+//    }
+//  }
 }
 
 static void timer_callback_process_single(void) {

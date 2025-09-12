@@ -99,7 +99,10 @@ volatile Instance_t instance = {
       .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
   },
   .ms_counter = 0,
-  .button = { .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0 , .press = NoPress},
+  .button = {
+      { .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0 , .press = NoPress},
+       { .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0 , .press = NoPress},
+  },
   
   
   
@@ -144,19 +147,29 @@ int main(void) {
     process_encoder_button(&instance);
     
     
-    if (instance.button.press == LongPress) {
-        printf("Long press\r\n");  
-        instance.button.press = NoPress;
+    if (instance.button[Volume].press == LongPress) {
+        printf("Volume Long press\r\n");  
     }
-    if (instance.button.press == SinglePress) {
-        printf("Single click\r\n");  
-        instance.button.press = NoPress;
+    if (instance.button[Volume].press == SinglePress) {
+        printf("Volume Single click\r\n");  
     }
-    if (instance.button.press == DoublePress) {
-        printf("Double click\r\n");  
-        instance.button.press = NoPress;
+    if (instance.button[Volume].press == DoublePress) {
+        printf("Volume Double click\r\n");  
     }
     
+    instance.button[Volume].press = NoPress;
+    
+    if (instance.button[Channel].press == LongPress) {
+        printf("Channel Long press\r\n");  
+    }
+    if (instance.button[Channel].press == SinglePress) {
+        printf("Channel Single click\r\n");  
+    }
+    if (instance.button[Channel].press == DoublePress) {
+        printf("Channel Double click\r\n");  
+    }
+    
+    instance.button[Channel].press = NoPress;
     
     
     eeprom_save_status(&instance);
