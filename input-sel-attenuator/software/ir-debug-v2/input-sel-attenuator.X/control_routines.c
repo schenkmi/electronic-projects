@@ -117,7 +117,7 @@ void process_channel(volatile Instance_t* instance) {
     if (instance->last_channel != -1) {
      //  instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE; 
        
-      if (instance->channel_save_mode == OnChange) {
+      if (instance->save_mode[Volume] == SaveOnChange) {
           
         printf("process_channel instance->channel_save_mode == OnChange \r\n");  
         instance->eeprom_save_status_counter[(instance->mode == Dual) ? Channel : Combined] = EEPROM_SAVE_STATUS_VALUE;
@@ -220,7 +220,24 @@ void process_attenuation(volatile Instance_t* instance) {
 }
 
 void eeprom_save_status(volatile Instance_t* instance) {
-    
+  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
+      if (instance->save_action & SaveVolume) {
+           printf("Save Volume\r\n"); 
+           
+           
+           instance->save_action &= ~SaveVolume;
+      }
+      
+      
+      if (instance->save_action & SaveChannel) {
+           printf("Save Channel\r\n"); 
+           
+           
+           instance->save_action &= ~SaveChannel;
+      }
+  } else {
+      
+  }
 #if 0
   if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
     if (instance->eeprom_save_status_counter[Volume] != -1) {
@@ -282,6 +299,74 @@ void eeprom_save_status(volatile Instance_t* instance) {
 }
 
 void process_encoder_button(volatile Instance_t* instance) {
+  if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
+    if (instance->encoder[Volume].button.press != NoPress) {
+      switch (instance->encoder[Volume].button.press) {
+        case SinglePress:
+             printf("Volume Single click\r\n");  
+          break;
+        case DoublePress:
+             printf("Volume Double click\r\n"); 
+          break;
+        case LongPress:
+             printf("Volume Long press\r\n");
+             
+             if (instance->save_mode[Volume] == SaveOnLongPress) {
+                 instance->save_action |= SaveVolume;
+             }
+             
+          break;
+        default:
+          break;
+      }
+        
+      instance->encoder[Volume].button.press = NoPress;
+    }
+      
+      
+    if (instance->encoder[Channel].button.press != NoPress) {
+      switch (instance->encoder[Channel].button.press) {
+        case SinglePress:
+             printf("Channel Single click\r\n");  
+          break;
+        case DoublePress:
+             printf("Channel Double click\r\n"); 
+          break;
+        case LongPress:
+             printf("Channel Long press\r\n");  
+             
+             if (instance->save_mode[Channel] == SaveOnLongPress) {
+                 instance->save_action |= SaveChannel;
+             }
+             
+          break;
+        default:
+          break;
+      }
+        
+      instance->encoder[Channel].button.press = NoPress;
+    }
+      
+      
+  } else {
+    if (instance->encoder[Combined].button.press != NoPress) {
+      switch (instance->encoder[Combined].button.press) {
+        case SinglePress:
+             printf("Combined Single click\r\n");  
+          break;
+        case DoublePress:
+             printf("Combined Double click\r\n"); 
+          break;
+        case LongPress:
+             printf("Combined Long press\r\n");  
+          break;
+        default:
+          break;
+      }
+        
+      instance->encoder[Combined].button.press = NoPress;
+    }
+  }
 #if 0
   if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
     /* Encoder 1 attenuation */
