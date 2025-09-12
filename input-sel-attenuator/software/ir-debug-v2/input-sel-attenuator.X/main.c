@@ -99,7 +99,7 @@ volatile Instance_t instance = {
       .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
   },
   .ms_counter = 0,
-  .button = { .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0 , .result = 0},
+  .button = { .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0 , .press = NoPress},
   
   
   
@@ -144,17 +144,17 @@ int main(void) {
     process_encoder_button(&instance);
     
     
-    if (instance.button.result == 1) {
+    if (instance.button.press == LongPress) {
         printf("Long press\r\n");  
-        instance.button.result = 0;
+        instance.button.press = NoPress;
     }
-    if (instance.button.result == 2) {
+    if (instance.button.press == SinglePress) {
         printf("Single click\r\n");  
-        instance.button.result = 0;
+        instance.button.press = NoPress;
     }
-    if (instance.button.result == 3) {
+    if (instance.button.press == DoublePress) {
         printf("Double click\r\n");  
-        instance.button.result = 0;
+        instance.button.press = NoPress;
     }
     
     

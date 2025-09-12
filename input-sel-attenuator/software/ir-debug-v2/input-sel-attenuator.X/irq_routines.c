@@ -110,73 +110,44 @@ static void timer_callback_process_dual(void) {
 
   instance.ms_counter++;
   
-  if (ENC1SWITCH_GetValue() == 0) { // Button pressed
-            if (!instance.button.button_pressed) {
-                instance.button.press_time = instance.ms_counter;
-                instance.button.button_pressed = true;
-            }
-  } else {
-            if (instance.button.button_pressed) {
-                uint16_t duration = instance.ms_counter - instance.button.press_time;
-                
-                
-                 instance.button.button_pressed = false;
+  if (ENC1SWITCH_GetValue() == 0) { /* Button pressed */
+    if (!instance.button.button_pressed) {
+      instance.button.press_time = instance.ms_counter;
+      instance.button.button_pressed = true;
+    }
+  } else { /* Button released */
+    if (instance.button.button_pressed) {
+      uint16_t duration = instance.ms_counter - instance.button.press_time;
+      instance.button.button_pressed = false;
+   
+      if (duration >= ROTARY_PUSH_DEBOUNCE_TIME) {
+        instance.button.release_time = instance.ms_counter;
 
-                
-                
-                if (duration >= ROTARY_PUSH_DEBOUNCE_TIME /*DEBOUNCE_TIME*/) {
-                    instance.button.release_time = instance.ms_counter;
-                   // instance.button.button_pressed = false;
-
-                    if (duration >= ROTARY_PUSH_LONG_PRESS_TIME /*LONG_PRESS_TIME*/) {
-                        // Long press detected
-                        //printf("Long press\r\n");  
-                        
-                        
-                        instance.button.result = 1;
-                        
-                        
-                        instance.button.click_count = 0;
-                        instance.button.waiting_for_double = 0;
-                      //  LED_LAT = 1;
-                       // __delay_ms(500);
-                       // LED_LAT = 0;
-                    } else {
-                        // Short press
-                        instance.button.click_count++;
-                        instance.button.waiting_for_double = true;
-                    }
-                }
-            }
-  }
-  
-  
-  
-        // Check for double click timeout
-        if (instance.button.waiting_for_double && (instance.ms_counter - instance.button.release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME /*DOUBLE_CLICK_TIME*/)) {
-            if (instance.button.click_count == 1) {
-                // Single click
-               // LED_LAT = 1;
-              //  __delay_ms(100);
-              //  LED_LAT = 0;
-                instance.button.result = 2;
-                
-                
-            } else if (instance.button.click_count == 2) {
-                // Double click
-                 instance.button.result = 3;
-                 
-//                LED_LAT = 1;
-//                __delay_ms(100);
-//                LED_LAT = 0;
-//                __delay_ms(100);
-//                LED_LAT = 1;
-//                __delay_ms(100);
-//                LED_LAT = 0;
-            }
-            instance.button.click_count = 0;
-            instance.button.waiting_for_double = false;
+        if (duration >= ROTARY_PUSH_LONG_PRESS_TIME) {
+          instance.button.press = LongPress; 
+          instance.button.click_count = 0;
+          instance.button.waiting_for_double = false;
+        } else {
+            /* Short press */
+            instance.button.click_count++;
+            instance.button.waiting_for_double = true;
         }
+      }
+    }
+  }
+
+  // Check for double click timeout
+  if (instance.button.waiting_for_double && (instance.ms_counter - instance.button.release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME)) {
+    if (instance.button.click_count == 1) {
+      /* Single click */
+      instance.button.press = SinglePress;
+    } else if (instance.button.click_count == 2) {
+      /* Double click */
+      instance.button.press = DoublePress;
+    }
+    instance.button.click_count = 0;
+    instance.button.waiting_for_double = false;
+  }
   
   
   
