@@ -220,6 +220,8 @@ void process_attenuation(volatile Instance_t* instance) {
 }
 
 void eeprom_save_status(volatile Instance_t* instance) {
+    
+#if 0
   if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
     if (instance->eeprom_save_status_counter[Volume] != -1) {
       if (--instance->eeprom_save_status_counter[Volume] == 0) {
@@ -274,10 +276,13 @@ void eeprom_save_status(volatile Instance_t* instance) {
   }
         
   } 
+  
+#endif
 
 }
 
 void process_encoder_button(volatile Instance_t* instance) {
+#if 0
   if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
     /* Encoder 1 attenuation */
     if (instance->encoder[Volume].encoder_push_action) {
@@ -342,6 +347,7 @@ void process_encoder_button(volatile Instance_t* instance) {
       instance->encoder[Combined].encoder_push_counter = instance->encoder[Combined].encoder_push_action = 0;
     }
   }
+#endif
 }
 
 void process_ir(Instance_t* instance) {
