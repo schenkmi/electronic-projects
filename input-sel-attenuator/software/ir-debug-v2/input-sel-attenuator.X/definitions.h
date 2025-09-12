@@ -65,7 +65,6 @@
 
 #define DEFAULT_SAVE_COUNTDOWN         1000 /* 1000 ms on a 1ms timer IRQ */
 
-
 /* One For All TV Hitachi 2676 */
 #define IR_PROTOCOL       IRMP_RC5_PROTOCOL
 #define IR_REMOTE_ADDRESS            0x0001
