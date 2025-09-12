@@ -143,7 +143,7 @@ typedef struct {
   IR_t ir;
   
   uint16_t ms_counter; 
-  Button_t button;
+  Button_t button[2 /* 0 = Combined/Volume, 1 = Channel */];
 } Instance_t;
 
 extern volatile Instance_t instance;
