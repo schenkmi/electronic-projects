@@ -114,20 +114,14 @@ typedef struct {
   IRMP_DATA data;
 } IR_t;
 
-
-
+enum ButtonPress { NoPress = 0,  SinglePress = 1, DoublePress = 2, LongPress = 3 };
 typedef struct {
   bool button_pressed;
   bool   waiting_for_double;
   int click_count;
-    
-  //uint16_t ms_counter; 
   uint16_t press_time;
-  uint16_t release_time;
-
-  
-  int result;
-  
+  uint16_t release_time; 
+  enum ButtonPress press;
 } Button_t;
 
 typedef struct {
@@ -150,7 +144,6 @@ typedef struct {
   
   uint16_t ms_counter; 
   Button_t button;
-  
 } Instance_t;
 
 extern volatile Instance_t instance;
