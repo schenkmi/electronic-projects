@@ -32,7 +32,21 @@ Finalize and ordered v6
 V2.5 2025.09.12 Shiny new push button and saving handling
      Use volume when doing channel switch.
 
+## 2025.09.07
+
+### lv-lownoise-psu/kicad/v5-dcdc
+Finalize and ordered v5
+
+### lv-lownoise-psu/kicad/v5-dcdc-large-cap
+Finalize and ordered v5 with large reservoir cap
+
 ## 2025.08.25
 
 ### lt1115-phono-mm-mc/kicad/v6
 Finalize and ordered v6
+
+## 2025.08.23
+
+### dac-pcm1702-v1/kicad-psu-v7
+Finalize and ordered v7
+
