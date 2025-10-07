@@ -3,6 +3,35 @@
 
 # History
 
+## 2025.09.29
+
+### retro/c64-user-port-led
+Finalize v1 of C64 user port LED
+
+## 2025.09.28
+
+### dac-pcm1704/kicad/dac-df1706-pcm1704-v2
+Finalize and ordered v2
+
+## 2025.09.21
+
+### dac-pcm1704/kicad/dac-pcm1704-v5
+Finalize and ordered v5
+
+### dac-pcm1702-v1/kicad-i2s-nos-v7
+Finalize and ordered v7
+
+### dac-pcm1792a/kicad/v6/
+Finalize and ordered v6
+
+## 2025.09.13
+
+### input-sel-attenuator/software/ir-debug-v2
+
+### input-sel-attenuator/software/v8
+V2.5 2025.09.12 Shiny new push button and saving handling
+     Use volume when doing channel switch.
+
 ## 2025.08.25
 
 ### lt1115-phono-mm-mc/kicad/v6
