@@ -1373,16 +1373,16 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "10 rem knight-rider on user port pb0..pb7\n20 data 56577,56579 : rem addrs $dd01,$dd03 (port b data, ddrb)\n30 read a,b : dp=a : dd=b\n40 rem set ddrb to all outputs (255)\n50 poke dd,255\n60 rem start pattern (one led at a time)\n70 p=1 : d=1 : rem p holds bit pattern, d is direction (1 right, -1 left)\n80 poke dp,p : rem write pattern to pb0..pb7\n90 for t=1 to 200 : next t : rem delay loop (tune for speed)\n100 if d=1 then gosub 200\n110 if d=-1 then gosub 300\n120 goto 80\n200 rem shift right\n210 if p>=128 then d=-1 : return\n220 p=p*2 : return\n300 rem shift left\n310 if p<=1 then d=1 : return\n320 p=p/2 : return\n"
+	(text "10 rem knight-rider on user port pb0..pb7\n20 data 56577,56579 : rem addrs $dd01,$dd03 (port b data, ddrb)\n30 read a,b : dp=a : dd=b\n40 poke dd,255 : rem set port b to output\n50 p=1 : d=1 : rem start at bit 0, moving right\n60 poke dp,p\n70 for t=1 to 200 : next t\n80 if d=1 then p=p*2 : if p=128 then d=-1 : goto 100\n90 if d=-1 then p=p/2 : if p=1 then d=1 : goto 100\n100 goto 60"
 		(exclude_from_sim no)
-		(at 31.496 193.802 0)
+		(at 38.1 182.372 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "1e71a673-7fe8-4433-a01c-1740d9361884")
+		(uuid "8abd6aa6-6218-4a75-9a62-84fa7894c0f7")
 	)
 	(text "20 POKE 56579, 255\n30 FOR I = 0 TO 255\n40 POKE 56577, I\n50 FOR J = 1 TO 150: NEXT J\n60 NEXT I\n70 GOTO 30"
 		(exclude_from_sim no)
