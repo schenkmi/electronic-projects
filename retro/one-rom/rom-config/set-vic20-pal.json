@@ -1,0 +1,47 @@
+{
+    "$schema": "https://images.onerom.org/configs/schema.json",
+    "version": 1,
+    "name": "VIC-20 PAL Kernal and Basic",
+    "description": "Serves a pair of stock ROMs for a PAL VIC20 - both kernal and basic ROMs",
+    "detail": "A single One ROM cannot serve the character ROM for the VIC20 at the same time as the KERNAL and BASIC ROMs, as it has a different data bus to the kernal and basic ROMs.\n\nThe VIC20 dead test kernal ROM is installed as set 1.\n\nInstructions:\n1. Install ROM in (kernal) socket\n2. Connect Basic ROM socket CS pin (20) to SDRR pin X1\n3. Use One ROM image select jumpers to select required set, 0 = all open\n\nImage details:\n\nSet 0:\na. Kernal ROM 901487-07\nb. Basic ROM 901486-01\n\nSet 1:\na. Dead Test Kernal ROM, V1.1.01",
+    "categories": [
+        "computer",
+        "firmware",
+        "commodore",
+        "diag",
+        "vic20"
+    ],
+    "rom_sets": [
+        {
+            "type": "multi",
+            "description": "Kernal and Basic ROMs",
+            "roms": [
+                {
+                    "description": "Kernal ROM 901486-07",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/vic20/kernal.901486-07.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                },
+                {
+                    "description": "Basic ROM 901486-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/vic20/basic.901486-01.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "description": "Dead Test Kernal",
+            "roms": [
+                {
+                    "description": "Dead Test Kernal ROM, V1.1.01",
+                    "file": "https://github.com/piersfinlayson/Vic20-dead-test/releases/download/v1.1.01/dead-test.pal.e0",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        }
+    ],
+    "notes": "Requires HW_REV=f or later"
+}

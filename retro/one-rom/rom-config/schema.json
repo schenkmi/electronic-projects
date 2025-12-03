@@ -1,0 +1,346 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Config",
+    "description": "Top level configuration structure",
+    "type": "object",
+    "properties": {
+        "categories": {
+            "description": "Optional categories for this configuration, to aid in grouping,\nsorting, and searching of configurations.",
+            "type": [
+                "array",
+                "null"
+            ],
+            "items": {
+                "type": "string"
+            }
+        },
+        "description": {
+            "description": "Mandatory description for this configuration.  This is included in the\ndescription output by the builder, following the name.",
+            "type": "string"
+        },
+        "detail": {
+            "description": "Optional detailed description for this configuration.  This is included\nin the description output by the builder, following name and\ndescription.",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "name": {
+            "description": "Optional name for this configuration.  Is included in the description\noutput by the builder.",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "notes": {
+            "description": "Optional notes for this configuration.  This is included in the\ndescription output by the builder, following the list of images/sets.",
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "rom_sets": {
+            "description": "Array of ROM set configurations.  Note that even if not using complex\nfeatures like dynamic banking and multi-ROM sets, each ROM image is in\nits own set.\nThe builder description output lists either \"Images\" or \"Sets\"\ndepending on whether there are any multi-set or banked sets in use.",
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/RomSetConfig"
+            }
+        },
+        "version": {
+            "description": "Configuration format version.",
+            "const": 1
+        }
+    },
+    "required": [
+        "version",
+        "description",
+        "rom_sets"
+    ],
+    "$defs": {
+        "CsLogic": {
+            "description": "Possible Chip Select line logic options",
+            "oneOf": [
+                {
+                    "description": "Chip Select line is active low",
+                    "type": "string",
+                    "const": "active_low"
+                },
+                {
+                    "description": "Chip Select line is active high",
+                    "type": "string",
+                    "const": "active_high"
+                },
+                {
+                    "description": "Used for 2332/2316 ROMs, when a CS line isn't used because it's always\ntied active.",
+                    "type": "string",
+                    "const": "ignore"
+                }
+            ]
+        },
+        "Location": {
+            "description": "Location within a larger ROM image that the specific image to use resides",
+            "type": "object",
+            "properties": {
+                "length": {
+                    "description": "Length of the image within the larger ROM image.  Must match the\nselected ROM type, or SizeHandling will be applied.",
+                    "type": "integer",
+                    "format": "uint",
+                    "minimum": 0
+                },
+                "start": {
+                    "description": "Start of the image within the larger ROM image",
+                    "type": "integer",
+                    "format": "uint",
+                    "minimum": 0
+                }
+            },
+            "required": [
+                "start",
+                "length"
+            ]
+        },
+        "RomConfig": {
+            "description": "ROM configuration structure",
+            "type": "object",
+            "properties": {
+                "cs1": {
+                    "description": "Optional Chip Select 1 logic - only valid for ROM Types that have CS1",
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/CsLogic"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "cs2": {
+                    "description": "Optional Chip Select 2 logic - only valid for ROM Types that have CS2",
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/CsLogic"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "cs3": {
+                    "description": "Optional Chip Select 3 logic - only valid for ROM Types that have CS3",
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/CsLogic"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "description": {
+                    "description": "Optional description for this configuration.  This is included in the\ndescription output by the builder.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "extract": {
+                    "description": "Optional extract path within an archive (zip/tar) if the file pointed\nto is an archive.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "file": {
+                    "description": "Filename or URL of the ROM image - filename is only valid if using a\ngenerator tool with local file access.  This is passed to the generator\ntool to retrieve the ROM image.",
+                    "type": "string"
+                },
+                "label": {
+                    "description": "Optional label for this ROM image.  If specified, this is used in\nmetadata instead of the filename (which itself can be complex if\nextracting a file from an image and providing location information)",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "license": {
+                    "description": "Optional license URL/identifier for the ROM.  This is passed to the\ngenerator tool to retrieve and ask the user to accept before building.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "location": {
+                    "description": "Optional location within a larger image file.  Used to specify start\noffset and length within the file.  Useful when multiple ROM images\nare concatenated into a single file and one needs to be extracted.",
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Location"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "size_handling": {
+                    "description": "Optional size handling configuration for this ROM.  Used to specify\nhandling when the image supplied isn't the correct size for this ROM\ntype.",
+                    "$ref": "#/$defs/SizeHandling",
+                    "default": "none"
+                },
+                "type": {
+                    "description": "Type of ROM",
+                    "$ref": "#/$defs/RomType"
+                }
+            },
+            "required": [
+                "file",
+                "type"
+            ]
+        },
+        "RomSetConfig": {
+            "description": "ROM Set configuration structure",
+            "type": "object",
+            "properties": {
+                "description": {
+                    "description": "Optional description for this ROM set.  This is included in the\ndescription output by the builder.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "roms": {
+                    "description": "Array of ROM configurations in this set.  Contains 1 member for single\nROM sets, and multiple members for multi-ROM and banked ROM sets.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/RomConfig"
+                    }
+                },
+                "type": {
+                    "description": "Type of ROM set",
+                    "$ref": "#/$defs/RomSetType",
+                    "default": "single"
+                }
+            },
+            "required": [
+                "roms"
+            ]
+        },
+        "RomSetType": {
+            "description": "Type of ROM set",
+            "oneOf": [
+                {
+                    "description": "Single ROM - the default",
+                    "type": "string",
+                    "const": "single"
+                },
+                {
+                    "description": "Set of dynamically banked ROMs. Used to switch between active ROM at\nruntime using jumpers",
+                    "type": "string",
+                    "const": "banked"
+                },
+                {
+                    "description": "Set of multiple ROMs selected by CS lines.  This allows a single One\nROM to serve up to 3 ROM sockets simultaneously.",
+                    "type": "string",
+                    "const": "multi"
+                }
+            ]
+        },
+        "RomType": {
+            "description": "ROM chip type\n\nSupported retro ROM chip types with their pinouts and characteristics.\nIncludes mask ROMs (23xx series) and EPROMs (27xx series).\n\n# Examples\n\n```\nuse onerom_config::rom::RomType;\n\nlet rom = RomType::Rom2364;\nassert_eq!(rom.size_bytes(), 8192);\nassert_eq!(rom.rom_pins(), 24);\nassert_eq!(rom.num_addr_lines(), 13);\n```",
+            "oneOf": [
+                {
+                    "description": "512B EPROM with multiple supply voltages - 512 bytes, 24-pin package",
+                    "type": "string",
+                    "const": "2704"
+                },
+                {
+                    "description": "1KB EPROM with multiple supply voltages - 1024 bytes, 24-pin package",
+                    "type": "string",
+                    "const": "2708"
+                },
+                {
+                    "description": "2KB mask ROM with 3 configurable CS lines - 2048 bytes, 24-pin package",
+                    "type": "string",
+                    "const": "2316"
+                },
+                {
+                    "description": "2KB EPROM with fixed active-low CE/OE - 2048 bytes, 24-pin package",
+                    "type": "string",
+                    "const": "2716"
+                },
+                {
+                    "description": "4KB mask ROM with 2 configurable CS lines - 4096 bytes, 24-pin package",
+                    "type": "string",
+                    "const": "2332"
+                },
+                {
+                    "description": "4KB EPROM with fixed active-low CE and shared OE/VPP - 4096 bytes, 24-pin package",
+                    "type": "string",
+                    "const": "2732"
+                },
+                {
+                    "description": "8KB mask ROM with 1 configurable CS line - 8192 bytes, 24-pin package",
+                    "type": "string",
+                    "const": "2364"
+                },
+                {
+                    "description": "8KB EPROM with fixed active-low CE/OE - 8192 bytes, 28-pin package",
+                    "type": "string",
+                    "const": "2764"
+                },
+                {
+                    "description": "16KB mask ROM with 3 configurable CS lines - 16384 bytes, 28-pin package",
+                    "type": "string",
+                    "const": "23128"
+                },
+                {
+                    "description": "16KB EPROM with fixed active-low CE/OE - 16384 bytes, 28-pin package",
+                    "type": "string",
+                    "const": "27128"
+                },
+                {
+                    "description": "32KB mask ROM with 2 configurable CS lines - 32768 bytes, 28-pin package",
+                    "type": "string",
+                    "const": "23256"
+                },
+                {
+                    "description": "32KB EPROM with fixed active-low CE/OE - 32768 bytes, 28-pin package",
+                    "type": "string",
+                    "const": "27256"
+                },
+                {
+                    "description": "64KB mask ROM with 2 configurable CS lines - 65536 bytes, 28-pin package",
+                    "type": "string",
+                    "const": "23512"
+                },
+                {
+                    "description": "64KB EPROM with fixed active-low CE/OE - 65536 bytes, 28-pin package",
+                    "type": "string",
+                    "const": "27512"
+                }
+            ]
+        },
+        "SizeHandling": {
+            "description": "How to handle ROM images that are too small for the ROM type",
+            "oneOf": [
+                {
+                    "description": "No special handling.  Errors if the image size does not exactly match\nthe ROM size.",
+                    "type": "string",
+                    "const": "none"
+                },
+                {
+                    "description": "Duplicates the image as many times as needed to fill the ROM.  Errors\nif the image size is not an exact divisor of the ROM size.",
+                    "type": "string",
+                    "const": "duplicate"
+                },
+                {
+                    "description": "Truncates the image to fit the ROM size.  Errors if the image is an\nexact match size-wise.",
+                    "type": "string",
+                    "const": "truncate"
+                },
+                {
+                    "description": "Pads the image out with [`PAD_BLANK_BYTE`].",
+                    "type": "string",
+                    "const": "pad"
+                }
+            ]
+        }
+    }
+}

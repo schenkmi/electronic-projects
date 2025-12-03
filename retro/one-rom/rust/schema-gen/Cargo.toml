@@ -1,0 +1,18 @@
+[package]
+name = "schema-gen"
+version = "0.1.0"
+edition = "2024"
+authors = ["Piers Finlayson <piers@piers.rocks>"]
+license = "MIT"
+description = "One ROM Schema Generator - Generate One ROM schema files from JSON definitions"
+repository = "https://github.com/piersfinlayson/one-rom"
+homepage = "https://onerom.org"
+documentation = "https://docs.rs/onerom-gen"
+keywords = ["retro", "rom", "commodore", "embedded"]
+categories = ["embedded", "hardware-support"]
+
+[dependencies]
+onerom-gen = { path = "../gen", version = "0.2.0", features = ["schemars"] }
+schemars = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

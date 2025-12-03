@@ -1,0 +1,75 @@
+{
+    "$schema": "https://images.onerom.org/configs/schema.json",
+    "version": 1,
+    "description": "Mandatory description about this config",
+    "detail": "Extra detail about ths configuration",
+    "notes": "Notes that appear after the list of sets",
+    "rom_sets": [
+        {
+            "type": "single",
+            "description": "Single 8KB ROM",
+            "roms": [
+                {
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/kernal.901227-03.bin",
+                    "description": "C64 Kernal ROM, 901227-03",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        },
+        {
+            "type": "banked",
+            "description": "Banked character ROMs",
+            "serve_alg": "default",
+            "roms": [
+                {
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.901225-01.bin",
+                    "description": "English character set",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                },
+                {
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.325018-02.bin",
+                    "description": "Swedish character set",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                },
+                {
+                    "file": "local-chargen-custom.bin",
+                    "description": "Custom character set",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high",
+                    "size_handling": "pad"
+                }
+            ]
+        },
+        {
+            "type": "multi",
+            "description": "Multiple 1541 drive ROMs",
+            "roms": [
+                {
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/drives/new/1541/1541-c000.325302-01.bin",
+                    "description": "1541 DOS ROM",
+                    "type": "2364",
+                    "cs1": "active_low"
+                },
+                {
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/drives/new/1541/1541-e000.901229-06AA.bin",
+                    "description": "1541 ROM 6AA",
+                    "type": "2364",
+                    "cs1": "active_low"
+                },
+                {
+                    "file": "http://example.com/custom-rom.zip",
+                    "extract": "roms/custom.bin",
+                    "description": "Custom ROM from archive",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        if command -v udevadm >/dev/null 2>&1; then
+            echo "Reloading udev rules for One ROM Studio..."
+            udevadm control --reload-rules
+            udevadm trigger --action=add
+        else
+            echo "udevadm not found - udev rules installed but not reloaded"
+        fi
+        ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+        ;;
+esac
+
+exit 0

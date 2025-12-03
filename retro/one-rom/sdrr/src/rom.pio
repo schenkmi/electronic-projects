@@ -1,0 +1,159 @@
+; Copyright (C) 2025 Piers Finlayson <piers@piers.rocks>
+;
+; MIT License
+
+.program onerom_cs_handler
+; Detect when all of the ROM's chip select (CS) lines go active, and sets the
+; data lines to outputs.  When a single chip select line goes inactive, sets
+; data lines back to inputs.  Starts in the input state.
+;
+; Setup:
+;
+; x All CS and data lines must be set to PIO function in the GPIO function
+; select registers.
+;
+; Active is configurable per CS line:
+;   Any active high CS lines must be inverted via INOVER, so active = 0.
+;
+; Number of CS lines is configurable:
+;   x Set IN_COUNT in SMX_SHIFTCTRL to the number of CS lines to monitor.
+;
+; All CS lines are contiguous GPIOs:
+;   x Set IN_BASE in SMX_PINCTRL to the first CS GPIO pin.
+;
+; Number of data lines is 8:
+;   x Set OUT_COUNT in SMX_PINCTRL to 8.
+;
+; Data lines are contiguous GPIOs:
+;   x Set OUT_BASE in SMX_PINCTRL to the first data GPIO pin.
+
+; Start of loop
+.wrap_target
+    mov pindirs, null           ; Set data pins to start as inputs (0s)
+
+wait_for_active:
+    mov x, pins                 ; Copy pin state to X scratch register
+    jmp !x, cs_active           ; If X == 0 (all CS active), jump
+    jmp wait_for_active         ; CS inactive, keep checking
+
+cs_active:
+    mov pindirs, ~null          ; Set data pins to output (1s)
+    
+wait_for_inactive:
+    mov x, pins                 ; Read CS pins again
+    jmp !x, wait_for_inactive   ; If still all zero, keep waiting
+    
+    ; At least one CS is now inactive (X != 0), so need to set CS lines to
+    ; inputs.  That is the first PIO instruction, so just wrap.
+.wrap
+
+.program onerom_addr_read
+; Loads the address to read a byte from, using the current address line state
+; and a pre-loaded base address.
+;
+; Setup:
+;
+; x All address lines must be set to PIO function in the GPIO function select
+; registers.
+;
+; Address lines are contiguous GPIOs:
+;   x Set IN_BASE in SMX_PINCTRL to the first address GPIO pin.
+;
+; Number of address lines is 16:
+;   x Set IN_COUNT in SMX_SHIFTCTRL to 16.
+;
+; Autopush mode is used to push the full 32-bit address to the TX FIFO:
+;   x Set AUTOPUSH within SMX_SHIFTCTRL to enable autopush
+;   x Set PUSH_THRESH within SMX_SHIFTCTRL to 0 (=32) to set autopush threshold
+;   to 32.
+;
+; Set out direction to left shift:
+;   x Set OUT_SHIFTDIR within SMX_SHIFTCTRL to left shift (0).
+;
+; Set in direction to left shift:
+;   x Set IN_SHIFTDIR within SMX_SHIFTCTRL to left shift (0).
+;
+; x Preload TX FIFO with upper 16 bits of base address, as low 16 bits, before
+; starting the state machine.
+;
+; Configure DMA DREQ source in DMA CTRL register to be PIO RX FIFO of this SM.
+
+; Setup
+pull                    ; Pull the high 16 bits of base address (as low 16
+                        ; bits) into ISR
+mov x, osr              ; Move base address bits (as low 16 bits) to X scratch
+
+; Start of loop
+.wrap_target
+loop:
+    in x, 16            ; Shift upper address bits into ISR (0x2000)
+    in pins, 16 [1]     ; Shift GPIO address bits into ISR (autopush)
+                        ; and wait 1 cycle to allow DMAs to keep up
+.wrap
+
+.program onerom_data_byte
+; Takes the byte read from the ROM data lines and outputs it to the data
+; GPIOs.
+;
+; Setup:
+;
+; x All CS and data lines must be set to PIO function in the GPIO function
+; select registers.
+;
+; Configure autopull mode to pull a full byte from the TX FIFO:
+;   x Set AUTOPULL within SMX_SHIFTCTRL to enable autopull
+;   x Set PULL_THRESH within SMX_SHIFTCTRL to 8 to set autopull threshold to 8.
+;
+; Number of data lines is 8:
+;   x Set OUT_COUNT in SMX_PINCTRL to 8.
+;
+; Data lines are contiguous GPIOs:
+;   x Set OUT_BASE in SMX_PINCTRL to the first data GPIO pin.
+;
+; Set out direction to left shift:
+;   x Set OUT_SHIFTDIR within SMX_SHIFTCTRL to left shift (0).
+
+; Initialize pins
+mov pins, null          ; Set data pins to 0s (essentially just initialsing 
+                        ; them)
+
+; Start of loop
+.wrap_target
+out pins, 8             ; Output byte from OSR to data GPIOs
+
+.wrap
+
+
+.program onerom_data_byte_simple
+mov pins, null
+.wrap_target
+    pull
+    out pins, 8
+.wrap
+
+; DMA Configuration (2 channels required):
+;
+; DMA_ADDR (e.g. channel 0):
+; Purpose: Reads addresses from onerom_addr_read RX FIFO and triggers DMA_DATA
+;   TREQ_SEL: PIO RX DREQ for onerom_addr_read SM
+;   READ_ADDR: onerom_addr_read SM's RXF register (SMx_RXF)
+;   WRITE_ADDR: DMA_DATA channel's READ_ADDR_TRIG register
+;              (writing here updates read address AND triggers DMA_DATA)
+;   TRANS_COUNT: 1 (single transfer, reloaded by CHAIN_TO self)
+;   CTRL.DATA_SIZE: 2 (32-bit transfers)
+;   CTRL.INCR_READ: 0 (no increment, always read from RXF)
+;   CTRL.INCR_WRITE: 0 (no increment, always write to same trigger register)
+;   CTRL.CHAIN_TO: Self (reload TRANS_COUNT after each transfer)
+;   CTRL.EN: 1 (enable)
+;
+; DMA_DATA (e.g. channel 1):
+; Purpose: Reads byte from ROM address and writes to onerom_data_byte TX FIFO
+;   TREQ_SEL: TREQ_PERMANENT (triggered by DMA_ADDR via READ_ADDR_TRIG)
+;   READ_ADDR: Set dynamically by DMA_ADDR (ROM address)
+;   WRITE_ADDR: onerom_data_byte SM's TXF register (SMx_TXF)
+;   TRANS_COUNT: 1 (single byte transfer, reloaded by CHAIN_TO self)
+;   CTRL.DATA_SIZE: 0 (8-bit transfers)
+;   CTRL.INCR_READ: 0 (no increment, single byte read)
+;   CTRL.INCR_WRITE: 0 (no increment, always write to TXF)
+;   CTRL.CHAIN_TO: Self (reload TRANS_COUNT after transfer)
+;   CTRL.EN: 1 (enable)

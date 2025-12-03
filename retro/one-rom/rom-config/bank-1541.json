@@ -1,0 +1,50 @@
+{
+    "$schema": "https://images.onerom.org/configs/schema.json",
+    "version": 1,
+    "name": "1541 Banked",
+    "description": "Stock dynamically bank switchable upper ($E000) kernal ROMs for the 1540/1541 drives which use 8KB (2364) ROMs",
+    "notes": "The second set contains just a single image - the lower ($C000) ROM",
+    "categories": [
+        "drive",
+        "firmware",
+        "commodore",
+        "iec"
+    ],
+    "rom_sets": [
+        {
+            "type": "banked",
+            "description": "Bank switchable $E000 ROMs",
+            "roms": [
+                {
+                    "description": "1541 $E000 8KB ROM, 901229-06AA",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/drives/new/1541/1541-e000.901229-06AA.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                },
+                {
+                    "description": "1541 $E000 8KB ROM, 901229-05",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/drives/new/1541/1541-e000.901229-05.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                },
+                {
+                    "description": "1541 $E000 8KB ROM, 325303-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/drives/new/1541/1540-e000.325303-01.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "roms": [
+                {
+                    "description": "1541/1540 $C000 8KB ROM, 325302-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/drives/new/1541/1541-c000.325302-01.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        }
+    ]
+}

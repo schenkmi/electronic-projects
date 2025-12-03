@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Manifest",
+  "description": "One ROM Studio application manifest",
+  "type": "object",
+  "properties": {
+    "latest_app_version": {
+      "description": "Latest application version available",
+      "type": "string",
+      "default": "0.1.2"
+    },
+    "link_urls": {
+      "description": "Links used by the application within the UI",
+      "$ref": "#/$defs/LinkUrls",
+      "default": {
+        "app_update": "https://onerom.org/studio/#downloads",
+        "github_issue": "https://github.com/piersfinlayson/one-rom/issues",
+        "linux_udev": "https://onerom.org/web/#linux",
+        "one_rom": "https://onerom.org",
+        "piers_rocks": "https://piers.rocks",
+        "rom_configs": "https://images.onerom.org/#rom-configs",
+        "win_usb": "https://onerom.org/web/#windows",
+        "zadig": "https://zadig.akeo.ie/"
+      }
+    },
+    "manifest_urls": {
+      "description": "Manifests used by the application",
+      "$ref": "#/$defs/ManifestUrls",
+      "default": {
+        "app_release": "https://images.onerom.org/studio/releases.json",
+        "fw_release": "https://images.onerom.org/releases.json",
+        "rom_config": "https://images.onerom.org/configs.json"
+      }
+    },
+    "paths": {
+      "description": "URL paths",
+      "$ref": "#/$defs/PathUrls",
+      "default": {
+        "firmware_releases": "https://images.onerom.org/",
+        "rom_configs": "https://images.onerom.org/"
+      }
+    },
+    "revision": {
+      "description": "Manifest revision - should be incremented whenever ANY content changes",
+      "type": "integer",
+      "format": "uint32",
+      "default": 0,
+      "minimum": 0
+    },
+    "schema_urls": {
+      "description": "Schemas used by the application",
+      "$ref": "#/$defs/Schemas",
+      "default": {
+        "app_manifest": "https://images.onerom.org/studio/app-schema.json",
+        "app_release": "",
+        "fw_release": "",
+        "rom_config": "https://images.onerom.org/configs/schema.json"
+      }
+    },
+    "version": {
+      "description": "Manifest version - should be incremented on any breaking changes",
+      "type": "integer",
+      "format": "uint32",
+      "default": 1,
+      "minimum": 0
+    }
+  },
+  "$defs": {
+    "LinkUrls": {
+      "description": "Links used within the application",
+      "type": "object",
+      "properties": {
+        "app_update": {
+          "description": "Application update page",
+          "type": "string",
+          "default": "https://onerom.org/studio/#downloads"
+        },
+        "github_issue": {
+          "description": "One ROM Studio GitHub issues page",
+          "type": "string",
+          "default": "https://github.com/piersfinlayson/one-rom/issues"
+        },
+        "linux_udev": {
+          "description": "Linux udev rules instructions",
+          "type": "string",
+          "default": "https://onerom.org/web/#linux"
+        },
+        "one_rom": {
+          "description": "Main One ROM website",
+          "type": "string",
+          "default": "https://onerom.org"
+        },
+        "piers_rocks": {
+          "description": "Main piers.rocks website",
+          "type": "string",
+          "default": "https://piers.rocks"
+        },
+        "rom_configs": {
+          "description": "ROM configuration information page",
+          "type": "string",
+          "default": "https://images.onerom.org/#rom-configs"
+        },
+        "win_usb": {
+          "description": "Windows USB driver instructions",
+          "type": "string",
+          "default": "https://onerom.org/web/#windows"
+        },
+        "zadig": {
+          "description": "Main Zadig website",
+          "type": "string",
+          "default": "https://zadig.akeo.ie/"
+        }
+      }
+    },
+    "ManifestUrls": {
+      "description": "Manifests used by the application",
+      "type": "object",
+      "properties": {
+        "app_release": {
+          "description": "One ROM Studio app releases manifest",
+          "type": "string",
+          "default": "https://images.onerom.org/studio/releases.json"
+        },
+        "fw_release": {
+          "description": "One ROM firmware releases manifest",
+          "type": "string",
+          "default": "https://images.onerom.org/releases.json"
+        },
+        "rom_config": {
+          "description": "ROM configurations manifest",
+          "type": "string",
+          "default": "https://images.onerom.org/configs.json"
+        }
+      }
+    },
+    "PathUrls": {
+      "description": "URL paths used within the application",
+      "type": "object",
+      "properties": {
+        "firmware_releases": {
+          "description": "Path to firmware releases on the server",
+          "type": "string",
+          "default": "https://images.onerom.org/"
+        },
+        "rom_configs": {
+          "description": "Path to rom configs on the server",
+          "type": "string",
+          "default": "https://images.onerom.org/"
+        }
+      }
+    },
+    "Schemas": {
+      "description": "Schemas used within the application",
+      "type": "object",
+      "properties": {
+        "app_manifest": {
+          "description": "JSON schema for the application manifest (this schema)",
+          "type": "string",
+          "default": "https://images.onerom.org/studio/app-schema.json"
+        },
+        "app_release": {
+          "description": "JSON schema for application release manifest",
+          "type": "string",
+          "default": ""
+        },
+        "fw_release": {
+          "description": "JSON schema for firmware release manifest",
+          "type": "string",
+          "default": ""
+        },
+        "rom_config": {
+          "description": "JSON schema for ROM configuration files",
+          "type": "string",
+          "default": "https://images.onerom.org/configs/schema.json"
+        }
+      }
+    }
+  }
+}
