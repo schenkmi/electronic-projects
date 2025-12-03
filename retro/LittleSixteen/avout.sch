@@ -1,0 +1,1417 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 12 14
+Title "LittleSixteen"
+Date "2025-01-02"
+Rev "4git"
+Comp "SukkoPera"
+Comment1 "Licensed under CC BY-NC-SA 4.0"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Modulator:Modulator M1
+U 1 1 5E01B0CC
+P 6010 2115
+F 0 "M1" H 6390 2610 50  0000 C CNN
+F 1 "Modulator" H 6265 1625 50  0000 C CNN
+F 2 "" H 6210 2165 50  0001 C CNN
+F 3 "" H 6210 2165 50  0001 C CNN
+F 4 "---" H 6010 2115 50  0001 C CNN "MouserPN"
+	1    6010 2115
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C11
+U 1 1 5E01CA58
+P 995 5580
+F 0 "C11" H 880 5626 50  0000 R CNN
+F 1 "100n" H 880 5535 50  0000 R CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 1033 5430 50  0001 C CNN
+F 3 "~" H 995 5580 50  0001 C CNN
+F 4 "810-FG28X7R1H104KNT0" H 995 5580 50  0001 C CNN "MouserPN"
+	1    995  5580
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6010 2940 6010 2765
+Wire Wire Line
+	6480 3085 6480 2940
+Connection ~ 6480 2940
+Wire Wire Line
+	6480 2940 6010 2940
+$Comp
+L Device:L L1
+U 1 1 5E01E939
+P 6010 1220
+F 0 "L1" H 6062 1266 50  0000 L CNN
+F 1 "FERRITE" H 6062 1175 50  0000 L CNN
+F 2 "Inductor_THT:L_Radial_D6.0mm_P4.00mm" H 6010 1220 50  0001 C CNN
+F 3 "~" H 6010 1220 50  0001 C CNN
+F 4 "875-28C0236-0EW-10" H 6010 1220 50  0001 C CNN "MouserPN"
+	1    6010 1220
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6660 2165 7210 2165
+Wire Wire Line
+	6660 2465 7040 2465
+Wire Wire Line
+	6660 2315 7125 2315
+Wire Wire Line
+	9150 2415 9345 2415
+Wire Wire Line
+	9150 2165 9150 2215
+Wire Wire Line
+	9150 2215 9345 2215
+Text Notes 9760 1925 2    50   ~ 0
+DIN-8
+NoConn ~ 9945 2415
+Wire Wire Line
+	9645 2015 9645 1945
+Wire Wire Line
+	9645 1945 10050 1945
+Wire Wire Line
+	10050 2940 9520 2940
+Wire Wire Line
+	9645 2615 9645 2785
+Wire Wire Line
+	9645 2785 9260 2785
+Wire Wire Line
+	9260 2785 9260 2705
+$Comp
+L power:VCC #PWR0179
+U 1 1 5E03CB7C
+P 9260 1635
+F 0 "#PWR0179" H 9260 1485 50  0001 C CNN
+F 1 "VCC" H 9277 1808 50  0000 C CNN
+F 2 "" H 9260 1635 50  0001 C CNN
+F 3 "" H 9260 1635 50  0001 C CNN
+	1    9260 1635
+	1    0    0    -1  
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB12
+U 1 1 5E03F938
+P 10455 2315
+F 0 "FB12" V 10310 2315 50  0000 C CNN
+F 1 "FERRITE" H 10555 2270 50  0001 L CNN
+F 2 "LittleSixteen:EMI_Filter" V 10385 2315 50  0001 C CNN
+F 3 "~" H 10455 2315 50  0001 C CNN
+F 4 "623-2743015112" H 10455 2315 50  0001 C CNN "MouserPN"
+	1    10455 2315
+	0    -1   1    0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB58
+U 1 1 5E040A9B
+P 10255 2215
+F 0 "FB58" V 10110 2215 50  0000 C CNN
+F 1 "FERRITE" H 10355 2170 50  0001 L CNN
+F 2 "LittleSixteen:EMI_Filter" V 10185 2215 50  0001 C CNN
+F 3 "~" H 10255 2215 50  0001 C CNN
+F 4 "623-2743015112" H 10255 2215 50  0001 C CNN "MouserPN"
+	1    10255 2215
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	9945 2215 10155 2215
+Wire Wire Line
+	10355 2215 10820 2215
+Wire Wire Line
+	9945 2315 10355 2315
+Wire Wire Line
+	5310 1865 5030 1865
+Text GLabel 5030 1865 0    50   Input ~ 0
+SYNC_LUM
+Wire Wire Line
+	5310 2015 5030 2015
+Text GLabel 5030 2015 0    50   Input ~ 0
+COLOR
+$Comp
+L Device:R R28
+U 1 1 5E05604E
+P 1725 1965
+F 0 "R28" V 1932 1965 50  0000 C CNN
+F 1 "1k" V 1841 1965 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 1655 1965 50  0001 C CNN
+F 3 "~" H 1725 1965 50  0001 C CNN
+F 4 "603-MFR-25FBF52-1K" H 1725 1965 50  0001 C CNN "MouserPN"
+	1    1725 1965
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1575 1965 1450 1965
+Wire Wire Line
+	1450 1965 1450 2035
+$Comp
+L Device:R R25
+U 1 1 5E057298
+P 1450 2185
+F 0 "R25" H 1380 2139 50  0000 R CNN
+F 1 "100k" H 1380 2230 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 1380 2185 50  0001 C CNN
+F 3 "~" H 1450 2185 50  0001 C CNN
+F 4 "603-MFR-25FBF52-100K" H 1450 2185 50  0001 C CNN "MouserPN"
+	1    1450 2185
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:CP1 C18
+U 1 1 5E059C15
+P 2145 1965
+F 0 "C18" V 1893 1965 50  0000 C CNN
+F 1 "10u/25V" V 1984 1965 50  0000 C CNN
+F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 2145 1965 50  0001 C CNN
+F 3 "~" H 2145 1965 50  0001 C CNN
+F 4 "710-860010572002" H 2145 1965 50  0001 C CNN "MouserPN"
+F 5 "Audio cap recommended" H 2145 1965 50  0001 C CNN "Notes"
+	1    2145 1965
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1875 1965 1995 1965
+Wire Wire Line
+	2500 1965 2500 1700
+Wire Wire Line
+	2295 1965 2500 1965
+Wire Wire Line
+	2500 1700 2785 1700
+$Comp
+L Device:R R24
+U 1 1 5E067484
+P 3455 1700
+F 0 "R24" V 3662 1700 50  0000 C CNN
+F 1 "1k" V 3571 1700 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 3385 1700 50  0001 C CNN
+F 3 "~" H 3455 1700 50  0001 C CNN
+F 4 "603-MFR-25FBF52-1K" H 3455 1700 50  0001 C CNN "MouserPN"
+	1    3455 1700
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 5E067CC1
+P 2785 1965
+F 0 "R9" H 2855 2011 50  0000 L CNN
+F 1 "12k" H 2855 1920 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 2715 1965 50  0001 C CNN
+F 3 "~" H 2785 1965 50  0001 C CNN
+	1    2785 1965
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2785 1815 2785 1700
+Connection ~ 2785 1700
+Wire Wire Line
+	2785 1700 3090 1700
+$Comp
+L Device:C C20
+U 1 1 5E06AC0B
+P 3090 1965
+F 0 "C20" H 3205 2011 50  0000 L CNN
+F 1 "10n" H 3205 1920 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 3128 1815 50  0001 C CNN
+F 3 "~" H 3090 1965 50  0001 C CNN
+	1    3090 1965
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3090 1815 3090 1700
+Connection ~ 3090 1700
+Wire Wire Line
+	3090 1700 3305 1700
+$Comp
+L Transistor_BJT:2SC1815 Q3
+U 1 1 5E06CD62
+P 3940 1700
+F 0 "Q3" H 4130 1746 50  0000 L CNN
+F 1 "2SC1815" H 4130 1655 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline_Wide" H 4140 1625 50  0001 L CIN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Toshiba%20PDFs/2SC1815.pdf" H 3940 1700 50  0001 L CNN
+F 4 "610-2SC1815-GR" H 3940 1700 50  0001 C CNN "MouserPN"
+	1    3940 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3605 1700 3740 1700
+Wire Wire Line
+	4040 1900 4040 2165
+Wire Wire Line
+	4040 2165 5310 2165
+$Comp
+L power:VCC #PWR0181
+U 1 1 5E070FA0
+P 4040 965
+F 0 "#PWR0181" H 4040 815 50  0001 C CNN
+F 1 "VCC" H 4057 1138 50  0000 C CNN
+F 2 "" H 4040 965 50  0001 C CNN
+F 3 "" H 4040 965 50  0001 C CNN
+	1    4040 965 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R23
+U 1 1 5E0721C1
+P 3090 1385
+F 0 "R23" H 3020 1339 50  0000 R CNN
+F 1 "10k" H 3020 1430 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 3020 1385 50  0001 C CNN
+F 3 "~" H 3090 1385 50  0001 C CNN
+F 4 "603-MFR-25FTF52-10K" H 3090 1385 50  0001 C CNN "MouserPN"
+	1    3090 1385
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3090 1535 3090 1700
+Wire Wire Line
+	3090 1235 3090 1060
+Wire Wire Line
+	2785 2115 2785 2385
+Wire Wire Line
+	3090 2115 3090 2385
+Wire Wire Line
+	3090 2385 2930 2385
+Wire Wire Line
+	10820 2215 10820 3705
+Wire Wire Line
+	10820 3705 1285 3705
+Wire Wire Line
+	1285 3705 1285 1965
+Wire Wire Line
+	1285 1965 1450 1965
+Connection ~ 1450 1965
+Wire Wire Line
+	4040 2165 4040 2935
+Wire Wire Line
+	4040 2935 4140 2935
+Connection ~ 4040 2165
+$Comp
+L Device:R R26
+U 1 1 5E0D6134
+P 4290 2935
+F 0 "R26" V 4083 2935 50  0000 C CNN
+F 1 "240" V 4174 2935 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 4220 2935 50  0001 C CNN
+F 3 "~" H 4290 2935 50  0001 C CNN
+	1    4290 2935
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R27
+U 1 1 5E0D6DA0
+P 4620 3165
+F 0 "R27" H 4550 3119 50  0000 R CNN
+F 1 "240" H 4550 3210 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 4550 3165 50  0001 C CNN
+F 3 "~" H 4620 3165 50  0001 C CNN
+	1    4620 3165
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4440 2935 4620 2935
+Wire Wire Line
+	4620 2935 4620 3015
+Wire Wire Line
+	4620 3405 4620 3315
+$Comp
+L Device:CP1 C31
+U 1 1 5E0DD47B
+P 4960 2935
+F 0 "C31" V 4708 2935 50  0000 C CNN
+F 1 "10u/25V" V 4799 2935 50  0000 C CNN
+F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 4960 2935 50  0001 C CNN
+F 3 "~" H 4960 2935 50  0001 C CNN
+F 4 "710-860010572002" H 4960 2935 50  0001 C CNN "MouserPN"
+F 5 "Audio cap recommended" H 4960 2935 50  0001 C CNN "Notes"
+	1    4960 2935
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	4620 2935 4810 2935
+Connection ~ 4620 2935
+$Comp
+L Device:R R11
+U 1 1 5E0E0320
+P 5290 3165
+F 0 "R11" H 5220 3119 50  0000 R CNN
+F 1 "100k" H 5220 3210 50  0000 R CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 5220 3165 50  0001 C CNN
+F 3 "~" H 5290 3165 50  0001 C CNN
+F 4 "603-MFR-25FBF52-100K" H 5290 3165 50  0001 C CNN "MouserPN"
+	1    5290 3165
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5110 2935 5290 2935
+Wire Wire Line
+	5290 2935 5290 3015
+Wire Wire Line
+	5290 3405 5290 3315
+Connection ~ 5290 2935
+Wire Wire Line
+	5775 2935 5775 3510
+Wire Wire Line
+	5775 3510 10705 3510
+Wire Wire Line
+	10705 3510 10705 2315
+Wire Wire Line
+	10705 2315 10555 2315
+Wire Wire Line
+	5290 2935 5775 2935
+Text GLabel 1125 1965 0    50   Input ~ 0
+EXT_AUDIO
+Wire Wire Line
+	1125 1965 1285 1965
+Connection ~ 1285 1965
+Wire Wire Line
+	3090 1060 4040 1060
+Wire Wire Line
+	4040 1500 4040 1060
+Wire Wire Line
+	4040 965  4040 1060
+Connection ~ 4040 1060
+Text Notes 10620 2195 0    50   ~ 0
+EXT_AUDIO
+Text Notes 10230 2500 0    50   ~ 0
+AUDIO_OUT
+Text Notes 8230 1375 0    50   ~ 0
+From C64-Wiki (C64 uses the same connector):\n\nThe eight pin jack is *not* the more common DIN 45326\n(pins spanning 270°, circular like a horseshoe), but\nDIN 41524 (pins spanning 262°, a "U" shape with a more\nopen end). It's possible to forcibly plug in a wrong plug into\nthe jack, but one should get the right plug in the first place\non a new purchase. Should you happen to get the wrong\nplug and wasn't planning to use the +5V pin then you can\nremove the upper two pins out for a perfect fit.
+Wire Wire Line
+	6010 1370 6010 1420
+$Comp
+L power:PWR_FLAG #FLG0104
+U 1 1 6260C869
+P 5965 1420
+F 0 "#FLG0104" H 5965 1495 50  0001 C CNN
+F 1 "PWR_FLAG" V 5965 1547 50  0000 L CNN
+F 2 "" H 5965 1420 50  0001 C CNN
+F 3 "~" H 5965 1420 50  0001 C CNN
+	1    5965 1420
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5965 1420 6010 1420
+Connection ~ 6010 1420
+Wire Wire Line
+	6010 1420 6010 1465
+Text GLabel 1800 5150 0    50   Input ~ 0
+COLOR
+Text GLabel 6775 4690 0    50   Input ~ 0
+SYNC_LUM
+$Comp
+L Device:C C81
+U 1 1 61A15F6A
+P 2405 5150
+F 0 "C81" V 2153 5150 50  0000 C CNN
+F 1 "330p" V 2244 5150 50  0000 C CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 2443 5000 50  0001 C CNN
+F 3 "~" H 2405 5150 50  0001 C CNN
+	1    2405 5150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1800 5150 2130 5150
+Wire Wire Line
+	2130 5150 2130 5245
+Connection ~ 2130 5150
+Wire Wire Line
+	2130 5150 2255 5150
+$Comp
+L Device:R R82
+U 1 1 61A1BBEE
+P 2130 5395
+F 0 "R82" H 2200 5441 50  0000 L CNN
+F 1 "1k" H 2200 5350 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 2060 5395 50  0001 C CNN
+F 3 "~" H 2130 5395 50  0001 C CNN
+F 4 "603-MFR-25FBF52-1K" H 2130 5395 50  0001 C CNN "MouserPN"
+	1    2130 5395
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2880 5855 2880 5950
+$Comp
+L Device:R R83
+U 1 1 61A2269E
+P 3045 5395
+F 0 "R83" H 3115 5441 50  0000 L CNN
+F 1 "5.6k" H 3115 5350 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 2975 5395 50  0001 C CNN
+F 3 "~" H 3045 5395 50  0001 C CNN
+	1    3045 5395
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R81
+U 1 1 61A22C56
+P 2880 4895
+F 0 "R81" H 2950 4941 50  0000 L CNN
+F 1 "3.3k" H 2950 4850 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 2810 4895 50  0001 C CNN
+F 3 "~" H 2880 4895 50  0001 C CNN
+	1    2880 4895
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2880 5045 2880 5150
+Connection ~ 2880 5150
+Wire Wire Line
+	2880 5150 3045 5150
+Wire Wire Line
+	3045 5150 3045 5245
+Wire Wire Line
+	2880 4745 2880 4705
+Wire Wire Line
+	3430 4950 3430 4705
+Wire Wire Line
+	3430 4705 2880 4705
+Connection ~ 2880 4705
+Wire Wire Line
+	2880 4705 2880 4665
+Wire Wire Line
+	3430 5350 3430 5395
+Wire Wire Line
+	3430 5395 3875 5395
+$Comp
+L Device:R R84
+U 1 1 61A39F31
+P 4025 5395
+F 0 "R84" V 3818 5395 50  0000 C CNN
+F 1 "33" V 3909 5395 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 3955 5395 50  0001 C CNN
+F 3 "~" H 4025 5395 50  0001 C CNN
+	1    4025 5395
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_POT RV1
+U 1 1 61A3B2F3
+P 4570 5395
+F 0 "RV1" V 4455 5395 50  0000 C CNN
+F 1 "1k" V 4364 5395 50  0000 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 4570 5395 50  0001 C CNN
+F 3 "~" H 4570 5395 50  0001 C CNN
+F 4 "652-3296W-1-102LF" H 4570 5395 50  0001 C CNN "MouserPN"
+	1    4570 5395
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4175 5395 4295 5395
+Wire Wire Line
+	4295 5395 4295 5175
+Wire Wire Line
+	4295 5175 4570 5175
+Wire Wire Line
+	4570 5175 4570 5245
+Wire Wire Line
+	4720 5395 4925 5395
+$Comp
+L Device:R R85
+U 1 1 61A4B9A5
+P 4925 5620
+F 0 "R85" H 4995 5666 50  0000 L CNN
+F 1 "150" H 4995 5575 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 4855 5620 50  0001 C CNN
+F 3 "~" H 4925 5620 50  0001 C CNN
+F 4 "" H 4925 5620 50  0001 C CNN "MouserPN"
+	1    4925 5620
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4925 5470 4925 5395
+Connection ~ 4925 5395
+Wire Wire Line
+	4925 5395 5170 5395
+Wire Wire Line
+	4570 5175 4735 5175
+Connection ~ 4570 5175
+Wire Wire Line
+	4935 5175 5170 5175
+Wire Wire Line
+	5170 5175 5170 5395
+Wire Wire Line
+	5170 5395 5425 5395
+Connection ~ 5170 5395
+Wire Wire Line
+	3045 5545 3045 5855
+Wire Wire Line
+	2880 5855 3045 5855
+Wire Wire Line
+	4925 5855 4925 5770
+Connection ~ 2880 5855
+Wire Wire Line
+	2130 5855 2130 5545
+NoConn ~ 4420 5395
+Wire Wire Line
+	8085 4890 8085 4935
+Wire Wire Line
+	8085 4935 8530 4935
+$Comp
+L Device:R R87
+U 1 1 61A7D70B
+P 8680 4935
+F 0 "R87" V 8473 4935 50  0000 C CNN
+F 1 "150" V 8564 4935 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 8610 4935 50  0001 C CNN
+F 3 "~" H 8680 4935 50  0001 C CNN
+	1    8680 4935
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_POT RV2
+U 1 1 61A7D715
+P 9225 4935
+F 0 "RV2" V 9110 4935 50  0000 C CNN
+F 1 "220" V 9019 4935 50  0000 C CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical" H 9225 4935 50  0001 C CNN
+F 3 "~" H 9225 4935 50  0001 C CNN
+F 4 "652-3296W-1-221LF" H 9225 4935 50  0001 C CNN "MouserPN"
+	1    9225 4935
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8830 4935 8950 4935
+Wire Wire Line
+	8950 4935 8950 4715
+Wire Wire Line
+	8950 4715 9225 4715
+Wire Wire Line
+	9225 4715 9225 4785
+$Comp
+L Device:R R88
+U 1 1 61A7D72E
+P 9760 5160
+F 0 "R88" H 9830 5206 50  0000 L CNN
+F 1 "150" H 9830 5115 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 9690 5160 50  0001 C CNN
+F 3 "~" H 9760 5160 50  0001 C CNN
+	1    9760 5160
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9760 5010 9760 4935
+Wire Wire Line
+	9225 4715 9390 4715
+Connection ~ 9225 4715
+Wire Wire Line
+	9590 4715 9760 4715
+Wire Wire Line
+	9760 4715 9760 4935
+Wire Wire Line
+	9760 4935 10015 4935
+Connection ~ 9760 4935
+Wire Wire Line
+	9760 5395 9760 5310
+Text GLabel 10015 4935 2    50   Output ~ 0
+LUM_OUT
+NoConn ~ 9075 4935
+$Comp
+L Device:D D86
+U 1 1 61A95F3B
+P 7055 4690
+F 0 "D86" H 7055 4907 50  0000 C CNN
+F 1 "1n4148" H 7055 4816 50  0000 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7055 4690 50  0001 C CNN
+F 3 "~" H 7055 4690 50  0001 C CNN
+	1    7055 4690
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6905 4690 6775 4690
+Text GLabel 5425 5395 2    50   Output ~ 0
+COLOR_OUT
+Wire Wire Line
+	3430 5395 3430 5760
+Wire Wire Line
+	3430 5760 3635 5760
+Connection ~ 3430 5395
+Text GLabel 3635 5760 2    50   Output ~ 0
+COLOR_CV_PICKUP
+Text GLabel 10055 6155 2    50   Output ~ 0
+LUMA_CV_PICKUP
+Text GLabel 4445 6420 0    50   Input ~ 0
+COLOR_CV_PICKUP
+Text GLabel 4415 6860 0    50   Input ~ 0
+LUMA_CV_PICKUP
+$Comp
+L Device:C C82
+U 1 1 61AFDBD4
+P 4755 6420
+F 0 "C82" V 4503 6420 50  0000 C CNN
+F 1 "150p" V 4594 6420 50  0000 C CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 4793 6270 50  0001 C CNN
+F 3 "~" H 4755 6420 50  0001 C CNN
+	1    4755 6420
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4445 6420 4605 6420
+$Comp
+L Device:L L81
+U 1 1 61B0B1AC
+P 8645 5300
+F 0 "L81" V 8835 5300 50  0000 C CNN
+F 1 "10u" V 8744 5300 50  0000 C CNN
+F 2 "Inductor_THT:L_Axial_L7.0mm_D3.3mm_P12.70mm_Horizontal_Fastron_MICC" H 8645 5300 50  0001 C CNN
+F 3 "~" H 8645 5300 50  0001 C CNN
+F 4 "871-B78108E1103K000" H 8645 5300 50  0001 C CNN "MouserPN"
+	1    8645 5300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R89
+U 1 1 61B0CE87
+P 4755 6860
+F 0 "R89" V 4548 6860 50  0000 C CNN
+F 1 "100" V 4639 6860 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 4685 6860 50  0001 C CNN
+F 3 "~" H 4755 6860 50  0001 C CNN
+	1    4755 6860
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8795 5300 8950 5300
+Wire Wire Line
+	4905 6420 5075 6420
+Wire Wire Line
+	5075 6420 5075 6860
+Wire Wire Line
+	5075 6860 4905 6860
+$Comp
+L Device:R R90
+U 1 1 61B1AD5D
+P 5075 7270
+F 0 "R90" H 5145 7316 50  0000 L CNN
+F 1 "150" H 5145 7225 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 5005 7270 50  0001 C CNN
+F 3 "~" H 5075 7270 50  0001 C CNN
+	1    5075 7270
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5075 7120 5075 6860
+Wire Wire Line
+	5075 7505 5075 7420
+Connection ~ 5075 6860
+Wire Wire Line
+	5075 6860 5605 6860
+Text GLabel 5605 6860 2    50   Output ~ 0
+COMP_OUT
+Text Notes 4555 4410 0    157  ~ 0
+RF MODULATOR\nREPLACEMENT
+Text Notes 3440 7525 2    50   ~ 0
+These circuits can replace the composite/luma/chroma\noutput functionality of the original modulator.\n\nIt's based on mbarszcz-pcb's\nc64-rf-modulator-replacement project for the C64, please see:\nhttps://github.com/mbarszcz-pcb/c64-rf-modulator-replacement.\n\nEdoardo spent a lot of time fine-tuning the component values\nand adding some new components in order to achieve the best\nvideo quality.\n\nThe trimmers are not needed by default, they can be installed in\norder to fine-tune the output signals further, in which case JP81\nand JP82 shall be opened.
+Wire Wire Line
+	9375 4935 9760 4935
+$Comp
+L Device:CP1 C83
+U 1 1 61BCB802
+P 1260 5580
+F 0 "C83" H 1145 5626 50  0000 R CNN
+F 1 "10u/25V" H 1145 5535 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 1260 5580 50  0001 C CNN
+F 3 "~" H 1260 5580 50  0001 C CNN
+F 4 "710-860010572002" H 1260 5580 50  0001 C CNN "MouserPN"
+	1    1260 5580
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1130 5345 1130 5385
+Wire Wire Line
+	1260 5730 1260 5775
+Wire Wire Line
+	7040 2465 7040 1500
+Wire Wire Line
+	7040 1500 7350 1500
+Connection ~ 7040 2465
+Wire Wire Line
+	7125 2315 7125 1645
+Wire Wire Line
+	7125 1645 7350 1645
+Connection ~ 7125 2315
+Wire Wire Line
+	7210 2165 7210 1790
+Wire Wire Line
+	7210 1790 7350 1790
+Connection ~ 7210 2165
+Text GLabel 7350 1790 2    50   Input ~ 0
+COMP_OUT
+Text GLabel 7350 1500 2    50   Input ~ 0
+COLOR_OUT
+Text GLabel 7350 1645 2    50   Input ~ 0
+LUM_OUT
+$Comp
+L power:VDD #PWR0121
+U 1 1 61C86CAA
+P 6480 1320
+F 0 "#PWR0121" H 6480 1170 50  0001 C CNN
+F 1 "VDD" H 6495 1493 50  0000 C CNN
+F 2 "" H 6480 1320 50  0001 C CNN
+F 3 "" H 6480 1320 50  0001 C CNN
+	1    6480 1320
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6010 1420 6480 1420
+Wire Wire Line
+	6480 1420 6480 1320
+$Comp
+L power:VDD #PWR0200
+U 1 1 61C8FCEC
+P 1130 5345
+F 0 "#PWR0200" H 1130 5195 50  0001 C CNN
+F 1 "VDD" H 1145 5518 50  0000 C CNN
+F 2 "" H 1130 5345 50  0001 C CNN
+F 3 "" H 1130 5345 50  0001 C CNN
+	1    1130 5345
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VDD #PWR0201
+U 1 1 61C90E47
+P 2880 4665
+F 0 "#PWR0201" H 2880 4515 50  0001 C CNN
+F 1 "VDD" H 2895 4838 50  0000 C CNN
+F 2 "" H 2880 4665 50  0001 C CNN
+F 3 "" H 2880 4665 50  0001 C CNN
+	1    2880 4665
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VDD #PWR0202
+U 1 1 61C91AFA
+P 8085 4155
+F 0 "#PWR0202" H 8085 4005 50  0001 C CNN
+F 1 "VDD" H 8100 4328 50  0000 C CNN
+F 2 "" H 8085 4155 50  0001 C CNN
+F 3 "" H 8085 4155 50  0001 C CNN
+	1    8085 4155
+	1    0    0    -1  
+$EndComp
+$Comp
+L din-8:DIN-8 CN6
+U 1 1 62908D19
+P 9645 2315
+F 0 "CN6" H 9650 2905 50  0000 C CNN
+F 1 "AUDIO_VIDEO" H 9645 2820 50  0000 C CNN
+F 2 "LittleSixteen:DIN-8_DS_8_102_OR_102B" H 9645 2315 50  0001 C CNN
+F 3 "http://www.mouser.com/ds/2/18/40_c091_abd_e-75918.pdf" H 9645 2315 50  0001 C CNN
+	1    9645 2315
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9520 2590 9520 2940
+Connection ~ 9520 2940
+Wire Wire Line
+	9260 1730 9260 1635
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB95
+U 1 1 61E4B6DF
+P 9260 2605
+F 0 "FB95" H 9360 2605 50  0000 L CNN
+F 1 "FERRITE" H 9360 2560 50  0001 L CNN
+F 2 "LittleSixteen:EMI_Filter" V 9190 2605 50  0001 C CNN
+F 3 "~" H 9260 2605 50  0001 C CNN
+F 4 "623-2743015112" H 9260 2605 50  0001 C CNN "MouserPN"
+	1    9260 2605
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	9260 2505 9260 2030
+Wire Notes Line
+	8825 1700 9350 1700
+Wire Notes Line
+	9350 1700 9350 2835
+Wire Notes Line
+	9350 2835 8825 2835
+Wire Notes Line
+	8825 2835 8825 1700
+Text Notes 9285 3260 2    50   ~ 0
+ADDITIONAL CURRENT-\nLIMITING RESISTOR AND\nEMI-PROTECTION FERRITE
+$Comp
+L power:GND #PWR0237
+U 1 1 61E90996
+P 3740 7445
+F 0 "#PWR0237" H 3740 7195 50  0001 C CNN
+F 1 "GND" H 3745 7272 50  0000 C CNN
+F 2 "" H 3740 7445 50  0001 C CNN
+F 3 "" H 3740 7445 50  0001 C CNN
+	1    3740 7445
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3740 7445 3740 7345
+Wire Wire Line
+	3740 7345 3835 7345
+$Comp
+L Device:L L80
+U 1 1 61E8F0DE
+P 3985 7345
+F 0 "L80" V 4175 7345 50  0000 C CNN
+F 1 "FERRITE" V 4084 7345 50  0000 C CNN
+F 2 "Inductor_THT:L_Radial_D6.0mm_P4.00mm" H 3985 7345 50  0001 C CNN
+F 3 "~" H 3985 7345 50  0001 C CNN
+F 4 "875-28C0236-0EW-10" H 3985 7345 50  0001 C CNN "MouserPN"
+	1    3985 7345
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4135 7345 4245 7345
+Wire Wire Line
+	4245 7345 4245 7445
+$Comp
+L power:GND #PWR0183
+U 1 1 5E0E032C
+P 5290 3405
+F 0 "#PWR0183" H 5290 3155 50  0001 C CNN
+F 1 "GND" H 5295 3232 50  0000 C CNN
+F 2 "" H 5290 3405 50  0001 C CNN
+F 3 "" H 5290 3405 50  0001 C CNN
+	1    5290 3405
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0182
+U 1 1 5E0D9522
+P 4620 3405
+F 0 "#PWR0182" H 4620 3155 50  0001 C CNN
+F 1 "GND" H 4625 3232 50  0000 C CNN
+F 2 "" H 4620 3405 50  0001 C CNN
+F 3 "" H 4620 3405 50  0001 C CNN
+	1    4620 3405
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0177
+U 1 1 5E01E136
+P 6480 3085
+F 0 "#PWR0177" H 6480 2835 50  0001 C CNN
+F 1 "GND" H 6485 2912 50  0000 C CNN
+F 2 "" H 6480 3085 50  0001 C CNN
+F 3 "" H 6480 3085 50  0001 C CNN
+	1    6480 3085
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	995  5430 995  5385
+Wire Wire Line
+	995  5385 1130 5385
+Wire Wire Line
+	1260 5385 1260 5430
+Connection ~ 1130 5385
+Wire Wire Line
+	1130 5385 1260 5385
+Wire Wire Line
+	995  5730 995  5775
+Wire Wire Line
+	995  5775 1130 5775
+Wire Wire Line
+	1130 5775 1130 5825
+Connection ~ 1130 5775
+Wire Wire Line
+	1130 5775 1260 5775
+$Comp
+L power:VCC #PWR0178
+U 1 1 5E021287
+P 6010 975
+F 0 "#PWR0178" H 6010 825 50  0001 C CNN
+F 1 "VCC" H 6027 1148 50  0000 C CNN
+F 2 "" H 6010 975 50  0001 C CNN
+F 3 "" H 6010 975 50  0001 C CNN
+	1    6010 975 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6010 975  6010 1070
+Connection ~ 3045 5150
+Wire Wire Line
+	3045 5150 3130 5150
+Connection ~ 3045 5855
+Wire Wire Line
+	3045 5855 4925 5855
+$Comp
+L Device:C C85
+U 1 1 634FD6CC
+P 3795 4705
+F 0 "C85" V 3635 4705 50  0000 C CNN
+F 1 "100n" V 3544 4705 50  0000 C CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 3833 4555 50  0001 C CNN
+F 3 "~" H 3795 4705 50  0001 C CNN
+F 4 "810-FG28X7R1H104KNT0" H 3795 4705 50  0001 C CNN "MouserPN"
+	1    3795 4705
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3430 4705 3645 4705
+Connection ~ 3430 4705
+Wire Wire Line
+	3945 4705 4090 4705
+Wire Wire Line
+	4090 4705 4090 4865
+$Comp
+L Device:Jumper_NC_Small JP81
+U 1 1 635201CA
+P 4835 5175
+F 0 "JP81" H 4835 5387 50  0000 C CNN
+F 1 "JMP_RV1_BYPASS" H 4835 5296 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 4835 5175 50  0001 C CNN
+F 3 "~" H 4835 5175 50  0001 C CNN
+F 4 "---" H 4835 5175 50  0001 C CNN "MouserPN"
+	1    4835 5175
+	1    0    0    -1  
+$EndComp
+Text Notes 4425 5795 0    50   ~ 0
+DO NOT\nMOUNT
+$Comp
+L Device:Jumper_NC_Small JP82
+U 1 1 6353837A
+P 9490 4715
+F 0 "JP82" H 9490 4927 50  0000 C CNN
+F 1 "JMP_RV2_BYPASS" H 9490 4836 50  0000 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 9490 4715 50  0001 C CNN
+F 3 "~" H 9490 4715 50  0001 C CNN
+F 4 "---" H 9490 4715 50  0001 C CNN "MouserPN"
+	1    9490 4715
+	1    0    0    -1  
+$EndComp
+Text Notes 9325 5170 0    50   ~ 0
+DO NOT\nMOUNT
+$Comp
+L Device:C C86
+U 1 1 6355F0EE
+P 8650 5475
+F 0 "C86" V 8810 5475 50  0000 C CNN
+F 1 "220p" V 8901 5475 50  0000 C CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 8688 5325 50  0001 C CNN
+F 3 "~" H 8650 5475 50  0001 C CNN
+	1    8650 5475
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8500 5475 8375 5475
+Wire Wire Line
+	8375 5475 8375 5300
+Wire Wire Line
+	8375 5300 8495 5300
+Wire Wire Line
+	8950 5300 8950 5475
+Connection ~ 8950 5300
+$Comp
+L Device:C C87
+U 1 1 63580302
+P 8950 5715
+F 0 "C87" H 8835 5669 50  0000 R CNN
+F 1 "330p" H 8835 5760 50  0000 R CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 8988 5565 50  0001 C CNN
+F 3 "~" H 8950 5715 50  0001 C CNN
+	1    8950 5715
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8950 5865 8950 5945
+Wire Wire Line
+	8800 5475 8950 5475
+Connection ~ 8950 5475
+Wire Wire Line
+	8950 5475 8950 5565
+$Comp
+L Device:C C84
+U 1 1 634E857F
+P 2720 5400
+F 0 "C84" H 2835 5354 50  0000 L CNN
+F 1 "100p" H 2835 5445 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 2758 5250 50  0001 C CNN
+F 3 "~" H 2720 5400 50  0001 C CNN
+F 4 "810-FG28C0G2A101JNT6" H 2720 5400 50  0001 C CNN "MouserPN"
+	1    2720 5400
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2720 5250 2720 5150
+Wire Wire Line
+	2720 5550 2720 5855
+Wire Wire Line
+	2130 5855 2720 5855
+Wire Wire Line
+	2555 5150 2720 5150
+Connection ~ 2720 5150
+Wire Wire Line
+	2720 5150 2880 5150
+Connection ~ 2720 5855
+Wire Wire Line
+	2720 5855 2880 5855
+Connection ~ 2500 1700
+Wire Wire Line
+	2295 1450 2500 1450
+Wire Wire Line
+	2500 1450 2500 1700
+Text GLabel 1125 1450 0    50   Input ~ 0
+SND
+Wire Wire Line
+	1575 1450 1125 1450
+Wire Wire Line
+	1875 1450 1995 1450
+$Comp
+L Device:CP1 C19
+U 1 1 5E061026
+P 2145 1450
+F 0 "C19" V 1893 1450 50  0000 C CNN
+F 1 "10u/25V" V 1984 1450 50  0000 C CNN
+F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 2145 1450 50  0001 C CNN
+F 3 "~" H 2145 1450 50  0001 C CNN
+F 4 "710-860010572002" H 2145 1450 50  0001 C CNN "MouserPN"
+F 5 "Audio cap recommended" H 2145 1450 50  0001 C CNN "Notes"
+	1    2145 1450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 5E06101C
+P 1725 1450
+F 0 "R8" V 1932 1450 50  0000 C CNN
+F 1 "1k" V 1841 1450 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 1655 1450 50  0001 C CNN
+F 3 "~" H 1725 1450 50  0001 C CNN
+F 4 "603-MFR-25FBF52-1K" H 1725 1450 50  0001 C CNN "MouserPN"
+	1    1725 1450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2295 950  2500 950 
+Text GLabel 1125 950  0    50   Input ~ 0
+SID_AUDIO
+Wire Wire Line
+	1575 950  1125 950 
+Wire Wire Line
+	1875 950  1995 950 
+$Comp
+L Device:CP1 C62
+U 1 1 6403521D
+P 2145 950
+F 0 "C62" V 1893 950 50  0000 C CNN
+F 1 "10u/25V" V 1984 950 50  0000 C CNN
+F 2 "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm" H 2145 950 50  0001 C CNN
+F 3 "~" H 2145 950 50  0001 C CNN
+F 4 "710-860010572002" H 2145 950 50  0001 C CNN "MouserPN"
+F 5 "Audio cap recommended" H 2145 950 50  0001 C CNN "Notes"
+	1    2145 950 
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R43
+U 1 1 64035227
+P 1725 950
+F 0 "R43" V 1518 950 50  0000 C CNN
+F 1 "1k" V 1609 950 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 1655 950 50  0001 C CNN
+F 3 "~" H 1725 950 50  0001 C CNN
+F 4 "603-MFR-25FBF52-1K" H 1725 950 50  0001 C CNN "MouserPN"
+	1    1725 950 
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	2500 950  2500 1450
+Connection ~ 2500 1450
+Wire Wire Line
+	2930 2385 2930 2430
+$Comp
+L power:GND #PWR0180
+U 1 1 5E058213
+P 2930 2430
+F 0 "#PWR0180" H 2930 2180 50  0001 C CNN
+F 1 "GND" H 2935 2257 50  0000 C CNN
+F 2 "" H 2930 2430 50  0001 C CNN
+F 3 "" H 2930 2430 50  0001 C CNN
+	1    2930 2430
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0256
+U 1 1 64130D28
+P 1450 2430
+F 0 "#PWR0256" H 1450 2180 50  0001 C CNN
+F 1 "GND" H 1455 2257 50  0000 C CNN
+F 2 "" H 1450 2430 50  0001 C CNN
+F 3 "" H 1450 2430 50  0001 C CNN
+	1    1450 2430
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1450 2335 1450 2430
+Text Notes 1545 2520 0    50   ~ 0
+PREVENTS NOISE WHEN\nNOTHING IS CONNECTED\nTO EXT_AUDIO
+Connection ~ 2930 2385
+Wire Wire Line
+	2930 2385 2785 2385
+$Comp
+L Power:VGND #PWR0232
+U 1 1 6435A740
+P 9760 5395
+F 0 "#PWR0232" H 9760 5145 50  0001 C CNN
+F 1 "VGND" H 9765 5222 50  0000 C CNN
+F 2 "" H 9760 5395 50  0001 C CNN
+F 3 "" H 9760 5395 50  0001 C CNN
+	1    9760 5395
+	1    0    0    -1  
+$EndComp
+$Comp
+L Power:VGND #PWR0233
+U 1 1 6435AE1F
+P 5075 7505
+F 0 "#PWR0233" H 5075 7255 50  0001 C CNN
+F 1 "VGND" H 5080 7332 50  0000 C CNN
+F 2 "" H 5075 7505 50  0001 C CNN
+F 3 "" H 5075 7505 50  0001 C CNN
+	1    5075 7505
+	1    0    0    -1  
+$EndComp
+$Comp
+L Power:VGND #PWR0234
+U 1 1 6435BBB3
+P 8950 5945
+F 0 "#PWR0234" H 8950 5695 50  0001 C CNN
+F 1 "VGND" H 8955 5772 50  0000 C CNN
+F 2 "" H 8950 5945 50  0001 C CNN
+F 3 "" H 8950 5945 50  0001 C CNN
+	1    8950 5945
+	1    0    0    -1  
+$EndComp
+$Comp
+L Power:VGND #PWR0235
+U 1 1 6435C1A3
+P 4245 7445
+F 0 "#PWR0235" H 4245 7195 50  0001 C CNN
+F 1 "VGND" H 4250 7272 50  0000 C CNN
+F 2 "" H 4245 7445 50  0001 C CNN
+F 3 "" H 4245 7445 50  0001 C CNN
+	1    4245 7445
+	1    0    0    -1  
+$EndComp
+$Comp
+L Power:VGND #PWR0236
+U 1 1 6435C989
+P 2880 5950
+F 0 "#PWR0236" H 2880 5700 50  0001 C CNN
+F 1 "VGND" H 2885 5777 50  0000 C CNN
+F 2 "" H 2880 5950 50  0001 C CNN
+F 3 "" H 2880 5950 50  0001 C CNN
+	1    2880 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Power:VGND #PWR0238
+U 1 1 6435D365
+P 1130 5825
+F 0 "#PWR0238" H 1130 5575 50  0001 C CNN
+F 1 "VGND" H 1135 5652 50  0000 C CNN
+F 2 "" H 1130 5825 50  0001 C CNN
+F 3 "" H 1130 5825 50  0001 C CNN
+	1    1130 5825
+	1    0    0    -1  
+$EndComp
+$Comp
+L Power:VGND #PWR0239
+U 1 1 6435DA97
+P 4090 4865
+F 0 "#PWR0239" H 4090 4615 50  0001 C CNN
+F 1 "VGND" H 4095 4692 50  0000 C CNN
+F 2 "" H 4090 4865 50  0001 C CNN
+F 3 "" H 4090 4865 50  0001 C CNN
+	1    4090 4865
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:2SC1815 Q81
+U 1 1 6436C9A5
+P 3330 5150
+F 0 "Q81" H 3520 5196 50  0000 L CNN
+F 1 "2SC1815" H 3520 5105 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline_Wide" H 3530 5075 50  0001 L CIN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Toshiba%20PDFs/2SC1815.pdf" H 3330 5150 50  0001 L CNN
+F 4 "610-2SC1815-GR" H 3330 5150 50  0001 C CNN "MouserPN"
+	1    3330 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:2SC1815 Q82
+U 1 1 6436FE8F
+P 7985 4690
+F 0 "Q82" H 8175 4736 50  0000 L CNN
+F 1 "2SC1815" H 8175 4645 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline_Wide" H 8185 4615 50  0001 L CIN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Toshiba%20PDFs/2SC1815.pdf" H 7985 4690 50  0001 L CNN
+F 4 "610-2SC1815-GR" H 7985 4690 50  0001 C CNN "MouserPN"
+	1    7985 4690
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10050 1945 10050 2940
+Text Notes 10090 3020 0    50   ~ 0
+FB13 REMOVED\nTO REDUCE\nCHROMA/LUMA\nCROSSTALK\n(THANKS TLC!)
+Wire Wire Line
+	6480 2940 9520 2940
+Wire Wire Line
+	7210 2165 7475 2165
+Wire Wire Line
+	7675 2165 9150 2165
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin EM5
+U 1 1 67130B45
+P 7575 2165
+F 0 "EM5" V 7720 2165 50  0000 C CNN
+F 1 "270p" H 7675 2120 50  0001 L CNN
+F 2 "LittleSixteen:EMI_Filter" V 7505 2165 50  0001 C CNN
+F 3 "~" H 7575 2165 50  0001 C CNN
+F 4 "DSS1NB32A271Q91A" H 7575 2165 50  0001 C CNN "MouserPN"
+	1    7575 2165
+	0    1    -1   0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin EM4
+U 1 1 6714E1C3
+P 8145 2465
+F 0 "EM4" V 8000 2465 50  0000 C CNN
+F 1 "270p" H 8245 2420 50  0001 L CNN
+F 2 "LittleSixteen:EMI_Filter" V 8075 2465 50  0001 C CNN
+F 3 "~" H 8145 2465 50  0001 C CNN
+F 4 "DSS1NB32A271Q91A" H 8145 2465 50  0001 C CNN "MouserPN"
+	1    8145 2465
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	7040 2465 8045 2465
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin EM3
+U 1 1 6716F690
+P 8620 2315
+F 0 "EM3" V 8475 2315 50  0000 C CNN
+F 1 "270p" H 8720 2270 50  0001 L CNN
+F 2 "LittleSixteen:EMI_Filter" V 8550 2315 50  0001 C CNN
+F 3 "~" H 8620 2315 50  0001 C CNN
+F 4 "DSS1NB32A271Q91A" H 8620 2315 50  0001 C CNN "MouserPN"
+	1    8620 2315
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	7125 2315 8520 2315
+Wire Wire Line
+	8720 2315 9345 2315
+Wire Wire Line
+	9150 2495 8360 2495
+Wire Wire Line
+	8360 2495 8360 2465
+Wire Wire Line
+	8360 2465 8245 2465
+Wire Wire Line
+	9150 2415 9150 2495
+Connection ~ 8085 4230
+Wire Wire Line
+	8085 4230 8085 4155
+Wire Wire Line
+	8085 4490 8085 4230
+Wire Wire Line
+	7365 4305 7365 4230
+Wire Wire Line
+	7365 4230 8085 4230
+Wire Wire Line
+	7205 4690 7365 4690
+Wire Wire Line
+	7365 4690 7785 4690
+Connection ~ 7365 4690
+Wire Wire Line
+	7365 4690 7365 4605
+$Comp
+L Device:R R86
+U 1 1 61AA56B3
+P 7365 4455
+F 0 "R86" H 7435 4501 50  0000 L CNN
+F 1 "1k" H 7435 4410 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P5.08mm_Vertical" V 7295 4455 50  0001 C CNN
+F 3 "~" H 7365 4455 50  0001 C CNN
+	1    7365 4455
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:2SC1815 Q83
+U 1 1 67825B4D
+P 7610 5340
+F 0 "Q83" H 7800 5386 50  0000 L CNN
+F 1 "2SC1815" H 7800 5295 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline_Wide" H 7810 5265 50  0001 L CIN
+F 3 "https://media.digikey.com/pdf/Data%20Sheets/Toshiba%20PDFs/2SC1815.pdf" H 7610 5340 50  0001 L CNN
+F 4 "610-2SC1815-GR" H 7610 5340 50  0001 C CNN "MouserPN"
+	1    7610 5340
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7365 5340 7410 5340
+Wire Wire Line
+	7365 4690 7365 5340
+$Comp
+L power:VDD #PWR041
+U 1 1 6787FA74
+P 7710 5065
+F 0 "#PWR041" H 7710 4915 50  0001 C CNN
+F 1 "VDD" H 7725 5238 50  0000 C CNN
+F 2 "" H 7710 5065 50  0001 C CNN
+F 3 "" H 7710 5065 50  0001 C CNN
+	1    7710 5065
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7710 5140 7710 5065
+Connection ~ 8085 4935
+Wire Wire Line
+	8085 4935 8085 5300
+Wire Wire Line
+	8085 5300 8375 5300
+Connection ~ 8375 5300
+$Comp
+L Jumper:Jumper_3_Open JP18
+U 1 1 678FE022
+P 9760 6155
+F 0 "JP18" V 9714 6242 50  0000 L CNN
+F 1 "JMP_COMP_VIDEO" V 9805 6242 50  0000 L CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 9760 6155 50  0001 C CNN
+F 3 "~" H 9760 6155 50  0001 C CNN
+F 4 "---" H 9760 6155 50  0001 C CNN "MouserPN"
+	1    9760 6155
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	7710 5540 7710 6405
+Wire Wire Line
+	7710 6405 9760 6405
+Wire Wire Line
+	9490 5300 9490 5905
+Wire Wire Line
+	9490 5905 9760 5905
+Wire Wire Line
+	8950 5300 9490 5300
+Wire Wire Line
+	9910 6155 10055 6155
+Wire Wire Line
+	4415 6860 4605 6860
+Text Notes 9855 6040 0    50   ~ 0
+1-2: Same circuit as\n      original modulator\n2-3: Simpler circuit that\n      enhances the Chroma signal
+$Comp
+L Device:Polyfuse F?
+U 1 1 69AAA0A0
+P 9260 1880
+AR Path="/63EAD078/69AAA0A0" Ref="F?"  Part="1" 
+AR Path="/5ECB474B/69AAA0A0" Ref="F?"  Part="1" 
+AR Path="/5E019FCB/69AAA0A0" Ref="F1"  Part="1" 
+F 0 "F1" H 9172 1926 50  0000 R CNN
+F 1 "250m" H 9172 1835 50  0000 R CNN
+F 2 "LittleSixteen:Fuse_Bourns" H 9310 1680 50  0001 L CNN
+F 3 "~" H 9260 1880 50  0001 C CNN
+F 4 "603-BK60-025-DZ" H 9260 1880 50  0001 C CNN "MouserPN"
+	1    9260 1880
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
