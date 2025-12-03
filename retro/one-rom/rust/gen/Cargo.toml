@@ -1,0 +1,26 @@
+[package]
+name = "onerom-gen"
+version = "0.2.0"
+edition = "2024"
+authors = ["Piers Finlayson <piers@piers.rocks>"]
+license = "MIT"
+description = "ROM metadata and ROM image generator for One ROM - the flexible retro ROM replacement"
+repository = "https://github.com/piersfinlayson/one-rom"
+homepage = "https://onerom.org"
+documentation = "https://docs.rs/onerom-gen"
+keywords = ["retro", "rom", "commodore", "embedded"]
+categories = ["embedded", "hardware-support"]
+
+[features]
+# Used to generate JSON schema files
+schemars = ["dep:schemars", "onerom-config/schemars"]
+
+[dependencies]
+onerom-config = { version = "0.2.2" }
+
+schemars = { version = "1.0", optional = true }
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+serde_json = "1.0"
+
+[package.metadata.docs.rs]
+all-features = true

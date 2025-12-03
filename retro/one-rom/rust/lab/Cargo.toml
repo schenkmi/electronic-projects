@@ -1,0 +1,52 @@
+[package]
+name = "onerom-lab"
+version = "0.1.0"
+edition = "2024"
+authors = ["Piers Finlayson <piers@piers.rocks>"]
+description = "One ROM Lab"
+repository = "https://github.com/piersfinlayson/one-rom"
+readme = "README.md"
+license = "MIT"
+keywords = ["embedded", "rom", "eeprom", "eprom", "flash"]
+
+[[bin]]
+name = "onerom-lab"
+path = "src/main.rs"
+
+[features]
+default = [ "f405rg", "control" ]
+f405rg = [ "embassy-stm32/stm32f405rg" ]
+f401re = [ "embassy-stm32/stm32f401re" ]
+f411re = [ "embassy-stm32/stm32f411re" ]
+f446re = [ "embassy-stm32/stm32f446re" ]
+control = []
+oneshot = []
+repeat = []
+
+[dependencies]
+onerom-protocol = { version = "0.1.0" }
+onerom-database = { version = "0.1.0" }
+
+airfrog-rpc = { version = "0.1.1" }
+embassy-executor = { version = "0.7.0", features = ["executor-thread", "arch-cortex-m", "nightly" ]}
+embassy-futures = { version = "0.1.1" }
+embassy-stm32 = { version = "0.4.0", features = [ "memory-x", "time-driver-any", "unstable-pac", "exti" ]}
+embassy-sync = { version = "0.7.0" }
+embassy-time = { version = "0.5", features = [ "tick-hz-32_768", "generic-queue-8" ] }
+embedded-alloc = { version = "0.6" }
+portable-atomic = { version = "1.10", features = [ "critical-section" ] }
+cortex-m = { version = "0.7.6", features = [ "critical-section-single-core" ] }
+cortex-m-rt = { version = "0.7.0"}
+static_cell = { version = "2.1", features = [ "nightly" ] }
+embedded-hal = { version = "1.0.0"}
+critical-section = { version = "1.2.0" }
+hex = { version = "0.4", default-features = false, features = [ "alloc" ] }
+hex-literal = "1.0.0"
+log = "0.4"
+sha1 = { version = "0.10", default-features = false }
+rtt-target = { version = "0.6", features = [ "log" ] }
+panic-rtt-target = "0.2"
+
+[build-dependencies]
+built = "0.8"
+csv = "1.3"

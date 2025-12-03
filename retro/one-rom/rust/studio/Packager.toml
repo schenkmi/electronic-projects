@@ -1,0 +1,26 @@
+# Packager configuration
+# Used on Windows ONLY
+enabled = true
+name = "onerom-studio"
+product_name = "One ROM Studio"
+publisher = "piers.rocks"
+authors = ["Piers Finlayson"]
+identifier = "rocks.piers.onerom-studio"
+license-file = "LICENSE.txt"
+homepage = "https://onerom.org"
+description = "One ROM Studio" 
+longDescription = "One ROM Studio - Manage One ROM, the most flexible retro ROM replacement"
+formats = ["dmg", "nsis", "deb"]
+icons = ["assets/onerom-512x512.png", "assets/onerom-256x256.png", "assets/onerom-128x128.png", "assets/onerom-64x64.png", "assets/onerom-32x32.png", "assets/onerom-16x16.png", "assets/onerom.ico"]
+binaries = [ { main = true, path = "onerom-studio" } ]
+binaries-dir = "../target/x86_64-pc-windows-msvc/release"
+out-dir = "dist"
+version = "%VERSION%"
+
+# Windows installer
+[nsis]
+installer-mode = "currentUser"
+header-image = "assets/onerom-header.bmp"
+sidebar-image = "assets/onerom-sidebar.bmp"
+installer-icon = "assets/onerom.ico"
+display-language-selector = false

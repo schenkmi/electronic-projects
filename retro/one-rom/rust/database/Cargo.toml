@@ -1,0 +1,23 @@
+[package]
+name = "onerom-database"
+version = "0.1.0"
+edition = "2024"
+authors = ["Piers Finlayson <piers@piers.rocks>"]
+description = "One ROM Database of known ROMS"
+repository = "https://github.com/piersfinlayson/one-rom"
+readme = "README.md"
+license = "MIT"
+keywords = ["embedded", "rom", "eeprom", "eprom", "flash"]
+
+[lib]
+name = "onerom_database"
+path = "src/lib.rs"
+
+[dependencies]
+hex-literal = "1.0.0"
+log = { version = "0.4" }
+serde = { version = "1.0", default-features = false, features = ["derive", "alloc"] }
+sha1 = { version = "0.10", default-features = false }
+
+[build-dependencies]
+csv = "1.3"

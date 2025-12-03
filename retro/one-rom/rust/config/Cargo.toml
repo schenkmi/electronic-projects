@@ -1,0 +1,28 @@
+[package]
+name = "onerom-config"
+version = "0.2.2"
+edition = "2024"
+authors = ["Piers Finlayson <piers@piers.rocks>"]
+license = "MIT"
+description = "ROM and PCB configurations for One ROM - the flexible retro ROM replacement"
+repository = "https://github.com/piersfinlayson/one-rom"
+homepage = "https://onerom.org"
+documentation = "https://docs.rs/onerom-config"
+keywords = ["retro", "rom", "commodore", "embedded"]
+categories = ["embedded", "hardware-support"]
+build = "build/main.rs"
+
+[features]
+schemars = ["dep:schemars"]
+
+[dependencies]
+schemars = { version = "1.0", optional = true }
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+
+[dev-dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[build-dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"

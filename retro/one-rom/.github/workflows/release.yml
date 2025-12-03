@@ -1,0 +1,118 @@
+name: Release Build
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y dfu-util gcc-arm-none-eabi jq libcurl4-openssl-dev libjson-c-dev libzip-dev make zip
+        
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+      
+    - name: Install Rust wasm-pack
+      run: cargo install wasm-pack
+
+    - name: Extract version from tag
+      id: version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      
+    - name: Build all combinations
+      env:
+        TOOLCHAIN: /usr/bin
+      run: ci/build.sh ci
+      
+    - name: Package release
+      run: ci/build.sh release ${{ steps.version.outputs.VERSION }}
+      
+    - name: Commit manifest.json back to repo
+      run: |
+        # Checkout main branch
+        git fetch origin main
+        git checkout main
+        
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        
+        mkdir -p releases
+        
+        # Copy manifest with version
+        cp builds/${{ steps.version.outputs.VERSION }}/firmware/manifest.json releases/manifest-${{ steps.version.outputs.VERSION }}.json
+        
+        # Also update latest manifest
+        cp builds/${{ steps.version.outputs.VERSION }}/firmware/manifest.json releases/manifest-latest.json
+        
+        # Update or create releases.json
+        if [ -f releases/releases.json ]; then
+        jq '. += [{"tag": "${{ steps.version.outputs.VERSION }}", "date": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"}]' releases/releases.json > releases/releases.json.tmp
+        mv releases/releases.json.tmp releases/releases.json
+        else
+        echo '[{"tag": "${{ steps.version.outputs.VERSION }}", "date": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"}]' > releases/releases.json
+        fi
+        
+        git add releases/
+        git commit -m "Add manifest and update releases list for ${{ steps.version.outputs.VERSION }}"
+        git push origin main
+
+    - name: Read release notes
+      id: release_notes
+      run: |
+        if [ -f "docs/release-notes-common.md" ]; then
+        echo "RELEASE_BODY<<EOF" >> $GITHUB_OUTPUT
+        cat docs/release-notes-common.md >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+        else
+        echo "RELEASE_BODY=Release ${{ steps.version.outputs.VERSION }}" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Extract changelog for this version
+      run: |
+        VERSION="${{ steps.version.outputs.VERSION }}"
+        if [ -f "CHANGELOG.md" ]; then
+        # Find the version line and extract everything after it until next ## or end of file
+        CHANGELOG_SECTION=$(awk "/^## ${VERSION}/ { found=1; next } found && /^## / { exit } found { print }" CHANGELOG.md)
+        
+        if [ -z "$CHANGELOG_SECTION" ]; then
+            CHANGELOG_SECTION="No changelog entry found for this version."
+        fi
+        
+        # Replace placeholder (escape newlines for sed)
+        printf '%s\n' "$CHANGELOG_SECTION" > /tmp/changelog.txt
+        sed -e '/\[CHANGELOG_PLACEHOLDER\]/{
+            r /tmp/changelog.txt
+            d
+        }' docs/release-notes-common.md > release.md.tmp && mv release.md.tmp release.md
+        else
+        sed -i 's/\[CHANGELOG_PLACEHOLDER\]/No CHANGELOG.md found./' docs/release-notes-common.md
+        cp docs/release-notes-common.md release.md
+        fi
+    
+    - name: Create GitHub Release with files
+      run: |
+        VERSION="${{ steps.version.outputs.VERSION }}"
+        
+        # Create the release
+        gh release create ${VERSION} \
+          --title "Release ${VERSION}" \
+          --notes-file release.md \
+          --latest
+          
+        # Upload all files
+        gh release upload ${VERSION} builds/${VERSION}/firmware/*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

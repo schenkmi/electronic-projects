@@ -1,0 +1,60 @@
+{
+    "$schema": "https://images.onerom.org/configs/schema.json",
+    "version": 1,
+    "name": "VIC-20 NTSC",
+    "description": "Stock ROMs for an NTSC VIC-20",
+    "categories": [
+        "computer",
+        "firmware",
+        "commodore",
+        "diag",
+        "vic20"
+    ],
+    "rom_sets": [
+        {
+            "type": "single",
+            "roms": [
+                {
+                    "description": "8KB Kernal ROM, 901486-06",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/vic20/kernal.901486-06.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "roms": [
+                {
+                    "description": "8KB Basic ROM, 901486-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/vic20/basic.901486-01.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "roms": [
+                {
+                    "description": "4KB Character ROM, 901460-03",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/vic20/characters.901460-03.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_low"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "roms": [
+                {
+                    "description": "8KB Dead Test Kernal ROM (NTSC), V1.1.01",
+                    "file": "https://github.com/piersfinlayson/Vic20-dead-test/releases/download/v1.1.01/dead-test.ntsc.e0",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,84 @@
+{
+    "$schema": "https://images.onerom.org/configs/schema.json",
+    "version": 1,
+    "name": "C64 Character Sets",
+    "description": "Dynamically bank switchable C64 character sets",
+    "categories": [
+        "computer",
+        "firmware",
+        "commodore",
+        "character",
+        "c64"
+    ],
+    "rom_sets": [
+        {
+            "type": "banked",
+            "description": "European character sets",
+            "roms": [
+                {
+                    "description": "4KB Character ROM, English, 901225-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.901225-01.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                },
+                {
+                    "description": "4KB Character ROM, Swedish, 325018-02",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.325018-02.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                },
+                {
+                    "description": "4KB Character ROM, Spanish, 325056-03",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.325056-03.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                },
+                {
+                    "description": "4KB Character ROM, Danish, 901225-01-DK",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.901225-01-DK.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                }
+            ]
+        },
+        {
+            "type": "banked",
+            "description": "International character sets",
+            "roms": [
+                {
+                    "description": "4KB Character ROM, English, 901225-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.901225-01.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                },
+                {
+                    "description": "4KB Character ROM, Turkish",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.turkish.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                },
+                {
+                    "description": "4KB Character ROM, Croatian",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/croatian.zip",
+                    "extract": "c64_cro/chargen",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                },
+                {
+                    "description": "4KB Character ROM, Japanese, 906143-02",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.906143-02.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                }
+            ]
+        }
+    ]
+}

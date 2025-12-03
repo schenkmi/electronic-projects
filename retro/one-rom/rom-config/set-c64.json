@@ -1,0 +1,80 @@
+{
+    "$schema": "https://images.onerom.org/configs/schema.json",
+    "version": 1,
+    "name": "C64 Complete ROM Sets",
+    "description": "Serves a set of stock ROMs for a C64 - all of kernal, basic and character ROMs - when installed in the kernal socket",
+    "detail": "The Dead Test Kernal ROM 781220 is installed as set 1.\n\nInstructions:\n1. Install ROM in (kernal) socket\n2. Connect Basic ROM socket CS pin (20) to SDRR pin X1\n3. Connect Character ROM socket CS1 pin (20) to SDRR pin X2\n4. Use SDRR image select jumpers to select required set, 0 = all open\n\nImage details:\n\nSet 0:\na. Kernal ROM 901227-03\nb. Basic ROM 901226-01\nc. Character ROM 901225-01\n\nSet 1:\na. Dead Test Kernal ROM 781220\nb. Character ROM 901225-01\n\nSet 2:\na. Kernal ROM 901227-03, Basic ROM, 901\nb. Basic ROM 901226-01",
+    "categories": [
+        "computer",
+        "firmware",
+        "commodore",
+        "diag",
+        "c64"
+    ],
+    "rom_sets": [
+        {
+            "type": "multi",
+            "description": "Complete C64 ROM set",
+            "roms": [
+                {
+                    "description": "Kernal ROM 901227-03",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/kernal.901227-03.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                },
+                {
+                    "description": "Basic ROM 901226-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/basic.901226-01.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                },
+                {
+                    "description": "Character ROM 901225-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.901225-01.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "ignore"
+                }
+            ]
+        },
+        {
+            "type": "multi",
+            "description": "Dead Test with Character ROM",
+            "roms": [
+                {
+                    "description": "Dead Test Kernal ROM 781220",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/misc/c64diag/c64_diag-rev781220-pn314139-03.zip",
+                    "extract": "Diag_DeadTest/dead test.BIN",
+                    "type": "2364",
+                    "cs1": "active_low"
+                },
+                {
+                    "description": "Character ROM 901225-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/characters.901225-01.bin",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "ignore"
+                }
+            ]
+        },
+        {
+            "type": "multi",
+            "description": "Kernal and Basic only",
+            "roms": [
+                {
+                    "description": "Kernal ROM 901227-03",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/kernal.901227-03.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                },
+                {
+                    "description": "Basic ROM 901226-01",
+                    "file": "http://www.zimmers.net/anonftp/pub/cbm/firmware/computers/c64/basic.901226-01.bin",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        }
+    ],
+    "notes": "Character ROM CS2 is set to `ignore` as is it tied to 5V within the C64, so always active. Requires HW_REV=f"
+}

@@ -1,0 +1,74 @@
+name: CI Build
+
+permissions:
+  contents: write
+  actions: read
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Makefile'
+      - 'ci/**'
+      - 'sdrr/**'
+      - 'rust/**'
+      - 'config/**'
+      - 'test/**'
+      - 'hw-config/**'
+      - '.github/**'
+      - '!.github/workflows/release.yml'
+      - '!**.md'
+      - '!docs/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'Makefile'
+      - 'ci/**'
+      - 'sdrr/**'
+      - 'rust/**'
+      - 'config/**'
+      - 'test/**'
+      - 'hw-config/**'
+      - '.github/**'
+      - '!.github/workflows/release.yml'
+      - '!**.md'
+      - '!docs/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Install build dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y dfu-util gcc-arm-none-eabi jq libcurl4-openssl-dev libjson-c-dev libzip-dev make
+        
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Install Rust wasm-pack
+      run: cargo install wasm-pack
+
+    - name: Run various Rust tests
+      run: |
+        export TOOLCHAIN=/usr/bin
+        ci/rust-tests.sh
+
+    - name: Build Rust docs
+      run: |
+        export TOOLCHAIN=/usr/bin
+        ci/rust-docs.sh
+
+    - name: Test option combinations
+      run: |
+        export TOOLCHAIN=/usr/bin
+        ci/build.sh test
+      
+    - name: Build firmware for all image configs
+      run: |
+        export TOOLCHAIN=/usr/bin
+        ci/build.sh ci

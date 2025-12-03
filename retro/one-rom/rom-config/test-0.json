@@ -1,0 +1,86 @@
+{
+    "$schema": "https://images.onerom.org/configs/schema.json",
+    "version": 1,
+    "description": "Test ROM images for One ROM firmware and build process",
+    "detail": "Contains various ROM images to enable testing the One ROM firmware and build process. Each ROM is a separate single ROM set for independent testing.",
+    "rom_sets": [
+        {
+            "type": "single",
+            "description": "Set 0",
+            "roms": [
+                {
+                    "file": "images/test/zero8192.rom",
+                    "description": "8KB ROM filled with 0x00",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "description": "Set 1",
+            "roms": [
+                {
+                    "file": "images/test/0_63_8192.rom",
+                    "description": "8KB ROM filled with repeating 0x00-0x3F",
+                    "type": "2364",
+                    "cs1": "active_low"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "description": "Set 2",
+            "roms": [
+                {
+                    "file": "images/test/0_63_4096.rom",
+                    "description": "4KB ROM filled with repeating 0x00-0x3F, CS2 active high",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "description": "Set 3",
+            "roms": [
+                {
+                    "file": "images/test/0_63_4096.rom",
+                    "description": "4KB ROM filled with repeating 0x00-0x3F, CS2 active low",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_low"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "description": "Set 4",
+            "roms": [
+                {
+                    "file": "images/test/0_63_2048.rom",
+                    "description": "2KB ROM filled with repeating 0x00-0x3F, CS2/CS3 active high",
+                    "type": "2316",
+                    "cs1": "active_low",
+                    "cs2": "active_high",
+                    "cs3": "active_high"
+                }
+            ]
+        },
+        {
+            "type": "single",
+            "description": "Set 5",
+            "roms": [
+                {
+                    "file": "https://github.com/piersfinlayson/pet-ieee-loader/releases/download/v0.1.1/test.bin",
+                    "description": "4KB ROM containing a simple PET test program, can be located at any address, CS2 active high, SYS <START ADDRESS> to run",
+                    "type": "2332",
+                    "cs1": "active_low",
+                    "cs2": "active_high",
+                    "size_handling": "pad"
+                }
+            ]
+        }
+    ]
+}

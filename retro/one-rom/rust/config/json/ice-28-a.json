@@ -1,0 +1,32 @@
+{
+  "description": "One ROM Ice 28 (rev A)",
+  "rom": {
+    "pins": {
+      "quantity": 28
+    }
+  },
+  "mcu": {
+    "family": "f4",
+    "ports": {
+        "data_port": "A",
+        "addr_port": "C",
+        "cs_port": "C",
+        "sel_port": "B",
+        "status_port": "B"
+    },
+    "pins": {
+        "data": [7, 6, 5, 4, 3, 2, 1, 0],
+        "addr": [5, 4, 6, 7, 3, 2, 1, 0, 9, 10, 12, 11, 8, 13],
+        "ce": {
+        "23128": 15
+        },
+        "oe": {
+        "23128": 14
+        },
+        "x_jumper_pull": 1,
+        "sel": [4, 5, 6, 7],
+        "sel_jumper_pull": 1,
+        "status": 15
+    }
+  }
+}
