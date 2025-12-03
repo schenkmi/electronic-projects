@@ -1,0 +1,1503 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 11 14
+Title "LittleSixteen"
+Date "2025-06-22"
+Rev "4git"
+Comp "SukkoPera"
+Comment1 "Licensed under CC BY-NC-SA 4.0"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text Label 9020 1770 2    50   ~ 0
+k6
+Text Label 9020 3060 2    50   ~ 0
+k2
+Entry Wire Line
+	9020 3060 9120 2960
+Entry Wire Line
+	9020 3060 9120 2960
+Entry Wire Line
+	9020 2965 9120 2865
+Entry Wire Line
+	9020 1670 9120 1570
+Wire Bus Line
+	9120 1570 9620 1570
+Text GLabel 9620 1570 2    50   Output ~ 0
+k[0..7]
+Text Label 9020 2865 2    50   ~ 0
+k0
+Wire Wire Line
+	7130 4880 7795 4880
+NoConn ~ 2590 7060
+NoConn ~ 2590 6760
+Text Label 3880 7065 0    50   ~ 0
+f1d
+Text Label 3880 6965 0    50   ~ 0
+f1l
+Text Label 3880 6865 0    50   ~ 0
+f1u
+Text Label 3880 6765 0    50   ~ 0
+f1f
+Text Label 5445 7070 0    50   ~ 0
+f2f
+Text Label 2400 6960 0    50   ~ 0
+f2r
+Text Label 5445 6870 0    50   ~ 0
+f1r
+Text Label 2400 6860 0    50   ~ 0
+f2l
+Text Label 5445 6770 0    50   ~ 0
+f2u
+Text Label 5445 6970 0    50   ~ 0
+f2d
+Wire Wire Line
+	4050 6965 3880 6965
+Wire Wire Line
+	4050 7065 3880 7065
+Wire Wire Line
+	4050 6865 3880 6865
+Wire Wire Line
+	4050 6765 3880 6765
+$Comp
+L power:GND #PWR?
+U 1 1 61A78CA8
+P 4650 7440
+AR Path="/5ECB474B/61A78CA8" Ref="#PWR?"  Part="1" 
+AR Path="/61BCD018/61A78CA8" Ref="#PWR0223"  Part="1" 
+F 0 "#PWR0223" H 4650 7190 50  0001 C CNN
+F 1 "GND" H 4655 7267 50  0000 C CNN
+F 2 "" H 4650 7440 50  0001 C CNN
+F 3 "" H 4650 7440 50  0001 C CNN
+	1    4650 7440
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 61A78C9E
+P 4650 6395
+AR Path="/5ECB474B/61A78C9E" Ref="#PWR?"  Part="1" 
+AR Path="/61BCD018/61A78C9E" Ref="#PWR0222"  Part="1" 
+F 0 "#PWR0222" H 4650 6245 50  0001 C CNN
+F 1 "VCC" H 4667 6568 50  0000 C CNN
+F 2 "" H 4650 6395 50  0001 C CNN
+F 3 "" H 4650 6395 50  0001 C CNN
+	1    4650 6395
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 7365 4650 7440
+Wire Wire Line
+	4650 6465 4650 6395
+$Comp
+L DT1042:DT1042 U?
+U 1 1 61A78456
+P 4650 6915
+AR Path="/5ECB474B/61A78456" Ref="U?"  Part="1" 
+AR Path="/61BCD018/61A78456" Ref="U95"  Part="1" 
+F 0 "U95" H 4978 6961 50  0000 L CNN
+F 1 "DT1042" H 4978 6870 50  0000 L CNN
+F 2 "Package_SO:TSOP-6_1.65x3.05mm_P0.95mm" H 4500 6365 50  0001 C CNN
+F 3 "" H 4500 6365 50  0001 C CNN
+F 4 "Optional, protects Joystick port from ESD" H 4650 6915 50  0001 C CNN "Notes"
+F 5 "621-DT1042-04TS-7" H 4650 6915 50  0001 C CNN "MouserPN"
+	1    4650 6915
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5600 6970 5445 6970
+Wire Wire Line
+	5600 7070 5445 7070
+$Comp
+L power:GND #PWR?
+U 1 1 61A6CFB6
+P 6200 7445
+AR Path="/5ECB474B/61A6CFB6" Ref="#PWR?"  Part="1" 
+AR Path="/61BCD018/61A6CFB6" Ref="#PWR0221"  Part="1" 
+F 0 "#PWR0221" H 6200 7195 50  0001 C CNN
+F 1 "GND" H 6205 7272 50  0000 C CNN
+F 2 "" H 6200 7445 50  0001 C CNN
+F 3 "" H 6200 7445 50  0001 C CNN
+	1    6200 7445
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 61A6CFAC
+P 6200 6400
+AR Path="/5ECB474B/61A6CFAC" Ref="#PWR?"  Part="1" 
+AR Path="/61BCD018/61A6CFAC" Ref="#PWR0220"  Part="1" 
+F 0 "#PWR0220" H 6200 6250 50  0001 C CNN
+F 1 "VCC" H 6217 6573 50  0000 C CNN
+F 2 "" H 6200 6400 50  0001 C CNN
+F 3 "" H 6200 6400 50  0001 C CNN
+	1    6200 6400
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6200 7370 6200 7445
+Wire Wire Line
+	6200 6470 6200 6400
+$Comp
+L DT1042:DT1042 U?
+U 1 1 61A6C798
+P 6200 6920
+AR Path="/5ECB474B/61A6C798" Ref="U?"  Part="1" 
+AR Path="/61BCD018/61A6C798" Ref="U94"  Part="1" 
+F 0 "U94" H 6528 6966 50  0000 L CNN
+F 1 "DT1042" H 6528 6875 50  0000 L CNN
+F 2 "Package_SO:TSOP-6_1.65x3.05mm_P0.95mm" H 6050 6370 50  0001 C CNN
+F 3 "" H 6050 6370 50  0001 C CNN
+F 4 "Optional, protects Joystick port from ESD" H 6200 6920 50  0001 C CNN "Notes"
+F 5 "621-DT1042-04TS-7" H 6200 6920 50  0001 C CNN "MouserPN"
+	1    6200 6920
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2590 6960 2400 6960
+Wire Wire Line
+	5600 6870 5445 6870
+Wire Wire Line
+	2590 6860 2400 6860
+Wire Wire Line
+	5600 6770 5445 6770
+$Comp
+L power:GND #PWR?
+U 1 1 61A59730
+P 3190 7435
+AR Path="/5ECB474B/61A59730" Ref="#PWR?"  Part="1" 
+AR Path="/61BCD018/61A59730" Ref="#PWR0219"  Part="1" 
+F 0 "#PWR0219" H 3190 7185 50  0001 C CNN
+F 1 "GND" H 3195 7262 50  0000 C CNN
+F 2 "" H 3190 7435 50  0001 C CNN
+F 3 "" H 3190 7435 50  0001 C CNN
+	1    3190 7435
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR?
+U 1 1 61A5972A
+P 3190 6390
+AR Path="/5ECB474B/61A5972A" Ref="#PWR?"  Part="1" 
+AR Path="/61BCD018/61A5972A" Ref="#PWR0218"  Part="1" 
+F 0 "#PWR0218" H 3190 6240 50  0001 C CNN
+F 1 "VCC" H 3207 6563 50  0000 C CNN
+F 2 "" H 3190 6390 50  0001 C CNN
+F 3 "" H 3190 6390 50  0001 C CNN
+	1    3190 6390
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3190 7360 3190 7435
+Wire Wire Line
+	3190 6460 3190 6390
+$Comp
+L DT1042:DT1042 U?
+U 1 1 61A59722
+P 3190 6910
+AR Path="/5ECB474B/61A59722" Ref="U?"  Part="1" 
+AR Path="/61BCD018/61A59722" Ref="U93"  Part="1" 
+F 0 "U93" H 3518 6956 50  0000 L CNN
+F 1 "DT1042" H 3518 6865 50  0000 L CNN
+F 2 "Package_SO:TSOP-6_1.65x3.05mm_P0.95mm" H 3040 6360 50  0001 C CNN
+F 3 "" H 3040 6360 50  0001 C CNN
+F 4 "Optional, protects Joystick port from ESD" H 3190 6910 50  0001 C CNN "Notes"
+F 5 "621-DT1042-04TS-7" H 3190 6910 50  0001 C CNN "MouserPN"
+	1    3190 6910
+	1    0    0    -1  
+$EndComp
+Text Label 9020 2965 2    50   ~ 0
+k1
+Entry Wire Line
+	9020 3165 9120 3065
+Entry Wire Line
+	9020 2865 9120 2765
+Wire Wire Line
+	3595 3790 3595 3895
+$Comp
+L power:VCC #PWR0112
+U 1 1 5E419B38
+P 3595 3790
+F 0 "#PWR0112" H 3595 3640 50  0001 C CNN
+F 1 "VCC" H 3612 3963 50  0000 C CNN
+F 2 "" H 3595 3790 50  0001 C CNN
+F 3 "" H 3595 3790 50  0001 C CNN
+	1    3595 3790
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Network05 RP2
+U 1 1 5E3BE0B1
+P 3795 1280
+F 0 "RP2" H 4083 1326 50  0000 L CNN
+F 1 "3.3k" H 4083 1235 50  0000 L CNN
+F 2 "Resistor_THT:R_Array_SIP6" V 4170 1280 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 3795 1280 50  0001 C CNN
+F 4 "Bussed" H 3795 1280 50  0001 C CNN "Notes"
+F 5 "774-77061332P" H 3795 1280 50  0001 C CNN "MouserPN"
+	1    3795 1280
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR0113
+U 1 1 5E3CD296
+P 3595 1110
+F 0 "#PWR0113" H 3595 960 50  0001 C CNN
+F 1 "VCC" H 3612 1283 50  0000 C CNN
+F 2 "" H 3595 1110 50  0001 C CNN
+F 3 "" H 3595 1110 50  0001 C CNN
+	1    3595 1110
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3595 1110 3595 1080
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB29
+U 1 1 5E0A3992
+P 2295 2500
+F 0 "FB29" H 2395 2500 50  0000 L CNN
+F 1 "FERRITE" V 2149 2500 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 2225 2500 50  0001 C CNN
+F 3 "~" H 2295 2500 50  0001 C CNN
+F 4 "623-2743015112" H 2295 2500 50  0001 C CNN "MouserPN"
+	1    2295 2500
+	1    0    0    1   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB28
+U 1 1 5E0A2BD5
+P 3030 2205
+F 0 "FB28" V 3165 2205 50  0000 C CNN
+F 1 "FERRITE" V 2884 2205 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 2960 2205 50  0001 C CNN
+F 3 "~" H 3030 2205 50  0001 C CNN
+F 4 "623-2743015112" H 3030 2205 50  0001 C CNN "MouserPN"
+	1    3030 2205
+	0    1    1    0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB22
+U 1 1 5E094DB1
+P 2180 1200
+F 0 "FB22" H 2280 1200 50  0000 L CNN
+F 1 "FERRITE" V 2034 1200 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 2110 1200 50  0001 C CNN
+F 3 "~" H 2180 1200 50  0001 C CNN
+F 4 "623-2743015112" H 2180 1200 50  0001 C CNN "MouserPN"
+	1    2180 1200
+	-1   0    0    -1  
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB26
+U 1 1 5E09220F
+P 3030 2005
+F 0 "FB26" V 3165 2005 50  0000 C CNN
+F 1 "FERRITE" V 2884 2005 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 2960 2005 50  0001 C CNN
+F 3 "~" H 3030 2005 50  0001 C CNN
+F 4 "623-2743015112" H 3030 2005 50  0001 C CNN "MouserPN"
+	1    3030 2005
+	0    1    1    0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB27
+U 1 1 5E09163E
+P 3230 2105
+F 0 "FB27" V 3375 2105 50  0000 C CNN
+F 1 "FERRITE" V 3084 2105 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 3160 2105 50  0001 C CNN
+F 3 "~" H 3230 2105 50  0001 C CNN
+F 4 "623-2743015112" H 3230 2105 50  0001 C CNN "MouserPN"
+	1    3230 2105
+	0    1    1    0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB25
+U 1 1 5E09073A
+P 3230 1905
+F 0 "FB25" V 3085 1905 50  0000 C CNN
+F 1 "FERRITE" V 3084 1905 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 3160 1905 50  0001 C CNN
+F 3 "~" H 3230 1905 50  0001 C CNN
+F 4 "623-2743015112" H 3230 1905 50  0001 C CNN "MouserPN"
+	1    3230 1905
+	0    1    1    0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB24
+U 1 1 5E08FAD9
+P 3030 1805
+F 0 "FB24" V 2885 1805 50  0000 C CNN
+F 1 "FERRITE" V 2884 1805 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 2960 1805 50  0001 C CNN
+F 3 "~" H 3030 1805 50  0001 C CNN
+F 4 "623-2743015112" H 3030 1805 50  0001 C CNN "MouserPN"
+	1    3030 1805
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3330 1905 3795 1905
+Text Label 3370 1805 0    50   ~ 0
+1u
+Text Label 3370 1905 0    50   ~ 0
+1d
+Text Label 3370 2005 0    50   ~ 0
+1l
+Text Label 3370 2105 0    50   ~ 0
+1r
+Text Label 3370 2205 0    50   ~ 0
+1f
+Text Label 3405 4480 0    50   ~ 0
+2u
+Text Label 3405 4580 0    50   ~ 0
+2d
+Text Label 3405 4680 0    50   ~ 0
+2l
+Text Label 3405 4780 0    50   ~ 0
+2r
+Text Label 3405 4880 0    50   ~ 0
+2f
+Wire Wire Line
+	2180 1030 2180 1100
+$Comp
+L power:VCC #PWR0106
+U 1 1 6231445F
+P 2180 615
+F 0 "#PWR0106" H 2180 465 50  0001 C CNN
+F 1 "VCC" H 2197 788 50  0000 C CNN
+F 2 "" H 2180 615 50  0001 C CNN
+F 3 "" H 2180 615 50  0001 C CNN
+	1    2180 615 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2930 2205 2515 2205
+Wire Wire Line
+	2180 730  2180 615 
+Text Label 2040 2155 0    50   ~ 0
+f1d
+Text Label 2045 1755 0    50   ~ 0
+f1r
+Text Label 2045 2255 0    50   ~ 0
+f1f
+Text Label 2020 1955 0    50   ~ 0
+f1l
+Wire Notes Line
+	1720 680  2375 680 
+Wire Notes Line
+	2375 1050 1720 1050
+Wire Notes Line
+	1720 1045 1720 680 
+Text Notes 2415 950  0    50   ~ 0
+ADDITIONAL CURRENT-\nLIMITING FUSE
+Wire Notes Line
+	2375 1050 2375 685 
+$Comp
+L Connector:DB9_Male_MountingHoles CN4
+U 1 1 6231447E
+P 1700 1955
+F 0 "CN4" H 1618 2647 50  0000 C CNN
+F 1 "JOY1" H 1618 2556 50  0000 C CNN
+F 2 "LittleSixteen:DB_9M" H 1700 1955 50  0001 C CNN
+F 3 " ~" H 1700 1955 50  0001 C CNN
+	1    1700 1955
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	2620 1805 2620 2355
+Text Label 2045 2355 0    50   ~ 0
+f1u
+Wire Wire Line
+	2620 1805 2930 1805
+Wire Wire Line
+	2410 2005 2410 1955
+Wire Wire Line
+	2410 1955 2000 1955
+Wire Wire Line
+	2410 2005 2930 2005
+Wire Wire Line
+	2515 2255 2515 2205
+Wire Wire Line
+	2725 2105 2725 1755
+Wire Wire Line
+	2725 1755 2000 1755
+NoConn ~ 2000 1655
+Wire Wire Line
+	2515 1905 2515 2155
+Wire Wire Line
+	2515 1905 3130 1905
+Wire Wire Line
+	2000 2055 2180 2055
+Wire Wire Line
+	2000 2355 2620 2355
+Wire Wire Line
+	2180 1300 2180 1325
+Wire Wire Line
+	2000 1855 2295 1855
+Wire Wire Line
+	2000 2255 2515 2255
+Wire Wire Line
+	2515 2155 2000 2155
+Wire Wire Line
+	2295 2600 2295 2625
+$Comp
+L power:GND #PWR0108
+U 1 1 6231449C
+P 2295 2650
+F 0 "#PWR0108" H 2295 2400 50  0001 C CNN
+F 1 "GND" H 2217 2613 50  0000 R CNN
+F 2 "" H 2295 2650 50  0001 C CNN
+F 3 "" H 2295 2650 50  0001 C CNN
+	1    2295 2650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2295 1855 2295 2400
+Wire Wire Line
+	1700 2555 1700 2625
+Wire Wire Line
+	1700 2625 2295 2625
+Connection ~ 2295 2625
+Wire Wire Line
+	2295 2625 2295 2650
+Wire Wire Line
+	2000 1555 2085 1555
+Wire Wire Line
+	2085 1555 2085 1535
+Wire Wire Line
+	2085 1335 2085 1325
+Wire Wire Line
+	2085 1325 2180 1325
+Connection ~ 2180 1325
+Wire Wire Line
+	2180 1325 2180 2055
+Wire Wire Line
+	2725 2105 3130 2105
+Wire Wire Line
+	3795 4295 3795 4580
+Wire Wire Line
+	3995 4295 3995 4780
+Wire Wire Line
+	3380 4780 3995 4780
+Wire Wire Line
+	3375 4580 3795 4580
+Wire Wire Line
+	3795 1480 3795 1905
+Wire Wire Line
+	3130 2005 3695 2005
+Wire Wire Line
+	3695 1480 3695 2005
+Wire Wire Line
+	3595 2105 3330 2105
+Wire Wire Line
+	3595 1480 3595 2105
+Wire Wire Line
+	3130 1805 3895 1805
+$Comp
+L Device:Jumper_NC_Small JP9
+U 1 1 623144B5
+P 2085 1435
+F 0 "JP9" V 2125 1315 50  0000 R CNN
+F 1 "JMP_J1_POW5" V 2040 1315 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 2085 1435 50  0001 C CNN
+F 3 "~" H 2085 1435 50  0001 C CNN
+	1    2085 1435
+	0    -1   -1   0   
+$EndComp
+Text GLabel 5305 3765 0    50   Input ~ 0
+~JOY1
+$Comp
+L Device:R_Network05 RP3
+U 1 1 5E3A4C16
+P 3795 4095
+F 0 "RP3" H 3515 4141 50  0000 R CNN
+F 1 "3.3k" H 3515 4050 50  0000 R CNN
+F 2 "Resistor_THT:R_Array_SIP6" V 4170 4095 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 3795 4095 50  0001 C CNN
+F 4 "Bussed" H 3795 4095 50  0001 C CNN "Notes"
+F 5 "774-77061332P" H 3795 4095 50  0001 C CNN "MouserPN"
+	1    3795 4095
+	1    0    0    -1  
+$EndComp
+Connection ~ 3595 2105
+Connection ~ 3695 2005
+$Comp
+L 74xx:74LS139 U17
+U 1 1 688526AE
+P 6010 1770
+F 0 "U17" H 6010 2137 50  0000 C CNN
+F 1 "74HCT139" H 6010 2046 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 6010 1770 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74ls139a.pdf" H 6010 1770 50  0001 C CNN
+F 4 "595-SN74HCT139N" H 6010 1770 50  0001 C CNN "MouserPN"
+	1    6010 1770
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5510 1770 5380 1770
+Text Notes 6045 1705 0    50   ~ 0
+00
+Text Notes 6045 1800 0    50   ~ 0
+01
+Text Notes 6045 1905 0    50   ~ 0
+10
+Text Notes 6050 2005 0    50   ~ 0
+11
+NoConn ~ 6510 1870
+NoConn ~ 6510 1970
+Wire Wire Line
+	4770 1670 5510 1670
+Wire Wire Line
+	5510 1970 5380 1970
+Text GLabel 5380 1970 0    50   Input ~ 0
+~JOY1
+Text GLabel 5380 1770 0    50   Input ~ 0
+~JOYSWAP
+$Comp
+L 74xx:74LS139 U17
+U 2 1 688CEC17
+P 6010 4980
+F 0 "U17" H 6010 5347 50  0000 C CNN
+F 1 "74HCT139" H 6010 5256 50  0000 C CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 6010 4980 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74ls139a.pdf" H 6010 4980 50  0001 C CNN
+F 4 "595-SN74HCT139N" H 6010 4980 50  0001 C CNN "MouserPN"
+	2    6010 4980
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5510 4980 5380 4980
+NoConn ~ 6510 5080
+Text GLabel 5380 4980 0    50   Input ~ 0
+~JOYSWAP
+Wire Wire Line
+	5510 5180 5380 5180
+Text GLabel 5380 5180 0    50   Input ~ 0
+~JOY2
+NoConn ~ 6510 5180
+Wire Wire Line
+	7130 4980 7485 4980
+$Comp
+L Diode:1N914 D11
+U 1 1 6890985E
+P 7635 4980
+F 0 "D11" H 7770 5020 50  0000 C CNN
+F 1 "1n4148" H 7635 5110 50  0001 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7635 4805 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7635 4980 50  0001 C CNN
+	1    7635 4980
+	1    0    0    -1  
+$EndComp
+Text Label 9020 1670 2    50   ~ 0
+k7
+$Comp
+L Diode:1N914 D12
+U 1 1 689ED3EC
+P 7945 4880
+F 0 "D12" H 8080 4920 50  0000 C CNN
+F 1 "1n4148" H 7800 5010 50  0000 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7945 4705 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7945 4880 50  0001 C CNN
+	1    7945 4880
+	1    0    0    -1  
+$EndComp
+Entry Wire Line
+	9020 1770 9120 1670
+Wire Wire Line
+	8095 1670 8760 1670
+Wire Wire Line
+	3895 4295 3895 4680
+Text GLabel 5020 3865 0    50   Input ~ 0
+~JOY2
+$Comp
+L Device:Jumper_NC_Small JP10
+U 1 1 621BBD43
+P 2130 4110
+F 0 "JP10" V 2170 3990 50  0000 R CNN
+F 1 "JMP_J2_POW5" V 2085 3990 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 2130 4110 50  0001 C CNN
+F 3 "~" H 2130 4110 50  0001 C CNN
+	1    2130 4110
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3175 4680 3895 4680
+Wire Wire Line
+	2225 4000 2225 4730
+Connection ~ 2225 4000
+Wire Wire Line
+	2130 4000 2225 4000
+Wire Wire Line
+	2130 4010 2130 4000
+Wire Wire Line
+	2130 4230 2130 4210
+Wire Wire Line
+	2045 4230 2130 4230
+Wire Wire Line
+	2340 5300 2340 5325
+Connection ~ 2340 5300
+Wire Wire Line
+	1745 5300 2340 5300
+Wire Wire Line
+	1745 5230 1745 5300
+Wire Wire Line
+	2340 4530 2340 5075
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB37
+U 1 1 5E19A8B7
+P 2340 5175
+F 0 "FB37" H 2440 5175 50  0000 L CNN
+F 1 "FERRITE" V 2194 5175 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 2270 5175 50  0001 C CNN
+F 3 "~" H 2340 5175 50  0001 C CNN
+F 4 "623-2743015112" H 2340 5175 50  0001 C CNN "MouserPN"
+	1    2340 5175
+	1    0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0109
+U 1 1 5E19A7E6
+P 2340 5325
+F 0 "#PWR0109" H 2340 5075 50  0001 C CNN
+F 1 "GND" H 2262 5288 50  0000 R CNN
+F 2 "" H 2340 5325 50  0001 C CNN
+F 3 "" H 2340 5325 50  0001 C CNN
+	1    2340 5325
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2340 5275 2340 5300
+Wire Wire Line
+	2560 4830 2045 4830
+Wire Wire Line
+	2045 4930 2560 4930
+Wire Wire Line
+	2045 4530 2340 4530
+Wire Wire Line
+	2225 3975 2225 4000
+Wire Wire Line
+	2045 5030 2665 5030
+Wire Wire Line
+	2045 4730 2225 4730
+Wire Wire Line
+	2560 4580 3175 4580
+Wire Wire Line
+	2560 4580 2560 4830
+NoConn ~ 2045 4330
+Wire Wire Line
+	2770 4780 3180 4780
+Wire Wire Line
+	2770 4430 2045 4430
+Wire Wire Line
+	2770 4780 2770 4430
+Wire Wire Line
+	2560 4930 2560 4880
+Wire Wire Line
+	2455 4680 2975 4680
+Wire Wire Line
+	2455 4630 2045 4630
+Wire Wire Line
+	2455 4680 2455 4630
+Wire Wire Line
+	2665 4480 2975 4480
+Text Label 2090 5030 0    50   ~ 0
+f2u
+Wire Wire Line
+	2665 4480 2665 5030
+$Comp
+L Connector:DB9_Male_MountingHoles CN5
+U 1 1 61FFA84D
+P 1745 4630
+F 0 "CN5" H 1663 5322 50  0000 C CNN
+F 1 "JOY2" H 1663 5231 50  0000 C CNN
+F 2 "LittleSixteen:DB_9M" H 1745 4630 50  0001 C CNN
+F 3 " ~" H 1745 4630 50  0001 C CNN
+	1    1745 4630
+	-1   0    0    -1  
+$EndComp
+Wire Notes Line
+	2420 3725 2420 3360
+Text Notes 2460 3625 0    50   ~ 0
+ADDITIONAL CURRENT-\nLIMITING FUSE
+Wire Notes Line
+	1765 3720 1765 3355
+Wire Notes Line
+	2420 3725 1765 3725
+Wire Notes Line
+	1765 3355 2420 3355
+Text Label 2065 4630 0    50   ~ 0
+f2l
+Text Label 2090 4930 0    50   ~ 0
+f2f
+Text Label 2090 4430 0    50   ~ 0
+f2r
+Text Label 2085 4830 0    50   ~ 0
+f2d
+Wire Wire Line
+	2225 3405 2225 3290
+Wire Wire Line
+	2975 4880 2560 4880
+$Comp
+L power:VCC #PWR0111
+U 1 1 5E19A85B
+P 2225 3290
+F 0 "#PWR0111" H 2225 3140 50  0001 C CNN
+F 1 "VCC" H 2242 3463 50  0000 C CNN
+F 2 "" H 2225 3290 50  0001 C CNN
+F 3 "" H 2225 3290 50  0001 C CNN
+	1    2225 3290
+	1    0    0    -1  
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB31
+U 1 1 5E19A873
+P 3075 4480
+F 0 "FB31" V 2930 4480 50  0000 C CNN
+F 1 "FERRITE" V 2929 4480 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 3005 4480 50  0001 C CNN
+F 3 "~" H 3075 4480 50  0001 C CNN
+F 4 "623-2743015112" H 3075 4480 50  0001 C CNN "MouserPN"
+	1    3075 4480
+	0    1    1    0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB32
+U 1 1 5E19A87E
+P 3275 4580
+F 0 "FB32" V 3130 4580 50  0000 C CNN
+F 1 "FERRITE" V 3129 4580 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 3205 4580 50  0001 C CNN
+F 3 "~" H 3275 4580 50  0001 C CNN
+F 4 "623-2743015112" H 3275 4580 50  0001 C CNN "MouserPN"
+	1    3275 4580
+	0    1    1    0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB34
+U 1 1 5E19A889
+P 3280 4780
+F 0 "FB34" V 3425 4780 50  0000 C CNN
+F 1 "FERRITE" V 3134 4780 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 3210 4780 50  0001 C CNN
+F 3 "~" H 3280 4780 50  0001 C CNN
+F 4 "623-2743015112" H 3280 4780 50  0001 C CNN "MouserPN"
+	1    3280 4780
+	0    1    1    0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB33
+U 1 1 5E19A894
+P 3075 4680
+F 0 "FB33" V 3210 4680 50  0000 C CNN
+F 1 "FERRITE" V 2929 4680 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 3005 4680 50  0001 C CNN
+F 3 "~" H 3075 4680 50  0001 C CNN
+F 4 "623-2743015112" H 3075 4680 50  0001 C CNN "MouserPN"
+	1    3075 4680
+	0    1    1    0   
+$EndComp
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB30
+U 1 1 5E19A89F
+P 2225 3875
+F 0 "FB30" H 2031 3875 50  0000 R CNN
+F 1 "FERRITE" V 2079 3875 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 2155 3875 50  0001 C CNN
+F 3 "~" H 2225 3875 50  0001 C CNN
+F 4 "623-2743015112" H 2225 3875 50  0001 C CNN "MouserPN"
+	1    2225 3875
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	2225 3705 2225 3775
+$Comp
+L emi_filter_3pin:EMI_Filter_3Pin FB35
+U 1 1 5E19A8AD
+P 3075 4880
+F 0 "FB35" V 3210 4880 50  0000 C CNN
+F 1 "FERRITE" V 2929 4880 50  0001 C CNN
+F 2 "LittleSixteen:EMI_Filter" V 3005 4880 50  0001 C CNN
+F 3 "~" H 3075 4880 50  0001 C CNN
+F 4 "623-2743015112" H 3075 4880 50  0001 C CNN "MouserPN"
+	1    3075 4880
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7135 2865 7800 2865
+Text Label 6535 2965 0    50   ~ 0
+b1d
+Text Label 6535 3165 0    50   ~ 0
+b1r
+Text Label 6535 3065 0    50   ~ 0
+b1l
+$Comp
+L 74xx:74AHCT244 U?
+U 1 1 68B42D86
+P 6010 3365
+AR Path="/61BCD018/68B1A24F/68B42D86" Ref="U?"  Part="1" 
+AR Path="/61BCD018/68B42D86" Ref="U18"  Part="1" 
+F 0 "U18" H 6240 4020 50  0000 C CNN
+F 1 "74HCT244" H 6280 2705 50  0000 C CNN
+F 2 "LittleSixteen:DIP-20_W7.62mm_Socket_LongPads" H 6010 3365 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74AHC_AHCT244.pdf" H 6010 3365 50  0001 C CNN
+F 4 "595-CD74HCT244E" H 6010 3365 50  0001 C CNN "MouserPN"
+	1    6010 3365
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7135 3065 7800 3060
+Wire Wire Line
+	7135 2965 7485 2965
+Wire Wire Line
+	7135 3165 7485 3165
+$Comp
+L power:VCC #PWR?
+U 1 1 68B42D62
+P 6010 2460
+AR Path="/61BCD018/68B1A24F/68B42D62" Ref="#PWR?"  Part="1" 
+AR Path="/61BCD018/68B42D62" Ref="#PWR0145"  Part="1" 
+F 0 "#PWR0145" H 6010 2310 50  0001 C CNN
+F 1 "VCC" H 6027 2633 50  0000 C CNN
+F 2 "" H 6010 2460 50  0001 C CNN
+F 3 "" H 6010 2460 50  0001 C CNN
+	1    6010 2460
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6010 2460 6010 2565
+$Comp
+L power:GND #PWR?
+U 1 1 68B42D5A
+P 6010 4240
+AR Path="/61BCD018/68B1A24F/68B42D5A" Ref="#PWR?"  Part="1" 
+AR Path="/61BCD018/68B42D5A" Ref="#PWR0175"  Part="1" 
+F 0 "#PWR0175" H 6010 3990 50  0001 C CNN
+F 1 "GND" H 6015 4067 50  0000 C CNN
+F 2 "" H 6010 4240 50  0001 C CNN
+F 3 "" H 6010 4240 50  0001 C CNN
+	1    6010 4240
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6510 2865 6835 2865
+Wire Wire Line
+	6510 3165 6835 3165
+Wire Wire Line
+	6510 2965 6835 2965
+Wire Wire Line
+	6510 3065 6835 3065
+Wire Wire Line
+	6010 4165 6010 4240
+Connection ~ 3795 1905
+Wire Wire Line
+	5305 3765 5510 3765
+Wire Wire Line
+	5020 3865 5510 3865
+Wire Wire Line
+	4670 2865 5510 2865
+Wire Wire Line
+	3695 2005 4470 2005
+Wire Wire Line
+	4570 2965 5510 2965
+Wire Wire Line
+	4470 3065 5510 3065
+Wire Wire Line
+	4365 3165 5510 3165
+Wire Wire Line
+	4365 4480 4365 3265
+Wire Wire Line
+	4365 3265 5510 3265
+Wire Wire Line
+	5510 3365 4470 3365
+Wire Wire Line
+	4470 3365 4470 4580
+Wire Wire Line
+	4470 4580 3795 4580
+Connection ~ 3795 4580
+Wire Wire Line
+	3895 4680 4570 4680
+Wire Wire Line
+	4570 4680 4570 3465
+Wire Wire Line
+	4570 3465 5510 3465
+Connection ~ 3895 4680
+Wire Wire Line
+	5510 3565 4670 3565
+Wire Wire Line
+	4670 3565 4670 4780
+Wire Wire Line
+	4670 4780 3995 4780
+Connection ~ 3995 4780
+$Comp
+L Diode:1N914 D?
+U 1 1 68B42D40
+P 7945 1670
+AR Path="/61BCD018/68B1A24F/68B42D40" Ref="D?"  Part="1" 
+AR Path="/61BCD018/68B42D40" Ref="D6"  Part="1" 
+F 0 "D6" H 8055 1715 50  0000 C CNN
+F 1 "1n4148" H 7780 1805 50  0000 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7945 1495 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7945 1670 50  0001 C CNN
+	1    7945 1670
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N914 D?
+U 1 1 68B42D34
+P 7635 1770
+AR Path="/61BCD018/68B1A24F/68B42D34" Ref="D?"  Part="1" 
+AR Path="/61BCD018/68B42D34" Ref="D5"  Part="1" 
+F 0 "D5" H 7750 1805 50  0000 C CNN
+F 1 "1n4148" H 7635 1896 50  0001 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7635 1595 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7635 1770 50  0001 C CNN
+	1    7635 1770
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N914 D?
+U 1 1 68B42D3A
+P 7950 3060
+AR Path="/61BCD018/68B1A24F/68B42D3A" Ref="D?"  Part="1" 
+AR Path="/61BCD018/68B42D3A" Ref="D3"  Part="1" 
+F 0 "D3" H 8065 3100 50  0000 C CNN
+F 1 "1n4148" H 7950 2835 50  0001 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7950 2885 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7950 3060 50  0001 C CNN
+	1    7950 3060
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N914 D?
+U 1 1 68B42DB1
+P 7950 2865
+AR Path="/61BCD018/68B1A24F/68B42DB1" Ref="D?"  Part="1" 
+AR Path="/61BCD018/68B42DB1" Ref="D1"  Part="1" 
+F 0 "D1" H 8065 2910 50  0000 C CNN
+F 1 "1n4148" H 7800 2990 50  0000 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7950 2690 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7950 2865 50  0001 C CNN
+	1    7950 2865
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N914 D?
+U 1 1 6922B734
+P 7635 3565
+AR Path="/61BCD018/68B1A24F/6922B734" Ref="D?"  Part="1" 
+AR Path="/61BCD018/6922B734" Ref="D10"  Part="1" 
+F 0 "D10" H 7750 3610 50  0000 C CNN
+F 1 "1n4148" H 7635 3690 50  0001 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7635 3390 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7635 3565 50  0001 C CNN
+	1    7635 3565
+	1    0    0    -1  
+$EndComp
+Text Label 6535 3365 0    50   ~ 0
+b2d
+Text Label 6535 3565 0    50   ~ 0
+b2r
+Text Label 6535 3465 0    50   ~ 0
+b2l
+Text Label 6535 3265 0    50   ~ 0
+b2u
+Wire Wire Line
+	7135 3465 7800 3460
+Wire Wire Line
+	7135 3565 7485 3565
+Wire Wire Line
+	6510 3265 6835 3265
+Wire Wire Line
+	6510 3565 6835 3565
+Wire Wire Line
+	6510 3365 6835 3365
+Wire Wire Line
+	6510 3465 6835 3465
+$Comp
+L Diode:1N914 D?
+U 1 1 6922B75B
+P 7950 3460
+AR Path="/61BCD018/68B1A24F/6922B75B" Ref="D?"  Part="1" 
+AR Path="/61BCD018/6922B75B" Ref="D9"  Part="1" 
+F 0 "D9" H 8060 3500 50  0000 C CNN
+F 1 "1n4148" H 7950 3235 50  0001 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7950 3285 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7950 3460 50  0001 C CNN
+	1    7950 3460
+	1    0    0    -1  
+$EndComp
+$Comp
+L Diode:1N914 D?
+U 1 1 6922B761
+P 7950 3265
+AR Path="/61BCD018/68B1A24F/6922B761" Ref="D?"  Part="1" 
+AR Path="/61BCD018/6922B761" Ref="D7"  Part="1" 
+F 0 "D7" H 8065 3310 50  0000 C CNN
+F 1 "1n4148" H 7950 3391 50  0001 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7950 3090 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7950 3265 50  0001 C CNN
+	1    7950 3265
+	1    0    0    -1  
+$EndComp
+Text Label 6535 2865 0    50   ~ 0
+b1u
+Wire Wire Line
+	4770 1670 4770 2205
+Text Notes 4265 3245 2    50   ~ 0
+All the (apparently) odd connections\nhere are to simplify routing!
+Wire Wire Line
+	6510 1670 6835 1670
+Wire Wire Line
+	6510 4880 6830 4880
+Wire Wire Line
+	6510 4980 6830 4980
+Wire Wire Line
+	8860 1770 9020 1770
+Wire Wire Line
+	7785 3565 8660 3565
+Wire Wire Line
+	8100 3460 8560 3460
+Wire Wire Line
+	8100 3265 8360 3265
+Wire Wire Line
+	7135 3365 7485 3365
+Wire Wire Line
+	7785 3365 8460 3365
+Connection ~ 8760 1670
+Wire Wire Line
+	8760 1670 9020 1670
+Wire Wire Line
+	6510 1770 6835 1770
+Wire Wire Line
+	7135 1770 7485 1770
+$Comp
+L Diode:1N914 D4
+U 1 1 5E07A0F3
+P 7635 3165
+F 0 "D4" H 7745 3205 50  0000 C CNN
+F 1 "1n4148" H 7635 3300 50  0001 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7635 2990 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7635 3165 50  0001 C CNN
+	1    7635 3165
+	1    0    0    -1  
+$EndComp
+Connection ~ 8860 1770
+Wire Wire Line
+	7785 4980 8760 4980
+Wire Wire Line
+	8860 4880 8860 1770
+Wire Wire Line
+	8095 4880 8860 4880
+Wire Wire Line
+	7785 1770 8860 1770
+Wire Wire Line
+	8760 1670 8760 4980
+Text Label 9020 3165 2    50   ~ 0
+k3
+Wire Wire Line
+	3175 4480 3595 4480
+Wire Wire Line
+	3595 4295 3595 4480
+Connection ~ 3595 4480
+Wire Wire Line
+	3695 4880 5510 4880
+Wire Wire Line
+	3175 4880 3695 4880
+Connection ~ 3695 4880
+Wire Wire Line
+	3595 4480 4365 4480
+Wire Wire Line
+	3695 4295 3695 4880
+Wire Wire Line
+	8100 3060 8560 3060
+Wire Wire Line
+	7785 2965 8460 2965
+Wire Wire Line
+	7785 3165 8660 3165
+Wire Wire Line
+	8100 2865 8360 2865
+Wire Wire Line
+	3795 1905 4570 1905
+Wire Wire Line
+	4670 1805 4670 2865
+Wire Wire Line
+	3595 2105 4365 2105
+Wire Wire Line
+	4570 1905 4570 2965
+Wire Wire Line
+	4365 2105 4365 3165
+Wire Wire Line
+	4470 2005 4470 3065
+Wire Wire Line
+	8360 3265 8360 2865
+Connection ~ 8360 2865
+Wire Wire Line
+	8360 2865 9020 2865
+Wire Wire Line
+	8460 3365 8460 2965
+Connection ~ 8460 2965
+Wire Wire Line
+	8460 2965 9020 2965
+Wire Wire Line
+	8560 3460 8560 3060
+Connection ~ 8560 3060
+Wire Wire Line
+	8560 3060 9020 3060
+Wire Wire Line
+	8660 3565 8660 3165
+Connection ~ 8660 3165
+Wire Wire Line
+	8660 3165 9020 3165
+Wire Wire Line
+	7135 3265 7800 3265
+$Comp
+L Diode:1N914 D2
+U 1 1 5E19A869
+P 7635 2965
+F 0 "D2" H 7770 3005 50  0000 C CNN
+F 1 "1n4148" H 7635 3095 50  0001 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7635 2790 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7635 2965 50  0001 C CNN
+	1    7635 2965
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP91
+U 1 1 6980F7D6
+P 6980 4980
+F 0 "RP91" V 6935 5275 50  0000 C CNN
+F 1 "100" V 6864 4980 50  0001 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6900 4980 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6980 4980 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6980 4980 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6980 4980 50  0001 C CNN "Notes"
+	1    6980 4980
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP90
+U 2 1 698360E6
+P 6985 1770
+F 0 "RP90" V 6940 2060 50  0000 C CNN
+F 1 "100" V 6869 1770 50  0001 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 1770 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 1770 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 1770 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 1770 50  0001 C CNN "Notes"
+	2    6985 1770
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP90
+U 3 1 698360F0
+P 6985 3165
+F 0 "RP90" V 6945 3450 50  0000 C CNN
+F 1 "100" V 6869 3165 50  0001 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 3165 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 3165 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 3165 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 3165 50  0001 C CNN "Notes"
+	3    6985 3165
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP90
+U 4 1 698360FA
+P 6985 3065
+F 0 "RP90" V 6940 3350 50  0000 C CNN
+F 1 "100" V 6869 3065 50  0001 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 3065 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 3065 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 3065 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 3065 50  0001 C CNN "Notes"
+	4    6985 3065
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP90
+U 5 1 69836104
+P 6980 4880
+F 0 "RP90" V 6935 5165 50  0000 C CNN
+F 1 "100" V 6864 4880 50  0000 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6900 4880 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6980 4880 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6980 4880 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6980 4880 50  0001 C CNN "Notes"
+	5    6980 4880
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP90
+U 6 1 6983610E
+P 6985 2965
+F 0 "RP90" V 6940 3260 50  0000 C CNN
+F 1 "100" V 6869 2965 50  0001 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 2965 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 2965 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 2965 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 2965 50  0001 C CNN "Notes"
+	6    6985 2965
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP91
+U 6 1 6981F9BE
+P 6985 3565
+F 0 "RP91" V 6940 3850 50  0000 C CNN
+F 1 "100" V 6869 3565 50  0001 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 3565 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 3565 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 3565 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 3565 50  0001 C CNN "Notes"
+	6    6985 3565
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP91
+U 5 1 6981E726
+P 6985 3465
+F 0 "RP91" V 6940 3750 50  0000 C CNN
+F 1 "100" V 6869 3465 50  0001 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 3465 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 3465 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 3465 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 3465 50  0001 C CNN "Notes"
+	5    6985 3465
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP91
+U 4 1 6981309E
+P 6985 3365
+F 0 "RP91" V 6940 3650 50  0000 C CNN
+F 1 "100" V 6869 3365 50  0001 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 3365 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 3365 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 3365 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 3365 50  0001 C CNN "Notes"
+	4    6985 3365
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP91
+U 3 1 69811EAA
+P 6985 3265
+F 0 "RP91" V 6940 3550 50  0000 C CNN
+F 1 "100" V 6869 3265 50  0001 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 3265 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 3265 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 3265 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 3265 50  0001 C CNN "Notes"
+	3    6985 3265
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack06_SIP_Split RP91
+U 2 1 69810EE8
+P 6985 2865
+F 0 "RP91" V 6940 3155 50  0000 C CNN
+F 1 "100" V 6869 2865 50  0000 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 2865 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 2865 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 2865 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 2865 50  0001 C CNN "Notes"
+	2    6985 2865
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7135 1670 7795 1670
+$Comp
+L Device:R_Pack06_SIP_Split RP90
+U 1 1 69835790
+P 6985 1670
+F 0 "RP90" V 6935 1960 50  0000 C CNN
+F 1 "100" V 6869 1670 50  0000 C CNN
+F 2 "Resistor_THT:R_Array_SIP12" V 6905 1670 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6985 1670 50  0001 C CNN
+F 4 "652-4612X-2LF-100" H 6985 1670 50  0001 C CNN "MouserPN"
+F 5 "Isolated/Independent" H 6985 1670 50  0001 C CNN "Notes"
+	1    6985 1670
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1N914 D?
+U 1 1 6922B755
+P 7635 3365
+AR Path="/61BCD018/68B1A24F/6922B755" Ref="D?"  Part="1" 
+AR Path="/61BCD018/6922B755" Ref="D8"  Part="1" 
+F 0 "D8" H 7745 3410 50  0000 C CNN
+F 1 "1n4148" H 7635 3490 50  0001 C CNN
+F 2 "LittleSixteen:D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp" H 7635 3190 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/85622/1n914.pdf" H 7635 3365 50  0001 C CNN
+	1    7635 3365
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3130 2205 3995 2205
+Wire Wire Line
+	3895 1480 3895 1805
+Connection ~ 3895 1805
+Connection ~ 3995 2205
+Wire Wire Line
+	3995 2205 4770 2205
+Wire Wire Line
+	3995 1480 3995 2205
+Wire Wire Line
+	3895 1805 4670 1805
+$Comp
+L Device:Polyfuse F?
+U 1 1 69A5FEA8
+P 2225 3555
+AR Path="/63EAD078/69A5FEA8" Ref="F?"  Part="1" 
+AR Path="/61BCD018/69A5FEA8" Ref="F4"  Part="1" 
+F 0 "F4" H 2137 3601 50  0000 R CNN
+F 1 "400m" H 2137 3510 50  0000 R CNN
+F 2 "LittleSixteen:Fuse_Bourns" H 2275 3355 50  0001 L CNN
+F 3 "~" H 2225 3555 50  0001 C CNN
+F 4 "603-BK60-040-DI" H 2225 3555 50  0001 C CNN "MouserPN"
+	1    2225 3555
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Polyfuse F?
+U 1 1 69A6971B
+P 2180 880
+AR Path="/63EAD078/69A6971B" Ref="F?"  Part="1" 
+AR Path="/61BCD018/69A6971B" Ref="F3"  Part="1" 
+F 0 "F3" H 2092 926 50  0000 R CNN
+F 1 "400m" H 2092 835 50  0000 R CNN
+F 2 "LittleSixteen:Fuse_Bourns" H 2230 680 50  0001 L CNN
+F 3 "~" H 2180 880 50  0001 C CNN
+F 4 "603-BK60-040-DI" H 2180 880 50  0001 C CNN "MouserPN"
+	1    2180 880 
+	1    0    0    -1  
+$EndComp
+Text Notes 11100 1260 2    50   ~ 0
+This was one of the weakest spots of the C16, where the\nTED chip pins were directly exposed outside through the\njoystick ports.\n\nAdding a buffer will protect the TED from ESD, and TVS\ndiodes could do even more. This is basically Levente\nHársfalvi's design (changed to 74x245 just for our convenience)\nintegrated into the C16. Please see:\nhttp://www.zimmers.net/anonftp/pub/cbm/documents/projects/interfaces/plus4joy/plus4joy.html\n
+Text Notes 5300 850  0    50   ~ 0
+Normally:\n- JOY1 reports fire button on k6\n- JOY2 reports fire button on k7
+Wire Wire Line
+	10700 5730 10700 5805
+Wire Wire Line
+	10700 5355 10700 5430
+$Comp
+L power:GND #PWR06
+U 1 1 6224E22E
+P 10700 5805
+F 0 "#PWR06" H 10700 5555 50  0001 C CNN
+F 1 "GND" H 10705 5632 50  0000 C CNN
+F 2 "" H 10700 5805 50  0001 C CNN
+F 3 "" H 10700 5805 50  0001 C CNN
+	1    10700 5805
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR04
+U 1 1 6224E234
+P 10700 5355
+F 0 "#PWR04" H 10700 5205 50  0001 C CNN
+F 1 "VCC" H 10717 5528 50  0000 C CNN
+F 2 "" H 10700 5355 50  0001 C CNN
+F 3 "" H 10700 5355 50  0001 C CNN
+	1    10700 5355
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 6224E23A
+P 10700 5580
+AR Path="/5E4A465A/6224E23A" Ref="C?"  Part="1" 
+AR Path="/61BCD018/6224E23A" Ref="C40"  Part="1" 
+F 0 "C40" H 10815 5626 50  0000 L CNN
+F 1 "100n" H 10815 5535 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 10738 5430 50  0001 C CNN
+F 3 "~" H 10700 5580 50  0001 C CNN
+F 4 "810-FG28X7R1H104KNT0" H 10700 5580 50  0001 C CNN "MouserPN"
+	1    10700 5580
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10200 5730 10200 5805
+Wire Wire Line
+	10200 5355 10200 5430
+$Comp
+L power:GND #PWR05
+U 1 1 622541CE
+P 10200 5805
+F 0 "#PWR05" H 10200 5555 50  0001 C CNN
+F 1 "GND" H 10205 5632 50  0000 C CNN
+F 2 "" H 10200 5805 50  0001 C CNN
+F 3 "" H 10200 5805 50  0001 C CNN
+	1    10200 5805
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR03
+U 1 1 622541D8
+P 10200 5355
+F 0 "#PWR03" H 10200 5205 50  0001 C CNN
+F 1 "VCC" H 10217 5528 50  0000 C CNN
+F 2 "" H 10200 5355 50  0001 C CNN
+F 3 "" H 10200 5355 50  0001 C CNN
+	1    10200 5355
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 622541E2
+P 10200 5580
+AR Path="/5E4A465A/622541E2" Ref="C?"  Part="1" 
+AR Path="/61BCD018/622541E2" Ref="C39"  Part="1" 
+F 0 "C39" H 10315 5626 50  0000 L CNN
+F 1 "100n" H 10315 5535 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D8.0mm_W2.5mm_P5.00mm" H 10238 5430 50  0001 C CNN
+F 3 "~" H 10200 5580 50  0001 C CNN
+F 4 "810-FG28X7R1H104KNT0" H 10200 5580 50  0001 C CNN "MouserPN"
+	1    10200 5580
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xx:74LS139 U17
+U 3 1 69A0C199
+P 9470 5580
+F 0 "U17" H 9240 5626 50  0000 R CNN
+F 1 "74HCT139" H 9240 5535 50  0000 R CNN
+F 2 "Package_DIP:DIP-16_W7.62mm_Socket_LongPads" H 9470 5580 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74ls139a.pdf" H 9470 5580 50  0001 C CNN
+F 4 "595-SN74HCT139N" H 9470 5580 50  0001 C CNN "MouserPN"
+	3    9470 5580
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	9470 6080 9470 6155
+$Comp
+L power:GND #PWR0184
+U 1 1 69A1AAE4
+P 9470 6155
+F 0 "#PWR0184" H 9470 5905 50  0001 C CNN
+F 1 "GND" H 9475 5982 50  0000 C CNN
+F 2 "" H 9470 6155 50  0001 C CNN
+F 3 "" H 9470 6155 50  0001 C CNN
+	1    9470 6155
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9470 5005 9470 5080
+$Comp
+L power:VCC #PWR0189
+U 1 1 69A24627
+P 9470 5005
+F 0 "#PWR0189" H 9470 4855 50  0001 C CNN
+F 1 "VCC" H 9487 5178 50  0000 C CNN
+F 2 "" H 9470 5005 50  0001 C CNN
+F 3 "" H 9470 5005 50  0001 C CNN
+	1    9470 5005
+	1    0    0    -1  
+$EndComp
+Wire Bus Line
+	9120 1570 9120 3065
+$EndSCHEMATC
