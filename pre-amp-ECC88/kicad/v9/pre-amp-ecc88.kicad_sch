@@ -6,8 +6,8 @@
 	(paper "A3")
 	(title_block
 		(title "Pre-Amp ECC88/E88CC")
-		(date "2023-02-08")
-		(rev "V8")
+		(date "2025-12-08")
+		(rev "V9")
 	)
 	(lib_symbols
 		(symbol "Connector_Generic:Conn_01x01"
@@ -3093,6 +3093,17 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "Remarks\n-------\nC1,C5 not equiped\nJP1,JP2 soldered\nResistors: 1W,350V,1% (207)\n2xE88CC: If=600mA, Ia=16mA (together)\n"
+		(exclude_from_sim no)
+		(at 28.194 211.836 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "067f387a-3277-497e-b0fa-c560e7646fa7")
+	)
 	(text "R2/R11: 10k or 47k according step att"
 		(exclude_from_sim no)
 		(at 57.658 127.508 0)
@@ -3102,6 +3113,17 @@
 			)
 		)
 		(uuid "21387b98-1ab0-42d5-aba6-a94bd123190d")
+	)
+	(text "History\n-------\nV9 2025.12.07 Removed 470R output resistor, PCB round edges"
+		(exclude_from_sim no)
+		(at 28.194 232.664 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "58f1319f-2b8d-4037-aeb2-e0241f436560")
 	)
 	(text "+200VDC"
 		(exclude_from_sim no)
@@ -5146,16 +5168,6 @@
 	)
 	(wire
 		(pts
-			(xy 237.49 120.65) (xy 259.08 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "adc257ac-9fcd-4b41-997c-97fef1e74721")
-	)
-	(wire
-		(pts
 			(xy 303.53 29.21) (xy 295.91 29.21)
 		)
 		(stroke
@@ -5276,7 +5288,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 120.65) (xy 220.98 120.65)
+			(xy 220.98 120.65) (xy 259.08 120.65)
 		)
 		(stroke
 			(width 0)
@@ -5466,16 +5478,6 @@
 	)
 	(wire
 		(pts
-			(xy 237.49 110.49) (xy 269.24 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d1e7c526-de93-4563-883d-dab2747b58d0")
-	)
-	(wire
-		(pts
 			(xy 118.11 71.12) (xy 118.11 92.71)
 		)
 		(stroke
@@ -5586,7 +5588,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 110.49) (xy 220.98 110.49)
+			(xy 220.98 110.49) (xy 269.24 110.49)
 		)
 		(stroke
 			(width 0)
@@ -6556,7 +6558,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 340.36 27.94 0)
 			(effects
 				(font
@@ -6618,7 +6620,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 361.95 27.94 0)
 			(effects
 				(font
@@ -6680,7 +6682,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 340.36 41.91 0)
 			(effects
 				(font
@@ -6742,7 +6744,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_Pad_Via"
 			(at 361.95 41.91 0)
 			(effects
 				(font
@@ -7593,7 +7595,7 @@
 				)
 			)
 		)
-		(property "Value" "2.2uF"
+		(property "Value" "2.2uF/250VDC/MKP4"
 			(at 186.69 64.4906 90)
 			(effects
 				(font
@@ -9639,7 +9641,7 @@
 				)
 			)
 		)
-		(property "Value" "2.2uF"
+		(property "Value" "2.2uF/250VDC/MKP4"
 			(at 186.69 163.5506 90)
 			(effects
 				(font
@@ -11739,7 +11741,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-12_Kemet-S_Pad1.58x1.35mm_HandSolder"
+		(property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-3216-12_Kemet-S_HandSolder"
 			(at 153.3652 238.76 0)
 			(effects
 				(font
@@ -11976,138 +11978,6 @@
 			(project "pre-amp-ecc88"
 				(path "/ca15fab9-8c53-4d1e-938d-7690467a865e"
 					(reference "#PWR0101")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 233.68 110.49 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-000060803bb3")
-		(property "Reference" "R24"
-			(at 233.68 105.2322 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "470R"
-			(at 233.68 107.5436 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_MELF_MMB-0207"
-			(at 233.68 108.712 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 233.68 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 233.68 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "fef17602-dd6e-4e24-8472-923e58b79c53")
-		)
-		(pin "2"
-			(uuid "9ba16d8f-9991-4944-8ba9-bb7639d7cfdd")
-		)
-		(instances
-			(project "pre-amp-ecc88"
-				(path "/ca15fab9-8c53-4d1e-938d-7690467a865e"
-					(reference "R24")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 233.68 120.65 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-000060804128")
-		(property "Reference" "R25"
-			(at 233.68 115.3922 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "470R"
-			(at 233.68 117.7036 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_MELF_MMB-0207"
-			(at 233.68 118.872 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 233.68 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 233.68 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "39ba55b3-8856-40b5-9d71-5b1d9ea8a997")
-		)
-		(pin "2"
-			(uuid "94d33ee6-acf1-4355-ae8c-8f1711351eca")
-		)
-		(instances
-			(project "pre-amp-ecc88"
-				(path "/ca15fab9-8c53-4d1e-938d-7690467a865e"
-					(reference "R25")
 					(unit 1)
 				)
 			)
