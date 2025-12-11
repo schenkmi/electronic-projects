@@ -3,6 +3,11 @@
 
 # History
 
+## 2025.12.08
+
+### pre-amp-ECC88/kicad/v9/
+Finalize and ordered v9
+
 ## 2025.09.29
 
 ### retro/c64-user-port-led
