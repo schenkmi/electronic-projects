@@ -3,9 +3,20 @@
 
 # History
 
+## 2025.12.20
+
+### adapter/spdif/kicad/v1
+Finalize v1 LVDS SPDIF XMIT
+
+### rpi-hat-spdif/kicad/v6
+RPI HAT SPDIF Output
+
+### rpi-hat-spdif/kicad/v6-min
+RPI HAT SPDIF Output minimized
+
 ## 2025.12.08
 
-### pre-amp-ECC88/kicad/v9/
+### pre-amp-ECC88/kicad/v9
 Finalize and ordered v9
 
 ## 2025.09.29
