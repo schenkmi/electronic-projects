@@ -3,6 +3,20 @@
 
 # History
 
+## 2026.01.01
+
+### adapter/spdif/kicad/v2
+LVDS SPDIF XMIT with rotated connector 
+
+### adapter/spdif/kicad/v2b
+LVDS SPDIF XMIT with standard connector 
+
+### rpi-hat-spdif/kicad/V7-min
+RPI HAT SPDIF Output minized PCB
+
+### rpi-hat-spdif/kicad/V8
+RPI HAT SPDIF Output new PCB
+
 ## 2025.12.20
 
 ### adapter/spdif/kicad/v1
