@@ -5,12 +5,12 @@
  * 
  * @defgroup uart_drv_interface UART_DRV_INTERFACE
  * 
- * @brief This file contains APIs for UART module.
+ * @brief This file contains API prototypes and data types of the Universal Asynchronous Receiver and Transmitter (UART) interface.
  *
- * @version UART Driver Version 3.0.0
+ * @version UART Driver Version 3.0.3
 */
 /*
-© [2024] Microchip Technology Inc. and its subsidiaries.
+? [2026] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -38,6 +38,7 @@
 */
 #include <stdbool.h>
 #include <stdint.h>
+#include <stddef.h>
 #include "uart_types.h"
 
 #ifdef	__cplusplus

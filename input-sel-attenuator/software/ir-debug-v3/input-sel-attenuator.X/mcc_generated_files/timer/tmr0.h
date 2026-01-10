@@ -3,14 +3,16 @@
  * 
  * @file tmr0.h
  * 
- * @defgroup tmr0 TMR0
+ * @defgroup tmr08bit TMR0 in 8-Bit Mode
  * 
- * @brief This file contains the API prototypes and other data types for the TMR0 driver.
+ * @brief This file contains API prototypes and other data types for the TMR0 driver.
  *
- * @version TMR0 Driver Version 2.1.1
+ * @version TMR0 Driver Version 3.0.0
+ *
+ * @version Package Version 5.1.1
 */
 /*
-© [2024] Microchip Technology Inc. and its subsidiaries.
+? [2026] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -35,144 +37,229 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "timer_interface.h"
-
-#define TMR0_INTERRUPT_TICKER_FACTOR    1
 
 /**
- * @ingroup tmr0
- * @brief Defines the Custom Name for the \ref TMR0_Initialize API
+ * @misradeviation{@advisory,2.5}
+ * MCC Melody drivers provide macros that can be added to an application. 
+ * It depends on the application whether a macro is used or not. 
  */
+ 
+/**
+ * @ingroup tmr08bit
+ * @brief Defines the maximum count value of the timer.
+ */
+#define TMR0_MAX_COUNT (255U)
+/**
+ * @ingroup tmr08bit
+ * @brief Defines the timer prescaled clock frequency in hertz.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */ 
+#define TMR0_CLOCK_FREQ (250000UL)
+/**
+ * @ingroup tmr08bit
+ * @brief Defines the timer interrupt ticker factor.
+ */
+#define TMR0_INTERRUPT_TICKER_FACTOR (1U)
+/**
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_MAX_COUNT.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */ 
+#define TIMER0_MAX_COUNT TMR0_MAX_COUNT
+/**
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_CLOCK_FREQ.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */ 
+#define TIMER0_CLOCK_FREQ TMR0_CLOCK_FREQ
+/**
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_Initialize API.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */ 
 #define Timer0_Initialize TMR0_Initialize
-
 /**
- * @ingroup tmr0
- * @brief Defines the Custom Name for the \ref TMR0_Start API
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_Deinitialize API.
  */
+/* cppcheck-suppress misra-c2012-2.5 */ 
+#define Timer0_Deinitialize TMR0_Deinitialize
+/**
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_Start API.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */  
 #define Timer0_Start TMR0_Start
-
 /**
- * @ingroup tmr0
- * @brief Defines the Custom Name for the \ref TMR0_Stop API
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_Stop API.
  */
+/* cppcheck-suppress misra-c2012-2.5 */  
 #define Timer0_Stop TMR0_Stop
-
 /**
- * @ingroup tmr0
- * @brief Defines the Custom Name for the \ref TMR0_Read API
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_CounterGet API.
  */
-#define Timer0_Read TMR0_Read
-
+/* cppcheck-suppress misra-c2012-2.5 */  
+#define Timer0_CounterGet TMR0_CounterGet
 /**
- * @ingroup tmr0
- * @brief Defines the Custom Name for the \ref TMR0_Write API
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_CounterSet API.
  */
-#define Timer0_Write TMR0_Write
-
+/* cppcheck-suppress misra-c2012-2.5 */  
+#define Timer0_CounterSet TMR0_CounterSet
 /**
- * @ingroup tmr0
- * @brief Defines the Custom Name for the \ref TMR0_PeriodCountSet API
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_PeriodSet API
  */
-#define Timer0_PeriodCountSet TMR0_PeriodCountSet
-
+/* cppcheck-suppress misra-c2012-2.5 */  
+#define Timer0_PeriodSet TMR0_PeriodSet
 /**
- * @ingroup tmr0
- * @brief Defines the Custom Name for the \ref TMR0_OverflowISR API
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_PeriodGet API.
  */
-#define Timer0_OverflowISR TMR0_OverflowISR
-
+/* cppcheck-suppress misra-c2012-2.5 */  
+#define Timer0_PeriodGet TMR0_PeriodGet
 /**
- * @ingroup tmr0
- * @brief Defines the Custom Name for the \ref TMR0_Reload API
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_MaxCountGet API.
  */
-#define Timer0_Reload TMR0_Reload
-
+/* cppcheck-suppress misra-c2012-2.5 */  
+#define Timer0_MaxCountGet TMR0_MaxCountGet
 /**
- * @ingroup tmr0
- * @brief Defines the Custom Name for the \ref TMR0_OverflowCallbackRegister API
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_TMRInterruptEnable API.
  */
-#define Timer0_OverflowCallbackRegister TMR0_OverflowCallbackRegister
-
-
+/* cppcheck-suppress misra-c2012-2.5 */  
+#define Timer0_TMRInterruptEnable TMR0_TMRInterruptEnable
 /**
- @ingroup tmr0
- @struct TMR_INTERFACE
- @brief Declares an instance of TMR_INTERFACE for the Timer0 module
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_TMRInterruptDisable API.
  */
-extern const struct TMR_INTERFACE Timer0;
+/* cppcheck-suppress misra-c2012-2.5 */  
+#define Timer0_TMRInterruptDisable TMR0_TMRInterruptDisable
+/**
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_ISR API.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */  
+#define Timer0_ISR TMR0_ISR
+/**
+ * @ingroup tmr08bit
+ * @brief Defines the Custom Name for the \ref TMR0_PeriodMatchCallbackRegister API.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */  
+#define Timer0_PeriodMatchCallbackRegister TMR0_PeriodMatchCallbackRegister
 
 /**
- * @ingroup tmr0
- * @brief Initializes the Timer0 module.
- *        This routine must be called before any other Timer0 routines.
+ * @ingroup tmr08bit
+ * @brief Initializes the Timer0 (TMR0) module.
+ *        This routine must be called before any other TMR0 routines.
  * @param None.
  * @return None.
  */
 void TMR0_Initialize(void);
 
 /**
- * @ingroup tmr0
- * @brief Starts Timer0.
- * @pre Timer0 should be initialized with TMR0_Initialize() before calling this API.
+ * @ingroup tmr08bit
+ * @brief Deinitializes the TMR0 module.
+ * @param None.
+ * @return None.
+ */
+void TMR0_Deinitialize(void);
+
+/**
+ * @ingroup tmr08bit
+ * @brief Starts the TMR0 timer.
+ * @pre Initialize TMR0 with TMR0_Initialize() before calling this API.
  * @param None.
  * @return None.
  */
 void TMR0_Start(void);
 
 /**
- * @ingroup tmr0
- * @brief Stops Timer0.
- * @pre Timer0 should be initialized with TMR0_Initialize() before calling this API.
+ * @ingroup tmr08bit
+ * @brief Stops the TMR0 timer.
+ * @pre Initialize TMR0 with TMR0_Initialize() before calling this API.
  * @param None.
  * @return None.
  */
 void TMR0_Stop(void);
 
 /**
- * @ingroup tmr0
- * @brief Reads the 8-bit from the TMR0L register.
- * @pre Timer0 should be initialized with TMR0_Initialize() before calling this API.
+ * @ingroup tmr08bit
+ * @brief Returns the current counter value.
+ * @pre Initialize TMR0 with TMR0_Initialize() before calling this API.
  * @param None.
- * @return 8-bit data from the TMR0L register.
+ * @return Counter value from the TMR0L register
  */
-uint8_t TMR0_Read(void);
+uint8_t TMR0_CounterGet(void);
 
 /**
- * @ingroup tmr0
- * @brief Writes the 8-bit value to the TMR0L register.
- * @pre Timer0 should be initialized with TMR0_Initialize() before calling this API.
- * @param timerVal - 8-bit value to be written to the TMR0L register.
+ * @ingroup tmr08bit
+ * @brief Sets the counter value.
+ * @pre Initialize TMR0 with TMR0_Initialize() before calling this API.
+ * @param counterValue - Counter value to be written to the TMR0L register
  * @return None.
  */
-void TMR0_Write(uint8_t timerVal);
+void TMR0_CounterSet(uint8_t counterValue);
 
 /**
- * @ingroup tmr0
- * @brief Loads the 8-bit value to the TMR0H register.
- * @pre Timer0 should be initialized with TMR0_Initialize() before calling this API.
- * @param periodVal - 8-bit value written to the TMR0H register.
+ * @ingroup tmr08bit
+ * @brief Sets the period value.
+ * @pre Initialize TMR0 with TMR0_Initialize() before calling this API.
+ * @param periodCount - Period count value written to the TMR0H register
  * @return None.
  */
-void TMR0_Reload(size_t periodVal);
+void TMR0_PeriodSet(uint8_t periodCount);
 
 /**
- * @ingroup tmr0
- * @brief Interrupt Service Routine (ISR) for Timer0 overflow interrupt.
+ * @ingroup tmr08bit
+ * @brief Returns the current period value.
+ * @pre Initialize TMR0 with TMR0_Initialize() before calling this API.
+ * @param None.
+ * @return Period count value from the TMR0H register
+ */
+uint8_t TMR0_PeriodGet(void);
+
+/**
+ * @ingroup tmr08bit
+ * @brief Returns the maximum count value.
+ * @param None.
+ * @return Maximum count value
+ */
+uint8_t TMR0_MaxCountGet(void);
+
+/**
+ * @ingroup tmr08bit
+ * @brief Enables the TMR0 interrupt.
  * @param None.
  * @return None.
  */
-void TMR0_OverflowISR(void);
+void TMR0_TMRInterruptEnable(void);
 
 /**
- * @ingroup tmr0
- * @brief Setter function for Timer0 overflow callback.
- * @param CallbackHandler - Pointer to the custom callback.
+ * @ingroup tmr08bit
+ * @brief Disables the TMR0 interrupt.
+ * @param None.
  * @return None.
  */
- void TMR0_OverflowCallbackRegister(void (* CallbackHandler)(void));
-
+void TMR0_TMRInterruptDisable(void);
 
 /**
- * @}
+ * @ingroup tmr08bit
+ * @brief Interrupt Service Routine (ISR) for the TMR0 overflow or period match interrupt.
+ * @param None.
+ * @return None.
  */
+void TMR0_ISR(void);
+
+/**
+ * @ingroup tmr08bit
+ * @brief Registers a callback function for the TMR0 overflow or period match event.
+ * @param CallbackHandler - Address to the custom callback function
+ * @return None.
+ */
+void TMR0_PeriodMatchCallbackRegister(void (* CallbackHandler)(void));
+
 #endif //TMR0_H
