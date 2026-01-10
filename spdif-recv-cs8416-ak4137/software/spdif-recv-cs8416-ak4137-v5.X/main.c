@@ -215,7 +215,7 @@ int main(void)
     factory_reset();
 
     /* install irq handlers */
-    TMR0_OverflowCallbackRegister(rotary_encoder_timer_callback);
+    TMR0_PeriodMatchCallbackRegister(rotary_encoder_timer_callback);
  
     /* Enable the Global Interrupts */
     INTERRUPT_GlobalInterruptEnable();
