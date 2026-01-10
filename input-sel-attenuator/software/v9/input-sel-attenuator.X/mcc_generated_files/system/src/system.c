@@ -13,7 +13,7 @@
 */
 
 /*
-? [2025] Microchip Technology Inc. and its subsidiaries.
+? [2026] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -40,7 +40,7 @@ void SYSTEM_Initialize(void)
 {
     CLOCK_Initialize();
     PIN_MANAGER_Initialize();
-    Timer0_Initialize();
+    TMR0_Initialize();
     TMR2_Initialize();
     INTERRUPT_Initialize();
 }

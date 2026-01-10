@@ -5,13 +5,15 @@
  * 
  * @ingroup clockdriver 
  * 
- * @brief This is the generated driver implementation file for the CLOCK.
+ * @brief This file contains the API implementation for the Clock driver.
  *
- * @version Driver Version 1.0.0
+ * @version Driver Version 1.0.1
+ *
+ * @version Package Version 1.0.2 
 */
 
 /*
-? [2025] Microchip Technology Inc. and its subsidiaries.
+? [2026] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -36,21 +38,18 @@
 
 void CLOCK_Initialize(void)
 {
-    // Set the CLOCK CONTROL module to the options selected in the user interface.
-    // 
-    OSCCON2 = 0x0;
-    // SOSCPWR Low power; 
-    OSCCON3 = 0x0;
-    // HFOEN disabled; MFOEN disabled; LFOEN disabled; SOSCEN disabled; ADOEN disabled; 
-    OSCEN = 0x0;
-    // HFFRQ 32_MHz; 
-    OSCFRQ = 0x5;
-    // 
-    OSCSTAT = 0x0;
-    // TUN undefined; 
-    OSCTUNE = 0x0;
-    // ACTEN disabled; ACTUD enabled; ACTLOCK Not locked; ACTORS In range; 
-    ACTCON = 0x0;
+    OSCCON3 = (0 << _OSCCON3_SOSCPWR_POSN);  // SOSCPWR Low power
+    OSCEN = (0 << _OSCEN_HFOEN_POSN)   // HFOEN disabled
+        | (0 << _OSCEN_MFOEN_POSN)   // MFOEN disabled
+        | (0 << _OSCEN_LFOEN_POSN)   // LFOEN disabled
+        | (0 << _OSCEN_SOSCEN_POSN)   // SOSCEN disabled
+        | (0 << _OSCEN_ADOEN_POSN);  // ADOEN disabled
+    OSCFRQ = (5 << _OSCFRQ_FRQ_POSN);  // FRQ 32_MHz
+    OSCTUNE = (0 << _OSCTUNE_TUN_POSN);  // TUN 0x20
+    ACTCON = (0 << _ACTCON_ACTEN_POSN)   // ACTEN disabled
+        | (0 << _ACTCON_ACTUD_POSN)   // ACTUD enabled
+        | (0 << _ACTCON_ACTLOCK_POSN)   // ACTLOCK Not locked
+        | (0 << _ACTCON_ACTORS_POSN);  // ACTORS In range
 }
 /**
  End of File
