@@ -5,14 +5,16 @@
  * 
  * @defgroup clockdriver Clock Driver
  * 
- * @brief This is the generated header file for the Clock driver.
+ * @brief This file contains the API prototypes and other data types for the Clock driver.
  *
- * @version Driver Version 1.0.0
+ * @version Driver Version 1.0.1
+ *
+ * @version Package Version 1.0.2 
  *
 */
 
 /*
-? [2025] Microchip Technology Inc. and its subsidiaries.
+? [2026] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 

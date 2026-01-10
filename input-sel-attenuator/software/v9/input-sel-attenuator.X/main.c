@@ -128,9 +128,11 @@ int main(void) {
   factory_reset();
 
   /* install irq handlers */
-  Timer0_OverflowCallbackRegister(encoder_timer_callback);
-  Timer2_OverflowCallbackRegister(ir_timer_callback);
-
+  //Timer0_OverflowCallbackRegister(encoder_timer_callback);
+  TMR0_PeriodMatchCallbackRegister(encoder_timer_callback);
+  //Timer2_OverflowCallbackRegister(ir_timer_callback);
+  TMR2_PeriodMatchCallbackRegister(ir_timer_callback);
+  
   /* Enable the Global Interrupts */
   INTERRUPT_GlobalInterruptEnable();
 

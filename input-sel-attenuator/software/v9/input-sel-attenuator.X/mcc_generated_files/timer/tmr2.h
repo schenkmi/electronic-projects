@@ -5,13 +5,15 @@
  *  
  * @defgroup tmr2 TMR2
  *
- * @brief This file contains the API Prototypes and other data types for the TMR2 driver.
+ * @brief This file contains API prototypes and other data types for the TMR2 driver.
  *
- * @version TMR2 Driver Version 3.0.4
+ * @version Driver Version 4.0.1
+ *
+ * @version Package Version 5.1.2
  */
  
 /*
-? [2025] Microchip Technology Inc. and its subsidiaries.
+? [2026] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -36,78 +38,129 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "timer_interface.h"
-
+//#include "tmr2_deprecated.h"
 
 /**
- * @ingroup tmr2
- * @brief Defines the Custom Name for the \ref TMR2_Initialize API
+ * @misradeviation{@advisory,2.5}
+ * MCC Melody drivers provide macros that can be added to an application. 
+ * It depends on the application whether a macro is used or not. 
  */
+ 
+/**
+ * @ingroup tmr2
+ * @brief Defines the TMR2 maximum count value.
+ */
+#define TMR2_MAX_COUNT (255U)
+/**
+ * @ingroup tmr2
+ * @brief Defines the TMR2 prescaled clock frequency in hertz.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */
+#define TMR2_CLOCK_FREQ (500000UL)
+/**
+ * @ingroup tmr2
+ * @brief Defines the Custom Name for the \ref TMR2_MAX_COUNT.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */
+#define TIMER2_MAX_COUNT TMR2_MAX_COUNT
+/**
+ * @ingroup tmr2
+ * @brief Defines the Custom Name for the \ref TMR2_CLOCK_FREQ.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */
+#define TIMER2_CLOCK_FREQ TMR2_CLOCK_FREQ
+/**
+ * @ingroup tmr2
+ * @brief Defines the Custom Name for the \ref TMR2_Initialize API.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */
 #define Timer2_Initialize TMR2_Initialize
-
 /**
  * @ingroup tmr2
- * @brief Defines the Custom Name for the \ref TMR2_ModeSet API
+ * @brief Defines the Custom Name for the \ref TMR2_Deinitialize API.
  */
-#define Timer2_ModeSet TMR2_ModeSet
-
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_Deinitialize TMR2_Deinitialize
 /**
  * @ingroup tmr2
- * @brief Defines the Custom Name for the \ref TMR2_ExtResetSourceSet API
+ * @brief Defines the Custom Name for the \ref TMR2_Start API.
  */
-#define Timer2_ExtResetSourceSet TMR2_ExtResetSourceSet
-
-/**
- * @ingroup tmr2
- * @brief Defines the Custom Name for the \ref TMR2_Start API
- */
+/* cppcheck-suppress misra-c2012-2.5 */
 #define Timer2_Start TMR2_Start
-
 /**
  * @ingroup tmr2
- * @brief Defines the Custom Name for the \ref TMR2_Stop API
+ * @brief Defines the Custom Name for the \ref TMR2_Stop API.
  */
+/* cppcheck-suppress misra-c2012-2.5 */
 #define Timer2_Stop TMR2_Stop
-
 /**
  * @ingroup tmr2
- * @brief Defines the Custom Name for the \ref TMR2_Read API
+ * @brief Defines the Custom Name for the \ref TMR2_CounterGet API.
  */
-#define Timer2_Read TMR2_Read
-
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_CounterGet TMR2_CounterGet
 /**
  * @ingroup tmr2
- * @brief Defines the Custom Name for the \ref TMR2_Write API
+ * @brief Defines the Custom Name for the \ref TMR2_CounterSet API.
  */
-#define Timer2_Write TMR2_Write
-
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_CounterSet TMR2_CounterSet
 /**
  * @ingroup tmr2
- * @brief Defines the Custom Name for the \ref TMR2_PeriodCountSet API
+ * @brief Defines the Custom Name for the \ref TMR2_PeriodSet API.
  */
-#define Timer2_PeriodCountSet TMR2_PeriodCountSet
-
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_PeriodSet TMR2_PeriodSet
 /**
  * @ingroup tmr2
- * @brief Defines the Custom Name for the \ref TMR2_OverflowCallbackRegister API
+ * @brief Defines the Custom Name for the \ref TMR2_MaxCountGet API.
  */
-#define Timer2_OverflowCallbackRegister TMR2_OverflowCallbackRegister
-
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_MaxCountGet TMR2_MaxCountGet
 /**
- @ingroup tmr2
- @struct TMR_INTERFACE
- @brief This is an instance of TMR_INTERFACE for TMR2 module.
+ * @ingroup tmr2
+ * @brief Defines the Custom Name for the \ref TMR2_ModeSet API.
  */
-extern const struct TMR_INTERFACE Timer2;
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_ModeSet TMR2_ModeSet
+/**
+ * @ingroup tmr2
+ * @brief Defines the Custom Name for the \ref TMR2_ExtResetSourceSet API.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_ExtResetSourceSet TMR2_ExtResetSourceSet
+/**
+ * @ingroup tmr2
+ * @brief Defines the Custom Name for the \ref TMR2_PeriodMatchCallbackRegister API.
+ */
+ /* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_PeriodMatchCallbackRegister TMR2_PeriodMatchCallbackRegister
+/**
+ * @ingroup tmr2
+ * @brief Defines the Custom Name for the \ref TMR2_TMRInterruptEnable API.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_TMRInterruptEnable TMR2_TMRInterruptEnable
+/**
+ * @ingroup tmr2
+ * @brief Defines the Custom Name for the \ref TMR2_TMRInterruptDisable API.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_TMRInterruptDisable TMR2_TMRInterruptDisable
+/**
+ * @ingroup tmr2
+ * @brief Defines the Custom Name for the \ref TMR2_ISR API.
+ */
+/* cppcheck-suppress misra-c2012-2.5 */
+#define Timer2_ISR TMR2_ISR
 
 /**
  * @ingroup tmr2
  * @enum TMR2_HLT_EXT_RESET_SOURCE
- * @brief Defines the several modes of operation of the timer with the HLT extension.
+ * @brief Defines the several modes of timer's operation of the timer with the Hardware Limit Timer (HLT) extension.
  */
 typedef enum
 {
-
 	/* Roll-over Pulse mode clears the TMRx upon TMRx = PRx, then continue running.
 	ON bit must be set and is not affected by Resets
 	*/
@@ -236,7 +289,7 @@ typedef enum
 /**
  * @ingroup tmr2
  * @enum TMR2_HLT_EXT_RESET_SOURCE
- * @brief Defines the different reset sources of the HLT.
+ * @brief Defines the different Reset sources of the HLT.
  */
 typedef enum
 {
@@ -304,7 +357,8 @@ typedef enum
 
 /**
  * @ingroup tmr2
- * @brief Initializes the TMR2 module. This routine must be called before any other timer routines.
+ * @brief Initializes the Timer2 (TMR2) module.
+ *        This routine must be called before any other TMR2 routines.
  * @param None.
  * @return None.
  */
@@ -312,26 +366,16 @@ void TMR2_Initialize(void);
 
 /**
  * @ingroup tmr2
- * @brief Configures the Hardware Limit Timer (HLT) mode.
- * @pre The TMR2 should be initialized with TMR2_Initialize after calling this API.
- * @param mode - Value to write into T2HLTbits.MODE bits.
+ * @brief Deinitializes the TMR2 to Power-on Reset (POR) values.
+ * @param None.
  * @return None.
  */
-void TMR2_ModeSet(TMR2_HLT_MODE mode);
+void TMR2_Deinitialize(void);
 
 /**
  * @ingroup tmr2
- * @brief Configures the HLT external reset source.
- * @pre The TMR2 should be initialized with TMR2_Initialize after calling this API.
- * @param reset - Value to write into T2RSTbits.RSEL bits.
- * @return None.
- */
-void TMR2_ExtResetSourceSet(TMR2_HLT_EXT_RESET_SOURCE reset);
-
-/**
- * @ingroup tmr2
- * @brief Starts TMR2.
- * @pre The TMR2 should be initialized with TMR2_Initialize() before calling this API.
+ * @brief Starts the TMR2 timer.
+ * @pre Initialize TMR2 with TMR2_Initialize() before calling this API.
  * @param None.
  * @return None.
  */
@@ -339,8 +383,8 @@ void TMR2_Start(void);
 
 /**
  * @ingroup tmr2
- * @brief Stops TMR2.
- * @pre The TMR2 should be initialized with TMR2_Initialize() before calling this API.
+ * @brief Stops the TMR2 timer.
+ * @pre Initialize TMR2 with TMR2_Initialize() before calling this API.
  * @param None.
  * @return None.
  */
@@ -348,34 +392,85 @@ void TMR2_Stop(void);
 
 /**
  * @ingroup tmr2
- * @brief Reads the 8-bit from the TMR2 register.
- * @pre The TMR2 should be initialized with TMR2_Initialize() before calling this API.
+ * @brief Returns the current counter value.
+ * @pre Initialize TMR2 with TMR2_Initialize() before calling this API.
  * @param None.
- * @return 8-bit data from the TMR2 register.
+ * @return Current counter value
  */
-uint8_t TMR2_Read(void);
+uint8_t TMR2_CounterGet(void);
 
 /**
  * @ingroup tmr2
- * @brief Writes the 8-bit value to the TMR2 register.
- * @pre The TMR2 should be initialized with TMR2_Initialize() before calling this API.
- * @param timerVal - 8-bit value written to the TMR2 register.
+ * @brief Sets the counter value for the TMR2 timer.
+ * @pre Initialize TMR2 with TMR2_Initialize() before calling this API.
+ * @param count - Counter value to be written to the T2TMR register
  * @return None.
  */
-void TMR2_Write(uint8_t timerVal);
+void TMR2_CounterSet(uint8_t count);
 
 /**
  * @ingroup tmr2
- * @brief Loads the 8-bit value to the PR2 register.
- * @pre The TMR2 should be initialized with TMR2_Initialize() before calling this API.
- * @param periodVal - 8-bit value written to the PR2 register.
+ * @brief Sets the period count value.
+ * @pre Initialize TMR2 with TMR2_Initialize() before calling this API.
+ * @param periodVal - Period count value to be written to the T2PR register
  * @return None.
  */
-void TMR2_PeriodCountSet(size_t periodVal);
+void TMR2_PeriodSet(uint8_t periodVal);
 
 /**
  * @ingroup tmr2
- * @brief Interrupt Service Routine (ISR) for TMR2 overflow interrupt.
+ * @brief Returns the current period count value.
+ * @pre Initialize TMR2 with TMR2_Initialize() before calling this API.
+ * @param None.
+ * @return Period count value from the T2PR register
+ */
+uint8_t TMR2_PeriodGet(void);
+
+/**
+ * @ingroup tmr2
+ * @brief Returns the TMR2 maximum count value.
+ * @param None.
+ * @return Maximum count value of the timer
+ */
+uint8_t TMR2_MaxCountGet(void);
+
+/**
+ * @ingroup tmr2
+ * @brief Sets the HLT mode.
+ * @pre Initialize TMR2 with TMR2_Initialize() after calling this API.
+ * @param mode - Value to be written to the T2HLTbits.MODE bits
+ * @return None.
+ */
+void TMR2_ModeSet(TMR2_HLT_MODE mode);
+
+/**
+ * @ingroup tmr2
+ * @brief Sets the HLT External Reset source.
+ * @pre Initialize TMR2 with TMR2_Initialize() before calling this API.
+ * @param reset - Value to be written to the T2RSTbits.RSEL bits
+ * @return None.
+ */
+void TMR2_ExtResetSourceSet(TMR2_HLT_EXT_RESET_SOURCE reset);
+
+/**
+ * @ingroup tmr2
+ * @brief Enables the TMR2 interrupt.
+ * @param None.
+ * @return None.
+ */
+void TMR2_TMRInterruptEnable(void);
+
+/**
+ * @ingroup tmr2
+ * @brief Disables the TMR2 interrupt.
+ * @param None.
+ * @return None.
+ */
+void TMR2_TMRInterruptDisable(void);
+
+/**
+ * @ingroup tmr2
+ * @brief Interrupt Service Routine (ISR) for the TMR2 period match interrupt.
  * @param None.
  * @return None.
  */
@@ -383,12 +478,11 @@ void TMR2_ISR(void);
 
 /**
  * @ingroup tmr2
- * @brief Setter function for the TMR2 overflow callback.
- * @param CallbackHandler - Pointer to the custom callback.
+ * @brief Registers a callback function for the TMR2 period match event.
+ * @param CallbackHandler - Address of the custom callback function
  * @return None.
  */
-void TMR2_OverflowCallbackRegister(void (* InterruptHandler)(void));
-
+void TMR2_PeriodMatchCallbackRegister(void (* callbackHandler)(void));
 
 #endif // TMR2_H
 /**
