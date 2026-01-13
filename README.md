@@ -3,6 +3,26 @@
 
 # History
 
+## 2026.01.13
+
+### input-sel-attenuator/software/ir-debug-v3
+Update MCC generated code
+
+### dac-pcm1792a/software/asrc-pcm1792a-v4.X
+Update MCC generated code
+
+### dac-pcm1702-v1/software/v8
+Update MCC generated code
+
+### spdif-recv-cs8416-ak4137/software/spdif-recv-cs8416-ak4137-v5.X
+Update MCC generated code
+
+### input-sel-attenuator/software/v9
+Update MCC generated code
+
+### rpi-hat-spdif/kicad/V9
+RPI HAT SPDIF Output increase hole diameter to 3.2mm
+
 ## 2026.01.01
 
 ### adapter/spdif/kicad/v2
