@@ -23,6 +23,9 @@ Update MCC generated code
 ### rpi-hat-spdif/kicad/V9
 RPI HAT SPDIF Output increase hole diameter to 3.2mm
 
+### rpi-hat-spdif/kicad/V9-min
+RPI HAT SPDIF Output minized PCB increase hole diameter to 3.2mm
+
 ## 2026.01.01
 
 ### adapter/spdif/kicad/v2
