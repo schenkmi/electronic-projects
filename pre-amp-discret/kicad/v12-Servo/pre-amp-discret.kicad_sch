@@ -1,12 +1,12 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "5c70117d-e37f-45d8-bc98-85b29ff7198b")
 	(paper "A3")
 	(title_block
 		(title "Discrete Pre-Amp")
-		(date "2025-02-11")
+		(date "2026-01-24")
 		(rev "V12 Servo")
 	)
 	(lib_symbols
@@ -94,24 +94,6 @@
 					)
 				)
 				(pin power_in line
-					(at -2.54 -7.62 90)
-					(length 3.81)
-					(name "V-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
 					(at -2.54 7.62 270)
 					(length 3.81)
 					(name "V+"
@@ -129,19 +111,17 @@
 						)
 					)
 				)
-			)
-			(symbol "OPA188xxDBV_1_1"
-				(pin output line
-					(at 7.62 0 180)
-					(length 2.54)
-					(name "~"
+				(pin power_in line
+					(at -2.54 -7.62 90)
+					(length 3.81)
+					(name "V-"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "1"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -149,6 +129,8 @@
 						)
 					)
 				)
+			)
+			(symbol "OPA188xxDBV_1_1"
 				(pin input line
 					(at -7.62 2.54 0)
 					(length 2.54)
@@ -185,11 +167,32 @@
 						)
 					)
 				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Connector_Generic:Conn_01x01"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -256,17 +259,6 @@
 			)
 			(symbol "Conn_01x01_1_1"
 				(rectangle
-					(start -1.27 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
 					(start -1.27 1.27)
 					(end 1.27 -1.27)
 					(stroke
@@ -275,6 +267,17 @@
 					)
 					(fill
 						(type background)
+					)
+				)
+				(rectangle
+					(start -1.27 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
 					)
 				)
 				(pin passive line
@@ -296,9 +299,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:C"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0.254)
 			)
@@ -371,7 +377,7 @@
 			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
+						(xy -2.032 0.762) (xy 2.032 0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -383,7 +389,7 @@
 				)
 				(polyline
 					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -432,9 +438,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:C_Polarized"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0.254)
 			)
@@ -590,9 +599,12 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
 				(offset 0)
 			)
@@ -711,10 +723,15 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Diode:1N4148W"
-			(pin_numbers hide)
-			(pin_names hide)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -812,10 +829,10 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 0) (xy -1.27 0)
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
 					)
 					(stroke
-						(width 0)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -824,10 +841,10 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+						(xy 1.27 0) (xy -1.27 0)
 					)
 					(stroke
-						(width 0.254)
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -873,6 +890,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Mechanical:MountingHole"
 			(pin_names
@@ -955,10 +973,13 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Transistor_BJT:BC860"
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1031,6 +1052,18 @@
 			(symbol "BC860_0_1"
 				(polyline
 					(pts
+						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
 						(xy 0.635 0.635) (xy 2.54 2.54)
 					)
 					(stroke
@@ -1053,12 +1086,11 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
-					)
+				(circle
+					(center 1.27 0)
+					(radius 2.8194)
 					(stroke
-						(width 0.508)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -1077,17 +1109,6 @@
 						(type outline)
 					)
 				)
-				(circle
-					(center 1.27 0)
-					(radius 2.8194)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 			)
 			(symbol "BC860_1_1"
 				(pin input line
@@ -1101,24 +1122,6 @@
 						)
 					)
 					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54)
-					(name "E"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1144,7 +1147,26 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "E"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "kicad-snk:BCM847DS,115"
 			(pin_names
@@ -1219,7 +1241,19 @@
 			(symbol "BCM847DS,115_0_1"
 				(polyline
 					(pts
-						(xy 0.635 0) (xy -2.54 0)
+						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 0.635) (xy 2.54 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1231,7 +1265,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.635 0.635) (xy 2.54 2.54)
+						(xy 0.635 0) (xy -2.54 0)
 					)
 					(stroke
 						(width 0)
@@ -1253,12 +1287,11 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
-					)
+				(circle
+					(center 1.27 0)
+					(radius 2.8194)
 					(stroke
-						(width 0.508)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -1277,37 +1310,8 @@
 						(type outline)
 					)
 				)
-				(circle
-					(center 1.27 0)
-					(radius 2.8194)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 			)
 			(symbol "BCM847DS,115_1_1"
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54)
-					(name "E1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin input line
 					(at -5.08 0 0)
 					(length 2.54)
@@ -1344,8 +1348,44 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "E1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
 			(symbol "BCM847DS,115_2_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "B2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin passive line
 					(at 2.54 5.08 270)
 					(length 2.54)
@@ -1382,25 +1422,8 @@
 						)
 					)
 				)
-				(pin input line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "B2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "kicad-snk:BCM857DS,115"
 			(pin_names
@@ -1475,7 +1498,19 @@
 			(symbol "BCM857DS,115_0_1"
 				(polyline
 					(pts
-						(xy 0.635 0) (xy -2.54 0)
+						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 0.635) (xy 2.54 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1487,7 +1522,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.635 0.635) (xy 2.54 2.54)
+						(xy 0.635 0) (xy -2.54 0)
 					)
 					(stroke
 						(width 0)
@@ -1509,12 +1544,11 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
-					)
+				(circle
+					(center 1.27 0)
+					(radius 2.8194)
 					(stroke
-						(width 0.508)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -1533,37 +1567,8 @@
 						(type outline)
 					)
 				)
-				(circle
-					(center 1.27 0)
-					(radius 2.8194)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 			)
 			(symbol "BCM857DS,115_1_1"
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54)
-					(name "E1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin input line
 					(at -5.08 0 0)
 					(length 2.54)
@@ -1600,8 +1605,44 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "E1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
 			(symbol "BCM857DS,115_2_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "B2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin passive line
 					(at 2.54 5.08 270)
 					(length 2.54)
@@ -1638,29 +1679,14 @@
 						)
 					)
 				)
-				(pin input line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "B2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "kicad-snk:DZT5401"
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1724,6 +1750,18 @@
 			(symbol "DZT5401_0_1"
 				(polyline
 					(pts
+						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
 						(xy 0.635 0.635) (xy 2.54 2.54)
 					)
 					(stroke
@@ -1746,12 +1784,11 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 0.635 1.905) (xy 0.635 -1.905) (xy 0.635 -1.905)
-					)
+				(circle
+					(center 1.27 0)
+					(radius 2.8194)
 					(stroke
-						(width 0.508)
+						(width 0.254)
 						(type default)
 					)
 					(fill
@@ -1768,17 +1805,6 @@
 					)
 					(fill
 						(type outline)
-					)
-				)
-				(circle
-					(center 1.27 0)
-					(radius 2.8194)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
 					)
 				)
 			)
@@ -1838,6 +1864,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+15V"
 			(power)
@@ -1915,7 +1942,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -1927,7 +1954,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1941,7 +1968,8 @@
 			(symbol "+15V_1_1"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "+15V"
 						(effects
 							(font
@@ -1958,6 +1986,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:-15V"
 			(power)
@@ -2023,7 +2052,8 @@
 			(symbol "-15V_0_0"
 				(pin power_in line
 					(at 0 0 90)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "-15V"
 						(effects
 							(font
@@ -2054,6 +2084,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
@@ -2133,7 +2164,8 @@
 			(symbol "GND_1_1"
 				(pin power_in line
 					(at 0 0 270)
-					(length 0) hide
+					(length 0)
+					(hide yes)
 					(name "GND"
 						(effects
 							(font
@@ -2150,12 +2182,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:PWR_FLAG"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -2246,7 +2283,184 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(text "V = 1 + (R9 / (R8//R14) = 3.34"
+		(exclude_from_sim no)
+		(at 170.18 80.645 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "06ea2e24-91f6-4e8d-be3a-f3a928bbf94f")
+	)
+	(text "U1: Zero Drift OPA182IDBVR, OPA188, OPA189IDBVT, NCS21911SN2T1G"
+		(exclude_from_sim no)
+		(at 198.755 281.305 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "070a68a8-33e1-4a4d-9086-56134dc7fe74")
+	)
+	(text "I+: 32mA\nI-: 28.5mA\nDC Offset with servo: 200uV\nSlew @1kHz 500mVpp : 120ns\n-3dB: 2.6MHz"
+		(exclude_from_sim no)
+		(at 27.94 52.07 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2b34d24e-54f7-450b-a97e-a4e09faad718")
+	)
+	(text "C6, C17: 1uF/100V X7R Digikey: 1276-2883-1-ND\nC3, C13, C17, C4, C14, C18: 100nF/100V C0G Digikey: 490-16315-1-ND\nC5, C15, C19, C11, C16,, C20: 220uF/25V Digikey: 565-4316-ND\nResistors: SUSUMU RR 0.5%"
+		(exclude_from_sim no)
+		(at 299.212 217.932 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4a843aa2-d4a1-40db-857b-7a074861ca7c")
+	)
+	(text "32mA"
+		(exclude_from_sim no)
+		(at 346.71 26.035 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4f3e12b8-1102-40c1-a233-054afd280005")
+	)
+	(text "R8//R14 = 4.27k"
+		(exclude_from_sim no)
+		(at 160.02 112.395 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6b0d5534-0a00-4ca9-9568-de6c025c114f")
+	)
+	(text "TMC\n---\nR21=1k, C21=47pF, C7=100pF\n\nClassical Miller\n----------------\nR21=DNP, C21=150pF, C2=0R"
+		(exclude_from_sim no)
+		(at 246.38 128.27 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7071a6f2-1f9e-4e8d-b5aa-27d42a0894a9")
+	)
+	(text "3.8mA"
+		(exclude_from_sim no)
+		(at 141.605 73.025 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "758791a4-ce6c-46c2-98bd-71815b1ea7fa")
+	)
+	(text "Servo Inject Ratio: 1:10 (4.7k : 47k)\nExample: Offset = 30mV, DCSERVO_OUT = 300mV"
+		(exclude_from_sim no)
+		(at 153.035 239.395 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "79354078-9fe6-49f4-a770-8ee4167a64be")
+	)
+	(text "C3,C13,C17,C4,C14,C18: 100nF/COG/100V"
+		(exclude_from_sim no)
+		(at 21.59 77.47 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "81d70b2c-279c-4fbb-88f1-62f21cf8d7f6")
+	)
+	(text "14mA"
+		(exclude_from_sim no)
+		(at 309.245 73.025 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8ff37195-e77d-4c1e-987a-7dc103e36047")
+	)
+	(text "v10 : Using TMC (Transitional Miller Compensation)\nv11 : Using 100nF C0G 100V for decoupling C3, C13, C17, C4, C14, C18\nv12 : Power supply decoupling (diode with resistor)"
+		(exclude_from_sim no)
+		(at 20.955 24.13 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9c886556-30f9-48f3-92d7-ec013273b8bb")
+	)
+	(text "28.5mA"
+		(exclude_from_sim no)
+		(at 344.805 194.945 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b1ce7207-a561-4101-9d56-cf3e17c942d5")
+	)
+	(text "fg = 1Hz (160k, 1uF)"
+		(exclude_from_sim no)
+		(at 233.68 237.49 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "dd33b6ae-787b-4d96-9bab-d390e970e3ef")
+	)
+	(text "VINpp=500mV, VOUTpp=1.77V\n-3dB@VOUTpp = 1.77Vpp * 0.707 = 1.25Vpp"
+		(exclude_from_sim no)
+		(at 354.965 19.05 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "defdfdb9-ab14-47e7-a726-bb411768b39d")
+	)
+	(text "7.6mA"
+		(exclude_from_sim no)
+		(at 243.205 73.025 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ee36d392-3454-4c3e-af0c-297a9349ec7d")
 	)
 	(junction
 		(at 308.61 193.04)
@@ -4451,171 +4665,6 @@
 			(type default)
 		)
 		(uuid "fc85b023-e835-4f4d-8a11-4e326e903c11")
-	)
-	(text "V = 1 + (R9 / (R8//R14) = 3.34"
-		(exclude_from_sim no)
-		(at 170.18 80.645 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "06ea2e24-91f6-4e8d-be3a-f3a928bbf94f")
-	)
-	(text "U1: Zero Drift OPA182IDBVR, OPA188, NCS21911SN2T1G"
-		(exclude_from_sim no)
-		(at 198.755 281.305 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "070a68a8-33e1-4a4d-9086-56134dc7fe74")
-	)
-	(text "I+: 32mA\nI-: 28.5mA\nDC Offset with servo: 200uV\nSlew @1kHz 500mVpp : 120ns\n-3dB: 2.6MHz"
-		(exclude_from_sim no)
-		(at 27.94 52.07 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "2b34d24e-54f7-450b-a97e-a4e09faad718")
-	)
-	(text "32mA"
-		(exclude_from_sim no)
-		(at 346.71 26.035 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "4f3e12b8-1102-40c1-a233-054afd280005")
-	)
-	(text "R8//R14 = 4.27k"
-		(exclude_from_sim no)
-		(at 160.02 112.395 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6b0d5534-0a00-4ca9-9568-de6c025c114f")
-	)
-	(text "TMC\n---\nR21=1k, C21=47pF, C7=100pF\n\nClassical Miller\n----------------\nR21=DNP, C21=150pF, C2=0R"
-		(exclude_from_sim no)
-		(at 246.38 128.27 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7071a6f2-1f9e-4e8d-b5aa-27d42a0894a9")
-	)
-	(text "3.8mA"
-		(exclude_from_sim no)
-		(at 141.605 73.025 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "758791a4-ce6c-46c2-98bd-71815b1ea7fa")
-	)
-	(text "Servo Inject Ratio: 1:10 (4.7k : 47k)\nExample: Offset = 30mV, DCSERVO_OUT = 300mV"
-		(exclude_from_sim no)
-		(at 153.035 239.395 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "79354078-9fe6-49f4-a770-8ee4167a64be")
-	)
-	(text "C3,C13,C17,C4,C14,C18: 100nF/COG/100V"
-		(exclude_from_sim no)
-		(at 21.59 77.47 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "81d70b2c-279c-4fbb-88f1-62f21cf8d7f6")
-	)
-	(text "14mA"
-		(exclude_from_sim no)
-		(at 309.245 73.025 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8ff37195-e77d-4c1e-987a-7dc103e36047")
-	)
-	(text "v10 : Using TMC (Transitional Miller Compensation)\nv11 : Using 100nF C0G 100V for decoupling C3, C13, C17, C4, C14, C18\nv12 : Power supply decoupling (diode with resistor)"
-		(exclude_from_sim no)
-		(at 20.955 24.13 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "9c886556-30f9-48f3-92d7-ec013273b8bb")
-	)
-	(text "28.5mA"
-		(exclude_from_sim no)
-		(at 344.805 194.945 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b1ce7207-a561-4101-9d56-cf3e17c942d5")
-	)
-	(text "fg = 1Hz (160k, 1uF)"
-		(exclude_from_sim no)
-		(at 233.68 237.49 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "dd33b6ae-787b-4d96-9bab-d390e970e3ef")
-	)
-	(text "VINpp=500mV, VOUTpp=1.77V\n-3dB@VOUTpp = 1.77Vpp * 0.707 = 1.25Vpp"
-		(exclude_from_sim no)
-		(at 354.965 19.05 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "defdfdb9-ab14-47e7-a726-bb411768b39d")
-	)
-	(text "7.6mA"
-		(exclude_from_sim no)
-		(at 243.205 73.025 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ee36d392-3454-4c3e-af0c-297a9349ec7d")
 	)
 	(global_label "DCSERVO_IN"
 		(shape output)
@@ -7452,7 +7501,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "1uF/50V"
 			(at 220.98 225.7806 90)
 			(effects
 				(font
@@ -7519,7 +7568,7 @@
 				)
 			)
 		)
-		(property "Value" "100nF"
+		(property "Value" "1uF/50V"
 			(at 220.98 261.3406 90)
 			(effects
 				(font
@@ -12048,4 +12097,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )
