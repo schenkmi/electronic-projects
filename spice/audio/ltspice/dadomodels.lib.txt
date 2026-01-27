@@ -1,0 +1,950 @@
+
+
+
+.MODEL 2SK1058 NMOS (VTO=403.969M KP=20U L=2U W=29.7482M GAMMA=0 PHI=600M
++ LAMBDA=184.988F RD=60.8251M CBD=2.56138N IS=10F CGSO=1.13517N CGDO=1.13517N
++ TOX=0 NSUB=0 TPG=1 UO=600 RG=50 RDS=1MEG )
+
+.MODEL 2SJ162 PMOS (VTO=842.193M KP=20U L=2U W=21.3317M GAMMA=0 PHI=600M
++ LAMBDA=20.7067M RD=837.199M CBD=2.96862N IS=10F CGSO=1.13517N CGDO=1.13517N
++ TOX=0 NSUB=0 TPG=1 UO=600 RG=50 RDS=1MEG )
+
+.MODEL ECX10N16 NMOS (LEVEL=1 VTO=-66.415M KP=20U L=2U W=76.3794M GAMMA=0
++ PHI=600M LAMBDA=3.44617M RD=244.181M RS=178.517M IS=10F CGSO=100P CGDO=100P
++ TOX=0 NSUB=0 TPG=1 UO=600 KAPPA=200M RG=367.902 RDS=16.0012K )
+
+.MODEL ECX10P16 PMOS (LEVEL=1 VTO=56.1959M KP=20U L=2U W=49.9039M GAMMA=0
++ PHI=600M LAMBDA=16.6941M RD=458.28M RS=214.674M CBD=1.00674N IS=10F CGSO=100P
++ CGDO=100P TOX=0 NSUB=0 TPG=1 UO=600 KAPPA=200M RG=35.8793 RDS=1MEG )
+
+.MODEL LSK170A NJF
++ BETA   = 0.0378643       VTO    = -0.4025156      LAMBDA = 4.783719E-3
++ IS     = 3.55773E-14     N      = 1
++ ACM    = 0               RD     = 10.6565         RS     = 6.8790487
++ CGD    = 3.99E-11        CGS    = 4.06518E-11
++ PB     = 0.981382        MJ     = 0.794653        FC     = 0.5
++ KF     = 0               AF     = 1
+*
+.MODEL LSK170B NJF
++ BETA   = 0.0350699       VTO    = -0.5375582      LAMBDA = 4.951E-3
++ IS     = 2.76212E-14     N      = 1
++ ACM    = 0               RD     = 7.82168         RS     = 6.9525888
++ CGD    = 4.36E-11        CGS    = 4.36E-11
++ PB     = 1.2             MJ     = 0.8892205       FC     = 0.5
++ KF     = 0               AF     = 1
+
+
+.MODEL LSK389A NJF
++ BETA   = 0.0378643       VTO    = -0.4025156      LAMBDA = 4.783719E-3
++ IS     = 3.55773E-14     N      = 1
++ RD     = 10.6565         RS     = 6.8790487
++ CGD    = 3.99E-11        CGS    = 4.06518E-11
++ PB     = 0.981382        MJ     = 0.794653        FC     = 0.5
++ KF     = 0               AF     = 1
+*
+.MODEL LSK389B NJF
++ BETA   = 0.0350699       VTO    = -0.5375582      LAMBDA = 4.951E-3
++ IS     = 2.76212E-14     N      = 1
++ RD     = 7.82168         RS     = 6.9525888
++ CGD    = 4.36E-11        CGS    = 4.36E-11
++ PB     = 1.2             MJ     = 0.8892205       FC     = 0.5
++ KF     = 0               AF     = 1
+*
+.MODEL LSK389C NJF
++ BETA   = 0.0278541       VTO    = -0.800434       LAMBDA = 0.0122435
++ IS     = 2.45217E-14     N      = 1
++ RD     = 12              RS     = 5.8             CGD    = 4.22E-11
++ CGS    = 4.23E-11        PB     = 0.9265487       MJ     = 0.6098477
++ FC     = 0.5             KF     = 0               AF     = 1
+
+.model MPSW42 NPN(Is=34.9f Xti=3 Eg=1.11 Vaf=100 Bf=3.069K Ne=1.205 Ise=34.9f Ikf=.1435 Xtb=1.5 Br=6.726 Nc=2 Isc=0 Ikr=0 Rc=7 Cjc=14.62p Mjc=.4962 Vjc=.75 Fc=.5 Cje=57.62p Mje=.3536 Vje=.75 Tr=1.42n Tf=2.056n Itf=.9 Vtf=22 Xtf=270 Rb=10)
+.model MPSW43 NPN(Is=34.9f Xti=3 Eg=1.11 Vaf=100 Bf=3.069K Ne=1.205 Ise=34.9f Ikf=.1435 Xtb=1.5 Br=6.726 Nc=2 Isc=0 Ikr=0 Rc=7 Cjc=14.62p Mjc=.4962 Vjc=.75 Fc=.5 Cje=57.62p Mje=.3536 Vje=.75 Tr=1.42n Tf=2.056n Itf=.9 Vtf=22 Xtf=270 Rb=10)
+.model MPSW92 PNP(Is=40.74f Xti=3 Eg=1.11 Vaf=100 Bf=105 Ne=1.326 Ise=40.74f Ikf=.6228 Xtb=1.5 Br=4.15 Nc=2 Isc=0 Ikr=0 Rc=10 Cjc=31.63p Mjc=.5163 Vjc=.75 Fc=.5 Cje=88.56p Mje=.2744 Vje=.75 Tr=2.212n Tf=1.654n Itf=2.2 Vtf=22 Xtf=350 Rb=10)
+.model MPSW93 PNP(Is=40.74f Xti=3 Eg=1.11 Vaf=100 Bf=105 Ne=1.326 Ise=40.74f Ikf=.6228 Xtb=1.5 Br=4.15 Nc=2 Isc=0 Ikr=0 Rc=10 Cjc=31.63p Mjc=.5163 Vjc=.75 Fc=.5 Cje=88.56p Mje=.2744 Vje=.75 Tr=2.212n Tf=1.654n Itf=2.2 Vtf=22 Xtf=350 Rb=10)
+
+
+
+
+.model 2N5550   NPN(Is=2.511f Xti=3 Eg=1.11 Vaf=100 Bf=213.4 Ne=1.241 Ise=2.511f Ikf=.3495 Xtb=1.5 Br=3.24 Nc=2 Isc=0 Ikr=0 Rc=1 Cjc=4.883p
++ Mjc=.3047 Vjc=.75 Fc=.5 Cje=18.79p Mje=.3416 Vje=.75 Tr=1.212n Tf=560.1p Itf=50m Vtf=5 Xtf=8 Rb=10 Vceo=150 Icrating=600m mfg=Fairchild)
+
+.MODEL Qmje350 pnp
++IS=6.01619e-15 BF=157.387 NF=0.910131 VAF=23.273
++IKF=0.0564808 ISE=4.48479e-12 NE=1.58557 BR=0.1
++NR=1.03823 VAR=4.14543 IKR=0.0999978 ISC=1.00199e-13
++NC=1.98851 RB=0.1 IRB=0.202965 RBM=0.1
++RE=0.0710678 RC=0.355339 XTB=1.03638 XTI=3.8424
++EG=1.206 CJE=1e-11 VJE=0.75 MJE=0.33
++TF=1e-09 XTF=1 VTF=10 ITF=0.01
++CJC=1e-11 VJC=0.75 MJC=0.33 XCJC=0.9
++FC=0.5 CJS=0 VJS=0.75 MJS=0.5
++TR=1e-07 PTF=0 KF=0 AF=1
+* Model generated on Feb 15, 2004
+* Model format: PSpice
+
+.MODEL Qmje340 npn
++IS=1.03431e-13 BF=172.974 NF=0.939811 VAF=27.3487
++IKF=0.0260146 ISE=4.48447e-11 NE=1.61605 BR=16.6725
++NR=0.796984 VAR=6.11596 IKR=0.10004 ISC=9.99914e-14
++NC=1.99995 RB=1.47761 IRB=0.2 RBM=1.47761
++RE=0.0001 RC=1.42228 XTB=2.70726 XTI=1
++EG=1.206 CJE=1e-11 VJE=0.75 MJE=0.33
++TF=1e-09 XTF=1 VTF=10 ITF=0.01
++CJC=1e-11 VJC=0.75 MJC=0.33 XCJC=0.9
++FC=0.5 CJS=0 VJS=0.75 MJS=0.5
++TR=1e-07 PTF=0 KF=0 AF=1
+* Model generated on Feb 15, 2004
+* Model format: PSpice
+
+.MODEL Qnjw0302g pnp
++IS=5.16751e-16 BF=114.657 NF=0.895716 VAF=50.2189
++IKF=6.409 ISE=3.9641e-15 NE=4 BR=1.47167
++NR=0.923324 VAR=255.567 IKR=6.34299 ISC=3.96408e-15
++NC=2.82194 RB=2.66347 IRB=0.1 RBM=2.0828
++RE=0.0001 RC=0.0652395 XTB=1.45322 XTI=1.08126
++EG=1.05 CJE=2.14504e-09 VJE=0.4 MJE=0.376227
++TF=2.16864e-09 XTF=1000 VTF=843.737 ITF=501.348
++CJC=5e-10 VJC=0.95 MJC=0.251547 XCJC=1
++FC=0.8 CJS=0 VJS=0.75 MJS=0.5
++TR=1e-07 PTF=0 KF=0 AF=1
+
+.MODEL Qnjw0281g npn
++IS=4.36849e-12 BF=98.1488 NF=1.01332 VAF=37.9046
++IKF=9.71849 ISE=1e-16 NE=1.8326 BR=0.79921
++NR=1.09994 VAR=339.743 IKR=5.77305 ISC=1e-16
++NC=2.71592 RB=2.74892 IRB=0.33289 RBM=2.74892
++RE=0.000344671 RC=0.03203 XTB=1.7742 XTI=1.12262
++EG=1.20598 CJE=3.66793e-09 VJE=0.74806 MJE=0.85
++TF=2.27115e-09 XTF=1000 VTF=912.955 ITF=296.602
++CJC=5e-10 VJC=0.95 MJC=0.270858 XCJC=0.98254
++FC=0.8 CJS=0 VJS=0.75 MJS=0.5
++TR=1e-07 PTF=0 KF=0 AF=1
+
+
+.MODEL Qmje15032 npn
++IS=3.7344e-10 BF=86.8313 NF=1.23974 VAF=31.5491
++IKF=9.1678 ISE=9.2499e-12 NE=3.28127 BR=5.59346
++NR=1.33161 VAR=2.1791 IKR=5.15023 ISC=4e-13
++NC=4 RB=9.54492 IRB=0.1 RBM=0.1
++RE=0.000568481 RC=0.0931741 XTB=0.737036 XTI=1.04983
++EG=1.206 CJE=3.05969e-09 VJE=0.648491 MJE=0.352663
++TF=4.94819e-09 XTF=1.50001 VTF=1.0001 ITF=0.999982
++CJC=3.00108e-10 VJC=0.600021 MJC=0.40991 XCJC=0.8
++FC=0.534651 CJS=0 VJS=0.75 MJS=0.5
++TR=1e-07 PTF=0 KF=0 AF=1
+
+.MODEL Qmje15033 pnp
++IS=7.51228e-10 BF=134.35 NF=1.25737 VAF=12.5778
++IKF=1.88497 ISE=7.74267e-12 NE=3.34528 BR=5.14173
++NR=1.47488 VAR=1.4505 IKR=7.47186 ISC=3.25e-13
++NC=4 RB=4.37743 IRB=0.1 RBM=0.1
++RE=0.000332989 RC=0.381218 XTB=0.223027 XTI=1
++EG=1.05 CJE=3.06005e-09 VJE=0.64838 MJE=0.352991
++TF=4.78203e-09 XTF=1.50001 VTF=1.00006 ITF=0.999988
++CJC=3.00101e-10 VJC=0.600019 MJC=0.409916 XCJC=0.8
++FC=0.534975 CJS=0 VJS=0.75 MJS=0.5
++TR=1e-07 PTF=0 KF=0 AF=1
+
+
+
+* KSC3503 NPN EPITAXIAL SILICON TRANSISTOR
+*-----------------------------------------------------------
+* CRT DISPLAY, VIDEO OUTPUT
+* High Voltage: Vceo=300V
+* Low Reverse Transfer Capacitance: Cre=1.8pF at Vcb=30V
+* PARAMETER MODELS EXTRACTED FROM MEASURED DATA: KSC3503-D
+*-----------------------------------------------------------
+* If QCO and RCO are set to zero, this model applies to
+* the Gummel-Poon model LEVEL 1.
+* If IBC and IBE are specified, they are used instead of IS.
+*-----------------------------------------------------------
+.MODEL KSC3503 NPN IS=7.010E-13 BF=156.09 VAF=600 IKF=0.12325 ISE=1.2538E-14 NE=1.5 BR=0.64499 VAR=100 IKR=0.05102 ISC=6.4644E-09 NC=1.5 RE=0.108 RC=1.215 RB=12.134 RBM=0.034 IRB=3.0e-6 CJE=7.10E-12 CJC=8.20E-12 TF=7.025E-10 XTF=2 VTF=35 ITF=1 TR=1.0E-8 EG=0.76 XTB=1.5 FC=0.5
+*---------------------------------------------------------
+* FAIRCHILD PUCHUN S.KOREA   CASE: TO-126   PID:KSC3503-D
+* 2000-03-30 CREATION
+
+
+.MODEL KSA1381 pnp
++ IS = 5.5544E-14
++ BF = 148
++ BR = 1.592
++ ISE = 2.0546E-15
++ NE = 1.5
++ ISC = 3.24807E-10
++ NC = 2
++ VAF = 580
++ VAR = 100
++ IKF = 0.2163
++ IKR = 0.087544
++ RB = 10.18
++ RE = 0.0512
++ RC = 4.072
++ CJE = 9.572E-12
++ VJE = 0.748
++ MJE = 0.371
++ FC = 0.5
++ CJC = 1.147E-12
++ VJC = 0.541
++ MJC = 0.329
++ TF = 1.0312E-09
++ XTB = 0.907
++ EG = 0.62
++ XTI = 3
+**----------------------------------------------------------------------
+** Creation: Aug-30-2007 Rev: 2.0
+** Fairchild Semiconductor
+
+.MODEL KSA992 pnp (
++ IS     = 5.7544E-14      BF     = 348.1           NF     = 1
++ BR     = 3.62            NR     = 0.95            ISE    = 5.7544E-15
++ NE     = 1.5             ISC    = 1.8378E-14      NC     = 1
++ VAF    = 144             VAR    = 16.68           IKF    = 0.298
++ IKR    = 0.0525          RB     = 140             RBM    = 16.084
++ IRB    = 1.4125E-3       RE     = 0.38            RC     = 0.47
++ CJE    = 2.3093E-11      VJE    = 0.855           MJE    = 0.4104
++ FC     = 0.5             CJC    = 8.9251E-12      VJC    = 0.5
++ MJC    = 0.3497          CJS    = 0               VJS    = 0.8
++ MJS    = 0.33            XTB    = 1.2849          EG     = 1.1603
++ XTI    = 3               XCJC   = 0.3062 )
+
+** Creation: Jan-03-2003
+** Fairchild Semiconductor
+*** Power Discrete Bipolar Electrical Parameter ***
+** Audio Frequency Low Noise Amplifier Transistor
+** Product: KSC1845 / TO-92
+
+.MODEL KSC1845 npn
++ IS     = 1.075431E-13    BF     = 600.7           NF     = 1
++ BR     = 13.565          NR     = 1               ISE    = 1.98107E-13
++ NE     = 2               ISC    = 1.8378E-11      NC     = 1.5
++ VAF    = 82.803          VAR    = 20.6691         IKF    = 0.596
++ IKR    = 0.0190546       RB     = 157             RBM    = 12.092
++ IRB    = 1.258925E-6     RE     = 1.5             RC     = 180.7
++ CJE    = 2.057447E-11    VJE    = 0.7300286       MJE    = 0.3619943
++ FC     = 0.5             CJC    = 4.525739E-12    VJC    = 0.5
++ MJC    = 0.3659045       XTB    = 1.7281          EG     = 1.1809
++ XTI    = 3               TF     = 3.14E-11
+
+* Creation : Dec.-22-2003
+* Fairchild Semiconductor
+.MODEL Q2SC4793 NPN (
++ IS=1.8E-09
++ NF=1.43
++ BF=146.38
++ VAF=273
++ IKF=2.6
++ NK=0.95
++ ISE=6.286997E-10
++ NE=2.223629
++ BR=4
++ NR=1
++ VAR=20
++ IKR=1.05
++ RE=0
++ RB=1.7
++ RC=1.25
++ CJE=5.96964E-10
++ VJE=1.1
++ MJE=0.5
++ CJC=5.78E-11
++ VJC=0.3
++ MJC=0.3
++ TF=1.22678E-09
++ FC=0.5
++ ITF=10
++ XTF=99.52253015
++ TR=983N)
+
+.MODEL Q2SA1837 PNP (
++ IS=2.39372559E-10
++ NF=1.304015937
++ BF=300
++ VAF=273
++ IKF=2.087725944
++ NK=0.94719458
++ ISE=1.46829699E-11
++ NE=1.526663542
++ BR=4
++ NR=1
++ VAR=20
++ IKR=1.05
++ RE=0
++ RB=1.8
++ RC=1.65
++ CJE=4.7407E-10
++ VJE=1.1
++ MJE=0.5
++ CJC=8.6700E-11
++ VJC=0.3
++ MJC=0.3
++ TF=1.642191E-09
++ FC=0.5
++ ITF=1.076260106
++ XTF=5.868994022
++ TR=1.38U)
+
+.model MPSA92   PNP(Is=218.9f Xti=3 Eg=1.11 Vaf=100 Bf=99 Ne=1.307 Ise=218.9f
+
++               Ikf=.2016 Xtb=1.5 Br=24.67 Nc=2 Isc=0 Ikr=0 Rc=7 Cjc=6p
+
++               Mjc=.4876 Vjc=.75 Fc=.5 Cje=81.49p Mje=.3493 Vje=.75 Tr=516.9p
+
++               Tf=1.395n Itf=1.5 Vtf=22 Xtf=270 Rb=10)
+
+*               Fairchild        pid=MPSA92      case=TO92
+
+*               88-09-14 bam    creation
+
+.model MPSA42   NPN(Is=34.9f Xti=3 Eg=1.11 Vaf=100 Bf=2.65K Ne=1.708 Ise=16.32p
+
++               Ikf=23.79m Xtb=1.5 Br=9.769 Nc=2 Isc=0 Ikr=0 Rc=7 Cjc=3p
+
++               Mjc=.5489 Vjc=.75 Fc=.5 Cje=49.62p Mje=.4136 Vje=.75 Tr=934.3p
+
++               Tf=1.69n Itf=5 Vtf=20 Xtf=150 Rb=10)
+
+*               Fairchild       pid=MPSA42      case=TO92
+
+*               88-09-14 bam    creation
+
+.MODEL BC850 NPN (IS=45.000F NF=1.010 BF=516.544 VAF=74.000 IKF=0.708
++ ISE=55.668F NE=2.567 NR=1.015 BR=7.745 VAR=14.000 IKR=1.000
++ ISC=1.084P NC=4.063
++ RB=9.000 IRB=0.100M RBM=4.500
++ RE=0.350 RC=1.445
++ CJE=13.050P VJE=0.690 MJE=0.375 FC=0.750
++ CJC=4.100P VJC=0.750 MJC=0.420 XCJC=0.650
++ TF=0.620N TR=2.5N PTF=1.000
++ XTF=68.000 VTF=1.000 ITF=0.720
++ XTB=1.400 EG=1.110 XTI=3.200
++ KF=10.000F AF=1.000)
+
+.model MPSA18	NPN(Is=33.58f Xti=3 Eg=1.11 Vaf=100 Bf=2.365K Ne=1.579
++		Ise=166.7f Ikf=.1172 Xtb=1.5 Br=5.774 Nc=2 Isc=0 Ikr=0 Rc=1
++		Cjc=4.948p Mjc=.4109 Vjc=.75 Fc=.5 Cje=7.547p Mje=.3765 Vje=.75
++		Tr=800.3p Tf=310.1p Itf=.6 Vtf=6 Xtf=35 Rb=10)
+*		Motorola	pid=MPSA18	case=TO92
+*		88-09-14 bam	creation
+
+.model J112 NJF(VTO=-2.3303 BETA=5.97264E-3 BETATCE=-0.5 LAMBDA=2.31986E-2 RD=2.29075 RS=2.29075 CGS=1.05000E-11
+
+
+* KSC2690/KSC2690A NPN EPITAXIAL SILICON TRANSISTOR
+
+*-----------------------------------------------------------
+
+* AUDIO FREQUENCY, HIGH FREQUENCY POWER AMPLIFIER
+
+* Complement to KSA1220/KSA1220A
+
+* PARAMETER MODELS EXTRACTED FROM MEASURED DATA: KSC2690A-O
+
+*-----------------------------------------------------------
+
+* If QCO and RCO are set to zero, this model applies to
+
+* the Gummel-Poon model LEVEL 1.
+
+* If IBC and IBE are specified, they are used instead of IS.
+
+*-----------------------------------------------------------
+
+.MODEL KSC2690_KSC2690A NPN (            LEVEL=2
+
++  IS    =1.7783E-13
+
++  BF    =132.5
+
++  NF    =1.0
+
++  BR    =8.495
+
++  NR    =1.005
+
+*+ IBC   =1.7783E-13
+
+*+ IBC   =1.7783E-13
+
++  ISE   =1.9953E-13
+
++  NE    =1.5
+
++  ISC   =1.5849E-9
+
++  NC    =1.98
+
++  VAF   =580.75
+
++  VAR   =18.15
+
++  IKF   =4.0271
+
++  IKR   =0.0120
+
++  RB    =2.98
+
++  RBM   =0.001
+
++  IRB   =0.6396
+
++  RE    =0.0909
+
++  RC    =1.4705
+
++  QCO   =0.68
+
++  RCO   =3.6239
+
++  VO    =6.587
+
++  GAMMA =2.8216E-7
+
++  CJE   =4.0082E-10
+
++  VJE   =0.6696
+
++  MJE   =0.3296
+
++  FC    =0.5
+
++  CJC   =6.0404E-11
+
++  VJC   =0.5
+
++  MJC   =0.4266
+
++  XCJC  =0.4955
+
++  XTB   =1.2590
+
++  EG    =1.2277
+
++  XTI   =3.0         )
+
+*---------------------------------------------------------
+
+* FAIRCHILD    CASE: TO-126   PID:KSC2690A-O
+
+* 2000-03-30 CREATION
+
+
+* KSA1220/KSA1220A PNP EPITAXIAL SILICON TRANSISTOR
+
+*-----------------------------------------------------------
+
+* AUDIO FREQUENCY POWER AMPLIFIER
+
+* HIGH FREQUENCY POWER AMPLIFIER
+
+* Complement to KSC2690/KSC2690A
+
+* PARAMETER MODELS EXTRACTED FROM MEASURED DATA: KSA1220A-Y
+
+*-----------------------------------------------------------
+
+* If QCO and RCO are set to zero, this model applies to
+
+* the Gummel-Poon model LEVEL 1.
+
+* If IBC and IBE are specified, they are used instead of IS.
+
+*-----------------------------------------------------------
+
+.MODEL KSA1220_KSA1220A PNP (            LEVEL=2
+
++  IS    =4.7863E-13
+
++  BF    =289.3
+
++  NF    =1.0
+
++  BR    =9.76
+
++  NR    =1.006
+
+*+ IBC   =4.7863E-13
+
+*+ IBC   =4.7863E-13
+
++  ISE   =5.2481E-12
+
++  NE    =2
+
++  ISC   =2.4909E-11
+
++  NC    =1.5
+
++  VAF   =98.5
+
++  VAR   =6.7
+
++  IKF   =2.7061
+
++  IKR   =0.0759
+
++  RB    =2.26
+
++  RBM   =0.2308
+
++  IRB   =0.001
+
++  RE    =0.1908
+
++  RC    =1.1748
+
++  QCO   =0.02
+
++  RCO   =3.9811
+
++  VO    =11.078
+
++  GAMMA =5.01187E-8
+
++  CJE   =3.4786E-10
+
++  VJE   =0.9575
+
++  MJE   =0.4694
+
++  FC    =0.5
+
++  CJC   =1.1224E-10
+
++  VJC   =0.5761
+
++  MJC   =0.4365
+
++  XCJC  =0.4955
+
++  XTB   =1.7978
+
++  EG    =1.2255
+
++  XTI   =3.0         )
+
+*---------------------------------------------------------
+
+* FAIRCHILD   CASE: TO-126   PID:KSA1220A-Y
+
+* 2000-03-30 CREATION
+
+.MODEL Qnjw21193g pnp
++IS=6.76984e-11 BF=83.2918 NF=0.911636 VAF=16.0266
++IKF=3.99366 ISE=1.78864e-11 NE=1.46619 BR=0.1
++NR=1.5 VAR=2.55558 IKR=10 ISC=3.90093e-13
++NC=3.98987 RB=1.07223 IRB=0.1 RBM=1.07223
++RE=0.0001 RC=0.102622 XTB=0.452183 XTI=1
++EG=1.05 CJE=1.00619e-08 VJE=0.99 MJE=0.44463
++TF=6.67045e-09 XTF=3.371 VTF=60 ITF=0.001
++CJC=5e-10 VJC=0.95 MJC=0.249866 XCJC=0.1
++FC=0.1 CJS=0 VJS=0.75 MJS=0.5
++TR=1e-07 PTF=0 KF=0 AF=1
+
+.MODEL Qnjw21194g npn
++IS=3.48933e-11 BF=45.67 NF=1.02135 VAF=49.3642
++IKF=8.92673 ISE=6.25003e-12 NE=3.40625 BR=3.9226
++NR=1.05939 VAR=4.92388 IKR=6.4843 ISC=2.5e-13
++NC=4 RB=5.66017 IRB=0.1 RBM=0.1
++RE=0.000442708 RC=0.0362465 XTB=1.58789 XTI=1.00815
++EG=1.206 CJE=1.66556e-08 VJE=0.4 MJE=0.522998
++TF=1e-08 XTF=6.79756 VTF=11.5254 ITF=4.96757
++CJC=2.77998e-10 VJC=0.95 MJC=0.23 XCJC=0.1
++FC=0.8 CJS=0 VJS=0.75 MJS=0.5
++TR=1e-07 PTF=0 KF=0 AF=1
+
+
+
+* KSC3503 NPN EPITAXIAL SILICON TRANSISTOR
+*-----------------------------------------------------------
+* CRT DISPLAY, VIDEO OUTPUT
+* High Voltage: Vceo=300V
+* Low Reverse Transfer Capacitance: Cre=1.8pF at Vcb=30V
+* PARAMETER MODELS EXTRACTED FROM MEASURED DATA: KSC3503-D
+*-----------------------------------------------------------
+* If QCO and RCO are set to zero, this model applies to
+* the Gummel-Poon model LEVEL 1.
+* If IBC and IBE are specified, they are used instead of IS.
+*-----------------------------------------------------------
+.MODEL KSC3503 NPN IS=7.010E-13 BF=156.09 VAF=600 IKF=0.12325 ISE=1.2538E-14 NE=1.5 BR=0.64499 VAR=100 IKR=0.05102 ISC=6.4644E-09 NC=1.5 RE=0.108 RC=1.215 RB=12.134 RBM=0.034 IRB=3.0e-6 CJE=7.10E-12 CJC=8.20E-12 TF=7.025E-10 XTF=2 VTF=35 ITF=1 TR=1.0E-8 EG=0.76 XTB=1.5 FC=0.5
+*---------------------------------------------------------
+* FAIRCHILD PUCHUN S.KOREA   CASE: TO-126   PID:KSC3503-D
+* 2000-03-30 CREATION
+
+
+.MODEL KSA1381 pnp
++ IS = 5.5544E-14
++ BF = 148
++ BR = 1.592
++ ISE = 2.0546E-15
++ NE = 1.5
++ ISC = 3.24807E-10
++ NC = 2
++ VAF = 580
++ VAR = 100
++ IKF = 0.2163
++ IKR = 0.087544
++ RB = 10.18
++ RE = 0.0512
++ RC = 4.072
++ CJE = 9.572E-12
++ VJE = 0.748
++ MJE = 0.371
++ FC = 0.5
++ CJC = 1.147E-12
++ VJC = 0.541
++ MJC = 0.329
++ TF = 1.0312E-09
++ XTB = 0.907
++ EG = 0.62
++ XTI = 3
+**----------------------------------------------------------------------
+** Creation: Aug-30-2007 Rev: 2.0
+** Fairchild Semiconductor
+
+.MODEL KSA992 pnp (
++ IS     = 5.7544E-14      BF     = 348.1           NF     = 1
++ BR     = 3.62            NR     = 0.95            ISE    = 5.7544E-15
++ NE     = 1.5             ISC    = 1.8378E-14      NC     = 1
++ VAF    = 144             VAR    = 16.68           IKF    = 0.298
++ IKR    = 0.0525          RB     = 140             RBM    = 16.084
++ IRB    = 1.4125E-3       RE     = 0.38            RC     = 0.47
++ CJE    = 2.3093E-11      VJE    = 0.855           MJE    = 0.4104
++ FC     = 0.5             CJC    = 8.9251E-12      VJC    = 0.5
++ MJC    = 0.3497          CJS    = 0               VJS    = 0.8
++ MJS    = 0.33            XTB    = 1.2849          EG     = 1.1603
++ XTI    = 3               XCJC   = 0.3062 )
+
+** Creation: Jan-03-2003
+** Fairchild Semiconductor
+*** Power Discrete Bipolar Electrical Parameter ***
+** Audio Frequency Low Noise Amplifier Transistor
+** Product: KSC1845 / TO-92
+
+.MODEL KSC1845 npn
++ IS     = 1.075431E-13    BF     = 600.7           NF     = 1
++ BR     = 13.565          NR     = 1               ISE    = 1.98107E-13
++ NE     = 2               ISC    = 1.8378E-11      NC     = 1.5
++ VAF    = 82.803          VAR    = 20.6691         IKF    = 0.596
++ IKR    = 0.0190546       RB     = 157             RBM    = 12.092
++ IRB    = 1.258925E-6     RE     = 1.5             RC     = 180.7
++ CJE    = 2.057447E-11    VJE    = 0.7300286       MJE    = 0.3619943
++ FC     = 0.5             CJC    = 4.525739E-12    VJC    = 0.5
++ MJC    = 0.3659045       XTB    = 1.7281          EG     = 1.1809
++ XTI    = 3               TF     = 3.14E-11
+
+* Creation : Dec.-22-2003
+* Fairchild Semiconductor
+.MODEL Q2SC4793 NPN (
++ IS=1.8E-09
++ NF=1.43
++ BF=146.38
++ VAF=273
++ IKF=2.6
++ NK=0.95
++ ISE=6.286997E-10
++ NE=2.223629
++ BR=4
++ NR=1
++ VAR=20
++ IKR=1.05
++ RE=0
++ RB=1.7
++ RC=1.25
++ CJE=5.96964E-10
++ VJE=1.1
++ MJE=0.5
++ CJC=5.78E-11
++ VJC=0.3
++ MJC=0.3
++ TF=1.22678E-09
++ FC=0.5
++ ITF=10
++ XTF=99.52253015
++ TR=983N)
+
+.MODEL Q2SA1837 PNP (
++ IS=2.39372559E-10
++ NF=1.304015937
++ BF=300
++ VAF=273
++ IKF=2.087725944
++ NK=0.94719458
++ ISE=1.46829699E-11
++ NE=1.526663542
++ BR=4
++ NR=1
++ VAR=20
++ IKR=1.05
++ RE=0
++ RB=1.8
++ RC=1.65
++ CJE=4.7407E-10
++ VJE=1.1
++ MJE=0.5
++ CJC=8.6700E-11
++ VJC=0.3
++ MJC=0.3
++ TF=1.642191E-09
++ FC=0.5
++ ITF=1.076260106
++ XTF=5.868994022
++ TR=1.38U)
+
+
+.MODEL BC850 NPN (IS=45.000F NF=1.010 BF=516.544 VAF=74.000 IKF=0.708
++ ISE=55.668F NE=2.567 NR=1.015 BR=7.745 VAR=14.000 IKR=1.000
++ ISC=1.084P NC=4.063
++ RB=9.000 IRB=0.100M RBM=4.500
++ RE=0.350 RC=1.445
++ CJE=13.050P VJE=0.690 MJE=0.375 FC=0.750
++ CJC=4.100P VJC=0.750 MJC=0.420 XCJC=0.650
++ TF=0.620N TR=2.5N PTF=1.000
++ XTF=68.000 VTF=1.000 ITF=0.720
++ XTB=1.400 EG=1.110 XTI=3.200
++ KF=10.000F AF=1.000)
+
+.model MPSA18	NPN(Is=33.58f Xti=3 Eg=1.11 Vaf=100 Bf=2.365K Ne=1.579
++		Ise=166.7f Ikf=.1172 Xtb=1.5 Br=5.774 Nc=2 Isc=0 Ikr=0 Rc=1
++		Cjc=4.948p Mjc=.4109 Vjc=.75 Fc=.5 Cje=7.547p Mje=.3765 Vje=.75
++		Tr=800.3p Tf=310.1p Itf=.6 Vtf=6 Xtf=35 Rb=10)
+*		Motorola	pid=MPSA18	case=TO92
+*		88-09-14 bam	creation
+
+.model J112 NJF(VTO=-2.3303 BETA=5.97264E-3 BETATCE=-0.5 LAMBDA=2.31986E-2 RD=2.29075 RS=2.29075 CGS=1.05000E-11
+
+
+* KSC2690/KSC2690A NPN EPITAXIAL SILICON TRANSISTOR
+
+*-----------------------------------------------------------
+
+* AUDIO FREQUENCY, HIGH FREQUENCY POWER AMPLIFIER
+
+* Complement to KSA1220/KSA1220A
+
+* PARAMETER MODELS EXTRACTED FROM MEASURED DATA: KSC2690A-O
+
+*-----------------------------------------------------------
+
+* If QCO and RCO are set to zero, this model applies to
+
+* the Gummel-Poon model LEVEL 1.
+
+* If IBC and IBE are specified, they are used instead of IS.
+
+*-----------------------------------------------------------
+
+*---------------------------------------------------------
+
+* FAIRCHILD    CASE: TO-126   PID:KSC2690A-O
+
+* 2000-03-30 CREATION
+
+
+* KSA1220/KSA1220A PNP EPITAXIAL SILICON TRANSISTOR
+
+*-----------------------------------------------------------
+
+* AUDIO FREQUENCY POWER AMPLIFIER
+
+* HIGH FREQUENCY POWER AMPLIFIER
+
+* Complement to KSC2690/KSC2690A
+
+* PARAMETER MODELS EXTRACTED FROM MEASURED DATA: KSA1220A-Y
+
+*-----------------------------------------------------------
+
+* If QCO and RCO are set to zero, this model applies to
+
+* the Gummel-Poon model LEVEL 1.
+
+* If IBC and IBE are specified, they are used instead of IS.
+
+*-----------------------------------------------------------
+
+
+*---------------------------------------------------------
+
+* FAIRCHILD   CASE: TO-126   PID:KSA1220A-Y
+
+* 2000-03-30 CREATION
+
+.MODEL Qnjw21193g pnp
++IS=6.76984e-11 BF=83.2918 NF=0.911636 VAF=16.0266
++IKF=3.99366 ISE=1.78864e-11 NE=1.46619 BR=0.1
++NR=1.5 VAR=2.55558 IKR=10 ISC=3.90093e-13
++NC=3.98987 RB=1.07223 IRB=0.1 RBM=1.07223
++RE=0.0001 RC=0.102622 XTB=0.452183 XTI=1
++EG=1.05 CJE=1.00619e-08 VJE=0.99 MJE=0.44463
++TF=6.67045e-09 XTF=3.371 VTF=60 ITF=0.001
++CJC=5e-10 VJC=0.95 MJC=0.249866 XCJC=0.1
++FC=0.1 CJS=0 VJS=0.75 MJS=0.5
++TR=1e-07 PTF=0 KF=0 AF=1
+
+.model Q2sa970 PNP(Is=465.4f Xti=3 Eg=1.11 Vaf=57 Bf=407.6 Ise=4.683p Ne=2.051
++ Ikf=.3998 Nk=1.192 Xtb=1.5 Var=100 Br=1 Isc=465.4f Nc=1.048
++ Ikr=6.032 Rc=2.343 Cjc=11.59p Mjc=.4014 Vjc=1.155 Fc=.5 Cje=5p
++ Mje=.3333 Vje=.75 Tr=10n Tf=1.252n Itf=1 Xtf=0 Vtf=10)
+
+.model Q2sc2240 NPN(Is=99.13f Xti=3 Eg=1.11 Vaf=422.2 Bf=352.8 Ise=1.179p
++ Ne=1.782 Ikf=.4704 Nk=.9631 Xtb=1.5 Var=100 Br=1.663 Isc=555.1p
++ Nc=1.796 Ikr=5.85 Rc=.2032 Cjc=7.561p Mjc=.2472 Vjc=.3905 Fc=.5
++ Cje=5p Mje=.3333 Vje=.75 Tr=10n Tf=1.295n Itf=1 Xtf=0 Vtf=10)
+
+.MODEL Qmje15034 npn
++IS=3.92866e-12 BF=260.938 NF=1.02215 VAF=15.3399\par
++IKF=0.160087 ISE=1e-08 NE=2.54491 BR=26.0938\par
++NR=1.10885 VAR=153.399 IKR=1.60087 ISC=1e-08\par
++NC=1.89024 RB=0.41209 IRB=0.1 RBM=0.41209\par
++RE=0.0001 RC=0.208002 XTB=0.897431 XTI=1.39234\par
++EG=1.206 CJE=1.61534e-09 VJE=0.698417 MJE=0.382854\par
++TF=1.03079e-09 XTF=1000 VTF=100000 ITF=42.9041\par
++CJC=1.04458e-10 VJC=0.441587 MJC=0.23 XCJC=1\par
++FC=0.8 CJS=0 VJS=0.75 MJS=0.5\par
++TR=1e-07 PTF=0 KF=0 AF=1\par
+
+.MODEL Qmje15035 pnp
++IS=5.81508e-15 BF=313.373 NF=0.85 VAF=40.5017\par
++IKF=0.897023 ISE=6.74258e-16 NE=1.04249 BR=0.958017\par
++NR=0.894461 VAR=148.639 IKR=7.05393 ISC=6.74258e-16\par
++NC=2.84461 RB=3.62039 IRB=0.1 RBM=0.1\par
++RE=0.000923293 RC=0.233799 XTB=2.92628 XTI=1.01325\par
++EG=1.17461 CJE=1.5597e-09 VJE=0.99 MJE=0.554057\par
++TF=1.35882e-09 XTF=1000 VTF=467.207 ITF=58.3338\par
++CJC=1.58888e-10 VJC=0.4 MJC=0.23 XCJC=0.786287\par
++FC=0.8 CJS=0 VJS=0.75 MJS=0.5\par
++TR=1e-07 PTF=0 KF=0 AF=1\par
+
+.MODEL Qnjl0281_bjt npn
++IS=7.35019e-14 BF=113.063 NF=1.21951 VAF=10.158\par
++IKF=8.51404 ISE=8.83106e-12 NE=2.0497 BR=4.9071\par
++NR=1.25326 VAR=8.60208 IKR=6.78731 ISC=3.59743e-13\par
++NC=3.99215 RB=0.526348 IRB=0.1 RBM=0.526348\par
++RE=0.000612798 RC=0.0302655 XTB=0.1 XTI=1\par
++EG=1.05 CJE=5.60463e-09 VJE=0.600913 MJE=0.848202\par
++TF=2.07647e-09 XTF=1000 VTF=4157.4 ITF=217.206\par
++CJC=4.77948e-10 VJC=0.528497 MJC=0.23 XCJC=1\par
++FC=0.430232 CJS=0 VJS=0.75 MJS=0.5\par
++TR=1e-07 PTF=0 KF=0 AF=1\par
+
+.MODEL Dnjl0281_diode d
++IS=5.17122e-08 RS=0.0324668 N=1.78236 EG=1.12011\par
++XTI=0.5 BV=200 IBV=2e-06 CJO=5.59229e-11\par
++VJ=0.4 M=0.346657 FC=0.5 TT=2.59685e-08\par
++KF=0 AF=1\par
+
+.MODEL Qnjl0302_bjt pnp
++IS=1.68444e-12 BF=84.9671 NF=0.992223 VAF=10.01\par
++IKF=7.49667 ISE=1e-08 NE=2.87955 BR=8.49671\par
++NR=0.990995 VAR=99.9986 IKR=0.382704 ISC=3.81183e-16\par
++NC=1 RB=4.23352 IRB=0.1 RBM=4.23351\par
++RE=0.00779693 RC=0.0390712 XTB=1.60824 XTI=3.9999\par
++EG=1.20458 CJE=1.56322e-08 VJE=0.99 MJE=0.23\par
++TF=1.97297e-09 XTF=1000 VTF=817.29 ITF=453.232\par
++CJC=5e-10 VJC=0.95 MJC=0.23 XCJC=0.756601\par
++FC=0.8 CJS=0 VJS=0.75 MJS=0.5\par
++TR=1e-07 PTF=0 KF=0 AF=1\par
+
+.MODEL Dnjl0302_diode d
++IS=5.17122e-08 RS=0.0324668 N=1.78236 EG=1.12011\par
++XTI=0.5 BV=200 IBV=2e-06 CJO=5.59229e-11\par
++VJ=0.4 M=0.346657 FC=0.5 TT=2.59685e-08\par
++KF=0 AF=1\par
+
+
+.MODEL LS312 NPN (         IS     = 2.30707E-15     BF     = 400.789     NF     = 1                  
++ BR     = 1.50465         NR     = 1               ISE    = 9.99853E-16        
++ NE     = 1.63927         ISC    = 7.90698E-12     NC     = 1.8                
++ VAF    = 244.767         VAR    = 8.35            IKF    = 0.0650369          
++ IKR    = 0.01            RB     = 100             RBM    = 10                 
++ IRB    = 1E-5            RE     = 0.44            RC     = 43                 
++ CJE    = 2.0247E-12      VJE    = 0.665626        MJE    = 0.212833           
++ FC     = 0.96            CJC    = 1.8311E-12      VJC    = 0.4                
++ MJC    = 0.128573        TF     = 5.29E-10        XTF    = 17                 
++ ITF    = 0.0256763       VTF    = 5               PTF    = 20                 
++ TR     = 1E-8            XTB    = 1.35165         EG     = 1.17               
++ XTI    = 3.90927         )                                                  
+
+.MODEL LS352 PNP (         IS     = 2.30762E-15     BF     = 432.884         NF     = 1                  
++ BR     = 0.869008        NR     = 1               ISE    = 1.79905E-18        
++ NE     = 1               ISC    = 1E-18           NC     = 1.83884            
++ VAF    = 58.9876         VAR    = 20              IKF    = 8.24091E-3         
++ IKR    = 2.09091E-4      RB     = 200             RBM    = 10                 
++ IRB    = 1E-5            RE     = 0.20909         RC     = 231.405            
++ CJE    = 1.696012E-12    VJE    = 0.6342689       MJE    = 0.2217207          
++ FC     = 0.9             CJC    = 1.878493E-12    VJC    = 0.4                
++ MJC    = 0.1314508       TF     = 3.916761E-10    XTF    = 1.2                
++ ITF    = 0.01            VTF    = 5               PTF    = 20                 
++ TR     = 1E-8            XTB    = 1.80165         EG     = 1.17               
++ XTI    = 3.52479         )
+
+****** Discrete Bipolar Electrical Circuit Model ****** ** PNP Epitaxial Silicon Transistor ** Complement to KSC1845  .MODEL KSA992 pnp (                                  + IS     = 5.7544E-14      BF     = 348.1           NF     = 1 + BR     = 3.62            NR     = 0.95            ISE    = 5.7544E-15 + NE     = 1.5             ISC    = 1.8378E-14      NC     = 1 + VAF    = 144             VAR    = 16.68           IKF    = 0.298 + IKR    = 0.0525          RB     = 140             RBM    = 16.084 + IRB    = 1.4125E-3       RE     = 0.38            RC     = 0.47 + CJE    = 2.3093E-11      VJE    = 0.855           MJE    = 0.4104 + FC     = 0.5             CJC    = 8.9251E-12      VJC    = 0.5 + MJC    = 0.3497          CJS    = 0               VJS    = 0.8 + MJS    = 0.33            XTB    = 1.2849          EG     = 1.1603 + XTI    = 3               XCJC   = 0.3062 )  ** Creation: Jan-03-2003 
+** Fairchild Semiconductor 
+
+*** Power Discrete Bipolar Electrical Parameter ***
+** Audio Frequency Low Noise Amplifier Transistor
+** Product: KSC1845 / TO-92
+
+.MODEL KSC1845 npn                
++ IS     = 1.075431E-13    BF     = 600.7           NF     = 1                  
++ BR     = 13.565          NR     = 1               ISE    = 1.98107E-13       
++ NE     = 2               ISC    = 1.8378E-11      NC     = 1.5                
++ VAF    = 82.803          VAR    = 20.6691         IKF    = 0.596             
++ IKR    = 0.0190546       RB     = 157             RBM    = 12.092              
++ IRB    = 1.258925E-6     RE     = 1.5             RC     = 180.7                
++ CJE    = 2.057447E-11    VJE    = 0.7300286       MJE    = 0.3619943          
++ FC     = 0.5             CJC    = 4.525739E-12    VJC    = 0.5                
++ MJC    = 0.3659045       XTB    = 1.7281          EG     = 1.1809             
++ XTI    = 3               TF     = 3.14E-11
+                                     
+* Creation : Dec.-22-2003 
+* Fairchild Semiconductor
+
+ 
+*2SJ74
+*Toshiba Dep-Mode 20mA 400mW LowNoise pkg:TO-92B 2,1,3
+.MODEL 2SJ74 PJF(Beta=92.12m Rs=7.748 Rd=7.748 Lambda=4.464m
++Vto=-.5428 Cgd=85.67p Pb=.3905 Fc=.5
++Cgs=78.27p Is=12.98p 
++Kf=26.64E-18 Af=1)
+
+*2SK170
+* 20mA 400mW LowNoise Dep-Mode pkg:TO-92B 3,1,2
+.MODEL 2SK170 NJF(Beta=59.86m Rs=4.151 Rd=4.151 Lambda=1.923m
++Vto=-.5024 Cgd=20p Pb=.4746 Fc=.5
++Cgs=25.48p Is=8.477p 
++Kf=111.3E-18 Af=1) 
+
+.MODEL J2N5457 NJF(VTO=-1.8 BETA=0.00135 LAMBDA=0.001 RD=35 RS=31.5
++ CGS=2.25E-12 CGD=6E-12 KF=6.5E-17 AF=0.5 )
+
+
+.model BC327-40 PNP(IS=2.077E-13 NF=1.005 ISE=1.411E-14 NE=1.3 BF=449.8 IKF=0.36 VAF=29 NR=1.002 ISC=2.963E-13 NC=1.25 BR=20.92 IKR=0.104 VAR=10 RB=40 IRB=1.00E-05 RBM=5.3 RE=0.14 RC=0.32 XTB=0 EG=1.11 XTI=3 CJE=5E-11 VJE=0.9296 MJE=0.456 TF=7E-10 XTF=3.25 VTF=2.5 ITF=0.79 PTF=80 CJC=2.675E-11 VJC=0.8956 MJC=0.4638 XCJC=0.459 TR=3.50E-08 CJS=0 VJS=0.75 MJS=0.333 FC=0.935 Vceo=45 Icrating=500m mfg=Philips)
+
+.model BC337-40 NPN(IS=7.809E-14 NF=0.9916 ISE=2.069E-15 NE=1.4 BF=436.8 IKF=0.8 VAF=103.6 NR=0.991 ISC=6.66E-14 NC=1.2 BR=44.14 IKR=0.09 VAR=14 RB=70 IRB=2.00E-04 RBM=8 RE=0.12 RC=0.24 XTB=0 EG=1.11 XTI=3 CJE=3.579E-11 VJE=0.6657 MJE=0.3596 TF=5E-10 XTF=2.5 VTF=2 ITF=0.5 PTF=88 CJC=1.306E-11 VJC=0.3647 MJC=0.3658 XCJC=0.455 TR=2.50E-08 CJS=0 VJS=0.75 MJS=0.333 FC=0.843 Vceo=45 Icrating=500m mfg=Philips)
+
+.model J2sk170 NJF(Beta=59.86m Rs=4.151 Rd=4.151 Betatce=-.5 Lambda=1.923m
++ Vto=-.5024 Vtotc=-2.5m Cgd=20p M=.3805 Pb=.4746 Fc=.5
++ Cgs=25.48p Isr=84.77p Nr=2 Is=8.477p N=1 Xti=3 Alpha=10u Vk=100
++ Kf=111.3E-18 Af=1)
+
+.model J2sk246 NJF(Beta=1.07m Rs=56.76 Rd=56.76 Betatce=-.5 Lambda=2.8m
++ Vto=-2.638 Vtotc=-2.5m Cgd=10.38p M=.4373 Pb=.3905 Fc=.5
++ Cgs=6.043p Isr=112.8p Nr=2 Is=11.28p N=1 Xti=3 Alpha=10u Vk=100
++ Kf=1E-18 Af=1)
+
+.model J2sj74 PJF(Beta=92.12m Rs=7.748 Rd=7.748 Betatce=-.5 Lambda=4.464m
++ Vto=-.5428 Vtotc=-2.5m Cgd=85.67p M=.3246 Pb=.3905 Fc=.5
++ Cgs=78.27p Isr=129.8p Nr=2 Is=12.98p N=1 Xti=3 Alpha=10u Vk=100
++ Kf=26.64E-18 Af=1)
+
+.model J2sj103 PJF(Beta=2.197m Rs=76.76 Rd=76.76 Betatce=-.5 Lambda=735.3u
++ Vto=-2.037 Vtotc=-2.5m Cgd=18.95p M=.5045 Pb=.3905 Fc=.5
++ Cgs=17.02p Isr=38.48f Nr=2 Is=3.848f N=1 Xti=3 Alpha=10u Vk=100
++ Kf=1E-18 Af=1) 
+
+*SRC=BAV21;BAV21;Diodes;Rectifier <=5A;200V .25A
+.MODEL BAV21 D (IS=4.31N RS=.491 N=2 BV=266 IBV=100N
++ CJO=1.2P VJ=.65 M=.233 TT=43.2N)
+* Philips   200 Volt  .25 Amp  5E-08 us  Si Diode  11-23-1990
+**********
