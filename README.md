@@ -3,6 +3,11 @@
 
 # History
 
+## 2026.02.25
+
+### hv-psu-discrete/kicad/maida-lt3080-v5-26A7GT
+HV PSU for 26A7 pre-amp
+
 ## 2026.01.13
 
 ### input-sel-attenuator/software/ir-debug-v3
