@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(title "HV Power Supply LT3080 Maida")
-		(date "2026-02-23")
+		(date "2026-03-04")
 		(rev "5")
 	)
 	(lib_symbols
@@ -3787,7 +3787,7 @@
 		)
 		(uuid "1aca5c2d-6662-4c1e-9008-c22871e44a7f")
 	)
-	(text "33.5VDC"
+	(text "35V\n"
 		(exclude_from_sim no)
 		(at 125.095 233.68 0)
 		(effects
@@ -3852,6 +3852,16 @@
 			(justify left bottom)
 		)
 		(uuid "6ae7b644-fecb-4b79-bce7-394ede1234ea")
+	)
+	(text "IN:35V OUT:26V/1.2A => Theathsink = 75°C"
+		(exclude_from_sim no)
+		(at 178.562 208.788 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "716ff48a-1f45-41cd-8222-4c1e74fa5d4f")
 	)
 	(text "25VAC"
 		(exclude_from_sim no)
@@ -3929,7 +3939,7 @@
 		)
 		(uuid "e0ed65de-679f-498f-adcf-b696b10bbd77")
 	)
-	(text "3.7°/W"
+	(text "32°C@6W "
 		(exclude_from_sim no)
 		(at 181.61 218.44 0)
 		(effects
@@ -3939,6 +3949,17 @@
 			(justify left bottom)
 		)
 		(uuid "f6465e69-67ce-483a-bfbc-1ca697d342eb")
+	)
+	(text "IN:35V/20mA Vout:4.96V ILoad:0.1A (6.5mVAC)\nIN:35V/83mA Vout:4.93V ILoad:0.5A (1.7mVAC)\nIN:35V/160mA Vout:4.89V ILoad:1A (1.8mVAC)"
+		(exclude_from_sim no)
+		(at 292.354 120.396 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f99d2a74-6b0b-4771-9eb1-f627368f27e1")
 	)
 	(text_box "PSU Line Stage 26A7\n\nCustom Toroidal Transformer\nTotal Power : 95.00VA Frequency : 50Hz\nPrimaires: 1 x 0-230V \nSecondaires: 1 x 0-25V / 2.8A (70.00VA), 1 x 0-50V / 0.5A (25.00 VA)\nSupport SF01 + Electrostatic Screen + Magnetic Screen\n8V   : green=N, gray=L\n200V : mauve=N, white=L\n"
 		(exclude_from_sim no)
@@ -8242,7 +8263,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "4.75k"
+		(property "Value" "4.87k"
 			(at 179.578 252.603 0)
 			(effects
 				(font
