@@ -3,6 +3,11 @@
 
 # History
 
+## 2026.03.05
+
+### lv-lownoise-psu/kicad/v6-dcdc-large-cap
+Finalize v6 with large reservoir cap
+
 ## 2026.02.25
 
 ### hv-psu-discrete/kicad/maida-lt3080-v5-26A7GT
