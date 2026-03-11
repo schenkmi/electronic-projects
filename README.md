@@ -3,6 +3,11 @@
 
 # History
 
+## 2026.03.11
+
+### lv-psu-dcdc/kicad/fixed-v2
+Eval board with different inductors
+
 ## 2026.03.05
 
 ### lv-lownoise-psu/kicad/v6-dcdc-large-cap
