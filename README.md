@@ -8,6 +8,9 @@
 ### lv-psu-dcdc/kicad/fixed-v2
 Eval board with different inductors
 
+### hv-psu-discrete/kicad/maida-lt3080-v5
+HV PSU with DC/DC for +5V output
+
 ## 2026.03.05
 
 ### lv-lownoise-psu/kicad/v6-dcdc-large-cap
