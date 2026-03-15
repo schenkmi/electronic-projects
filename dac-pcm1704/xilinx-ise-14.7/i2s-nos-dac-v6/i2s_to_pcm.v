@@ -27,17 +27,23 @@ module double_edge_dff (
     output wire out
 );
     reg p, n;           // posedge / negedge halves
- 
+
     assign out = p ^ n;
- 
+
+    // Initialize registers to 0 for simulation
+    initial begin
+        p = 1'b0;
+        n = 1'b0;
+    end
+
     always @(posedge clock or posedge reset)
         if (reset) p <= 1'b0;
         else       p <= in ^ n;
- 
+
     always @(negedge clock or posedge reset)
         if (reset) n <= 1'b0;
         else       n <= in ^ p;
- 
+
 endmodule
  
 // -----------------------------------------------------------------------------
@@ -81,7 +87,13 @@ module i2s_to_pcm (
     // -------------------------------------------------------------------------
     reg [7:0]  sr_right;
     reg [31:0] sr_left;
- 
+
+    // Initialize shift registers for simulation
+    initial begin
+        sr_right = 8'h00;
+        sr_left  = 32'h00000000;
+    end
+
     always @(posedge BCK) begin
         // Right channel: delay DATAIN by 7 clocks
         // (accounts for 32 - 24 - 1 bit I2S framing offset)
