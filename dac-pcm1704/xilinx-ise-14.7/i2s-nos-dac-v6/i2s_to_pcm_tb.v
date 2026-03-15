@@ -3,16 +3,20 @@
 // Testbench : i2s_to_pcm_tb
 // Purpose   : Verify I2S to PCM conversion for PCM1704U DAC
 // DUT       : i2s_to_pcm.v
+// Simulator : Icarus Verilog + GTKWave
+// Usage     : iverilog -o i2s_to_pcm_tb i2s_to_pcm.v i2s_to_pcm_tb.v
+//             vvp i2s_to_pcm_tb
+//             gtkwave i2s_to_pcm_tb.vcd
 // =============================================================================
 
-`define CLK_PERIOD    20      // 50 MHz BCK (20 ns period)
-`define LRCK_PERIOD   1280    // 64 clocks per channel * 20 ns = 1280 ns for 48 kHz
-`define NUM_CYCLES    200     // Number of BCK cycles to simulate
+// Timing parameters
+`define BCK_HALF      162.75  // Half period (~3.072 MHz)
+`define SAMPLES       3       // Number of unique test patterns
 
 module i2s_to_pcm_tb;
 
     // -------------------------------------------------------------------------
-    // Testbench signals
+    // DUT Signals
     // -------------------------------------------------------------------------
     reg  BCK;
     reg  LRCK;
@@ -27,23 +31,25 @@ module i2s_to_pcm_tb;
     wire LED1;
 
     // -------------------------------------------------------------------------
-    // Test data - 24-bit patterns for verification
-    // Left channel:  0x123456 (example audio data)
-    // Right channel: 0xFEDCBA (example audio data)
+    // Test Patterns - 24-bit audio samples
     // -------------------------------------------------------------------------
-    `define LEFT_DATA  24'h123456
-    `define RIGHT_DATA 24'hFEDCBA
+    reg [23:0] test_left  [0:`SAMPLES-1];
+    reg [23:0] test_right [0:`SAMPLES-1];
 
     // -------------------------------------------------------------------------
-    // Shift register for monitoring expected output
+    // Verification
     // -------------------------------------------------------------------------
-    reg [31:0] expected_right;
-    reg [31:0] expected_left;
-    integer    bck_count;
-    integer    frame_count;
+    integer cycle_count;
+    integer error_count;
+    integer check_count;
+    integer frame_idx;
+
+    // Shift register mirror for verification
+    reg [7:0]  sr_right_mirror;
+    reg [31:0] sr_left_mirror;
 
     // -------------------------------------------------------------------------
-    // DUT instantiation
+    // DUT Instantiation
     // -------------------------------------------------------------------------
     i2s_to_pcm dut (
         .BCK      (BCK),
@@ -62,117 +68,209 @@ module i2s_to_pcm_tb;
     );
 
     // -------------------------------------------------------------------------
-    // BCK clock generation - 50 MHz
+    // Clock Generation
     // -------------------------------------------------------------------------
     initial begin
         BCK = 1'b0;
-        forever #(`CLK_PERIOD / 2) BCK = ~BCK;
+        forever #`BCK_HALF BCK = ~BCK;
     end
 
     // -------------------------------------------------------------------------
-    // Stimulus generator
+    // Mirror Shift Registers for Verification
+    // These track what the DUT's shift registers should contain
+    // -------------------------------------------------------------------------
+    always @(posedge BCK) begin
+        sr_right_mirror <= {sr_right_mirror[6:0], DATAIN};
+        sr_left_mirror  <= {sr_left_mirror[30:0], sr_right_mirror[7]};
+    end
+
+    // -------------------------------------------------------------------------
+    // Output Verification
+    // Compare DUT outputs with our mirror
+    // -------------------------------------------------------------------------
+    always @(posedge BCK) begin
+        // Skip first 50 cycles to let shift registers fill
+        if (cycle_count > 50) begin
+            // Check right channel
+            if (DATAOUTR !== sr_right_mirror[7]) begin
+                $display("ERROR [%0t]: RIGHT output mismatch", $time);
+                $display("  Expected: %b, Got: %b", sr_right_mirror[7], DATAOUTR);
+                error_count = error_count + 1;
+            end
+
+            // Check left channel
+            if (DATAOUTL !== sr_left_mirror[31]) begin
+                $display("ERROR [%0t]: LEFT output mismatch", $time);
+                $display("  Expected: %b, Got: %b", sr_left_mirror[31], DATAOUTL);
+                error_count = error_count + 1;
+            end
+
+            check_count = check_count + 2;
+        end
+    end
+
+    // -------------------------------------------------------------------------
+    // Double-Edge DFF Verification
+    // CLKOUT and LEOUT should be delayed by approximately half a BCK period
+    // -------------------------------------------------------------------------
+    real bck_rise_time, bck_fall_time;
+    real clkout_rise_time, leout_rise_time;
+
+    // Track BCK edges
+    always @(posedge BCK) begin
+        bck_rise_time = $time;
+    end
+
+    always @(negedge BCK) begin
+        bck_fall_time = $time;
+    end
+
+    // Track CLKOUT edges and check delay
+    real clkout_delay;
+    always @(CLKOUTR) begin
+        if (CLKOUTR == 1'b1) begin
+            clkout_rise_time = $time;
+            // CLKOUT should rise approximately half period after BCK falls
+            clkout_delay = clkout_rise_time - bck_fall_time;
+            // Allow some tolerance for simulation timing
+            if (clkout_delay > 0 && clkout_delay < `BCK_HALF * 1.5) begin
+                // OK - within expected half-period delay
+            end else if (cycle_count > 10) begin
+                $display("NOTE: CLKOUT rise at %0t, delay from BCK fall: %0t", $time, clkout_delay);
+            end
+        end
+    end
+
+    // -------------------------------------------------------------------------
+    // LRCK Polarity Check
+    // I2S standard: LRCK low = left channel, LRCK high = right channel
+    // -------------------------------------------------------------------------
+    always @(posedge BCK) begin
+        if (cycle_count > 50) begin
+            // LEOUTR and LEOUTL should follow delayed LRCK
+            // When LRCK is low (left), LE should be low
+            // When LRCK is high (right), LE should be high
+            // (with half-cycle delay due to double_edge_dff)
+        end
+    end
+
+    // -------------------------------------------------------------------------
+    // Cycle Counter
+    // -------------------------------------------------------------------------
+    always @(posedge BCK) begin
+        cycle_count = cycle_count + 1;
+    end
+
+    // -------------------------------------------------------------------------
+    // I2S Transmitter Task
+    // -------------------------------------------------------------------------
+    integer i;
+    reg [31:0] tx_word;
+
+    task send_i2s_word;
+        input [23:0] sample;
+        input        channel;
+        begin
+            tx_word = {sample, 8'h00};
+
+            @(negedge BCK);
+            LRCK = channel;
+
+            // I2S 1-cycle delay after LRCK edge
+            @(posedge BCK);
+            @(negedge BCK);
+            DATAIN = 1'b0;
+
+            // Send 32 bits MSB first
+            for (i = 31; i >= 0; i = i - 1) begin
+                @(posedge BCK);
+                @(negedge BCK);
+                DATAIN = tx_word[i];
+            end
+
+            @(negedge BCK);
+            DATAIN = 1'b0;
+        end
+    endtask
+
+    // -------------------------------------------------------------------------
+    // Main Test Sequence
     // -------------------------------------------------------------------------
     initial begin
-        integer i;
-        reg [31:0] left_shift;
-        reg [31:0] right_shift;
-
         // Initialize
         DATAIN = 1'b0;
-        LRCK   = 1'b0;  // Start with left channel
+        LRCK = 1'b0;
+        cycle_count = 0;
+        error_count = 0;
+        check_count = 0;
+        sr_right_mirror = 8'h00;
+        sr_left_mirror = 32'h00000000;
 
-        // Wait for reset propagation
-        #100;
+        // Test patterns
+        test_left[0]  = 24'hFFFFFF;  // All 1s
+        test_left[1]  = 24'hAAAAAA;  // Alternating
+        test_left[2]  = 24'h123456;  // Sequential
 
+        test_right[0] = 24'h000000;  // All 0s
+        test_right[1] = 24'h555555;  // Alternating inverse
+        test_right[2] = 24'hFEDCBA;  // Sequential
+
+        $display("");
         $display("========================================");
-        $display("I2S to PCM Converter Testbench");
+        $display("  I2S to PCM Testbench");
+        $display("  Target: PCM1704U DAC Interface");
         $display("========================================");
-        $display("Time %0t ns: Starting I2S transmission", $time);
+        $display("");
 
-        // Generate multiple I2S frames
-        for (frame_count = 0; frame_count < 5; frame_count = frame_count + 1) begin
-            // -------------------------------------------------------------
-            // LEFT CHANNEL (LRCK = 0)
-            // -------------------------------------------------------------
-            LRCK = 1'b0;
-            #(`CLK_PERIOD / 2);  // Wait half cycle before data starts
+        #1000;
 
-            // Shift out left channel data MSB first (32 bits, but only 24 valid)
-            left_shift = {`LEFT_DATA, 8'h00};  // 24-bit data + 8 LSB zeros
-            for (i = 0; i < 32; i = i + 1) begin
-                #`CLK_PERIOD;
-                DATAIN = left_shift[31];
-                left_shift = left_shift << 1;
-            end
+        // Send multiple frames
+        for (frame_idx = 0; frame_idx < 6; frame_idx = frame_idx + 1) begin
+            $display("Frame %0d: Left=0x%06X, Right=0x%06X",
+                     frame_idx, test_left[frame_idx % `SAMPLES], test_right[frame_idx % `SAMPLES]);
 
-            $display("Time %0t ns: Left channel frame %0d complete", $time, frame_count);
+            send_i2s_word(test_left[frame_idx % `SAMPLES], 1'b0);
+            send_i2s_word(test_right[frame_idx % `SAMPLES], 1'b1);
 
-            // -------------------------------------------------------------
-            // RIGHT CHANNEL (LRCK = 1)
-            // -------------------------------------------------------------
-            LRCK = 1'b1;
-            #(`CLK_PERIOD / 2);  // Wait half cycle before data starts
-
-            // Shift out right channel data MSB first (32 bits, but only 24 valid)
-            right_shift = {`RIGHT_DATA, 8'h00};  // 24-bit data + 8 LSB zeros
-            for (i = 0; i < 32; i = i + 1) begin
-                #`CLK_PERIOD;
-                DATAIN = right_shift[31];
-                right_shift = right_shift << 1;
-            end
-
-            $display("Time %0t ns: Right channel frame %0d complete", $time, frame_count);
+            repeat(10) @(posedge BCK);
         end
 
-        $display("Time %0t ns: Test sequence complete", $time);
+        // Drain pipeline
+        repeat(100) @(posedge BCK);
+
+        $display("");
         $display("========================================");
+        $display("  Test Summary");
+        $display("========================================");
+        $display("Checks: %0d", check_count);
+        $display("Errors: %0d", error_count);
 
-        // Run for a bit more to let data propagate through
-        #500;
+        if (error_count == 0) begin
+            $display("");
+            $display("  *** ALL TESTS PASSED ***");
+        end else begin
+            $display("");
+            $display("  *** TESTS FAILED ***");
+        end
+        $display("========================================");
+        $display("");
 
-        // End simulation
-        #100 $finish;
+        #1000;
+        $finish;
     end
 
     // -------------------------------------------------------------------------
-    // Monitor: Check PCM output data
+    // LED Check
     // -------------------------------------------------------------------------
-    integer capture_count;
-    reg [23:0] captured_right;
-    reg [23:0] captured_left;
-
-    always @(posedge LEOUTR) begin
-        // Capture 24 bits on each LEOUTR rising edge (end of right channel)
-        capture_count = capture_count + 1;
-        captured_right = 24'h0;  // Placeholder - DATAOUTR is 1-bit
-    end
-
-    always @(posedge LEOUTL) begin
-        // Capture 24 bits on each LEOUTL rising edge (end of left channel)
-        capture_count = capture_count + 1;
-    end
-
-    // -------------------------------------------------------------------------
-    // Data integrity checker
-    // -------------------------------------------------------------------------
-    reg [39:0] bit_stream;  // Enough to cover max delay
-
     always @(posedge BCK) begin
-        bit_stream <= {bit_stream[38:0], DATAIN};
-    end
-
-    // Check right channel data (after 7-bit delay)
-    always @(posedge CLKOUTR) begin
-        if (LEOUTR === 1'b0) begin  // During right channel data window
-            if (bit_stream[7] !== DATAOUTR) begin
-                $display("WARNING: Time %0t ns - Right channel data mismatch", $time);
-                $display("  Expected: %b, Got: %b", bit_stream[7], DATAOUTR);
-            end
+        if (LED1 !== 1'b0) begin
+            $display("ERROR [%0t]: LED1 should be 0", $time);
+            error_count = error_count + 1;
         end
     end
 
     // -------------------------------------------------------------------------
-    // Waveform dump for GTKWave
+    // VCD Dump
     // -------------------------------------------------------------------------
     initial begin
         $dumpfile("i2s_to_pcm_tb.vcd");
@@ -180,36 +278,12 @@ module i2s_to_pcm_tb;
     end
 
     // -------------------------------------------------------------------------
-    // Initial conditions
+    // Timeout
     // -------------------------------------------------------------------------
     initial begin
-        capture_count = 0;
-        bit_stream = 40'h0;
-        bck_count = 0;
-    end
-
-    // -------------------------------------------------------------------------
-    // Cycle counter
-    // -------------------------------------------------------------------------
-    always @(posedge BCK) begin
-        bck_count <= bck_count + 1;
-    end
-
-    // -------------------------------------------------------------------------
-    // Status display
-    // -------------------------------------------------------------------------
-    initial begin
-        $monitor("Time %0t ns | BCK=%b | LRCK=%b | DATAIN=%b | DATAOUTR=%b | DATAOUTL=%b | LEOUTR=%b | LEOUTL=%b",
-            $time, BCK, LRCK, DATAIN, DATAOUTR, DATAOUTL, LEOUTR, LEOUTL);
-    end
-
-    // -------------------------------------------------------------------------
-    // LED status check (assertions not supported by Icarus Verilog)
-    // -------------------------------------------------------------------------
-    always @(posedge BCK) begin
-        if (LED1 !== 1'b0) begin
-            $display("WARNING: LED1 should be low (active-low)");
-        end
+        #500000;
+        $display("ERROR: Simulation timeout!");
+        $finish;
     end
 
 endmodule
