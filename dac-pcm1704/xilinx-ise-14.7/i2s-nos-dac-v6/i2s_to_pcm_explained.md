@@ -26,8 +26,8 @@ DATA:       [b31][b30]...[b0][b31][b30]...[b0]
 ```
 
 - Data is clocked in **MSB-first** on the **BCK rising edge**
-- **LRCK high** = left channel word being transmitted
-- **LRCK low** = right channel word being transmitted
+- **LRCK low** = left channel word being transmitted
+- **LRCK high** = right channel word being transmitted
 - There is a **1-bit framing offset** — the MSB appears one BCK cycle *after* the LRCK transition (I2S standard)
 
 ---
@@ -145,11 +145,11 @@ DATAIN ──► [sr_right: 8 stages] ──► tap[7] ──► [sr_left: 32 st
 
 ```verilog
 assign CLKOUTR  = delay_bck;
-assign LEOUTR   = ~delay_lrck;   // inverted — latch falls after data is valid
+assign LEOUTR   = delay_lrck;    // no inversion
 assign DATAOUTR = sr_right[7];
 
 assign CLKOUTL  = delay_bck;
-assign LEOUTL   = ~delay_lrck;   // inverted — latch falls after data is valid
+assign LEOUTL   = delay_lrck;    // no inversion
 assign DATAOUTL = sr_left[31];
 
 assign LED1 = 1'b0;              // active-low LED, always on
@@ -161,13 +161,12 @@ Both are driven by `delay_bck` — BCK shifted by half a period. This ensures th
 
 ### Latch-enable outputs (LEOUTR / LEOUTL)
 
-Both are driven by `~delay_lrck` — the **inverted**, half-period-delayed version of LRCK. The inversion is required because:
+Both are driven by `delay_lrck` — the half-period-delayed version of LRCK, **no inversion needed**. Because LRCK is low during left and high during right, the natural transitions already mark the end of each channel's data window:
 
-- The **PCM1704U latches data on the falling edge** of `/LE`
-- Without inversion, the falling edge would occur at the **start** of the data window (too early)
-- With inversion, the falling edge occurs at the **end** of the valid 24-bit data window (correct)
+- `delay_lrck` **falls** at the right→left transition → latches DATAOUTR after the right channel window ✅
+- `delay_lrck` **falls** at the left→right transition → latches DATAOUTL after the left channel window ✅
 
-Both channels share identical LE signals since they are derived from the same LRCK source, offset only by the data delay in the shift registers.
+The shift register delays ensure data is fully valid by the time each falling edge arrives. Both channels share the same `delay_lrck` signal directly.
 
 ### Data outputs (DATAOUTR / DATAOUTL)
 
@@ -198,7 +197,7 @@ BCK ─────────────►│ deff_bck (double_edge_dff)    
 LRCK ────────────►│ deff_lrck (double_edge_dff)              │
                   │   in=LRCK → out=LRCK delayed ½ period    │
                   └───────────────────┬──────────────────────┘
-                                      │ inverted (~)
+                                      │ (no inversion)
                                       ├──► LEOUTR
                                       └──► LEOUTL
 

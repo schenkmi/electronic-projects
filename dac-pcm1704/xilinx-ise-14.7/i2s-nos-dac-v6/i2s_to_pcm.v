@@ -45,7 +45,7 @@ endmodule
 // -----------------------------------------------------------------------------
 module i2s_to_pcm (
     input  wire BCK,        // I2S bit clock
-    input  wire LRCK,       // I2S word-select (left/right)
+    input  wire LRCK,       // I2S word-select (low=left, high=right)
     input  wire DATAIN,     // I2S serial data
  
     output wire CLKOUTR,    // PCM bit clock  - right channel
@@ -97,11 +97,11 @@ module i2s_to_pcm (
     //   ensuring the PCM1704U sees data valid before the active clock edge.
     // -------------------------------------------------------------------------
     assign CLKOUTR  = delay_bck;
-    assign LEOUTR   = ~delay_lrck; // inverted - latch falls after data is valid
+    assign LEOUTR   = delay_lrck;
     assign DATAOUTR = sr_right[7];
  
     assign CLKOUTL  = delay_bck;
-    assign LEOUTL   = ~delay_lrck; // inverted - latch falls after data is valid
+    assign LEOUTL   = delay_lrck;
     assign DATAOUTL = sr_left[31];
  
     // LED on = logic 0 (active-low)

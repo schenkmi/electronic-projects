@@ -9,7 +9,7 @@
     "Language": 31,
     "Max Height": "1X",
     "Operation Mode": 0,
-    "Sample count": "25000960",
+    "Sample count": "250000384",
     "Sample rate": "500000000",
     "Stop Options": 1,
     "Threshold Level": "1",
@@ -126,7 +126,7 @@
                 "bitorder": "msb-first",
                 "clk_edge": "rising-edge",
                 "wordsize": 24,
-                "ws_polarity": "left-high"
+                "ws_polarity": "left-low"
             },
             "show": {
                 "i2s": true
