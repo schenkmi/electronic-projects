@@ -21,7 +21,7 @@ There is no combinational data logic, which keeps macrocell usage low and timing
 
 ```
 BCK:    _|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_|‾|_
-LRCK:   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|________________|‾‾  (high=left, low=right)
+LRCK:   ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾|________________|‾‾  (low=left, high=right)
 DATA:       [b31][b30]...[b0][b31][b30]...[b0]
 ```
 
