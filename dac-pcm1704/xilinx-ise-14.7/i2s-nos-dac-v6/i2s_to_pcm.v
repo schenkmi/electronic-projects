@@ -97,11 +97,11 @@ module i2s_to_pcm (
     //   ensuring the PCM1704U sees data valid before the active clock edge.
     // -------------------------------------------------------------------------
     assign CLKOUTR  = delay_bck;
-    assign LEOUTR   = delay_lrck;
+    assign LEOUTR   = ~delay_lrck; // inverted - latch falls after data is valid
     assign DATAOUTR = sr_right[7];
  
     assign CLKOUTL  = delay_bck;
-    assign LEOUTL   = delay_lrck;
+    assign LEOUTL   = ~delay_lrck; // inverted - latch falls after data is valid
     assign DATAOUTL = sr_left[31];
  
     // LED on = logic 0 (active-low)
