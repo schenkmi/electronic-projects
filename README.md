@@ -3,6 +3,11 @@
 
 # History
 
+## 2026.03.29
+
+### pre-amp-26A7/kicad/v1
+Finalize and ordered v1
+
 ## 2026.03.28
 
 ### lv-psu-dcdc/kicad/fixed-v3
