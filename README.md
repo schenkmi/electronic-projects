@@ -3,6 +3,17 @@
 
 # History
 
+## 2026.03.28
+
+### lv-psu-dcdc/kicad/fixed-v3
+Better thermal management for DC/DC
+
+### lv-lownoise-psu/kicad/v7-dcdc-large-cap
+Better thermal handling on DC/DC
+
+### input-sel-attenuator/kicad/v9-10k-47k
+Changed footprint for L1 and C1
+
 ## 2026.03.11
 
 ### lv-psu-dcdc/kicad/fixed-v2
