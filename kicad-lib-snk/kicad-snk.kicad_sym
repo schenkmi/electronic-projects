@@ -1402,7 +1402,7 @@
 		(symbol "AK4118AEQ_1_1"
 			(rectangle
 				(start 7.62 3.81)
-				(end 45.72 -77.47)
+				(end 45.72 -102.87)
 				(stroke
 					(width 0.4064)
 					(type solid)
@@ -1412,9 +1412,9 @@
 				)
 			)
 			(pin input line
-				(at 0 -10.16 0)
+				(at 0 -12.7 0)
 				(length 7.62)
-				(name "DSDIL/DEM0"
+				(name "RX4"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1430,9 +1430,9 @@
 				)
 			)
 			(pin input line
-				(at 0 -12.7 0)
+				(at 0 -83.82 0)
 				(length 7.62)
-				(name "DSDIR/DEM1"
+				(name "NC"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1450,7 +1450,7 @@
 			(pin input line
 				(at 0 -15.24 0)
 				(length 7.62)
-				(name "IDCLK"
+				(name "RX5/DIF0"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1466,9 +1466,9 @@
 				)
 			)
 			(pin input line
-				(at 0 -5.08 0)
+				(at 0 -78.74 0)
 				(length 7.62)
-				(name "ILRCK"
+				(name "TEST2"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1484,9 +1484,9 @@
 				)
 			)
 			(pin input line
-				(at 0 -2.54 0)
+				(at 0 -17.78 0)
 				(length 7.62)
-				(name "IBICK"
+				(name "RX6/DIF1"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1501,10 +1501,10 @@
 					)
 				)
 			)
-			(pin input line
-				(at 0 0 0)
+			(pin power_in line
+				(at 0 -91.44 0)
 				(length 7.62)
-				(name "SDTI"
+				(name "VSS1"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1520,9 +1520,9 @@
 				)
 			)
 			(pin input line
-				(at 0 -45.72 0)
+				(at 0 -20.32 0)
 				(length 7.62)
-				(name "IDIF0/CAD0"
+				(name "RX7/DIF2"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1538,9 +1538,9 @@
 				)
 			)
 			(pin input line
-				(at 0 -48.26 0)
+				(at 0 -50.8 0)
 				(length 7.62)
-				(name "IDIF1/CAD1"
+				(name "IIC"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1556,9 +1556,9 @@
 				)
 			)
 			(pin input line
-				(at 0 -50.8 0)
+				(at 0 -55.88 0)
 				(length 7.62)
-				(name "IDIF2"
+				(name "PSN"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1566,6 +1566,24 @@
 					)
 				)
 				(number "9"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 0 -63.5 0)
+				(length 7.62)
+				(name "XTL0"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "10"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1592,6 +1610,24 @@
 				)
 			)
 			(pin input line
+				(at 0 -66.04 0)
+				(length 7.62)
+				(name "XTL1"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "11"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
 				(at 53.34 -58.42 180)
 				(length 7.62)
 				(name "TEST0"
@@ -1602,6 +1638,24 @@
 					)
 				)
 				(number "11"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin output line
+				(at 0 -25.4 0)
+				(length 7.62)
+				(name "GP0"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "12"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1627,28 +1681,10 @@
 					)
 				)
 			)
-			(pin input line
-				(at 0 -22.86 0)
-				(length 7.62)
-				(name "I2C"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-				(number "13"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-			)
-			(pin input line
+			(pin output line
 				(at 0 -27.94 0)
 				(length 7.62)
-				(name "PDN"
+				(name "GP1"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1663,10 +1699,10 @@
 					)
 				)
 			)
-			(pin input line
-				(at 0 -20.32 0)
+			(pin output line
+				(at 0 -30.48 0)
 				(length 7.62)
-				(name "PSN"
+				(name "GP2"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1682,9 +1718,9 @@
 				)
 			)
 			(pin output line
-				(at 0 -38.1 0)
+				(at 0 -33.02 0)
 				(length 7.62)
-				(name "CDTO"
+				(name "GP3"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1699,10 +1735,10 @@
 					)
 				)
 			)
-			(pin bidirectional line
-				(at 0 -33.02 0)
+			(pin output line
+				(at 0 -35.56 0)
 				(length 7.62)
-				(name "SDA/SDTI/SLOW"
+				(name "GP4"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1718,9 +1754,9 @@
 				)
 			)
 			(pin output line
-				(at 0 -35.56 0)
+				(at 0 -38.1 0)
 				(length 7.62)
-				(name "SCL/CCLK/SD"
+				(name "GP5"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1738,7 +1774,7 @@
 			(pin input line
 				(at 0 -40.64 0)
 				(length 7.62)
-				(name "CSN/MUTE"
+				(name "GP6"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1754,9 +1790,27 @@
 				)
 			)
 			(pin input line
-				(at 0 -58.42 0)
+				(at 0 -43.18 0)
 				(length 7.62)
-				(name "ODIF1"
+				(name "GP6"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "19"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 0 -45.72 0)
+				(length 7.62)
+				(name "GP7"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1771,28 +1825,10 @@
 					)
 				)
 			)
-			(pin input line
-				(at 0 -55.88 0)
+			(pin power_in line
+				(at 0 -93.98 0)
 				(length 7.62)
-				(name "ODIF0"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-				(number "21"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-			)
-			(pin input line
-				(at 0 -63.5 0)
-				(length 7.62)
-				(name "DITHER"
+				(name "VSS2"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1800,24 +1836,6 @@
 					)
 				)
 				(number "22"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-			)
-			(pin input line
-				(at 0 -68.58 0)
-				(length 7.62)
-				(name "SMSEMI"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-				(number "23"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -1836,42 +1854,6 @@
 					)
 				)
 				(number "24"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-			)
-			(pin input line
-				(at 0 -73.66 0)
-				(length 7.62)
-				(name "SMT1"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-				(number "25"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-			)
-			(pin input line
-				(at 0 -71.12 0)
-				(length 7.62)
-				(name "SMT0"
-					(effects
-						(font
-							(size 1.4986 1.4986)
-						)
-					)
-				)
-				(number "26"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -2005,6 +1987,24 @@
 					)
 				)
 			)
+			(pin output line
+				(at 0 -58.42 0)
+				(length 7.62)
+				(name "INT1"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "37"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
 			(pin input line
 				(at 53.34 -53.34 180)
 				(length 7.62)
@@ -2034,6 +2034,24 @@
 					)
 				)
 				(number "38"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 0 -71.12 0)
+				(length 7.62)
+				(name "R"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "39"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -2077,6 +2095,24 @@
 					)
 				)
 			)
+			(pin power_in line
+				(at 0 -96.52 0)
+				(length 7.62)
+				(name "VSS3"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "41"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
 			(pin input line
 				(at 53.34 -20.32 180)
 				(length 7.62)
@@ -2088,6 +2124,24 @@
 					)
 				)
 				(number "41"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 0 0 0)
+				(length 7.62)
+				(name "RX0"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "42"
 					(effects
 						(font
 							(size 1.4986 1.4986)
@@ -2113,6 +2167,114 @@
 					)
 				)
 			)
+			(pin input line
+				(at 0 -86.36 0)
+				(length 7.62)
+				(name "NC2"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "43"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 0 -2.54 0)
+				(length 7.62)
+				(name "RX1"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "44"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 0 -76.2 0)
+				(length 7.62)
+				(name "TEST1"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "45"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 0 -5.08 0)
+				(length 7.62)
+				(name "RX2"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "46"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 0 -7.62 0)
+				(length 7.62)
+				(name "RX2"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "46"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 -99.06 0)
+				(length 7.62)
+				(name "VSS4"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "47"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
 			(pin passive line
 				(at 53.34 -71.12 180)
 				(length 7.62)
@@ -2124,6 +2286,24 @@
 					)
 				)
 				(number "47"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 0 -10.16 0)
+				(length 7.62)
+				(name "RX3"
+					(effects
+						(font
+							(size 1.4986 1.4986)
+						)
+					)
+				)
+				(number "48"
 					(effects
 						(font
 							(size 1.4986 1.4986)
