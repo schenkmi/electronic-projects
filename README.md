@@ -3,6 +3,15 @@
 
 # History
 
+## 2026.04.25
+
+
+### spdif-recv-ak4118-ak4137/kicad/v1
+Finalize and ordered
+
+### pre-amp-26A7/kicad/v2
+Finalize and ordered
+
 ## 2026.03.29
 
 ### pre-amp-26A7/kicad/v1
