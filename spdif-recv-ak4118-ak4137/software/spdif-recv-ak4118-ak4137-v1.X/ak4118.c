@@ -284,3 +284,5 @@ void cs8416_set_output(CS8416_t* instance, int output) {
     val |= ((output & 0x07) << SPDIF_TXSEL0);
     cs8416_write(SPDIF_CONTROL4, val);
 }
+
+
