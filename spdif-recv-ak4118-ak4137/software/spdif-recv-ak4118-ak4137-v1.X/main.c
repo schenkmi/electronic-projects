@@ -118,7 +118,7 @@ static void init(volatile Instance_t* instance)
     LED_D4_SetLow();
     
     /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
-            LED_D5_SetHigh();
+    LED_D5_SetHigh();
     __delay_ms(500);
     LED_D5_SetLow();
 
@@ -226,6 +226,8 @@ int main(void)
     
     /* IRQs need to be enabled for I2C */
     init(&instance);
+    
+    printf("Hello\r\n");
 
     while (1) {
       process_channel(&instance);

@@ -1,19 +1,16 @@
 /**
- * System Driver Source File
+ * UART Generated Driver Interface Header File
  * 
- * @file system.c
+ * @file uart_types.h
  * 
- * @ingroup systemdriver
+ * @defgroup uart_types UART_TYPES
  * 
- * @brief This file contains the API implementation for the System driver.
+ * @brief This file contains the enumeration of different Universal Asynchronous Receiver and Transmitter (UART) baud rates.
  *
- * @version Driver Version 1.0.2
- *
- * @version Package Version 1.0.2
+ * @version UART Driver Version 3.0.3
 */
-
 /*
-? [2026] Microchip Technology Inc. and its subsidiaries.
+© [2026] Microchip Technology Inc. and its subsidiaries.
 
     Subject to your compliance with these terms, you may use Microchip 
     software and any derivatives exclusively with Microchip products. 
@@ -33,16 +30,53 @@
     THIS SOFTWARE.
 */
 
-#include "../system.h"
+#ifndef UART_TYPES_H
+#define	UART_TYPES_H
+
+/**
+  Section: Included Files
+*/
+#include <stdbool.h>
+#include <stdint.h>
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
+   
+/**
+  Section: Data Type Definitions
+*/ 
+      
+/**
+@ingroup uartdriver
+@enum UART_STANDARD_BAUDS
+@brief This Enum can be used to set the UART standard
+baud rates using \ref UARTx_BRGSet function e.g. \ref UART1_BRGSet.
+*/
+/* cppcheck-suppress misra-c2012-2.4 */
+enum UART_STANDARD_BAUDS{
+UART_110 = 0,
+UART_300 = 1,
+UART_600 = 2,
+UART_1200 = 3,
+UART_2400 = 4,
+UART_4800 = 5,
+UART_9600 = 6,
+UART_14400 = 7,
+UART_19200 = 8,
+UART_38400 = 9,
+UART_57600 = 10,
+UART_115200 = 11,
+UART_230400 = 12,
+UART_460800 = 13,
+UART_921600 = 14,
+};
 
 
-void SYSTEM_Initialize(void)
-{
-    CLOCK_Initialize();
-    PIN_MANAGER_Initialize();
-    I2C1_Initialize();
-    TMR0_Initialize();
-    EUSART1_Initialize();
-    INTERRUPT_Initialize();
+#ifdef	__cplusplus
 }
+#endif
+
+#endif	/* UART_TYPES_H */
 
