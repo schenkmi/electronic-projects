@@ -1,6 +1,6 @@
 /**
  * PIC16F18056 based async sample rate converter
- * for CS8416 / AK4137
+ * for AK4118 / AK4137
  *
  * Copyright (c) 2024-2025, Michael Schenk
  * All Rights Reserved
@@ -47,7 +47,7 @@
 
 #include "mcc_generated_files/system/system.h"
 #include "rotary_encoder.h"
-#include "cs8416.h"
+#include "ak4118.h"
 #include "ak4137.h"
 #include "pcm1792a.h"
 
@@ -85,9 +85,8 @@ volatile Instance_t instance = {
   },
 };
 
-CS8416_t cs8416 = {
-    .output_format = CS_I2S,
-    .output_word_length = CS_OWL24Bit,
+AK4118_t ak4118 = {
+    .data_format = AK4118_I2S,
 };
 
 AK4137_t ak4137 = {
@@ -134,7 +133,7 @@ static void init(volatile Instance_t* instance)
     RESET_SetHigh();
     __delay_ms(10);
 
-    cs8416_init(&cs8416);
+    ak4118_init(&ak4118);
 
     ak4137_init(&ak4137);
     
@@ -188,7 +187,7 @@ static void process_channel(volatile Instance_t* instance)
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
-    cs8416_set_input(&cs8416, instance->channel);
+    //cs8416_set_input(&cs8416, instance->channel);
 
     instance->last_channel = instance->channel;
     instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;

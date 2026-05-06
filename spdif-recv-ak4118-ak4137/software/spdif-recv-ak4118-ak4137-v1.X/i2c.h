@@ -1,6 +1,6 @@
 /**
  * PIC16F18056 based async sample rate converter
- * for CS8416 / AK4137
+ * for AK4118 / AK4137
  *
  * Copyright (c) 2024-2024, Michael Schenk
  * All Rights Reserved
