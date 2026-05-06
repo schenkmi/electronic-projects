@@ -1,6 +1,6 @@
 /**
  * PIC16F18056 based async sample rate converter
- * for CS8416 / AK4137
+ * for AK4118 / AK4137
  *
  * Copyright (c) 2024-2025, Michael Schenk
  * All Rights Reserved
@@ -37,30 +37,22 @@
 extern "C" {
 #endif
 
-enum CS8416OutputFormat {
-    CS_MSB = 0, /* Left justified (MSB justified) */
-    CS_LSB = 1, /* Right justified (LSB justified) */
-    CS_I2S = 2, /* I2S format */
+/**
+ * TBD
+ */
+enum AK4118AudioDataFormat {
+    AK4118_I2S = 1, /* I2S format */
+
 };
 
-/**
- * Output world length enum
- */
-enum CS8416OutputWordLength {
-    CS_OWL24Bit = 0,
-    CS_OWL20Bit = 1,
-    CS_OWL16Bit = 2,
-    CS_OWLDirect = 3,
-};
 
 typedef struct {
-    enum CS8416OutputFormat output_format;
-    enum CS8416OutputWordLength output_word_length;
-} CS8416_t;
+    enum AK4118AudioDataFormat data_format;
+} AK4118_t;
 
-void cs8416_init(CS8416_t* instance);
-void cs8416_set_input(CS8416_t* instance, int input);
-void cs8416_set_output(CS8416_t* instance, int output);
+void ak4118_init(AK4118_t* instance);
+//void cs8416_set_input(CS8416_t* instance, int input);
+//void cs8416_set_output(CS8416_t* instance, int output);
 
 #ifdef	__cplusplus
 }
