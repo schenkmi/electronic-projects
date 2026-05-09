@@ -96,31 +96,48 @@ typedef struct {
 
 
         
+//static const reg_default ak4118_reg_defaults[] = {
+//	{AK4118_REG_CLK_PWR_CTL,	0x4f /*0x43*/}, // 0100 1111 /*0100 0011*/ CM1=0, CM0=0, OCKS1=1, OCKS0=1
+//	{AK4118_REG_FORMAT_CTL,		0x7a}, // 0111 1010
+//	{AK4118_REG_IO_CTL0,		0x00 /*0x88*/},
+//	{AK4118_REG_IO_CTL1,		0x48},
+//	{AK4118_REG_INT0_MASK,		0xee},
+//	{AK4118_REG_INT1_MASK,		0xb5},
+//	{AK4118_REG_RCV_STATUS0,	0x00},
+//	{AK4118_REG_RCV_STATUS1,	0x10},
+//	{AK4118_REG_TXCHAN_STATUS0,	0x00},
+//	{AK4118_REG_TXCHAN_STATUS1,	0x00},
+//	{AK4118_REG_TXCHAN_STATUS2,	0x00},
+//	{AK4118_REG_TXCHAN_STATUS3,	0x00},
+//	{AK4118_REG_TXCHAN_STATUS4,	0x00},
+//	{AK4118_REG_GPE,		0x77},
+//	{AK4118_REG_GPDR,		0x00},
+//	{AK4118_REG_GPSCR,		0x00},
+//	{AK4118_REG_GPLR,		0x00},
+//	{AK4118_REG_DAT_MASK_DTS,	0x3f},
+//	{AK4118_REG_RX_DETECT,		0x00},
+//	{AK4118_REG_STC_DAT_DETECT,	0x00},
+//	{AK4118_REG_TXCHAN_STATUS5,	0x00},
+//};
+
 static const reg_default ak4118_reg_defaults[] = {
-	{AK4118_REG_CLK_PWR_CTL,	0x4f /*0x43*/}, // 0100 1111 /*0100 0011*/ CM1=0, CM0=0, OCKS1=1, OCKS0=1
-	{AK4118_REG_FORMAT_CTL,		0x7a}, // 0111 1010
-	{AK4118_REG_IO_CTL0,		0x00 /*0x88*/},
-	{AK4118_REG_IO_CTL1,		0x48},
-	{AK4118_REG_INT0_MASK,		0xee},
-	{AK4118_REG_INT1_MASK,		0xb5},
-	{AK4118_REG_RCV_STATUS0,	0x00},
-	{AK4118_REG_RCV_STATUS1,	0x10},
-	{AK4118_REG_TXCHAN_STATUS0,	0x00},
-	{AK4118_REG_TXCHAN_STATUS1,	0x00},
-	{AK4118_REG_TXCHAN_STATUS2,	0x00},
-	{AK4118_REG_TXCHAN_STATUS3,	0x00},
-	{AK4118_REG_TXCHAN_STATUS4,	0x00},
-	{AK4118_REG_GPE,		0x77},
-	{AK4118_REG_GPDR,		0x00},
-	{AK4118_REG_GPSCR,		0x00},
-	{AK4118_REG_GPLR,		0x00},
-	{AK4118_REG_DAT_MASK_DTS,	0x3f},
-	{AK4118_REG_RX_DETECT,		0x00},
-	{AK4118_REG_STC_DAT_DETECT,	0x00},
-	{AK4118_REG_TXCHAN_STATUS5,	0x00},
+	{0x00,	0x63 /*0x4f*/ /*0x43*/}, // 0100 1111 /*0100 0011*/ CM1=0, CM0=0, OCKS1=1, OCKS0=1
+	{0x01,		0x4A}, // 0100 1010
+	{0x02,		0x88 /*0x88*/},
+	{0x03,		0x48},
+	{0x04,		0xee},
+	{0x05,		0xb5},
+
+	{0x20,		0x77},
+	{0x21,		0x00},
+	{0x22,		0x00},
+	{0x23,		0x00},
+	{0x24,	0x3f},
+	{0x25,		0xff /*0x00*/},
+	{0x26,	0x03 /*0x00*/},
+	{0x28,	0x20 /*0x00*/},
+
 };
-
-
 
 static AK4118_t* ak4118_instance = NULL;
 
@@ -171,4 +188,20 @@ void cs8416_set_output(CS8416_t* instance, int output) {
     cs8416_write(SPDIF_CONTROL4, val);
 }
 #endif
+#include "mcc_generated_files/system/system.h"
+void ak4118_print_samplerate(void) {
+    uint8_t sr = ak4118_read(AK4118_REG_RCV_STATUS1 /*0x07*/);
+    printf("SR 0x%02x\r\n",sr);
+    
+}
+
+
+void ak4118_print_spdif_status(void) { // read status register
+
+  uint8_t status = ak4118_read(AK4118_REG_RCV_STATUS0 /*0x06*/);
+
+  printf("Status 0x%02x\r\n",status);
+  
+
+}
 

@@ -90,7 +90,7 @@ AK4118_t ak4118 = {
 };
 
 AK4137_t ak4137 = {
-    .input_format = AK_I2S32or16Bit,
+    .input_format = AK_LSB24Bit, //AK_I2S32or16Bit,
     .digital_filter = AK_ShortDelaySharpRollOff,
     .output_format = AK_I2S,
     .output_sampling_frequency = AK_FS384kHz, 
@@ -234,6 +234,8 @@ int main(void)
       process_attenuation(&instance);
       process_encoder_button(&instance);
       eeprom_save_status(&instance);
-      __delay_ms(MAIN_LOOP_WAIT);
+      __delay_ms(1000 /*MAIN_LOOP_WAIT*/);
+      ak4118_print_samplerate();
+      ak4118_print_spdif_status();
     } 
 }
