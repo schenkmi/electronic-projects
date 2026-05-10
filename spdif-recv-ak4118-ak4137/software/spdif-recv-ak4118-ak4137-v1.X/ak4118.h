@@ -2,7 +2,7 @@
  * PIC16F18056 based async sample rate converter
  * for AK4118 / AK4137
  *
- * Copyright (c) 2024-2025, Michael Schenk
+ * Copyright (c) 2026-2026, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -38,13 +38,16 @@ extern "C" {
 #endif
 
 /**
- * TBD
+ * Audio Serial Interface Format DIF[2..0]
  */
-enum AK4118AudioDataFormat {
-    AK4118_I2S = 1, /* I2S format */
-
+enum AK4118AudioDataOutputFormat {
+    AK4118_16Bit_Right = 0, /* SDTO 16bit, Right justified */
+    AK4118_18Bit_Right = 1, /* SDTO 18bit, Right justified */
+    AK4118_20Bit_Right = 2, /* SDTO 20bit, Right justified */
+    AK4118_24Bit_Right = 3, /* SDTO 24bit, Right justified */
+    AK4118_24Bit_Left = 4,  /* SDTO 24bit, Left justified  */
+    AK4118_I2S = 5,         /* SDTO 24bit, I2S             */
 };
-
 
 typedef struct {
     uint8_t input;
@@ -53,7 +56,7 @@ typedef struct {
 } PreviousRegisters_t;
 
 typedef struct {
-    enum AK4118AudioDataFormat data_format;
+    enum AK4118AudioDataOutputFormat data_format;
     PreviousRegisters_t previous;
 } AK4118_t;
 
