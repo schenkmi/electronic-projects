@@ -6,6 +6,9 @@
 
 ## 2026.05.10
 
+### spdif-recv-cs8416-ak4137/kicad/v7
+Improved power supply, I2S debug, Serial console
+
 ### spdif-recv-ak4118-ak4137/kicad/v2
 Small redesign
 
