@@ -58,11 +58,11 @@ typedef struct {
 } AK4118_t;
 
 void ak4118_init(AK4118_t* instance);
-//void cs8416_set_input(CS8416_t* instance, int input);
-//void cs8416_set_output(CS8416_t* instance, int output);
-
+void ak4118_set_input(int input);
 void ak4118_print_samplerate(void);
 void ak4118_print_spdif_status(void);
+void ak4118_print_input(void);
+
 #ifdef	__cplusplus
 }
 #endif

@@ -114,19 +114,15 @@ static void init(volatile Instance_t* instance)
     LED_D3_SetHigh();
     __delay_ms(500);
     LED_D3_SetLow();
-        LED_D4_SetHigh();
+    LED_D4_SetHigh();
     __delay_ms(500);
-    
     LED_D4_SetLow();
-    
     /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
     LED_D5_SetHigh();
     __delay_ms(500);
     LED_D5_SetLow();
 
-    
-    
-    
+    /* configure AK4137 pins which are read during reset of AK4137 */
     ak4137_preinit(&ak4137);
     
     __delay_ms(100);
@@ -136,9 +132,7 @@ static void init(volatile Instance_t* instance)
     __delay_ms(10);
 
     ak4118_init(&ak4118);
-
     ak4137_init(&ak4137);
-    
 #ifdef __USE_PCM1792A__
     pcm1792a_init(&pcm1792a);
 #endif
@@ -189,7 +183,7 @@ static void process_channel(volatile Instance_t* instance)
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
-    //cs8416_set_input(&cs8416, instance->channel);
+    ak4118_set_input(instance->channel);
 
     instance->last_channel = instance->channel;
     instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
@@ -237,6 +231,7 @@ int main(void)
       process_encoder_button(&instance);
       eeprom_save_status(&instance);
       __delay_ms(1000 /*MAIN_LOOP_WAIT*/);
+      ak4118_print_input();
       ak4118_print_samplerate();
       ak4118_print_spdif_status();
     } 
