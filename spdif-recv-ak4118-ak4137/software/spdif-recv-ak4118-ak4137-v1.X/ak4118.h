@@ -47,7 +47,14 @@ enum AK4118AudioDataFormat {
 
 
 typedef struct {
+    uint8_t input;
+    uint8_t sampling_rate;
+    uint8_t status_register;
+} PreviousRegisters_t;
+
+typedef struct {
     enum AK4118AudioDataFormat data_format;
+    PreviousRegisters_t previous;
 } AK4118_t;
 
 void ak4118_init(AK4118_t* instance);

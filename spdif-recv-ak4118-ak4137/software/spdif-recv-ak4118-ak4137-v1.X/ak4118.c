@@ -122,7 +122,7 @@ typedef struct {
 
 static const reg_default ak4118_reg_defaults[] = {
 	{0x00,	0x63 /*0x4f*/ /*0x43*/}, // 0100 1111 /*0100 0011*/ CM1=0, CM0=0, OCKS1=1, OCKS0=1
-	{0x01,		0x4A}, // 0100 1010
+	{0x01,		0x5A}, // 0101 1010
 	{0x02,		0x88 /*0x88*/},
 	{0x03,		0x48},
 	{0x04,		0xee},
@@ -190,18 +190,62 @@ void cs8416_set_output(CS8416_t* instance, int output) {
 #endif
 #include "mcc_generated_files/system/system.h"
 void ak4118_print_samplerate(void) {
-    uint8_t sr = ak4118_read(AK4118_REG_RCV_STATUS1 /*0x07*/);
-    printf("SR 0x%02x\r\n",sr);
+    if (ak4118_instance) {
+        uint8_t sample_rate = (ak4118_read(AK4118_REG_RCV_STATUS1 /*0x07*/) & 0xf0);
+        if (sample_rate != ak4118_instance->previous.sampling_rate) {
+            printf("Sampling rate : ");
+            switch (sample_rate) {
+                case 0x10:
+                  printf("Reserved\r\n");
+                  break;
+                case 0x00:
+                  printf("44.1KHz\r\n");
+                  break;
+                case 0x20:
+                  printf("48KHz\r\n");
+                  break;
+                case 0x80:
+                  printf("88.2KHz\r\n");
+                  break;
+                case 0xa0:
+                  printf("96KHz\r\n");
+                  break;
+                case 0xc0:
+                  printf("176.4KHz\r\n");
+                  break;
+                case 0xe0:
+                  printf("192KHz\r\n");
+                  break;
+
+
+            }
+
+            ak4118_instance->previous.sampling_rate = sample_rate;
+        }
+    }
     
 }
 
 
 void ak4118_print_spdif_status(void) { // read status register
+    if (ak4118_instance) {
+        uint8_t status = ak4118_read(AK4118_REG_RCV_STATUS0 /*0x06*/);
+        if (status != ak4118_instance->previous.status_register) {
+            printf("Status : \r\n");
+            printf("Parity Error or Biphase Error Status: %s\r\n", (status & 0x01) ? "Error" : "No Error");   
+            printf("Audio Bit Output: %s\r\n", (status & 0x02) ? "Non Audio" : "Audio");  
+            printf("Pre-emphasis Detect: %s\r\n", (status & 0x04) ? "ON" : "OFF");  
+            printf("DTS-CD Auto Detect: %s\r\n", (status & 0x08) ? "Detect" : "No detect"); 
+            printf("PLL Lock Status: %s\r\n", (status & 0x10) ? "Unlocked" : "Locked"); 
+            printf("Channel Status Buffer Interrupt: %s\r\n", (status & 0x20) ? "Changed" : "No change"); 
+            printf("Non-PCM Auto Detect: %s\r\n", (status & 0x40) ? "Detect" : "No detect"); 
+            printf("Q-subcode Buffer Interrupt: %s\r\n", (status & 0x80) ? "Changed" : "No change"); 
+            ak4118_instance->previous.status_register = status;
 
-  uint8_t status = ak4118_read(AK4118_REG_RCV_STATUS0 /*0x06*/);
-
-  printf("Status 0x%02x\r\n",status);
-  
+        }
+        
+    }
+    
 
 }
 
