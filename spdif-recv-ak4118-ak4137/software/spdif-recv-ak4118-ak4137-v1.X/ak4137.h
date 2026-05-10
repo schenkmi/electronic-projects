@@ -2,7 +2,7 @@
  * PIC16F18056 based async sample rate converter
  * for AK4118 / AK4137
  *
- * Copyright (c) 2024-2025, Michael Schenk
+ * Copyright (c) 2024-2026, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk

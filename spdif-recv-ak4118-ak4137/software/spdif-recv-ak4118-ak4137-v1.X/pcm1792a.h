@@ -3,7 +3,7 @@
  * for TI/BB SRC4392/SRC4382
  * PCM1792A
  *
- * Copyright (c) 2021-2024, Michael Schenk
+ * Copyright (c) 2021-2026, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk

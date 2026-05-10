@@ -2,7 +2,7 @@
  * PIC16F18056 based async sample rate converter
  * for AK4118 / AK4137
  *
- * Copyright (c) 2024-2024, Michael Schenk
+ * Copyright (c) 2026-2026, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -36,12 +36,14 @@
 #include "mcc_generated_files/system/system.h"
 #include <stddef.h>
 
-#define AK4118_I2C_SLAVE_ADDR 0x10
+#define AK4118_I2C_SLAVE_ADDR       0x10
 
 #define AK4118_REG_CLK_PWR_CTL		0x00
 #define AK4118_REG_FORMAT_CTL		0x01
-#define AK4118_REG_IO_CTL0		0x02
-#define AK4118_REG_IO_CTL1		0x03
+#define AK4118_REG_FORMAT_CTL_DIF0	4
+#define AK4118_REG_IO_CTL0		    0x02
+#define AK4118_REG_IO_CTL1		    0x03
+#define AK4118_IPS0                 0
 #define AK4118_REG_INT0_MASK		0x04
 #define AK4118_REG_INT1_MASK		0x05
 #define AK4118_REG_RCV_STATUS0		0x06
@@ -60,83 +62,49 @@
 #define AK4118_REG_BURST_PREAMB_PC1	0x13
 #define AK4118_REG_BURST_PREAMB_PD0	0x14
 #define AK4118_REG_BURST_PREAMB_PD1	0x15
-#define AK4118_REG_QSUB_CTL		0x16
+#define AK4118_REG_QSUB_CTL		    0x16
 #define AK4118_REG_QSUB_TRACK		0x17
 #define AK4118_REG_QSUB_INDEX		0x18
-#define AK4118_REG_QSUB_MIN		0x19
-#define AK4118_REG_QSUB_SEC		0x1a
+#define AK4118_REG_QSUB_MIN		    0x19
+#define AK4118_REG_QSUB_SEC		    0x1a
 #define AK4118_REG_QSUB_FRAME		0x1b
 #define AK4118_REG_QSUB_ZERO		0x1c
 #define AK4118_REG_QSUB_ABS_MIN		0x1d
 #define AK4118_REG_QSUB_ABS_SEC		0x1e
 #define AK4118_REG_QSUB_ABS_FRAME	0x1f
-#define AK4118_REG_GPE			0x20
-#define AK4118_REG_GPDR			0x21
-#define AK4118_REG_GPSCR		0x22
-#define AK4118_REG_GPLR			0x23
+#define AK4118_REG_GPE			    0x20
+#define AK4118_REG_GPDR			    0x21
+#define AK4118_REG_GPSCR		    0x22
+#define AK4118_REG_GPLR			    0x23
 #define AK4118_REG_DAT_MASK_DTS		0x24
 #define AK4118_REG_RX_DETECT		0x25
 #define AK4118_REG_STC_DAT_DETECT	0x26
 #define AK4118_REG_RXCHAN_STATUS5	0x27
 #define AK4118_REG_TXCHAN_STATUS5	0x28
-#define AK4118_REG_MAX			0x29
-
-#define AK4118_REG_FORMAT_CTL_DIF0	(1 << 4)
-#define AK4118_REG_FORMAT_CTL_DIF1	(1 << 5)
-#define AK4118_REG_FORMAT_CTL_DIF2	(1 << 6)
-
+#define AK4118_REG_MAX			    0x29
 
 #define ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
 typedef struct {
     uint8_t reg;
     uint8_t val;
-} reg_default;
+} RegisterDefault_t;
 
-
-
-        
-//static const reg_default ak4118_reg_defaults[] = {
-//	{AK4118_REG_CLK_PWR_CTL,	0x4f /*0x43*/}, // 0100 1111 /*0100 0011*/ CM1=0, CM0=0, OCKS1=1, OCKS0=1
-//	{AK4118_REG_FORMAT_CTL,		0x7a}, // 0111 1010
-//	{AK4118_REG_IO_CTL0,		0x00 /*0x88*/},
-//	{AK4118_REG_IO_CTL1,		0x48},
-//	{AK4118_REG_INT0_MASK,		0xee},
-//	{AK4118_REG_INT1_MASK,		0xb5},
-//	{AK4118_REG_RCV_STATUS0,	0x00},
-//	{AK4118_REG_RCV_STATUS1,	0x10},
-//	{AK4118_REG_TXCHAN_STATUS0,	0x00},
-//	{AK4118_REG_TXCHAN_STATUS1,	0x00},
-//	{AK4118_REG_TXCHAN_STATUS2,	0x00},
-//	{AK4118_REG_TXCHAN_STATUS3,	0x00},
-//	{AK4118_REG_TXCHAN_STATUS4,	0x00},
-//	{AK4118_REG_GPE,		0x77},
-//	{AK4118_REG_GPDR,		0x00},
-//	{AK4118_REG_GPSCR,		0x00},
-//	{AK4118_REG_GPLR,		0x00},
-//	{AK4118_REG_DAT_MASK_DTS,	0x3f},
-//	{AK4118_REG_RX_DETECT,		0x00},
-//	{AK4118_REG_STC_DAT_DETECT,	0x00},
-//	{AK4118_REG_TXCHAN_STATUS5,	0x00},
-//};
-
-static const reg_default ak4118_reg_defaults[] = {
-	{0x00,	0x63 /*0x4f*/ /*0x43*/}, // 0100 1111 /*0100 0011*/ CM1=0, CM0=0, OCKS1=1, OCKS0=1
-	{0x01,		0x5A}, // 0101 1010
-	{0x02,		0x88 /*0x88*/},
-	{0x03,		0x48},
-	{0x04,		0xee},
-	{0x05,		0xb5},
-
-	{0x20,		0x77},
-	{0x21,		0x00},
-	{0x22,		0x00},
-	{0x23,		0x00},
-	{0x24,	0x3f},
-	{0x25,		0xff /*0x00*/},
-	{0x26,	0x03 /*0x00*/},
-	{0x28,	0x20 /*0x00*/},
-
+static const RegisterDefault_t ak4118_reg_defaults[] = {
+	{AK4118_REG_CLK_PWR_CTL,    0x63}, // 0100 1111 CM1=0, CM0=0, OCKS1=1, OCKS0=1
+	{AK4118_REG_FORMAT_CTL,     0x5A}, // 0101 1010
+	{AK4118_REG_IO_CTL0,        0x88},
+	{AK4118_REG_IO_CTL1,        0x48},
+	{AK4118_REG_INT0_MASK,      0xee},
+	{AK4118_REG_INT1_MASK,      0xb5},
+	{AK4118_REG_GPE,            0x77},
+	{AK4118_REG_GPDR,           0x00},
+	{AK4118_REG_GPSCR,          0x00},
+	{AK4118_REG_GPLR,           0x00},
+	{AK4118_REG_DAT_MASK_DTS,   0x3f},
+	{AK4118_REG_RX_DETECT,      0xff},
+	{AK4118_REG_STC_DAT_DETECT, 0x03},
+	{AK4118_REG_TXCHAN_STATUS5, 0x20},
 };
 
 static AK4118_t* ak4118_instance = NULL;
@@ -152,20 +120,28 @@ static void ak4118_write(uint8_t reg, uint8_t val) {
     I2C1_Write1ByteRegister(AK4118_I2C_SLAVE_ADDR, reg, val);
 }
 
+/* Initialize AK4118 */
 void ak4118_init(AK4118_t* instance) {
     ak4118_instance = instance;
 
     for(uint8_t cnt = 0; cnt < ARRAY_SIZE(ak4118_reg_defaults); cnt++) {
-        ak4118_write(ak4118_reg_defaults[cnt].reg, ak4118_reg_defaults[cnt].val);   
+        RegisterDefault_t reg_def = ak4118_reg_defaults[cnt];
+
+        if (reg_def.reg == AK4118_REG_FORMAT_CTL) {
+            reg_def.val &= ~(0x07 << AK4118_REG_FORMAT_CTL_DIF0);
+            reg_def.val |= ((instance->data_format & 0x07) << AK4118_REG_FORMAT_CTL_DIF0);
+        }
+
+        ak4118_write(reg_def.reg, reg_def.val);   
     }
 }
 
 /* select input */
 void ak4118_set_input(int input) {
     // IPS2[2..0] : input
-    uint8_t val = ak4118_read(AK4118_REG_IO_CTL1);
-    val &= ~(0x07);
-    val |= (input & 0x07);
+    uint8_t val = ak4118_read(AK4118_REG_IO_CTL1);   
+    val &= ~(0x07 << AK4118_IPS0);
+    val |= ((input & 0x07) << AK4118_IPS0);
     ak4118_write(AK4118_REG_IO_CTL1, val);
 }
 
