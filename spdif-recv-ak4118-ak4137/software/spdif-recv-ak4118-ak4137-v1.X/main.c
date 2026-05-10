@@ -87,10 +87,12 @@ volatile Instance_t instance = {
 
 AK4118_t ak4118 = {
     .data_format = AK4118_I2S,
+    .previous = { .input = 0xff, .sampling_rate = 0xff, .status_register = 0xff },
+
 };
 
 AK4137_t ak4137 = {
-    .input_format = AK_LSB24Bit, //AK_I2S32or16Bit,
+    .input_format = AK_I2S32or16Bit,//AK_LSB24Bit,//AK_LSB24Bit,//AK_I2S32or16Bit,
     .digital_filter = AK_ShortDelaySharpRollOff,
     .output_format = AK_I2S,
     .output_sampling_frequency = AK_FS384kHz, 
