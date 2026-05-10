@@ -33,7 +33,7 @@
 
 #include "i2c.h"
 #include "ak4118.h"
-
+#include "mcc_generated_files/system/system.h"
 #include <stddef.h>
 
 #define AK4118_I2C_SLAVE_ADDR 0x10
@@ -153,42 +153,23 @@ static void ak4118_write(uint8_t reg, uint8_t val) {
 }
 
 void ak4118_init(AK4118_t* instance) {
-    uint8_t reg = 0x00;
-    
     ak4118_instance = instance;
 
     for(uint8_t cnt = 0; cnt < ARRAY_SIZE(ak4118_reg_defaults); cnt++) {
-        ak4118_write(ak4118_reg_defaults[cnt].reg, ak4118_reg_defaults[cnt].val);
-        
+        ak4118_write(ak4118_reg_defaults[cnt].reg, ak4118_reg_defaults[cnt].val);   
     }
-    
-    
 }
 
-#if 0
-void cs8416_set_input(CS8416_t* instance, int input) {
-    // RUN[7] : 1
-    // RXD[6] : 0
-    // RXSEL[5..3] : input
-    // TXSEL[2..0] : 0
-    uint8_t val = cs8416_read(SPDIF_CONTROL4);
-    val &= ~(0x07 << SPDIF_RXSEL0);
-    val |= ((input & 0x07) << SPDIF_RXSEL0);
-    cs8416_write(SPDIF_CONTROL4, val);
+/* select input */
+void ak4118_set_input(int input) {
+    // IPS2[2..0] : input
+    uint8_t val = ak4118_read(AK4118_REG_IO_CTL1);
+    val &= ~(0x07);
+    val |= (input & 0x07);
+    ak4118_write(AK4118_REG_IO_CTL1, val);
 }
 
-void cs8416_set_output(CS8416_t* instance, int output) {
-    // RUN[7] : 1
-    // RXD[6] : 0
-    // RXSEL[5..3] : input
-    // TXSEL[2..0] : 0
-    uint8_t val = cs8416_read(SPDIF_CONTROL4);
-    val &= ~(0x07 << SPDIF_TXSEL0);
-    val |= ((output & 0x07) << SPDIF_TXSEL0);
-    cs8416_write(SPDIF_CONTROL4, val);
-}
-#endif
-#include "mcc_generated_files/system/system.h"
+/* print samplrate */
 void ak4118_print_samplerate(void) {
     if (ak4118_instance) {
         uint8_t sample_rate = (ak4118_read(AK4118_REG_RCV_STATUS1 /*0x07*/) & 0xf0);
@@ -216,18 +197,15 @@ void ak4118_print_samplerate(void) {
                 case 0xe0:
                   printf("192KHz\r\n");
                   break;
-
-
             }
 
             ak4118_instance->previous.sampling_rate = sample_rate;
         }
     }
-    
 }
 
-
-void ak4118_print_spdif_status(void) { // read status register
+/* print SPDIF status */
+void ak4118_print_spdif_status(void) {
     if (ak4118_instance) {
         uint8_t status = ak4118_read(AK4118_REG_RCV_STATUS0 /*0x06*/);
         if (status != ak4118_instance->previous.status_register) {
@@ -239,13 +217,21 @@ void ak4118_print_spdif_status(void) { // read status register
             printf("PLL Lock Status: %s\r\n", (status & 0x10) ? "Unlocked" : "Locked"); 
             printf("Channel Status Buffer Interrupt: %s\r\n", (status & 0x20) ? "Changed" : "No change"); 
             printf("Non-PCM Auto Detect: %s\r\n", (status & 0x40) ? "Detect" : "No detect"); 
-            printf("Q-subcode Buffer Interrupt: %s\r\n", (status & 0x80) ? "Changed" : "No change"); 
+            printf("Q-subcode Buffer Interrupt: %s\r\n", (status & 0x80) ? "Changed" : "No change");
+
             ak4118_instance->previous.status_register = status;
-
-        }
-        
+        }  
     }
-    
-
 }
 
+/* print selexted input */
+void ak4118_print_input(void) {
+    if (ak4118_instance) {
+        uint8_t input = ak4118_read(AK4118_REG_IO_CTL1) & 0x07;
+        if (input != ak4118_instance->previous.input) {
+            printf("Using input : RX%u\r\n", input);
+
+            ak4118_instance->previous.input = input;
+        }  
+    }
+}
