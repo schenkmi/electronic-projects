@@ -4,6 +4,13 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="irmp" projectFiles="true">
+        <itemPath>irmp/irmp.h</itemPath>
+        <itemPath>irmp/irmpconfig.h</itemPath>
+        <itemPath>irmp/irmpextlog.h</itemPath>
+        <itemPath>irmp/irmpprotocols.h</itemPath>
+        <itemPath>irmp/irmpsystem.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
                      projectFiles="true">
@@ -23,6 +30,8 @@
         <logicalFolder name="timer" displayName="timer" projectFiles="true">
           <itemPath>mcc_generated_files/timer/tmr0.h</itemPath>
           <itemPath>mcc_generated_files/timer/tmr2.h</itemPath>
+          <itemPath>mcc_generated_files/timer/tmr2_deprecated.h</itemPath>
+          <itemPath>mcc_generated_files/timer/tmr0_deprecated.h</itemPath>
         </logicalFolder>
         <logicalFolder name="uart" displayName="uart" projectFiles="true">
           <itemPath>mcc_generated_files/uart/uart_types.h</itemPath>
@@ -35,6 +44,8 @@
       <itemPath>ak4137.h</itemPath>
       <itemPath>pcm1792a.h</itemPath>
       <itemPath>ak4118.h</itemPath>
+      <itemPath>irq_routines.h</itemPath>
+      <itemPath>definitions.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -49,6 +60,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f1" displayName="irmp" projectFiles="true">
+        <itemPath>irmp/irmp.c</itemPath>
+        <itemPath>irmp/irmpextlog.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="MCC Generated Files"
                      displayName="MCC Generated Files"
                      projectFiles="true">
@@ -84,10 +99,12 @@
       <itemPath>ak4137.c</itemPath>
       <itemPath>pcm1792a.c</itemPath>
       <itemPath>ak4118.c</itemPath>
+      <itemPath>irq_routines.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
     <Elem>mcc_generated_files/timer</Elem>
+    <Elem>irmp</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
