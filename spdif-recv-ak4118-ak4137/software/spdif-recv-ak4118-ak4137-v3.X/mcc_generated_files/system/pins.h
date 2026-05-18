@@ -410,6 +410,25 @@
 #define ENC1_SWITCH_SetOpenDrain()       do { ODCONCbits.ODCC2 = 1; } while(0)
 #define ENC1_SWITCH_SetAnalogMode()      do { ANSELCbits.ANSC2 = 1; } while(0)
 #define ENC1_SWITCH_SetDigitalMode()     do { ANSELCbits.ANSC2 = 0; } while(0)
+// get/set IO_RC3 aliases
+#define IRIN_TRIS                 TRISCbits.TRISC3
+#define IRIN_LAT                  LATCbits.LATC3
+#define IRIN_PORT                 PORTCbits.RC3
+#define IRIN_WPU                  WPUCbits.WPUC3
+#define IRIN_OD                   ODCONCbits.ODCC3
+#define IRIN_ANS                  ANSELCbits.ANSC3
+#define IRIN_SetHigh()            do { LATCbits.LATC3 = 1; } while(0)
+#define IRIN_SetLow()             do { LATCbits.LATC3 = 0; } while(0)
+#define IRIN_Toggle()             do { LATCbits.LATC3 = ~LATCbits.LATC3; } while(0)
+#define IRIN_GetValue()           PORTCbits.RC3
+#define IRIN_SetDigitalInput()    do { TRISCbits.TRISC3 = 1; } while(0)
+#define IRIN_SetDigitalOutput()   do { TRISCbits.TRISC3 = 0; } while(0)
+#define IRIN_SetPullup()          do { WPUCbits.WPUC3 = 1; } while(0)
+#define IRIN_ResetPullup()        do { WPUCbits.WPUC3 = 0; } while(0)
+#define IRIN_SetPushPull()        do { ODCONCbits.ODCC3 = 0; } while(0)
+#define IRIN_SetOpenDrain()       do { ODCONCbits.ODCC3 = 1; } while(0)
+#define IRIN_SetAnalogMode()      do { ANSELCbits.ANSC3 = 1; } while(0)
+#define IRIN_SetDigitalMode()     do { ANSELCbits.ANSC3 = 0; } while(0)
 // get/set IO_RC6 aliases
 #define IO_RC6_TRIS                 TRISCbits.TRISC6
 #define IO_RC6_LAT                  LATCbits.LATC6

@@ -46,6 +46,7 @@
 #include "../system/clock.h"
 #include "../i2c_host/mssp1.h"
 #include "../timer/tmr0.h"
+#include "../timer/tmr2.h"
 
 /**
  * @ingroup systemdriver

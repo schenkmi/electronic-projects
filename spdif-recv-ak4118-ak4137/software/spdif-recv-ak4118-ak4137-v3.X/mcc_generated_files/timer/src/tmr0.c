@@ -7,9 +7,9 @@
  * 
  * @brief  Driver implementation for the TMR0 driver
  *
- * @version TMR0 Driver Version 3.0.0
+ * @version TMR0 Driver Version 3.0.1
  *
- * @version Package Version 5.1.1
+ * @version Package Version 5.1.2
 */
 /*
 ? [2026] Microchip Technology Inc. and its subsidiaries.
@@ -56,6 +56,8 @@ void TMR0_Initialize(void)
     PIR0bits.TMR0IF = (uint8_t)0U;	   
     PIE0bits.TMR0IE = (uint8_t)1U;	
 
+    
+    
     T0CON0 = (uint8_t)((0 << _T0CON0_T0OUTPS_POSN)   // T0OUTPS 1:1
         | (1 << _T0CON0_T0EN_POSN)   // T0EN enabled
         | (0 << _T0CON0_T0MD16_POSN));  // T0MD16 8-bit

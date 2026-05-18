@@ -42,6 +42,7 @@ void SYSTEM_Initialize(void)
     PIN_MANAGER_Initialize();
     I2C1_Initialize();
     TMR0_Initialize();
+    TMR2_Initialize();
     EUSART1_Initialize();
     INTERRUPT_Initialize();
 }

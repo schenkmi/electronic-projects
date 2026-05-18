@@ -3,14 +3,14 @@
  *
  * @file i2c_host_event_types.h
  *
- * @ingroup i2c_host_interrupt
+ * @defgroup i2c_host_events I2C_HOST_EVENTS
  *
  * @brief This header file contains helper structures for the implementation of 
  *        the I2C host driver.
  *
- * @version I2C1 Driver Version 2.1.3
+ * @version I2C Driver Version 2.1.4
  * 
- * @version I2C1 Package Version 7.0.4
+ * @version I2C Package Version 7.0.5
  */
 
 /*
@@ -39,10 +39,8 @@
 
 #include "i2c_host_types.h"
 
-#define I2C_EVENTS    (9)
-
 /**
- * @ingroup i2c_host_interrupt
+ * @ingroup i2c_host_events
  * @enum i2c_host_event_states_t
  * @brief Enumeration representing the states of host events.
  */
@@ -60,7 +58,7 @@ typedef enum
 } i2c_host_event_states_t; 
 
 /**
- * @ingroup i2c_host_interrupt
+ * @ingroup i2c_host_events
  * @struct i2c_host_event_status_t
  * @brief Structure that defines the parameters for an I2C host.
  */
@@ -76,10 +74,5 @@ typedef struct
     i2c_host_error_t errorState; /**< An instance of i2c_host_error_t */
     i2c_host_event_states_t state; /**< An instance of i2c_host_event_states_t */
 } i2c_host_event_status_t;
-
-typedef i2c_host_event_states_t (*i2c1eventHandler)(void);
-
-extern volatile i2c_host_event_status_t i2c1Status;
-extern const i2c1eventHandler i2c1_eventTable[I2C_EVENTS];
 
 #endif /* I2C_EVENT_TYPES_H */
