@@ -40,9 +40,8 @@
 
 /**
  * History
- * V3.0     2025.04.09 PCM1704 drop
- * V1.1     2024.06.05 PCM1702 drop
- * V1.0     2024.04.21 Start develop
+ * V3.0     2026.05.18 Improved with IR
+ * V1.0     2026.05.01 First working version
  */
 
 //#include "mcc_generated_files/system/system.h"
