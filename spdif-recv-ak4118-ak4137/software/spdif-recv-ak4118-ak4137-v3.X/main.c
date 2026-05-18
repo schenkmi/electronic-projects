@@ -45,11 +45,23 @@
  * V1.0     2024.04.21 Start develop
  */
 
-#include "mcc_generated_files/system/system.h"
-#include "rotary_encoder.h"
+//#include "mcc_generated_files/system/system.h"
+//#include "rotary_encoder.h"
+//#include "definitions.h"
+//#include "ak4118.h"
+//#include "ak4137.h"
+//#include "pcm1792a.h"
+
+
+
+
+#include "definitions.h"
+#include "irq_routines.h"
+#include "control_routines.h"
 #include "ak4118.h"
 #include "ak4137.h"
 #include "pcm1792a.h"
+
 
 //#define __USE_PCM1792A__
 //#define __USE_PCM1702__
@@ -67,21 +79,31 @@ __EEPROM_DATA(ROTARY_MIN_ATTENUATION /* channel 0 attenuation initial */,
 
 
 volatile Instance_t instance = {
-  .mode = Single, .channel = -1, .last_channel = -1,
+  .mode = Single,
+  .save_mode = { SaveOnLongPress /* Volume */ , SaveOnLongPress /* Channel */ },
+  .save_action = NoSaveAction,
+  .save_countdown_counter = -1,
+  .channel = -1, .last_channel = -1,
   .attenuation = -1, .last_attenuation = -1,
-  .eeprom_save_status_counter = -1,
   .channel_attenuation = {
-    { .default_attenuation = ROTARY_MIN_ATTENUATION, .attenuation = -1 },
-    { .default_attenuation = ROTARY_MIN_ATTENUATION, .attenuation = -1 },
-    { .default_attenuation = ROTARY_MIN_ATTENUATION, .attenuation = -1 },
-    { .default_attenuation = ROTARY_MIN_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
   },
-  .control =  Channel,
+  .control =  Volume,
+  .ms_counter = 0,
   .encoder = {
-    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0,
-      .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
-    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0,
-      .encoder_push_debounce_counter = 0, .encoder_push_counter = 0, .encoder_push_action = 0  },
+    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
+      .button = {
+        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, 
+       }, 
+    },
+    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
+      .button = {
+        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, 
+       }, 
+    },
   },
 };
 
@@ -108,93 +130,14 @@ PCM1792A_t pcm1792a = {
 };
 #endif
 
-static void init(volatile Instance_t* instance)
-{
-    LED_D3_SetHigh();
-    __delay_ms(500);
-    LED_D3_SetLow();
-    LED_D4_SetHigh();
-    __delay_ms(500);
-    LED_D4_SetLow();
-    /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
-    LED_D5_SetHigh();
-    __delay_ms(500);
-    LED_D5_SetLow();
 
-    /* configure AK4137 pins which are read during reset of AK4137 */
-    ak4137_preinit(&ak4137);
-    
-    __delay_ms(100);
-    RESET_SetLow();
-    __delay_ms(100);
-    RESET_SetHigh();
-    __delay_ms(10);
 
-    ak4118_init(&ak4118);
-    ak4137_init(&ak4137);
-#ifdef __USE_PCM1792A__
-    pcm1792a_init(&pcm1792a);
-#endif
 
-    /* read last used channel, channels attenuation will be handler inside process_channel() */
-    instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
-
-    /* read default attenuation for each channel and assign to channel attenuation */
-    for (uint8_t cnt = 0; cnt <= ROTARY_MAX_CHANNEL; cnt++) {
-        instance->channel_attenuation[cnt].attenuation = instance->channel_attenuation[cnt].default_attenuation = eeprom_read(cnt);
-    }
-}
-
-/* Factory reset */
-static void factory_reset() {
-    if (ENC1_SWITCH_GetValue() == 0) {
-        while(ENC1_SWITCH_GetValue() == 0) {
-            __delay_ms(100);  
-        }
-
-        for (int cnt = 0; cnt < 10; cnt++) {
-            /* LED on */
-            LED_D3_SetHigh();
-             __delay_ms(250);  
-            /* LED off */
-            LED_D3_SetLow();
-            __delay_ms(250);  
-        }
-
-        eeprom_write(0x00, ROTARY_MIN_ATTENUATION);
-        eeprom_write(0x01, ROTARY_MIN_ATTENUATION);
-        eeprom_write(0x02, ROTARY_MIN_ATTENUATION);
-        eeprom_write(0x03, ROTARY_MIN_ATTENUATION);
-        eeprom_write(0x04, ROTARY_MIN_CHANNEL);
-    }
-}
-
-void test_timer_callback(void) {   
-    LED_D5_Toggle();
-}
 
 /* channel selection relay are on RB0...RB3 */
-static void process_channel(volatile Instance_t* instance)
-{
-  if (instance->channel != instance->last_channel)  {
-    if (instance->last_channel != -1) {
-      /* store current used attenuation on channel */
-      instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
-    }
 
-    ak4118_set_input(instance->channel);
-
-    instance->last_channel = instance->channel;
-    instance->eeprom_save_status_counter = EEPROM_SAVE_STATUS_VALUE;
-  }
-}
 
 /* attenuator relay are on RA0...RA5 */
-static void process_attenuation(volatile Instance_t* instance) {
-  if (instance->attenuation != instance->last_attenuation) {
-      instance->last_attenuation = instance->attenuation;
-  }
-}
 
 /**
  * Main application
@@ -209,8 +152,10 @@ int main(void)
     factory_reset();
 
     /* install irq handlers */
-    TMR0_PeriodMatchCallbackRegister(rotary_encoder_timer_callback);
+    TMR0_PeriodMatchCallbackRegister(encoder_timer_callback);
  
+    TMR2_PeriodMatchCallbackRegister(ir_timer_callback);
+    
     /* Enable the Global Interrupts */
     INTERRUPT_GlobalInterruptEnable();
 
@@ -222,13 +167,22 @@ int main(void)
     /* IRQs need to be enabled for I2C */
     init(&instance);
     
+      irmp_init();
+    irmp_set_callback_ptr(led_callback);
+  
     //printf("Hello\r\n");
 
+    
     while (1) {
-      process_channel(&instance);
-      process_attenuation(&instance);
-      process_encoder_button(&instance);
-      eeprom_save_status(&instance);
+
+      
+      process_ir(&instance);
+    process_channel(&instance);
+    process_attenuation(&instance);
+    process_encoder_button(&instance);
+    eeprom_save_status(&instance);
+      
+      
 #if 1
       __delay_ms(MAIN_LOOP_WAIT);
 #else
