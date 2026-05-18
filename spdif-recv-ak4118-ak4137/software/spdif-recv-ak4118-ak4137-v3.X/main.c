@@ -148,21 +148,21 @@ int main(void)
 
     __delay_ms(STARTUP_WAIT);  
     
-    /* if rotary enc board not connected, don't call this */
-    factory_reset();
+  /* weak pull-up so safe to call without connected rotary board */
+  factory_reset();
 
     /* install irq handlers */
     TMR0_PeriodMatchCallbackRegister(encoder_timer_callback);
  
     TMR2_PeriodMatchCallbackRegister(ir_timer_callback);
     
-    /* Enable the Global Interrupts */
-    INTERRUPT_GlobalInterruptEnable();
+  /* Enable the Global Interrupts */
+  INTERRUPT_GlobalInterruptEnable();
 
-    /* Enable the Peripheral Interrupts */
-    INTERRUPT_PeripheralInterruptEnable();
+  /* Enable the Peripheral Interrupts */
+  INTERRUPT_PeripheralInterruptEnable();
 
-    TMR0_Start();
+
     
     /* IRQs need to be enabled for I2C */
     init(&instance);
