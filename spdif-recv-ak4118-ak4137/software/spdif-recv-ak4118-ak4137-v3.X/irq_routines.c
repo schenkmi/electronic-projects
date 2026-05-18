@@ -146,7 +146,7 @@ void encoder_timer_callback(void) {
 #endif
   if (instance.mode == Dual) {
     /* both encoders are used encoder1 for attenuation, encoder2 for channel */
-    timer_callback_process_dual();
+    //timer_callback_process_dual();
   } else {
     /* single encoder for both attenuation and channel */
     timer_callback_process_single();
