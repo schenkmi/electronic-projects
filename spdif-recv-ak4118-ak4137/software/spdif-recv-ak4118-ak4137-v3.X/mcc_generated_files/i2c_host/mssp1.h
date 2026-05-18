@@ -8,9 +8,9 @@
  * @brief This header file includes API prototypes and various data types for 
  *        the I2C1 host driver.
  *
- * @version I2C1 Driver Version 2.1.3
+ * @version I2C1 Driver Version 2.1.4
  * 
- * @version I2C1 Package Version 7.0.4
+ * @version I2C1 Package Version 7.0.5
  */
 
 /*

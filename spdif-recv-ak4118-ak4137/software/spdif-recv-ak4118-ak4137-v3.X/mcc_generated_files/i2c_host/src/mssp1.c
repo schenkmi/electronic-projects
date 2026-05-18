@@ -7,9 +7,9 @@
  *
  * @brief This file contains the API implementation for the I2C1 driver.
  *
- * @version I2C1 Driver Version 2.1.3
+ * @version I2C1 Driver Version 2.1.4
  * 
- * @version I2C1 Package Version 7.0.4
+ * @version I2C1 Package Version 7.0.5
  */
 
 /*
@@ -66,9 +66,10 @@ const i2c_host_interface_t I2C1_Host = {
 };
 
 static void (*I2C1_Callback)(void) = NULL;
-volatile i2c_host_event_status_t i2c1Status = {0};
+static volatile i2c_host_event_status_t i2c1Status = {0};
 
-const i2c1eventHandler i2c1_eventTable[] = {
+typedef i2c_host_event_states_t (*i2c1eventHandler)(void);
+static const i2c1eventHandler i2c1_eventTable[] = {
     I2C1_EVENT_IDLE,
     I2C1_EVENT_SEND_RD_ADDR,
     I2C1_EVENT_SEND_WR_ADDR,
@@ -290,7 +291,7 @@ static i2c_host_event_states_t I2C1_EVENT_TX(void)
     }
     else
     {
-        if (i2c1Status.switchToRead)
+        if (0U != i2c1Status.switchToRead)
         {
             i2c1Status.switchToRead = false;
             SSP1CON2bits.RSEN = 1;
