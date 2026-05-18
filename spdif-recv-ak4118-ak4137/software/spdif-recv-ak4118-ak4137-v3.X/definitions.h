@@ -1,7 +1,8 @@
 /**
- * PIC16F18056 based input channel selection + attenuator
+ * PIC16F18056 based async sample rate converter
+ * for AK4118 / AK4137
  *
- * Copyright (c) 2025-2025, Michael Schenk
+ * Copyright (c) 2025-2026, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
