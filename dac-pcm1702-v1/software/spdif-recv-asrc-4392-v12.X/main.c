@@ -40,25 +40,16 @@
 
 /**
  * History
- * V3.0     2026.05.18 Improved with IR
- * V1.0     2026.05.01 First working version
+ * V12.0    2026.05.18 Improved with IR
+ * V7.0     2025.05.04 Using PIC16F18056-I/SS MPLAB-X 6.25
  */
-
-//#include "mcc_generated_files/system/system.h"
-//#include "rotary_encoder.h"
-//#include "definitions.h"
-//#include "ak4118.h"
-//#include "ak4137.h"
-//#include "pcm1792a.h"
-
-
-
 
 #include "definitions.h"
 #include "irq_routines.h"
 #include "control_routines.h"
 #include "ak4118.h"
 #include "ak4137.h"
+#include "src4392.h"
 #include "pcm1792a.h"
 
 
@@ -104,6 +95,18 @@ volatile Instance_t instance = {
        }, 
     },
   },
+};
+
+
+SRC4392_t src4392 = {
+    .deemphases = DeEmphasisAuto,
+    .digital_audio_interface_transmitter = DITUpsample,
+    .upsample_rate = UpsamplingTo192kHz,
+#ifdef __USE_PCM1702__
+    .output_word_length = OWL20Bit,
+#else
+    .output_word_length = OWL24Bit,
+#endif
 };
 
 AK4118_t ak4118 = {
