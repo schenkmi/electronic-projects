@@ -33,13 +33,14 @@
 
 #include "definitions.h"
 
-
+#include "src4392.h"
 #include "ak4118.h"
 #include "ak4137.h"
 #include "pcm1792a.h"
 
 extern AK4118_t ak4118;
 extern AK4137_t ak4137;
+extern SRC4392_t src4392;
 
 void led_toggel(void) {
 //  LED_Toggle();
@@ -67,7 +68,7 @@ void init(volatile Instance_t* instance) {
     LED_D5_SetLow();
 
     /* configure AK4137 pins which are read during reset of AK4137 */
-    ak4137_preinit(&ak4137);
+    //ak4137_preinit(&ak4137);
     
     __delay_ms(100);
     RESET_SetLow();
@@ -75,8 +76,12 @@ void init(volatile Instance_t* instance) {
     RESET_SetHigh();
     __delay_ms(10);
 
-    ak4118_init(&ak4118);
-    ak4137_init(&ak4137);
+    //ak4118_init(&ak4118);
+    //ak4137_init(&ak4137);
+    
+    
+    src4392_init(&src4392);
+    
 #ifdef __USE_PCM1792A__
     pcm1792a_init(&pcm1792a);
 #endif
@@ -133,7 +138,8 @@ void process_channel(volatile Instance_t* instance) {
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
-    ak4118_set_input(instance->channel);
+    //ak4118_set_input(instance->channel);
+    src4392_set_input( instance->channel);
 
         /* no save on first start (e.g last_channel == -1) */
     if (instance->last_channel != -1) {
