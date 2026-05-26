@@ -38,6 +38,9 @@ uint8_t  I2C1_Read1ByteRegister(uint16_t address, uint8_t reg) {
     bool i2c_status;
     uint8_t value;
 
+    /* wait for free I2C bus */
+    while (I2C1_IsBusy());
+
     i2c_status = I2C1_WriteRead(address, &reg, 1, &value, 1);
     if (i2c_status) {
         while (I2C1_IsBusy());
@@ -51,13 +54,12 @@ void I2C1_Write1ByteRegister(uint16_t address, uint8_t reg, uint8_t data) {
     bool i2c_status;
     uint8_t blob[2] = { reg, data};
     
+    /* wait for free I2C bus */
     while (I2C1_IsBusy());
     
     i2c_status = I2C1_Write(address, blob, (sizeof(blob) / sizeof(blob[0])));
     if (i2c_status) {
         while (I2C1_IsBusy());
     }
-    
-  //  __delay_ms(1);
 }
 
