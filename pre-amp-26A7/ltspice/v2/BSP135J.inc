@@ -1,0 +1,2 @@
+.model BSP135J VDMOS (Rg=5 Vto=-0.90 Kp=0.38 Lambda=0m Rs=3.5 Ksubthres=0.1 Mtriode=0.8 Rd=40 Bex=-1.9 Vtotc=-0.8m Tksubthres1=1m Trs1=3m Trd1=3m Cgdmax=200p Cgdmin=3p a=0.7 Cgs=60p Cjo=150p m=0.75 VJ=0.75 IS=10p N=1.2 Eg=1.12 Rb=1 Vds=600 Ron=60 mfg=InfIH2008)
+.model BSP135N VDMOS (Rg=5 Vto=-1.65 Kp=0.38 Lambda=0m Rs=3.5 Ksubthres=0.1 Mtriode=0.8 Rd=40 Bex=-1.9 Vtotc=-0.8m Tksubthres1=1m Trs1=3m Trd1=3m Cgdmax=200p Cgdmin=3p a=0.7 Cgs=60p Cjo=150p m=0.75 VJ=0.75 IS=10p N=1.2 Eg=1.12 Rb=1 Vds=600 Ron=60 mfg=InfIH2008)
