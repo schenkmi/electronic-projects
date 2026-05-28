@@ -3,6 +3,30 @@
 
 # History
 
+## 2026.05.28
+
+### dac-pcm1702-v1/kicad-asrc-v13
+PCB re-design with fixed LED ordering
+
+
+## 2026.05.27
+
+### pre-amp-26A7/ltspice/v2/
+New CCS simulation with smaller FETs
+
+
+## 2026.05.26
+
+### dac-pcm1702-v1/software/spdif-recv-asrc-4392-v12.X
+New software for SPDIF ASRC receiver including UART and IR
+
+## 2026.05.16
+
+### dac-pcm1702-v1/kicad-asrc-v12
+PSU re-design, UART for debugging, I2C debugging, IR
+
+### spdif-recv-ak4118-ak4137/kicad/v3
+Add IR support
 
 ## 2026.05.10
 
