@@ -34,12 +34,18 @@
 
 #include <stdbool.h>
 
+#include "project_configuration.h"
+
 #pragma once
+
+#ifdef __USE_SRC4392__
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
+
+    
 /**
  * DIT routing mode enum
  */
@@ -107,3 +113,5 @@ void src4392_test();
 #ifdef	__cplusplus
 }
 #endif
+
+#endif /* __USE_SRC4392__ */

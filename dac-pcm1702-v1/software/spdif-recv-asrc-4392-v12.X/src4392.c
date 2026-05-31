@@ -32,12 +32,14 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-#include "i2c.h"
 #include "src4392.h"
-//#include <stdint.h>
+
+#ifdef __USE_SRC4392__
+
+#include "i2c.h"
 #include <stddef.h>
 
-#include "project_configuration.h"
+
 
 // Page 38 
 #define SRC4392_I2C_SLAVE_ADDR              SRC4392_I2C_ADDR   /* 1110000 R(1) or /W(0) => 0xe0 write, 0xe1 read */
@@ -527,4 +529,4 @@ void src4392_test() {
     uint8_t	val = src4392_read(SRC_REG2D);
 }
 
-
+#endif /* __USE_SRC4392__ */
