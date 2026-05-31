@@ -32,13 +32,19 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-#include <stdbool.h>
 
-#include "project_configuration.h"
+
 
 #pragma once
 
+
+#include "project_configuration.h"
+
+
+
 #ifdef __USE_SRC4392__
+
+#include <stdbool.h>
 
 #ifdef	__cplusplus
 extern "C" {
