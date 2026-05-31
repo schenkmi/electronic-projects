@@ -31,6 +31,7 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+#include "project_configuration.h"
 #include "definitions.h"
 
 #include "src4392.h"
@@ -67,21 +68,26 @@ void init(volatile Instance_t* instance) {
     __delay_ms(500);
     LED_D5_SetLow();
 
+#ifdef __USE_AK4137__
     /* configure AK4137 pins which are read during reset of AK4137 */
-    //ak4137_preinit(&ak4137);
-    
+    ak4137_preinit(&ak4137);
+#endif
+
     __delay_ms(100);
     RESET_SetLow();
     __delay_ms(100);
     RESET_SetHigh();
     __delay_ms(10);
 
-    //ak4118_init(&ak4118);
-    //ak4137_init(&ak4137);
-    
-    
+#ifdef __USE_AK4118__
+    ak4118_init(&ak4118);
+#endif
+#ifdef __USE_AK4137__
+    ak4137_init(&ak4137);
+#endif
+#ifdef __USE_SRC4392__
     src4392_init(&src4392);
-    
+#endif
 #ifdef __USE_PCM1792A__
     pcm1792a_init(&pcm1792a);
 #endif
@@ -138,9 +144,14 @@ void process_channel(volatile Instance_t* instance) {
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
-    //ak4118_set_input(instance->channel);
+#ifdef __USE_AK4118__
+    ak4118_set_input(instance->channel);
+#endif
+    
+#ifdef __USE_SRC4392__
     src4392_set_input( instance->channel);
-
+#endif
+    
         /* no save on first start (e.g last_channel == -1) */
     if (instance->last_channel != -1) {
       if (instance->save_mode[Volume] == SaveOnChange) {    
