@@ -36,8 +36,12 @@
 /* I2C addresses */
 #define SRC4392_I2C_ADDR              0x70   /* 1110000 R(1) or /W(0) => 0xe0 write, 0xe1 read */
 
+#define PCM1792A_I2C_ADDR     0x4c /* 1001100 R(1) or /W(0) => 0x98 write, 0x99 read */
+
+
 /* Functions */
 #define __USE_SRC4392__
 //#define __USE_AK4118__
 //#define __USE_AK4137__
 //#define __USE_IR__
+//#define __USE_PCM1792A__
