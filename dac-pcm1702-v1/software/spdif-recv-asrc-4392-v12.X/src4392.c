@@ -37,9 +37,10 @@
 //#include <stdint.h>
 #include <stddef.h>
 
+#include "project_configuration.h"
 
 // Page 38 
-#define SRC4392_I2C_SLAVE_ADDR              0x70   /* 1110000 R(1) or /W(0) => 0xe0 write, 0xe1 read */
+#define SRC4392_I2C_SLAVE_ADDR              SRC4392_I2C_ADDR   /* 1110000 R(1) or /W(0) => 0xe0 write, 0xe1 read */
 
 
 // SRC4392 control/status registers
