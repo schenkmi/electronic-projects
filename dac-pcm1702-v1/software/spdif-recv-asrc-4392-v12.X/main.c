@@ -164,9 +164,9 @@ int main(void)
 
     /* install irq handlers */
     TMR0_PeriodMatchCallbackRegister(encoder_timer_callback);
- 
+ #if __USE_IR__
     TMR2_PeriodMatchCallbackRegister(ir_timer_callback);
-    
+#endif
   /* Enable the Global Interrupts */
   INTERRUPT_GlobalInterruptEnable();
 
