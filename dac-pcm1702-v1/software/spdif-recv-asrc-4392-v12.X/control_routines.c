@@ -139,6 +139,8 @@ void process_attenuation(volatile Instance_t* instance) {
     //configure_attenuation(attenuation);
     
     instance->last_attenuation = instance->attenuation;
+    
+     printf("attenuation %u\r\n", attenuation);
   }
 }
 
@@ -150,6 +152,8 @@ void process_channel(volatile Instance_t* instance) {
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
+     printf("channel %u\r\n", instance->channel);
+    
 #ifdef __USE_AK4118__
     ak4118_set_input(instance->channel);
 #endif
@@ -249,6 +253,13 @@ void process_encoder_button(volatile Instance_t* instance) {
     if (instance->encoder[Combined].button.press != NoPress) {
       switch (instance->encoder[Combined].button.press) {
         case SinglePress:
+            
+            if (instance->control == Volume) {
+                 instance->control = Channel;
+            } else if (instance->control == Channel) {
+                instance->control = Volume;
+            }
+            
           break;
         case DoublePress:
           break;
