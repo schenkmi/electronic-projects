@@ -44,6 +44,8 @@
  * V7.0     2025.05.04 Using PIC16F18056-I/SS MPLAB-X 6.25
  */
 
+#include "project_configuration.h"
+
 #include "definitions.h"
 #include "irq_routines.h"
 #include "control_routines.h"
@@ -97,7 +99,7 @@ volatile Instance_t instance = {
   },
 };
 
-
+#ifdef __USE_SRC4392__
 SRC4392_t src4392 = {
     .deemphases = DeEmphasisAuto,
     .digital_audio_interface_transmitter = DITUpsample,
@@ -108,12 +110,17 @@ SRC4392_t src4392 = {
     .output_word_length = OWL24Bit,
 #endif
 };
+#endif
 
+
+#ifdef __USE_AK4118__
 AK4118_t ak4118 = {
     .data_format = AK4118_24Bit_Right,
     .previous = { .input = 0xff, .sampling_rate = 0xff, .status_register = 0xff },
 };
+#endif
 
+#ifdef __USE_AK4137__
 AK4137_t ak4137 = {
     .input_format = AK_LSB24Bit,
     .digital_filter = AK_ShortDelaySharpRollOff,
@@ -125,6 +132,8 @@ AK4137_t ak4137 = {
     .output_word_length = AK_OWL24Bit,
 #endif
 };
+
+#endif
 
 #ifdef __USE_PCM1792A__
 PCM1792A_t pcm1792a = {
@@ -169,16 +178,19 @@ int main(void)
     /* IRQs need to be enabled for I2C */
     init(&instance);
     
+#if __USE_IR__
       irmp_init();
     irmp_set_callback_ptr(led_callback);
+#endif
   
     //printf("Hello\r\n");
 
     
     while (1) {
 
-      
+#if __USE_IR__
       process_ir(&instance);
+#endif
     process_channel(&instance);
     process_attenuation(&instance);
     process_encoder_button(&instance);
