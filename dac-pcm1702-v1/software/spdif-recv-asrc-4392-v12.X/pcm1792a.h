@@ -34,6 +34,10 @@
 
 #pragma once
 
+#include "project_configuration.h"
+
+#ifdef __USE_PCM1792A__
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -53,3 +57,5 @@ void pcm1792a_set_attenuation(int right, int left);
 #ifdef	__cplusplus
 }
 #endif
+
+#endif /* __USE_PCM1792A__ */
