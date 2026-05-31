@@ -39,9 +39,15 @@
 #include "ak4137.h"
 #include "pcm1792a.h"
 
+#ifdef __USE_AK4118__
 extern AK4118_t ak4118;
+#endif
+#ifdef __USE_AK4137__
 extern AK4137_t ak4137;
+#endif
+#ifdef __USE_SRC4392__
 extern SRC4392_t src4392;
+#endif
 
 void led_toggel(void) {
 //  LED_Toggle();
