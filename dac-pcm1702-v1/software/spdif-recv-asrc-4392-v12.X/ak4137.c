@@ -53,7 +53,9 @@ static AK4137_t* ak4137_instance = NULL;
 /* Read one byte from the AK4137 via I2C */
 static uint8_t ak4137_instance_read(uint8_t reg)
 {
-  return I2C1_Read1ByteRegister(AK4137_I2C_SLAVE_ADDR, reg); 
+    uint8_t data;
+    I2C1_Read1ByteRegister(AK4137_I2C_SLAVE_ADDR, reg, &data); 
+    return data;
 }
 
 /* Write one byte to the AK4137 via I2C */

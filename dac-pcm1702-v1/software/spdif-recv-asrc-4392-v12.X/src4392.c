@@ -106,7 +106,9 @@ static SRC4392_t* src4392_instance = NULL;
 // Read one byte from the SRC4392
 static uint8_t src4392_read(uint8_t reg)
 {
-  return I2C1_Read1ByteRegister(SRC4392_I2C_SLAVE_ADDR, reg); 
+    uint8_t data;
+    I2C1_Read1ByteRegister(SRC4392_I2C_SLAVE_ADDR, reg, &data); 
+    return data;
 }
 
 
