@@ -48,6 +48,10 @@ extern AK4137_t ak4137;
 #ifdef __USE_SRC4392__
 extern SRC4392_t src4392;
 #endif
+#ifdef __USE_PCM1792A__
+extern PCM1792A_t pcm1792a;
+#endif
+
 
 void led_toggel(void) {
 //  LED_Toggle();
