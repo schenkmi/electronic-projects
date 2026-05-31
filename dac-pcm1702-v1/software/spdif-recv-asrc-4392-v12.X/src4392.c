@@ -488,8 +488,21 @@ void src4392_init(SRC4392_t* instance) {
 	src4392_write(SRC_REG7F, 0x00);
 	src4392_write(SRC_REG08, 0x00);
 
+#if 0
 	// Power up all blocks
 	src4392_write(SRC_REG01, 0x3f);
+#else
+    // Register 01: Power-Down and Reset
+    // [7] RESET  : 0
+    // [6] -      : 0
+    // [5] /PDALL : 1 (Not power down all)
+    // [4] /PDPA  : 1 (ON)
+    // [3] /PDPB  : 0 (OFF)
+    // [2] /PDTX  : 0 (OFF)
+    // [1] /PDRX  : 1 (ON)
+    // [0] /PDSRC : 1 (ON)
+    src4392_write(SRC_REG01, 0x33 /* 0011 0011 */);
+#endif
 
 	// Port A setup:
 	// - master with i2s data format
