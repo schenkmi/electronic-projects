@@ -183,7 +183,7 @@ int main(void)
     irmp_set_callback_ptr(led_callback);
 #endif
   
-    //printf("Hello\r\n");
+    printf("Hello\r\n");
 
     
     while (1) {
