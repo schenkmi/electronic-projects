@@ -34,6 +34,7 @@
 
 #include "mcc_generated_files/system/system.h"
 
+#if 0
 uint8_t  I2C1_Read1ByteRegister(uint16_t address, uint8_t reg) {
     bool i2c_status;
     uint8_t value;
@@ -49,7 +50,28 @@ uint8_t  I2C1_Read1ByteRegister(uint16_t address, uint8_t reg) {
         return 0;
     }
 }
+#else
+bool I2C1_Read1ByteRegister(uint16_t address, uint8_t reg, uint8_t* data) {
+    *data = 0;
+    
+    if (!I2C1_WriteRead(address, &reg, 1, data, 1)) {
+        return false;
+    }
+    
+    /* wait until transfer finishes */
+    while (I2C1_IsBusy());
+    
+    /* check for errors */
+    if (I2C1_ErrorGet() != I2C_ERROR_NONE) {
+        return false;
+    }
+    
+    return true;
+    
+}
+#endif
 
+#if 0
 void I2C1_Write1ByteRegister(uint16_t address, uint8_t reg, uint8_t data) {
     bool i2c_status;
     uint8_t blob[2] = { reg, data};
@@ -62,4 +84,23 @@ void I2C1_Write1ByteRegister(uint16_t address, uint8_t reg, uint8_t data) {
         while (I2C1_IsBusy());
     }
 }
+#else
+bool I2C1_Write1ByteRegister(uint16_t address, uint8_t reg, uint8_t data) {
+    uint8_t blob[2] = { reg, data};
+
+    if (!I2C1_Write(address, blob, (sizeof(blob) / sizeof(blob[0])))) {
+        return false;
+    }
+
+    /* wait until transfer finishes */
+    while (I2C1_IsBusy());
+    
+    /* check for errors */
+    if (I2C1_ErrorGet() != I2C_ERROR_NONE) {
+        return false;
+    }
+    
+    return true;
+}
+#endif
 

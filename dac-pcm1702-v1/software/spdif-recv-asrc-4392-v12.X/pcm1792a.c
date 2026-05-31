@@ -54,7 +54,9 @@ static PCM1792A_t* pcm1792a_instance = NULL;
 /* Read one byte from the PCM1792A via I2C */
 static uint8_t pcm1792a_read(uint8_t reg)
 {
-  return I2C1_Read1ByteRegister(PCM1792A_I2C_SLAVE_ADDR, reg); 
+    uint8_t data;
+    I2C1_Read1ByteRegister(PCM1792A_I2C_SLAVE_ADDR, reg, &data); 
+    return data;
 }
 
 /* Write one byte to the PCM1792A via I2C */
