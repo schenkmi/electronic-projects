@@ -7,9 +7,9 @@
  * 
  * @brief This file contains API prototypes and other data types for the TMR0 driver.
  *
- * @version TMR0 Driver Version 3.0.0
+ * @version TMR0 Driver Version 3.0.1
  *
- * @version Package Version 5.1.1
+ * @version Package Version 5.1.2
 */
 /*
 ? [2026] Microchip Technology Inc. and its subsidiaries.
