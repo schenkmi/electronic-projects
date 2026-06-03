@@ -33,6 +33,10 @@
 
 #pragma once
 
+#include "project_configuration.h"
+
+#ifdef __USE_AK4118__
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -69,3 +73,5 @@ void ak4118_print_input(void);
 #ifdef	__cplusplus
 }
 #endif
+
+#endif /* __USE_AK4118__ */

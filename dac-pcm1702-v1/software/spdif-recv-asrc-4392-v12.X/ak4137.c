@@ -31,9 +31,13 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+
+#include "ak4137.h"
+
+#ifdef __USE_AK4137__
+
 #include "mcc_generated_files/system/system.h"
 #include "i2c.h"
-#include "ak4137.h"
 
 #include <stddef.h>
 
@@ -176,3 +180,6 @@ void ak4137_init(AK4137_t* instance) {
   
     ak4137_instance_write(AK4137_REG_PCMCONT0, reg);   
 }
+
+#endif /* __USE_AK4137__ */
+
