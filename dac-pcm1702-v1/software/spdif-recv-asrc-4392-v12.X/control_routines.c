@@ -36,11 +36,15 @@
 
 #include "src4392.h"
 #include "ak4118.h"
+#include "cs8416.h"
 #include "ak4137.h"
 #include "pcm1792a.h"
 
 #ifdef __USE_AK4118__
 extern AK4118_t ak4118;
+#endif
+#ifdef __USE_CS8416__
+extern CS8416_t cs8416;
 #endif
 #ifdef __USE_AK4137__
 extern AK4137_t ak4137;
@@ -92,6 +96,11 @@ void init(volatile Instance_t* instance) {
 #ifdef __USE_AK4118__
     ak4118_init(&ak4118);
 #endif
+    
+#ifdef __USE_CS8416__
+    cs8416_init(&cs8416);
+#endif
+    
 #ifdef __USE_AK4137__
     ak4137_init(&ak4137);
 #endif
@@ -157,6 +166,10 @@ void process_channel(volatile Instance_t* instance) {
     }
 
      printf("channel %u\r\n", instance->channel);
+    
+#ifdef __USE_CS8416__
+    cs8416_set_input(instance->channel);
+#endif
     
 #ifdef __USE_AK4118__
     ak4118_set_input(instance->channel);

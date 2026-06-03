@@ -49,6 +49,7 @@
 #include "definitions.h"
 #include "irq_routines.h"
 #include "control_routines.h"
+#include "cs8416.h"
 #include "ak4118.h"
 #include "ak4137.h"
 #include "src4392.h"
@@ -112,6 +113,12 @@ SRC4392_t src4392 = {
 };
 #endif
 
+#ifdef __USE_CS8416__
+CS8416_t cs8416 = {
+    .output_format = CS_I2S,
+    .output_word_length = CS_OWL24Bit,
+};
+#endif
 
 #ifdef __USE_AK4118__
 AK4118_t ak4118 = {

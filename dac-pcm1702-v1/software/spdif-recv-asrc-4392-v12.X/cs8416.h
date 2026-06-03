@@ -1,8 +1,8 @@
 /**
- * PIC16F18056 based SPDIF receiver and async sample rate converter
- * for SRC4392, AK4118, AK4137
+ * PIC16F18056 based async sample rate converter
+ * for CS8416 / AK4137
  *
- * Copyright (c) 2026-2026, Michael Schenk
+ * Copyright (c) 2024-2025, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -13,7 +13,7 @@
  * of the License, or (at your option) any later version.
  *
  * OEMs, ISVs, VARs and other distributors that combine and distribute
- * commercially licensed software with Michael Schenk software
+ * commercially licensed software with Michael Schenks software
  * and do not wish to distribute the source code for the commercially
  * licensed software under version 2, or (at your option) any later
  * version, of the GNU General Public License (the "GPL") must enter
@@ -33,20 +33,41 @@
 
 #pragma once
 
-/* I2C addresses */
-#define SRC4392_I2C_ADDR        0x70    /* 1110000 R(1) or /W(0) => 0xe0 write, 0xe1 read */
-#define PCM1792A_I2C_ADDR       0x4c    /* 1001100 R(1) or /W(0) => 0x98 write, 0x99 read */
+#include "project_configuration.h"
 
-#define CS8416_I2C_ADDR     0x10 /* Page 34: [0010 AD2 AD1 AD0] added R(1) or /W(0) => 0x20 write, 0x21 read */
+#ifdef __USE_CS8416__
 
+#ifdef	__cplusplus
+extern "C" {
+#endif
 
+enum CS8416OutputFormat {
+    CS_MSB = 0, /* Left justified (MSB justified) */
+    CS_LSB = 1, /* Right justified (LSB justified) */
+    CS_I2S = 2, /* I2S format */
+};
 
+/**
+ * Output world length enum
+ */
+enum CS8416OutputWordLength {
+    CS_OWL24Bit = 0,
+    CS_OWL20Bit = 1,
+    CS_OWL16Bit = 2,
+    CS_OWLDirect = 3,
+};
 
-/* Functions */
-#define __USE_SRC4392__
-//#define __USE_AK4118__
-//#define __USE_AK4137__
-//#define __USE_CS8416__
-//#define __USE_PCM1792A__
-//#define __USE_IR__
+typedef struct {
+    enum CS8416OutputFormat output_format;
+    enum CS8416OutputWordLength output_word_length;
+} CS8416_t;
 
+void cs8416_init(CS8416_t* instance);
+void cs8416_set_input(int input);
+void cs8416_set_output(int output);
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif /* __USE_CS8416__ */
