@@ -31,8 +31,13 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-#include "i2c.h"
+
 #include "ak4118.h"
+
+#ifdef __USE_AK4118__
+
+#include "i2c.h"
+
 #include "mcc_generated_files/system/system.h"
 #include <stddef.h>
 
@@ -213,3 +218,5 @@ void ak4118_print_input(void) {
         }  
     }
 }
+
+#endif /* __USE_AK4118__ */
