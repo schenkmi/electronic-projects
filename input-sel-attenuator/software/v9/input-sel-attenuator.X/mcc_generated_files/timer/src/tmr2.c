@@ -7,9 +7,9 @@
  * 
  * @brief Driver implementation for the TMR2 module.
  *
- * @version Driver Version 4.0.1
+ * @version Driver Version 4.0.2
  *
- * @version Package Version 5.1.2
+ * @version Package Version 5.1.3
  */
 
 /*
@@ -67,6 +67,7 @@ void TMR2_Initialize(void)
     PIR1bits.TMR2IF = 0U;   
     PIE1bits.TMR2IE = 1U;
 
+    
     T2CON = (uint8_t)((4 << _T2CON_T2CKPS_POSN)   // T2CKPS 1:16
         | (1 << _T2CON_TMR2ON_POSN)   // TMR2ON on
         | (0 << _T2CON_T2OUTPS_POSN));  // T2OUTPS 1:1
