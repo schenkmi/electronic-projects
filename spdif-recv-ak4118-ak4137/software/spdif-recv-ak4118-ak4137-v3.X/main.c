@@ -62,6 +62,10 @@ __EEPROM_DATA(ROTARY_MIN_ATTENUATION /* channel 0 attenuation initial */,
               ROTARY_MIN_CHANNEL     /* channel selection initial     */,
               0xff, 0xff, 0xff);
 
+static void channel_set(int channel);
+static void attenuation_set(uint8_t attenuation);
+
+
 
 volatile Instance_t instance = {
   .mode = Single,
@@ -90,6 +94,8 @@ volatile Instance_t instance = {
        }, 
     },
   },
+  .channel_callback = channel_set,
+    .attenuation_callback = attenuation_set,
 };
 
 #ifdef __USE_SRC4392__
@@ -149,6 +155,24 @@ PCM1792A_t pcm1792a = {
 
 /* attenuator relay are on RA0...RA5 */
 
+
+void channel_set(int channel) {
+#ifdef __USE_CS8416__
+    cs8416_set_input(channel);
+#endif
+    
+#ifdef __USE_AK4118__
+    ak4118_set_input(channel);
+#endif
+    
+#ifdef __USE_SRC4392__
+    src4392_set_input(channel);
+#endif 
+}
+
+void attenuation_set(uint8_t attenuation) {
+    attenuation = attenuation;
+}
 /**
  * Main application
  */
