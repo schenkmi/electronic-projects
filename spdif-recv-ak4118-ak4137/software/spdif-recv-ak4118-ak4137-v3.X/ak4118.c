@@ -31,8 +31,13 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-#include "i2c.h"
+
 #include "ak4118.h"
+
+#ifdef __USE_AK4118__
+
+#include "i2c.h"
+
 #include "mcc_generated_files/system/system.h"
 #include <stddef.h>
 
@@ -112,7 +117,9 @@ static AK4118_t* ak4118_instance = NULL;
 /* Read one byte from the AK4118 via I2C */
 static uint8_t ak4118_read(uint8_t reg)
 {
-  return I2C1_Read1ByteRegister(AK4118_I2C_SLAVE_ADDR, reg); 
+    uint8_t data;
+    I2C1_Read1ByteRegister(AK4118_I2C_SLAVE_ADDR, reg, &data); 
+    return data;
 }
 
 /* Write one byte to the AK4118 via I2C */
@@ -211,3 +218,5 @@ void ak4118_print_input(void) {
         }  
     }
 }
+
+#endif /* __USE_AK4118__ */

@@ -31,11 +31,15 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-#include "i2c.h"
 #include "pcm1792a.h"
+
+#ifdef __USE_PCM1792A__
+
+#include "i2c.h"
+
 #include <stddef.h>
 
-#define PCM1792A_I2C_SLAVE_ADDR     0x4c /* 1001100 R(1) or /W(0) => 0x98 write, 0x99 read */
+#define PCM1792A_I2C_SLAVE_ADDR     PCM1792A_I2C_ADDR
 
 #define PCM1792A_REG16              0x10 /* 0x10 == Reg 16, Digital Attenuation Level Setting left */
 #define  PCM1792A_REG16_VALUE        0xff /* 0dB, not attenuation */
@@ -54,7 +58,9 @@ static PCM1792A_t* pcm1792a_instance = NULL;
 /* Read one byte from the PCM1792A via I2C */
 static uint8_t pcm1792a_read(uint8_t reg)
 {
-  return I2C1_Read1ByteRegister(PCM1792A_I2C_SLAVE_ADDR, reg); 
+    uint8_t data;
+    I2C1_Read1ByteRegister(PCM1792A_I2C_SLAVE_ADDR, reg, &data); 
+    return data;
 }
 
 /* Write one byte to the PCM1792A via I2C */
@@ -93,3 +99,5 @@ void pcm1792a_set_attenuation(int right, int left) {
 
     pcm1792a_write(PCM1792A_REG18, reg);
 }
+
+#endif /* __USE_PCM1792A__ */

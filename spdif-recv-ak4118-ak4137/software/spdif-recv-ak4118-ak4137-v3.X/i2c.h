@@ -33,14 +33,16 @@
 
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
+#include <stddef.h>
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
-uint8_t  I2C1_Read1ByteRegister(uint16_t address, uint8_t reg);
-void I2C1_Write1ByteRegister(uint16_t address, uint8_t reg, uint8_t data);
+bool I2C1_Read1ByteRegister(uint16_t address, uint8_t reg, uint8_t* data);
+bool I2C1_Write1ByteRegister(uint16_t address, uint8_t reg, uint8_t data);
 
 #ifdef	__cplusplus
 }

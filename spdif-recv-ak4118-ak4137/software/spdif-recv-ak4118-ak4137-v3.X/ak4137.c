@@ -31,9 +31,13 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+
+#include "ak4137.h"
+
+#ifdef __USE_AK4137__
+
 #include "mcc_generated_files/system/system.h"
 #include "i2c.h"
-#include "ak4137.h"
 
 #include <stddef.h>
 
@@ -53,7 +57,9 @@ static AK4137_t* ak4137_instance = NULL;
 /* Read one byte from the AK4137 via I2C */
 static uint8_t ak4137_instance_read(uint8_t reg)
 {
-  return I2C1_Read1ByteRegister(AK4137_I2C_SLAVE_ADDR, reg); 
+    uint8_t data;
+    I2C1_Read1ByteRegister(AK4137_I2C_SLAVE_ADDR, reg, &data); 
+    return data;
 }
 
 /* Write one byte to the AK4137 via I2C */
@@ -174,3 +180,6 @@ void ak4137_init(AK4137_t* instance) {
   
     ak4137_instance_write(AK4137_REG_PCMCONT0, reg);   
 }
+
+#endif /* __USE_AK4137__ */
+
