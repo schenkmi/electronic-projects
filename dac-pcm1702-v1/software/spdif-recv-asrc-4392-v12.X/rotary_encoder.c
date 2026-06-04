@@ -88,7 +88,22 @@ const unsigned char ttable[][4] = {
  */
 uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
   /* read CHANA and CHANB, CW => up, CCW => down */
-  uint8_t pinstate = (uint8_t)((ENC1CHANA_GetValue() << 1) | ENC1CHANB_GetValue());
+  uint8_t pinstate = (uint8_t)((ENC1_CHANNELA_GETVALUE << 1) | ENC1_CHANNELB_GETVALUE);
   *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
   return (*rotary_encoder_state & 0x30);
 }
+
+#ifdef __USE_TWO_ROTARY_ENCODER__
+/**
+ * Grab state of input pins, determine new state from the pins
+ * and state table, and return the emit bits (ie the generated event).
+ * @param rotary_encoder_state
+ * @return 
+ */
+uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state) {
+  /* read CHANA and CHANB, CW => up, CCW => down */
+  uint8_t pinstate = (uint8_t)((ENC2_CHANNELA_GETVALUE << 1) | ENC2_CHANNELB_GETVALUE);
+  *rotary_encoder_state = ttable[*rotary_encoder_state & 0xf][pinstate];
+  return (*rotary_encoder_state & 0x30);
+}
+#endif
