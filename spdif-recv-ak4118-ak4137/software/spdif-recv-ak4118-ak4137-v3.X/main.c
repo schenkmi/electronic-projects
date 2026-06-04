@@ -62,6 +62,7 @@ __EEPROM_DATA(ROTARY_MIN_ATTENUATION /* channel 0 attenuation initial */,
               ROTARY_MIN_CHANNEL     /* channel selection initial     */,
               0xff, 0xff, 0xff);
 
+static void init_set(enum InitMode init_mode);
 static void channel_set(int channel);
 static void attenuation_set(uint8_t attenuation);
 
@@ -94,6 +95,7 @@ volatile Instance_t instance = {
        }, 
     },
   },
+  .init_callback = init_set,
   .channel_callback = channel_set,
     .attenuation_callback = attenuation_set,
 };
@@ -155,16 +157,60 @@ PCM1792A_t pcm1792a = {
 
 /* attenuator relay are on RA0...RA5 */
 
+void init_set(enum InitMode init_mode) {
+    switch (init_mode) {
+        case InitModePre:
+            LED_D3_SetHigh();
+            __delay_ms(500);
+            LED_D3_SetLow();
+            LED_D4_SetHigh();
+            __delay_ms(500);
+            LED_D4_SetLow();
+            /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
+            LED_D5_SetHigh();
+            __delay_ms(500);
+            LED_D5_SetLow();
+#ifdef __USE_AK4137__
+            /* configure AK4137 pins which are read during reset of AK4137 */
+            ak4137_preinit(&ak4137);
+#endif
+            break;
+        case InitModeReset:
+            __delay_ms(100);
+            RESET_SetLow();
+            __delay_ms(100);
+            RESET_SetHigh();
+            __delay_ms(10);
+            break;
+        case InitModePost:      
+#ifdef __USE_AK4118__
+            ak4118_init(&ak4118);
+#endif
+#ifdef __USE_CS8416__
+            cs8416_init(&cs8416);
+#endif
+#ifdef __USE_AK4137__
+            ak4137_init(&ak4137);
+#endif
+#ifdef __USE_SRC4392__
+            src4392_init(&src4392);
+#endif
+#ifdef __USE_PCM1792A__
+            pcm1792a_init(&pcm1792a);
+#endif
+            break;
+        default:
+            break;
+    }
+}
 
 void channel_set(int channel) {
 #ifdef __USE_CS8416__
     cs8416_set_input(channel);
 #endif
-    
 #ifdef __USE_AK4118__
     ak4118_set_input(channel);
 #endif
-    
 #ifdef __USE_SRC4392__
     src4392_set_input(channel);
 #endif 
