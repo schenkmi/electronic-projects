@@ -33,6 +33,8 @@
 
 #pragma once
 
+//#include "mcc_generated_files/system/system.h"
+
 /* I2C addresses */
 #define SRC4392_I2C_ADDR        0x70    /* 1110000 R(1) or /W(0) => 0xe0 write, 0xe1 read */
 #define PCM1792A_I2C_ADDR       0x4c    /* 1001100 R(1) or /W(0) => 0x98 write, 0x99 read */
@@ -49,4 +51,16 @@
 //#define __USE_CS8416__
 //#define __USE_PCM1792A__
 //#define __USE_IR__
+
+
+/* Rotary Encoder */
+
+//#define __USE_TWO_ROTARY_ENCODER__
+
+
+#define ENC1_CHANNELA_GETVALUE      ENC1CHANA_GetValue()
+#define ENC1_CHANNELB_GETVALUE      ENC1CHANB_GetValue()
+
+//#define ENC2_CHANNELA_GETVALUE      ENC2CHANA_GetValue()
+//#define ENC2_CHANNELB_GETVALUE      ENC2CHANB_GetValue()
 

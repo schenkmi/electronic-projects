@@ -153,7 +153,7 @@ void process_attenuation(volatile Instance_t* instance) {
     
     instance->last_attenuation = instance->attenuation;
     
-     printf("attenuation %u\r\n", attenuation);
+     //printf("attenuation %u\r\n", attenuation);
   }
 }
 
@@ -165,7 +165,7 @@ void process_channel(volatile Instance_t* instance) {
       instance->channel_attenuation[instance->last_channel].attenuation = instance->attenuation;
     }
 
-     printf("channel %u\r\n", instance->channel);
+    // printf("channel %u\r\n", instance->channel);
     
 #ifdef __USE_CS8416__
     cs8416_set_input(instance->channel);

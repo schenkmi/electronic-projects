@@ -35,6 +35,7 @@
 #pragma once
 
 #include <stdint.h>
+#include "project_configuration.h"
 
 #ifdef	__cplusplus
 extern "C" {
@@ -45,6 +46,9 @@ extern "C" {
 #define DIR_CCW   0x20 /* return value - Counter-clockwise step/movement */
 
 uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state);
+#ifdef __USE_TWO_ROTARY_ENCODER__
+uint8_t encoder2_read(volatile uint8_t* rotary_encoder_state);
+#endif
 
 #ifdef	__cplusplus
 }
