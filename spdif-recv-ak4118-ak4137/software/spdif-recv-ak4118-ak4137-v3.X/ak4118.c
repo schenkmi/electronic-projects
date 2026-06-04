@@ -41,7 +41,7 @@
 #include "mcc_generated_files/system/system.h"
 #include <stddef.h>
 
-#define AK4118_I2C_SLAVE_ADDR       0x10
+#define AK4118_I2C_SLAVE_ADDR       AK4118_I2C_ADDR
 
 #define AK4118_REG_CLK_PWR_CTL		0x00
 #define AK4118_REG_FORMAT_CTL		0x01

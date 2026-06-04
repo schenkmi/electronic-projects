@@ -41,7 +41,7 @@
 
 #include <stddef.h>
 
-#define AK4137_I2C_SLAVE_ADDR     0x11 /* Page 34: [00100 CAD1 CAD0] added R(1) or /W(0) => 0x22 write, 0x23 read */
+#define AK4137_I2C_SLAVE_ADDR     AK4137_I2C_ADDR
 
 #define AK4137_REG_RESET_MUTE         0x00
 #define AK4137_REG_PCMCONT0         0x01

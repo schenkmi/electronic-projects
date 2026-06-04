@@ -37,6 +37,8 @@
 
 #ifdef __USE_AK4118__
 
+#include <stdint.h>
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
