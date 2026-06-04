@@ -71,45 +71,23 @@ void led_callback(uint_fast8_t on) {
 }
 
 void init(volatile Instance_t* instance) {
-    LED_D3_SetHigh();
-    __delay_ms(500);
-    LED_D3_SetLow();
-    LED_D4_SetHigh();
-    __delay_ms(500);
-    LED_D4_SetLow();
-    /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
-    LED_D5_SetHigh();
-    __delay_ms(500);
-    LED_D5_SetLow();
 
-#ifdef __USE_AK4137__
-    /* configure AK4137 pins which are read during reset of AK4137 */
-    ak4137_preinit(&ak4137);
-#endif
-
-    __delay_ms(100);
-    RESET_SetLow();
-    __delay_ms(100);
-    RESET_SetHigh();
-    __delay_ms(10);
-
-#ifdef __USE_AK4118__
-    ak4118_init(&ak4118);
-#endif
     
-#ifdef __USE_CS8416__
-    cs8416_init(&cs8416);
-#endif
     
-#ifdef __USE_AK4137__
-    ak4137_init(&ak4137);
-#endif
-#ifdef __USE_SRC4392__
-    src4392_init(&src4392);
-#endif
-#ifdef __USE_PCM1792A__
-    pcm1792a_init(&pcm1792a);
-#endif
+    if (instance->init_callback) {
+       instance->init_callback(InitModePre); 
+    }
+    
+    if (instance->init_callback) {
+       instance->init_callback(InitModeReset); 
+    }
+    
+    
+    if (instance->init_callback) {
+       instance->init_callback(InitModePost); 
+    }
+
+
 
     /* read last used channel, channels attenuation will be handler inside process_channel() */
     instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);

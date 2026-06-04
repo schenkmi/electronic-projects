@@ -121,6 +121,9 @@ typedef struct {
 typedef void (*ChannelCallback)(int);
 typedef void (*AttenuationCallback)(uint8_t);
 
+enum InitMode { InitModePre = 0, InitModeReset = 1, InitModePost = 2 };
+typedef void (*InitCallback)(enum InitMode);
+
 typedef struct {
   enum Mode mode; /* single or dual encoder mode */
   enum SaveMode save_mode[2 /* 0 = Volume, 1 = Channel */];
@@ -138,6 +141,7 @@ typedef struct {
   /* IR receiver */
   IR_t ir;
   /* Callback */
+  InitCallback init_callback;
   ChannelCallback channel_callback;
   AttenuationCallback attenuation_callback;
 } Instance_t;
