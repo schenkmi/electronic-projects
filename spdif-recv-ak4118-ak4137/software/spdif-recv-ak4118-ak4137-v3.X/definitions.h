@@ -118,6 +118,9 @@ typedef struct {
   IRMP_DATA data;
 } IR_t;
 
+typedef void (*ChannelCallback)(int);
+typedef void (*AttenuationCallback)(uint8_t);
+
 typedef struct {
   enum Mode mode; /* single or dual encoder mode */
   enum SaveMode save_mode[2 /* 0 = Volume, 1 = Channel */];
@@ -134,6 +137,9 @@ typedef struct {
   RotaryEncoder_t encoder[2 /* 0 = Combined/Volume, 1 = Channel */];
   /* IR receiver */
   IR_t ir;
+  /* Callback */
+  ChannelCallback channel_callback;
+  AttenuationCallback attenuation_callback;
 } Instance_t;
 
 extern volatile Instance_t instance;

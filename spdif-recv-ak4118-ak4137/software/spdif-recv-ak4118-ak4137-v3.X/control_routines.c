@@ -151,6 +151,10 @@ void process_attenuation(volatile Instance_t* instance) {
 
     //configure_attenuation(attenuation);
     
+    if (instance->attenuation_callback) {
+       instance->attenuation_callback(attenuation); 
+    }
+    
     instance->last_attenuation = instance->attenuation;
     
      //printf("attenuation %u\r\n", attenuation);
@@ -167,18 +171,10 @@ void process_channel(volatile Instance_t* instance) {
 
     // printf("channel %u\r\n", instance->channel);
     
-#ifdef __USE_CS8416__
-    cs8416_set_input(instance->channel);
-#endif
-    
-#ifdef __USE_AK4118__
-    ak4118_set_input(instance->channel);
-#endif
-    
-#ifdef __USE_SRC4392__
-    src4392_set_input( instance->channel);
-#endif
-    
+    if (instance->channel_callback) {
+       instance->channel_callback(instance->channel); 
+    }
+
         /* no save on first start (e.g last_channel == -1) */
     if (instance->last_channel != -1) {
       if (instance->save_mode[Volume] == SaveOnChange) {    
