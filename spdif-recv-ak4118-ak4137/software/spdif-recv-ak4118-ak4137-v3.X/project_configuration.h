@@ -1,6 +1,6 @@
 /**
  * PIC16F18056 based SPDIF receiver and async sample rate converter
- * for SRC4392, AK4118, AK4137
+ * for SRC4392, AK4118, AK4137, CS8416
  *
  * Copyright (c) 2026-2026, Michael Schenk
  * All Rights Reserved
