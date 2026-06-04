@@ -84,7 +84,7 @@ volatile Instance_t instance = {
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
     { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
   },
-  .control =  Volume,
+  .control =  Channel,
   .ms_counter = 0,
   .encoder = {
     { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
@@ -190,7 +190,7 @@ int main(void)
     irmp_set_callback_ptr(led_callback);
 #endif
   
-    printf("Hello\r\n");
+    //printf("Hello\r\n");
 
     
     while (1) {
