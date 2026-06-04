@@ -31,9 +31,182 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+#include "project_configuration.h"
 #include "definitions.h"
 
+#ifdef __USE_TWO_ROTARY_ENCODER__
+
+
+
+static void timer_callback_process_dual(void) {
+  instance.ms_counter++;
+  
+  /* encoder1 used for attenuation */
+  uint8_t encoder_direction = encoder1_read(&instance.encoder[Volume].rotary_encoder_state);
+  if (encoder_direction != DIR_NONE) {
+    /* detect direction, if changed, reset rotary encoder vars */
+    if (instance.encoder[Volume].direction != encoder_direction) {
+      instance.encoder[Volume].encoder_count[0] = 0;
+    }
+    instance.encoder[Volume].direction = encoder_direction;
+
+    if (encoder_direction == DIR_CW) {
+      instance.encoder[Volume].encoder_count[0]++;
+    } else if (encoder_direction == DIR_CCW) {
+      instance.encoder[Volume].encoder_count[0]--;
+    }
+
+    /**
+     * attenuation works inverse as it is a attenuator
+     * 0   : 0dB attenuation
+     * 255 : 127dB attenuation
+     */
+    int value = instance.attenuation;
+
+    if (instance.encoder[Volume].encoder_count[0] >= ROTARY_MULTI_ATTENUATION) {
+      value--;
+      instance.encoder[Volume].encoder_count[0] = 0;
+    } else if (instance.encoder[Volume].encoder_count[0] <= -ROTARY_MULTI_ATTENUATION) {
+      value++;
+      instance.encoder[Volume].encoder_count[0] = 0;
+    }
+
+    /* for attenuation stop on max or min */
+    if (value > ROTARY_MAX_ATTENUATION) {
+      instance.attenuation = ROTARY_MAX_ATTENUATION;
+    } else if (value < ROTARY_MIN_ATTENUATION) {
+      instance.attenuation = 0;
+    } else {
+      instance.attenuation = value;
+    }
+  }
+
+  /* push button logic encoder 1 */
+  if (ENC1SWITCH_GetValue() == 0) {
+    /* Button pressed */
+    if (!instance.encoder[Volume].button.button_pressed) {
+      instance.encoder[Volume].button.press_time = instance.ms_counter;
+      instance.encoder[Volume].button.button_pressed = true;
+    }
+  } else { 
+    /* Button released */
+    if (instance.encoder[Volume].button.button_pressed) {
+      uint16_t duration = instance.ms_counter - instance.encoder[Volume].button.press_time;
+      instance.encoder[Volume].button.button_pressed = false;
+  
+      if (duration >= ROTARY_PUSH_DEBOUNCE_TIME) {
+        instance.encoder[Volume].button.release_time = instance.ms_counter;
+
+        if (duration >= ROTARY_PUSH_LONG_PRESS_TIME) {
+          instance.encoder[Volume].button.press = LongPress; 
+          instance.encoder[Volume].button.click_count = 0;
+          instance.encoder[Volume].button.waiting_for_double = false;
+        } else {
+            /* Short press */
+            instance.encoder[Volume].button.click_count++;
+            instance.encoder[Volume].button.waiting_for_double = true;
+        }
+      }
+    }
+  }
+  
+  /* Check for double click timeout */
+  if (instance.encoder[Volume].button.waiting_for_double && (instance.ms_counter - instance.encoder[Volume].button.release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME)) {
+    if (instance.encoder[Volume].button.click_count == 1) {
+      /* Single click */
+      instance.encoder[Volume].button.press = SinglePress;
+    } else if (instance.encoder[Volume].button.click_count == 2) {
+      /* Double click */
+      instance.encoder[Volume].button.press = DoublePress;
+    }
+    instance.encoder[Volume].button.click_count = 0;
+    instance.encoder[Volume].button.waiting_for_double = false;
+  }
+  
+  /* encoder2 used for channel */
+  encoder_direction = encoder2_read(&instance.encoder[Channel].rotary_encoder_state);
+  if (encoder_direction != DIR_NONE) {
+    /* detect direction, if changed, reset rotary encoder vars */
+    if (instance.encoder[Channel].direction != encoder_direction) {
+      instance.encoder[Channel].encoder_count[0] = 0;
+    }
+    instance.encoder[Channel].direction = encoder_direction;
+
+    if (encoder_direction == DIR_CW) {
+      instance.encoder[Channel].encoder_count[0]++;
+    } else if (encoder_direction == DIR_CCW) {
+      instance.encoder[Channel].encoder_count[0]--;
+    }
+
+    int value = instance.channel;
+
+    if (instance.encoder[Channel].encoder_count[0] >= ROTARY_MULTI_CHANNEL) {
+      value++;
+      instance.encoder[Channel].encoder_count[0] = 0;
+    } else if (instance.encoder[Channel].encoder_count[0] <= -ROTARY_MULTI_CHANNEL) {
+      value--;
+      instance.encoder[Channel].encoder_count[0] = 0;
+    }
+
+    /* channel is rotary continuous */
+    if (value > ROTARY_MAX_CHANNEL) {
+      instance.channel = 0;
+    } else if (value < ROTARY_MIN_CHANNEL) {
+      instance.channel = ROTARY_MAX_CHANNEL;
+    } else {
+      instance.channel = value;
+    }
+  }
+
+  /* push button logic encoder 2 */
+  if (ENC2SWITCH_GetValue() == 0) {
+    /* Button pressed */
+    if (!instance.encoder[Channel].button.button_pressed) {
+      instance.encoder[Channel].button.press_time = instance.ms_counter;
+      instance.encoder[Channel].button.button_pressed = true;
+    }
+  } else { 
+    /* Button released */
+    if (instance.encoder[Channel].button.button_pressed) {
+      uint16_t duration = instance.ms_counter - instance.encoder[Channel].button.press_time;
+      instance.encoder[Channel].button.button_pressed = false;
+   
+      if (duration >= ROTARY_PUSH_DEBOUNCE_TIME) {
+        instance.encoder[Channel].button.release_time = instance.ms_counter;
+
+        if (duration >= ROTARY_PUSH_LONG_PRESS_TIME) {
+          instance.encoder[Channel].button.press = LongPress; 
+          instance.encoder[Channel].button.click_count = 0;
+          instance.encoder[Channel].button.waiting_for_double = false;
+        } else {
+            /* Short press */
+            instance.encoder[Channel].button.click_count++;
+            instance.encoder[Channel].button.waiting_for_double = true;
+        }
+      }
+    }
+  }
+  
+  /* Check for double click timeout */
+  if (instance.encoder[Channel].button.waiting_for_double && (instance.ms_counter - instance.encoder[Channel].button.release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME)) {
+    if (instance.encoder[Channel].button.click_count == 1) {
+      /* Single click */
+      instance.encoder[Channel].button.press = SinglePress;
+    } else if (instance.encoder[Channel].button.click_count == 2) {
+      /* Double click */
+      instance.encoder[Channel].button.press = DoublePress;
+    }
+    instance.encoder[Channel].button.click_count = 0;
+    instance.encoder[Channel].button.waiting_for_double = false;
+  }
+}
+
+
+#else
+
 static void timer_callback_process_single(void) {
+    instance.ms_counter++;
+    
   uint8_t encoder_direction = encoder1_read(&instance.encoder[Combined].rotary_encoder_state);
   if (encoder_direction != DIR_NONE) {
     /* detect direction, if changed, reset rotary encoder vars */
@@ -95,7 +268,7 @@ static void timer_callback_process_single(void) {
   }
 
   /* push button logic */
-  instance.ms_counter++;
+  
   
   if (ENC1SWITCH_GetValue() == 0) {
     /* Button pressed */
@@ -138,6 +311,7 @@ static void timer_callback_process_single(void) {
     instance.encoder[Combined].button.waiting_for_double = false;
   }
 }
+#endif
 
 /* uses 10us time, measured with LED_Toggle();*/
 void encoder_timer_callback(void) {
@@ -145,13 +319,22 @@ void encoder_timer_callback(void) {
 #if 0
   led_toggel();
 #endif
+  
+#ifdef __USE_TWO_ROTARY_ENCODER__
   if (instance.mode == Dual) {
     /* both encoders are used encoder1 for attenuation, encoder2 for channel */
-    //timer_callback_process_dual();
+    timer_callback_process_dual();
   } else {
     /* single encoder for both attenuation and channel */
     timer_callback_process_single();
   }
+
+#else
+      /* single encoder for both attenuation and channel */
+    timer_callback_process_single();
+#endif
+
+    
 /* use for measure irq execution time (10us) */
 #if 0
   led_toggel();
