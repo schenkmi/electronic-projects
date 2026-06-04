@@ -41,13 +41,17 @@
 
 #define CS8416_I2C_ADDR     0x10 /* Page 34: [0010 AD2 AD1 AD0] added R(1) or /W(0) => 0x20 write, 0x21 read */
 
+#define AK4118_I2C_ADDR       0x10 /* Page 35: [00100 CAD1 CAD0] added R(1) or /W(0) => 0x20 write, 0x21 read */
+
+#define AK4137_I2C_ADDR     0x11 /* Page 34: [00100 CAD1 CAD0] added R(1) or /W(0) => 0x22 write, 0x23 read */
+
 
 
 
 /* Functions */
-#define __USE_SRC4392__
-//#define __USE_AK4118__
-//#define __USE_AK4137__
+//#define __USE_SRC4392__
+#define __USE_AK4118__
+#define __USE_AK4137__
 //#define __USE_CS8416__
 //#define __USE_PCM1792A__
 //#define __USE_IR__
