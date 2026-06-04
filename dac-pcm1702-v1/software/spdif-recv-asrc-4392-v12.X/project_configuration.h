@@ -51,7 +51,8 @@
 //#define __USE_CS8416__
 //#define __USE_PCM1792A__
 //#define __USE_IR__
-
+//#define __USE_PCM1702__
+#define __USE_PCM1704__
 
 /* Rotary Encoder */
 

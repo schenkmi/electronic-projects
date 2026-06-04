@@ -31,7 +31,6 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-
  /**
   * Save hex
   * cd /work/electronic-projects/spdif-recv-cs8416-ak4137/software
@@ -40,7 +39,7 @@
 
 /**
  * History
- * V12.0    2026.05.18 Improved with IR
+ * V12.0    2026.06.04 Improved with IR
  * V7.0     2025.05.04 Using PIC16F18056-I/SS MPLAB-X 6.25
  */
 
@@ -54,13 +53,6 @@
 #include "ak4137.h"
 #include "src4392.h"
 #include "pcm1792a.h"
-
-
-//#define __USE_PCM1792A__
-//#define __USE_PCM1702__
-#define __USE_PCM1704__
-
-#define STARTUP_WAIT                    250 /* wait 250ms after SYSTEM_Initialize */
 
 /* eeprom initialize 0x00..0x07 */
 __EEPROM_DATA(ROTARY_MIN_ATTENUATION /* channel 0 attenuation initial */,
@@ -166,44 +158,35 @@ int main(void)
 
     __delay_ms(STARTUP_WAIT);  
     
-  /* weak pull-up so safe to call without connected rotary board */
-  factory_reset();
+    /* weak pull-up so safe to call without connected rotary board */
+    factory_reset();
 
     /* install irq handlers */
     TMR0_PeriodMatchCallbackRegister(encoder_timer_callback);
- #if __USE_IR__
+#if __USE_IR__
     TMR2_PeriodMatchCallbackRegister(ir_timer_callback);
 #endif
-  /* Enable the Global Interrupts */
-  INTERRUPT_GlobalInterruptEnable();
-
-  /* Enable the Peripheral Interrupts */
-  INTERRUPT_PeripheralInterruptEnable();
-
-
-    
+    /* Enable the Global Interrupts */
+    INTERRUPT_GlobalInterruptEnable();
+    /* Enable the Peripheral Interrupts */
+    INTERRUPT_PeripheralInterruptEnable();
+ 
     /* IRQs need to be enabled for I2C */
     init(&instance);
     
 #if __USE_IR__
-      irmp_init();
+    irmp_init();
     irmp_set_callback_ptr(led_callback);
 #endif
   
-    //printf("Hello\r\n");
-
-    
     while (1) {
-
 #if __USE_IR__
-      process_ir(&instance);
+    process_ir(&instance);
 #endif
     process_channel(&instance);
     process_attenuation(&instance);
     process_encoder_button(&instance);
     eeprom_save_status(&instance);
-      
-      
 #if 1
       __delay_ms(MAIN_LOOP_WAIT);
 #else
