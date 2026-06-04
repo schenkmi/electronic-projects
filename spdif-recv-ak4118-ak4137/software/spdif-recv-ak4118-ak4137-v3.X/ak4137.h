@@ -33,6 +33,13 @@
 
 #pragma once
 
+#include "project_configuration.h"
+
+
+
+#ifdef __USE_AK4137__
+
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -113,3 +120,4 @@ void ak4137_init(AK4137_t* instance);
 }
 #endif
 
+#endif /* __USE_AK4137__ */

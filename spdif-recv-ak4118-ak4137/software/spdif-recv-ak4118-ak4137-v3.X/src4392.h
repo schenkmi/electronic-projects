@@ -3,7 +3,7 @@
  * for TI/BB SRC4392/SRC4382
  * PCM1792A
  *
- * Copyright (c) 2021-2026, Michael Schenk
+ * Copyright (c) 2021-2024, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -32,30 +32,92 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
+
+
+
 #pragma once
+
 
 #include "project_configuration.h"
 
-#ifdef __USE_PCM1792A__
+
+
+#ifdef __USE_SRC4392__
+
+#include <stdbool.h>
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
-enum PCM1792AFilterRolloff {
-    TI_Sharp = 0,
-    TI_Slow = 1,
+
+    
+/**
+ * DIT routing mode enum
+ */
+enum SRC4392DigitalAudioInterfaceTransmitter { 
+    DITUpsample = 0,
+    DITPassthrough = 1,
+}; 
+
+/**
+ * Digital de-emphasis enum
+ */
+enum SRC4392DeEmphasis {
+    DeEmphasisAuto = 0,
+    DeEmphasisOff = 1,
+};
+
+/**
+ * Upsampling rate enum
+ */
+enum SRC4392UpsamplingRate {
+    UpsamplingTo192kHz = 0,
+    UpsamplingTo96kHz = 1,
+};
+
+/**
+ * Output world length enum
+ */
+enum SRC4392OutputWordLength {
+    OWL24Bit = 0x00,
+    OWL20Bit = 0x40,
+    OWL18Bit = 0x80,
+    OWL16Bit = 0xc0,
+};
+
+/**
+ * Sampling rate enum
+ */
+enum SRC4392SamplingRate {
+    SamplingRateUnknown = 0,
+    SamplingRate32_kHz = 1,
+    SamplingRate44_1_kHz = 2,
+    SamplingRate48_kHz = 3,
+    SamplingRate64_kHz = 4,
+    SamplingRate88_2_kHz = 5,
+    SamplingRate96_kHz = 6,
+    SamplingRate128_kHz = 7,
+    SamplingRate176_4_kHz = 8,
+    SamplingRate192_kHz = 9,
 };
 
 typedef struct {
-  enum PCM1792AFilterRolloff filter_rolloff;
-} PCM1792A_t;
+  enum SRC4392DeEmphasis deemphases; 
+  enum SRC4392DigitalAudioInterfaceTransmitter digital_audio_interface_transmitter;
+  enum SRC4392UpsamplingRate upsample_rate;
+  enum SRC4392OutputWordLength output_word_length;
+} SRC4392_t;
 
-void pcm1792a_init(PCM1792A_t* instance);
-void pcm1792a_set_attenuation(int right, int left);
+void src4392_init(SRC4392_t* instance);
+void src4392_set_input(int input);
+void src4392_set_attenuation(int right, int left);
+void src4392_mute(bool mute);
+enum SRC4392SamplingRate src4392_get_sample_rate(void);
+void src4392_test();
 
 #ifdef	__cplusplus
 }
 #endif
 
-#endif /* __USE_PCM1792A__ */
+#endif /* __USE_SRC4392__ */

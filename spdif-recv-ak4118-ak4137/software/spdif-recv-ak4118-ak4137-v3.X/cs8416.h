@@ -1,8 +1,8 @@
 /**
  * PIC16F18056 based async sample rate converter
- * for AK4118 / AK4137
+ * for CS8416 / AK4137
  *
- * Copyright (c) 2026-2026, Michael Schenk
+ * Copyright (c) 2024-2025, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -35,43 +35,39 @@
 
 #include "project_configuration.h"
 
-#ifdef __USE_AK4118__
+#ifdef __USE_CS8416__
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
+enum CS8416OutputFormat {
+    CS_MSB = 0, /* Left justified (MSB justified) */
+    CS_LSB = 1, /* Right justified (LSB justified) */
+    CS_I2S = 2, /* I2S format */
+};
+
 /**
- * Audio Serial Interface Format DIF[2..0]
+ * Output world length enum
  */
-enum AK4118AudioDataOutputFormat {
-    AK4118_16Bit_Right = 0, /* SDTO 16bit, Right justified */
-    AK4118_18Bit_Right = 1, /* SDTO 18bit, Right justified */
-    AK4118_20Bit_Right = 2, /* SDTO 20bit, Right justified */
-    AK4118_24Bit_Right = 3, /* SDTO 24bit, Right justified */
-    AK4118_24Bit_Left = 4,  /* SDTO 24bit, Left justified  */
-    AK4118_I2S = 5,         /* SDTO 24bit, I2S             */
+enum CS8416OutputWordLength {
+    CS_OWL24Bit = 0,
+    CS_OWL20Bit = 1,
+    CS_OWL16Bit = 2,
+    CS_OWLDirect = 3,
 };
 
 typedef struct {
-    uint8_t input;
-    uint8_t sampling_rate;
-    uint8_t status_register;
-} PreviousRegisters_t;
+    enum CS8416OutputFormat output_format;
+    enum CS8416OutputWordLength output_word_length;
+} CS8416_t;
 
-typedef struct {
-    enum AK4118AudioDataOutputFormat data_format;
-    PreviousRegisters_t previous;
-} AK4118_t;
-
-void ak4118_init(AK4118_t* instance);
-void ak4118_set_input(int input);
-void ak4118_print_samplerate(void);
-void ak4118_print_spdif_status(void);
-void ak4118_print_input(void);
+void cs8416_init(CS8416_t* instance);
+void cs8416_set_input(int input);
+void cs8416_set_output(int output);
 
 #ifdef	__cplusplus
 }
 #endif
 
-#endif /* __USE_AK4118__ */
+#endif /* __USE_CS8416__ */

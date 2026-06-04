@@ -1,6 +1,6 @@
 /**
- * PIC16F18056 based async sample rate converter
- * for AK4118 / AK4137
+ * PIC16F18056 based SPDIF receiver and async sample rate converter
+ * for SRC4392, AK4118, AK4137
  *
  * Copyright (c) 2026-2026, Michael Schenk
  * All Rights Reserved
@@ -13,7 +13,7 @@
  * of the License, or (at your option) any later version.
  *
  * OEMs, ISVs, VARs and other distributors that combine and distribute
- * commercially licensed software with Michael Schenks software
+ * commercially licensed software with Michael Schenk software
  * and do not wish to distribute the source code for the commercially
  * licensed software under version 2, or (at your option) any later
  * version, of the GNU General Public License (the "GPL") must enter
@@ -33,45 +33,35 @@
 
 #pragma once
 
-#include "project_configuration.h"
+//#include "mcc_generated_files/system/system.h"
 
-#ifdef __USE_AK4118__
+/* I2C addresses */
+#define SRC4392_I2C_ADDR        0x70    /* 1110000 R(1) or /W(0) => 0xe0 write, 0xe1 read */
+#define PCM1792A_I2C_ADDR       0x4c    /* 1001100 R(1) or /W(0) => 0x98 write, 0x99 read */
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
+#define CS8416_I2C_ADDR     0x10 /* Page 34: [0010 AD2 AD1 AD0] added R(1) or /W(0) => 0x20 write, 0x21 read */
 
-/**
- * Audio Serial Interface Format DIF[2..0]
- */
-enum AK4118AudioDataOutputFormat {
-    AK4118_16Bit_Right = 0, /* SDTO 16bit, Right justified */
-    AK4118_18Bit_Right = 1, /* SDTO 18bit, Right justified */
-    AK4118_20Bit_Right = 2, /* SDTO 20bit, Right justified */
-    AK4118_24Bit_Right = 3, /* SDTO 24bit, Right justified */
-    AK4118_24Bit_Left = 4,  /* SDTO 24bit, Left justified  */
-    AK4118_I2S = 5,         /* SDTO 24bit, I2S             */
-};
 
-typedef struct {
-    uint8_t input;
-    uint8_t sampling_rate;
-    uint8_t status_register;
-} PreviousRegisters_t;
 
-typedef struct {
-    enum AK4118AudioDataOutputFormat data_format;
-    PreviousRegisters_t previous;
-} AK4118_t;
 
-void ak4118_init(AK4118_t* instance);
-void ak4118_set_input(int input);
-void ak4118_print_samplerate(void);
-void ak4118_print_spdif_status(void);
-void ak4118_print_input(void);
+/* Functions */
+#define __USE_SRC4392__
+//#define __USE_AK4118__
+//#define __USE_AK4137__
+//#define __USE_CS8416__
+//#define __USE_PCM1792A__
+//#define __USE_IR__
+//#define __USE_PCM1702__
+#define __USE_PCM1704__
 
-#ifdef	__cplusplus
-}
-#endif
+/* Rotary Encoder */
 
-#endif /* __USE_AK4118__ */
+//#define __USE_TWO_ROTARY_ENCODER__
+
+
+#define ENC1_CHANNELA_GETVALUE      ENC1CHANA_GetValue()
+#define ENC1_CHANNELB_GETVALUE      ENC1CHANB_GetValue()
+
+//#define ENC2_CHANNELA_GETVALUE      ENC2CHANA_GetValue()
+//#define ENC2_CHANNELB_GETVALUE      ENC2CHANB_GetValue()
+

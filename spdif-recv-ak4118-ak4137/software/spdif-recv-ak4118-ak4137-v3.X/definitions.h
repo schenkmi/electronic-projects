@@ -80,6 +80,10 @@
 #define IR_KEY_VOL_DOWN                  17
 #define IR_KEY_MUTE                      13
 
+
+#define STARTUP_WAIT                    250 /* wait 250ms after SYSTEM_Initialize */
+
+
 enum Control { Combined = 0, Volume = 0, Channel = 1};
 enum Mode { Single = 0, Dual = 1 };
 enum SaveMode { SaveNever = 0, SaveOnChange = 1, SaveOnLongPress = 2 };
