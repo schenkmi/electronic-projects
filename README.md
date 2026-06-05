@@ -1,7 +1,17 @@
 # electronic-projects
- misc electronic projects
+misc electronic projects
 
 # History
+
+## 2026.06.05
+
+### dac-pcm1702-v1/kicad-asrc-v14
+PCB LED fix
+External LED support
+
+### spdif-recv-ak4118-ak4137/kicad/v4
+External LED support
+Change one LDO to TLV1117-3.3 due to power dissipation
 
 ## 2026.05.28
 
