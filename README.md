@@ -5,6 +5,9 @@ misc electronic projects
 
 ## 2026.06.05
 
+### dac-pcm1702-v1/kicad-psu-v8/
+DC/DC for +5V digital path
+
 ### dac-pcm1702-v1/kicad-asrc-v14
 PCB LED fix
 External LED support
