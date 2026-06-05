@@ -251,19 +251,19 @@ int main(void)
   
     while (1) {
 #ifdef __USE_IR__
-    process_ir(&instance);
+        process_ir(&instance);
 #endif
-    process_channel(&instance);
-    process_attenuation(&instance);
-    process_encoder_button(&instance);
-    eeprom_save_status(&instance);
+        process_channel(&instance);
+        process_attenuation(&instance);
+        process_encoder_button(&instance);
+        eeprom_save_status(&instance);
 #if 1
-      __delay_ms(MAIN_LOOP_WAIT);
+        __delay_ms(MAIN_LOOP_WAIT);
 #else
-      __delay_ms(1000);
-      ak4118_print_input();
-      ak4118_print_samplerate();
-      ak4118_print_spdif_status();
+        __delay_ms(1000);
+        ak4118_print_input();
+        ak4118_print_samplerate();
+        ak4118_print_spdif_status();
 #endif
     } 
 }
