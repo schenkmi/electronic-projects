@@ -233,7 +233,7 @@ int main(void)
 
     /* install irq handlers */
     TMR0_PeriodMatchCallbackRegister(encoder_timer_callback);
-#if __USE_IR__
+#ifdef __USE_IR__
     TMR2_PeriodMatchCallbackRegister(ir_timer_callback);
 #endif
     /* Enable the Global Interrupts */
@@ -244,13 +244,13 @@ int main(void)
     /* IRQs need to be enabled for I2C */
     init(&instance);
     
-#if __USE_IR__
+#ifdef __USE_IR__
     irmp_init();
     irmp_set_callback_ptr(led_callback);
 #endif
   
     while (1) {
-#if __USE_IR__
+#ifdef __USE_IR__
     process_ir(&instance);
 #endif
     process_channel(&instance);
