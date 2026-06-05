@@ -20,6 +20,11 @@
  *---------------------------------------------------------------------------------------------------------------------------------------------------
  */
 
+/* Start SNK added */
+#include "../project_configuration.h"
+#ifdef __USE_IR__
+/* End SNK added */
+
 #include "irmp.h"
 
 #if IRMP_SUPPORT_GRUNDIG_PROTOCOL == 1 || IRMP_SUPPORT_NOKIA_PROTOCOL == 1 || IRMP_SUPPORT_IR60_PROTOCOL == 1
@@ -6106,3 +6111,7 @@ main (int argc, char ** argv)
 }
 
 #endif // ANALYZE
+
+/* Start SNK added */
+#endif
+/* End SNK added */

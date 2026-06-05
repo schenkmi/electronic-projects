@@ -31,8 +31,10 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-#include "project_configuration.h"
-#include "definitions.h"
+//#include "project_configuration.h"
+//#include "definitions.h"
+
+#include "control_routines.h"
 
 #include "src4392.h"
 #include "ak4118.h"
@@ -83,7 +85,7 @@ void init(volatile Instance_t* instance) {
     }
 }
 
-void factory_reset() {
+void factory_reset(void) {
     if (ENC1SWITCH_GetValue() == 0) {
         while(ENC1SWITCH_GetValue() == 0) {
             __delay_ms(100);  
@@ -250,7 +252,8 @@ void process_encoder_button(volatile Instance_t* instance) {
   }
 }
 
-void process_ir(Instance_t* instance) {
+#ifdef __USE_IR__
+void process_ir(volatile Instance_t* instance) {
   if (irmp_get_data(&instance->ir.data)) {
     if (instance->ir.data.protocol == IR_PROTOCOL && instance->ir.data.address == IR_REMOTE_ADDRESS) {
       int channel = instance->channel;
@@ -317,3 +320,4 @@ void process_ir(Instance_t* instance) {
     }
   }
 }
+#endif
