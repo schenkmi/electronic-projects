@@ -429,6 +429,25 @@
 #define IRIN_SetOpenDrain()       do { ODCONCbits.ODCC3 = 1; } while(0)
 #define IRIN_SetAnalogMode()      do { ANSELCbits.ANSC3 = 1; } while(0)
 #define IRIN_SetDigitalMode()     do { ANSELCbits.ANSC3 = 0; } while(0)
+// get/set IO_RC4 aliases
+#define LED_EXT_TRIS                 TRISCbits.TRISC4
+#define LED_EXT_LAT                  LATCbits.LATC4
+#define LED_EXT_PORT                 PORTCbits.RC4
+#define LED_EXT_WPU                  WPUCbits.WPUC4
+#define LED_EXT_OD                   ODCONCbits.ODCC4
+#define LED_EXT_ANS                  ANSELCbits.ANSC4
+#define LED_EXT_SetHigh()            do { LATCbits.LATC4 = 1; } while(0)
+#define LED_EXT_SetLow()             do { LATCbits.LATC4 = 0; } while(0)
+#define LED_EXT_Toggle()             do { LATCbits.LATC4 = ~LATCbits.LATC4; } while(0)
+#define LED_EXT_GetValue()           PORTCbits.RC4
+#define LED_EXT_SetDigitalInput()    do { TRISCbits.TRISC4 = 1; } while(0)
+#define LED_EXT_SetDigitalOutput()   do { TRISCbits.TRISC4 = 0; } while(0)
+#define LED_EXT_SetPullup()          do { WPUCbits.WPUC4 = 1; } while(0)
+#define LED_EXT_ResetPullup()        do { WPUCbits.WPUC4 = 0; } while(0)
+#define LED_EXT_SetPushPull()        do { ODCONCbits.ODCC4 = 0; } while(0)
+#define LED_EXT_SetOpenDrain()       do { ODCONCbits.ODCC4 = 1; } while(0)
+#define LED_EXT_SetAnalogMode()      do { ANSELCbits.ANSC4 = 1; } while(0)
+#define LED_EXT_SetDigitalMode()     do { ANSELCbits.ANSC4 = 0; } while(0)
 // get/set IO_RC6 aliases
 #define IO_RC6_TRIS                 TRISCbits.TRISC6
 #define IO_RC6_LAT                  LATCbits.LATC6
