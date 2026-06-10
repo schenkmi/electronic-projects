@@ -31,7 +31,6 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-
 #include "cs8416.h"
 
 #ifdef __USE_CS8416__

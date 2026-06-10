@@ -66,8 +66,6 @@ static void init_set(enum InitMode init_mode);
 static void channel_set(int channel);
 static void attenuation_set(uint8_t attenuation);
 
-
-
 volatile Instance_t instance = {
   .mode = Single,
   .save_mode = { SaveOnLongPress /* Volume */ , SaveOnLongPress /* Channel */ },
@@ -147,15 +145,6 @@ PCM1792A_t pcm1792a = {
     .filter_rolloff = TI_Slow,
 };
 #endif
-
-
-
-
-
-/* channel selection relay are on RB0...RB3 */
-
-
-/* attenuator relay are on RA0...RA5 */
 
 void init_set(enum InitMode init_mode) {
     switch (init_mode) {

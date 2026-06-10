@@ -31,9 +31,6 @@
  * http://www.gnu.org/licenses/gpl-2.0.html
  */
 
-//#include "project_configuration.h"
-//#include "definitions.h"
-
 #include "control_routines.h"
 
 #include "src4392.h"
@@ -41,8 +38,6 @@
 #include "cs8416.h"
 #include "ak4137.h"
 #include "pcm1792a.h"
-
-
 
 void led_toggel(void) {
 //  LED_Toggle();
@@ -58,23 +53,17 @@ void led_callback(uint_fast8_t on) {
 }
 
 void init(volatile Instance_t* instance) {
-
-    
-    
     if (instance->init_callback) {
        instance->init_callback(InitModePre); 
     }
-    
+
     if (instance->init_callback) {
        instance->init_callback(InitModeReset); 
     }
-    
-    
+
     if (instance->init_callback) {
        instance->init_callback(InitModePost); 
     }
-
-
 
     /* read last used channel, channels attenuation will be handler inside process_channel() */
     instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
@@ -114,8 +103,6 @@ void process_attenuation(volatile Instance_t* instance) {
   if (instance->attenuation != instance->last_attenuation) {
     uint8_t attenuation = ((uint8_t)instance->attenuation & ROTARY_MAX_ATTENUATION);
 
-    //configure_attenuation(attenuation);
-    
     if (instance->attenuation_callback) {
        instance->attenuation_callback(attenuation); 
     }
@@ -140,7 +127,7 @@ void process_channel(volatile Instance_t* instance) {
        instance->channel_callback(instance->channel); 
     }
 
-        /* no save on first start (e.g last_channel == -1) */
+    /* no save on first start (e.g last_channel == -1) */
     if (instance->last_channel != -1) {
       if (instance->save_mode[Volume] == SaveOnChange) {    
         instance->save_action |= SaveChannel;
@@ -149,9 +136,7 @@ void process_channel(volatile Instance_t* instance) {
     }
     
     instance->last_channel = instance->channel;
-    
   }
-
 }
 
 void eeprom_save_status(volatile Instance_t* instance) {
