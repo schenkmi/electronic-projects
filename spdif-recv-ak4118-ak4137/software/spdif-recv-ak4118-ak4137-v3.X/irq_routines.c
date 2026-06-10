@@ -35,9 +35,6 @@
 #include "definitions.h"
 
 #ifdef __USE_TWO_ROTARY_ENCODER__
-
-
-
 static void timer_callback_process_dual(void) {
   instance.ms_counter++;
   
@@ -200,10 +197,7 @@ static void timer_callback_process_dual(void) {
     instance.encoder[Channel].button.waiting_for_double = false;
   }
 }
-
-
 #else
-
 static void timer_callback_process_single(void) {
     instance.ms_counter++;
     
@@ -269,7 +263,6 @@ static void timer_callback_process_single(void) {
 
   /* push button logic */
   
-  
   if (ENC1SWITCH_GetValue() == 0) {
     /* Button pressed */
     if (!instance.encoder[Combined].button.button_pressed) {
@@ -328,13 +321,11 @@ void encoder_timer_callback(void) {
     /* single encoder for both attenuation and channel */
     timer_callback_process_single();
   }
-
 #else
       /* single encoder for both attenuation and channel */
     timer_callback_process_single();
 #endif
 
-    
 /* use for measure irq execution time (10us) */
 #if 0
   led_toggel();

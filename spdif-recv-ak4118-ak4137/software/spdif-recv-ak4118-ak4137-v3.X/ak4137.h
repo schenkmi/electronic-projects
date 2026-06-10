@@ -35,10 +35,7 @@
 
 #include "project_configuration.h"
 
-
-
 #ifdef __USE_AK4137__
-
 
 #ifdef	__cplusplus
 extern "C" {
