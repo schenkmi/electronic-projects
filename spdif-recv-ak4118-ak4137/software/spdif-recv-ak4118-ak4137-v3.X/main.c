@@ -33,18 +33,17 @@
 
  /**
   * Save hex
-  * cd /work/electronic-projects/spdif-recv-cs8416-ak4137/software
-  * cp spdif-recv-cs8416-ak4137-v2.X/dist/default/production/spdif-recv-cs8416-ak4137-v2.X.production.hex hex/
+  * cd /work/electronic-projects/spdif-recv-ak4118-ak4137/software
+  * cp spdif-recv-ak4118-ak4137-v3.X/dist/default/production/spdif-recv-ak4118-ak4137-v3.X.production.hex hex/
   */
 
 /**
  * History
- * V12.0    2026.06.04 Improved with IR
- * V7.0     2025.05.04 Using PIC16F18056-I/SS MPLAB-X 6.25
+ * V3.0    2026.06.04 New combined software for all SPDIF PCBs
+ *                    IR support, external LED
  */
 
 #include "project_configuration.h"
-
 #include "definitions.h"
 #include "irq_routines.h"
 #include "control_routines.h"
@@ -95,7 +94,7 @@ volatile Instance_t instance = {
   },
   .init_callback = init_set,
   .channel_callback = channel_set,
-    .attenuation_callback = attenuation_set,
+  .attenuation_callback = attenuation_set,
 };
 
 #ifdef __USE_SRC4392__
