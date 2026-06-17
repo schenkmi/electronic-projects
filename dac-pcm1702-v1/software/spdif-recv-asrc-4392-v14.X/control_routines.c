@@ -75,6 +75,8 @@ void init(volatile Instance_t* instance) {
 }
 
 void factory_reset(void) {
+    LED_EXT_SetHigh();
+
     if (ENC1SWITCH_GetValue() == 0) {
         while(ENC1SWITCH_GetValue() == 0) {
             __delay_ms(100);  
@@ -82,10 +84,10 @@ void factory_reset(void) {
 
         for (int cnt = 0; cnt < 10; cnt++) {
             /* LED on */
-            LED_D3_SetHigh();
+            LED_EXT_SetLow();
              __delay_ms(250);  
             /* LED off */
-            LED_D3_SetLow();
+            LED_EXT_SetHigh();
             __delay_ms(250);  
         }
 
@@ -96,7 +98,6 @@ void factory_reset(void) {
         eeprom_write(0x04, ROTARY_MIN_CHANNEL);
     }
 }
-
 
 /* attenuator relay are on RA0...RA5 */
 void process_attenuation(volatile Instance_t* instance) {
