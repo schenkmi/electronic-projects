@@ -1,0 +1,257 @@
+/**
+ * PIC16F18056 based async sample rate converter
+ * for AK4118 / AK4137
+ *
+ * Copyright (c) 2024-2026, Michael Schenk
+ * All Rights Reserved
+ *
+ * Author: Michael Schenk
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * OEMs, ISVs, VARs and other distributors that combine and distribute
+ * commercially licensed software with Michael Schenks software
+ * and do not wish to distribute the source code for the commercially
+ * licensed software under version 2, or (at your option) any later
+ * version, of the GNU General Public License (the "GPL") must enter
+ * into a commercial license agreement with Michael Schenk.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; see the file LICENSE.txt. If not, write to
+ * the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * http://www.gnu.org/licenses/gpl-2.0.html
+ */
+
+ /**
+  * Save hex
+  * cd /work/electronic-projects/spdif-recv-ak4118-ak4137/software
+  * cp spdif-recv-ak4118-ak4137-v3.X/dist/default/production/spdif-recv-ak4118-ak4137-v3.X.production.hex hex/
+  */
+
+/**
+ * History
+ * V3.0    2026.06.04 New combined software for all SPDIF PCBs
+ *                    IR support, external LED
+ */
+
+#include "project_configuration.h"
+#include "definitions.h"
+#include "irq_routines.h"
+#include "control_routines.h"
+#include "cs8416.h"
+#include "ak4118.h"
+#include "ak4137.h"
+#include "src4392.h"
+#include "pcm1792a.h"
+
+/* eeprom initialize 0x00..0x07 */
+__EEPROM_DATA(ROTARY_MIN_ATTENUATION /* channel 0 attenuation initial */,
+              ROTARY_MIN_ATTENUATION /* channel 1 attenuation initial */,
+              ROTARY_MIN_ATTENUATION /* channel 2 attenuation initial */,
+              ROTARY_MIN_ATTENUATION /* channel 3 attenuation initial */,
+              ROTARY_MIN_CHANNEL     /* channel selection initial     */,
+              0xff, 0xff, 0xff);
+
+static void init_set(enum InitMode init_mode);
+static void channel_set(int channel);
+static void attenuation_set(uint8_t attenuation);
+
+volatile Instance_t instance = {
+  .mode = Single,
+  .save_mode = { SaveOnLongPress /* Volume */ , SaveOnLongPress /* Channel */ },
+  .save_action = NoSaveAction,
+  .save_countdown_counter = -1,
+  .channel = -1, .last_channel = -1,
+  .attenuation = -1, .last_attenuation = -1,
+  .channel_attenuation = {
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+    { .default_attenuation = ROTARY_MAX_ATTENUATION, .attenuation = -1 },
+  },
+  .control =  Channel,
+  .ms_counter = 0,
+  .encoder = {
+    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
+      .button = {
+        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, 
+       }, 
+    },
+    { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
+      .button = {
+        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, 
+       }, 
+    },
+  },
+  .init_callback = init_set,
+  .channel_callback = channel_set,
+  .attenuation_callback = attenuation_set,
+};
+
+#ifdef __USE_SRC4392__
+SRC4392_t src4392 = {
+    .deemphases = DeEmphasisAuto,
+    .digital_audio_interface_transmitter = DITUpsample,
+    .upsample_rate = UpsamplingTo192kHz,
+#ifdef __USE_PCM1702__
+    .output_word_length = OWL20Bit,
+#else
+    .output_word_length = OWL24Bit,
+#endif
+};
+#endif
+
+#ifdef __USE_CS8416__
+CS8416_t cs8416 = {
+    .output_format = CS_I2S,
+    .output_word_length = CS_OWL24Bit,
+};
+#endif
+
+#ifdef __USE_AK4118__
+AK4118_t ak4118 = {
+    .data_format = AK4118_24Bit_Right,
+    .previous = { .input = 0xff, .sampling_rate = 0xff, .status_register = 0xff },
+};
+#endif
+
+#ifdef __USE_AK4137__
+AK4137_t ak4137 = {
+    .input_format = AK_LSB24Bit,
+    .digital_filter = AK_ShortDelaySharpRollOff,
+    .output_format = AK_I2S,
+    .output_sampling_frequency = AK_FS384kHz, 
+#ifdef __USE_PCM1702__
+    .output_word_length = AK_OWL20Bit, 
+#else
+    .output_word_length = AK_OWL24Bit,
+#endif
+};
+
+#endif
+
+#ifdef __USE_PCM1792A__
+PCM1792A_t pcm1792a = {
+    .filter_rolloff = TI_Slow,
+};
+#endif
+
+void init_set(enum InitMode init_mode) {
+    switch (init_mode) {
+        case InitModePre:
+            LED_D3_SetHigh();
+            __delay_ms(500);
+            LED_D3_SetLow();
+            LED_D4_SetHigh();
+            __delay_ms(500);
+            LED_D4_SetLow();
+            /* External Oscillator Selection bits: Oscillator not enabled otherwise RA7 is CLKIN and LED D5 is not working*/
+            LED_D5_SetHigh();
+            __delay_ms(500);
+            LED_D5_SetLow();
+#ifdef __USE_AK4137__
+            /* configure AK4137 pins which are read during reset of AK4137 */
+            ak4137_preinit(&ak4137);
+#endif
+            break;
+        case InitModeReset:
+            __delay_ms(100);
+            RESET_SetLow();
+            __delay_ms(100);
+            RESET_SetHigh();
+            __delay_ms(10);
+            break;
+        case InitModePost:      
+#ifdef __USE_AK4118__
+            ak4118_init(&ak4118);
+#endif
+#ifdef __USE_CS8416__
+            cs8416_init(&cs8416);
+#endif
+#ifdef __USE_AK4137__
+            ak4137_init(&ak4137);
+#endif
+#ifdef __USE_SRC4392__
+            src4392_init(&src4392);
+#endif
+#ifdef __USE_PCM1792A__
+            pcm1792a_init(&pcm1792a);
+#endif
+            break;
+        default:
+            break;
+    }
+}
+
+void channel_set(int channel) {
+#ifdef __USE_CS8416__
+    cs8416_set_input(channel);
+#endif
+#ifdef __USE_AK4118__
+    ak4118_set_input(channel);
+#endif
+#ifdef __USE_SRC4392__
+    src4392_set_input(channel);
+#endif 
+}
+
+void attenuation_set(uint8_t attenuation) {
+    attenuation = attenuation;
+}
+/**
+ * Main application
+ */
+int main(void)
+{
+    SYSTEM_Initialize();
+
+    __delay_ms(STARTUP_WAIT);  
+    
+    /* weak pull-up so safe to call without connected rotary board */
+    factory_reset();
+
+    /* install irq handlers */
+    TMR0_PeriodMatchCallbackRegister(encoder_timer_callback);
+#ifdef __USE_IR__
+    TMR2_PeriodMatchCallbackRegister(ir_timer_callback);
+#endif
+    /* Enable the Global Interrupts */
+    INTERRUPT_GlobalInterruptEnable();
+    /* Enable the Peripheral Interrupts */
+    INTERRUPT_PeripheralInterruptEnable();
+ 
+    /* IRQs need to be enabled for I2C */
+    init(&instance);
+    
+#ifdef __USE_IR__
+    irmp_init();
+    irmp_set_callback_ptr(led_callback);
+#endif
+  
+    while (1) {
+#ifdef __USE_IR__
+        process_ir(&instance);
+#endif
+        process_channel(&instance);
+        process_attenuation(&instance);
+        process_encoder_button(&instance);
+        eeprom_save_status(&instance);
+#if 1
+        __delay_ms(MAIN_LOOP_WAIT);
+#else
+        __delay_ms(1000);
+        ak4118_print_input();
+        ak4118_print_samplerate();
+        ak4118_print_spdif_status();
+#endif
+    } 
+}
