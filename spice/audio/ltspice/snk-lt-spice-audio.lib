@@ -1,4 +1,21 @@
 
+
+* ============================================================== 
+* ECC86 LTSpice model 
+* Rydel model (5 parameters) mean fit error 0.0841046mA 
+* Traced by Wayne Clay on 03/31/2021 using Curve Captor v0.9.1 
+* and Engauge Digitizer from Philips datasheet. 
+* ============================================================== 
+.subckt ECC86  P G K 
+    Bp  P K  I=((0.06448068329m)+(0.02426328916m)*V(G,K))*uramp((11.97388325)*V(G,K)+V(P,K)+(5.140204023))**1.5 * V(P,K)/(V(P,K)+(0.5451602865)) 
+    Cgp G P 2.0p ; 0.7p added (1.3p) 
+    Cgk G K 3.7p ; 0.7p added (3.0p) 
+    Cpk P K 2.0p ; 0.2p added (1.8p) 
+    Rpk P K 1.0G ; to avoid floating nodes 
+    d3  G K dx1 
+.model dx1 d(is=1n rs=2k cjo=1pf N=1.5 tt=1n) 
+.ends ECC86
+
 *-----------------------------------
 
 *
