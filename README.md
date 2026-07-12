@@ -3,6 +3,14 @@ misc electronic projects
 
 # History
 
+## 2026.07.12
+
+### pre-amp-ECC86/kicad/v1
+First version of ECC86 based pre-amplifier
+
+### spdif-recv-ak4118-ak4137/software/spdif-recv-ak4118-ak4137-v4.X
+Updated software for V4 PCB
+
 ## 2026.06.05
 
 ### dac-pcm1702-v1/kicad-psu-v8/
