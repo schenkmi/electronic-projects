@@ -213,6 +213,8 @@ void attenuation_set(uint8_t attenuation) {
  */
 int main(void)
 {
+    uint32_t counter = 0;
+    
     SYSTEM_Initialize();
 
     __delay_ms(STARTUP_WAIT);  
@@ -248,6 +250,24 @@ int main(void)
         eeprom_save_status(&instance);
 #if 1
         __delay_ms(MAIN_LOOP_WAIT);
+        counter++;
+        if ((counter % 1000) == 0) {
+#ifdef __USE_AK4118__
+            int status = ak4118_input_status();
+            switch (status) {
+                case AK4118_Status_Ok:
+                    LED_D3_SetHigh();
+                    LED_D4_SetHigh();
+                    break;
+                case AK4118_Status_Unlock:
+                    LED_D3_SetLow();
+                    break;
+                case AK4118_Status_Parity_Error:
+                    LED_D4_SetLow();
+                    break;
+            }
+#endif
+        }
 #else
         __delay_ms(1000);
         ak4118_print_input();
