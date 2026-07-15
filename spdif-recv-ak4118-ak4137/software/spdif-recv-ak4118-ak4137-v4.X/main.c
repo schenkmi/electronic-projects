@@ -33,9 +33,9 @@
 
  /**
   * Save hex
-  * cd /work/electronic-projects/dac-pcm1702-v1/software/spdif-recv-asrc-4392-v14.X
+  * cd /work/electronic-projects/spdif-recv-ak4118-ak4137/software/spdif-recv-ak4118-ak4137-v4.X
   * mkdir hex
-  * cp ./dist/default/production/spdif-recv-asrc-4392-v14.X.production.hex hex/
+  * cp ./dist/default/production/spdif-recv-ak4118-ak4137-v4.X.production.hex hex/
   */
 
 /**
