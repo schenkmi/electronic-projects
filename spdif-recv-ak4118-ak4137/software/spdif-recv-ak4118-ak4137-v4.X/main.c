@@ -33,9 +33,9 @@
 
  /**
   * Save hex
-  * cd /work/electronic-projects/dac-pcm1702-v1/software/spdif-recv-asrc-4392-v14.X
+  * cd /work/electronic-projects/spdif-recv-ak4118-ak4137/software/spdif-recv-ak4118-ak4137-v4.X
   * mkdir hex
-  * cp ./dist/default/production/spdif-recv-asrc-4392-v14.X.production.hex hex/
+  * cp ./dist/default/production/spdif-recv-ak4118-ak4137-v4.X.production.hex hex/
   */
 
 /**
@@ -213,6 +213,8 @@ void attenuation_set(uint8_t attenuation) {
  */
 int main(void)
 {
+    uint32_t counter = 0;
+    
     SYSTEM_Initialize();
 
     __delay_ms(STARTUP_WAIT);  
@@ -248,6 +250,24 @@ int main(void)
         eeprom_save_status(&instance);
 #if 1
         __delay_ms(MAIN_LOOP_WAIT);
+        counter++;
+        if ((counter % 1000) == 0) {
+#ifdef __USE_AK4118__
+            int status = ak4118_input_status();
+            switch (status) {
+                case AK4118_Status_Ok:
+                    LED_D3_SetHigh();
+                    LED_D4_SetHigh();
+                    break;
+                case AK4118_Status_Unlock:
+                    LED_D3_SetLow();
+                    break;
+                case AK4118_Status_Parity_Error:
+                    LED_D4_SetLow();
+                    break;
+            }
+#endif
+        }
 #else
         __delay_ms(1000);
         ak4118_print_input();

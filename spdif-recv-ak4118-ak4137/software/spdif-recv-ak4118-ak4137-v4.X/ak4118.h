@@ -72,6 +72,14 @@ void ak4118_print_samplerate(void);
 void ak4118_print_spdif_status(void);
 void ak4118_print_input(void);
 
+enum AK4118Status {
+    AK4118_Status_Ok = 0x00,
+    AK4118_Status_Unlock = 0x01,
+    AK4118_Status_Parity_Error = 0x02,
+};
+int ak4118_input_status(void);
+
+
 #ifdef	__cplusplus
 }
 #endif

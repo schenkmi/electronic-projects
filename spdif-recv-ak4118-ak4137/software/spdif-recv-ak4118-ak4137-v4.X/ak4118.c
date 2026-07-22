@@ -217,4 +217,18 @@ void ak4118_print_input(void) {
     }
 }
 
+int ak4118_input_status(void) {
+    int status = AK4118_Status_Ok;
+    if (ak4118_instance) {
+       uint8_t reg = ak4118_read(AK4118_REG_RCV_STATUS0);
+       if (reg & 0x10) {
+           status |= AK4118_Status_Unlock;
+       }
+       if (reg & 0x01) {
+           status |= AK4118_Status_Parity_Error;
+       }
+    }
+    return status;
+}
+
 #endif /* __USE_AK4118__ */
