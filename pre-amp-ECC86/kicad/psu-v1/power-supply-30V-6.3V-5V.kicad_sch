@@ -5,9 +5,9 @@
 	(uuid "01931c6a-523f-40a1-b080-9cb26aa5b391")
 	(paper "A3")
 	(title_block
-		(title "HV Power Supply LT3080 Maida")
-		(date "2026-04-26")
-		(rev "5")
+		(title "Power Supply ECC86")
+		(date "2026-07-26")
+		(rev "1")
 	)
 	(lib_symbols
 		(symbol "Connector_Generic:Conn_01x01"
@@ -3034,6 +3034,27 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "6.3V@660mA"
+		(exclude_from_sim no)
+		(at 296.164 241.046 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "00b589de-2c18-4b19-97a2-85f4b61a8b22")
+	)
+	(text "Cs=100nF/50\nRs=25.8R/0.125W"
+		(exclude_from_sim no)
+		(at 39.116 260.604 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0fbbba56-74dc-452e-a464-c0c38997cb39")
+	)
 	(text "Snubber"
 		(exclude_from_sim no)
 		(at 39.37 204.47 0)
@@ -3044,6 +3065,17 @@
 			(justify left bottom)
 		)
 		(uuid "22ed0a18-67e1-4d08-851c-8e6ec64f2954")
+	)
+	(text "100k (1MHz)\nOut: 6.3V@660mA, Vrippel 5.1mVeff(BW=20MHz) => 4.158W, n=83%, TU3=46°C\nIn: 33.3V@150mA => 4.995W\nOut: 6.3V@1A, Vrippel 6.21mVeff(BW=20MHz) => 6.3W, n=84%\nIn: 33.3V@225mA => 6.3W\n\n200k (500kHz)\nOut: 6.3V@660mA, Vrippel 6.27mVeff(BW=20MHz) => 4.158W, n=86%\nIn: 33.3V@145A => 4.158W\nOut: 6.3V@1A, Vrippel 6.8mVeff(BW=20MHz) => 6.3W, n=88%\nIn: 33.3V@215mA => 7.159W\n"
+		(exclude_from_sim no)
+		(at 19.812 87.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "399923f5-8d9a-4eec-b292-d145aa554b11")
 	)
 	(text "24VAC"
 		(exclude_from_sim no)
@@ -3056,18 +3088,28 @@
 		)
 		(uuid "7c8db400-60ff-4423-a8ff-f9b71064866e")
 	)
-	(text "Cs=100nF/50V\nRs=25.5R/0.6W (26.3R)"
+	(text "Soft start time: 29ms"
 		(exclude_from_sim no)
-		(at 39.37 261.62 0)
+		(at 194.056 183.642 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
 		)
-		(uuid "c86bccad-337d-493c-aa62-131c27aeb8d0")
+		(uuid "bbfaa4b7-b835-40c6-8ff3-ade4f643a93e")
 	)
-	(text "History\n-------\nV4 2024.05.12 PCB rounded edge\nV5-26A7 2026.03.11 DC/DC, redesign for 26A7 pre-amp"
+	(text "PWR XFMR TOROIDAL 15VA 2x12V D:57.5mm H:24mm (Amgis LLC, XF-10232) Digikey:419-XF-10232-ND\nL2,L3: SRU8043-150YCT-ND\nC14: 493-8667-ND\nC25: "
+		(exclude_from_sim no)
+		(at 18.034 22.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "caf92a9b-322b-4e82-a245-4c18a828103d")
+	)
+	(text "History\n-------\nV1 2026.07.22 Initial version\n"
 		(exclude_from_sim no)
 		(at 329.946 25.4 0)
 		(effects
@@ -3078,36 +3120,25 @@
 		)
 		(uuid "cc4503fc-eacf-4474-a80d-51d177466146")
 	)
-	(text "IN:35V/20mA Vout:4.96V ILoad:0.1A (6.5mVAC)\nIN:35V/83mA Vout:4.93V ILoad:0.5A (1.7mVAC)\nIN:35V/160mA Vout:4.89V ILoad:1A (1.8mVAC)"
+	(text "30V@10mA"
 		(exclude_from_sim no)
-		(at 292.354 120.396 0)
+		(at 398.526 64.516 90)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
 		)
-		(uuid "f99d2a74-6b0b-4771-9eb1-f627368f27e1")
+		(uuid "eff863b5-7628-4b34-8681-a775db394e13")
 	)
-	(text_box "PSU Line Stage 26A7\n\nCustom Toroidal Transformer\nTotal Power : 95.00VA Frequency : 50Hz\nPrimaires: 1 x 0-230V \nSecondaires: 1 x 0-25V / 2.8A (70.00VA), 1 x 0-50V / 0.5A (25.00 VA)\nSupport SF01 + Electrostatic Screen + Magnetic Screen\n230V : blue=N, brown=L\n50V  : blue=N, white=L\n25V  : orange=N, white=L\n"
+	(text "Soft start time:285ms"
 		(exclude_from_sim no)
-		(at 337.82 210.82 0)
-		(size 66.04 38.1)
-		(margins 0.9525 0.9525 0.9525 0.9525)
-		(stroke
-			(width 0)
-			(type solid)
-		)
-		(fill
-			(type none)
-		)
+		(at 207.518 268.478 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left top)
 		)
-		(uuid "b88ad43f-1441-4075-a124-6d32351323aa")
+		(uuid "faf6ebdf-1ce2-4a40-9fff-82f3d0211241")
 	)
 	(junction
 		(at 236.22 138.43)
@@ -6057,7 +6088,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.nichicon.co.jp/english/series_items/catalog_pdf/e-lgy.pdf"
 			(at 128.27 247.65 0)
 			(hide yes)
 			(show_name no)
@@ -6069,6 +6100,17 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
+			(at 128.27 247.65 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey" "https://www.digikey.ch/de/products/detail/nichicon/LGY1H103MELC40/2540818"
 			(at 128.27 247.65 0)
 			(hide yes)
 			(show_name no)
@@ -9403,7 +9445,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10nF/50V"
+		(property "Value" "100nF/50V"
 			(at 207.01 167.6399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9744,7 +9786,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.bourns.com/docs/Product-Datasheets/SRU8043.pdf"
 			(at 218.44 148.59 0)
 			(hide yes)
 			(show_name no)
@@ -9757,6 +9799,17 @@
 		)
 		(property "Description" "Inductor"
 			(at 218.44 148.59 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Didikey" "https://www.digikey.ch/de/products/detail/bourns-inc/SRU8043-150Y/2353075"
+			(at 218.44 148.59 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10139,7 +10192,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP64102.pdf"
+		(property "Datasheet" "https://www.diodes.com/datasheet/download/AP64202Q.pdf"
 			(at 204.47 149.86 0)
 			(hide yes)
 			(show_name no)
@@ -10152,6 +10205,17 @@
 		)
 		(property "Description" "3.8V TO 40V INPUT, 1A LOW IQ SYNCHRONOUS BUCK WITH INTERNAL COMPENSATION"
 			(at 204.47 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey" "https://www.digikey.ch/de/products/detail/diodes-incorporated/AP64202QSP-13/15779961"
+			(at 191.77 153.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10557,7 +10621,7 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "https://www.bourns.com/docs/Product-Datasheets/SRU8043.pdf"
 			(at 232.41 234.95 0)
 			(hide yes)
 			(show_name no)
@@ -10570,6 +10634,17 @@
 		)
 		(property "Description" "Inductor"
 			(at 232.41 234.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey" "https://www.digikey.ch/de/products/detail/bourns-inc/SRU8043-150Y/2353075"
+			(at 232.41 234.95 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12282,7 +12357,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10nF/50V"
+		(property "Value" "1uF/50V"
 			(at 220.98 253.9999 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13495,7 +13570,7 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/AP64102.pdf"
+		(property "Datasheet" "https://www.diodes.com/datasheet/download/AP64202Q.pdf"
 			(at 218.44 236.22 0)
 			(hide yes)
 			(show_name no)
@@ -13508,6 +13583,17 @@
 		)
 		(property "Description" "3.8V TO 40V INPUT, 1A LOW IQ SYNCHRONOUS BUCK WITH INTERNAL COMPENSATION"
 			(at 218.44 240.03 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey" "https://www.digikey.ch/de/products/detail/diodes-incorporated/AP64202QSP-13/15779961"
+			(at 205.74 240.03 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13653,7 +13739,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "30k"
+		(property "Value" "30k/0.25W"
 			(at 354.838 79.883 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14089,6 +14175,17 @@
 			)
 		)
 		(property "Description" "Polarized capacitor"
+			(at 335.28 78.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Digikey" "https://www.digikey.ch/de/products/detail/kemet/A7C0EN476M1HAAS050/28118309"
 			(at 335.28 78.74 0)
 			(hide yes)
 			(show_name no)
