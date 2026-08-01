@@ -3088,6 +3088,17 @@
 		)
 		(uuid "7c8db400-60ff-4423-a8ff-f9b71064866e")
 	)
+	(text "With real PSUv1\n100k (1MHz)\nOut: 6.3V@660mA, Vrippel 4.31mVeff(BW=20MHz) => 4.158W, n=85%, TU3=46°C\nIn: 35V@140mA => 4.9W"
+		(exclude_from_sim no)
+		(at 20.066 107.188 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "88d2e455-fe0e-4fd9-a8a0-9df4c28d0352")
+	)
 	(text "Soft start time: 29ms"
 		(exclude_from_sim no)
 		(at 194.056 183.642 0)
@@ -3199,12 +3210,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "32f42434-df4e-46ea-9a69-2d098781a9a4")
-	)
-	(junction
-		(at 59.69 240.03)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "331be582-a62a-43c9-a984-0ce48e0a8701")
 	)
 	(junction
 		(at 101.6 243.84)
@@ -3421,12 +3426,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e5f56d9c-40b2-4784-9f36-f812aecedcbe")
-	)
-	(junction
-		(at 59.69 229.87)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f1fe64ec-9dbd-4a93-8a19-76f1cc5097bd")
 	)
 	(junction
 		(at 95.25 229.87)
@@ -3674,16 +3673,6 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 228.6) (xy 59.69 229.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1e4e46d1-5991-450c-a4cd-551966cb8e48")
-	)
-	(wire
-		(pts
 			(xy 293.37 85.09) (xy 290.83 85.09)
 		)
 		(stroke
@@ -3791,16 +3780,6 @@
 			(type default)
 		)
 		(uuid "29b8adbe-3f87-49c2-95f2-83e204d72c61")
-	)
-	(wire
-		(pts
-			(xy 73.66 229.87) (xy 73.66 231.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2adda7c0-43c8-4eca-a0d2-4220ffd7a5ed")
 	)
 	(wire
 		(pts
@@ -4314,7 +4293,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 238.76) (xy 59.69 240.03)
+			(xy 59.69 238.76) (xy 59.69 251.46)
 		)
 		(stroke
 			(width 0)
@@ -4824,16 +4803,6 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 240.03) (xy 59.69 240.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b4def3e0-1251-4d5c-8ebb-323280c5dacf")
-	)
-	(wire
-		(pts
 			(xy 335.28 58.42) (xy 353.06 58.42)
 		)
 		(stroke
@@ -4861,16 +4830,6 @@
 			(type default)
 		)
 		(uuid "b6d00458-16f9-4a84-b147-1615e08a871f")
-	)
-	(wire
-		(pts
-			(xy 59.69 240.03) (xy 59.69 251.46)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b7e22cfb-f907-4214-a18c-3cc931801fff")
 	)
 	(wire
 		(pts
@@ -5204,7 +5163,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 231.14) (xy 59.69 229.87)
+			(xy 59.69 228.6) (xy 59.69 231.14)
 		)
 		(stroke
 			(width 0)
@@ -5221,16 +5180,6 @@
 			(type default)
 		)
 		(uuid "d4eb1c2a-4324-4e2b-9b5d-0ed4441198e3")
-	)
-	(wire
-		(pts
-			(xy 73.66 238.76) (xy 73.66 240.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d5b7884c-5254-4a92-87b6-a1cd70a0faba")
 	)
 	(wire
 		(pts
@@ -5291,16 +5240,6 @@
 			(type default)
 		)
 		(uuid "dd4bc22f-04b5-480b-8b43-56fa0514e121")
-	)
-	(wire
-		(pts
-			(xy 59.69 229.87) (xy 73.66 229.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ded7a3d6-ea49-49e8-942a-4d690b73d953")
 	)
 	(wire
 		(pts
@@ -8344,87 +8283,6 @@
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
 					(reference "R1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 73.66 234.95 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-0000613ceb89")
-		(property "Reference" "R20"
-			(at 75.438 233.7816 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Rs/0.6W"
-			(at 75.438 236.093 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
-			(at 71.882 234.95 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 73.66 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Resistor"
-			(at 73.66 234.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "0b03b0cf-94fc-4b80-9bc4-bfd3272668b4")
-		)
-		(pin "2"
-			(uuid "384c5419-a459-4312-b659-2381ba149577")
-		)
-		(instances
-			(project "power-supply-30V-6.3V-5V"
-				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "R20")
 					(unit 1)
 				)
 			)
