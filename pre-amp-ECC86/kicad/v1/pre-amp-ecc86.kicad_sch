@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(title "Pre-Amp ECC86")
-		(date "2026-07-08")
+		(date "2026-08-01")
 		(rev "V1")
 	)
 	(lib_symbols
@@ -3337,7 +3337,7 @@
 			(embedded_fonts no)
 		)
 	)
-	(text "Remarks\n-------\nC1,C5 not equiped\nJP1,JP2 soldered\nResistors: 0.1W,100V,0.5% (0805)\n2xE88CC: If=600mA, Ia=16mA (together)\n"
+	(text "Remarks\n-------\nC1,C5 not equiped\nJP1,JP2 soldered\nResistors: 0.1W,100V,0.5% (0805)\n\n"
 		(exclude_from_sim no)
 		(at 28.194 211.836 0)
 		(effects
@@ -3347,6 +3347,26 @@
 			(justify left)
 		)
 		(uuid "067f387a-3277-497e-b0fa-c560e7646fa7")
+	)
+	(text "+16V"
+		(exclude_from_sim no)
+		(at 173.736 67.31 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "1aac9468-2639-44d6-b246-77b3e7fd5c1c")
+	)
+	(text "+16V"
+		(exclude_from_sim no)
+		(at 172.72 166.116 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "1e0aadb4-023d-4330-bf67-5e8c35a28026")
 	)
 	(text "R2/R11: 10k or 47k according step att"
 		(exclude_from_sim no)
@@ -3358,7 +3378,7 @@
 		)
 		(uuid "21387b98-1ab0-42d5-aba6-a94bd123190d")
 	)
-	(text "Ia 2xE88CC 17.5mA\nVout 500mV@1kHz K=0.118%\nVout 1V@1kHz K=0.251%"
+	(text "Ia 2xECC86 6mA\nVin=500mV@1kHz, Vout=1.26V K=0.375%"
 		(exclude_from_sim no)
 		(at 291.338 188.214 0)
 		(effects
@@ -3379,6 +3399,16 @@
 			(justify left bottom)
 		)
 		(uuid "58f1319f-2b8d-4037-aeb2-e0241f436560")
+	)
+	(text "+6.3VDC"
+		(exclude_from_sim no)
+		(at 243.332 26.416 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6f63557c-35eb-4496-b038-503701dd38ea")
 	)
 	(text "+30VDC"
 		(exclude_from_sim no)
@@ -8313,7 +8343,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1.2k"
+		(property "Value" "470R"
 			(at 104.648 81.153 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10648,7 +10678,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1.2k"
+		(property "Value" "470R"
 			(at 104.648 180.213 0)
 			(show_name no)
 			(do_not_autoplace no)
