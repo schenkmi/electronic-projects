@@ -3,6 +3,16 @@ misc electronic projects
 
 # History
 
+## 2026.08.01
+
+### pre-amp-ECC86/kicad/psu-v2
+Shrinked and optimized PSU for ECC86
+
+## 2026.07.22
+
+### pre-amp-ECC86/kicad/psu-v1
+First version of PSU for ECC86 
+
 ## 2026.07.12
 
 ### pre-amp-ECC86/kicad/v1
