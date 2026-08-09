@@ -1,3 +1,96 @@
+
+*6922EH LTspice model based on the generic triode model from Adrian Immler, version i4
+*A version log is at the end of this file
+*100h BurnIn of 4 electro-harmonix factory tubes, sample selection and measurements done in April 2021
+*Params fitted to the measured values by Adrian Immler, April 2021
+*The high fit quality is presented at adrianimmler.simplesite.com
+*History's best of tube decribing art (plus some new ideas) is merged to this new approach.
+*@ neg. Vg, Ia accuracy is similar to Koren.
+*@ small neg. Vg, the "Anlauf" current is considered.
+*@ pos. Vg, Ig and Ia accuracy is on a unrivaled level.
+*This offers new simulation possibilities like bias point setting with MOhm grid resistor,
+*Audion radio circuits, low voltage amps, guitar distortion stages or pulsed stages.
+*              i4 version
+*              |  anode (plate)
+*              |  | grid
+*              |  | | cathode
+*              |  | | |
+.subckt 6922EH.i4 A G K
++ params:
+*Parameters for the space charge current @ Vg <= 0
++ mu   = 32.8  ;Determines the voltage gain @ constant Ia
++ rad  = 1k8   ;Differential anode resistance, set @ Iad and Vg=0V
++ Vct  = 0.75  ;Offsets the Ia-traces on the Va axis. Electrode material's contact potential
++ kp   = 320   ;Mimics the island effect
++ xs   = 1.35  ;Determines the curve of the Ia traces. Typically between 1.2 and 1.8
+*
+*Parameters for assigning the space charge current to Ia and Ig @ Vg > 0
++ kB   = 3     ;Describes how fast Ia drops to zero when Va approaches zero.
++ radl = 350   ;Differential resistance for the Ia emission limit @ very small Va and Vg > 0
++ tsh  = 5     ;Ia transmission sharpness from 1th to 2nd Ia area. Keep between 3 and 20. Start with 20.
++ xl   = 1.2   ;Exponent for the emission limit
+*
+*Parameters of the grid-cathode vacuum diode
++ kvdg  = 28   ;virtual vacuumdiode. Causes an Ia reduction @ Ig > 0.
++ kg = 750     ;Inverse scaling factor for the Va independent part of Ig (caution - interacts with xg!)
++ Vctg = 0.05  ;Offsets the log Ig-traces on the Vg axis. Electrode material's contact potential
++ xg   = 1.25  ;Determines the curve of the Ig slope versus (positive) Vg and Va >> 0
++ VT   = 0.148 ;Log(Ig) slope @ Vg<0. VT=k/q*Tk (cathodes absolute temp, typically 1150K)
++ kVT=80m      ;Va dependant koeff. of VT
++ Vft2 = 0.75V gft2 = 5;finetunes the gridcurrent @ low Va and Vg near zero
+*
+*Parameters for the caps
++ cag  = 1p5   ;From datasheet 
++ cak  = 2p0   ;From datasheet
++ cgk  = 3p25  ;From datasheet (actually the 6922EH datasheet says 32p5 which cannot be. A tipo is assumed)
+*
+*special purpose parameters
++ os = 1       ;Overall scaling factor, if a user wishes to simulate manufacturing tolerances
+*
+*Calculated parameters
++ Iad = {100/rad} ;Ia where the anode a.c. resistance is set according to rad.
++ ks = {pow(mu/(rad*xs*Iad**(1-1/xs)),-xs)} ;Reduces the unwished xs influence to the Ia slope
++ ksnom = {pow(mu/(rad*1.5*Iad**(1-1/1.5)),-1.5)} ;Sub-equation for calculating Vg0
++ Vg0 = {Vct + (Iad*ks)**(1/xs) - (Iad*ksnom)**(2/3)} ;Reduces the xs influence to Vct.
++ kl = {pow(1/(radl*xl*Ild**(1-1/xl)),-xl)} ;Reduces the xl influence to the Ia slope @ small Va
++ Ild = {sqrt(radl)*1m} ;Current where the Il a.c. resistance is set according to radl.
+*
+*Space charge current model
+Bggi GGi 0 V=v(Gi,K)+Vg0 ;Effective internal grid voltage.
+Bahc Ahc 0 V=uramp(v(A,K)) ;Anode voltage, hard cut to zero @ neg. value
+Bst   St 0 V=uramp(max(v(GGi)+v(A,K)/(mu), v(A,K)/kp*ln(1+exp(kp*(1/mu+v(GGi)/(1+v(Ahc)))))));Steering volt.
+Bs    Ai K I=os/ks*pow(v(St),xs) ;Langmuir-Childs law for the space charge current Is
+*
+*Anode current limit @ small Va
+.func smin(z,y,k) {pow(pow(z+1f, -k)+pow(y+1f, -k), -1/k)} ;Min-function with smooth trans.
+Ra  A Ai 1
+Bgl Gi A I=min(i(Ra)-smin(1/kl*pow(v(Ahc),xl),i(Ra),tsh),i(Bgvd)*exp(4*v(G,K))) ;Ia emission limit
+*
+*Grid model
+Bvdg G Gi I=1/kvdg*pwrs(v(G,Gi),1.5) ;Reduces the internal effective grid voltage when Ig rises
+Rgip G Gi 1G ;avoids some warnings
+Cvdg G Gi 0p1;this small cap improves convergence
+.func fVT() {VT*exp(-kVT*sqrt(v(A,K)))}
+.func Ivd(Vvd, kvd, xvd, VTvd)  {if(Vvd < 3, 1/kvd*pow(VTvd*xvd*ln(1+exp(Vvd/VTvd/xvd)),xvd), 1/kvd*pow(Vvd, xvd))} ;Vacuum diode function
+Bgvd Gi K I=Ivd(v(G,K) + Vctg, kg/os, xg, fVT())
+.func ft2() {gft2*(1-tanh(3*(v(G,K)+Vft2)))} ;Finetuning-func. improves ig-fit @ Vg near -0.5V, low Va.
+Bgr Gi Ai I=ivd(v(GGi),ks/os, xs, 0.8*VT)/(1+ft2()+kB*v(Ahc));Is reflection to grid when Va approaches zero
+Bs0 Ai K  I=ivd(v(GGi),ks/os, xs, 0.8*VT)/(1+ft2()) - os/ks*pow(v(GGi),xs) ;Compensates neg Ia @ small Va and Vg near zero
+*
+*Caps
+C1 A G {cag}
+C2 A K {cak}
+C3 G K {cgk}
+.ends
+*
+*Version log
+*i1 :Initial version
+*i2 :Pin order changed to the more common order A G K (Thanks to Markus Gyger for his tip)
+*i3 :bugfix of the Ivd-function: now also usable for larger Vvd
+*i4: Rgi replaced by a virtual vacuum diode (better convergence). ft1 deleted (no longer needed)
+;2 new prarams for Ig finetuning @ Va and Vg near zero. New overall skaling factor os for aging etc.
+
+
 *ECC86 LTspice model based on the generic triode model from Adrian Immler, version i2
 *A version log is at the end of this file
 *Params fitted to measured values of a Zaerix sample by Adrian Immler, Oct. 2018
