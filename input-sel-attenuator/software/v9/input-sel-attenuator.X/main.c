@@ -31,8 +31,8 @@
  */
 
 /**
- * TODO
- * 2025.XX.XX
+ * Remote: One for All Contour 8
+ * Code: TV Hitachi 2676
  */
 
  /**
