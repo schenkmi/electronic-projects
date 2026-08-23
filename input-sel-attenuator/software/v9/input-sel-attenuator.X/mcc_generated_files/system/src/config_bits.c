@@ -43,7 +43,7 @@
 
 //CONFIG2
 #pragma config MCLRE = EXTMCLR    // Master Clear Enable bit->If LVP = 0, MCLR pin is MCLR; If LVP = 1, RA3 pin function is MCLR
-#pragma config PWRTS = PWRT_OFF    // Power-up Timer Selection bits->PWRT is disabled
+#pragma config PWRTS = PWRT_64    // Power-up Timer Selection bits->PWRT set at 64 ms
 #pragma config WDTE = OFF    // WDT Operating Mode bits->WDT disabled; SEN is ignored
 #pragma config BOREN = ON    // Brown-out Reset Enable bits->Brown-out Reset enabled, SBOREN bit is ignored
 #pragma config DACAUTOEN = OFF    // DAC Buffer Automatic Range Select Enable bit->DAC Buffer reference range is determined by the REFRNG bit
