@@ -3,6 +3,21 @@ misc electronic projects
 
 # History
 
+## 2026.08.26
+
+### pre-amp-ECC86/kicad/psu-v4
+Large PCB PSU for ECC86 without relais. Support LT3080 and LM317
+
+## 2026.08.23
+
+### input-sel-attenuator/software/v9
+Power up timer to 64ms wait till voltage is stabilized
+
+## 2026.08.10
+
+### pre-amp-ECC86/kicad/psu-v3
+Large PCB PSU for ECC86
+
 ## 2026.08.01
 
 ### pre-amp-ECC86/kicad/psu-v2
