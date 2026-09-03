@@ -1,0 +1,387 @@
+(* Content-type: application/vnd.wolfram.cdf.text *)
+
+(*** Wolfram CDF File ***)
+(* http://www.wolfram.com/cdf *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*************************************************************************)
+(*                                                                       *)
+(*                                                                       *)
+(*  This file was created under the Wolfram Enterprise licensing terms.  *)
+(*                                                                       *)
+(*       For additional information concerning CDF licensing see:        *)
+(*                                                                       *)
+(*        www.wolfram.com/cdf/adopting-cdf/licensing-options.html        *)
+(*                                                                       *)
+(*                                                                       *)
+(*                                                                       *)
+(*************************************************************************)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[      1060,         20]
+NotebookDataLength[     12672,        366]
+NotebookOptionsPosition[     12312,        352]
+NotebookOutlinePosition[     12705,        368]
+CellTagsIndexPosition[     12662,        365]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"--", 
+      RowBox[{"-", "INPUT"}]}], " ", 
+     RowBox[{"PARAMETERS", "--"}]}], "-"}], "*)"}], 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Vin", "=", "35.0"}], ";"}], "       ", 
+   RowBox[{"(*", 
+    RowBox[{"Eingangsspannung", " ", "in", " ", "V"}], "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"Vout", "=", "6.3"}], ";"}], "       ", 
+   RowBox[{"(*", 
+    RowBox[{"Ausgangsspannung", " ", "in", " ", "V"}], "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"Iout", "=", "0.66"}], ";"}], "      ", 
+   RowBox[{"(*", 
+    RowBox[{"Ausgangsstrom", " ", "in", " ", "A"}], "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"fsw", "=", 
+     RowBox[{"10", "^", "6"}]}], ";"}], "       ", 
+   RowBox[{"(*", 
+    RowBox[{"Schaltfrequenz", ":", 
+     RowBox[{"1", " ", "MHz"}]}], "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"L", "=", 
+     RowBox[{"15", "*", 
+      RowBox[{"10", "^", 
+       RowBox[{"-", "6"}]}]}]}], ";"}], "   ", 
+   RowBox[{"(*", 
+    RowBox[{"Induktivit\[ADoubleDot]t", ":", 
+     RowBox[{"15", " ", "uH"}]}], "*)"}], "\n", 
+   RowBox[{
+    RowBox[{"Vfb", "=", "0.8"}], ";"}], "        ", 
+   RowBox[{"(*", 
+    RowBox[{"Feedback", "-", 
+     RowBox[{"Referenzspannung", " ", "des", " ", "AP64202Q"}]}], "*)"}], 
+   "\n", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"--", 
+      RowBox[{"-", 
+       RowBox[{"CALCULATIONS", "--"}]}]}], "-"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "Print", "[", "\"\<=== Buck Converter Analysis (AP64202Q + SRU8043-150Y) \
+===\>\"", "]"}], ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"1.", " ", "Duty", " ", "Cycle"}], "*)"}], "\[IndentingNewLine]", 
+   
+   RowBox[{
+    RowBox[{"duty", "=", 
+     RowBox[{"Vout", "/", "Vin"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Duty Cycle (duty): \>\"", ",", 
+      RowBox[{"NumberForm", "[", 
+       RowBox[{
+        RowBox[{"duty", "*", "100"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "2"}], "}"}]}], "]"}], ",", "\"\< %\>\""}], "]"}], 
+    ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"2.", " ", "Inductor", " ", "Ripple", " ", "Current"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"DeltaIL", "=", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"Vout", "*", 
+        RowBox[{"(", 
+         RowBox[{"Vin", "-", "Vout"}], ")"}]}], ")"}], "/", 
+      RowBox[{"(", 
+       RowBox[{"L", "*", "fsw", "*", "Vin"}], ")"}]}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Inductor Ripple Current (\[CapitalDelta]IL): \>\"", ",", 
+      RowBox[{"NumberForm", "[", 
+       RowBox[{"DeltaIL", ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "3"}], "}"}]}], "]"}], ",", "\"\< A\>\""}], "]"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Ripple Percentage: \>\"", ",", 
+      RowBox[{"NumberForm", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"DeltaIL", "/", "Iout"}], ")"}], "*", "100"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "1"}], "}"}]}], "]"}], ",", "\"\< %\>\""}], "]"}], 
+    ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"3.", " ", "Peak", " ", "Current"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Ipeak", "=", 
+     RowBox[{"Iout", "+", 
+      RowBox[{"(", 
+       RowBox[{"DeltaIL", "/", "2"}], ")"}]}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Peak Inductor Current (Ipeak): \>\"", ",", 
+      RowBox[{"NumberForm", "[", 
+       RowBox[{"Ipeak", ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "3"}], "}"}]}], "]"}], ",", "\"\< A\>\""}], "]"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Safety Margin to Isat (2.0A): \>\"", ",", 
+      RowBox[{"NumberForm", "[", 
+       RowBox[{
+        RowBox[{"2.0", "-", "Ipeak"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "3"}], "}"}]}], "]"}], ",", "\"\< A\>\""}], "]"}], 
+    ";"}], "\n", "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"4.", " ", "Feedback", " ", "Resistor", " ", "Network", " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Assuming", " ", "R2"}], "=", 
+       RowBox[{"10", " ", "kOhm"}]}], ")"}]}], "*)"}], "\[IndentingNewLine]", 
+   
+   RowBox[{
+    RowBox[{"R2", "=", "10000"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"R1", "=", 
+     RowBox[{"R2", "*", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{"Vout", "/", "Vfb"}], ")"}], "-", "1"}], ")"}]}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", "\"\<\\n=== External Components ===\>\"", "]"}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Feedback Resistor R1 (Top): \>\"", ",", 
+      RowBox[{"NumberForm", "[", 
+       RowBox[{
+        RowBox[{"R1", "/", "1000"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"5", ",", "2"}], "}"}]}], "]"}], 
+      ",", "\"\< k\[CapitalOmega] (Standard: 68.1 k\[CapitalOmega] + 680 \
+\[CapitalOmega])\>\""}], "]"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<Feedback Resistor R2 (Bottom): \>\"", ",", 
+      RowBox[{"R2", "/", "1000"}], ",", "\"\< k\[CapitalOmega]\>\""}], "]"}], 
+    ";"}], "\n", "\n"}]}]], "Input",
+ CellChangeTimes->{{3.997442444968665*^9, 3.997442444968701*^9}, {
+  3.997442671099442*^9, 3.997442711134295*^9}, {3.9974427941679897`*^9, 
+  3.9974427954299707`*^9}},
+ CellLabel->
+  "In[101]:=",ExpressionUUID->"08bb8fd0-a2a5-4498-8876-b4d75dffdbe0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"=== Buck Converter Analysis (AP64202Q + SRU8043-150Y) ===\"\
+\>"], "Print",
+ CellChangeTimes->{
+  3.9974424496361103`*^9, {3.997442672594405*^9, 3.997442712728959*^9}, 
+   3.99744279752773*^9},
+ CellLabel->
+  "During evaluation of \
+In[101]:=",ExpressionUUID->"d49cc1a1-e99a-42df-b7b1-6393177f3517"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Duty Cycle (duty): \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    InterpretationBox[
+     StyleBox["\<\"18.00\"\>",
+      ShowStringCharacters->False],
+     18.,
+     AutoDelete->True],
+    NumberForm[#, {5, 2}]& ], "\[InvisibleSpace]", "\<\" %\"\>"}],
+  SequenceForm["Duty Cycle (duty): ", 
+   NumberForm[18., {5, 2}], " %"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.9974424496361103`*^9, {3.997442672594405*^9, 3.997442712728959*^9}, 
+   3.997442797528871*^9},
+ CellLabel->
+  "During evaluation of \
+In[101]:=",ExpressionUUID->"d9fe1c12-d7ba-4afe-a652-474e4ff2823b"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Inductor Ripple Current (\[CapitalDelta]IL): \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    InterpretationBox[
+     StyleBox["\<\"0.344\"\>",
+      ShowStringCharacters->False],
+     0.3444,
+     AutoDelete->True],
+    NumberForm[#, {5, 3}]& ], "\[InvisibleSpace]", "\<\" A\"\>"}],
+  SequenceForm["Inductor Ripple Current (\[CapitalDelta]IL): ", 
+   NumberForm[0.3444, {5, 3}], " A"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.9974424496361103`*^9, {3.997442672594405*^9, 3.997442712728959*^9}, 
+   3.9974427975298853`*^9},
+ CellLabel->
+  "During evaluation of \
+In[101]:=",ExpressionUUID->"868de732-e01e-4977-b34a-d1300b601225"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Ripple Percentage: \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    InterpretationBox[
+     StyleBox["\<\"52.2\"\>",
+      ShowStringCharacters->False],
+     52.18181818181817,
+     AutoDelete->True],
+    NumberForm[#, {5, 1}]& ], "\[InvisibleSpace]", "\<\" %\"\>"}],
+  SequenceForm["Ripple Percentage: ", 
+   NumberForm[52.18181818181817, {5, 1}], " %"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.9974424496361103`*^9, {3.997442672594405*^9, 3.997442712728959*^9}, 
+   3.997442797530526*^9},
+ CellLabel->
+  "During evaluation of \
+In[101]:=",ExpressionUUID->"c1fcc211-2ae4-4226-8605-431e9ed9d949"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Peak Inductor Current (Ipeak): \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    InterpretationBox[
+     StyleBox["\<\"0.832\"\>",
+      ShowStringCharacters->False],
+     0.8322,
+     AutoDelete->True],
+    NumberForm[#, {5, 3}]& ], "\[InvisibleSpace]", "\<\" A\"\>"}],
+  SequenceForm["Peak Inductor Current (Ipeak): ", 
+   NumberForm[0.8322, {5, 3}], " A"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.9974424496361103`*^9, {3.997442672594405*^9, 3.997442712728959*^9}, 
+   3.997442797531142*^9},
+ CellLabel->
+  "During evaluation of \
+In[101]:=",ExpressionUUID->"d67cbc6d-250a-4662-8a27-e3c9112e8284"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Safety Margin to Isat (2.0A): \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    InterpretationBox[
+     StyleBox["\<\"1.168\"\>",
+      ShowStringCharacters->False],
+     1.1678,
+     AutoDelete->True],
+    NumberForm[#, {5, 3}]& ], "\[InvisibleSpace]", "\<\" A\"\>"}],
+  SequenceForm["Safety Margin to Isat (2.0A): ", 
+   NumberForm[1.1678, {5, 3}], " A"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.9974424496361103`*^9, {3.997442672594405*^9, 3.997442712728959*^9}, 
+   3.997442797531765*^9},
+ CellLabel->
+  "During evaluation of \
+In[101]:=",ExpressionUUID->"af24e9c1-09bc-4463-9013-fec59167bc74"],
+
+Cell[BoxData["\<\"\\n=== External Components ===\"\>"], "Print",
+ CellChangeTimes->{
+  3.9974424496361103`*^9, {3.997442672594405*^9, 3.997442712728959*^9}, 
+   3.9974427975323668`*^9},
+ CellLabel->
+  "During evaluation of \
+In[101]:=",ExpressionUUID->"870daafd-7928-43b0-a993-441757feb103"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Feedback Resistor R1 (Top): \"\>", "\[InvisibleSpace]", 
+   TagBox[
+    InterpretationBox[
+     StyleBox["\<\"68.75\"\>",
+      ShowStringCharacters->False],
+     68.75,
+     AutoDelete->True],
+    NumberForm[#, {5, 2}]& ], 
+   "\[InvisibleSpace]", "\<\" k\[CapitalOmega] (Standard: 68.1 k\
+\[CapitalOmega] + 680 \[CapitalOmega])\"\>"}],
+  SequenceForm["Feedback Resistor R1 (Top): ", 
+   NumberForm[68.75, {5, 2}], 
+   " k\[CapitalOmega] (Standard: 68.1 k\[CapitalOmega] + 680 \
+\[CapitalOmega])"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.9974424496361103`*^9, {3.997442672594405*^9, 3.997442712728959*^9}, 
+   3.997442797532919*^9},
+ CellLabel->
+  "During evaluation of \
+In[101]:=",ExpressionUUID->"613222ba-4fd0-430b-b8ba-002f206bb5aa"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Feedback Resistor R2 (Bottom): \"\>", "\[InvisibleSpace]", 
+   "10", "\[InvisibleSpace]", "\<\" k\[CapitalOmega]\"\>"}],
+  SequenceForm["Feedback Resistor R2 (Bottom): ", 10, " k\[CapitalOmega]"],
+  Editable->False]], "Print",
+ CellChangeTimes->{
+  3.9974424496361103`*^9, {3.997442672594405*^9, 3.997442712728959*^9}, 
+   3.997442797533486*^9},
+ CellLabel->
+  "During evaluation of \
+In[101]:=",ExpressionUUID->"d298e7e5-42df-4daf-b66b-11b2e42c4d28"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1416, 893},
+WindowMargins->{{118, Automatic}, {7, Automatic}},
+FrontEndVersion->"15.0 for Mac OS X ARM (64-bit) (May 19, 2026)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"e290dad3-5720-4005-8aa5-636fe2047133"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[1482, 35, 5562, 157, 662, "Input",ExpressionUUID->"08bb8fd0-a2a5-4498-8876-b4d75dffdbe0"],
+Cell[CellGroupData[{
+Cell[7069, 196, 317, 7, 23, "Print",ExpressionUUID->"d49cc1a1-e99a-42df-b7b1-6393177f3517"],
+Cell[7389, 205, 627, 18, 23, "Print",ExpressionUUID->"d9fe1c12-d7ba-4afe-a652-474e4ff2823b"],
+Cell[8019, 225, 687, 18, 23, "Print",ExpressionUUID->"868de732-e01e-4977-b34a-d1300b601225"],
+Cell[8709, 245, 654, 18, 23, "Print",ExpressionUUID->"c1fcc211-2ae4-4226-8605-431e9ed9d949"],
+Cell[9366, 265, 657, 18, 23, "Print",ExpressionUUID->"d67cbc6d-250a-4662-8a27-e3c9112e8284"],
+Cell[10026, 285, 655, 18, 23, "Print",ExpressionUUID->"af24e9c1-09bc-4463-9013-fec59167bc74"],
+Cell[10684, 305, 291, 6, 41, "Print",ExpressionUUID->"870daafd-7928-43b0-a993-441757feb103"],
+Cell[10978, 313, 803, 22, 23, "Print",ExpressionUUID->"613222ba-4fd0-430b-b8ba-002f206bb5aa"],
+Cell[11784, 337, 500, 11, 23, "Print",ExpressionUUID->"d298e7e5-42df-4daf-b66b-11b2e42c4d28"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
