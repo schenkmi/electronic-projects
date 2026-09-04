@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(title "Power Supply ECC86")
-		(date "2026-09-02")
+		(date "2026-09-04")
 		(rev "5")
 	)
 	(lib_symbols
@@ -3707,6 +3707,17 @@
 		)
 		(uuid "399923f5-8d9a-4eec-b292-d145aa554b11")
 	)
+	(text "PWR XFMR TOROIDAL 15VA 2x12V D:57.5mm H:24mm (Amgis LLC, XF-10232) Digikey:419-XF-10232-ND\nL1,L2: (15uH/2.7A) Bourns Inc. SRU8043-150YCT\nhttps://www.digikey.ch/de/products/detail/bourns-inc/SRU8043-150Y/2353075\nC19,C22,C23,C24,C27,C28 22uF/25V/X7R Samsung CL32B226KAJNNNE\nhttps://www.digikey.ch/de/products/detail/samsung-electro-mechanics/CL32B226KAJNNNE/3889050\nC6,C7,C8,C9 10uF/100V/X7R TDK C3225X7R2A106K250AC\nhttps://www.digikey.ch/de/products/detail/tdk-corporation/C3225X7R2A106K250AC/15930207\nor\nC6,C7,C8,C9 10uF/50V/X7R Samsung CL32B106KBJNNWE\nhttps://www.digikey.ch/de/products/detail/samsung-electro-mechanics/CL32B106KBJNNWE/3889046"
+		(exclude_from_sim no)
+		(at 13.97 25.146 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "46602400-2eb1-44b4-82cc-7979c679527f")
+	)
 	(text "24VAC"
 		(exclude_from_sim no)
 		(at 22.86 232.918 90)
@@ -3747,17 +3758,6 @@
 			)
 		)
 		(uuid "bbfaa4b7-b835-40c6-8ff3-ade4f643a93e")
-	)
-	(text "PWR XFMR TOROIDAL 15VA 2x12V D:57.5mm H:24mm (Amgis LLC, XF-10232) Digikey:419-XF-10232-ND\nL2,L3: SRU8043-150YCT-ND\nC14: 493-8667-ND\nC25: "
-		(exclude_from_sim no)
-		(at 18.034 22.86 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "caf92a9b-322b-4e82-a245-4c18a828103d")
 	)
 	(text "History\n-------\nV1 2026.07.22 Initial version\nV2 2026.08.01 Smaller version\nV3 2026.08.09 Bigger version as V2 produces more noise on +6.3V\nV4 2026.08.22 Protection for LT3080/LM317, no relais\nV5 2026.09.01 High side P-MOS Switch"
 		(exclude_from_sim no)
@@ -9371,7 +9371,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "14e135da-61a1-4036-88f7-95d4d8f35511")
-		(property "Reference" "U4"
+		(property "Reference" "U5"
 			(at 283.21 28.1686 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9439,7 +9439,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "U4")
+					(reference "U5")
 					(unit 1)
 				)
 			)
@@ -11825,7 +11825,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "4ad03701-f682-475c-9d66-9d5c1310ceaa")
-		(property "Reference" "R18"
+		(property "Reference" "R20"
 			(at 297.688 59.7916 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11889,7 +11889,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "R18")
+					(reference "R20")
 					(unit 1)
 				)
 			)
@@ -12142,7 +12142,7 @@
 		(in_pos_files yes)
 		(dnp yes)
 		(uuid "4dab8d76-3373-4691-8ab9-4fe98aa1752f")
-		(property "Reference" "R14"
+		(property "Reference" "R15"
 			(at 285.242 69.9516 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12206,7 +12206,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "R14")
+					(reference "R15")
 					(unit 1)
 				)
 			)
@@ -12306,7 +12306,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5603a2d7-08fd-4871-a06d-b49b38ea6b49")
-		(property "Reference" "D7"
+		(property "Reference" "D9"
 			(at 282.8925 16.51 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12368,7 +12368,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "D7")
+					(reference "D9")
 					(unit 1)
 				)
 			)
@@ -13021,7 +13021,7 @@
 		(in_pos_files yes)
 		(dnp yes)
 		(uuid "6f1c2f4d-dbc3-4ea8-8fba-77ebe4d2729d")
-		(property "Reference" "D8"
+		(property "Reference" "D10"
 			(at 282.8925 50.8 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13083,7 +13083,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "D8")
+					(reference "D10")
 					(unit 1)
 				)
 			)
@@ -13179,7 +13179,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "71cc732b-9c08-4d91-80a4-f95bff11613e")
-		(property "Reference" "D11"
+		(property "Reference" "D12"
 			(at 309.88 40.3225 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13241,7 +13241,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "D11")
+					(reference "D12")
 					(unit 1)
 				)
 			)
@@ -13421,7 +13421,7 @@
 		(in_pos_files yes)
 		(dnp yes)
 		(uuid "796c91d6-b8f2-4c58-b65e-90e6603d3b31")
-		(property "Reference" "C20"
+		(property "Reference" "C21"
 			(at 252.73 53.3399 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13485,7 +13485,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "C20")
+					(reference "C21")
 					(unit 1)
 				)
 			)
@@ -14699,7 +14699,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "9b1889fe-221f-4b77-8209-b024e36aed16")
-		(property "Reference" "R12"
+		(property "Reference" "R13"
 			(at 273.558 49.6316 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14763,7 +14763,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "R12")
+					(reference "R13")
 					(unit 1)
 				)
 			)
@@ -15366,7 +15366,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "aa66df93-ba2b-46dc-bbad-9db89f0d15e7")
-		(property "Reference" "RV1"
+		(property "Reference" "RV2"
 			(at 294.1574 69.9516 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15433,7 +15433,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "RV1")
+					(reference "RV2")
 					(unit 1)
 				)
 			)
@@ -17057,7 +17057,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "db06944c-8535-4be3-95c9-6e37cc8c2278")
-		(property "Reference" "R17"
+		(property "Reference" "R19"
 			(at 297.688 49.6316 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17121,7 +17121,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "R17")
+					(reference "R19")
 					(unit 1)
 				)
 			)
@@ -17138,7 +17138,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "df95424b-fc12-4f0b-ba0e-4cb1f7f51c47")
-		(property "Reference" "C17"
+		(property "Reference" "C18"
 			(at 235.4072 53.4416 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17202,7 +17202,7 @@
 		(instances
 			(project "power-supply-30V-6.3V-5V"
 				(path "/01931c6a-523f-40a1-b080-9cb26aa5b391"
-					(reference "C17")
+					(reference "C18")
 					(unit 1)
 				)
 			)
