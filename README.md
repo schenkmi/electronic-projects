@@ -3,6 +3,11 @@ misc electronic projects
 
 # History
 
+## 2026.09.19
+
+### pre-amp-ECC86/kicad/psu-v6
+Large PCB PSU for ECC86 with high side switch. Support LT3080 and LM317. Fix Drain/Source.
+
 ## 2026.09.02
 
 ### pre-amp-ECC86/kicad/psu-v5
