@@ -263,7 +263,10 @@ void eeprom_save_status(volatile Instance_t* instance) {
 
 void process_encoder_button(volatile Instance_t* instance) {
   if (instance->mode == Dual) { /* both encoders are used encoder1 for attenuation, encoder2 for channel */
-    if (instance->encoder[Volume].button.press != NoPress) {
+    if (instance->encoder[Volume].button.press_pending) {
+      /* clear the flag before reading the payload: a press arriving during this
+         block re-arms it and is handled on the next pass, never overwritten */
+      instance->encoder[Volume].button.press_pending = false;
       switch (instance->encoder[Volume].button.press) {
         case SinglePress: 
           break;
@@ -278,11 +281,10 @@ void process_encoder_button(volatile Instance_t* instance) {
         default:
           break;
       }
-        
-      instance->encoder[Volume].button.press = NoPress;
     }
 
-    if (instance->encoder[Channel].button.press != NoPress) {
+    if (instance->encoder[Channel].button.press_pending) {
+      instance->encoder[Channel].button.press_pending = false;
       switch (instance->encoder[Channel].button.press) {
         case SinglePress:  
           break;
@@ -297,11 +299,10 @@ void process_encoder_button(volatile Instance_t* instance) {
         default:
           break;
       }
-        
-      instance->encoder[Channel].button.press = NoPress;
     }
   } else {
-    if (instance->encoder[Combined].button.press != NoPress) {
+    if (instance->encoder[Combined].button.press_pending) {
+      instance->encoder[Combined].button.press_pending = false;
       switch (instance->encoder[Combined].button.press) {
         case SinglePress:
           break;
@@ -317,8 +318,6 @@ void process_encoder_button(volatile Instance_t* instance) {
         default:
           break;
       }
-        
-      instance->encoder[Combined].button.press = NoPress;
     }
   }
 }
