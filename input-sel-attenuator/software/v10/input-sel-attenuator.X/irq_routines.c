@@ -50,6 +50,7 @@ static void button_fsm(uint16_t ms_counter, Button_t* button, uint_fast8_t press
 
         if (duration >= ROTARY_PUSH_LONG_PRESS_TIME) {
           button->press = LongPress; 
+          button->press_pending = true;
           button->click_count = 0;
           button->waiting_for_double = false;
         } else {
@@ -66,9 +67,11 @@ static void button_fsm(uint16_t ms_counter, Button_t* button, uint_fast8_t press
     if (button->click_count == 1) {
       /* Single click */
       button->press = SinglePress;
+      button->press_pending = true;
     } else if (button->click_count == 2) {
       /* Double click */
       button->press = DoublePress;
+      button->press_pending = true;
     }
     button->click_count = 0;
     button->waiting_for_double = false;
@@ -118,51 +121,10 @@ static void timer_callback_process_dual(void) {
       instance.attenuation = value;
     }
   }
-#if 1
+
   uint_fast8_t enc1_pressed = ENC1SWITCH_GetValue();
   button_fsm(instance.ms_counter, (Button_t *)&instance.encoder[Volume].button, enc1_pressed);
-#else
-  if (ENC1SWITCH_GetValue() == 0) {
-    /* Button pressed */
-    if (!instance.encoder[Volume].button.button_pressed) {
-      instance.encoder[Volume].button.press_time = instance.ms_counter;
-      instance.encoder[Volume].button.button_pressed = true;
-    }
-  } else { 
-    /* Button released */
-    if (instance.encoder[Volume].button.button_pressed) {
-      uint16_t duration = instance.ms_counter - instance.encoder[Volume].button.press_time;
-      instance.encoder[Volume].button.button_pressed = false;
-  
-      if (duration >= ROTARY_PUSH_DEBOUNCE_TIME) {
-        instance.encoder[Volume].button.release_time = instance.ms_counter;
 
-        if (duration >= ROTARY_PUSH_LONG_PRESS_TIME) {
-          instance.encoder[Volume].button.press = LongPress; 
-          instance.encoder[Volume].button.click_count = 0;
-          instance.encoder[Volume].button.waiting_for_double = false;
-        } else {
-            /* Short press */
-            instance.encoder[Volume].button.click_count++;
-            instance.encoder[Volume].button.waiting_for_double = true;
-        }
-      }
-    }
-  }
-  
-  /* Check for double click timeout */
-  if (instance.encoder[Volume].button.waiting_for_double && (instance.ms_counter - instance.encoder[Volume].button.release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME)) {
-    if (instance.encoder[Volume].button.click_count == 1) {
-      /* Single click */
-      instance.encoder[Volume].button.press = SinglePress;
-    } else if (instance.encoder[Volume].button.click_count == 2) {
-      /* Double click */
-      instance.encoder[Volume].button.press = DoublePress;
-    }
-    instance.encoder[Volume].button.click_count = 0;
-    instance.encoder[Volume].button.waiting_for_double = false;
-  }
-#endif
   /* encoder2 used for channel */
   encoder_direction = encoder2_read(&instance.encoder[Channel].rotary_encoder_state);
   if (encoder_direction != DIR_NONE) {
@@ -198,51 +160,8 @@ static void timer_callback_process_dual(void) {
     }
   }
 
- #if 1
   uint_fast8_t enc2_pressed = ENC2SWITCH_GetValue();
   button_fsm(instance.ms_counter, (Button_t *)&instance.encoder[Channel].button, enc2_pressed);
-#else
-  if (ENC2SWITCH_GetValue() == 0) {
-    /* Button pressed */
-    if (!instance.encoder[Channel].button.button_pressed) {
-      instance.encoder[Channel].button.press_time = instance.ms_counter;
-      instance.encoder[Channel].button.button_pressed = true;
-    }
-  } else { 
-    /* Button released */
-    if (instance.encoder[Channel].button.button_pressed) {
-      uint16_t duration = instance.ms_counter - instance.encoder[Channel].button.press_time;
-      instance.encoder[Channel].button.button_pressed = false;
-   
-      if (duration >= ROTARY_PUSH_DEBOUNCE_TIME) {
-        instance.encoder[Channel].button.release_time = instance.ms_counter;
-
-        if (duration >= ROTARY_PUSH_LONG_PRESS_TIME) {
-          instance.encoder[Channel].button.press = LongPress; 
-          instance.encoder[Channel].button.click_count = 0;
-          instance.encoder[Channel].button.waiting_for_double = false;
-        } else {
-            /* Short press */
-            instance.encoder[Channel].button.click_count++;
-            instance.encoder[Channel].button.waiting_for_double = true;
-        }
-      }
-    }
-  }
-  
-  /* Check for double click timeout */
-  if (instance.encoder[Channel].button.waiting_for_double && (instance.ms_counter - instance.encoder[Channel].button.release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME)) {
-    if (instance.encoder[Channel].button.click_count == 1) {
-      /* Single click */
-      instance.encoder[Channel].button.press = SinglePress;
-    } else if (instance.encoder[Channel].button.click_count == 2) {
-      /* Double click */
-      instance.encoder[Channel].button.press = DoublePress;
-    }
-    instance.encoder[Channel].button.click_count = 0;
-    instance.encoder[Channel].button.waiting_for_double = false;
-  }
-#endif
 }
 
 static void timer_callback_process_single(void) {
@@ -308,52 +227,9 @@ static void timer_callback_process_single(void) {
 
   /* push button logic */
   instance.ms_counter++;
-  
-#if 1
+
   uint_fast8_t enc1_pressed = ENC1SWITCH_GetValue();
   button_fsm(instance.ms_counter, (Button_t *)&instance.encoder[Combined].button, enc1_pressed);
-#else
-  if (ENC1SWITCH_GetValue() == 0) {
-    /* Button pressed */
-    if (!instance.encoder[Combined].button.button_pressed) {
-      instance.encoder[Combined].button.press_time = instance.ms_counter;
-      instance.encoder[Combined].button.button_pressed = true;
-    }
-  } else { 
-    /* Button released */
-    if (instance.encoder[Combined].button.button_pressed) {
-      uint16_t duration = instance.ms_counter - instance.encoder[Combined].button.press_time;
-      instance.encoder[Combined].button.button_pressed = false;
-  
-      if (duration >= ROTARY_PUSH_DEBOUNCE_TIME) {
-        instance.encoder[Combined].button.release_time = instance.ms_counter;
-
-        if (duration >= ROTARY_PUSH_LONG_PRESS_TIME) {
-          instance.encoder[Combined].button.press = LongPress; 
-          instance.encoder[Combined].button.click_count = 0;
-          instance.encoder[Combined].button.waiting_for_double = false;
-        } else {
-            /* Short press */
-            instance.encoder[Combined].button.click_count++;
-            instance.encoder[Combined].button.waiting_for_double = true;
-        }
-      }
-    }
-  }
-  
-  /* Check for double click timeout */
-  if (instance.encoder[Combined].button.waiting_for_double && (instance.ms_counter - instance.encoder[Combined].button.release_time > ROTARY_PUSH_DOUBLE_CLICK_TIME)) {
-    if (instance.encoder[Combined].button.click_count == 1) {
-      /* Single click */
-      instance.encoder[Combined].button.press = SinglePress;
-    } else if (instance.encoder[Combined].button.click_count == 2) {
-      /* Double click */
-      instance.encoder[Combined].button.press = DoublePress;
-    }
-    instance.encoder[Combined].button.click_count = 0;
-    instance.encoder[Combined].button.waiting_for_double = false;
-  }
-#endif
 }
 
 /* uses 10us time, measured with LED_Toggle();*/

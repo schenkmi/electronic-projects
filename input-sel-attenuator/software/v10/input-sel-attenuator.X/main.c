@@ -105,12 +105,12 @@ volatile Instance_t instance = {
   .encoder = {
     { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
       .button = {
-        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, 
+        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, .press_pending = false, 
        }, 
     },
     { .direction = DIR_NONE,  .encoder_count = { 0, 0 },  .rotary_encoder_state = 0, 
       .button = {
-        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, 
+        .button_pressed = 0, .waiting_for_double = 0, .click_count= 0, .press_time = 0, .release_time = 0, .press = NoPress, .press_pending = false, 
        }, 
     },
   },

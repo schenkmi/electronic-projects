@@ -86,10 +86,18 @@ enum ButtonPress { NoPress = 0,  SinglePress = 1, DoublePress = 2, LongPress = 3
 typedef struct {
   bool button_pressed;
   bool   waiting_for_double;
-  int click_count;
+  uint8_t click_count;
   uint16_t press_time;
   uint16_t release_time; 
-  enum ButtonPress press;
+  /* uint8_t on purpose: XC8 does not narrow enums, so an enum field is a 2 byte
+     object and every access is a two instruction load/store that the TMR0 ISR
+     can tear. Holds an enum ButtonPress value (0..3). */
+  uint8_t press;
+  /* ISR -> main loop hand-off. The ISR writes press first, then sets this; the
+     main loop clears this first, then reads press. That order means a press
+     arriving mid-hand-off re-arms the flag and is picked up on the next pass
+     instead of being overwritten. The main loop must never write press. */
+  bool press_pending;
 } Button_t;
 
 typedef struct {

@@ -765,8 +765,11 @@ All in `definitions.h`:
 ## 17. Known issues and caveats
 
 Re-audited after the latest round of fixes. Each item is **OPEN**, **PARTIAL**
-or **FIXED**. Four of the sixteen previously-tracked items are now fixed
-(3, 4, 6, 9, 11, 16) and one new batch of three was found alongside those fixes.
+or **FIXED**. Of the twenty tracked items, six are **FIXED** (3, 4, 6, 9, 11,
+16), one is **PARTIAL** (5 — the button hand-off is done, the 16-bit shared
+fields are not) and one is **NOT A BUG** (2). Fixing 5 also forced a correction
+to the original analysis of that issue: its load-bearing `sizeof` measurement was
+wrong. See the retraction below and the rewritten entry.
 
 | # | Issue | Status |
 |---|---|---|
@@ -774,7 +777,7 @@ or **FIXED**. Four of the sixteen previously-tracked items are now fixed
 | 2 | ~~`init()` clears RA6/RA7~~ — **not a bug; verified** | **NOT A BUG** |
 | 3 | Wrong `save_mode` index on channel change | **FIXED** |
 | 4 | `Single` mode cannot select a channel | **FIXED** *(logic exists but is unreachable — see below)* |
-| 5 | ISR → main-loop race on `press`; 16-bit shared fields | OPEN |
+| 5 | ISR → main-loop race on `press`; 16-bit shared fields | **PARTIAL** *(button hand-off fixed; `attenuation` / `channel` still tear — see below)* |
 | 6 | Dead constant `EEPROM_SAVE_STATUS_VALUE` | **FIXED** |
 | 7 | Stale "10 us" comment on the 1 ms encoder callback | OPEN |
 | 8 | `PORTB` read-modify-write instead of `LATB` | OPEN *(latent only)* |
@@ -793,8 +796,41 @@ or **FIXED**. Four of the sixteen previously-tracked items are now fixed
 
 ### Retracted claims
 
-Three earlier statements in this document were wrong and are corrected here:
+Four earlier statements in this document were wrong and are corrected here:
 
+- **XC8 *does* narrow enums, and my `sizeof(enum …) == 2` measurement was
+  wrong.** This was the load-bearing premise of the original issue 5 entry, and
+  it does not hold for the current toolchain (XC8 v4.00). Measured by linking a
+  one-object translation unit per type and reading the section size out of the
+  link map:
+
+  | Type | `sizeof` |
+  |---|---|
+  | `enum ButtonPress` | **1** |
+  | `enum Control` | **1** |
+  | `int` | 2 |
+  | `bool` | 1 |
+  | `Button_t` | 9 |
+  | `RotaryEncoder_t` | 15 |
+  | `ChannelVolume_t` | 4 |
+  | `IR_t` | 6 |
+  | `Instance_t` | 69 |
+
+  The `Instance_t` figure cross-checks against the real build: `_instance` sits
+  at `0xA0` in `dataBANK1` and the next object, `_xor_check`, starts at `0xE5` —
+  69 bytes. So `button.press` and `instance.control` were **always** single-byte
+  objects, and every load and store of them was always one instruction. My claim
+  that "XC8 does not narrow enums and the project does not pass `-fshort-enums`"
+  described XC8 2.x behaviour; v4.00 is clang-based and does narrow, because all
+  the enumerators here fit in one byte. `-fshort-enums` is neither needed nor
+  present.
+
+  Consequences, all of which are corrected in the rewritten issue 5 entry: the
+  "torn read of `press`" defect could never occur; neither could the "torn index"
+  on `control`; and the predicted RAM savings (`Button_t` 10 → 9, `Instance_t` −8)
+  were wrong, because `Button_t` was *already* 9 bytes and `Instance_t` is
+  **unchanged at 69**. XC8 also does not pad structs here — `Button_t`'s two
+  `uint16_t` members are deliberately unaligned at offsets 3 and 5.
 - **`save_countdown_counter` is NOT racy.** It was listed under issue 5. Its only
   writers are `control_routines.c:222`, `:274` and `:293` — all main-loop
   context. The TMR0 ISR never touches it, so there is no race to fix.
@@ -823,7 +859,8 @@ indexes `channel_attenuation[channel]` — a 4-element array — on the very nex
 `process_channel()` call, and `eeprom_write(255, …)` reaches outside the intended
 EEPROM map. A factory-fresh part is safe (`__EEPROM_DATA` seeds 0x04 with 0), but
 bit rot or a partial write is not. A clamp right after the read fixes it, and also
-closes the worst consequence of the torn 16-bit read described in issue 5:
+closes the worst consequence of the torn 16-bit read on `channel` that is still
+open in issue 5:
 
 ```c
 instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
@@ -832,204 +869,6 @@ if (instance->channel > ROTARY_MAX_CHANNEL) {
 }
 ```
 
-**5. ISR → main-loop race on `press`, plus 16-bit shared fields.**
-
-*First, two corrections to my earlier version of this entry.* I listed
-`ChannelVolume_t` members and `encoder_count` as shared fields. Neither is:
-`channel_attenuation` is written and read only from the main loop
-(`control_routines.c:72`, `:193`, `:214`, `:242`), and `encoder_count[]` is
-touched only inside the TMR0 callback (`irq_routines.c:87`–`:109`, `:171`–`:188`,
-`:253`–`:295`) — no main-loop access anywhere. `save_countdown_counter` was
-already retracted above for the same reason. The genuinely shared set is exactly
-**four fields**.
-
-The second correction is that this is worse than I described, not milder.
-Compiling a probe with the project's own flags
-(`-std=c99 -O2 -maddrqual=ignore`, XC8 v4.00, 16F18056) gives:
-
-```
-sizeof(int)                 = 2      sizeof(bool) = 1
-sizeof(enum ButtonPress)    = 2      sizeof(enum Control) = 2
-```
-
-XC8 does **not** narrow enums, and the project does not pass `-fshort-enums`. So
-`button.press` and `instance.control` are both 2-byte objects, and every
-`!= NoPress` / `switch (press)` / `instance->control` access on this 8-bit part is
-a two-instruction 16-bit load or store.
-
-| Shared field | Type | Size | TMR0 ISR | Main loop | Failure |
-|---|---|---|---|---|---|
-| `encoder[].button.press` | `enum ButtonPress` | 2 B | writes | reads **twice** + writes `NoPress` | press lost, or torn read |
-| `attenuation` | `int` | 2 B | read-modify-write | read + write | torn read becomes permanent |
-| `channel` | `int` | 2 B | writes (single mode) | read + write (`process_ir`) | torn read |
-| `control` | `volatile enum Control` | 2 B | reads as array index | writes | torn index → wrong axis |
-
-Three distinct defects, in increasing order of how long they can persist:
-
-**(a) Torn read of `press`.** The main loop loads the 2-byte field in two
-instructions. If the ISR writes between them, the main loop can read a value that
-was never stored — e.g. low byte from the old `NoPress` and high byte from a fresh
-`SinglePress` gives `0x0100` = 256, which matches no `case`, falls to
-`default: break`, and the press is then wiped by the trailing `= NoPress`.
-
-**(b) Double read of `press`.** `process_encoder_button()` loads the field once for
-the `!= NoPress` test at `control_routines.c:266` and again for the `switch` at
-`:267`. Nothing holds the value between them, so the test and the switch can
-disagree about which press it is.
-
-**(c) Lost press — the structural one.** The main loop reads `press`, acts, and
-only then writes `NoPress` at the end of the block. An ISR write landing inside
-that window is destroyed. The window is the whole `switch`, tens of
-instructions. The FSM only writes `press` on a release or on the 500 ms
-single-click timeout, so per-event probability is low — but the timeout fires on
-*every* single press, so the odds are roughly 1-in-1000 per press, and this
-fails after enough use rather than immediately.
-
-One amplifier worth noting: `init()` is called at `main.c:142`, *after*
-`INTERRUPT_GlobalInterruptEnable()` at `:137`, so the ISR is already live while
-`init()` is writing `channel_attenuation[]` and `channel`.
-
-#### What a fix looks like
-
-No code was changed; this is the design I would apply, in three layers. Layers 1
-and 3 are mechanical, and layer 2 is the only one that changes hand-off semantics.
-
-**Layer 1 — narrow the four shared fields to 8 bits.** This is the root fix: it
-makes every access a single instruction, so tearing is impossible by construction.
-
-```c
-/* definitions.h — Button_t */
-typedef struct {
-  bool     button_pressed;
-  bool     waiting_for_double;
-  uint8_t  click_count;      /* was int                (2 B -> 1 B) */
-  uint16_t press_time;       /* ISR-only: needs the 65.5 s wrap, keep 16-bit */
-  uint16_t release_time;     /* ISR-only, keep 16-bit */
-  uint8_t  press;            /* was enum ButtonPress   (2 B -> 1 B); values 0..3 */
-  bool     press_pending;    /* NEW — see layer 2 */
-} Button_t;
-
-/* ChannelVolume_t: main-loop only, but shrink it anyway (8 B -> 2 B) */
-typedef struct {
-  int8_t default_attenuation;   /* 0..63 */
-  int8_t attenuation;           /* 0..63, or -1 as the "unset" sentinel */
-} ChannelVolume_t;
-
-/* Instance_t — only the four shared fields and the counter */
-  int16_t save_countdown_counter;  /* -1..1000 — must stay 16-bit, see gotchas */
-  int8_t  channel;                 /* 0..3,  or -1 */
-  int8_t  last_channel;            /* 0..3,  or -1 */
-  int8_t  attenuation;             /* 0..63, or -1 */
-  int8_t  last_attenuation;        /* 0..63, or -1 */
-  volatile uint8_t control;        /* 0 or 1 — was volatile enum Control (2 B) */
-```
-
-The `switch` needs no modification: the `ButtonPress` constants are plain `int`s,
-so `switch (p)` on a `uint8_t` promotes and matches exactly as before.
-
-*Gotchas, all checked:*
-- `save_countdown_counter` is initialised to `-1` at `main.c:94` and counts down
-  from `DEFAULT_SAVE_COUNTDOWN` (1000), so it needs `int16_t`. **Not** `int8_t`.
-- `channel`, `last_channel`, `attenuation`, `last_attenuation` and
-  `channel_attenuation[].attenuation` all use `-1` as a sentinel
-  (`main.c:95`–`:101`), so they need *signed* 8-bit. `int8_t`, not `uint8_t`.
-- The `!= -1` tests at `control_routines.c:191` and `:219` still work: `int8_t`
-  promotes to `int`, so the comparison is unchanged.
-- `process_attenuation()` at `:180` does `((uint8_t)instance->attenuation &
-  0x3F)`. With the `-1` start value that yields `0x3F`, same as today.
-- `ms_counter` and `encoder_count[]` stay as they are — single-writer, and
-  `ms_counter` genuinely needs 16 bits.
-
-**Layer 2 — the `press_pending` hand-off.** Layer 1 does *not* fix the lost press:
-the main loop still reads `press` and later writes `NoPress` over whatever the ISR
-put there. This is the part that actually changes semantics, from at-most-once
-delivery to at-least-once.
-
-```c
-/* button_fsm(), at each of its three decision points (irq_routines.c:52, 68, 71) */
-button->press = LongPress;
-button->press_pending = true;        /* payload first, flag second */
-```
-
-```c
-/* process_encoder_button(), control_routines.c:266 */
-if (instance->encoder[Volume].button.press_pending) {
-  instance->encoder[Volume].button.press_pending = false;   /* clear FIRST */
-  switch (instance->encoder[Volume].button.press) {          /* then act */
-    ...
-  }
-}
-```
-
-The two orderings are both load-bearing:
-- *Producer: payload before flag.* Flag-first would let the consumer wake and act
-  on the previous press.
-- *Consumer: flag before payload.* Clearing first means an ISR write landing in the
-  window updates the payload and re-arms the flag, so the current iteration acts on
-  the newest value **and** the still-set flag makes it act again next loop. Nothing
-  is dropped.
-
-At-least-once is the right trade here. A duplicate is harmless: `eeprom_save_status()`
-already compares before writing (`:245` and `:255`), and toggling `control` twice
-lands back where it started. A lost press, by contrast, is a lost user action.
-
-*Cheaper alternative* if the extra byte is unacceptable — make the FSM decline to
-overwrite an unconsumed press, with no new state:
-
-```c
-if (button->press == NoPress) {     /* only record if the consumer is idle */
-  button->press = detected;
-}
-```
-
-One 8-bit read plus a conditional write. It shrinks the vulnerable window to two
-instructions but does not close it, and it still needs layer 1 to be atomic in the
-first place. I would only pick this if the state were genuinely tight — at 2 bytes
-total it is not.
-
-**Layer 3 — read the field once, and clear before acting.** Fixes defect (b), and
-incidentally shortens the window in (c):
-
-```c
-uint8_t p = instance->encoder[Volume].button.press;   /* one 8-bit load */
-if (p != NoPress) {
-  instance->encoder[Volume].button.press = NoPress;  /* clear immediately */
-  switch (p) {
-    ...
-  }
-}
-```
-
-**What layers 1–3 do not fix.** The ISR still read-modify-writes `attenuation`:
-
-```c
-int value = instance.attenuation;     /* irq_routines.c:102 */
-...
-instance.attenuation = value;         /* irq_routines.c:118 */
-```
-
-With `int8_t` there is no tearing, but the read-modify-write is still not atomic,
-so a main-loop write at `control_routines.c:214` or `:384`–`:388` landing between
-the ISR's read and write is plain last-writer-wins. That is benign and
-self-correcting — `process_attenuation()` converges on the following pass — but it
-is not the "exactly one writer per field" invariant that would make the whole class
-disappear. Reaching that means the ISR stops writing shared state and the main loop
-becomes the sole writer, which is the same restructuring as issue 12's non-blocking
-relay state machine. Worth doing both together rather than separately.
-
-**Cost and sizing.** All of it is type widths plus a one-byte flag. `Button_t`
-goes 10 → 9 bytes; `Instance_t` drops by roughly 8 (four 2-byte fields → 1 byte,
-less the two new flags). Against 180/2048 bytes used, immaterial. No change to
-timing or relay sequencing.
-
-**How I would verify it.** Re-run the size probe against the modified
-`definitions.h` and confirm `press` and `control` are 1 byte. Then functionally:
-a long-press on the volume encoder must still store the EEPROM default, and a
-double-press in single mode must still toggle `control`. To actually exercise the
-race rather than hope it is gone, temporarily raise `RELAIS_MAX_SETUP_TIME` so the
-main loop blocks for several tick periods, then confirm no press is dropped under
-repetition — that is the scenario the original bug lives in, and the only way to
-show it is closed.
 
 **7. Stale "10 us" comment.** `/* uses 10us time, measured with LED_Toggle();*/`
 at `irq_routines.c:359` sits above `encoder_timer_callback()`, whose period is
@@ -1087,8 +926,8 @@ attenuation change (12 × `RELAIS_MAX_SETUP_TIME`). Acceptable for a volume
 control, but a pending IR command or button event waits that long — and unlike
 the encoder, those are *not* serviced from the ISR. Moving the relay sequencing
 into a small state machine driven by the 1 ms tick would keep the loop responsive
-and would also establish the "one writer per field" invariant that removes
-issue 5.
+and would also establish the "one writer per field" invariant that closes the
+remaining half of issue 5.
 
 **13. Non-linear channel selector — the cause is the multiplier, not the sample
 rate.** *(This entry previously blamed the 1 ms polling interval; that was
@@ -1160,8 +999,12 @@ compiled-out-but-present:
 
 Keeping dead variants alive in `#if 1 / #else` blocks is how the triplication
 started in the first place, and it is a standing invitation to fix one copy and
-leave the other two behind. Delete all three, along with the three
-`uint_fast8_t encN_pressed` temporaries, which exist only to feed the helper.
+leave the other two behind — which is exactly what the issue 5 fix did: all nine
+`press_pending` assignments in the live `button_fsm()` had to be hand-copied into
+all three dead blocks as well (`:146`, `:164`, `:169`, `:232`, `:250`, `:255`,
+`:349`, `:367`, `:372`), with visibly mangled indentation. Delete all three
+blocks, along with the three `uint_fast8_t encN_pressed` temporaries, which exist
+only to feed the helper, and this class of double edit disappears.
 
 **18. Call sites cast away `volatile` on the button pointer.**
 `button_fsm()` now takes a plain `Button_t *` (correct — it is the fix for issue
@@ -1194,6 +1037,134 @@ second release, by which time the user has usually turned the knob already. A
 brief LED indication on toggle would make the mode discoverable; without one the
 knob appears to randomly control volume or channel. (Note that `IR_KEY_MUTE` is
 already defined and unused, so a status LED is clearly intended at some point.)
+
+#### PARTIAL
+
+**5. ISR → main-loop race on `press`, plus 16-bit shared fields.**
+
+*The button hand-off is fixed; the 16-bit part is not. And the original
+analysis of this issue rested on a bad measurement — see the retraction above.
+Rewritten accordingly.*
+
+**What was actually wrong with the original entry.** It claimed that
+`sizeof(enum ButtonPress)` and `sizeof(enum Control)` are 2, so `press` and
+`control` were 2-byte objects whose every access was a two-instruction 16-bit
+load or store. Both enums are **1 byte** on XC8 v4.00, and always were. Three
+things followed from the bad number, and all three are now known to be wrong:
+
+- The "torn read of `press`" defect — a `0x0100` phantom value assembled from
+  the low byte of `NoPress` and the high byte of `SinglePress` — **could not
+  occur**. `press` was already a single-byte object, so a load of it was always
+  atomic.
+- The `control` row's "torn index → wrong axis" failure — same reason. `control`
+  is and always was one byte, so `encoder_count[instance.control]` could not be
+  indexed with a half-updated value.
+- The predicted RAM win (`Button_t` 10 → 9, `Instance_t` down by ~8) was
+  imaginary. `Button_t` was **already** 9 bytes and `Instance_t` is
+  **unchanged at 69**.
+
+Two of the original claims survive intact, and both were about `press` for
+reasons that have nothing to do with its width: the field was read **twice**,
+and the main loop **overwrote** it after acting on it.
+
+**What is now fixed.** `press` is no longer cleared by the consumer. A one-byte
+`press_pending` flag was added to `Button_t` (`definitions.h:100`) and the
+producer/consumer pair was reordered:
+
+```c
+/* button_fsm() — irq_routines.c:52, :69, :73 (three decision points) */
+button->press = LongPress;        /* payload first */
+button->press_pending = true;     /* flag second    */
+```
+
+```c
+/* process_encoder_button() — control_routines.c:266–:270, :286–:288, :304–:306 */
+if (instance->encoder[Volume].button.press_pending) {
+  instance->encoder[Volume].button.press_pending = false;  /* clear FIRST */
+  switch (instance->encoder[Volume].button.press) {         /* then act    */
+    ...
+  }
+}
+```
+
+That closes both surviving defects:
+
+| Defect | Cause | Status |
+|---|---|---|
+| ~~Torn read of `press`~~ | needed a 2-byte field | **never existed** — premise retracted |
+| **Double read of `press`** | `!= NoPress` test and the `switch` were two independent loads, so the ISR could make them disagree | **FIXED** — the test is now on the flag and `press` is loaded exactly once, by the `switch` |
+| **Lost press** | the main loop wrote `= NoPress` *after* acting, destroying any ISR write that landed inside the `switch` | **FIXED** — the main loop no longer writes `press` at all; that is now the producer's field exclusively |
+
+Both orderings are load-bearing, and they are the reason the window is closed
+rather than merely narrowed:
+
+- *Producer: payload before flag.* Flag-first would let the consumer wake and
+  act on the previous press.
+- *Consumer: flag before payload.* If the ISR fires between the `= false` write
+  and the `switch` read, the consumer acts on the **new** press, and the
+  still-set flag makes it act on that same press once more next loop. Nothing is
+  lost; the only cost is a possible duplicate.
+
+At-least-once is the right trade. A duplicate is harmless: `eeprom_save_status()`
+compares before writing (`:245` and `:255`), and toggling `control` twice lands
+back where it started. A lost press is a lost user action.
+
+**What is still open.** The two genuinely 16-bit shared fields are untouched,
+because the fix was applied to `Button_t` only:
+
+| Shared field | Type | Size | TMR0 ISR | Main loop | Failure |
+|---|---|---|---|---|---|
+| `attenuation` | `int` | **2 B** | read-modify-write (`:105`, `:117`–`:122`) | read + write (`:180`, `:184`, `:193`, `:214`, `:242`) | torn read becomes permanent |
+| `channel` | `int` | **2 B** | writes (single mode, `:190`–`:207`) | read + write (`process_ir`, `:323`) | torn read |
+
+These are the fields that still need `int8_t`. Both carry `-1` as a sentinel
+(`main.c:95`–`:96`), so they must be **signed** 8-bit, and both still need the
+`!= -1` / `> ROTARY_MAX_*` tests at `control_routines.c:191`, `:219` to keep
+working — which they do, because `int8_t` promotes to `int`. `ChannelVolume_t`
+needs no change: it is main-loop only. `encoder_count[]` needs no change: it is
+ISR-only. `save_countdown_counter` must stay 16-bit regardless — it counts down
+from 1000 and is initialised to `-1`.
+
+Note that `attenuation` also carries a non-atomic **read-modify-write** in the
+ISR. With `int8_t` there is no tearing, but a main-loop write at
+`control_routines.c:214` landing between the ISR's read and write is still plain
+last-writer-wins. That is benign and self-correcting — `process_attenuation()`
+converges on the following pass — but reaching a true "exactly one writer per
+field" invariant means the ISR stops writing shared state, which is the same
+restructuring as issue 12's non-blocking relay state machine. Worth doing both
+together.
+
+**The type changes that were applied are size-neutral but not pointless.**
+`press` is now declared `uint8_t` and `click_count` `uint8_t` (`definitions.h:89`,
+`:95`) with `press_pending` added. The explicit width documents the "must stay
+8-bit" constraint at the declaration instead of leaving it to be rediscovered,
+and `press_pending` is genuinely new state. But the byte saved on `click_count`
+is spent on the new flag, so `Button_t` is 9 bytes before and after.
+
+One loose end: the comment above `press` (`definitions.h:92`–`:94`) justifies the
+`uint8_t` by claiming an enum field "is a 2 byte object and every access is a two
+instruction load/store that the TMR0 ISR can tear". That reasoning is false on
+this toolchain, as measured above. The declaration is still right — an explicit
+8-bit type is worth having — but the comment should be corrected so the next
+reader does not go looking for a 16-bit tear that cannot happen.
+
+**Cost.** Program memory **4477 → 4422 words** (−55); `irq_routines.c`
+**817 → 815 words**. RAM is flat at 180 bytes of the 2048-byte space, with
+`Instance_t` unchanged at 69. No change to timing or relay sequencing.
+
+**One thing this fix made worse.** The three dead `#else` button blocks in
+`irq_routines.c` were also updated to set `press_pending` (`:146`, `:164`,
+`:169`, `:232`, `:250`, `:255`, `:349`, `:367`, `:372`). That is nine more edits
+to code that is compiled out and is already tracked for deletion as issue 17 —
+a concrete demonstration of why that issue matters.
+
+**How this should be verified.** The functional test is that a long press on
+either encoder still arms its `save_action`, and that a double press in single
+mode still toggles `control`. To actually exercise the race rather than hope it
+is gone, temporarily raise `RELAIS_MAX_SETUP_TIME` so the main loop blocks for
+several tick periods, then confirm no press is dropped under repetition — that
+is the scenario the original bug lives in, and the only way to show it is
+closed.
 
 #### RETRACTED
 
@@ -1276,10 +1247,16 @@ memory **4571 → 4477 words**, with one byte of RAM also released. The predicte
 ISR-latency regression did not materialise to a measurable degree. See issue 18 for
 the cast that this moved to the call sites.
 
+**Also fixed since the last audit, as part of issue 5:** the `press` hand-off is
+now a `press_pending` handshake, so the lost-press and double-read defects are
+closed. That took the build to **4422 words**. Issue 5 is therefore **PARTIAL**,
+not fixed — `attenuation` and `channel` are still 16-bit shared fields. See the
+**PARTIAL** subsection above.
+
 
 ## 18. Possible next steps
 
-Cheapest first — four of these are one-liners:
+Cheapest first — most of these are one-liners:
 
 - **Give `Single` mode a way to be entered** (issue #4). `instance.mode` is set to
   `Dual` once at `main.c:91` and never changed, so the new `DoublePress`
@@ -1288,7 +1265,10 @@ Cheapest first — four of these are one-liners:
   (or a strap/gesture) is the difference between a finished feature and an
   unreachable one. Highest leverage per line of anything in this list.
 - Clamp the EEPROM channel read (issue #1) — one line, and it also closes the
-  severe torn-read case in issue #5.
+  worst torn-read case left open in issue #5.
+- Correct the stale `uint8_t press` comment in `definitions.h` (issue #5) — it
+  claims an enum field is 2 bytes and tearable, which is false on XC8 v4.00. Purely
+  a comment, but it currently sends readers after a bug that does not exist.
 - `void factory_reset(void);` (issue #14) — one line, clears the only non-MCC
   warning in the build.
 - Comment the `init()` `PORTA` mask (issue #2) — one line, documents that driving
@@ -1297,15 +1277,17 @@ Cheapest first — four of these are one-liners:
   no behaviour change.
 - Delete the three dead `#else` button blocks and their
   `uint_fast8_t encN_pressed` temporaries (issue #17) — ~130 lines, no behaviour
-  change, and it stops the triplication from growing back.
+  change, and it undoes the nine hand-copied `press_pending` lines the issue #5
+  fix had to make in dead code.
 - Add a `LongPress` save in the single-mode branch of `process_encoder_button()`
   (issue #19) — one branch, and single mode finally has a persistence story.
 
 Then the structural work:
 
-- Fix the `press` hand-off with the one-deep `press_pending` handshake, and
-  shrink `channel` / `attenuation` / `ChannelVolume_t` / `encoder_count` to
-  `int8_t` so every shared field becomes a single atomic access (issue #5).
+- Shrink `attenuation` and `channel` to `int8_t` (issue #5, remaining half).
+  These are the only genuinely 16-bit shared fields left, so this is two
+  declarations and nothing else — no `ChannelVolume_t` or `encoder_count` change
+  is needed, and `press` / `control` were already 1 byte.
 - Switch to the full-step quadrature table and a signed, non-resetting
   accumulator (issue #13). This is the one that users actually feel.
 - Replace the blocking relay sequencing with a tick-driven state machine

@@ -68,15 +68,27 @@ init() → irmp_init() → while(1):
 
 ## Known Issues
 
-`../README.md` section 17 tracks 16 items with OPEN / PARTIAL / FIXED status.
-Check it before changing anything, and update the status if you fix one.
+`../README.md` section 17 tracks 20 items with OPEN / PARTIAL / FIXED / NOT A BUG
+status. Check it before changing anything, and update the status if you fix one.
 
 The one bug with a severe consequence is **issue 1**: `init()` reads the channel
 from EEPROM without range-checking it, so a corrupt value indexes
 `channel_attenuation[]` (4 elements) out of bounds. It is a one-line clamp.
 
-Two further notes worth knowing before editing:
+**Issue 5 is PARTIAL.** The `press` hand-off is now a `press_pending` handshake
+and the lost-press / double-read defects are closed. What is still open is
+narrower than the original write-up suggested: only `attenuation` and `channel`
+are genuinely 16-bit shared fields, so shrinking those two to `int8_t` is all
+that remains. `press` and `control` were never 2 bytes.
 
+Three further notes worth knowing before editing:
+
+- **XC8 v4.00 does narrow enums to 1 byte here** (`sizeof(enum ButtonPress) == 1`).
+  An earlier version of the README claimed 2 and built a whole analysis on it;
+  that claim is retracted. Do not assume an enum field is 16-bit on this
+  toolchain — measure with a one-object link and read the section size from the
+  map if it matters. `int` is 2, `bool` is 1, `sizeof(Instance_t)` is 69, and
+  XC8 does not pad structs.
 - `irq_routines.c` is the 1ms tick, so anything added there runs in an ISR —
   no `__delay_ms()`, no blocking calls. The relay delays in
   `control_routines.c` do block, for up to ~36ms.
