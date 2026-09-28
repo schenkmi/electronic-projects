@@ -136,22 +136,22 @@ Per-function code sizes and memory usage, from a production build with
 |---|---|---|
 | `irmp/irmp.c` (whole module) | 1529 | `irmp/irmp.c` |
 | `control_routines.c` (whole module) | 1253 | — |
-| `irq_routines.c` (whole module) | 705 | — |
-| `timer_callback_process_single` | 659 | `irq_routines.c:167` |
-| `timer_callback_process_dual` | 560 | `irq_routines.c:81` |
+| `irq_routines.c` (whole module) | 709 | — |
+| `timer_callback_process_single` | 659 | `irq_routines.c:169` |
+| `timer_callback_process_dual` | 560 | `irq_routines.c:83` |
 | `process_ir` | 530 | `control_routines.c:332` |
 | `eeprom_save_status` | 517 | `control_routines.c:237` |
 | `process_channel` | 407 | `control_routines.c:196` |
 | `process_encoder_button` | 393 | `control_routines.c:271` |
 | `init` | 370 | `control_routines.c:48` |
-| `button_fsm` | 368 | `irq_routines.c:35` |
+| `button_fsm` | 372 | `irq_routines.c:37` |
 | `configure_attenuation` | 320 | `control_routines.c:104` |
 | `main` | 258 | `main.c:122` |
 | `factory_reset` | 149 | `control_routines.c:83` |
 | `process_attenuation` | 52 | `control_routines.c:185` |
-| `encoder_timer_callback` | 9 | `irq_routines.c:236` |
-| `ir_timer_callback` | 3 | `irq_routines.c:255` |
-| **Program memory** | **4275 / 16384 (26.1 %)** | |
+| `encoder_timer_callback` | 9 | `irq_routines.c:238` |
+| `ir_timer_callback` | 3 | `irq_routines.c:257` |
+| **Program memory** | **4279 / 16384 (26.1 %)** | |
 | **Data memory** | **180 / 2048 (8.8 %)** | |
 
 Flash and RAM headroom is ample — neither is a design constraint on this part.
@@ -398,7 +398,7 @@ roughly 40 rev/s (≈10 rev/s with a 4× safety margin) — far beyond a hand-dr
 knob. The blocking `__delay_ms()` relay delays are main-loop code and do not stop
 the TMR0 ISR, so they cost no encoder events either.
 
-**Detent accumulation** (`irq_routines.c:83`, `irq_routines.c:167`): a direction
+**Detent accumulation** (`irq_routines.c:85`, `irq_routines.c:169`): a direction
 change resets the accumulator, then CW/CCW increments/decrements it. When the
 absolute value reaches `ROTARY_MULTI_*`, the accumulator is zeroed and the target
 value moves by one:
@@ -456,7 +456,7 @@ Thresholds (`definitions.h:61`):
 
 Algorithm — extracted into a single helper,
 `button_fsm(uint16_t ms_counter, Button_t *button, uint_fast8_t pressed)` at
-`irq_routines.c:35`, called once per encoder with the tick passed in as an
+`irq_routines.c:37`, called once per encoder with the tick passed in as an
 argument:
 
 ```
@@ -478,9 +478,9 @@ All three call sites use the helper, and the old inline copies have been deleted
 
 | Call site | Encoder | Mode |
 |---|---|---|
-| `irq_routines.c:126` | 1 | Dual |
-| `irq_routines.c:164` | 2 | Dual |
-| `irq_routines.c:232` | 1 | Single |
+| `irq_routines.c:128` | 1 | Dual |
+| `irq_routines.c:166` | 2 | Dual |
+| `irq_routines.c:234` | 1 | Single |
 
 Each call site reads the pin once into a local and casts the button pointer to a
 non-volatile `Button_t *` — see issues 11, 16 and 17.
@@ -693,7 +693,7 @@ Flow:
 
 ```
 IR receiver (RB4)
-   → TMR2 IRQ every 66 µs → irmp_ISR()      [irq_routines.c:260]
+   → TMR2 IRQ every 66 µs → irmp_ISR()      [irq_routines.c:262]
         measures pulse/space edges, matches RC5 Manchester timing (1.778 ms bit)
    → 1 ms main loop → process_ir()          [control_routines.c:321]
         irmp_get_data() → filter protocol + address → map command → clamp → store
@@ -727,7 +727,7 @@ Channel wraps, attenuation clamps — the same rules as the encoders.
 ## 15. Encoder modes
 
 `instance.mode` selects the TMR0 callback body
-(`irq_routines.c:241`):
+(`irq_routines.c:243`):
 
 ### `Dual` (default) — `timer_callback_process_dual()`
 
@@ -786,8 +786,8 @@ All in `definitions.h`:
 ## 17. Known issues and caveats
 
 Re-audited after the latest round of fixes. Each item is **OPEN**, **PARTIAL**
-or **FIXED**. Of the twenty tracked items, eleven are **FIXED** (1, 3, 4, 5, 6, 8,
-9, 11, 14, 16, 17) and two are **NOT A BUG** (2 and 7); nothing is left
+or **FIXED**. Of the twenty tracked items, twelve are **FIXED** (1, 3, 4, 5, 6,
+8, 9, 11, 14, 16, 17, 18) and two are **NOT A BUG** (2 and 7); nothing is left
 **PARTIAL**.
 Fixing 1 and 5 also forced a correction to the original analysis of issue 5: its
 load-bearing `sizeof` measurement was wrong. See the retraction below and the
@@ -812,7 +812,7 @@ rewritten entry.
 | 15 | `irmp_get_data()` called through a cast that strips `volatile` | OPEN |
 | 16 | `button_fsm()` forces every field access through memory | **FIXED** |
 | 17 | Dead `#else` button code in `irq_routines.c` | **FIXED** *(dead blocks and their `encN_pressed` temporaries are gone — see below)* |
-| 18 | Call sites cast away `volatile` on the button pointer | OPEN |
+| 18 | Call sites cast away `volatile` on the button pointer | **FIXED** *(helper takes `volatile Button_t *`, casts deleted)* |
 | 19 | `Single` mode still has no way to store a default attenuation | OPEN |
 | 20 | New control-toggle has no user-visible feedback | OPEN |
 
@@ -863,7 +863,9 @@ Four earlier statements in this document were wrong and are corrected here:
 - **Issue 16 was fixed by the same change that fixed issue 15's class of
   problem, but in the opposite direction.** Passing `ms_counter` in and dropping
   `volatile` from the helper's pointer is the right call, yet the call sites then
-  cast the volatile object back to a plain one — that is now its own item (18).
+  cast the volatile object back to a plain one — that was split out as its own
+  item (18) and has since been closed by making the helper's parameter
+  `volatile`, which costs 4 words and removes the casts.
 - **Issue 2 is not a bug at all.** RA6/RA7 are not "unused" — they are
   `ATT6`/`ATT7`, the spare relay lines of an 8-bit attenuator this firmware does
   not implement, and `init()` parks them low deliberately. I also wrongly claimed
@@ -902,7 +904,7 @@ half-step events. Sampling at 1 kHz does not drop any of them until roughly
 are main-loop code that does not stop the TMR0 ISR — so the sample rate is not the
 problem and should not be changed.
 
-The actual causes, all in `irq_routines.c:83`–`:120` and `:167`–`:199`:
+The actual causes, all in `irq_routines.c:85`–`:122` and `:169`–`:201`:
 
 - The half-step table (`rotary_encoder.c:45`) emits on both `00` and `11`, giving
   **2 events per detent**, but `ROTARY_MULTI_CHANNEL = 3` was chosen in *detents*.
@@ -941,20 +943,6 @@ touches its own buffers — but it is the exact construct the flag exists to
 prevent, and it will silently misbehave the day someone adds a second writer.
 Better: `IRMP_DATA tmp; if (irmp_get_data(&tmp) && tmp.protocol == …)` then copy
 into `instance->ir.data`, keeping `volatile` intact.
-
-**18. Call sites cast away `volatile` on the button pointer.**
-`button_fsm()` now takes a plain `Button_t *` (correct — it is the fix for issue
-16), but the three call sites pass `(Button_t *)&instance.encoder[…].button`,
-which throws away the `volatile` on the enclosing `Instance_t` object. In effect
-the volatile discipline is still bypassed, just moved to the caller, and it is
-the same smell as issue 15. The current behaviour is safe — the ISR is the only
-writer of these fields, so nothing is shared during the call — and XC8 does still
-store the result, because the object has external linkage and the ISR boundary
-prevents dead-store elimination. A clean fix is to keep `instance` as the volatile
-pointer and let the helper take the value/return what it needs, or to mark the
-helper's parameter `volatile` and accept the memory-access cost knowingly
-(the opposite trade to the one just made). At minimum, leave a comment saying the
-cast is deliberate and why.
 
 **19. `Single` mode still has no way to store a default attenuation.** In the
 combined (single) branch of `process_encoder_button()` (`control_routines.c:303`),
@@ -1011,9 +999,9 @@ it is intentional.** I previously listed this as an open cosmetic issue and
 recommended deleting or rewriting the comment. That recommendation is withdrawn:
 the comment is deliberate and stays as it is.
 
-`/* uses 10us time, measured with LED_Toggle();*/` at `irq_routines.c:235` refers
-to the measurement scaffolding that still surrounds the callback — the four
-`#if 0 led_toggel();` blocks at `:238`, `:249`, `:257` and `:261` exist purely so
+`/* use for measure irq execution time (10us) */` at `irq_routines.c:250` refers
+to the measurement scaffolding that still surrounds the callbacks — the four
+`#if 0 led_toggel();` blocks at `:241`, `:252`, `:260` and `:264` exist purely so
 the ISR entry and exit points can be bracketed with a GPIO toggle and timed with
 a scope. The comment documents that harness, and the harness is still in the
 file, so the comment is still pointing at something real. It is a note about the
@@ -1064,7 +1052,7 @@ encoder could only ever drive attenuation. It now toggles between `Volume` and
 **The caveat: the new code is unreachable in the shipped build.** `instance.mode`
 is written exactly once, at `main.c:91` (`.mode = Dual`), and is never reassigned
 anywhere in the firmware. All three readers
-(`irq_routines.c:241`, `control_routines.c:244`, `control_routines.c:272`)
+(`irq_routines.c:243`, `control_routines.c:244`, `control_routines.c:272`)
 therefore always take the dual-mode path, which means both
 `timer_callback_process_single()` and the new `DoublePress` handler only ever run
 if something sets `instance.mode = Single`. The fix is correct but inert; it needs
@@ -1104,7 +1092,7 @@ A one-byte `press_pending` flag was added to `Button_t` (`definitions.h:100`) an
 the producer/consumer pair was reordered:
 
 ```c
-/* button_fsm() — irq_routines.c:52, :69, :73 (three decision points) */
+/* button_fsm() — irq_routines.c:54, :71, :75 (three decision points) */
 button->press = LongPress;        /* payload first */
 button->press_pending = true;     /* flag second    */
 ```
@@ -1157,7 +1145,7 @@ int8_t  last_attenuation;    /* 0..63, or -1 — main loop only */
 and it is wide enough for both ranges with room to spare. The `!= -1` and
 `> ROTARY_MAX_*` tests at `control_routines.c:198`, `:226`, `:380` and `:389` keep
 working unchanged, because `int8_t` promotes to `int` in every expression. The four
-`temporary` locals in the ISR (`irq_routines.c:105`, `:143`, `:188`, `:207`) and
+`temporary` locals in the ISR (`irq_routines.c:107`, `:143`, `:188`, `:207`) and
 the two in `process_ir()` (`control_routines.c:335`–`:336`) were narrowed to
 match, so nothing takes a `volatile int` down to `int8_t` implicitly — the
 project compiles with `-mwarn=-3`, and that is what surfaced the eight narrowing
@@ -1257,8 +1245,9 @@ residual `movwf 13` are bank-57 peripheral writes in `__eewrite.c` /
 loop writes into direct bit writes, so the counts are an observation, not a
 one-for-one correspondence with the six source sites.)
 
-Program memory is unchanged at 4275 words and data at 180 bytes — the swap is a
-substitution of the SFR operand, so it emits the same instructions. Every
+Program memory is unchanged by this fix at 4275 words and data at 180 bytes — the
+swap is a substitution of the SFR operand, so it emits the same instructions.
+(The current total is 4279; the later issue 18 fix added 4 words.) Every
 per-module size is identical to the table above as well, `control_routines.c`
 still being 1253 words.
 
@@ -1273,7 +1262,7 @@ matching every sibling function. See issue 15 for the cast that accompanied it.
 
 **11. Button FSM code duplication.** *All three call sites converted, dead copies
 deleted.*
-`button_fsm()` at `irq_routines.c:35` is now used by
+`button_fsm()` at `irq_routines.c:37` is now used by
 `timer_callback_process_dual()` for both encoders (`:126`, `:164`) **and** by
 `timer_callback_process_single()` (`:232`). The three divergent copies are down
 to one implementation, and the dead source has since been removed as well, so this
@@ -1295,7 +1284,8 @@ main.c:128: warning: (1518) direct function call made with an incomplete prototy
 ```
 
 and that warning is now gone. A prototype change is a compile-time-only
-correction, so the code is untouched: program memory is still 4275 words, data
+correction, so the code is untouched: program memory was still 4275 words at that
+point (4279 now, after the issue 18 fix), data
 still 180 bytes, `control_routines.c` still 1253 words. This was the last warning
 in the build that came from project code — what is left is 26 `(520) function
 is never called` warnings in MCC's generated files plus 2 `-Wsign-conversion`
@@ -1319,12 +1309,14 @@ did not reproduce. A clean rebuild of the pre-narrowing tree against the committ
 match the rebuild exactly — so the module figures are sound but the running totals
 were off by a few tens of words. The only totals in this section that have been
 re-verified on a full link are the ones in the issue 5 entry: **4450 → 4275**.
-Treat the older totals as approximate.
+The current verified total is **4279** after the issue 18 fix, which is the one
+figure to quote when describing the shipped image. Treat the older totals as
+approximate.
 
 **17. Dead `#else` button code in `irq_routines.c`.** The three superseded inline
 copies of the button logic, and the `uint_fast8_t encN_pressed` temporaries that
 existed only to feed them, have been deleted. `irq_routines.c` is now 264 lines
-and contains no `#else` block at all; all three call sites — `irq_routines.c:126`,
+and contains no `#else` block at all; all three call sites — `irq_routines.c:128`,
 `:164` and `:232` — go through the single `button_fsm()` at `:35`. The only `#if 0`
 blocks left in the file are the four `led_toggel()` timing-measurement snippets
 (`:238`, `:249`, `:257`, `:261`).
@@ -1335,6 +1327,38 @@ to hand-copy into them. That is no longer true — the blocks were removed when
 issue 11 was closed, so no duplicated `press_pending` edit was ever needed. The
 general warning still stands: keeping dead variants alive in `#if 1 / #else`
 blocks is how the triplication started in the first place.
+
+**18. Call sites cast away `volatile` on the button pointer.** `button_fsm()`
+took a plain `Button_t *` (correct in itself — it is the fix for issue 16), but
+the three call sites had to write `(Button_t *)&instance.encoder[…].button` to
+get there, which threw the `volatile` on the enclosing `Instance_t` object away
+at exactly the point the helper is entered. The discipline was bypassed, just
+moved to the caller.
+
+The helper now takes `volatile Button_t *` (`irq_routines.c:37`) and all three
+casts are deleted — `&instance.encoder[…].button` converts implicitly, because
+adding a qualifier is a valid implicit conversion in C. So the compiler, not a
+comment, is what keeps the casts honest from now on.
+
+**Cost: +4 words** (4275 → 4279; `irq_routines.c` 705 → 709, `button_fsm` 368 →
+372, and it is the only function that moved). That is cheap because on this part
+a non-local `Button_t` field access is *already* a single RAM instruction, so
+`volatile` has no register-caching cost to protect here — it only forces a
+re-read, and there is exactly one re-read to force (the `press` / `press_pending`
+hand-off, where the ISR writes and the main loop reads).
+
+The alternative considered and rejected was the more principled one: drop the
+blanket `volatile` from the global and all 15 signatures and mark only the five
+genuinely shared fields (`channel`, `attenuation`, `control`, `press`,
+`press_pending`) volatile individually, which would make the casts disappear by
+construction. It measured identically (+4 words) but needs an exhaustive audit of
+which fields cross the ISR boundary, and a field missed by that audit fails
+*silently* — the opposite of what this issue is about. Worth doing as a separate
+change if ever, not folded into a one-line-qualifier fix.
+
+Note this is the mirror image of issue 16 rather than a contradiction: issue 16
+deliberately stopped forcing every field access through memory, and this restores
+only the *type* honesty, not the memory traffic.
 
 ## 18. Possible next steps
 
@@ -1362,9 +1386,8 @@ Then the structural work:
   `attenuation`, so a main-loop write that lands in the middle of that is still
   plain last-writer-wins. It is benign and self-correcting, and this is the
   change that would remove the caveat entirely.
-- Stop casting `volatile` away: copy `IRMP_DATA` in and out of `process_ir()`
-  (issue #15) and either document the deliberate cast at the `button_fsm()` call
-  sites or make the helper `volatile`-correct (issue #18).
+- Stop casting `volatile` away in `process_ir()`: copy `IRMP_DATA` in and out
+  of it so the cast at the `irmp_get_data()` call site can go (issue #15).
 
 Features still in the `main.c` TODO block:
 

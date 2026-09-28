@@ -32,7 +32,9 @@
 
 #include "definitions.h"
 
-static void button_fsm(uint16_t ms_counter, Button_t* button, uint_fast8_t pressed) {
+/* volatile: instance is a volatile object, so this pointer is too. It was a
+   plain Button_t* with the three call sites casting the volatile away. */
+static void button_fsm(uint16_t ms_counter, volatile Button_t* button, uint_fast8_t pressed) {
   if (pressed == 0) {
     /* Button pressed */
     if (!button->button_pressed) {
@@ -123,7 +125,7 @@ static void timer_callback_process_dual(void) {
   }
 
   uint_fast8_t enc1_pressed = ENC1SWITCH_GetValue();
-  button_fsm(instance.ms_counter, (Button_t *)&instance.encoder[Volume].button, enc1_pressed);
+  button_fsm(instance.ms_counter, &instance.encoder[Volume].button, enc1_pressed);
 
   /* encoder2 used for channel */
   encoder_direction = encoder2_read(&instance.encoder[Channel].rotary_encoder_state);
@@ -161,7 +163,7 @@ static void timer_callback_process_dual(void) {
   }
 
   uint_fast8_t enc2_pressed = ENC2SWITCH_GetValue();
-  button_fsm(instance.ms_counter, (Button_t *)&instance.encoder[Channel].button, enc2_pressed);
+  button_fsm(instance.ms_counter, &instance.encoder[Channel].button, enc2_pressed);
 }
 
 static void timer_callback_process_single(void) {
@@ -229,7 +231,7 @@ static void timer_callback_process_single(void) {
   instance.ms_counter++;
 
   uint_fast8_t enc1_pressed = ENC1SWITCH_GetValue();
-  button_fsm(instance.ms_counter, (Button_t *)&instance.encoder[Combined].button, enc1_pressed);
+  button_fsm(instance.ms_counter, &instance.encoder[Combined].button, enc1_pressed);
 }
 
 /* every 1ms (1kHz) */
