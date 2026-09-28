@@ -48,12 +48,18 @@
 
 #define ROTARY_MIN_CHANNEL                0 /* minimum channel */
 #define ROTARY_MAX_CHANNEL                3 /* maximum channel */
-#define ROTARY_MULTI_CHANNEL              3 /* on 12PPR this gaves 3 clicks */
+/* Multipliers count encoder EVENTS. The fitted PEC11R-4220F-S0012 has 12
+   pulses (full quadrature cycles) and 24 detents per 360 deg, so 48 Gray
+   edges and 24 detents per rev, i.e. 2 edges per detent. With
+   ENABLE_HALF_STEP the decoder emits on 00 and 11, i.e. one event every 2
+   edges, so it emits EXACTLY ONE EVENT PER DETENT. One event is therefore one
+   mechanical click, and these multipliers are also the click counts. */
+#define ROTARY_MULTI_CHANNEL              3 /* change channel every 3 clicks */
 
 #define ROTARY_ATTENUATION_BITS           6 /* 6 bits */
 #define ROTARY_MIN_ATTENUATION            0 /* minimum attenuation */
 #define ROTARY_MAX_ATTENUATION         ((1 << ROTARY_ATTENUATION_BITS) - 1) /* (0x3f) maximum attenuation */
-#define ROTARY_MULTI_ATTENUATION          1 /* on 12PPR this gaves 1 clicks */
+#define ROTARY_MULTI_ATTENUATION          1 /* change volume on every click */
 
 #define MAIN_LOOP_WAIT                    1 /* 1ms */
 #define RELAIS_MAX_SETUP_TIME             3 /* 3ms for G6K-2F DC5 */

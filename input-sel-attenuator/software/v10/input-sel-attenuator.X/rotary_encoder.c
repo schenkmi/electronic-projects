@@ -43,7 +43,15 @@
 #define R_START 0x0
 
 #if 1 /* ENABLE_HALF_STEP */
-/* Use the half-step state table (emits a code at 00 and 11) */
+/* Half-step state table. Emits a code at both 00 and 11, i.e. one event every
+   2 edges, so 2 events per full quadrature cycle. The fitted
+   PEC11R-4220F-S0012 is 12 PPR / 24 detents, so 48 edges and 24 detents per
+   rev: 2 edges per detent, which makes this table emit exactly ONE EVENT PER
+   DETENT. One event is one mechanical click, so ROTARY_MULTI_* in
+   definitions.h count clicks as well as events. Both encoders share this
+   table, so the flag also sets attenuator resolution. The full-step table
+   below emits once per cycle and would therefore only step every 2nd detent,
+   halving the resolution; it is not in use. */
 #define R_CCW_BEGIN   0x1
 #define R_CW_BEGIN    0x2
 #define R_START_M     0x3
