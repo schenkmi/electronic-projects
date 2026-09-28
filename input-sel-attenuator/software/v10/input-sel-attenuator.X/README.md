@@ -347,25 +347,38 @@ To prevent audio pops and clicks during attenuation changes, the firmware implem
 // 1st phase: Make operation (close contacts first)
 for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
   uint8_t bit = ((1 << cnt) & 0xff);
-  if ((PORTA & bit) != (attenuation & bit)) {
+  if ((LATA & bit) != (attenuation & bit)) {
     if (attenuation & bit) {
-      PORTA |= bit;  // Close relay contact
+      LATA |= bit;  // Close relay contact
+      __delay_ms(RELAIS_MAX_SETUP_TIME);  // 3ms wait for relay settling
     }
-    __delay_ms(RELAIS_MAX_SETUP_TIME);  // 3ms wait for relay settling
   }
 }
 
 // 2nd phase: Break operation (open contacts after)
 for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
   uint8_t bit = ((1 << cnt) & 0xff);
-  if ((PORTA & bit) != (attenuation & bit)) {
+  if ((LATA & bit) != (attenuation & bit)) {
     if ((attenuation & bit) == 0) {
-      PORTA &= ~bit;  // Open relay contact
+      LATA &= ~bit;  // Open relay contact
+      __delay_ms(RELAIS_MAX_SETUP_TIME);  // 3ms wait for relay settling
     }
-    __delay_ms(RELAIS_MAX_SETUP_TIME);  // 3ms wait for relay settling
   }
 }
 ```
+
+The settling delay sits **inside** the branch that switches the pin, not around
+the "does this bit differ" test. The second phase deliberately does nothing to a
+bit that has to go to 0, so there is no switched relay to settle there and
+sleeping would be pure dead time. Placing the delay inside the acting branch
+halves the worst-case blocking window: 18 ms for an attenuation sweep instead of
+36 ms, and 24 ms for a channel change instead of 42 ms.
+
+The relays are driven through `LATA` rather than `PORTA` for the same reason as
+the channel-select relays: reading a `PORTx` register returns *pin* levels, not
+the latch. Here every RA pin is an output (`TRISA = 0x0`), so the two are
+equivalent and the choice is a consistency one — but going through `LATx` keeps
+the code correct if RA6/RA7 are ever repurposed as inputs.
 
 **Why this matters:** When changing from one attenuation value to another, some relays need to close while others open. The make-before-break approach ensures that relay contacts never create an open circuit moment during switching, which would cause audible pops.
 
@@ -392,12 +405,12 @@ The code also includes a **direction-based** algorithm (`ATT_CTRL_DIRECTION`) as
 │   - Compare current vs target   │
 │   - 1st pass: Make (close)      │
 │   - 2nd pass: Break (open)      │
-│   - 3ms delay per relay change  │
+│   - 3ms delay per relay switched │
 └─────────────────────────────────┘
                 │
                 ▼
 ┌─────────────────────────────────┐
-│ Update PORTA                    │
+│ Update LATA (relay drive latch)  │
 │   - RA0-RA5 = attenuation bits  │
 └─────────────────────────────────┘
 ```

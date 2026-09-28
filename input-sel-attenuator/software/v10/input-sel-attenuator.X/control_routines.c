@@ -104,7 +104,7 @@ void factory_reset(void) {
 
 /* attenuator relay are on RA0...RA5 */
 static void configure_attenuation(uint8_t attenuation) {
-  if ((PORTA & ROTARY_MAX_ATTENUATION) != attenuation) {
+  if ((LATA & ROTARY_MAX_ATTENUATION) != attenuation) {
     /* something needs to be changed */
 #if ATT_CTRL == ATT_CTRL_DIRECTION
      if (instance->attenuation < instance->last_attenuation) {
@@ -116,12 +116,12 @@ static void configure_attenuation(uint8_t attenuation) {
       for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
         uint8_t bit = ((1 << cnt) & 0xff);
 
-        if ((PORTA & bit) != (attenuation & bit)) {
+        if ((LATA & bit) != (attenuation & bit)) {
           /* port bit needs to be changed */
           if (attenuation & bit) {
-            PORTA |= bit;
+            LATA |= bit;
           } else {
-            PORTA &= ~bit;
+            LATA &= ~bit;
           }
           /* changed relay, wait a bit */
           __delay_ms(RELAIS_MAX_SETUP_TIME);
@@ -137,12 +137,12 @@ static void configure_attenuation(uint8_t attenuation) {
       for (int cnt = (ROTARY_ATTENUATION_BITS - 1); cnt >= 0; cnt--) {
         uint8_t bit = ((1 << cnt) & 0xff);
 
-        if ((PORTA & bit) != (attenuation & bit)) {
+        if ((LATA & bit) != (attenuation & bit)) {
           /* port bit needs to be changed */
           if (attenuation & bit) {
-            PORTA |= bit;
+            LATA |= bit;
           } else {
-            PORTA &= ~bit;
+            LATA &= ~bit;
           }
           /* changed relay, wait a bit */
           __delay_ms(RELAIS_MAX_SETUP_TIME);
@@ -154,10 +154,10 @@ static void configure_attenuation(uint8_t attenuation) {
     for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
       uint8_t bit = ((1 << cnt) & 0xff);
 
-      if ((PORTA & bit) != (attenuation & bit)) {
+      if ((LATA & bit) != (attenuation & bit)) {
         /* port bit needs to be changed */
         if (attenuation & bit) {
-          PORTA |= bit;
+          LATA |= bit;
           /* changed relay, wait a bit. Inside the branch that actually switches
              the relay: the phase below deliberately does nothing to a bit that
              has to go to 0, and there is no switched relay to settle there. */
@@ -170,10 +170,10 @@ static void configure_attenuation(uint8_t attenuation) {
     for (int cnt = 0; cnt < ROTARY_ATTENUATION_BITS; cnt++) {
       uint8_t bit = ((1 << cnt) & 0xff);
 
-      if ((PORTA & bit) != (attenuation & bit)) {
+      if ((LATA & bit) != (attenuation & bit)) {
         /* port bit needs to be changed */
         if ((attenuation & bit) == 0) {
-          PORTA &= ~bit;
+          LATA &= ~bit;
           /* changed relay, wait a bit, see above */
           __delay_ms(RELAIS_MAX_SETUP_TIME);
         }
