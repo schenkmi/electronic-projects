@@ -573,9 +573,13 @@ it is noisier than make-before-break. It is retained for reference/comparison.
 - `process_channel()` (`control_routines.c:219, 227`) — calls it twice per
   channel change: once with `ROTARY_MAX_ATTENUATION` to mute, once with the new
   channel's stored attenuation to restore.
-- `init()` — does not call it; it writes `PORTA` directly to park the whole
-  6-bit field at `ROTARY_MAX_ATTENUATION`, which also forces the spare `ATT6`/
-  `ATT7` lines low. That is deliberate, not a mask bug — see the retracted
+- `init()` — does not call it; it writes `LATA` directly to park the whole
+  6-bit field at `ROTARY_MAX_ATTENUATION`. `~ROTARY_MAX_ATTENUATION` is `0xC0`,
+  so this *preserves* whatever the spare `ATT6`/`ATT7` lines hold rather than
+  forcing them low — they are low only because `PIN_MANAGER_Initialize()` cleared
+  `LATA = 0x0` just before. Reading `LATA` rather than `PORTA` makes that
+  dependency explicit: it preserves the commanded latch state, not the pin level.
+  Not a mask bug — see the retracted
   [issue 2](#17-known-issues-and-caveats).
 
 **Cost:** each relay that is actually switched costs 3 ms of blocking delay in
@@ -1030,7 +1034,7 @@ already defined and unused, so a status LED is clearly intended at some point.)
 **2. ~~`init()` clears RA6/RA7.~~ — retracted, this is correct behaviour.**
 I previously listed this as a bug and the reasoning was wrong in two ways.
 
-`PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ROTARY_MAX_ATTENUATION)`
+`LATA = ((LATA & ~ROTARY_MAX_ATTENUATION) | ROTARY_MAX_ATTENUATION)`
 (`control_routines.c:59`) masks with `~0x3F`, which drives RA6 and RA7 low. My
 claim that this is "harmless only while RA6/RA7 are unused outputs" understated
 it: RA6 and RA7 **are** allocated in the pin manager, as `ATT6` and `ATT7`
@@ -1043,8 +1047,17 @@ The firmware implements a **6-bit** attenuator: `ROTARY_ATTENUATION_BITS 6`
 (`definitions.h:53`) gives `ROTARY_MAX_ATTENUATION = 0x3F` (`definitions.h:55`).
 ATT6 and ATT7 are therefore spare relay lines for an 8-bit attenuator that this
 firmware does not implement, and forcing them low in `init()` is the intended
-behaviour: it guarantees the two unused relays are de-energised at power-up
-instead of inheriting an indeterminate port value. So the line is right.
+behaviour: the two unused relays end up de-energised at power-up instead of
+inheriting an indeterminate value. So the line is right.
+
+Worth being precise about *why*, because it is easy to get backwards:
+`~ROTARY_MAX_ATTENUATION` is `0xC0`, which **preserves** RA6/RA7 — it does not
+force them low. They are low at power-up only because `PIN_MANAGER_Initialize()`
+(`pins.c:43`) clears `LATA = 0x0` and `TRISA = 0x0` before `init()` runs
+(`main.c:123`, then `main.c:142`). The outcome was right; the mechanism was an
+accident of startup order. The line now reads `LATA`, so it preserves the
+*commanded* latch state directly instead of depending on the pin level happening
+to agree.
 
 My second error was calling `configure_attenuation()` "correct" and therefore the
 two paths "inconsistent". `configure_attenuation()` only ever sets or clears
@@ -1323,13 +1336,21 @@ output whose pin level equals its latch level. The compiler confirms it — the
 same five instructions (`andwf` x4, `iorwf` x1) are emitted against `LATA` in
 place of `PORTA`, so the image is byte-identical at 4279 words / 180 bytes.
 
-Two `PORTA` accesses remain, both in whole-register writes: `init()` at
-`control_routines.c:59` and `process_channel()` at `:213`. Each is
-`PORTA = ((PORTA & ~MASK) | value)`, so the right-hand side still reads pin
-levels rather than the latch. That is harmless for the same `TRISA = 0x0`
-reason, and neither line is a read-modify-write against a second writer — no ISR
-touches `PORTA` — so there is no race to lose. They were left as `PORTA` because
-the conversion request was scoped to `configure_attenuation()`.
+`init()` was converted afterwards too, and the startup hazard there was worth
+removing even though the two readings coincide at that moment — `LATA` has just
+been cleared to `0x00` and every RA pin is an output, so it is again a no-op.
+What it removes is the reliance on the pin level matching the latch, and at
+`init()` that reliance was load-bearing: `~ROTARY_MAX_ATTENUATION` is `0xC0` and
+therefore *preserves* RA6/RA7 rather than forcing them low, so the spare relays
+only end up de-energised because `pins.c:43` happened to clear `LATA` first. See
+the retracted issue 2 for the full correction.
+
+One `PORTA` access remains, in `process_channel()` at `control_routines.c:213`:
+`PORTA = ((PORTA & ~MASK) | value)`. Its right-hand side still reads pin levels
+rather than the latch. That is harmless for the same `TRISA = 0x0` reason, and it
+is not a read-modify-write against a second writer — no ISR touches `PORTA` — so
+there is no race to lose. It was left as `PORTA` because the conversion was
+scoped to `init()` and `configure_attenuation()`.
 
 **9. `process_ir()` dropped `volatile`.** Its signature is now
 `void process_ir(volatile Instance_t *instance)` (`control_routines.c:326`),
@@ -1445,8 +1466,9 @@ Cheapest first — most of these are one-liners:
   `Combined` encoder path are dead code today. A single `#define SINGLE_ENCODER`
   (or a strap/gesture) is the difference between a finished feature and an
   unreachable one. Highest leverage per line of anything in this list.
-- Comment the `init()` `PORTA` mask (issue #2) — one line, documents that driving
-  RA6/RA7 low is intentional so nobody "fixes" it later.
+- Comment the `init()` `LATA` mask (issue #2) — one line, recording that
+  `~ROTARY_MAX_ATTENUATION` is `0xC0` and so *preserves* RA6/RA7 rather than
+  driving them low, so nobody "fixes" the mask later.
 - Add a `LongPress` save in the single-mode branch of `process_encoder_button()`
   (issue #19) — one branch, and single mode finally has a persistence story.
 

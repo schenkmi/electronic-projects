@@ -56,7 +56,7 @@ void init(volatile Instance_t* instance) {
   __delay_ms(RELAIS_MAX_SETUP_TIME);
 
   /* max possible attenuation on attenuation */
-  PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ROTARY_MAX_ATTENUATION);
+  LATA = ((LATA & ~ROTARY_MAX_ATTENUATION) | ROTARY_MAX_ATTENUATION);
 
   /* one channel after the others */
   for (int cnt = 0; cnt <= ROTARY_MAX_CHANNEL; cnt++) {
