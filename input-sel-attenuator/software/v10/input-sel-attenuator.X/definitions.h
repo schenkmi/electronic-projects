@@ -89,9 +89,9 @@ typedef struct {
   uint8_t click_count;
   uint16_t press_time;
   uint16_t release_time; 
-  /* uint8_t on purpose: XC8 does not narrow enums, so an enum field is a 2 byte
-     object and every access is a two instruction load/store that the TMR0 ISR
-     can tear. Holds an enum ButtonPress value (0..3). */
+  /* uint8_t on purpose: an enum ButtonPress is 1 byte on this part (measured,
+     see the sizes table in ../README.md), but saying the type makes the 0..3
+     payload explicit at the hand-off below. */
   uint8_t press;
   /* ISR -> main loop hand-off. The ISR writes press first, then sets this; the
      main loop clears this first, then reads press. That order means a press
@@ -124,11 +124,16 @@ typedef struct {
   enum Mode mode; /* single or dual encoder mode */
   enum SaveMode save_mode[2 /* 0 = Volume, 1 = Channel */];
   uint8_t save_action;
-  int save_countdown_counter;
-  int channel;
-  int last_channel;
-  int attenuation;
-  int last_attenuation;
+  int save_countdown_counter; /* -1..1000, stays 16 bit: only the main loop touches it */
+  /* int8_t on purpose: channel and attenuation are read-modify-written by the
+     TMR0 ISR while the main loop reads them, and on this part a wider field is
+     a two instruction load/store the ISR can tear. 1 byte is a single access.
+     Signed, because -1 is the "not set yet" sentinel. Do not widen without
+     re-reading issue 5 in ../README.md. */
+  int8_t  channel;             /* 0..3,  or -1, shared with the ISR */
+  int8_t  last_channel;        /* 0..3,  or -1, main loop only */
+  int8_t  attenuation;         /* 0..63, or -1, shared with the ISR */
+  int8_t  last_attenuation;    /* 0..63, or -1, main loop only */
   ChannelVolume_t channel_attenuation[ROTARY_MAX_CHANNEL + 1]; /* channel 0..3 */
   /* irq changed */
   volatile enum Control control;

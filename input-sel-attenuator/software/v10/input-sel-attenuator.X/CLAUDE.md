@@ -70,25 +70,32 @@ init() → irmp_init() → while(1):
 
 `../README.md` section 17 tracks 20 items with OPEN / PARTIAL / FIXED / NOT A BUG
 status. Check it before changing anything, and update the status if you fix one.
+Nine are now **FIXED** (1, 3, 4, 5, 6, 9, 11, 16, 17) and one is **NOT A BUG**
+(2); nothing is left PARTIAL.
 
-The one bug with a severe consequence is **issue 1**: `init()` reads the channel
-from EEPROM without range-checking it, so a corrupt value indexes
-`channel_attenuation[]` (4 elements) out of bounds. It is a one-line clamp.
+**Issues 1 and 5 are closed.** `init()` now reads the EEPROM channel into a
+`uint8_t` and range-checks it *before* casting to `int8_t`, so a corrupt byte can
+no longer index `channel_attenuation[]` out of bounds. The clamp is not optional
+polish — with `channel` as an `int8_t`, a stored `255` would cast to `-1` and
+index `channel_attenuation[-1]`.
 
-**Issue 5 is PARTIAL.** The `press` hand-off is now a `press_pending` handshake
-and the lost-press / double-read defects are closed. What is still open is
-narrower than the original write-up suggested: only `attenuation` and `channel`
-are genuinely 16-bit shared fields, so shrinking those two to `int8_t` is all
-that remains. `press` and `control` were never 2 bytes.
+`channel` and `attenuation` are `int8_t` in `Instance_t`, so every ISR/main-loop
+access to them is a single atomic byte access. `press` is handed off from the ISR
+with a `press_pending` flag, and the main loop must never write `press` — it is
+the producer's field exclusively. There are no genuinely 16-bit shared fields
+left; `press` and `control` were never 2 bytes to begin with.
 
-Three further notes worth knowing before editing:
+Four further notes worth knowing before editing:
 
 - **XC8 v4.00 does narrow enums to 1 byte here** (`sizeof(enum ButtonPress) == 1`).
   An earlier version of the README claimed 2 and built a whole analysis on it;
   that claim is retracted. Do not assume an enum field is 16-bit on this
   toolchain — measure with a one-object link and read the section size from the
-  map if it matters. `int` is 2, `bool` is 1, `sizeof(Instance_t)` is 69, and
+  map if it matters. `int` is 2, `bool` is 1, `sizeof(Instance_t)` is 65, and
   XC8 does not pad structs.
+- **The `.map` size columns are hexadecimal, not word counts.** `main` appears
+  as `0x102` there, i.e. 258 words. Do not paste those strings into a table of
+  sizes without converting.
 - `irq_routines.c` is the 1ms tick, so anything added there runs in an ISR —
   no `__delay_ms()`, no blocking calls. The relay delays in
   `control_routines.c` do block, for up to ~36ms.
