@@ -51,6 +51,7 @@ This document describes **how the code is structured and how it executes**.
 ### Version history (from `main.c` header)
 
 ```
+V2.6  2026.09.25  Various corrections and optimizations
 V2.5  2025.09.12  Shiny new push button and saving handling
                   Use volume when doing channel switch.
 V2.4  2025.03.30  Fix missing __EEPROM_DATA
@@ -65,6 +66,66 @@ V1.2  2023.12.13  Set attenuator to maximum in init()
 V1.1  2022.10.30  Implement default attenuation which can be set by pressing
                   encoder button for > 3 seconds
 ```
+
+This is software revision **v10**, kept in step with the `V2.6` entry above. The
+`main.c` header is the authoritative copy; keep the two in sync.
+
+#### What V2.6 covers
+
+The `main.c` entry says only "Various corrections and optimizations". The
+substance is the audit in [section 17](#17-known-issues-and-caveats), which now
+has **14 of 20 items fixed**, 2 confirmed not bugs, 1 partial and 3 open. The
+changes that alter behaviour or resource use:
+
+**Correctness**
+
+- **The encoder step divider keeps its remainder and no longer resets on
+  reversal** (13). Reversing the knob used to throw away up to `MULTI−1` clicks
+  of travel every time — 13 111 of 20 000 randomised multi-reversal sequences
+  lost travel. `ROTARY_MULTI_CHANNEL 3` and `ROTARY_MULTI_ATTENUATION 1` are
+  unchanged and correct for the fitted encoder.
+- **The EEPROM channel is range-checked before it indexes
+  `channel_attenuation[]`**, and `channel` / `attenuation` are `int8_t`, so the
+  TMR0 ISR can no longer tear them (1, 5). Worth −175 program words on its own.
+- **Relay writes go through `LATB` / `LATA`, never `PORTB` / `PORTA`** (8). On
+  `PORTB` this was a live bug: `TRISB = 0xD0` puts RB4/RB6/RB7 in the same port
+  as the channel relays, so a read-modify-write latched the *pin* level of the
+  input bits into the output latch.
+- **`irmp_get_data()` is handed a non-volatile local** rather than a
+  cast-stripped pointer (15). The project builds with `-maddrqual=ignore`, so
+  nothing in the build would ever have caught that cast. The 6-byte `IR_t`
+  member it fed turned out to be written once and never read, so it is gone.
+- Smaller fixes: the `save_mode` index on channel change (3), the unreachable
+  `Single`-mode channel-select path (4), `press` handed from the ISR instead of
+  raced (5), button-FSM duplication and its dead `#else` copies (11, 16, 17, 18),
+  the `factory_reset` prototype (14), a dead constant (6), and `process_ir()`
+  keeping `volatile` (9).
+
+**Resource use**
+
+| | before V2.6 | after |
+|---|---|---|
+| Program memory | 4290 words (26.2 %) | **4157 words (25.4 %)** |
+| Data memory | 181 bytes (8.8 %) | **175 bytes (8.5 %)** |
+| `sizeof(Instance_t)` | 65 | **59** |
+
+**Partly addressed:** the main loop still blocks on relay settling, but only
+after a relay actually changes — worst case 42 → 24 ms (12, still PARTIAL).
+
+**Two documentation corrections**, because both were previously wrong and both
+affect how the hardware is read:
+
+- The attenuator is **1.5 dB per step**, so the 6-bit ladder spans **0–94.5 dB**
+  and the MSB relay is 48 dB — not 0.75 dB per step / 0–63 dB / 24 dB.
+- The fitted PEC11R-4220F-S0012 has **24 detents at 12 pulses per revolution**,
+  not 12 detents. With `ENABLE_HALF_STEP` that makes the decoder emit exactly
+  **one event per detent**, so `ROTARY_MULTI_*` counts clicks directly. The
+  earlier "odd multipliers land between detents" analysis, and the 6 / 2
+  multipliers derived from it, were both based on the wrong detent count.
+
+**Still open:** IR-initiated changes are never persisted (10), `Single` mode has
+no gesture to store a default attenuation (19), and the volume/channel toggle has
+no user-visible feedback (20).
 
 ---
 
@@ -138,37 +199,43 @@ listing.
 | Module / function | Words | Source |
 |---|---|---|
 | `irmp/irmp.c` (whole module) | 1532 | `irmp/irmp.c` |
-| `control_routines.c` (whole module) | 1315 | — |
-| `irq_routines.c` (whole module) | 658 | — |
-| `eeprom_save_status` | 222 | `control_routines.c:241` |
-| `process_ir` | 220 | `control_routines.c:336` |
-| `process_channel` | 215 | `control_routines.c:200` |
-| `process_encoder_button` | 199 | `control_routines.c:275` |
-| `button_fsm` | 192 | `irq_routines.c:37` |
+| `control_routines.c` (whole module) | 1207 | — |
+| `irq_routines.c` (whole module) | 639 | — |
+| `eeprom_save_status` | 205 | `control_routines.c:241` |
+| `process_ir` | 166 | `control_routines.c:336` |
+| `process_channel` | 197 | `control_routines.c:200` |
+| `process_encoder_button` | 189 | `control_routines.c:275` |
+| `button_fsm` | 174 | `irq_routines.c:37` |
 | `timer_callback_process_single` | 181 | `irq_routines.c:173` |
-| `init` | 176 | `control_routines.c:48` |
+| `init` | 172 | `control_routines.c:48` |
 | `timer_callback_process_dual` | 172 | `irq_routines.c:105` |
 | `configure_attenuation` | 140 | `control_routines.c:106` |
-| `main` | 102 | `main.c:122` |
+| `main` | 102 | `main.c:123` |
 | `encoder_steps` | 100 | `irq_routines.c:88` |
 | `factory_reset` | 95 | `control_routines.c:85` |
-| `process_attenuation` | 39 | `control_routines.c:189` |
-| `encoder_timer_callback` | 10 | `irq_routines.c:228` |
+| `process_attenuation` | 34 | `control_routines.c:189` |
+| `encoder_timer_callback` | 9 | `irq_routines.c:228` |
 | `led_callback` | 9 | `control_routines.c:39` |
 | `ir_timer_callback` | 3 | `irq_routines.c:247` |
-| **Program memory** | **4290 / 16384 (26.2 %)** | |
-| **Data memory** | **181 / 2048 (8.8 %)** | |
+| **Program memory** | **4157 / 16384 (25.4 %)** | |
+| **Data memory** | **175 / 2048 (8.5 %)** | |
 
-The per-function rows above sum to 3918 of the 4290 words. The 372-word remainder
-is not project logic:
+Summing every project translation unit in the map (the 16 rows above are the
+largest; there are 37 functions in all) gives 3791 of the 4157 words. The
+remaining 366 are not project logic:
 
 | Component | Words |
 |---|---|
-| Project code, all 37 functions in the table | 3918 |
+| Project code, all 37 functions | 3791 |
 | XC8 library: `__eeread.c`, `__eewrite.c`, `memcpy.c` | 84 |
 | `shared`: `__initialization` + the IRMP `STRCODE` protocol tables | 199 |
-| Residual, by subtraction — reset/interrupt vectors, psect alignment padding, and C-runtime helpers the map does not list | 89 |
-| **Program memory** | **4290** |
+| Residual, by subtraction — reset/interrupt vectors, psect alignment padding, and C-runtime helpers the map does not list | 83 |
+| **Program memory** | **4157** |
+
+The library and `shared` rows are stable at 84 and 199 across builds; the
+project and residual rows move with the code. Both are derived from the map's
+per-module `estimated size` lines, which sum per translation unit and so do not
+double-count the way a mix of module rows and function rows would.
 
 `led_toggel` is absent because the linker discarded it; it is never called, which
 is the deliberate issue 7 scaffolding.
@@ -242,7 +309,7 @@ super-loop period is nominally 1 ms, **plus** whatever blocking time the relay
 sequencing costs (see [Attenuator control](#11-attenuator-control)).
 
 Design note: the only shared state between ISR and main loop is the single
-`volatile Instance_t instance` global (`main.c:90`). No locking, no critical
+`volatile Instance_t instance` global (`main.c:91`). No locking, no critical
 sections — see [Known issues](#17-known-issues-and-caveats) for the races this
 implies.
 
@@ -266,7 +333,6 @@ typedef struct {
   volatile enum Control control;         /* which role the single encoder has */
   uint16_t    ms_counter;                /* free-running 1 ms tick            */
   RotaryEncoder_t encoder[2];            /* [0]=Volume/Combined, [1]=Channel  */
-  IR_t        ir;                        /* last decoded IRMP_DATA            */
 } Instance_t;
 ```
 
@@ -313,7 +379,7 @@ enum SaveAction   { NoSaveAction = 0, SaveVolume = 0x1, SaveChannel = 0x2 };
 
 ## 7. Boot sequence
 
-`main()` (`main.c:122`) executes strictly in this order:
+`main()` (`main.c:123`) executes strictly in this order:
 
 1. **`SYSTEM_Initialize()`** — MCC sets TRIS/ANSEL/LAT/WPU, config bits, TMR0, TMR2.
 2. **`__delay_ms(STARTUP_WAIT)`** (250 ms) — let the supply and the
@@ -338,7 +404,7 @@ enum SaveAction   { NoSaveAction = 0, SaveVolume = 0x1, SaveChannel = 0x2 };
 8. **Enter the super-loop.**
 
 Because `last_channel` and `last_attenuation` are initialised to `-1`
-(`main.c:95`), the first pass of `process_channel()` performs a full
+(`main.c:96`), the first pass of `process_channel()` performs a full
 mute → switch → restore cycle, and the `last_channel != -1` guards suppress any
 EEPROM write on the first pass (nothing has changed yet, so nothing should be
 saved).
@@ -684,7 +750,7 @@ Channel value wraps 0 → 3 → 0 (continuous rotary); attenuation clamps at 0/6
 
 `eeprom_read()` / `eeprom_write()` are XC8 built-ins declared by the PIC16F18056
 device header. Factory contents come from the `__EEPROM_DATA` initializer in
-`main.c:83`:
+`main.c:84`:
 
 ```c
 __EEPROM_DATA(ROTARY_MAX_ATTENUATION,   /* 0x00 channel 0 attenuation */
@@ -725,7 +791,7 @@ Triggers:
 | Channel change | `SaveChannel` | `save_mode[Volume] == SaveOnChange` ← see issue #3 |
 | IR remote | *(none)* | IR volume changes are never persisted |
 
-Both save modes default to `SaveOnLongPress` (`main.c:92`), i.e. volume/channel
+Both save modes default to `SaveOnLongPress` (`main.c:93`), i.e. volume/channel
 memory is opt-in per gesture. The `mode == Single` branch of
 `eeprom_save_status()` is empty.
 
@@ -843,9 +909,9 @@ All in `definitions.h`:
 ## 17. Known issues and caveats
 
 Re-audited after the latest round of fixes. Each item is **OPEN**, **PARTIAL**
-or **FIXED**. Of the twenty tracked items, thirteen are **FIXED** (1, 3, 4, 5, 6,
-8, 9, 11, 13, 14, 16, 17, 18), two are **NOT A BUG** (2 and 7), one is **PARTIAL**
-(12) and four are **OPEN** (10, 15, 19, 20).
+or **FIXED**. Of the twenty tracked items, fourteen are **FIXED** (1, 3, 4, 5, 6, 8,
+9, 11, 13, 14, 15, 16, 17, 18), two are **NOT A BUG** (2 and 7), one is **PARTIAL**
+(12) and three are **OPEN** (10, 19, 20).
 Fixing 1 and 5 also forced a correction to the original analysis of issue 5: its
 load-bearing `sizeof` measurement was wrong. See the retraction below and the
 rewritten entry.
@@ -866,7 +932,7 @@ rewritten entry.
 | 12 | Long blocking delays in the main loop | **PARTIAL** *(half the delays were no-ops and are gone; worst case 42 → 24 ms; loop still blocks)* |
 | 13 | Non-linear channel selector on the encoder | **FIXED** *(cause was lost travel on reversal, not the multiplier: remainder now preserved and the direction-change reset removed; 3 / 1 unchanged and correct for this 12 PPR / 24 detent part)* |
 | 14 | Incomplete prototype for `factory_reset()` | **FIXED** *(prototype now takes `(void)`)* |
-| 15 | `irmp_get_data()` called through a cast that strips `volatile` | OPEN |
+| 15 | `irmp_get_data()` called through a cast that strips `volatile` | **FIXED** *(non-volatile local handed to the library, cast gone, and the dead 6-byte `IR_t` member deleted — 133 words and 6 bytes smaller overall)* |
 | 16 | `button_fsm()` forces every field access through memory | **FIXED** |
 | 17 | Dead `#else` button code in `irq_routines.c` | **FIXED** *(dead blocks and their `encN_pressed` temporaries are gone — see below)* |
 | 18 | Call sites cast away `volatile` on the button pointer | **FIXED** *(helper takes `volatile Button_t *`, casts deleted)* |
@@ -892,14 +958,14 @@ Four earlier statements in this document were wrong and are corrected here:
   | `Button_t` | 9 |
   | `RotaryEncoder_t` | 15 |
   | `ChannelVolume_t` | 4 |
-  | `IR_t` | 6 |
-  | `Instance_t` | 69 *(65 after the issue 5 fix)* |
+  | `Instance_t` | 69 *(65 after the issue 5 fix, 59 after the issue 15 fix)* |
 
   The `Instance_t` figure cross-checks against the real build: `_instance` sits
-  at `0xA0` in `dataBANK1` and the next object, `_xor_check`, starts at `0xE5` —
+  at `0xA0` in `dataBANK1` and the next object, `_xor_check`, started at `0xE5` —
   69 bytes, as measured before the fix. After the `int8_t` change `_xor_check`
-  moves to `0xE1`, i.e. 65 bytes, which is exactly the four bytes saved on the
-  four narrowed fields. So `button.press` and `instance.control` were **always**
+  moved to `0xE1`, i.e. 65 bytes, which is exactly the four bytes saved on the
+  four narrowed fields. It is now at `0xDB`, i.e. 59 bytes, after the issue 15 fix
+  removed the dead 6-byte `IR_t` member. So `button.press` and `instance.control` were **always**
   single-byte objects, and every load and store of them was always one
   instruction. My claim
   that "XC8 does not narrow enums and the project does not pass `-fshort-enums`"
@@ -1097,23 +1163,78 @@ its full range. The half-step table is what makes those two ratios feel the way
 they do — the full-step table would halve both. See
 [Rotary encoder decoding](#9-rotary-encoder-decoding).
 
-**15. `irmp_get_data()` called through a cast that strips `volatile`.**
+**15. `irmp_get_data()` called through a cast that strips `volatile`. — FIXED.**
 `process_ir()` is correctly declared `void process_ir(volatile Instance_t *instance)`
-(`control_routines.c:336`), but the call is
+(`control_routines.c:336`), and the cast it used was
 
 ```c
 if (irmp_get_data((IRMP_DATA *)&instance->ir.data)) {
 ```
 
-The cast discards the `volatile` qualification, so the compiler may cache
-`ir.data` in registers across the call. It only compiles because the project
-passes `-maddrqual=ignore`. This is harmless in practice *here* — the main loop
-is the only writer of `ir.data` and the TMR2 ISR only calls `irmp_ISR()`, which
-touches its own buffers — but it is the exact construct the flag exists to
-prevent, and it will silently misbehave the day someone adds a second writer.
-Better: `IRMP_DATA tmp; if (irmp_get_data(&tmp) && tmp.protocol == …)` then copy
-into `instance->ir.data`, keeping `volatile` intact.
+`irmp_get_data()` takes a plain `IRMP_DATA *` (`irmp/irmp.h:305`), so handing it a
+`volatile IRMP_DATA *` needs a cast, and that cast discarded the qualifier and
+let the compiler cache `ir.data` across the call. It only compiles because the
+project passes `-maddrqual=ignore` — present on both the production and the
+debug compile line in `nbproject/Makefile-default.mk`. So the build will never
+warn about this class of bug on its own.
 
+Two things were wrong, not one. The cast, and the fact that the frame was being
+stored in `Instance_t` at all.
+
+**The cast.** The library now gets a non-volatile local, and the fields are read
+from it so the compiler keeps them in registers instead of reloading memory:
+
+```c
+IRMP_DATA ir;
+
+if (irmp_get_data(&ir)) {
+  if (ir.protocol == IR_PROTOCOL && ir.address == IR_REMOTE_ADDRESS) {
+    ...
+    if (ir.flags == 0x00) { switch (ir.command) { ... } }
+```
+
+This is safe because `irmp_get_data()` assigns `protocol`, `address`, `command`
+and `flags` together and only on the `TRUE` path (`irmp/irmp.c:2774`–`:2777`),
+so `ir` is always fully initialised whenever it is read. No cast remains in the
+file.
+
+**The dead member.** `Instance_t` carried an `IR_t ir;` field whose only content
+was that one `IRMP_DATA`, and the *only* thing the firmware ever did with it was
+write it — `process_ir()` read the fields back out of the same non-volatile copy
+it had just written, and nothing anywhere else in the project referenced it. It
+was dead state costing 6 bytes of RAM, so the `IR_t` typedef and the member are
+both gone. The last thing keeping it alive was a comment calling it a "last
+decoded IRMP_DATA" record, which is a debugging nicety, not a requirement; if
+frame-level IR debugging is ever wanted, a breakpoint in `process_ir()` shows
+the same thing without permanent state.
+
+Cost, measured as three separate builds of the same tree:
+
+| Build | Program | Data |
+|---|---|---|
+| A — original (cast, member present) | 4290 | 181 |
+| B — cast removed, member kept | 4257 | 181 |
+| C — cast removed, member removed (shipped) | **4157** | **175** |
+
+So the cast alone is −33 words, and dropping the dead member is a further
+−100 words and −6 bytes. The member removal is worth far more than the copy
+it eliminated, and the reason is *not* the copy: shrinking `Instance_t` by 6
+bytes re-encodes every field offset in every function that touches the struct, so
+functions this change never went near got smaller too — `process_channel` 215
+→ 197, `button_fsm` 192 → 174, `eeprom_save_status` 222 → 205,
+`process_encoder_button` 199 → 189, `init` 176 → 172. `sizeof(Instance_t)`
+goes 65 → 59. Anyone reading the per-function table should expect that kind of
+churn from a struct-layout change and not attribute it to the logic that changed.
+
+An earlier draft of this entry credited the fix with 3 words saved in
+`irmp/irmp.c` and quoted `irmp_get_data` at 329 → 326. That was wrong: the
+function was never edited, and its size moves with code layout — it reads 329
+in build A, 326 in B and 329 again in C. Per-symbol sizes for code that sits near
+a bank boundary are not a reliable measure of a source change; only the A/B/C
+totals above are.
+
+No compiler warnings changed, and every per-function figure in section 3 is from
+the same build as the totals.
 **19. `Single` mode still has no way to store a default attenuation.** In the
 combined (single) branch of `process_encoder_button()` (`control_routines.c:315`),
 `LongPress` falls straight through to `break` at `:328`, so no `save_action` is
@@ -1157,7 +1278,7 @@ Worth being precise about *why*, because it is easy to get backwards:
 `~ROTARY_MAX_ATTENUATION` is `0xC0`, which **preserves** RA6/RA7 — it does not
 force them low. They are low at power-up only because `PIN_MANAGER_Initialize()`
 (`pins.c:43`) clears `LATA = 0x0` and `TRISA = 0x0` before `init()` runs
-(`main.c:123`, then `main.c:142`). The outcome was right; the mechanism was an
+(`main.c:123`, then `main.c:143`). The outcome was right; the mechanism was an
 accident of startup order. The line now reads `LATA`, so it preserves the
 *commanded* latch state directly instead of depending on the pin level happening
 to agree.
@@ -1229,7 +1350,7 @@ encoder could only ever drive attenuation. It now toggles between `Volume` and
 `Channel` (`control_routines.c:320`–`:325`).
 
 **The caveat: the new code is unreachable in the shipped build.** `instance.mode`
-is written exactly once, at `main.c:91` (`.mode = Dual`), and is never reassigned
+is written exactly once, at `main.c:92` (`.mode = Dual`), and is never reassigned
 anywhere in the firmware. All three readers
 (`irq_routines.c:233`, `control_routines.c:244`, `control_routines.c:288`)
 therefore always take the dual-mode path, which means both
@@ -1320,7 +1441,7 @@ int8_t  attenuation;         /* 0..63, or -1 — shared with the ISR */
 int8_t  last_attenuation;    /* 0..63, or -1 — main loop only */
 ```
 
-`int8_t` is signed because `-1` is the "not set yet" sentinel (`main.c:95`–`:96`),
+`int8_t` is signed because `-1` is the "not set yet" sentinel (`main.c:96`–`:97`),
 and it is wide enough for both ranges with room to spare. The `!= -1` and
 `> ROTARY_MAX_*` tests at `control_routines.c:200`, `:228`, `:382` and `:391` keep
 working unchanged, because `int8_t` promotes to `int` in every expression. The four
@@ -1426,9 +1547,10 @@ one-for-one correspondence with the six source sites.)
 
 Program memory is unchanged by this fix at 4275 words and data at 180 bytes — the
 swap is a substitution of the SFR operand, so it emits the same instructions.
-(The current total is 4290; the later issue 18 fix added 4 words and issue 13 added 11.) The
+(The current total is 4157; issue 18 added 4 words, issue 13 added 11, and issue 15
+removed 133.) The
 per-module size is unchanged by this fix as well, since the swap only substitutes
-the SFR operand; `control_routines.c` was 1253 words at the time and is 1315 now,
+the SFR operand; `control_routines.c` was 1253 words at the time and is 1207 now,
 the difference being issues 12 and 13.
 
 The `PORTA` RMWs were left alone at the time, on the grounds that `TRISA = 0x0`
@@ -1474,18 +1596,18 @@ declared `void factory_reset();`. In C an empty parameter list means
 "unspecified arguments", not "none", so every call had to be checked against an
 open-ended declaration rather than a real prototype. It is now
 `void factory_reset(void);`, matching the definition at
-`control_routines.c:85`. The only call site, `main.c:128`, is unchanged — a call
+`control_routines.c:85`. The only call site, `main.c:129`, is unchanged — a call
 with no arguments is already correct.
 
 The build previously reported, at every compile:
 
 ```
-main.c:128: warning: (1518) direct function call made with an incomplete prototype (factory_reset)
+main.c:129: warning: (1518) direct function call made with an incomplete prototype (factory_reset)
 ```
 
 and that warning is now gone. A prototype change is a compile-time-only
 correction, so the code is untouched: program memory was still 4275 words at that
-point (4290 now, after the issues 18 and 13 fixes), data
+point (4157 now, after the issues 18, 13 and 15 fixes), data
 still 180 bytes, `control_routines.c` still 1253 words. (Both of those
 per-module and RAM figures are as they stood then; the current values are in the
 size table at the top, and the older per-module numbers were measured
@@ -1513,7 +1635,7 @@ did not reproduce. A clean rebuild of the pre-narrowing tree against the committ
 match the rebuild exactly — so the module figures are sound but the running totals
 were off by a few tens of words. The only totals in this section that have been
 re-verified on a full link are the ones in the issue 5 entry: **4450 → 4275**.
-The current verified total is **4290** words / **181** data bytes, re-measured
+The current verified total is **4157** words / **175** data bytes, re-measured
 from a clean `make clobber && make build CONF=default` in a writable copy of the
 tree. Quote those two figures when describing the shipped image; treat every
 older total in this section as approximate. The per-function accounting in the
@@ -1571,7 +1693,7 @@ only the *type* honesty, not the memory traffic.
 Cheapest first — most of these are one-liners:
 
 - **Give `Single` mode a way to be entered** (issue #4). `instance.mode` is set to
-  `Dual` once at `main.c:91` and never changed, so the new `DoublePress`
+  `Dual` once at `main.c:92` and never changed, so the new `DoublePress`
   control-toggle, all of `timer_callback_process_single()` and the whole
   `Combined` encoder path are dead code today. A single `#define SINGLE_ENCODER`
   (or a strap/gesture) is the difference between a finished feature and an

@@ -1,7 +1,7 @@
 /**
  * PIC16F18056 based input channel selection + attenuator
  *
- * Copyright (c) 2022-2025, Michael Schenk
+ * Copyright (c) 2022-2026, Michael Schenk
  * All Rights Reserved
  *
  * Author: Michael Schenk
@@ -37,12 +37,13 @@
 
  /**
   * Save hex
-  * cd /work/electronic-projects/input-sel-attenuator/software/v8
+  * cd /work/electronic-projects/input-sel-attenuator/software/v10
   * cp ./input-sel-attenuator.X/dist/default/production/input-sel-attenuator.X.production.hex hex
   */
 
 /**
  * History
+ * V2.6     2026.09.25 Various corrections and optimizations.
  * V2.5     2025.09.12 Shiny new push button and saving handling
  *                     Use volume when doing channel switch.
  * V2.4     2025.03.30 Fix missing __EEPROM_DATA

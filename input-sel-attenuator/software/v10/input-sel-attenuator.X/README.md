@@ -223,15 +223,18 @@ irmp_set_callback_ptr(led_callback);  // LED feedback on IR reception
 **Main Loop Processing (`control_routines.c:321-387`):**
 
 ```c
-void process_ir(Instance_t* instance) {
-  if (irmp_get_data(&instance->ir.data)) {
+void process_ir(volatile Instance_t* instance) {
+  // irmp_get_data() takes a plain IRMP_DATA *, so it cannot be handed the
+  // volatile instance. Read into a local; the frame is not stored back.
+  IRMP_DATA ir;
+  if (irmp_get_data(&ir)) {
     // Filter by protocol and address
-    if (instance->ir.data.protocol == IR_PROTOCOL &&
-        instance->ir.data.address == IR_REMOTE_ADDRESS) {
+    if (ir.protocol == IR_PROTOCOL &&
+        ir.address == IR_REMOTE_ADDRESS) {
 
-      if (instance->ir.data.flags == 0x00) {
+      if (ir.flags == 0x00) {
         // Normal key press - decode command
-        switch (instance->ir.data.command) {
+        switch (ir.command) {
           case IR_KEY_CH_UP:   channel++; break;
           case IR_KEY_CH_DOWN: channel--; break;
           case IR_KEY_VOL_UP:  attenuation--; break;

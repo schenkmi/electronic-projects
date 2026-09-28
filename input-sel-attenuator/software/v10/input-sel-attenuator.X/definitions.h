@@ -123,10 +123,6 @@ typedef struct {
 enum SaveAction { NoSaveAction = 0,  SaveVolume = 0x1, SaveChannel = 0x2 };
 
 typedef struct {
-  IRMP_DATA data;
-} IR_t;
-
-typedef struct {
   enum Mode mode; /* single or dual encoder mode */
   enum SaveMode save_mode[2 /* 0 = Volume, 1 = Channel */];
   uint8_t save_action;
@@ -145,8 +141,6 @@ typedef struct {
   volatile enum Control control;
   uint16_t ms_counter; 
   RotaryEncoder_t encoder[2 /* 0 = Combined/Volume, 1 = Channel */];
-  /* IR receiver */
-  IR_t ir;
 } Instance_t;
 
 extern volatile Instance_t instance;

@@ -334,13 +334,18 @@ void process_encoder_button(volatile Instance_t* instance) {
 }
 
 void process_ir(volatile Instance_t* instance) {
-  if (irmp_get_data((IRMP_DATA *)&instance->ir.data)) {    
-    if (instance->ir.data.protocol == IR_PROTOCOL && instance->ir.data.address == IR_REMOTE_ADDRESS) {
+  IRMP_DATA ir;
+
+  /* irmp_get_data() takes a plain IRMP_DATA *, so it must not be handed the
+     volatile instance. Read into a local instead; nothing else in the project
+     needs the frame, so it is deliberately not stored back. */
+  if (irmp_get_data(&ir)) {
+    if (ir.protocol == IR_PROTOCOL && ir.address == IR_REMOTE_ADDRESS) {
       int8_t channel = instance->channel;
       int8_t attenuation = instance->attenuation;
 
-      if (instance->ir.data.flags == 0x00) {
-        switch (instance->ir.data.command) {
+      if (ir.flags == 0x00) {
+        switch (ir.command) {
           case IR_KEY_CH_UP:
             channel++;
             break;
@@ -370,7 +375,7 @@ void process_ir(volatile Instance_t* instance) {
             break;
         }
       } else {
-        switch (instance->ir.data.command) {
+        switch (ir.command) {
           case IR_KEY_VOL_UP:
             attenuation--;
             break;
