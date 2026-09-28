@@ -786,10 +786,12 @@ All in `definitions.h`:
 ## 17. Known issues and caveats
 
 Re-audited after the latest round of fixes. Each item is **OPEN**, **PARTIAL**
-or **FIXED**. Of the twenty tracked items, nine are **FIXED** (1, 3, 4, 5, 6, 9, 11,
-16, 17) and one is **NOT A BUG** (2); nothing is left **PARTIAL**. Fixing 1 and 5
-also forced a correction to the original analysis of issue 5: its load-bearing
-`sizeof` measurement was wrong. See the retraction below and the rewritten entry.
+or **FIXED**. Of the twenty tracked items, eleven are **FIXED** (1, 3, 4, 5, 6, 8,
+9, 11, 14, 16, 17) and two are **NOT A BUG** (2 and 7); nothing is left
+**PARTIAL**.
+Fixing 1 and 5 also forced a correction to the original analysis of issue 5: its
+load-bearing `sizeof` measurement was wrong. See the retraction below and the
+rewritten entry.
 
 | # | Issue | Status |
 |---|---|---|
@@ -799,14 +801,14 @@ also forced a correction to the original analysis of issue 5: its load-bearing
 | 4 | `Single` mode cannot select a channel | **FIXED** *(logic exists but is unreachable — see below)* |
 | 5 | ISR → main-loop race on `press`; 16-bit shared fields | **FIXED** *(`press` hand-off added, then `attenuation` / `channel` narrowed to `int8_t`; program memory −175 words — see below)* |
 | 6 | Dead constant `EEPROM_SAVE_STATUS_VALUE` | **FIXED** |
-| 7 | Stale "10 us" comment on the 1 ms encoder callback | OPEN |
-| 8 | `PORTB` read-modify-write instead of `LATB` | OPEN *(latent only)* |
+| 7 | ~~`"10 us"` comment on the 1 ms encoder callback~~ — **intentional; left as-is** | **NOT A BUG** |
+| 8 | `PORTB` read-modify-write instead of `LATB` | **FIXED** *(four live writes, plus two in the `#if 0` branch, converted to `LATB`)* |
 | 9 | `process_ir()` dropped `volatile` | **FIXED** |
 | 10 | IR-initiated changes are never persisted | OPEN |
 | 11 | Button FSM code duplication | **FIXED** *(dead copies deleted too — issue 17)* |
 | 12 | Long blocking delays in the main loop | OPEN |
 | 13 | Non-linear channel selector on the encoder | OPEN |
-| 14 | Incomplete prototype for `factory_reset()` | OPEN |
+| 14 | Incomplete prototype for `factory_reset()` | **FIXED** *(prototype now takes `(void)`)* |
 | 15 | `irmp_get_data()` called through a cast that strips `volatile` | OPEN |
 | 16 | `button_fsm()` forces every field access through memory | **FIXED** |
 | 17 | Dead `#else` button code in `irq_routines.c` | **FIXED** *(dead blocks and their `encN_pressed` temporaries are gone — see below)* |
@@ -867,58 +869,16 @@ Four earlier statements in this document were wrong and are corrected here:
   not implement, and `init()` parks them low deliberately. I also wrongly claimed
   `configure_attenuation()` disagreed with `init()`; it preserves RA6/RA7 and so
   agrees with it. The line needs a comment, not a change.
-- **Issue 8 misidentified the code.** There is no `PORTBbits.RB4 = …` anywhere;
-  the IR path uses the `LATB`-based `LED_*` macros. The real observation is
-  narrower and purely latent — see the entry.
+- **Issue 8 misidentified the code, twice.** There is no `PORTBbits.RB4 = …`
+  anywhere; the IR path uses the `LATB`-based `LED_*` macros. The real
+  observation is narrower — whole-register `PORTB` RMWs on a port that also
+  carries input pins — and the channel-cycling loop is in `init()`, not
+  `factory_reset()` as first written. Both errors are corrected in the rewritten
+  entry, which is now in **FIXED**.
 
 ### Detail
 
 #### OPEN
-
-**7. Stale "10 us" comment.** `/* uses 10us time, measured with LED_Toggle();*/`
-at `irq_routines.c:235` sits above `encoder_timer_callback()` (`:236`), whose period is
-1 ms (`TMR0H = 0xF9`, HFINTOSC/128, count 250). The comment is a leftover from
-an earlier TMR0 configuration and is now 100× wrong. The genuinely 10 µs-derived
-callback is the IR one, which runs at 66 µs. Purely cosmetic, but it is the kind
-of comment that sends the next reader down the wrong path.
-
-**8. `PORTB` read-modify-write instead of `LATB`.** *Latent, not currently a
-fault.* My earlier version of this entry claimed there was a
-`PORTBbits.RB4 = ...` write in "the IR output path". There is no such line — the
-IR output path uses the `LED_*` macros, which go through `LATB`. The only
-register-level port writes in the firmware are whole-register `PORTB`/`PORTA`
-reads-modify-writes, and of those only three are live:
-
-- `control_routines.c:53` — `PORTB &= ~CHAN_SEL_MASK` in `init()`
-- `control_routines.c:62`, `:64` — `PORTB |= in` / `PORTB &= ~in` in the
-  `factory_reset()` channel-cycling loop
-- `control_routines.c:211` — `PORTB = ((PORTB & ~CHAN_SEL_MASK) | …)` on channel
-  change
-
-`CHAN_SEL_MASK` is `0x0f` (`definitions.h:45`), covering RB0–RB3 = `INPSEL0`–`3`.
-The other PORTB bits are **inputs**: `TRISB = 0xD0`
-(`mcc_generated_files/system/src/pins.c:52`) leaves RB4 (`IRIN`), RB6 and RB7 as
-inputs. A read-modify-write reads the port, so on those bits it latches the
-*pin* level into the `PORTB` latch — RB4 captures whatever logic level the IR
-receiver output happens to be at.
-
-That is harmless today: nothing ever reads those latch bits back (the inputs are
-polled through `IRIN_GetValue()`, and RB5/LED is driven through the `LATB`-based
-`LED_*` macros), and those pins are never switched to output. The hazard is
-latent — if RB4 were ever reconfigured as an output it would start at whatever
-level the IR line was sitting at — plus a wasted read cycle each time. Since
-`CHAN_SEL_MASK` already selects exactly the bits being driven, the latch form is
-strictly equivalent and never touches the port:
-
-```c
-LATB = ((LATB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
-```
-
-Note the `PORTA` RMW at `:57` and in `configure_attenuation()` is *not* part of
-this issue: all of PORTA is configured as outputs (`TRISA = 0x0`), so there is no
-input-pin read-back to worry about, and `configure_attenuation()` has to compare
-against `PORTA` at `:98`/`:110`/`:131` because that is where the current relay
-state is recorded.
 
 **10. IR-initiated changes are not persisted.** No `save_action` is armed from
 `process_ir()`, so a volume change made with the remote is lost on power cycle.
@@ -964,16 +924,6 @@ therefore once per detent) is selected, and accumulate signed with
 [Rotary encoder decoding](#9-rotary-encoder-decoding). Keeping half-step is also
 valid, but then the multipliers must be **even** (`ROTARY_MULTI_CHANNEL 4` → 6
 positions/rev, or `2` → 12).
-
-**14. Incomplete prototype for `factory_reset()`.** The build reports:
-
-```
-main.c:128: warning: (1518) direct function call made with an incomplete prototype (factory_reset)
-```
-
-because `control_routines.h:38` declares `void factory_reset();`. An empty
-parameter list means "unspecified arguments" in C, not "none". Should be
-`void factory_reset(void);`.
 
 **15. `irmp_get_data()` called through a cast that strips `volatile`.**
 `process_ir()` is correctly declared `void process_ir(volatile Instance_t *instance)`
@@ -1055,6 +1005,27 @@ them low.
 The only thing actually worth doing is a one-line comment on `:57`, because
 `~ROTARY_MAX_ATTENUATION` reads like a mask bug at a glance when it is
 deliberate. No behaviour change.
+
+**7. ~~The "10 us" comment on `encoder_timer_callback()` is stale.~~ — retracted,
+it is intentional.** I previously listed this as an open cosmetic issue and
+recommended deleting or rewriting the comment. That recommendation is withdrawn:
+the comment is deliberate and stays as it is.
+
+`/* uses 10us time, measured with LED_Toggle();*/` at `irq_routines.c:235` refers
+to the measurement scaffolding that still surrounds the callback — the four
+`#if 0 led_toggel();` blocks at `:238`, `:249`, `:257` and `:261` exist purely so
+the ISR entry and exit points can be bracketed with a GPIO toggle and timed with
+a scope. The comment documents that harness, and the harness is still in the
+file, so the comment is still pointing at something real. It is a note about the
+measurement setup, not a claim about the configured timer period.
+
+For the avoidance of doubt, the configured period genuinely is 1 ms, not 10 µs:
+`mcc_generated_files/timer/src/tmr0.c:47` sets `TMR0H = 0xF9` with HFINTOSC at
+1:128 in 8-bit mode, and its own comment says "Period 1ms; Frequency 250000 Hz;
+Count 249". So the comment and the timer configuration do not agree numerically.
+That is not being tracked as a defect, and the comment is not to be "corrected" —
+but section 5 and this entry are the places to look if the tick period ever
+matters. The genuinely ~10 µs-scale callback is the IR one, which runs at 66 µs.
 
 #### FIXED
 
@@ -1246,6 +1217,56 @@ on a 1ms loop */` had been superseded by `DEFAULT_SAVE_COUNTDOWN` /
 `save_countdown_counter`. It is now deleted from `definitions.h`, and nothing
 referenced it.
 
+**8. `PORTB` read-modify-write instead of `LATB`.** *Fixed; all channel-select
+writes now go through the latch.* My earlier version of this entry claimed there
+was a `PORTBbits.RB4 = …` write in "the IR output path" — there is no such line,
+the IR output path uses the `LATB`-based `LED_*` macros — and it also placed the
+`factory_reset()` channel-cycling loop in the wrong function. The real issue is
+narrower, and it is a whole-register RMW on `PORTB`, which contains **input**
+pins.
+
+`CHAN_SEL_MASK` is `0x0f` (`definitions.h:45`), covering RB0–RB3 = `INPSEL0`–`3`.
+The other PORTB bits are inputs: `TRISB = 0xD0`
+(`mcc_generated_files/system/src/pins.c:52`) leaves RB4 (`IRIN`), RB6 and RB7 as
+inputs. A read-modify-write reads the *port*, so on those bits it latches the
+**pin** level into the `PORTB` latch — RB4 captures whatever level the IR receiver
+happens to be sitting at. Every whole-register `PORTB` write is now a `LATB`
+write, which reads the latch instead and cannot capture a pin level:
+
+| Site | Code | Where |
+|---|---|---|
+| `control_routines.c:55` | `LATB &= ~CHAN_SEL_MASK` | `init()` — mute the relays at power-on |
+| `control_routines.c:64`, `:66` | `LATB \|= in` / `LATB &= ~in` | `init()` — the one-channel-after-the-others cycle (not `factory_reset()`, as previously written) |
+| `control_routines.c:220` | `LATB = ((LATB & ~CHAN_SEL_MASK) \| …)` | `process_channel()` — the live branch |
+| `control_routines.c:206`, `:214` | same two writes | `process_channel()` — inside `#if 0`, converted too so the two branches do not drift again |
+
+The `#if 0` branch is dead, so it emits no code, but leaving it on `PORTB` would
+have made the block a trap for whoever re-enables it. `LATB` and `PORTB` map to
+the same physical bits, so the fix is behaviour-neutral for the driven outputs
+and adds no new hazard; it just stops the wasted port read and removes the
+input-latch side effect.
+
+Verified in the disassembly: at `0x0DF5` the built image now executes
+`movf 25,w` / `movwf 25` (SFR `0x19` = `LATB`) where it previously executed
+`movf 13,w` / `movwf 13` (SFR `0x0D` = `PORTB`). Counting these two registers
+across the whole image, the totals are 6 operations before and 6 after, with
+`PORTB`'s 1 read + 4 writes becoming `LATB`'s 1 read + 2 writes; the three
+residual `movwf 13` are bank-57 peripheral writes in `__eewrite.c` /
+`__eeread.c` / `tmr2.c`, not `PORTB`, and they are present in both builds.
+(The 1-and-4-to-1-and-2 split is the compiler turning the two single-bit
+loop writes into direct bit writes, so the counts are an observation, not a
+one-for-one correspondence with the six source sites.)
+
+Program memory is unchanged at 4275 words and data at 180 bytes — the swap is a
+substitution of the SFR operand, so it emits the same instructions. Every
+per-module size is identical to the table above as well, `control_routines.c`
+still being 1253 words.
+
+The `PORTA` RMWs in `init()` and `configure_attenuation()` are deliberately
+**not** changed: `TRISA = 0x0` makes all of PORTA an output, so there is no
+input-pin read-back, and `configure_attenuation()` must compare against `PORTA`
+because that is where the current relay state is recorded.
+
 **9. `process_ir()` dropped `volatile`.** Its signature is now
 `void process_ir(volatile Instance_t *instance)` (`control_routines.c:326`),
 matching every sibling function. See issue 15 for the cast that accompanied it.
@@ -1258,6 +1279,30 @@ deleted.*
 to one implementation, and the dead source has since been removed as well, so this
 and issue 17 are now one clean change rather than a behavioural gap plus a
 leftover cleanup.
+
+**14. Incomplete prototype for `factory_reset()`.** `control_routines.h:38`
+declared `void factory_reset();`. In C an empty parameter list means
+"unspecified arguments", not "none", so every call had to be checked against an
+open-ended declaration rather than a real prototype. It is now
+`void factory_reset(void);`, matching the definition at
+`control_routines.c:85`. The only call site, `main.c:128`, is unchanged — a call
+with no arguments is already correct.
+
+The build previously reported, at every compile:
+
+```
+main.c:128: warning: (1518) direct function call made with an incomplete prototype (factory_reset)
+```
+
+and that warning is now gone. A prototype change is a compile-time-only
+correction, so the code is untouched: program memory is still 4275 words, data
+still 180 bytes, `control_routines.c` still 1253 words. This was the last warning
+in the build that came from project code — what is left is 26 `(520) function
+is never called` warnings in MCC's generated files plus 2 `-Wsign-conversion`
+warnings and one `_dummy` in the bundled third-party `irmp`, all pre-existing
+and none of them actionable. (`_led_toggel` in `control_routines.c:35` is also
+reported as never called, but that is the issue 7 measurement scaffolding, which
+is deliberately retained.)
 
 **16. `button_fsm()` forces every field access through memory.** The helper now
 takes `uint16_t ms_counter` as a parameter and a plain `Button_t *`, so XC8 can
@@ -1301,12 +1346,8 @@ Cheapest first — most of these are one-liners:
   `Combined` encoder path are dead code today. A single `#define SINGLE_ENCODER`
   (or a strap/gesture) is the difference between a finished feature and an
   unreachable one. Highest leverage per line of anything in this list.
-- `void factory_reset(void);` (issue #14) — one line, clears the only non-MCC
-  warning in the build.
 - Comment the `init()` `PORTA` mask (issue #2) — one line, documents that driving
   RA6/RA7 low is intentional so nobody "fixes" it later.
-- Fix the "10 µs" comment on `encoder_timer_callback()` (issue #7) — one line,
-  no behaviour change.
 - Add a `LongPress` save in the single-mode branch of `process_encoder_button()`
   (issue #19) — one branch, and single mode finally has a persistence story.
 
@@ -1324,10 +1365,6 @@ Then the structural work:
 - Stop casting `volatile` away: copy `IRMP_DATA` in and out of `process_ir()`
   (issue #15) and either document the deliberate cast at the `button_fsm()` call
   sites or make the helper `volatile`-correct (issue #18).
-- Switch the three live `PORTB` RMWs to `LATB` (issue #8) — strictly
-  equivalent, since `CHAN_SEL_MASK` already selects exactly the bits being driven,
-  and it stops the input-pin read-back on RB4/RB6/RB7. Add a "this is deliberate"
-  comment to `init()`'s `PORTA` write instead of changing it (issue #2).
 
 Features still in the `main.c` TODO block:
 

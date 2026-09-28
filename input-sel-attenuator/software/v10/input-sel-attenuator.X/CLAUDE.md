@@ -70,8 +70,8 @@ init() → irmp_init() → while(1):
 
 `../README.md` section 17 tracks 20 items with OPEN / PARTIAL / FIXED / NOT A BUG
 status. Check it before changing anything, and update the status if you fix one.
-Nine are now **FIXED** (1, 3, 4, 5, 6, 9, 11, 16, 17) and one is **NOT A BUG**
-(2); nothing is left PARTIAL.
+Eleven are now **FIXED** (1, 3, 4, 5, 6, 8, 9, 11, 14, 16, 17) and two are **NOT
+A BUG** (2 and 7); nothing is left PARTIAL.
 
 **Issues 1 and 5 are closed.** `init()` now reads the EEPROM channel into a
 `uint8_t` and range-checks it *before* casting to `int8_t`, so a corrupt byte can
@@ -85,7 +85,7 @@ with a `press_pending` flag, and the main loop must never write `press` — it i
 the producer's field exclusively. There are no genuinely 16-bit shared fields
 left; `press` and `control` were never 2 bytes to begin with.
 
-Four further notes worth knowing before editing:
+Seven further notes worth knowing before editing:
 
 - **XC8 v4.00 does narrow enums to 1 byte here** (`sizeof(enum ButtonPress) == 1`).
   An earlier version of the README claimed 2 and built a whole analysis on it;
@@ -93,9 +93,26 @@ Four further notes worth knowing before editing:
   toolchain — measure with a one-object link and read the section size from the
   map if it matters. `int` is 2, `bool` is 1, `sizeof(Instance_t)` is 65, and
   XC8 does not pad structs.
+- **Every function has a real prototype.** All of them take `(void)` rather than
+  `()`, so the compiler type-checks every call. Issue 14 was the last holdout
+  (`factory_reset`); keeping this true is what keeps the build free of
+  `(1518) incomplete prototype` warnings.
 - **The `.map` size columns are hexadecimal, not word counts.** `main` appears
   as `0x102` there, i.e. 258 words. Do not paste those strings into a table of
   sizes without converting.
+- **Do not "fix" the `"uses 10us time"` comment** above
+  `encoder_timer_callback()` (`irq_routines.c:235`). It looks stale — the tick is
+  really 1 ms — but it is intentional: it documents the `#if 0 led_toggel()`
+  measurement scaffolding that still brackets the ISR entry and exit points, and
+  that harness is still in the file. This was issue 7; it is now recorded as
+  NOT A BUG, not OPEN.
+- **Use `LATB`, not `PORTB`, for the channel-select relays.** `TRISB = 0xD0`, so
+  RB4/RB6/RB7 are inputs on the same port. A `PORTB` read-modify-write reads the
+  *pin* level on those bits and latches it into the output latch, so every
+  whole-register write that touches `RB0`–`RB3` must go through `LATB`. This was
+  issue 8; all channel-select writes in `init()` and `process_channel()` are now
+  `LATB`, including the two in the `#if 0` branch. The `PORTA` RMWs are
+  deliberately *not* changed — `TRISA = 0x0` makes all of PORTA an output.
 - `irq_routines.c` is the 1ms tick, so anything added there runs in an ISR —
   no `__delay_ms()`, no blocking calls. The relay delays in
   `control_routines.c` do block, for up to ~36ms.

@@ -35,7 +35,7 @@
 void led_toggel(void);
 void led_callback(uint_fast8_t on);
 void init(volatile Instance_t* instance);
-void factory_reset();
+void factory_reset(void);
 void process_encoder_button(volatile Instance_t* instance);
 void eeprom_save_status(volatile Instance_t* instance);
 void process_attenuation(volatile Instance_t* instance);

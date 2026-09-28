@@ -49,8 +49,10 @@ void init(volatile Instance_t* instance) {
   /* Set LED on */
   LED_SetHigh();
 
-  /* mute output */
-  PORTB &= ~CHAN_SEL_MASK;
+  /* mute output — LATB, not PORTB: RB4/RB6/RB7 are inputs, and a PORTB
+     read-modify-write would latch their pin levels into the output latch.
+     Same comment applies to every channel-select write below. */
+  LATB &= ~CHAN_SEL_MASK;
   __delay_ms(RELAIS_MAX_SETUP_TIME);
 
   /* max possible attenuation on attenuation */
@@ -59,9 +61,9 @@ void init(volatile Instance_t* instance) {
   /* one channel after the others */
   for (int cnt = 0; cnt <= ROTARY_MAX_CHANNEL; cnt++) {
     uint8_t in = ((1 << cnt) & 0xff);
-    PORTB |= in;
+    LATB |= in;
     __delay_ms(500);
-    PORTB &= ~in;
+    LATB &= ~in;
   }
 
   /* read last used channel, channels attenuation will be handler inside process_channel() */
@@ -80,7 +82,7 @@ void init(volatile Instance_t* instance) {
   }
 }
 
-void factory_reset() {
+void factory_reset(void) {
   if (ENC2SWITCH_GetValue() == 0) {
     while(ENC2SWITCH_GetValue() == 0) {
       __delay_ms(100);
@@ -201,7 +203,7 @@ void process_channel(volatile Instance_t* instance) {
     }
 #if 0
     /* mute output */
-     PORTB &= ~CHAN_SEL_MASK;
+     LATB &= ~CHAN_SEL_MASK;
     __delay_ms(RELAIS_MAX_SETUP_TIME);
 
     /* always start with last attenuation used for this channel */
@@ -209,13 +211,13 @@ void process_channel(volatile Instance_t* instance) {
     PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->attenuation & ROTARY_MAX_ATTENUATION));
 
     /* clear and set new channel */
-    PORTB = ((PORTB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
+    LATB = ((LATB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
     __delay_ms(RELAIS_MAX_SETUP_TIME);
 #else
     configure_attenuation(ROTARY_MAX_ATTENUATION);
     
     /* clear and set new channel */
-    PORTB = ((PORTB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
+    LATB = ((LATB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
     __delay_ms(RELAIS_MAX_SETUP_TIME);
     
     instance->last_attenuation = instance->attenuation = (int8_t)(instance->channel_attenuation[instance->channel].attenuation & ROTARY_MAX_ATTENUATION);

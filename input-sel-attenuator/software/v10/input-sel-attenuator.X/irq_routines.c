@@ -232,7 +232,7 @@ static void timer_callback_process_single(void) {
   button_fsm(instance.ms_counter, (Button_t *)&instance.encoder[Combined].button, enc1_pressed);
 }
 
-/* uses 10us time, measured with LED_Toggle();*/
+/* every 1ms (1kHz) */
 void encoder_timer_callback(void) {
 /* use to measure irq call time */
 #if 0
