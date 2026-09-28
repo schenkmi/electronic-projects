@@ -51,7 +51,7 @@ a status-tracked list of known bugs, see `../README.md`.
 
 Key constants in `definitions.h`:
 - `ROTARY_MAX_CHANNEL` = 3 (4 channels: 0-3)
-- `ROTARY_MAX_ATTENUATION` = 63 (6-bit, 0-63 steps)
+- `ROTARY_MAX_ATTENUATION` = 63 (6-bit, 0-63 steps = 0-94.5 dB at 1.5 dB/step)
 - `IR_PROTOCOL` = RC5
 - `ATT_CTRL` - Select relay control algorithm
 
@@ -70,8 +70,8 @@ init() → irmp_init() → while(1):
 
 `../README.md` section 17 tracks 20 items with OPEN / PARTIAL / FIXED / NOT A BUG
 status. Check it before changing anything, and update the status if you fix one.
-Thirteen are now **FIXED** (1, 3, 4, 5, 6, 8, 9, 11, 13, 14, 16, 17, 18), two are
-**NOT A BUG** (2 and 7), one is **PARTIAL** (12) and four are **OPEN** (10, 15, 19,
+Fourteen are now **FIXED** (1, 3, 4, 5, 6, 8, 9, 11, 13, 14, 15, 16, 17, 18), two
+are **NOT A BUG** (2 and 7), one is **PARTIAL** (12) and three are **OPEN** (10, 19,
 20).
 
 **Issues 1 and 5 are closed.** `init()` now reads the EEPROM channel into a
@@ -92,7 +92,7 @@ Eight further notes worth knowing before editing:
   An earlier version of the README claimed 2 and built a whole analysis on it;
   that claim is retracted. Do not assume an enum field is 16-bit on this
   toolchain — measure with a one-object link and read the section size from the
-  map if it matters. `int` is 2, `bool` is 1, `sizeof(Instance_t)` is 65, and
+  map if it matters. `int` is 2, `bool` is 1, `sizeof(Instance_t)` is 59, and
   XC8 does not pad structs.
 - **Every function has a real prototype.** All of them take `(void)` rather than
   `()`, so the compiler type-checks every call. Issue 14 was the last holdout
@@ -155,6 +155,19 @@ Eight further notes worth knowing before editing:
   the `button_fsm()` call sites existed only because the parameter was plain
   (issue 18). Adding a qualifier is a valid implicit conversion in C, so taking
   the volatile pointer is usually free; on this part it cost 4 words.
+  When the callee is third-party and you *cannot* add the qualifier, do not cast
+  — give it a non-volatile local. `irmp_get_data()` takes a plain `IRMP_DATA *`,
+  so `process_ir()` used `(IRMP_DATA *)&instance->ir.data` (issue 15). It now
+  reads into a local `IRMP_DATA ir` and switches on `ir.*`. The project compiles
+  with `-maddrqual=ignore`, so the compiler will *not* warn you when you cast the
+  qualifier away — nothing in the build catches it. Two further things that fix
+  exposed: the frame was also **dead state**, written once and never read, so
+  `Instance_t` lost its 6-byte `IR_t` member (and the `IR_t` typedef) — ask whether
+  a struct member is read at all before keeping it; and a 6-byte struct shrink
+  re-encoded every field offset, so the image lost 100 words *and* 6 bytes, far
+  more than the copy it removed. Per-symbol sizes near a bank boundary move with
+  layout, so never attribute a per-function size change to a source edit without
+  an A/B build.
 - **Only sleep after you actually switch a relay.** `RELAIS_MAX_SETUP_TIME` is the
   G6K-2F settling time, so it belongs *inside* the branch that drives the pin.
   `configure_attenuation()` used to sleep for every bit that differed even in the
