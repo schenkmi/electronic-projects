@@ -158,9 +158,11 @@ static void configure_attenuation(uint8_t attenuation) {
         /* port bit needs to be changed */
         if (attenuation & bit) {
           PORTA |= bit;
+          /* changed relay, wait a bit. Inside the branch that actually switches
+             the relay: the phase below deliberately does nothing to a bit that
+             has to go to 0, and there is no switched relay to settle there. */
+          __delay_ms(RELAIS_MAX_SETUP_TIME);
         }
-        /* changed relay, wait a bit */
-        __delay_ms(RELAIS_MAX_SETUP_TIME);
       }
     }
 
@@ -172,9 +174,9 @@ static void configure_attenuation(uint8_t attenuation) {
         /* port bit needs to be changed */
         if ((attenuation & bit) == 0) {
           PORTA &= ~bit;
+          /* changed relay, wait a bit, see above */
+          __delay_ms(RELAIS_MAX_SETUP_TIME);
         }
-        /* changed relay, wait a bit */
-        __delay_ms(RELAIS_MAX_SETUP_TIME);
       }
     }
 #else

@@ -70,8 +70,9 @@ init() → irmp_init() → while(1):
 
 `../README.md` section 17 tracks 20 items with OPEN / PARTIAL / FIXED / NOT A BUG
 status. Check it before changing anything, and update the status if you fix one.
-Twelve are now **FIXED** (1, 3, 4, 5, 6, 8, 9, 11, 14, 16, 17, 18) and two are
-**NOT A BUG** (2 and 7); nothing is left PARTIAL.
+Twelve are now **FIXED** (1, 3, 4, 5, 6, 8, 9, 11, 14, 16, 17, 18), two are **NOT
+A BUG** (2 and 7), one is **PARTIAL** (12) and five are **OPEN** (10, 13, 15, 19,
+20).
 
 **Issues 1 and 5 are closed.** `init()` now reads the EEPROM channel into a
 `uint8_t` and range-checks it *before* casting to `int8_t`, so a corrupt byte can
@@ -85,7 +86,7 @@ with a `press_pending` flag, and the main loop must never write `press` — it i
 the producer's field exclusively. There are no genuinely 16-bit shared fields
 left; `press` and `control` were never 2 bytes to begin with.
 
-Eight further notes worth knowing before editing:
+Nine further notes worth knowing before editing:
 
 - **XC8 v4.00 does narrow enums to 1 byte here** (`sizeof(enum ButtonPress) == 1`).
   An earlier version of the README claimed 2 and built a whole analysis on it;
@@ -120,9 +121,17 @@ Eight further notes worth knowing before editing:
   the `button_fsm()` call sites existed only because the parameter was plain
   (issue 18). Adding a qualifier is a valid implicit conversion in C, so taking
   the volatile pointer is usually free; on this part it cost 4 words.
+- **Only sleep after you actually switch a relay.** `RELAIS_MAX_SETUP_TIME` is the
+  G6K-2F settling time, so it belongs *inside* the branch that drives the pin.
+  `configure_attenuation()` used to sleep for every bit that differed even in the
+  make-before-break phase that deliberately does nothing to it — half of all
+  relay delays were no-ops. Worst case is now 18 ms for a sweep and 24 ms for a
+  channel change (was 36/42). If you add a relay step, put the delay in the
+  acting branch, not around it.
 - `irq_routines.c` is the 1ms tick, so anything added there runs in an ISR —
   no `__delay_ms()`, no blocking calls. The relay delays in
-  `control_routines.c` do block, for up to ~36ms.
+  `control_routines.c` do block: up to 18 ms for an attenuation sweep and 24 ms
+  for a channel change, which is issue 12 and still PARTIAL.
 - `rotary_encoder.c` emits 2 events per detent (half-step table), which is why
   `ROTARY_MULTI_CHANNEL` is 3 and the channel selector feels non-linear. The
   fix is in issue 13.

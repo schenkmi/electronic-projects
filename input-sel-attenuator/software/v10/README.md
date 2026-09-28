@@ -139,16 +139,16 @@ Per-function code sizes and memory usage, from a production build with
 | `irq_routines.c` (whole module) | 709 | — |
 | `timer_callback_process_single` | 659 | `irq_routines.c:169` |
 | `timer_callback_process_dual` | 560 | `irq_routines.c:83` |
-| `process_ir` | 530 | `control_routines.c:332` |
-| `eeprom_save_status` | 517 | `control_routines.c:237` |
-| `process_channel` | 407 | `control_routines.c:196` |
-| `process_encoder_button` | 393 | `control_routines.c:271` |
+| `process_ir` | 530 | `control_routines.c:336` |
+| `eeprom_save_status` | 517 | `control_routines.c:241` |
+| `process_channel` | 407 | `control_routines.c:200` |
+| `process_encoder_button` | 393 | `control_routines.c:275` |
 | `init` | 370 | `control_routines.c:48` |
 | `button_fsm` | 372 | `irq_routines.c:37` |
-| `configure_attenuation` | 320 | `control_routines.c:104` |
+| `configure_attenuation` | 320 | `control_routines.c:106` |
 | `main` | 258 | `main.c:122` |
-| `factory_reset` | 149 | `control_routines.c:83` |
-| `process_attenuation` | 52 | `control_routines.c:185` |
+| `factory_reset` | 149 | `control_routines.c:85` |
+| `process_attenuation` | 52 | `control_routines.c:189` |
 | `encoder_timer_callback` | 9 | `irq_routines.c:238` |
 | `ir_timer_callback` | 3 | `irq_routines.c:257` |
 | **Program memory** | **4279 / 16384 (26.1 %)** | |
@@ -496,13 +496,13 @@ Consequences of this design:
 - `press` is the ISR→main-loop hand-off: `process_encoder_button()` reads it,
   acts, and writes it back to `NoPress`.
 
-In dual mode only `LongPress` does anything (`control_routines.c:264`):
+In dual mode only `LongPress` does anything (`control_routines.c:286`):
 long-press on the volume encoder stores the current attenuation as the active
 channel's default; long-press on the channel encoder stores the current channel
 as the power-on channel. `SinglePress` and `DoublePress` are parsed and discarded.
 
 In **single** mode the combined encoder uses `DoublePress` to switch the active
-control (`control_routines.c:308`–`:314`): `control` flips between `Volume` and
+control (`control_routines.c:320`–`:325`): `control` flips between `Volume` and
 `Channel`, and `timer_callback_process_single()` then applies the accumulated
 detents to `encoder_count[control]`. `SinglePress` and `LongPress` are still
 discarded — so in single mode there is no way to store a default at all (issue
@@ -536,7 +536,7 @@ selected at compile time (`definitions.h:39`):
 
 ### `ATT_CTRL_MAKE_BEFORE_BREAK` (active)
 
-`configure_attenuation()` (`control_routines.c:143`) runs two passes:
+`configure_attenuation()` (`control_routines.c:152`) runs two passes:
 
 ```
 Pass 1 — MAKE:  for each bit that must go 0 → 1, close the relay, 3 ms settle
@@ -567,10 +567,10 @@ it is noisier than make-before-break. It is retained for reference/comparison.
 
 ### Callers
 
-- `process_attenuation()` (`control_routines.c:178`) — the normal path. Fires
+- `process_attenuation()` (`control_routines.c:189`) — the normal path. Fires
   only when `attenuation != last_attenuation`, masks to 6 bits, calls
   `configure_attenuation()`, then latches `last_attenuation`.
-- `process_channel()` (`control_routines.c:208, 216`) — calls it twice per
+- `process_channel()` (`control_routines.c:219, 227`) — calls it twice per
   channel change: once with `ROTARY_MAX_ATTENUATION` to mute, once with the new
   channel's stored attenuation to restore.
 - `init()` — does not call it; it writes `PORTA` directly to park the whole
@@ -578,10 +578,18 @@ it is noisier than make-before-break. It is retained for reference/comparison.
   `ATT7` lines low. That is deliberate, not a mask bug — see the retracted
   [issue 2](#17-known-issues-and-caveats).
 
-**Cost:** each differing bit costs 3 ms of blocking delay in the main loop.
-Worst case (63 → 0) is 6 differing bits in each pass = 12 delays ≈ **36 ms** of
-stalled super-loop. The IR decoder keeps running (TMR2 IRQ), but no other
-`process_*` step executes during that window.
+**Cost:** each relay that is actually switched costs 3 ms of blocking delay in
+the main loop. Worst case (63 → 0 or 0 → 63) is 6 relays per pass and only one
+pass does any work, so **6 delays = 18 ms** of stalled super-loop. This used to be
+12 delays ≈ 36 ms: the delay was placed around the "does this bit differ" test
+rather than inside the branch that switches the pin, so each pass also slept for
+the bits it deliberately left alone. See [issue 12](#17-known-issues-and-caveats).
+
+A channel change is worse than a sweep, because `process_channel()` mutes through
+one and then waits again for the channel relay: 3 ms + 18 ms + 3 ms = **24 ms**.
+The IR decoder (TMR2 IRQ) and the encoder tick (TMR0 IRQ) both keep running
+throughout, so nothing is dropped — no other `process_*` step executes until the
+window closes, which is added latency, not lost input.
 
 ---
 
@@ -610,7 +618,7 @@ Muting before the switch (rather than opening the relays) means the audio path i
 never momentarily disconnected — only briefly attenuated, which the make-before-break
 ramp makes a smooth 63 dB sweep rather than a click.
 
-A `#if 0` block (`control_routines.c:195`) preserves the older strategy (break
+A `#if 0` block (`control_routines.c:206`) preserves the older strategy (break
 the channel relays, restore attenuation, then re-select) for reference.
 
 Because step 1 runs *before* the switch, the attenuation a channel is left at is
@@ -648,7 +656,7 @@ __EEPROM_DATA(ROTARY_MAX_ATTENUATION,   /* 0x00 channel 0 attenuation */
 
 `save_action` is a bitmask of pending writes, `save_countdown_counter` a 1 s
 delay (`DEFAULT_SAVE_COUNTDOWN 1000` × 1 ms). `eeprom_save_status()`
-(`control_routines.c:230`) implements three protections:
+(`control_routines.c:232`) implements three protections:
 
 1. **Debounce** — while `save_countdown_counter > 0` it just decrements and
    returns, so a burst of adjustments collapses into a single write ~1 s after
@@ -695,7 +703,7 @@ Flow:
 IR receiver (RB4)
    → TMR2 IRQ every 66 µs → irmp_ISR()      [irq_routines.c:262]
         measures pulse/space edges, matches RC5 Manchester timing (1.778 ms bit)
-   → 1 ms main loop → process_ir()          [control_routines.c:321]
+   → 1 ms main loop → process_ir()          [control_routines.c:336]
         irmp_get_data() → filter protocol + address → map command → clamp → store
    → process_channel() / process_attenuation() apply the new value
 ```
@@ -787,8 +795,8 @@ All in `definitions.h`:
 
 Re-audited after the latest round of fixes. Each item is **OPEN**, **PARTIAL**
 or **FIXED**. Of the twenty tracked items, twelve are **FIXED** (1, 3, 4, 5, 6,
-8, 9, 11, 14, 16, 17, 18) and two are **NOT A BUG** (2 and 7); nothing is left
-**PARTIAL**.
+8, 9, 11, 14, 16, 17, 18), two are **NOT A BUG** (2 and 7), one is **PARTIAL**
+(12) and five are **OPEN** (10, 13, 15, 19, 20).
 Fixing 1 and 5 also forced a correction to the original analysis of issue 5: its
 load-bearing `sizeof` measurement was wrong. See the retraction below and the
 rewritten entry.
@@ -806,7 +814,7 @@ rewritten entry.
 | 9 | `process_ir()` dropped `volatile` | **FIXED** |
 | 10 | IR-initiated changes are never persisted | OPEN |
 | 11 | Button FSM code duplication | **FIXED** *(dead copies deleted too — issue 17)* |
-| 12 | Long blocking delays in the main loop | OPEN |
+| 12 | Long blocking delays in the main loop | **PARTIAL** *(half the delays were no-ops and are gone; worst case 42 → 24 ms; loop still blocks)* |
 | 13 | Non-linear channel selector on the encoder | OPEN |
 | 14 | Incomplete prototype for `factory_reset()` | **FIXED** *(prototype now takes `(void)`)* |
 | 15 | `irmp_get_data()` called through a cast that strips `volatile` | OPEN |
@@ -857,7 +865,7 @@ Four earlier statements in this document were wrong and are corrected here:
   **unchanged at 69**. XC8 also does not pad structs here — `Button_t`'s two
   `uint16_t` members are deliberately unaligned at offsets 3 and 5.
 - **`save_countdown_counter` is NOT racy.** It was listed under issue 5. Its only
-  writers are `control_routines.c:222`, `:274` and `:293` — all main-loop
+  writers are `control_routines.c:233`, `:288` and `:306` — all main-loop
   context. The TMR0 ISR never touches it, so there is no race to fix.
 - **Issue 13 was never about the sample rate.** See the rewritten entry below.
 - **Issue 16 was fixed by the same change that fixed issue 15's class of
@@ -888,13 +896,68 @@ Channel changes *are* saved, now correctly gated on `save_mode[Channel]` since
 issue 3 was fixed. If "remote changes are temporary" is intentional it deserves a
 comment; if not, `process_ir()` is missing a `save_action |= SaveVolume`.
 
-**12. Long blocking delays in the main loop.** Up to ~36 ms during a 6-bit
-attenuation change (12 × `RELAIS_MAX_SETUP_TIME`). Acceptable for a volume
-control, but a pending IR command or button event waits that long — and unlike
-the encoder, those are *not* serviced from the ISR. Moving the relay sequencing
-into a small state machine driven by the 1 ms tick would keep the loop responsive
-and would also give the shared fields the "exactly one writer" invariant, which
-is the one thing the issue 5 fix could not deliver on its own.
+**12. Long blocking delays in the main loop.** *PARTIAL: the worst case is
+roughly halved, the blocking itself remains.* A pending IR command or button
+event still waits for the relay sweep to finish, because unlike the encoder those
+events are only consumed in the main loop. Two separate things were wrong here and
+only one of them is fixed.
+
+**Fixed: half the delays were pure waste.** In `configure_attenuation()`, both
+phases of the make-before-break algorithm had `__delay_ms(RELAIS_MAX_SETUP_TIME)`
+placed *outside* the `if` that actually switches the relay but *inside* the
+"does this bit differ" test. So each mismatched bit slept 3 ms even in the phase
+that deliberately does nothing to it — the make phase sleeps for bits that have to
+go to 0, the break phase sleeps for bits that have to go to 1. The delay exists to
+let a switched G6K-2F relay settle; when no relay was switched there is nothing to
+settle. Simulating all 4096 possible transitions, **exactly 50 % of all relay
+delays did nothing.**
+
+| | before | after |
+|---|---|---|
+| attenuation change, worst case | 36 ms (12 delays) | **18 ms (6 delays)** |
+| attenuation change, mean | 18 ms | **9 ms** |
+| channel change, worst case | 42 ms | **24 ms** |
+
+The delay is now inside the branch that drives the pin. The pin order and the 3 ms
+spacing after each *actual* switch are unchanged, so the electrical behaviour is
+identical — this only removes sleeping. It is size-neutral (4279 words before and
+after, `control_routines.c` still 1253). Worth noting the sibling
+`ATT_CTRL_DIRECTION` branch never had the bug: it sets and clears within the same
+iteration, so its delay already followed a real switch.
+
+**Corrected: the figure in the original entry was too low.** It quoted "~36 ms
+during a 6-bit attenuation change" as the worst case, but a *channel* change is
+worse, because `process_channel()` mutes through the same sweep and then waits
+again for the channel relay: 3 ms mute + 36 ms sweep + 3 ms select = **42 ms**,
+now 24 ms. And a third blocking source was missing from the entry entirely:
+`eeprom_save_status()` calls `eeprom_write()` up to twice
+(`control_routines.c:258`, `:267`), and a PIC16F18056 EEPROM write is several
+milliseconds, so an EEPROM save can block the loop for roughly 6–10 ms on top of
+whatever else is pending.
+
+**Still open: the loop is blocked, and no events are lost because of it.** Worth
+being precise about what the cost actually is. During the sweep the TMR0 1 ms ISR
+and the TMR2 66 µs ISR both keep running, so encoder detents are still counted and
+IR codes are still received into the IRMP buffers; the main loop just does not
+*look* at them until the sweep ends. So this is added latency, not dropped input,
+and a fast knob spin loses nothing — the ISR keeps counting and the latest
+`attenuation` wins when the loop resumes. For a volume control, ~18–24 ms is
+plausibly below the perceptual threshold, which is why this is not fixed outright.
+
+The remaining fix is to pace the relay steps off the 1 ms tick instead of
+sleeping: `instance.ms_counter` is already a free-running 1 ms counter incremented
+by the TMR0 ISR, so `configure_attenuation()` can become a small state machine that
+switches at most one relay per tick and returns immediately. That needs no ISR
+changes at all, drops main-loop occupancy to microseconds and IR/button latency to
+~1 ms, and would give the relay pins a single writer. It would **not** make the
+transition itself faster — the relays still need their 18 ms of settling, because
+that is physics, not code. It is also a rewrite of the sequencing on hardware
+there is no bench to verify against, which is why it has not been done here
+alongside a change that is provably behaviour-preserving.
+
+It is worth doing separately, because it is also what would let `channel` and
+`attenuation` widen back to 16 bit and retire the last-writer-wins caveat that the
+issue 5 fix could not remove on its own.
 
 **13. Non-linear channel selector — the cause is the multiplier, not the sample
 rate.** *(This entry previously blamed the 1 ms polling interval; that was
@@ -929,7 +992,7 @@ positions/rev, or `2` → 12).
 
 **15. `irmp_get_data()` called through a cast that strips `volatile`.**
 `process_ir()` is correctly declared `void process_ir(volatile Instance_t *instance)`
-(`control_routines.c:326`), but the call is
+(`control_routines.c:336`), but the call is
 
 ```c
 if (irmp_get_data((IRMP_DATA *)&instance->ir.data)) {
@@ -945,16 +1008,16 @@ Better: `IRMP_DATA tmp; if (irmp_get_data(&tmp) && tmp.protocol == …)` then co
 into `instance->ir.data`, keeping `volatile` intact.
 
 **19. `Single` mode still has no way to store a default attenuation.** In the
-combined (single) branch of `process_encoder_button()` (`control_routines.c:303`),
-`LongPress` falls straight through to `break` at `:316`, so no `save_action` is
-ever armed. The corresponding branch in `eeprom_save_status()` (`:237`–`:259`)
+combined (single) branch of `process_encoder_button()` (`control_routines.c:315`),
+`LongPress` falls straight through to `break` at `:328`, so no `save_action` is
+ever armed. The corresponding branch in `eeprom_save_status()` (`:239`–`:263`)
 performs no save for `mode != Dual` either. So the two mechanisms are consistent
 with each other, but the user has no gesture that writes EEPROM in single mode.
 If the point of `Single` mode is "one knob, everything on it", long-press to
 store the current value is the obvious missing gesture.
 
 **20. New control-toggle has no user-visible feedback.** The `DoublePress` handler
-added at `control_routines.c:308`–`:314` flips `instance->control` between
+added at `control_routines.c:320`–`:325` flips `instance->control` between
 `Volume` and `Channel`, which changes what the single encoder does. There is no
 LED blink, no display and no beep — and the decision is only made 500 ms after the
 second release, by which time the user has usually turned the knob already. A
@@ -968,7 +1031,7 @@ already defined and unused, so a status LED is clearly intended at some point.)
 I previously listed this as a bug and the reasoning was wrong in two ways.
 
 `PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ROTARY_MAX_ATTENUATION)`
-(`control_routines.c:57`) masks with `~0x3F`, which drives RA6 and RA7 low. My
+(`control_routines.c:59`) masks with `~0x3F`, which drives RA6 and RA7 low. My
 claim that this is "harmless only while RA6/RA7 are unused outputs" understated
 it: RA6 and RA7 **are** allocated in the pin manager, as `ATT6` and `ATT7`
 (`input-sel-attenuator.mc3`; `mcc_generated_files/system/pins.h:166`–`:197` generates the matching
@@ -985,7 +1048,7 @@ instead of inheriting an indeterminate port value. So the line is right.
 
 My second error was calling `configure_attenuation()` "correct" and therefore the
 two paths "inconsistent". `configure_attenuation()` only ever sets or clears
-single bits (`PORTA |= bit` at `control_routines.c:113`/`:134`/`:151` and
+single bits (`PORTA |= bit` at `control_routines.c:122`/`:145`/`:160` and
 `PORTA &= ~bit` at `:115`/`:136`/`:165`), so it *preserves* whatever RA6/RA7
 hold. The two paths agree: `init()` parks them low, everything downstream leaves
 them low.
@@ -1027,7 +1090,7 @@ The clamp was added in the same edit that narrowed `channel` to `int8_t`, becaus
 the narrowing turned this from a latent bug into a *prerequisite*: a stored `255`
 would cast to `-1` and index `channel_attenuation[-1]`. It reads into a `uint8_t`
 and range-checks **before** the signed cast, since a `> ROTARY_MAX_CHANNEL` test
-on the already-narrowed value could never fire (`control_routines.c:68`–`:76`):
+on the already-narrowed value could never fire (`control_routines.c:70`–`:77`):
 
 ```c
 uint8_t stored_channel = eeprom_read(EEPROM_ADDR_CHANNEL);
@@ -1040,19 +1103,19 @@ if (stored_channel > ROTARY_MAX_CHANNEL) {
 
 **3. Wrong `save_mode` index on channel change.** `process_channel()` tested
 `instance->save_mode[Volume]` before arming `SaveChannel`. It now correctly reads
-`instance->save_mode[Channel]` (`control_routines.c:220`), so
+`instance->save_mode[Channel]` (`control_routines.c:231`), so
 `save_mode[Channel] = SaveOnChange` now takes effect.
 
 **4. `Single` mode cannot select a channel.** *Logic fixed, but see the caveat.*
 The `DoublePress` case in the combined-encoder branch used to be an empty
 `break`, so `instance->control` could never leave its initial value and a single
 encoder could only ever drive attenuation. It now toggles between `Volume` and
-`Channel` (`control_routines.c:308`–`:314`).
+`Channel` (`control_routines.c:320`–`:325`).
 
 **The caveat: the new code is unreachable in the shipped build.** `instance.mode`
 is written exactly once, at `main.c:91` (`.mode = Dual`), and is never reassigned
 anywhere in the firmware. All three readers
-(`irq_routines.c:243`, `control_routines.c:244`, `control_routines.c:272`)
+(`irq_routines.c:243`, `control_routines.c:244`, `control_routines.c:288`)
 therefore always take the dual-mode path, which means both
 `timer_callback_process_single()` and the new `DoublePress` handler only ever run
 if something sets `instance.mode = Single`. The fix is correct but inert; it needs
@@ -1098,7 +1161,7 @@ button->press_pending = true;     /* flag second    */
 ```
 
 ```c
-/* process_encoder_button() — control_routines.c:273–:277, :293–:297, :311–:315 */
+/* process_encoder_button() — control_routines.c:275–:279, :295–:299, :313–:317 */
 if (instance->encoder[Volume].button.press_pending) {
   instance->encoder[Volume].button.press_pending = false;  /* clear FIRST */
   switch (instance->encoder[Volume].button.press) {         /* then act    */
@@ -1143,10 +1206,10 @@ int8_t  last_attenuation;    /* 0..63, or -1 — main loop only */
 
 `int8_t` is signed because `-1` is the "not set yet" sentinel (`main.c:95`–`:96`),
 and it is wide enough for both ranges with room to spare. The `!= -1` and
-`> ROTARY_MAX_*` tests at `control_routines.c:198`, `:226`, `:380` and `:389` keep
+`> ROTARY_MAX_*` tests at `control_routines.c:200`, `:228`, `:382` and `:391` keep
 working unchanged, because `int8_t` promotes to `int` in every expression. The four
 `temporary` locals in the ISR (`irq_routines.c:107`, `:143`, `:188`, `:207`) and
-the two in `process_ir()` (`control_routines.c:335`–`:336`) were narrowed to
+the two in `process_ir()` (`control_routines.c:337`–`:338`) were narrowed to
 match, so nothing takes a `volatile int` down to `int8_t` implicitly — the
 project compiles with `-mwarn=-3`, and that is what surfaced the eight narrowing
 diagnostics that the explicit types now silence.
@@ -1172,7 +1235,7 @@ there is no net RAM saving to claim. No change to timing or relay sequencing.
 `channel` as an `int8_t`, a corrupt EEPROM byte no longer fails safe by accident:
 `255` would cast to `-1` and then index `channel_attenuation[-1]`. So the clamp
 that issue 1 had been asking for is now a correctness prerequisite of this change,
-and it was added in the same edit (`control_routines.c:68`–`:76`):
+and it was added in the same edit (`control_routines.c:70`–`:77`):
 
 ```c
 uint8_t stored_channel = eeprom_read(EEPROM_ADDR_CHANNEL);
@@ -1225,7 +1288,7 @@ write, which reads the latch instead and cannot capture a pin level:
 |---|---|---|
 | `control_routines.c:55` | `LATB &= ~CHAN_SEL_MASK` | `init()` — mute the relays at power-on |
 | `control_routines.c:64`, `:66` | `LATB \|= in` / `LATB &= ~in` | `init()` — the one-channel-after-the-others cycle (not `factory_reset()`, as previously written) |
-| `control_routines.c:220` | `LATB = ((LATB & ~CHAN_SEL_MASK) \| …)` | `process_channel()` — the live branch |
+| `control_routines.c:227` | `LATB = ((LATB & ~CHAN_SEL_MASK) \| …)` | `process_channel()` — the live branch |
 | `control_routines.c:206`, `:214` | same two writes | `process_channel()` — inside `#if 0`, converted too so the two branches do not drift again |
 
 The `#if 0` branch is dead, so it emits no code, but leaving it on `PORTB` would
@@ -1379,13 +1442,16 @@ Then the structural work:
 
 - Switch to the full-step quadrature table and a signed, non-resetting
   accumulator (issue #13). This is the one that users actually feel.
-- Replace the blocking relay sequencing with a tick-driven state machine
-  (issue #12) so IR and buttons stay responsive during a 36 ms sweep, and so
-  each shared field has exactly one writer. `channel` and `attenuation` are now
-  single-byte and therefore tear-free, but the ISR still read-modify-writes
-  `attenuation`, so a main-loop write that lands in the middle of that is still
-  plain last-writer-wins. It is benign and self-correcting, and this is the
-  change that would remove the caveat entirely.
+- Replace the remaining blocking relay sequencing with a tick-driven state
+  machine (issue #12). The no-op delays are already gone and the worst case is
+  down to 24 ms, so this is now purely about responsiveness and ownership: pace
+  the steps off `instance.ms_counter` (already a free 1 ms counter from the TMR0
+  ISR, so no ISR changes needed) and each shared field gets exactly one writer.
+  `channel` and `attenuation` are single-byte and therefore tear-free, but the
+  ISR still read-modify-writes `attenuation`, so a main-loop write that lands in
+  the middle of that is still plain last-writer-wins. It is benign and
+  self-correcting, and this is the change that would remove the caveat entirely.
+  It is the one remaining item that needs hardware to validate.
 - Stop casting `volatile` away in `process_ir()`: copy `IRMP_DATA` in and out
   of it so the cast at the `irmp_get_data()` call site can go (issue #15).
 
