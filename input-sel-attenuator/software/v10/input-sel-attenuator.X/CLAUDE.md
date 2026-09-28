@@ -117,9 +117,12 @@ Nine further notes worth knowing before editing:
   how load-bearing each case is: on `PORTB` this was a real bug, because three
   bits on that port are inputs. On `PORTA` it is only consistency —
   `TRISA = 0x0` makes all eight RA pins outputs, so pin level equals latch level
-  and `PORTA` reads correctly. The remaining `PORTA` uses (`init()` and
-  `process_channel()`, both whole-register writes) are still correct for that
-  reason. Either way `PORTx` and `LATx` share a write path, so a `LATx`
+  and `PORTA` reads correctly. `init()` was converted as well, which mattered
+  slightly more there: `~ROTARY_MAX_ATTENUATION` is `0xC0`, so that line
+  *preserves* RA6/RA7 rather than forcing them low — the spare relays only end up
+  de-energised because `pins.c` clears `LATA = 0x0` first. Reading the latch
+  states the intent instead of relying on startup order. The only `PORTA` use left
+  is the whole-register write in `process_channel()`. Either way `PORTx` and `LATx` share a write path, so a `LATx`
   conversion is always size-neutral — only the read side differs.
 - **Never cast `volatile` away to satisfy a signature — make the signature
   honest instead.** `instance` is a `volatile Instance_t`, so
