@@ -80,6 +80,28 @@ static void button_fsm(uint16_t ms_counter, volatile Button_t* button, uint_fast
   }
 }
 
+/* Divide signed encoder travel by multi, returning the whole steps and leaving
+   the remainder in *count so no travel is lost to rounding or to a direction
+   change. while rather than if is defensive: the decoder returns a single event
+   per call, so the accumulator cannot currently outrun one threshold per sample,
+   but this stays correct if that ever changes. */
+static int8_t encoder_steps(volatile int *count, int8_t multi) {
+  int8_t steps = 0;
+
+  if (multi < 1) {
+    return 0;
+  }
+  while (*count >= multi) {
+    *count -= multi;
+    steps++;
+  }
+  while (*count <= -multi) {
+    *count += multi;
+    steps--;
+  }
+  return steps;
+}
+
 static void timer_callback_process_dual(void) {
   /* push button logic */
   instance.ms_counter++;
@@ -87,10 +109,6 @@ static void timer_callback_process_dual(void) {
   /* encoder1 used for attenuation */
   uint8_t encoder_direction = encoder1_read(&instance.encoder[Volume].rotary_encoder_state);
   if (encoder_direction != DIR_NONE) {
-    /* detect direction, if changed, reset rotary encoder vars */
-    if (instance.encoder[Volume].direction != encoder_direction) {
-      instance.encoder[Volume].encoder_count[0] = 0;
-    }
     instance.encoder[Volume].direction = encoder_direction;
 
     if (encoder_direction == DIR_CW) {
@@ -106,13 +124,8 @@ static void timer_callback_process_dual(void) {
      */
     int8_t value = instance.attenuation;
 
-    if (instance.encoder[Volume].encoder_count[0] >= ROTARY_MULTI_ATTENUATION) {
-      value--;
-      instance.encoder[Volume].encoder_count[0] = 0;
-    } else if (instance.encoder[Volume].encoder_count[0] <= -ROTARY_MULTI_ATTENUATION) {
-      value++;
-      instance.encoder[Volume].encoder_count[0] = 0;
-    }
+    value -= encoder_steps(&instance.encoder[Volume].encoder_count[0],
+                           ROTARY_MULTI_ATTENUATION);
 
     /* for attenuation stop on max or min */
     if (value > ROTARY_MAX_ATTENUATION) {
@@ -130,10 +143,6 @@ static void timer_callback_process_dual(void) {
   /* encoder2 used for channel */
   encoder_direction = encoder2_read(&instance.encoder[Channel].rotary_encoder_state);
   if (encoder_direction != DIR_NONE) {
-    /* detect direction, if changed, reset rotary encoder vars */
-    if (instance.encoder[Channel].direction != encoder_direction) {
-      instance.encoder[Channel].encoder_count[0] = 0;
-    }
     instance.encoder[Channel].direction = encoder_direction;
 
     if (encoder_direction == DIR_CW) {
@@ -144,13 +153,8 @@ static void timer_callback_process_dual(void) {
 
     int8_t value = instance.channel;
 
-    if (instance.encoder[Channel].encoder_count[0] >= ROTARY_MULTI_CHANNEL) {
-      value++;
-      instance.encoder[Channel].encoder_count[0] = 0;
-    } else if (instance.encoder[Channel].encoder_count[0] <= -ROTARY_MULTI_CHANNEL) {
-      value--;
-      instance.encoder[Channel].encoder_count[0] = 0;
-    }
+    value += encoder_steps(&instance.encoder[Channel].encoder_count[0],
+                           ROTARY_MULTI_CHANNEL);
 
     /* channel is rotary continuous */
     if (value > ROTARY_MAX_CHANNEL) {
@@ -169,10 +173,6 @@ static void timer_callback_process_dual(void) {
 static void timer_callback_process_single(void) {
   uint8_t encoder_direction = encoder1_read(&instance.encoder[Combined].rotary_encoder_state);
   if (encoder_direction != DIR_NONE) {
-    /* detect direction, if changed, reset rotary encoder vars */
-    if (instance.encoder[Combined].direction != encoder_direction) {
-      instance.encoder[Combined].encoder_count[instance.control] = 0;
-    }
     instance.encoder[Combined].direction = encoder_direction;
 
     if (encoder_direction == DIR_CW) {
@@ -189,13 +189,8 @@ static void timer_callback_process_single(void) {
        */
       int8_t value = instance.attenuation;
 
-      if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_ATTENUATION) {
-        value--;
-        instance.encoder[Combined].encoder_count[instance.control] = 0;
-      } else if (instance.encoder[Combined].encoder_count[instance.control] <= -ROTARY_MULTI_ATTENUATION) {
-        value++;
-        instance.encoder[Combined].encoder_count[instance.control] = 0;
-      }
+      value -= encoder_steps(&instance.encoder[Combined].encoder_count[instance.control],
+                             ROTARY_MULTI_ATTENUATION);
 
       /* for attenuation stop on max or min */
       if (value > ROTARY_MAX_ATTENUATION) {
@@ -208,13 +203,8 @@ static void timer_callback_process_single(void) {
     } else {
       int8_t value = instance.channel;
 
-      if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_CHANNEL) {
-        value++;
-        instance.encoder[Combined].encoder_count[instance.control] = 0;
-      } else if (instance.encoder[Combined].encoder_count[instance.control] <= -ROTARY_MULTI_CHANNEL) {
-        value--;
-        instance.encoder[Combined].encoder_count[instance.control] = 0;
-      }
+      value += encoder_steps(&instance.encoder[Combined].encoder_count[instance.control],
+                             ROTARY_MULTI_CHANNEL);
 
       /* channel is rotary continous */
       if (value > ROTARY_MAX_CHANNEL) {
