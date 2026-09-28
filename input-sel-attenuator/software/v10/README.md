@@ -38,7 +38,7 @@ This document describes **how the code is structured and how it executes**.
 | Feature | Detail |
 |---|---|
 | Channel selection | 4 channels, one-hot relay outputs on RB0–RB3 |
-| Attenuation | 6-bit (0–63) relay ladder on RA0–RA5, ≈0.75 dB/step, 0–63 dB |
+| Attenuation | 6-bit (0–63) relay ladder on RA0–RA5, 1.5 dB/step, 0–94.5 dB |
 | Pop-free attenuation | Make-before-break relay sequencing (default) |
 | Pop-free channel change | Mute (max attenuation) → switch relays → restore attenuation |
 | Per-channel volume | Each channel remembers its own attenuation; default stored in EEPROM |
@@ -130,39 +130,69 @@ Artifacts:
 - `dist/default/production/input-sel-attenuator.X.production.map` — memory map
 
 Per-function code sizes and memory usage, from a production build with
-**XC8 v4.00** (PIC16F18056, `-O2`):
+**XC8 v4.00** (PIC16F18056, `-O2`). Figures are the `Size` column of
+`input-sel-attenuator.X.production.map`, in **decimal words**, and have been
+cross-checked against the `_function` / `__end_of_function` address pairs in the
+listing.
 
 | Module / function | Words | Source |
 |---|---|---|
-| `irmp/irmp.c` (whole module) | 1529 | `irmp/irmp.c` |
-| `control_routines.c` (whole module) | 1253 | — |
-| `irq_routines.c` (whole module) | 709 | — |
-| `timer_callback_process_single` | 659 | `irq_routines.c:169` |
-| `timer_callback_process_dual` | 560 | `irq_routines.c:83` |
-| `process_ir` | 530 | `control_routines.c:336` |
-| `eeprom_save_status` | 517 | `control_routines.c:241` |
-| `process_channel` | 407 | `control_routines.c:200` |
-| `process_encoder_button` | 393 | `control_routines.c:275` |
-| `init` | 370 | `control_routines.c:48` |
-| `button_fsm` | 372 | `irq_routines.c:37` |
-| `configure_attenuation` | 320 | `control_routines.c:106` |
-| `main` | 258 | `main.c:122` |
-| `factory_reset` | 149 | `control_routines.c:85` |
-| `process_attenuation` | 52 | `control_routines.c:189` |
-| `encoder_timer_callback` | 9 | `irq_routines.c:238` |
-| `ir_timer_callback` | 3 | `irq_routines.c:257` |
-| **Program memory** | **4279 / 16384 (26.1 %)** | |
-| **Data memory** | **180 / 2048 (8.8 %)** | |
+| `irmp/irmp.c` (whole module) | 1532 | `irmp/irmp.c` |
+| `control_routines.c` (whole module) | 1315 | — |
+| `irq_routines.c` (whole module) | 658 | — |
+| `eeprom_save_status` | 222 | `control_routines.c:241` |
+| `process_ir` | 220 | `control_routines.c:336` |
+| `process_channel` | 215 | `control_routines.c:200` |
+| `process_encoder_button` | 199 | `control_routines.c:275` |
+| `button_fsm` | 192 | `irq_routines.c:37` |
+| `timer_callback_process_single` | 181 | `irq_routines.c:173` |
+| `init` | 176 | `control_routines.c:48` |
+| `timer_callback_process_dual` | 172 | `irq_routines.c:105` |
+| `configure_attenuation` | 140 | `control_routines.c:106` |
+| `main` | 102 | `main.c:122` |
+| `encoder_steps` | 100 | `irq_routines.c:88` |
+| `factory_reset` | 95 | `control_routines.c:85` |
+| `process_attenuation` | 39 | `control_routines.c:189` |
+| `encoder_timer_callback` | 10 | `irq_routines.c:228` |
+| `led_callback` | 9 | `control_routines.c:39` |
+| `ir_timer_callback` | 3 | `irq_routines.c:247` |
+| **Program memory** | **4290 / 16384 (26.2 %)** | |
+| **Data memory** | **181 / 2048 (8.8 %)** | |
+
+The per-function rows above sum to 3918 of the 4290 words. The 372-word remainder
+is not project logic:
+
+| Component | Words |
+|---|---|
+| Project code, all 37 functions in the table | 3918 |
+| XC8 library: `__eeread.c`, `__eewrite.c`, `memcpy.c` | 84 |
+| `shared`: `__initialization` + the IRMP `STRCODE` protocol tables | 199 |
+| Residual, by subtraction — reset/interrupt vectors, psect alignment padding, and C-runtime helpers the map does not list | 89 |
+| **Program memory** | **4290** |
+
+`led_toggel` is absent because the linker discarded it; it is never called, which
+is the deliberate issue 7 scaffolding.
+
+The `Cost` figures inside the individual issue entries further down are
+point-in-time measurements taken when that fix was made. They are meaningful as
+deltas, but several were taken before the accounting method above was settled, so
+their absolute values lag the current build. Where an entry contradicts this
+table, this table wins.
+
+An earlier revision of this table published much larger per-function figures
+(`process_ir` 530, `button_fsm` 372, `main` 258, and so on) that do not match any
+current build, and described the map's size column as hexadecimal. It is decimal
+words; the figures above are what the current map actually reports.
 
 Flash and RAM headroom is ample — neither is a design constraint on this part.
 
-**Reading the map file.** The size columns in the `.map` are **hexadecimal**, not
-word counts, and the per-function sizes above are converted. `main` appears as
-`0x102`, i.e. 258 words, and the matching `main.c estimated size: 102` is the
-same number. An earlier version of this table pasted the raw hex strings
-(`main` as "105", `process_ir` as "251") straight into a column labelled *Words*
-next to a decimal total, which understated every function by roughly a factor of
-2.4. The numbers above are the converted ones.
+**Reading the map file.** The `Link` and `Load` columns in the `.map` are
+hexadecimal word addresses, but the per-function `Size` column is **decimal
+words** — `main` reads `Size 102` at address `0x0AA2`, and 102 is also the
+`main.c estimated size:` the linker prints for that file. `estimated size` is a
+per-file sum of its functions and does not include the C runtime, startup code,
+or `STRCODE` data, which is why the file totals do not add up to the program
+total.
 
 ---
 
@@ -220,7 +250,7 @@ implies.
 
 ## 6. Runtime state model
 
-All runtime state lives in one struct (`definitions.h:123`):
+All runtime state lives in one struct (`definitions.h:129`):
 
 ```c
 typedef struct {
@@ -368,7 +398,7 @@ const unsigned char ttable[][4] = {
 };
 ```
 
-Reading an encoder is three lines (`rotary_encoder.c:89`):
+Reading an encoder is three lines (`rotary_encoder.c:97`):
 
 ```c
 uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
@@ -378,45 +408,53 @@ uint8_t encoder1_read(volatile uint8_t* rotary_encoder_state) {
 }
 ```
 
-The half-step variant emits on `00` and `11`, giving **2 events per detent**:
+The fitted encoders are **PEC11R-4220F-S0012**: 12 pulses (full quadrature
+cycles) but **24 detents** per 360°, so 48 Gray edges and 24 detents per rev,
+i.e. 2 edges per detent. The half-step variant emits on `00` and `11`, one event
+every 2 edges, so it emits **exactly one event per detent** — and an event is
+one mechanical click. Events, detents and clicks are the same unit on this part,
+so the multipliers read directly as click counts:
 
 ```c
-#define ROTARY_MULTI_CHANNEL       3   /* 3 events -> 1 channel step  */
-#define ROTARY_MULTI_ATTENUATION   1   /* 1 event  -> 1 dB step       */
+#define ROTARY_MULTI_CHANNEL       3   /* 1 channel change every 3 clicks */
+#define ROTARY_MULTI_ATTENUATION   1   /* 1 attenuation step every click   */
 ```
 
-On a 12-detent encoder that is 24 events/rev, so 8 channel positions and 24
-attenuation steps per revolution. Note that `ROTARY_MULTI_CHANNEL = 3` is
-**odd** while events arrive two per detent — steps therefore land alternately on
-a detent centre and a detent edge. That, not the sampling rate, is what makes the
-channel selector feel non-linear; see [issue 13](#17-known-issues-and-caveats).
+That is 24 events/rev: 8 channel steps per revolution, and 24 attenuation steps
+per revolution, i.e. 36 dB/rev and 2.6 revs across the full 0–94.5 dB range. The
+full-step table would
+emit 12 events/rev, one per 2 detents, and so would only step on every 2nd
+click — half the requested resolution. See
+[issue 13](#17-known-issues-and-caveats).
 
-`encoder2_read()` (`rotary_encoder.c:102`) is identical apart from the pins. Both
-are called from the 1 ms TMR0 callback. Sampling at 1 kHz is fast enough here: a
-12-detent encoder yields 24 events/rev, so the first dropped event would need
-roughly 40 rev/s (≈10 rev/s with a 4× safety margin) — far beyond a hand-driven
-knob. The blocking `__delay_ms()` relay delays are main-loop code and do not stop
-the TMR0 ISR, so they cost no encoder events either.
+`encoder2_read()` (`rotary_encoder.c:110`) is identical apart from the pins. Both
+are called from the 1 ms TMR0 callback. Sampling at 1 kHz is fast enough here:
+the decoder consumes one edge per call, so at 48 edges/rev the first dropped
+edge would need roughly **21 rev/s** (≈5 rev/s with a 4× safety margin) — an
+order of magnitude beyond a hand-driven knob. The blocking `__delay_ms()` relay
+delays are main-loop code and do not stop the TMR0 ISR, so they cost no encoder
+events either.
 
-**Detent accumulation** (`irq_routines.c:85`, `irq_routines.c:169`): a direction
-change resets the accumulator, then CW/CCW increments/decrements it. When the
-absolute value reaches `ROTARY_MULTI_*`, the accumulator is zeroed and the target
-value moves by one:
+**Detent accumulation** (`irq_routines.c:127`, `:156`, `:192`, `:206`, all via
+`encoder_steps()` at `irq_routines.c:88`): CW/CCW increments/decrements the
+accumulator, and `encoder_steps()` drains whole `ROTARY_MULTI_*` steps out of it
+and leaves the remainder behind:
 
 ```c
-if (encoder_count[0] >= ROTARY_MULTI_ATTENUATION) {
-  value--;  encoder_count[0] = 0;      /* CW = less attenuation */
-} else if (encoder_count[0] <= -ROTARY_MULTI_ATTENUATION) {
-  value++;  encoder_count[0] = 0;      /* CCW = more attenuation */
+static int8_t encoder_steps(volatile int *count, int8_t multi) {
+  int8_t steps = 0;
+  if (multi < 1) { return 0; }        /* 0 would spin the while forever */
+  while (*count >=  multi) { *count -= multi; steps++; }
+  while (*count <= -multi) { *count += multi; steps--; }
+  return steps;
 }
 ```
 
-Two properties of this are worth changing: zeroing the accumulator discards the
-remainder (so any multiplier that does not divide the event count loses travel),
-and zeroing it on a direction change throws away up to `MULTI−1` detents of travel
-every time the knob reverses. `if` rather than `while` also means a fast spin
-that crosses two thresholds between samples applies only one step. See
-[issue 13](#17-known-issues-and-caveats).
+The accumulator is deliberately **not** zeroed, neither after a step nor on a
+direction change. Zeroing it after a step discarded the remainder, and zeroing
+it on a reversal threw away up to `MULTI−1` clicks of travel every time the knob
+changed direction. The remainder is now carried, so travel is conserved across
+reversals. See [issue 13](#17-known-issues-and-caveats).
 
 Attenuation is deliberately **inverted** with respect to a volume control: CW
 means *louder*, i.e. a smaller attenuation number. The value is then clamped —
@@ -427,7 +465,7 @@ attenuation saturates at 0/63, whereas channel wraps around 0↔3.
 ## 10. Push button state machine
 
 Runs inside the 1 ms TMR0 callback; fully non-blocking, no `__delay_ms` in the
-ISR. State per encoder (`definitions.h:86`–`:101`):
+ISR. State per encoder (`definitions.h:109`–`:116`):
 
 ```c
 typedef struct {
@@ -478,9 +516,9 @@ All three call sites use the helper, and the old inline copies have been deleted
 
 | Call site | Encoder | Mode |
 |---|---|---|
-| `irq_routines.c:128` | 1 | Dual |
-| `irq_routines.c:166` | 2 | Dual |
-| `irq_routines.c:234` | 1 | Single |
+| `irq_routines.c:141` | 1 | Dual |
+| `irq_routines.c:170` | 2 | Dual |
+| `irq_routines.c:224` | 1 | Single |
 
 Each call site reads the pin once into a local and casts the button pointer to a
 non-volatile `Button_t *` — see issues 11, 16 and 17.
@@ -513,8 +551,11 @@ currently driving is not visible to the user.
 
 ## 11. Attenuator control
 
-The attenuator is a **binary-weighted relay ladder**: RA0 is the LSB (0.75 dB)
-through RA5 the MSB (24 dB), giving 0–63 dB in ≈0.75 dB steps.
+The attenuator is a **binary-weighted relay ladder**: RA0 is the LSB (1.5 dB)
+and each higher bit doubles, so RA1 = 3 dB, RA2 = 6 dB, RA3 = 12 dB, RA4 = 24 dB
+and RA5 the MSB (48 dB), giving 0–**94.5 dB** (63 steps × 1.5 dB) in 1.5 dB
+steps. The ladder code is a plain binary attenuation count, so code *n* is
+*n* × 1.5 dB.
 
 ```c
 #define ROTARY_ATTENUATION_BITS    6
@@ -524,7 +565,7 @@ through RA5 the MSB (24 dB), giving 0–63 dB in ≈0.75 dB steps.
 ```
 
 The difficulty: changing N of 6 bits at once passes through intermediate
-codes. `100000 → 011111` briefly becomes `000000` (a 24 dB jump) if the bits are
+codes. `100000 → 011111` briefly becomes `000000` (a 48 dB jump) if the bits are
 cleared before they are set — an audible pop. Two algorithms are implemented,
 selected at compile time (`definitions.h:39`):
 
@@ -551,12 +592,16 @@ attenuator: brief extra attenuation is inaudible, brief extra gain is not.
 Worked example, `0b011111` → `0b100000` (quiet → loud):
 
 ```
-pass 1: set RA5                      → 0b111111  (still 63 dB, no louder than target)
-pass 2: clear RA0..RA4               → 0b100000  (24 dB, the requested value)
+pass 1: set RA5                      → 0b111111  (94.5 dB, no louder than target)
+pass 2: clear RA0..RA4               → 0b100000  (48 dB, the requested value)
 ```
 
-`0b100000` → `0b011111` (loud → quiet) is the same two passes in the other
-order and never exceeds 24 dB at any point.
+`0b100000` → `0b011111` (loud → quiet) is the mirror case: pass 1 sets RA0–RA4
+first, reaching `0b111111` = 94.5 dB, and pass 2 then clears RA5 to land on
+`0b011111` = 46.5 dB. It is quiet throughout the change and never louder than
+either endpoint — same invariant, opposite direction of travel. (An earlier
+version of this paragraph claimed the transient "never exceeds 48 dB"; that was
+wrong, since the MAKE pass goes *up* to `0b111111` in both directions.)
 
 ### `ATT_CTRL_DIRECTION` (alternative, `control_routines.c:100`)
 
@@ -620,7 +665,7 @@ if (channel != last_channel):
 
 Muting before the switch (rather than opening the relays) means the audio path is
 never momentarily disconnected — only briefly attenuated, which the make-before-break
-ramp makes a smooth 63 dB sweep rather than a click.
+ramp makes a smooth 94.5 dB sweep rather than a click.
 
 A `#if 0` block (`control_routines.c:206`) preserves the older strategy (break
 the channel relays, restore attenuation, then re-select) for reference.
@@ -705,7 +750,7 @@ Flow:
 
 ```
 IR receiver (RB4)
-   → TMR2 IRQ every 66 µs → irmp_ISR()      [irq_routines.c:262]
+   → TMR2 IRQ every 66 µs → irmp_ISR()      [irq_routines.c:252]
         measures pulse/space edges, matches RC5 Manchester timing (1.778 ms bit)
    → 1 ms main loop → process_ir()          [control_routines.c:336]
         irmp_get_data() → filter protocol + address → map command → clamp → store
@@ -739,7 +784,7 @@ Channel wraps, attenuation clamps — the same rules as the encoders.
 ## 15. Encoder modes
 
 `instance.mode` selects the TMR0 callback body
-(`irq_routines.c:243`):
+(`irq_routines.c:233`):
 
 ### `Dual` (default) — `timer_callback_process_dual()`
 
@@ -779,10 +824,10 @@ All in `definitions.h`:
 | `CHAN_SEL_MASK` | `0x0f` | RB0–RB3 channel relay mask |
 | `EEPROM_ADDR_CHANNEL` | `0x04` | EEPROM address of the last used channel |
 | `ROTARY_MIN_CHANNEL` / `MAX_CHANNEL` | 0 / 3 | 4 channels |
-| `ROTARY_MULTI_CHANNEL` | 3 | half-steps per channel step |
+| `ROTARY_MULTI_CHANNEL` | 3 | encoder events per channel step (chosen by feel) |
 | `ROTARY_ATTENUATION_BITS` | 6 | ladder resolution |
 | `ROTARY_MIN/MAX_ATTENUATION` | 0 / 63 | attenuation range |
-| `ROTARY_MULTI_ATTENUATION` | 1 | half-steps per dB step |
+| `ROTARY_MULTI_ATTENUATION` | 1 | encoder events per 1.5 dB step (chosen by feel) |
 | `MAIN_LOOP_WAIT` | 1 | ms super-loop delay |
 | `EEPROM_SAVE_STATUS_VALUE` | 1000 | *unused* (see issue #6) |
 | `RELAIS_MAX_SETUP_TIME` | 3 | ms relay settling (G6K-2F DC5) |
@@ -798,9 +843,9 @@ All in `definitions.h`:
 ## 17. Known issues and caveats
 
 Re-audited after the latest round of fixes. Each item is **OPEN**, **PARTIAL**
-or **FIXED**. Of the twenty tracked items, twelve are **FIXED** (1, 3, 4, 5, 6,
-8, 9, 11, 14, 16, 17, 18), two are **NOT A BUG** (2 and 7), one is **PARTIAL**
-(12) and five are **OPEN** (10, 13, 15, 19, 20).
+or **FIXED**. Of the twenty tracked items, thirteen are **FIXED** (1, 3, 4, 5, 6,
+8, 9, 11, 13, 14, 16, 17, 18), two are **NOT A BUG** (2 and 7), one is **PARTIAL**
+(12) and four are **OPEN** (10, 15, 19, 20).
 Fixing 1 and 5 also forced a correction to the original analysis of issue 5: its
 load-bearing `sizeof` measurement was wrong. See the retraction below and the
 rewritten entry.
@@ -819,7 +864,7 @@ rewritten entry.
 | 10 | IR-initiated changes are never persisted | OPEN |
 | 11 | Button FSM code duplication | **FIXED** *(dead copies deleted too — issue 17)* |
 | 12 | Long blocking delays in the main loop | **PARTIAL** *(half the delays were no-ops and are gone; worst case 42 → 24 ms; loop still blocks)* |
-| 13 | Non-linear channel selector on the encoder | OPEN |
+| 13 | Non-linear channel selector on the encoder | **FIXED** *(cause was lost travel on reversal, not the multiplier: remainder now preserved and the direction-change reset removed; 3 / 1 unchanged and correct for this 12 PPR / 24 detent part)* |
 | 14 | Incomplete prototype for `factory_reset()` | **FIXED** *(prototype now takes `(void)`)* |
 | 15 | `irmp_get_data()` called through a cast that strips `volatile` | OPEN |
 | 16 | `button_fsm()` forces every field access through memory | **FIXED** |
@@ -963,36 +1008,94 @@ It is worth doing separately, because it is also what would let `channel` and
 `attenuation` widen back to 16 bit and retire the last-writer-wins caveat that the
 issue 5 fix could not remove on its own.
 
-**13. Non-linear channel selector — the cause is the multiplier, not the sample
-rate.** *(This entry previously blamed the 1 ms polling interval; that was
-wrong.)* A 12-detent encoder produces 48 Gray edges per revolution, so 24
-half-step events. Sampling at 1 kHz does not drop any of them until roughly
-**40 rev/s** (≈10 rev/s with a 4× safety margin), and the blocking relay delays
-are main-loop code that does not stop the TMR0 ISR — so the sample rate is not the
-problem and should not be changed.
+**13. Non-linear channel selector — fixed. The cause was lost travel, not the
+multiplier and not the sample rate.** *(This entry has been revised twice. The
+first revision blamed the 1 ms polling interval; that was wrong. The second
+blamed the multiplier for landing "between detents", on the assumption that the
+encoder has 12 detents; that was also wrong — the fitted PEC11R-4220F-S0012 is
+12 pulses but **24 detents** per 360°. With `ENABLE_HALF_STEP` the table already
+emits exactly one event per detent, so the shipped multipliers 3 and 1 are the
+requested feel and were always correct. The genuine defect is below.)*
 
-The actual causes, all in `irq_routines.c:85`–`:122` and `:169`–`:201`:
+The encoder produces 48 Gray edges and 24 detents per revolution, and the
+half-step table emits 24 events/rev — one per detent, one per click. Sampling at
+1 kHz does not drop any of them until roughly **21 rev/s** (≈5 rev/s with a 4×
+safety margin), because the decoder consumes one edge per call and there are
+only 48 edges/rev. The blocking relay delays are main-loop code that does not
+stop the TMR0 ISR, so the sample rate was never the problem and has not been
+changed.
 
-- The half-step table (`rotary_encoder.c:45`) emits on both `00` and `11`, giving
-  **2 events per detent**, but `ROTARY_MULTI_CHANNEL = 3` was chosen in *detents*.
-  Steps therefore fire at events e3, e6, e9 … and detent *k* owns events
-  (2k−1, 2k), so steps land on a detent centre, then a detent edge, then a centre…
-  At 12 detents/rev this yields 8 steps per revolution instead of 4, with an
-  irregular 1.5-detent spacing — the stutter you feel.
-- `encoder_count[0] = 0` on every step discards the remainder, so any multiplier
-  that does not divide the event count loses travel.
-- `encoder_count[0] = 0` on direction change throws away up to `MULTI−1` detents
-  of travel each time the knob reverses, giving the reversal a slippery feel.
-- `if` rather than `while` means a fast spin that crosses two thresholds between
-  samples applies only one step.
+The defect was *lost travel*, in two places, both fixed:
 
-Fix: flip `ENABLE_HALF_STEP` at `rotary_encoder.c:45` to `#if 0` so the full-step
-table (the `#else` branch at `rotary_encoder.c:62`, which emits only at `11` and
-therefore once per detent) is selected, and accumulate signed with
-`while (... >= MULTI) { count -= MULTI; value--; }` instead of resetting. See
-[Rotary encoder decoding](#9-rotary-encoder-decoding). Keeping half-step is also
-valid, but then the multipliers must be **even** (`ROTARY_MULTI_CHANNEL 4` → 6
-positions/rev, or `2` → 12).
+- `encoder_count[0] = 0` after each step discarded the remainder.
+- `encoder_count[0] = 0` on direction change threw away up to `MULTI−1` clicks
+  of travel every time the knob reversed. This was the larger of the two: a
+  randomised harness of 20 000 multi-reversal sequences (multiplier drawn from
+  1..6, 4..43 moves per sequence, a direction flip on roughly one move in four)
+  loses travel in **13 111** of them, by up to `MULTI-1` = **5** clicks at
+  `MULTI` = 6. The same harness against the new logic reports **0** violations:
+  the conservation law `travel == steps*ROTARY_MULTI_* + remainder` holds
+  exactly, with `|remainder| < MULTI`, in all 20 000 sequences.
+
+An earlier claim in this entry that the `if`/`while` choice mattered was also
+**wrong**. The decoder returns a single event per call, so the accumulator can
+only move by one per 1 ms sample and can never exceed one threshold — a
+randomised run never drove the accumulator past `MULTI`. The `while` is retained
+as defensive coding, not because it fixed anything.
+
+Changes, all in `irq_routines.c` and `rotary_encoder.c`:
+
+- `rotary_encoder.c:45` — `ENABLE_HALF_STEP` stays `#if 1`. The comment now
+  records the 12 PPR / 24 detent geometry, that this makes the table emit
+  exactly 1 event per detent, and that events, detents and clicks are therefore
+  the same unit for `ROTARY_MULTI_*`.
+- `definitions.h` — the multipliers are **unchanged** at
+  `ROTARY_MULTI_CHANNEL 3` and `ROTARY_MULTI_ATTENUATION 1`, which give a
+  channel change every 3 clicks and an attenuation step on every click. An
+  intermediate revision doubled both to 6 and 2 on the theory that odd
+  multipliers cannot land on a detent boundary; that theory came from the wrong
+  detent count, and the user also preferred 3 and 1 on the bench. Because one
+  event is exactly one click here, the "odd multipliers land between detents"
+  problem simply does not exist. The source comment and `CLAUDE.md` now state
+  the geometry so the same wrong "correction" is not made again.
+- New `encoder_steps()` helper (`irq_routines.c:88`) replaces the four
+  duplicated threshold blocks. It returns whole steps, keeps the remainder, and
+  guards `multi < 1` so a misconfigured `ROTARY_MULTI_*` of 0 cannot make the
+  `while` spin forever inside the 1 ms ISR. The four call sites are otherwise
+  unchanged in behaviour, and the clamp/wrap logic that follows them is untouched.
+- The three direction-change resets are gone. `RotaryEncoder_t.direction` is now
+  written but never read; it is kept because it is part of the public struct and
+  is initialised in `main.c`, but it is informational only now.
+
+Cost: program 4279 → **4290** words, data 180 → **181** bytes. No new compiler
+warnings; the warnings are identical to the pre-fix baseline.
+
+Verified by simulation over one full revolution of the real geometry
+(24 detents, 12 quadrature cycles, 48 edges) with the `encoder_steps()` helper
+copied verbatim from the ISR, at the multipliers the firmware ships with:
+
+| `ROTARY_MULTI_*` | Clicks/step | Steps/rev | Detents/step | Edge spacing |
+|---|---|---|---|---|
+| **1** (attenuation, in use) | 1 | 23–24 | **1** | uniform 2 |
+| **3** (channel, in use) | 3 | 7–8 | **3** | uniform 6 |
+| 2 | 2 | 11–12 | 2 | uniform 4 |
+| 6 | 6 | 3–4 | 6 | uniform 12 |
+
+Event spacing is exactly uniform at every multiplier, including the shipped odd
+ones: 2 edges per click, so 2 edges per attenuation step and 6 per channel step,
+with no long-or-short gap. Steps therefore land **on** detent centres, one step
+every 1 click and one every 3 clicks. The 23-vs-24 in the step counts is the
+expected one-event offset at the wrap: a revolution from `R_START` needs the
+decoder to see the `00`/`11` state before it emits, so the boundary event falls
+on the next revolution. It is a startup-phase artifact, not per-click jitter.
+
+**Feel, as verified on the real encoder.** The attenuator steps once per click
+and the channel selector once every three clicks. `ROTARY_MAX_CHANNEL` is 3, so
+the channel knob passes all four channels about twice per revolution;
+`ROTARY_MAX_ATTENUATION` is 63, so the attenuator needs 2.6 revolutions to sweep
+its full range. The half-step table is what makes those two ratios feel the way
+they do — the full-step table would halve both. See
+[Rotary encoder decoding](#9-rotary-encoder-decoding).
 
 **15. `irmp_get_data()` called through a cast that strips `volatile`.**
 `process_ir()` is correctly declared `void process_ir(volatile Instance_t *instance)`
@@ -1044,7 +1147,7 @@ it: RA6 and RA7 **are** allocated in the pin manager, as `ATT6` and `ATT7`
 their initial level in MCC is LOW.
 
 The firmware implements a **6-bit** attenuator: `ROTARY_ATTENUATION_BITS 6`
-(`definitions.h:53`) gives `ROTARY_MAX_ATTENUATION = 0x3F` (`definitions.h:55`).
+(`definitions.h:59`) gives `ROTARY_MAX_ATTENUATION = 0x3F` (`definitions.h:61`).
 ATT6 and ATT7 are therefore spare relay lines for an 8-bit attenuator that this
 firmware does not implement, and forcing them low in `init()` is the intended
 behaviour: the two unused relays end up de-energised at power-up instead of
@@ -1075,7 +1178,7 @@ it is intentional.** I previously listed this as an open cosmetic issue and
 recommended deleting or rewriting the comment. That recommendation is withdrawn:
 the comment is deliberate and stays as it is.
 
-`/* use for measure irq execution time (10us) */` at `irq_routines.c:250` refers
+`/* use for measure irq execution time (10us) */` at `irq_routines.c:240` refers
 to the measurement scaffolding that still surrounds the callbacks — the four
 `#if 0 led_toggel();` blocks at `:241`, `:252`, `:260` and `:264` exist purely so
 the ISR entry and exit points can be bracketed with a GPIO toggle and timed with
@@ -1128,7 +1231,7 @@ encoder could only ever drive attenuation. It now toggles between `Volume` and
 **The caveat: the new code is unreachable in the shipped build.** `instance.mode`
 is written exactly once, at `main.c:91` (`.mode = Dual`), and is never reassigned
 anywhere in the firmware. All three readers
-(`irq_routines.c:243`, `control_routines.c:244`, `control_routines.c:288`)
+(`irq_routines.c:233`, `control_routines.c:244`, `control_routines.c:288`)
 therefore always take the dual-mode path, which means both
 `timer_callback_process_single()` and the new `DoublePress` handler only ever run
 if something sets `instance.mode = Single`. The fix is correct but inert; it needs
@@ -1168,7 +1271,7 @@ A one-byte `press_pending` flag was added to `Button_t` (`definitions.h:100`) an
 the producer/consumer pair was reordered:
 
 ```c
-/* button_fsm() — irq_routines.c:54, :71, :75 (three decision points) */
+/* button_fsm() — irq_routines.c:38, :68, :69/:73 (three decision points) */
 button->press = LongPress;        /* payload first */
 button->press_pending = true;     /* flag second    */
 ```
@@ -1221,7 +1324,7 @@ int8_t  last_attenuation;    /* 0..63, or -1 — main loop only */
 and it is wide enough for both ranges with room to spare. The `!= -1` and
 `> ROTARY_MAX_*` tests at `control_routines.c:200`, `:228`, `:382` and `:391` keep
 working unchanged, because `int8_t` promotes to `int` in every expression. The four
-`temporary` locals in the ISR (`irq_routines.c:107`, `:143`, `:188`, `:207`) and
+`temporary` locals in the ISR (`irq_routines.c:125`, `:154`, `:190`, `:204`) and
 the two in `process_ir()` (`control_routines.c:337`–`:338`) were narrowed to
 match, so nothing takes a `volatile int` down to `int8_t` implicitly — the
 project compiles with `-mwarn=-3`, and that is what surfaced the eight narrowing
@@ -1323,9 +1426,10 @@ one-for-one correspondence with the six source sites.)
 
 Program memory is unchanged by this fix at 4275 words and data at 180 bytes — the
 swap is a substitution of the SFR operand, so it emits the same instructions.
-(The current total is 4279; the later issue 18 fix added 4 words.) Every
-per-module size is identical to the table above as well, `control_routines.c`
-still being 1253 words.
+(The current total is 4290; the later issue 18 fix added 4 words and issue 13 added 11.) The
+per-module size is unchanged by this fix as well, since the swap only substitutes
+the SFR operand; `control_routines.c` was 1253 words at the time and is 1315 now,
+the difference being issues 12 and 13.
 
 The `PORTA` RMWs were left alone at the time, on the grounds that `TRISA = 0x0`
 makes all of PORTA an output so there is no input-pin read-back. They have since
@@ -1381,8 +1485,12 @@ main.c:128: warning: (1518) direct function call made with an incomplete prototy
 
 and that warning is now gone. A prototype change is a compile-time-only
 correction, so the code is untouched: program memory was still 4275 words at that
-point (4279 now, after the issue 18 fix), data
-still 180 bytes, `control_routines.c` still 1253 words. This was the last warning
+point (4290 now, after the issues 18 and 13 fixes), data
+still 180 bytes, `control_routines.c` still 1253 words. (Both of those
+per-module and RAM figures are as they stood then; the current values are in the
+size table at the top, and the older per-module numbers were measured
+differently. Read the historical cost figures in these entries as
+change-at-the-time, not as current state.) This was the last warning
 in the build that came from project code — what is left is 26 `(520) function
 is never called` warnings in MCC's generated files plus 2 `-Wsign-conversion`
 warnings and one `_dummy` in the bundled third-party `irmp`, all pre-existing
@@ -1405,17 +1513,19 @@ did not reproduce. A clean rebuild of the pre-narrowing tree against the committ
 match the rebuild exactly — so the module figures are sound but the running totals
 were off by a few tens of words. The only totals in this section that have been
 re-verified on a full link are the ones in the issue 5 entry: **4450 → 4275**.
-The current verified total is **4279** after the issue 18 fix, which is the one
-figure to quote when describing the shipped image. Treat the older totals as
-approximate.
+The current verified total is **4290** words / **181** data bytes, re-measured
+from a clean `make clobber && make build CONF=default` in a writable copy of the
+tree. Quote those two figures when describing the shipped image; treat every
+older total in this section as approximate. The per-function accounting in the
+building section supersedes the per-module numbers recorded here.
 
 **17. Dead `#else` button code in `irq_routines.c`.** The three superseded inline
 copies of the button logic, and the `uint_fast8_t encN_pressed` temporaries that
-existed only to feed them, have been deleted. `irq_routines.c` is now 264 lines
-and contains no `#else` block at all; all three call sites — `irq_routines.c:128`,
-`:164` and `:232` — go through the single `button_fsm()` at `:35`. The only `#if 0`
+existed only to feed them, have been deleted. `irq_routines.c` is now 256 lines
+and contains no `#else` block at all; all three call sites — `irq_routines.c:141`,
+`:170` and `:224` — go through the single `button_fsm()` at `:37`. The only `#if 0`
 blocks left in the file are the four `led_toggel()` timing-measurement snippets
-(`:238`, `:249`, `:257`, `:261`).
+(`:230`, `:241`, `:249`, `:253`).
 
 *Correction to an earlier version of this entry:* it described the dead blocks as
 still present and listed nine `press_pending` assignments that the issue 5 fix had
@@ -1474,8 +1584,6 @@ Cheapest first — most of these are one-liners:
 
 Then the structural work:
 
-- Switch to the full-step quadrature table and a signed, non-resetting
-  accumulator (issue #13). This is the one that users actually feel.
 - Replace the remaining blocking relay sequencing with a tick-driven state
   machine (issue #12). The no-op delays are already gone and the worst case is
   down to 24 ms, so this is now purely about responsiveness and ownership: pace

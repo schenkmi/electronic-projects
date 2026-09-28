@@ -70,8 +70,8 @@ init() → irmp_init() → while(1):
 
 `../README.md` section 17 tracks 20 items with OPEN / PARTIAL / FIXED / NOT A BUG
 status. Check it before changing anything, and update the status if you fix one.
-Twelve are now **FIXED** (1, 3, 4, 5, 6, 8, 9, 11, 14, 16, 17, 18), two are **NOT
-A BUG** (2 and 7), one is **PARTIAL** (12) and five are **OPEN** (10, 13, 15, 19,
+Thirteen are now **FIXED** (1, 3, 4, 5, 6, 8, 9, 11, 13, 14, 16, 17, 18), two are
+**NOT A BUG** (2 and 7), one is **PARTIAL** (12) and four are **OPEN** (10, 15, 19,
 20).
 
 **Issues 1 and 5 are closed.** `init()` now reads the EEPROM channel into a
@@ -86,7 +86,7 @@ with a `press_pending` flag, and the main loop must never write `press` — it i
 the producer's field exclusively. There are no genuinely 16-bit shared fields
 left; `press` and `control` were never 2 bytes to begin with.
 
-Nine further notes worth knowing before editing:
+Eight further notes worth knowing before editing:
 
 - **XC8 v4.00 does narrow enums to 1 byte here** (`sizeof(enum ButtonPress) == 1`).
   An earlier version of the README claimed 2 and built a whole analysis on it;
@@ -98,15 +98,39 @@ Nine further notes worth knowing before editing:
   `()`, so the compiler type-checks every call. Issue 14 was the last holdout
   (`factory_reset`); keeping this true is what keeps the build free of
   `(1518) incomplete prototype` warnings.
-- **The `.map` size columns are hexadecimal, not word counts.** `main` appears
-  as `0x102` there, i.e. 258 words. Do not paste those strings into a table of
-  sizes without converting.
-- **Do not "fix" the `(10us)` comment** at `irq_routines.c:250`, inside
+- **In the `.map`, `Link`/`Load` are hex but `Size` is decimal words.** `main`
+  reads `Size 102` at address `0x0AA2`, and `main.c estimated size: 102` agrees.
+  The linker's per-file `estimated size:` is a sum of that file's functions and
+  excludes the C runtime, startup code, and `STRCODE` data, so file totals do
+  not add up to the program total. Copy `Size` verbatim.
+- **Do not "fix" the `(10us)` comment** at `irq_routines.c:240`, inside
   `encoder_timer_callback()`. It looks stale — the tick is really 1 ms — but it
   is intentional: it documents the `#if 0 led_toggel()` measurement scaffolding
-  that still brackets the ISR entry and exit points (`:241`, `:252`, `:260`,
-  `:264`), and that harness is still in the file. This was issue 7; it is now
+  that still brackets the ISR entry and exit points (`:230`, `:241`, `:249`,
+  `:253`), and that harness is still in the file. This was issue 7; it is now
   recorded as NOT A BUG, not OPEN.
+- **A step divider must keep its remainder, and must not reset on reversal.**
+  `encoder_steps()` (`irq_routines.c`) accumulates signed travel and drains whole
+  `ROTARY_MULTI_*` steps, leaving the remainder in the counter. The old code did
+  `encoder_count[0] = 0` both after a step and on every direction change, and
+  that second reset was the expensive one: a randomised harness (multiplier 1..6,
+  4..43 moves, ~1 flip in 4) lost travel in 13 111 of 20 000 multi-reversal
+  sequences, up to `MULTI-1` = 5 clicks each time. The new logic scores 0, with
+  `travel == steps*MULTI + remainder` and `|remainder| < MULTI` holding exactly.
+  Zero it on direction change and the knob goes slippery. Also note the
+  multiplier unit: the fitted PEC11R-4220F-S0012 is 12 pulses (full quadrature
+  cycles) but **24 detents** per 360 deg, so 48 edges and 24 detents per rev,
+  2 edges per detent. With `ENABLE_HALF_STEP` (`#if 1`) the table emits on `00`
+  and `11`, i.e. one event every 2 edges, so it emits **exactly one event per
+  detent** and one event is one mechanical click. `ROTARY_MULTI_*` therefore
+  counts events *and* clicks *and* detents, all the same unit here.
+  `ROTARY_MULTI_CHANNEL 3` and `ROTARY_MULTI_ATTENUATION 1` give a channel
+  change every 3 clicks and an attenuation step on every click, which matches
+  the requested feel exactly. Do not "fix" them into even values, and do not
+  halve or double them to chase a 12-detent assumption — an earlier attempt
+  doubled both to 6 and 2 and the knob felt wrong. The full-step table would
+  emit only 12 events/rev, one per 2 detents, halving resolution to a step every
+  2nd click, so it is not used.
 - **Drive the relays through `LATx`, never `PORTx`.** `TRISB = 0xD0`, so
   RB4/RB6/RB7 are inputs on the same port. A `PORTB` read-modify-write reads the
   *pin* level on those bits and latches it into the output latch, so every
@@ -142,6 +166,8 @@ Nine further notes worth knowing before editing:
   no `__delay_ms()`, no blocking calls. The relay delays in
   `control_routines.c` do block: up to 18 ms for an attenuation sweep and 24 ms
   for a channel change, which is issue 12 and still PARTIAL.
-- `rotary_encoder.c` emits 2 events per detent (half-step table), which is why
-  `ROTARY_MULTI_CHANNEL` is 3 and the channel selector feels non-linear. The
-  fix is in issue 13.
+- `rotary_encoder.c` uses the half-step table. The encoder is 12 PPR / 24
+  detents, so that table yields exactly 1 event per detent.
+  `ROTARY_MULTI_CHANNEL` is 3 and `ROTARY_MULTI_ATTENUATION` 1 — one channel
+  change every 3 clicks, one attenuation step per click, both confirmed by hand
+  on the real encoder.

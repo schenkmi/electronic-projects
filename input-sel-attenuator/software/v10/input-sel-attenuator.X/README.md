@@ -5,7 +5,7 @@ PIC16F18056 based input channel selection + attenuator with rotary encoder and I
 ## Features
 
 - 4-channel input selector with relay switching
-- 6-bit (64-step) digital attenuator (0-63dB)
+- 6-bit (64-step) digital attenuator (0–94.5 dB, 1.5 dB per step)
 - Dual rotary encoder mode (separate volume/channel) or single encoder mode
 - IR remote control support (RC5 protocol)
 - Per-channel default attenuation stored in EEPROM
@@ -326,18 +326,18 @@ typedef struct {
 
 ## Attenuator Control
 
-The attenuator uses **6 relay bits** (RA0-RA5) to control a 6-bit R-2R ladder network, providing 64 steps (0-63) of attenuation. Each step represents approximately 0.75dB, for a total range of 0-63dB.
+The attenuator uses **6 relay bits** (RA0-RA5) to control a 6-bit R-2R ladder network, providing 64 steps (0-63) of attenuation. Each step represents 1.5 dB, for a total range of 0–94.5 dB (63 × 1.5 dB). The ladder is binary weighted, so RA0 = 1.5 dB (LSB) doubling to RA5 = 48 dB (MSB), and code *n* is *n* × 1.5 dB.
 
 ### Attenuation Table
 
 | Binary | Decimal | Attenuation |
 |--------|---------|-------------|
-| 000000 | 0 | 0dB (minimum) |
-| 000001 | 1 | 0.75dB |
-| 001111 | 15 | 11.25dB |
-| 011111 | 31 | 23.25dB |
-| 100000 | 32 | 24dB |
-| 111111 | 63 | 63dB (maximum) |
+| 000000 | 0 | 0 dB (minimum) |
+| 000001 | 1 | 1.5 dB |
+| 001111 | 15 | 22.5 dB |
+| 011111 | 31 | 46.5 dB |
+| 100000 | 32 | 48 dB |
+| 111111 | 63 | 94.5 dB (maximum) |
 
 ### Make-Before-Break Algorithm
 
@@ -440,7 +440,7 @@ if (instance->channel != instance->last_channel) {
     instance->channel_attenuation[last_channel].attenuation = instance->attenuation;
   }
 
-  // 2. Mute: Set attenuation to maximum (63dB)
+  // 2. Mute: Set attenuation to maximum (94.5 dB)
   configure_attenuation(ROTARY_MAX_ATTENUATION);
 
   // 3. Switch to new channel
@@ -461,7 +461,7 @@ if (instance->channel != instance->last_channel) {
 
 ### Why Mute During Switch?
 
-The attenuation is temporarily set to maximum (63dB) during channel switching to:
+The attenuation is temporarily set to maximum (94.5 dB) during channel switching to:
 1. Prevent audio pops from relay contact bounce
 2. Avoid momentary signal interruption noise
 3. Ensure smooth, click-free channel transitions
