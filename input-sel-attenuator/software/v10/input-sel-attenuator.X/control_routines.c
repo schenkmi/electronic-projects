@@ -65,7 +65,14 @@ void init(volatile Instance_t* instance) {
   }
 
   /* read last used channel, channels attenuation will be handler inside process_channel() */
-  instance->channel = eeprom_read(EEPROM_ADDR_CHANNEL);
+  uint8_t stored_channel = eeprom_read(EEPROM_ADDR_CHANNEL);
+  /* must be clamped: channel is int8_t, so a corrupt byte would otherwise wrap
+     (255 -> -1) and index channel_attenuation[] out of bounds */
+  if (stored_channel > ROTARY_MAX_CHANNEL) {
+    instance->channel = ROTARY_MIN_CHANNEL;
+  } else {
+    instance->channel = (int8_t)stored_channel;
+  }
 
   /* read default attenuation for each channel and assign to channel attenuation */
   for (uint8_t cnt = 0; cnt <= ROTARY_MAX_CHANNEL; cnt++) {
@@ -198,7 +205,7 @@ void process_channel(volatile Instance_t* instance) {
     __delay_ms(RELAIS_MAX_SETUP_TIME);
 
     /* always start with last attenuation used for this channel */
-    instance->last_attenuation = instance->attenuation = instance->channel_attenuation[instance->channel].attenuation;
+    instance->last_attenuation = instance->attenuation = (int8_t)(instance->channel_attenuation[instance->channel].attenuation & ROTARY_MAX_ATTENUATION);
     PORTA = ((PORTA & ~ROTARY_MAX_ATTENUATION) | ((unsigned char)instance->attenuation & ROTARY_MAX_ATTENUATION));
 
     /* clear and set new channel */
@@ -211,7 +218,7 @@ void process_channel(volatile Instance_t* instance) {
     PORTB = ((PORTB & ~CHAN_SEL_MASK) | ((1 << instance->channel) & CHAN_SEL_MASK));
     __delay_ms(RELAIS_MAX_SETUP_TIME);
     
-    instance->last_attenuation = instance->attenuation = instance->channel_attenuation[instance->channel].attenuation;
+    instance->last_attenuation = instance->attenuation = (int8_t)(instance->channel_attenuation[instance->channel].attenuation & ROTARY_MAX_ATTENUATION);
 
     configure_attenuation(((uint8_t)instance->attenuation & ROTARY_MAX_ATTENUATION));
 #endif
@@ -325,8 +332,8 @@ void process_encoder_button(volatile Instance_t* instance) {
 void process_ir(volatile Instance_t* instance) {
   if (irmp_get_data((IRMP_DATA *)&instance->ir.data)) {    
     if (instance->ir.data.protocol == IR_PROTOCOL && instance->ir.data.address == IR_REMOTE_ADDRESS) {
-      int channel = instance->channel;
-      int attenuation = instance->attenuation;
+      int8_t channel = instance->channel;
+      int8_t attenuation = instance->attenuation;
 
       if (instance->ir.data.flags == 0x00) {
         switch (instance->ir.data.command) {

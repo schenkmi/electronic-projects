@@ -102,7 +102,7 @@ static void timer_callback_process_dual(void) {
      * 0   : 0dB attenuation
      * 255 : 127dB attenuation
      */
-    int value = instance.attenuation;
+    int8_t value = instance.attenuation;
 
     if (instance.encoder[Volume].encoder_count[0] >= ROTARY_MULTI_ATTENUATION) {
       value--;
@@ -140,7 +140,7 @@ static void timer_callback_process_dual(void) {
       instance.encoder[Channel].encoder_count[0]--;
     }
 
-    int value = instance.channel;
+    int8_t value = instance.channel;
 
     if (instance.encoder[Channel].encoder_count[0] >= ROTARY_MULTI_CHANNEL) {
       value++;
@@ -185,7 +185,7 @@ static void timer_callback_process_single(void) {
        * 0   : 0dB attenuation
        * 255 : 127dB attenuation
        */
-      int value = instance.attenuation;
+      int8_t value = instance.attenuation;
 
       if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_ATTENUATION) {
         value--;
@@ -204,7 +204,7 @@ static void timer_callback_process_single(void) {
         instance.attenuation = value;
       }
     } else {
-      int value = instance.channel;
+      int8_t value = instance.channel;
 
       if (instance.encoder[Combined].encoder_count[instance.control] >= ROTARY_MULTI_CHANNEL) {
         value++;
