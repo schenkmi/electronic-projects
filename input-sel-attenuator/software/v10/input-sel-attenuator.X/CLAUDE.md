@@ -107,13 +107,20 @@ Nine further notes worth knowing before editing:
   that still brackets the ISR entry and exit points (`:241`, `:252`, `:260`,
   `:264`), and that harness is still in the file. This was issue 7; it is now
   recorded as NOT A BUG, not OPEN.
-- **Use `LATB`, not `PORTB`, for the channel-select relays.** `TRISB = 0xD0`, so
+- **Drive the relays through `LATx`, never `PORTx`.** `TRISB = 0xD0`, so
   RB4/RB6/RB7 are inputs on the same port. A `PORTB` read-modify-write reads the
   *pin* level on those bits and latches it into the output latch, so every
   whole-register write that touches `RB0`–`RB3` must go through `LATB`. This was
   issue 8; all channel-select writes in `init()` and `process_channel()` are now
-  `LATB`, including the two in the `#if 0` branch. The `PORTA` RMWs are
-  deliberately *not* changed — `TRISA = 0x0` makes all of PORTA an output.
+  `LATB`, including the two in the `#if 0` branch. `configure_attenuation()` was
+  later moved to `LATA` as well for the same discipline. Note the difference in
+  how load-bearing each case is: on `PORTB` this was a real bug, because three
+  bits on that port are inputs. On `PORTA` it is only consistency —
+  `TRISA = 0x0` makes all eight RA pins outputs, so pin level equals latch level
+  and `PORTA` reads correctly. The remaining `PORTA` uses (`init()` and
+  `process_channel()`, both whole-register writes) are still correct for that
+  reason. Either way `PORTx` and `LATx` share a write path, so a `LATx`
+  conversion is always size-neutral — only the read side differs.
 - **Never cast `volatile` away to satisfy a signature — make the signature
   honest instead.** `instance` is a `volatile Instance_t`, so
   `&instance.encoder[…].button` is a `volatile Button_t *` and passes to a

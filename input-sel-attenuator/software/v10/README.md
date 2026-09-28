@@ -1048,8 +1048,8 @@ instead of inheriting an indeterminate port value. So the line is right.
 
 My second error was calling `configure_attenuation()` "correct" and therefore the
 two paths "inconsistent". `configure_attenuation()` only ever sets or clears
-single bits (`PORTA |= bit` at `control_routines.c:122`/`:145`/`:160` and
-`PORTA &= ~bit` at `:115`/`:136`/`:165`), so it *preserves* whatever RA6/RA7
+single bits (`LATA |= bit` at `control_routines.c:122`/`:143`/`:160` and
+`LATA &= ~bit` at `:124`/`:145`/`:176`), so it *preserves* whatever RA6/RA7
 hold. The two paths agree: `init()` parks them low, everything downstream leaves
 them low.
 
@@ -1314,10 +1314,22 @@ swap is a substitution of the SFR operand, so it emits the same instructions.
 per-module size is identical to the table above as well, `control_routines.c`
 still being 1253 words.
 
-The `PORTA` RMWs in `init()` and `configure_attenuation()` are deliberately
-**not** changed: `TRISA = 0x0` makes all of PORTA an output, so there is no
-input-pin read-back, and `configure_attenuation()` must compare against `PORTA`
-because that is where the current relay state is recorded.
+The `PORTA` RMWs were left alone at the time, on the grounds that `TRISA = 0x0`
+makes all of PORTA an output so there is no input-pin read-back. They have since
+been converted to `LATA` anyway, as a consistency follow-up rather than a bug
+fix. The conversion is provably a no-op here: `PORTx` and `LATx` share one write
+path, so only the *read* side differs, and with `TRISA = 0x0` every RA pin is an
+output whose pin level equals its latch level. The compiler confirms it — the
+same five instructions (`andwf` x4, `iorwf` x1) are emitted against `LATA` in
+place of `PORTA`, so the image is byte-identical at 4279 words / 180 bytes.
+
+Two `PORTA` accesses remain, both in whole-register writes: `init()` at
+`control_routines.c:59` and `process_channel()` at `:213`. Each is
+`PORTA = ((PORTA & ~MASK) | value)`, so the right-hand side still reads pin
+levels rather than the latch. That is harmless for the same `TRISA = 0x0`
+reason, and neither line is a read-modify-write against a second writer — no ISR
+touches `PORTA` — so there is no race to lose. They were left as `PORTA` because
+the conversion request was scoped to `configure_attenuation()`.
 
 **9. `process_ir()` dropped `volatile`.** Its signature is now
 `void process_ir(volatile Instance_t *instance)` (`control_routines.c:326`),
