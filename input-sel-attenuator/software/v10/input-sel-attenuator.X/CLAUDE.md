@@ -70,8 +70,8 @@ init() → irmp_init() → while(1):
 
 `../README.md` section 17 tracks 20 items with OPEN / PARTIAL / FIXED / NOT A BUG
 status. Check it before changing anything, and update the status if you fix one.
-Eleven are now **FIXED** (1, 3, 4, 5, 6, 8, 9, 11, 14, 16, 17) and two are **NOT
-A BUG** (2 and 7); nothing is left PARTIAL.
+Twelve are now **FIXED** (1, 3, 4, 5, 6, 8, 9, 11, 14, 16, 17, 18) and two are
+**NOT A BUG** (2 and 7); nothing is left PARTIAL.
 
 **Issues 1 and 5 are closed.** `init()` now reads the EEPROM channel into a
 `uint8_t` and range-checks it *before* casting to `int8_t`, so a corrupt byte can
@@ -85,7 +85,7 @@ with a `press_pending` flag, and the main loop must never write `press` — it i
 the producer's field exclusively. There are no genuinely 16-bit shared fields
 left; `press` and `control` were never 2 bytes to begin with.
 
-Seven further notes worth knowing before editing:
+Eight further notes worth knowing before editing:
 
 - **XC8 v4.00 does narrow enums to 1 byte here** (`sizeof(enum ButtonPress) == 1`).
   An earlier version of the README claimed 2 and built a whole analysis on it;
@@ -100,12 +100,12 @@ Seven further notes worth knowing before editing:
 - **The `.map` size columns are hexadecimal, not word counts.** `main` appears
   as `0x102` there, i.e. 258 words. Do not paste those strings into a table of
   sizes without converting.
-- **Do not "fix" the `"uses 10us time"` comment** above
-  `encoder_timer_callback()` (`irq_routines.c:235`). It looks stale — the tick is
-  really 1 ms — but it is intentional: it documents the `#if 0 led_toggel()`
-  measurement scaffolding that still brackets the ISR entry and exit points, and
-  that harness is still in the file. This was issue 7; it is now recorded as
-  NOT A BUG, not OPEN.
+- **Do not "fix" the `(10us)` comment** at `irq_routines.c:250`, inside
+  `encoder_timer_callback()`. It looks stale — the tick is really 1 ms — but it
+  is intentional: it documents the `#if 0 led_toggel()` measurement scaffolding
+  that still brackets the ISR entry and exit points (`:241`, `:252`, `:260`,
+  `:264`), and that harness is still in the file. This was issue 7; it is now
+  recorded as NOT A BUG, not OPEN.
 - **Use `LATB`, not `PORTB`, for the channel-select relays.** `TRISB = 0xD0`, so
   RB4/RB6/RB7 are inputs on the same port. A `PORTB` read-modify-write reads the
   *pin* level on those bits and latches it into the output latch, so every
@@ -113,6 +113,13 @@ Seven further notes worth knowing before editing:
   issue 8; all channel-select writes in `init()` and `process_channel()` are now
   `LATB`, including the two in the `#if 0` branch. The `PORTA` RMWs are
   deliberately *not* changed — `TRISA = 0x0` makes all of PORTA an output.
+- **Never cast `volatile` away to satisfy a signature — make the signature
+  honest instead.** `instance` is a `volatile Instance_t`, so
+  `&instance.encoder[…].button` is a `volatile Button_t *` and passes to a
+  `volatile Button_t *` parameter implicitly. The three `(Button_t *)` casts at
+  the `button_fsm()` call sites existed only because the parameter was plain
+  (issue 18). Adding a qualifier is a valid implicit conversion in C, so taking
+  the volatile pointer is usually free; on this part it cost 4 words.
 - `irq_routines.c` is the 1ms tick, so anything added there runs in an ISR —
   no `__delay_ms()`, no blocking calls. The relay delays in
   `control_routines.c` do block, for up to ~36ms.
