@@ -359,7 +359,10 @@ void process_ir(volatile Instance_t* instance) {
             attenuation++;
             break;
           case IR_KEY_OK:
-            /* possible location to store current volume */
+            /* store current state to eeprom */
+            instance->save_countdown_counter = DEFAULT_SAVE_COUNTDOWN;
+            instance->save_action |= SaveChannel;
+            instance->save_action |= SaveVolume;
             break;
           case IR_KEY_1:
             channel = 0;

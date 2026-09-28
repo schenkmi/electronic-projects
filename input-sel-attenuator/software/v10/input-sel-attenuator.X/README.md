@@ -220,7 +220,7 @@ irmp_init();
 irmp_set_callback_ptr(led_callback);  // LED feedback on IR reception
 ```
 
-**Main Loop Processing (`control_routines.c:321-387`):**
+**Main Loop Processing (`control_routines.c:336-410`):**
 
 ```c
 void process_ir(volatile Instance_t* instance) {
@@ -240,6 +240,11 @@ void process_ir(volatile Instance_t* instance) {
           case IR_KEY_VOL_UP:  attenuation--; break;
           case IR_KEY_VOL_DOWN: attenuation++; break;
           case IR_KEY_1:       channel = 0; break;
+          case IR_KEY_OK:      // explicit "store these" (issue 10)
+            instance->save_countdown_counter = DEFAULT_SAVE_COUNTDOWN;
+            instance->save_action |= SaveChannel;
+            instance->save_action |= SaveVolume;
+            break;
           // ... more keys
         }
       }
@@ -321,8 +326,8 @@ typedef struct {
 | `irmp/irmpconfig.h` | Protocol selection and configuration |
 | `irmp/irmp.c` | Core decoder implementation |
 | `irmp/irmpprotocols.h` | Protocol definitions and timing constants |
-| `irq_routines.c` | Timer2 ISR calling `irmp_ISR()` (line 323) |
-| `control_routines.c` | IR command processing in `process_ir()` (line 321) |
+| `irq_routines.c` | Timer2 ISR calling `irmp_ISR()` (line 252) |
+| `control_routines.c` | IR command processing in `process_ir()` (line 336) |
 | `definitions.h` | RC5 key codes and `IR_REMOTE_ADDRESS` |
 
 ---
