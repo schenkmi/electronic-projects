@@ -74,7 +74,7 @@ This is software revision **v10**, kept in step with the `V2.6` entry above. The
 
 The `main.c` entry says only "Various corrections and optimizations". The
 substance is the audit in [section 17](#17-known-issues-and-caveats), which now
-has **14 of 20 items fixed**, 2 confirmed not bugs, 1 partial and 3 open. The
+has **15 of 20 items fixed**, 2 confirmed not bugs, 1 partial and 2 open. The
 changes that alter behaviour or resource use:
 
 **Correctness**
@@ -98,15 +98,16 @@ changes that alter behaviour or resource use:
 - Smaller fixes: the `save_mode` index on channel change (3), the unreachable
   `Single`-mode channel-select path (4), `press` handed from the ISR instead of
   raced (5), button-FSM duplication and its dead `#else` copies (11, 16, 17, 18),
-  the `factory_reset` prototype (14), a dead constant (6), and `process_ir()`
-  keeping `volatile` (9).
+  the `factory_reset` prototype (14), a dead constant (6), `process_ir()` keeping
+  `volatile` (9), and the remote's `IR_KEY_OK` becoming an explicit store gesture
+  so IR changes are no longer lost on power-down (10).
 
 **Resource use**
 
 | | before V2.6 | after |
 |---|---|---|
-| Program memory | 4290 words (26.2 %) | **4157 words (25.4 %)** |
-| Data memory | 181 bytes (8.8 %) | **175 bytes (8.5 %)** |
+| Program memory | 4290 words (26.2 %) | **4185 words (25.5 %)** |
+| Data memory | 181 bytes (8.8 %) | **177 bytes (8.6 %)** |
 | `sizeof(Instance_t)` | 65 | **59** |
 
 **Partly addressed:** the main loop still blocks on relay settling, but only
@@ -123,9 +124,8 @@ affect how the hardware is read:
   earlier "odd multipliers land between detents" analysis, and the 6 / 2
   multipliers derived from it, were both based on the wrong detent count.
 
-**Still open:** IR-initiated changes are never persisted (10), `Single` mode has
-no gesture to store a default attenuation (19), and the volume/channel toggle has
-no user-visible feedback (20).
+**Still open:** `Single` mode has no gesture to store a default attenuation (19),
+and the volume/channel toggle has no user-visible feedback (20).
 
 ---
 
@@ -199,10 +199,10 @@ listing.
 | Module / function | Words | Source |
 |---|---|---|
 | `irmp/irmp.c` (whole module) | 1532 | `irmp/irmp.c` |
-| `control_routines.c` (whole module) | 1207 | — |
+| `control_routines.c` (whole module) | 1235 | — |
 | `irq_routines.c` (whole module) | 639 | — |
 | `eeprom_save_status` | 205 | `control_routines.c:241` |
-| `process_ir` | 166 | `control_routines.c:336` |
+| `process_ir` | 194 | `control_routines.c:336` |
 | `process_channel` | 197 | `control_routines.c:200` |
 | `process_encoder_button` | 189 | `control_routines.c:275` |
 | `button_fsm` | 174 | `irq_routines.c:37` |
@@ -217,20 +217,20 @@ listing.
 | `encoder_timer_callback` | 9 | `irq_routines.c:228` |
 | `led_callback` | 9 | `control_routines.c:39` |
 | `ir_timer_callback` | 3 | `irq_routines.c:247` |
-| **Program memory** | **4157 / 16384 (25.4 %)** | |
-| **Data memory** | **175 / 2048 (8.5 %)** | |
+| **Program memory** | **4185 / 16384 (25.5 %)** | |
+| **Data memory** | **177 / 2048 (8.6 %)** | |
 
 Summing every project translation unit in the map (the 16 rows above are the
-largest; there are 37 functions in all) gives 3791 of the 4157 words. The
+largest; there are 37 functions in all) gives 3819 of the 4185 words. The
 remaining 366 are not project logic:
 
 | Component | Words |
 |---|---|
-| Project code, all 37 functions | 3791 |
+| Project code, all 37 functions | 3819 |
 | XC8 library: `__eeread.c`, `__eewrite.c`, `memcpy.c` | 84 |
 | `shared`: `__initialization` + the IRMP `STRCODE` protocol tables | 199 |
 | Residual, by subtraction — reset/interrupt vectors, psect alignment padding, and C-runtime helpers the map does not list | 83 |
-| **Program memory** | **4157** |
+| **Program memory** | **4185** |
 
 The library and `shared` rows are stable at 84 and 199 across builds; the
 project and residual rows move with the code. Both are derived from the map's
@@ -833,7 +833,7 @@ Contour 8 (Hitachi 2676) remote (`definitions.h:68`):
 | `IR_KEY_CH_UP` / `CH_DOWN` | 32 / 33 | next / previous channel (wraps) |
 | `IR_KEY_VOL_UP` | 16 | attenuation−1 (louder) |
 | `IR_KEY_VOL_DOWN` | 17 | attenuation+1 (quieter) |
-| `IR_KEY_OK` | 53 | reserved — no-op |
+| `IR_KEY_OK` | 53 | **store** current channel + volume as defaults (issue 10) |
 | `IR_KEY_MUTE` | 13 | reserved — no-op |
 
 RC5 sets the **toggle bit** on every second press of the same key. The code
@@ -927,7 +927,7 @@ rewritten entry.
 | 7 | ~~`"10 us"` comment on the 1 ms encoder callback~~ — **intentional; left as-is** | **NOT A BUG** |
 | 8 | `PORTB` read-modify-write instead of `LATB` | **FIXED** *(four live writes, plus two in the `#if 0` branch, converted to `LATB`)* |
 | 9 | `process_ir()` dropped `volatile` | **FIXED** |
-| 10 | IR-initiated changes are never persisted | OPEN |
+| 10 | IR-initiated changes are never persisted | **FIXED** *(`IR_KEY_OK` is now the explicit store gesture; remote changes stay temporary until then — see below)* |
 | 11 | Button FSM code duplication | **FIXED** *(dead copies deleted too — issue 17)* |
 | 12 | Long blocking delays in the main loop | **PARTIAL** *(half the delays were no-ops and are gone; worst case 42 → 24 ms; loop still blocks)* |
 | 13 | Non-linear channel selector on the encoder | **FIXED** *(cause was lost travel on reversal, not the multiplier: remainder now preserved and the direction-change reset removed; 3 / 1 unchanged and correct for this 12 PPR / 24 detent part)* |
@@ -1005,11 +1005,56 @@ Four earlier statements in this document were wrong and are corrected here:
 
 #### OPEN
 
-**10. IR-initiated changes are not persisted.** No `save_action` is armed from
-`process_ir()`, so a volume change made with the remote is lost on power cycle.
-Channel changes *are* saved, now correctly gated on `save_mode[Channel]` since
-issue 3 was fixed. If "remote changes are temporary" is intentional it deserves a
-comment; if not, `process_ir()` is missing a `save_action |= SaveVolume`.
+**10. IR-initiated changes are not persisted.** *FIXED: the remote's OK key is
+now the explicit "store these" gesture.* Changes made with the remote are still
+**temporary** — they live in `instance` and are lost on power-down — but pressing
+`IR_KEY_OK` now arms the same delayed-save path the encoder long-presses use
+(`control_routines.c:361`): it sets `save_countdown_counter` and both the
+`SaveVolume` and `SaveChannel` bits. The `/* possible location to store current
+volume */` comment that marked the gap is gone, replaced by the code it was
+describing.
+
+That answers the question the original entry posed, and gating on OK is the right
+shape for it:
+
+- **Saving on every VOL+/VOL− would wear the EEPROM out.** Holding VOL+ on an RC5
+  remote does not send one frame — IRMP re-sends it with the toggle bit set, and
+  `process_ir()` deliberately accepts volume keys in that state so a hold
+  repeats smoothly. That is many `attenuation++` steps per second. The existing
+  `eeprom_save_status()` deduplicates with `if (eeprom_read(...) != ...)`, but
+  that only suppresses a *repeat of the same value*; a user ratcheting the volume
+  up and down would still write on every step. A deliberate OK press avoids that
+  entirely. (This part is the datasheet endurance claim done properly: the cell is
+  rated for a finite number of write/erase cycles, and a per-keystroke save is
+  the one usage pattern that actually exhausts them.)
+- **An explicit commit matches the rest of the UI.** Both encoders store on
+  long-press rather than on release, so "press to commit" is already the
+  established convention.
+- **`save_mode[]` is deliberately not consulted here.** It gates the *automatic*
+  long-press save; an explicit OK press is not automatic, so honouring
+  `SaveOnLongPress` there would be wrong.
+
+Two mechanics worth recording, both verified against the current build:
+
+- `SaveAction` is a real bitmask — `NoSaveAction = 0, SaveVolume = 0x1,
+  SaveChannel = 0x2` (`definitions.h:123`) — so the two `|=` lines combine
+  correctly, and `eeprom_save_status()` clears each bit as it services it. A
+  second OK press before the countdown expires sets the same bits again and is
+  harmless.
+- **Caveat:** `eeprom_save_status()` performs the write only under
+  `if (instance->mode == Dual)`; its `else` branch is empty
+  (`control_routines.c:270`). So the OK key is a silent no-op if `Single` mode
+  ever becomes reachable. That cannot happen today — `mode` is set to `Dual` at
+  `main.c:92` and never reassigned — but it is the same structural gap as
+  issue 19, and fixing OK for IR does not fix it for the encoders.
+
+`IR_KEY_MUTE` (13) is still defined with no `case` for it, so mute stays on the
+`main.c` "Next steps" list. That is a separate gap, not part of this fix.
+
+Cost: `process_ir()` 166 → **194** words (+28), program 4157 → **4185** words,
+data 175 → **177** bytes. The +2 data bytes are added temporaries in
+`process_ir()`'s frame, not struct growth — `sizeof(Instance_t)` is unchanged at
+**59**, confirmed by a `_Static_assert` rather than by reading the map.
 
 **12. Long blocking delays in the main loop.** *PARTIAL: the worst case is
 roughly halved, the blocking itself remains.* A pending IR command or button
@@ -1214,10 +1259,12 @@ Cost, measured as three separate builds of the same tree:
 |---|---|---|
 | A — original (cast, member present) | 4290 | 181 |
 | B — cast removed, member kept | 4257 | 181 |
-| C — cast removed, member removed (shipped) | **4157** | **175** |
+| C — cast removed, member removed | **4157** | **175** |
+| D — current shipped (issue 10 fix also applied) | **4185** | **177** |
 
-So the cast alone is −33 words, and dropping the dead member is a further
-−100 words and −6 bytes. The member removal is worth far more than the copy
+So the cast alone is −33 words (A→B), and dropping the dead member is a further
+−100 words and −6 bytes (B→C). Row D is issue 10, measured after that experiment
+was closed and unrelated to it; the A/B/C deltas above are unaffected by it. The member removal is worth far more than the copy
 it eliminated, and the reason is *not* the copy: shrinking `Instance_t` by 6
 bytes re-encodes every field offset in every function that touches the struct, so
 functions this change never went near got smaller too — `process_channel` 215
@@ -1446,7 +1493,7 @@ and it is wide enough for both ranges with room to spare. The `!= -1` and
 `> ROTARY_MAX_*` tests at `control_routines.c:200`, `:228`, `:382` and `:391` keep
 working unchanged, because `int8_t` promotes to `int` in every expression. The four
 `temporary` locals in the ISR (`irq_routines.c:125`, `:154`, `:190`, `:204`) and
-the two in `process_ir()` (`control_routines.c:337`–`:338`) were narrowed to
+the two in `process_ir()` (`control_routines.c:344`–`:345`) were narrowed to
 match, so nothing takes a `volatile int` down to `int8_t` implicitly — the
 project compiles with `-mwarn=-3`, and that is what surfaced the eight narrowing
 diagnostics that the explicit types now silence.
@@ -1547,11 +1594,11 @@ one-for-one correspondence with the six source sites.)
 
 Program memory is unchanged by this fix at 4275 words and data at 180 bytes — the
 swap is a substitution of the SFR operand, so it emits the same instructions.
-(The current total is 4157; issue 18 added 4 words, issue 13 added 11, and issue 15
-removed 133.) The
+(The current total is 4185; issue 18 added 4 words, issue 13 added 11, issue 15
+removed 133, and issue 10 added 28.) The
 per-module size is unchanged by this fix as well, since the swap only substitutes
-the SFR operand; `control_routines.c` was 1253 words at the time and is 1207 now,
-the difference being issues 12 and 13.
+the SFR operand; `control_routines.c` was 1253 words at the time and is 1235 now,
+the difference being issues 12, 13 and 10.
 
 The `PORTA` RMWs were left alone at the time, on the grounds that `TRISA = 0x0`
 makes all of PORTA an output so there is no input-pin read-back. They have since
@@ -1579,7 +1626,7 @@ there is no race to lose. It was left as `PORTA` because the conversion was
 scoped to `init()` and `configure_attenuation()`.
 
 **9. `process_ir()` dropped `volatile`.** Its signature is now
-`void process_ir(volatile Instance_t *instance)` (`control_routines.c:326`),
+`void process_ir(volatile Instance_t *instance)` (`control_routines.c:336`),
 matching every sibling function. See issue 15 for the cast that accompanied it.
 
 **11. Button FSM code duplication.** *All three call sites converted, dead copies
@@ -1607,7 +1654,7 @@ main.c:129: warning: (1518) direct function call made with an incomplete prototy
 
 and that warning is now gone. A prototype change is a compile-time-only
 correction, so the code is untouched: program memory was still 4275 words at that
-point (4157 now, after the issues 18, 13 and 15 fixes), data
+point (4185 now, after the issues 18, 13, 15 and 10 fixes), data
 still 180 bytes, `control_routines.c` still 1253 words. (Both of those
 per-module and RAM figures are as they stood then; the current values are in the
 size table at the top, and the older per-module numbers were measured
@@ -1635,7 +1682,7 @@ did not reproduce. A clean rebuild of the pre-narrowing tree against the committ
 match the rebuild exactly — so the module figures are sound but the running totals
 were off by a few tens of words. The only totals in this section that have been
 re-verified on a full link are the ones in the issue 5 entry: **4450 → 4275**.
-The current verified total is **4157** words / **175** data bytes, re-measured
+The current verified total is **4185** words / **177** data bytes, re-measured
 from a clean `make clobber && make build CONF=default` in a writable copy of the
 tree. Quote those two figures when describing the shipped image; treat every
 older total in this section as approximate. The per-function accounting in the
