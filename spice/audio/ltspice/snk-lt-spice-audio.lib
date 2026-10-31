@@ -1,4 +1,65 @@
 
+*-----------------------------------
+* From https://www.diyaudio.com/community/threads/better-power-mosfet-models-in-ltspice.266655/post-8133447
+
+*VDMOS with subthreshold (c) IanH & keantoken
+.model 10N20 VDMOS (Rg=60 Vto=0.17 Kp=1.33 Lambda=3m
++ Rs=0.245 Ksubthres=0.095 Mtriode=0.3 Rd=0.6
++ Bex=-2 Vtotc=-1.6m Tksubthres1=2.9m Trs1=2.6m Trd1=3m
++ Cgdmax=10p Cgdmin=3p a=0.25 Cgs=700p Cjo=350p Trb1=1m
++ m=0.7 VJ=0.75 IS=4n N=1 Eg=1.5 Rb=0.2 Vds=200 Ron=1 mfg=IHKT2510)
+
+*VDMOS with subthreshold (c) IanH & keantoken
+.model 10P20 VDMOS (pchan Rg=60 Vto=-0.535 Kp=0.995
++ Rs=0.37 Ksubthres=0.12 Mtriode=0.4 Rd=0.2 Lambda=5m
++ Bex=-2 Vtotc=+1.7m Tksubthres1=3.1m Trs1=3.4m Trd1=0
++ Cgdmax=30p Cgdmin=5p a=0.25 Cgs=1n Cjo=900p
++ m=0.7 VJ=0.75 IS=4u N=2.4 Eg=1 Rb=1 Vds=-200 Ron=1 mfg=IHKT2510)
+****
+*VDMOS with subthreshold (c) IanH & keantoken
+.model 20N20 VDMOS (Rg=30 Vto=0.155 Kp=2.4 Lambda=3m
++ Rs=0.12 Ksubthres=0.09 Mtriode=0.3 Rd=0.16
++ Bex=-1.9 Vtotc=-1.6m Tksubthres1=1m Trs1=2.5m  Trd1=3m
++ Cgdmax=16p Cgdmin=5p a=0.25 Cgs=1.4n Cjo=700p
++ m=0.7 VJ=0.75 IS=8n N=1 Eg=1.5 Rb=0.1 Vds=200 Ron=0.5 mfg=IHKT2510)
+
+*VDMOS with subthreshold (c) IanH & keantoken
+.model 20P20 VDMOS (pchan Rg=30 Vto=-0.61 Kp=1.85 Lambda=5m
++ Rs=0.17 Ksubthres=0.105 Mtriode=0.35 Rd=0.05
++ Bex=-2 Vtotc=+2.2m Tksubthres1=5m Trs1=2m Trd1=0
++ Cgdmax=55p Cgdmin=10p a=0.25 Cgs=2n Cjo=1800p
++ m=0.7 VJ=0.75 IS=8u N=2.4 Eg=2.4 Rb=0.5 Vds=-200 Ron=0.5 mfg=IHKT2510)
+***************************************************
+*VDMOS with subthreshold
+.model 2SK1058h VDMOS (Rg=60 Vto=0.05 Kp=0.6 Lambda=3m
++ Rs=0.245 Ksubthres=0.095 Mtriode=0.3 Rd=0.6
++ Bex=-2.3 Vtotc=-1.6m Tksubthres1=0m Trs1=0m Trd1=3m
++ Cgdmax=10p Cgdmin=5p a=0.25 Cgs=680p Cjo=350p
++ m=0.7 VJ=0.75 IS=4n N=1 Eg=1.5 Rb=0.2 Vds=160 Ron=1 mfg=IH2510)
+*
+* VDMOS with subthreshold
+.model 2SJ162h VDMOS (pchan Rg=60 Vto=-0.02 Kp=0.6 Lambda=5m
++ Rs=0.37 Ksubthres=0.12 Mtriode=0.4 Rd=0.2
++ Bex=-2.2 Vtotc=+1.5m Tksubthres1=0m Trs1=0m Trd1=3m
++ Cgdmax=20p Cgdmin=10p a=0.25 Cgs=900p Cjo=700p
++ m=0.7 VJ=0.75 IS=4u N=2.4 Eg=1 Rb=1 Vds=-140 Ron=1 mfg=IHBC2510)
+****
+*VDMOS with subthreshold
+.model 2SK134h VDMOS (Rg=60 Vto=0.05 Kp=0.6 Lambda=3m
++ Rs=0.245 Ksubthres=0.095 Mtriode=0.3 Rd=0.6
++ Bex=-2.3 Vtotc=-1.6m Tksubthres1=0m Trs1=0m Trd1=3m
++ Cgdmax=10p Cgdmin=5p a=0.25 Cgs=680p Cjo=350p
++ m=0.7 VJ=0.75 IS=4n N=1 Eg=1.5 Rb=0.2 Vds=140 mfg=IHBC2510)
+*
+* VDMOS with subthreshold
+.model 2SJ49h VDMOS (pchan Rg=60 Vto=-0.02 Kp=0.6 Lambda=5m
++ Rs=0.37 Ksubthres=0.12 Mtriode=0.4 Rd=0.2
++ Bex=-2.2 Vtotc=+1.5m Tksubthres1=0m Trs1=0m Trd1=3m
++ Cgdmax=20p Cgdmin=10p a=0.25 Cgs=900p Cjo=700p
++ m=0.7 VJ=0.75 IS=4u N=2.4 Eg=1 Rb=1 Vds=160 mfg=IHBC2510)
+
+*-----------------------------------
+
 *6922EH LTspice model based on the generic triode model from Adrian Immler, version i4
 *A version log is at the end of this file
 *100h BurnIn of 4 electro-harmonix factory tubes, sample selection and measurements done in April 2021
