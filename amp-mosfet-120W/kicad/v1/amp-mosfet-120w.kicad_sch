@@ -2759,7 +2759,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "kicad-snk:Q_NMOS_GSD"
+		(symbol "kicad-snk:ECW20N20"
 			(pin_names
 				(offset 0)
 				(hide yes)
@@ -2770,31 +2770,32 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "Q"
-				(at 7.62 1.27 0)
+				(at 5.08 1.905 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify right)
+					(justify left)
 				)
 			)
-			(property "Value" "kicad-snk_Q_NMOS_GSD"
-				(at 16.51 -1.27 0)
+			(property "Value" "ECW20N20"
+				(at 5.08 0 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify right)
+					(justify left)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "Package_TO_SOT_THT:TO-264-3_Horizontal_TabDown"
 				(at 5.08 2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -2805,13 +2806,14 @@
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Description" ""
+			(property "Description" "N-MOSFET transistor, gate/source/drain"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -2822,13 +2824,36 @@
 					)
 				)
 			)
-			(symbol "Q_NMOS_GSD_0_1"
+			(property "ki_keywords" "transistor NMOS N-MOS N-MOSFET"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "ECW20N20_0_1"
 				(polyline
 					(pts
-						(xy 0.254 1.905) (xy 0.254 -1.905) (xy 0.254 -1.905)
+						(xy 0.254 1.905) (xy 0.254 -1.905)
 					)
 					(stroke
 						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -2849,34 +2874,10 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 1.778) (xy 2.54 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy 0.762 0.508) (xy 0.762 -0.508)
 					)
 					(stroke
 						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 0) (xy 2.54 0)
-					)
-					(stroke
-						(width 0)
 						(type default)
 					)
 					(fill
@@ -2897,7 +2898,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 -1.778) (xy 2.54 -1.778)
+						(xy 0.762 -1.778) (xy 3.302 -1.778) (xy 3.302 1.778) (xy 0.762 1.778)
 					)
 					(stroke
 						(width 0)
@@ -2920,8 +2921,8 @@
 					)
 				)
 				(circle
-					(center 1.27 0)
-					(radius 2.8194)
+					(center 1.651 0)
+					(radius 2.794)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -2942,9 +2943,31 @@
 						(type none)
 					)
 				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
 				(polyline
 					(pts
-						(xy 2.54 -1.778) (xy 2.54 0)
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
 					)
 					(stroke
 						(width 0)
@@ -2956,7 +2979,19 @@
 				)
 				(polyline
 					(pts
-						(xy 2.54 -1.778) (xy 2.54 -2.54)
+						(xy 2.921 0.381) (xy 3.683 0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.302 0.381) (xy 2.921 -0.254) (xy 3.683 -0.254) (xy 3.302 0.381)
 					)
 					(stroke
 						(width 0)
@@ -2967,10 +3002,10 @@
 					)
 				)
 			)
-			(symbol "Q_NMOS_GSD_1_1"
+			(symbol "ECW20N20_1_1"
 				(pin input line
 					(at -5.08 0 0)
-					(length 5.334)
+					(length 2.54)
 					(name "G"
 						(effects
 							(font
@@ -3025,7 +3060,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "kicad-snk:Q_PMOS_GSD"
+		(symbol "kicad-snk:ECW20P20"
 			(pin_names
 				(offset 0)
 				(hide yes)
@@ -3036,31 +3071,32 @@
 			(in_pos_files yes)
 			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "Q"
-				(at 7.62 1.27 0)
+				(at 5.08 1.905 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify right)
+					(justify left)
 				)
 			)
-			(property "Value" "kicad-snk_Q_PMOS_GSD"
-				(at 16.51 -1.27 0)
+			(property "Value" "ECW20P20"
+				(at 5.08 0 0)
 				(show_name no)
 				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify right)
+					(justify left)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "Package_TO_SOT_THT:TO-264-3_Horizontal_TabDown"
 				(at 5.08 2.54 0)
 				(show_name no)
 				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -3071,13 +3107,14 @@
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Description" ""
+			(property "Description" "P-MOSFET transistor, gate/source/drain"
 				(at 0 0 0)
 				(show_name no)
 				(do_not_autoplace no)
@@ -3088,13 +3125,36 @@
 					)
 				)
 			)
-			(symbol "Q_PMOS_GSD_0_1"
+			(property "ki_keywords" "transistor PMOS P-MOS P-MOSFET"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "ECW20P20_0_1"
 				(polyline
 					(pts
-						(xy 0.254 1.905) (xy 0.254 -1.905) (xy 0.254 -1.905)
+						(xy 0.254 1.905) (xy 0.254 -1.905)
 					)
 					(stroke
 						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -3115,7 +3175,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 1.778) (xy 2.54 1.778)
+						(xy 0.762 1.778) (xy 3.302 1.778) (xy 3.302 -1.778) (xy 0.762 -1.778)
 					)
 					(stroke
 						(width 0)
@@ -3139,18 +3199,6 @@
 				)
 				(polyline
 					(pts
-						(xy 0.762 0) (xy 2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
 						(xy 0.762 -1.27) (xy 0.762 -2.286)
 					)
 					(stroke
@@ -3161,21 +3209,9 @@
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 0.762 -1.778) (xy 2.54 -1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
 				(circle
-					(center 1.27 0)
-					(radius 2.8194)
+					(center 1.651 0)
+					(radius 2.794)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -3186,7 +3222,7 @@
 				)
 				(polyline
 					(pts
-						(xy 2.286 0) (xy 1.27 -0.381) (xy 1.27 0.381) (xy 2.286 0)
+						(xy 2.286 0) (xy 1.27 0.381) (xy 1.27 -0.381) (xy 2.286 0)
 					)
 					(stroke
 						(width 0)
@@ -3208,9 +3244,31 @@
 						(type none)
 					)
 				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
 				(polyline
 					(pts
-						(xy 2.54 -1.778) (xy 2.54 0)
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
 					)
 					(stroke
 						(width 0)
@@ -3222,7 +3280,19 @@
 				)
 				(polyline
 					(pts
-						(xy 2.54 -1.778) (xy 2.54 -2.54)
+						(xy 2.921 -0.381) (xy 3.683 -0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.302 -0.381) (xy 2.921 0.254) (xy 3.683 0.254) (xy 3.302 -0.381)
 					)
 					(stroke
 						(width 0)
@@ -3233,10 +3303,10 @@
 					)
 				)
 			)
-			(symbol "Q_PMOS_GSD_1_1"
+			(symbol "ECW20P20_1_1"
 				(pin input line
 					(at -5.08 0 0)
-					(length 5.334)
+					(length 2.54)
 					(name "G"
 						(effects
 							(font
@@ -3255,7 +3325,7 @@
 				(pin passive line
 					(at 2.54 -5.08 90)
 					(length 2.54)
-					(name "D"
+					(name "S"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3273,7 +3343,7 @@
 				(pin passive line
 					(at 2.54 5.08 270)
 					(length 2.54)
-					(name "S"
+					(name "D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3428,7 +3498,7 @@
 	)
 	(text "Iq 120mA"
 		(exclude_from_sim no)
-		(at 299.72 91.44 0)
+		(at 298.704 49.022 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3653,10 +3723,16 @@
 		(uuid "79ce7ee9-3759-4d34-89f3-55a3571b9e33")
 	)
 	(junction
-		(at 298.45 190.5)
+		(at 298.45 173.99)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7d0dab95-9e7a-486e-a1d7-fc48860fd57d")
+	)
+	(junction
+		(at 298.45 193.04)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7dfbccb6-763a-4674-a8ad-8f885524e9a7")
 	)
 	(junction
 		(at 128.27 215.9)
@@ -3761,6 +3837,12 @@
 		(uuid "b5cf9804-9682-44fa-bae1-2bfa76f8ac61")
 	)
 	(junction
+		(at 298.45 77.47)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c05299a4-e315-4b23-a3ba-370ecaa8282d")
+	)
+	(junction
 		(at 322.58 134.62)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3821,7 +3903,7 @@
 		(uuid "f1447ad6-651c-45be-a2d6-33bddf672c2c")
 	)
 	(junction
-		(at 298.45 78.74)
+		(at 298.45 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f447e585-df78-4239-b8cb-4653b3837bb1")
@@ -4016,16 +4098,6 @@
 	)
 	(wire
 		(pts
-			(xy 298.45 215.9) (xy 298.45 190.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1241b7f2-e266-4f5c-8a97-9f0f9d0eef37")
-	)
-	(wire
-		(pts
 			(xy 113.03 57.15) (xy 196.85 57.15)
 		)
 		(stroke
@@ -4206,13 +4278,23 @@
 	)
 	(wire
 		(pts
-			(xy 303.53 78.74) (xy 298.45 78.74)
+			(xy 303.53 95.25) (xy 298.45 95.25)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "25bc3602-3fb4-4a04-94e3-21ba22562c24")
+	)
+	(wire
+		(pts
+			(xy 298.45 77.47) (xy 298.45 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2694600e-af3b-4ebb-a938-8bccb12bbb68")
 	)
 	(wire
 		(pts
@@ -4226,7 +4308,7 @@
 	)
 	(wire
 		(pts
-			(xy 303.53 190.5) (xy 298.45 190.5)
+			(xy 303.53 173.99) (xy 298.45 173.99)
 		)
 		(stroke
 			(width 0)
@@ -4296,7 +4378,7 @@
 	)
 	(wire
 		(pts
-			(xy 298.45 99.06) (xy 298.45 78.74)
+			(xy 298.45 57.15) (xy 298.45 77.47)
 		)
 		(stroke
 			(width 0)
@@ -4496,6 +4578,16 @@
 	)
 	(wire
 		(pts
+			(xy 311.15 193.04) (xy 314.96 193.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b93f3ba-7252-47fb-8803-fd3c4c89dc1c")
+	)
+	(wire
+		(pts
 			(xy 212.09 151.13) (xy 212.09 165.1)
 		)
 		(stroke
@@ -4626,16 +4718,6 @@
 	)
 	(wire
 		(pts
-			(xy 298.45 78.74) (xy 298.45 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5a222fb6-5159-4931-9015-19df65643140")
-	)
-	(wire
-		(pts
 			(xy 97.79 57.15) (xy 97.79 63.5)
 		)
 		(stroke
@@ -4686,7 +4768,7 @@
 	)
 	(wire
 		(pts
-			(xy 298.45 170.18) (xy 298.45 190.5)
+			(xy 298.45 170.18) (xy 298.45 193.04)
 		)
 		(stroke
 			(width 0)
@@ -4723,6 +4805,16 @@
 			(type default)
 		)
 		(uuid "6325c32f-c82a-4357-b022-f9c7e76f412e")
+	)
+	(wire
+		(pts
+			(xy 298.45 193.04) (xy 303.53 193.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64167dcb-eca0-4b18-bca1-fd5d78ee466d")
 	)
 	(wire
 		(pts
@@ -4836,7 +4928,7 @@
 	)
 	(wire
 		(pts
-			(xy 313.69 78.74) (xy 311.15 78.74)
+			(xy 313.69 95.25) (xy 311.15 95.25)
 		)
 		(stroke
 			(width 0)
@@ -5216,6 +5308,16 @@
 	)
 	(wire
 		(pts
+			(xy 298.45 77.47) (xy 303.53 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa3e2a0a-cf42-4661-bbc7-4e4700a63db6")
+	)
+	(wire
+		(pts
 			(xy 97.79 215.9) (xy 128.27 215.9)
 		)
 		(stroke
@@ -5253,6 +5355,16 @@
 			(type default)
 		)
 		(uuid "b20f91e7-e5cb-49e4-bcc3-484b5358f6d1")
+	)
+	(wire
+		(pts
+			(xy 311.15 77.47) (xy 314.96 77.47)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b68eef2d-9d63-4bbe-ab3c-59c11ccad887")
 	)
 	(wire
 		(pts
@@ -5306,7 +5418,7 @@
 	)
 	(wire
 		(pts
-			(xy 313.69 190.5) (xy 311.15 190.5)
+			(xy 313.69 173.99) (xy 311.15 173.99)
 		)
 		(stroke
 			(width 0)
@@ -5646,6 +5758,16 @@
 	)
 	(wire
 		(pts
+			(xy 298.45 193.04) (xy 298.45 215.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f2ab2bf8-4d37-44ef-bb1d-b7c56427cf30")
+	)
+	(wire
+		(pts
 			(xy 191.77 193.04) (xy 191.77 203.2)
 		)
 		(stroke
@@ -5824,7 +5946,7 @@
 			(uuid "11da1bb9-4f69-4b5f-971f-e779a6acea21")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C1")
 					(unit 1)
@@ -5900,7 +6022,7 @@
 			(uuid "b593c656-dd66-4e34-91b5-0c77aac223b4")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0101")
 					(unit 1)
@@ -5980,7 +6102,7 @@
 			(uuid "093a6301-5098-442f-87ea-0c4a242ed709")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R1")
 					(unit 1)
@@ -6056,7 +6178,7 @@
 			(uuid "d4a77696-ae92-4294-9ff1-63fb96cac304")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0102")
 					(unit 1)
@@ -6131,7 +6253,7 @@
 			(uuid "12f64870-f6ad-4e99-a8c3-e9d00435959c")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "J1")
 					(unit 1)
@@ -6206,7 +6328,7 @@
 			(uuid "2f4f96ee-ac10-44f6-a87c-26ccc25a49f6")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "J2")
 					(unit 1)
@@ -6286,7 +6408,7 @@
 			(uuid "b79f3865-3335-4611-84fa-193532cd18b0")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R6")
 					(unit 1)
@@ -6366,7 +6488,7 @@
 			(uuid "20de9821-5dc0-42cf-94c1-46fe0a1b36b9")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R3")
 					(unit 1)
@@ -6442,7 +6564,7 @@
 			(uuid "b398e6fb-5288-4b90-b862-e23d73075650")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0103")
 					(unit 1)
@@ -6522,7 +6644,7 @@
 			(uuid "24f6dfee-5748-4183-8ea5-02ebc33d0658")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R5")
 					(unit 1)
@@ -6602,7 +6724,7 @@
 			(uuid "3e670fa4-4e6c-44b6-8bdb-ef4ae836a4bf")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C4")
 					(unit 1)
@@ -6682,7 +6804,7 @@
 			(uuid "fa21fa18-f3b2-4f59-bbad-8b14e36895b2")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C6")
 					(unit 1)
@@ -6762,7 +6884,7 @@
 			(uuid "601d9520-7ca2-43e8-a600-f6c62d25fc46")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R10")
 					(unit 1)
@@ -6842,7 +6964,7 @@
 			(uuid "d7feb16d-ab1b-40ae-a96e-fc2b58c66556")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R7")
 					(unit 1)
@@ -6922,7 +7044,7 @@
 			(uuid "c5868367-44a1-4a7c-ac2c-d378bbbcc1b6")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R4")
 					(unit 1)
@@ -7002,7 +7124,7 @@
 			(uuid "d802a285-ad69-40d1-a642-aa1d31fbc3e3")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R11")
 					(unit 1)
@@ -7079,7 +7201,7 @@
 			(uuid "1c9ae216-767d-4fb5-856c-8bb60790a184")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "J3")
 					(unit 1)
@@ -7156,7 +7278,7 @@
 			(uuid "082ecb16-bdc7-404f-9607-610400050981")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "J4")
 					(unit 1)
@@ -7232,7 +7354,7 @@
 			(uuid "c21db988-8e06-49d4-aa01-23944e822627")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0109")
 					(unit 1)
@@ -7309,7 +7431,7 @@
 			(uuid "8319824d-9280-48c4-8b97-e3cf81505ee6")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "J6")
 					(unit 1)
@@ -7386,7 +7508,7 @@
 			(uuid "2eb05e7c-f810-43e8-86f8-82279882d4a8")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "J5")
 					(unit 1)
@@ -7462,7 +7584,7 @@
 			(uuid "eb1c0288-1a6c-49e8-b97d-d84c22124b1e")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0110")
 					(unit 1)
@@ -7545,7 +7667,7 @@
 			(uuid "2952e5f0-f605-4050-8d87-389b00d8c666")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "RV1")
 					(unit 1)
@@ -7626,7 +7748,7 @@
 			(uuid "b5325ae4-35da-4ce3-9b8a-6cca35396ea5")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C7")
 					(unit 1)
@@ -7706,7 +7828,7 @@
 			(uuid "ca594e79-4ad4-4c0d-b60e-4f3b63145a2a")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "D1")
 					(unit 1)
@@ -7786,7 +7908,7 @@
 			(uuid "f1060de1-57c9-4add-b60a-ee5bc3130708")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "D2")
 					(unit 1)
@@ -7866,7 +7988,7 @@
 			(uuid "b0f405d0-2eca-4f5d-9c12-e19f1bebe545")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "D3")
 					(unit 1)
@@ -7946,7 +8068,7 @@
 			(uuid "cb688c9a-ccdd-4db3-ac07-5d6983176cb7")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "D4")
 					(unit 1)
@@ -8026,93 +8148,9 @@
 			(uuid "aea75ec5-5279-4d47-ab09-573ae0a4819b")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kicad-snk:Q_PMOS_GSD")
-		(at 295.91 165.1 0)
-		(mirror x)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-00006196050c")
-		(property "Reference" "Q11"
-			(at 300.7614 167.4114 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "ECX10P20"
-			(at 300.7614 165.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-247-3_Horizontal_TabUp"
-			(at 300.7614 162.7886 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" ""
-			(at 295.91 165.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 295.91 165.1 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "45eb346c-7b11-4391-be23-9d22431ea3da")
-		)
-		(pin "2"
-			(uuid "c94ef21b-ad10-481a-8b2a-4ef5c622b4f9")
-		)
-		(pin "3"
-			(uuid "733cd583-6765-460e-9392-1633e8735adf")
-		)
-		(instances
-			(project "amp-mosfet-80w"
-				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
-					(reference "Q11")
 					(unit 1)
 				)
 			)
@@ -8187,7 +8225,7 @@
 			(uuid "5f78afa1-e33e-494b-aa5f-30b24adabe65")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "J7")
 					(unit 1)
@@ -8267,7 +8305,7 @@
 			(uuid "3815046d-27f5-4ccb-94bf-edfbe0a80d74")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R19")
 					(unit 1)
@@ -8343,7 +8381,7 @@
 			(uuid "95af7cb2-ae26-4ec0-aa09-c81279cf0d94")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0111")
 					(unit 1)
@@ -8423,7 +8461,7 @@
 			(uuid "5351d701-ff8f-4341-8cf7-e7c04cb69bc7")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C13")
 					(unit 1)
@@ -8453,7 +8491,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "220u/100V"
+		(property "Value" "220u/63V"
 			(at 253.1872 64.643 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8503,7 +8541,7 @@
 			(uuid "53c7c6e0-927b-423f-ab5e-3f87616bb5e3")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C11")
 					(unit 1)
@@ -8583,7 +8621,7 @@
 			(uuid "3cc8c766-6e80-41c9-a677-dd3168184e6e")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C9")
 					(unit 1)
@@ -8661,7 +8699,7 @@
 			(uuid "b40af5e8-5c6e-46b4-b5f9-b4716a98f7d5")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "D5")
 					(unit 1)
@@ -8741,7 +8779,7 @@
 			(uuid "2301e8e8-dfeb-4231-a2a0-6b269291f4a1")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R17")
 					(unit 1)
@@ -8771,7 +8809,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "220u/100V"
+		(property "Value" "220u/63V"
 			(at 253.1872 210.693 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8821,7 +8859,7 @@
 			(uuid "05431228-6c5d-4893-921a-c54021d96f10")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C12")
 					(unit 1)
@@ -8901,7 +8939,7 @@
 			(uuid "cca31834-c7f2-4e80-9406-c2d2d198c0ff")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C10")
 					(unit 1)
@@ -8975,7 +9013,7 @@
 			)
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "MK3")
 					(unit 1)
@@ -9049,7 +9087,7 @@
 			)
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "MK4")
 					(unit 1)
@@ -9129,7 +9167,7 @@
 			(uuid "1f8f12bc-8e92-41b7-bf03-48fc3941d8e1")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R18")
 					(unit 1)
@@ -9207,7 +9245,7 @@
 			(uuid "8ecd00e4-b660-477e-a97a-e2c6694c27ba")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "D6")
 					(unit 1)
@@ -9283,7 +9321,7 @@
 			(uuid "5d8d32b6-6899-4d8c-b417-c99edc0fd4f3")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0112")
 					(unit 1)
@@ -9359,7 +9397,7 @@
 			(uuid "d0a00acd-e3b5-4720-bd64-e904539067b3")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0113")
 					(unit 1)
@@ -9439,92 +9477,9 @@
 			(uuid "33ce77cd-72d9-4d90-9f8f-e3e1c7a6ad01")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R21")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "kicad-snk:Q_NMOS_GSD")
-		(at 295.91 104.14 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-0000619c3887")
-		(property "Reference" "Q12"
-			(at 300.7614 101.8286 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "ECX10N20"
-			(at 300.7614 104.14 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-247-3_Horizontal_TabUp"
-			(at 300.7614 106.4514 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Datasheet" ""
-			(at 295.91 104.14 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 295.91 104.14 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "ccfdddb4-12ca-4ac5-b8f5-740e0444ee8d")
-		)
-		(pin "2"
-			(uuid "1d50adac-ce04-47e5-b858-265b394cfa02")
-		)
-		(pin "3"
-			(uuid "c255a7a9-edb8-4191-a2e9-d52e28fe46a1")
-		)
-		(instances
-			(project "amp-mosfet-80w"
-				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
-					(reference "Q12")
 					(unit 1)
 				)
 			)
@@ -9598,7 +9553,7 @@
 			(uuid "4953395c-a43a-4459-8e1e-5bded79fd184")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0105")
 					(unit 1)
@@ -9674,7 +9629,7 @@
 			(uuid "07393278-bc07-4019-a186-45ddee27c076")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0106")
 					(unit 1)
@@ -9684,7 +9639,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 307.34 190.5 270)
+		(at 307.34 173.99 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9694,7 +9649,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-000061a3150b")
 		(property "Reference" "C18"
-			(at 308.5084 193.421 0)
+			(at 308.5084 176.911 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9705,7 +9660,7 @@
 			)
 		)
 		(property "Value" "100n/100V"
-			(at 306.197 193.421 0)
+			(at 306.197 176.911 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9716,7 +9671,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2"
-			(at 303.53 191.4652 0)
+			(at 303.53 174.9552 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9727,7 +9682,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 307.34 190.5 0)
+			(at 307.34 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9738,7 +9693,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 307.34 190.5 0)
+			(at 307.34 173.99 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9754,7 +9709,7 @@
 			(uuid "c702111f-bf63-4989-8915-c4230c7dd73c")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C18")
 					(unit 1)
@@ -9764,7 +9719,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 307.34 78.74 90)
+		(at 307.34 95.25 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9774,7 +9729,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-000061a31c7b")
 		(property "Reference" "C14"
-			(at 306.1716 75.819 0)
+			(at 306.1716 92.329 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9785,7 +9740,7 @@
 			)
 		)
 		(property "Value" "100n/100V"
-			(at 308.483 75.819 0)
+			(at 308.483 92.329 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9796,7 +9751,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2"
-			(at 311.15 77.7748 0)
+			(at 311.15 94.2848 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9807,7 +9762,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 307.34 78.74 0)
+			(at 307.34 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9818,7 +9773,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 307.34 78.74 0)
+			(at 307.34 95.25 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9834,7 +9789,7 @@
 			(uuid "afc30f2b-3bbf-4f18-87f7-28c7f56dac12")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C14")
 					(unit 1)
@@ -9844,7 +9799,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 313.69 190.5 90)
+		(at 313.69 173.99 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9854,7 +9809,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-000061a32ce6")
 		(property "Reference" "#PWR0114"
-			(at 320.04 190.5 0)
+			(at 320.04 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9865,7 +9820,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 318.0842 190.373 0)
+			(at 318.0842 173.863 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9875,7 +9830,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 313.69 190.5 0)
+			(at 313.69 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9886,7 +9841,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 313.69 190.5 0)
+			(at 313.69 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9897,7 +9852,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 313.69 190.5 0)
+			(at 313.69 173.99 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9910,7 +9865,7 @@
 			(uuid "092408d4-b316-4272-8a61-26cd49c787e4")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0114")
 					(unit 1)
@@ -9920,7 +9875,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 313.69 78.74 90)
+		(at 313.69 95.25 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -9930,7 +9885,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-000061a332de")
 		(property "Reference" "#PWR0115"
-			(at 320.04 78.74 0)
+			(at 320.04 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9941,7 +9896,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 318.0842 78.613 0)
+			(at 318.0842 95.123 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9951,7 +9906,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 313.69 78.74 0)
+			(at 313.69 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9962,7 +9917,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 313.69 78.74 0)
+			(at 313.69 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9973,7 +9928,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 313.69 78.74 0)
+			(at 313.69 95.25 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -9986,7 +9941,7 @@
 			(uuid "05fe445b-48c3-470e-bea4-ecdb1d87ac1a")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0115")
 					(unit 1)
@@ -10062,7 +10017,7 @@
 			(uuid "992b47b5-4742-4b91-8094-9c636b567ac3")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0107")
 					(unit 1)
@@ -10138,7 +10093,7 @@
 			(uuid "460bd70c-a5a8-4c5d-bba1-6cd7480f2efa")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0108")
 					(unit 1)
@@ -10231,7 +10186,7 @@
 			(uuid "f9007f4d-fcba-4d29-99d2-dfd66bff7424")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q1")
 					(unit 1)
@@ -10323,7 +10278,7 @@
 			(uuid "a2285651-61d7-419f-8e15-6bf6c6e6dd5d")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q1")
 					(unit 2)
@@ -10416,7 +10371,7 @@
 			(uuid "1f07f76e-4920-432b-b7bd-a0f06a5bef4a")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q2")
 					(unit 1)
@@ -10508,7 +10463,7 @@
 			(uuid "1c56d96d-fa53-4d21-be8c-bacb08d2651b")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q2")
 					(unit 2)
@@ -10594,7 +10549,7 @@
 			(uuid "df91cb4b-991e-460d-aae9-95d07ed5e157")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q6")
 					(unit 1)
@@ -10672,7 +10627,7 @@
 			(uuid "a2e39575-37ec-406b-a9cd-74a91ee4c4c7")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C8")
 					(unit 1)
@@ -10750,9 +10705,90 @@
 			(uuid "99470b79-f553-4739-953d-bece5e149b54")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:CP")
+		(at 307.34 193.04 90)
+		(mirror x)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2ad2aed9-e4d0-40b5-872a-8c74ce134476")
+		(property "Reference" "C16"
+			(at 306.1716 196.0372 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2200u/63V"
+			(at 308.483 196.0372 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm"
+			(at 311.15 194.0052 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 307.34 193.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 307.34 193.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "df1976cb-cb05-48ab-a353-3c42797f706f")
+		)
+		(pin "2"
+			(uuid "8bbafbe2-cf34-4ee5-8422-6de8b15e4a15")
+		)
+		(instances
+			(project "amp-mosfet-120w"
+				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
+					(reference "C16")
 					(unit 1)
 				)
 			)
@@ -10830,9 +10866,170 @@
 			(uuid "f8f878a5-3f1a-45a3-a23a-67c344f6afe1")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kicad-snk:ECW20P20")
+		(at 295.91 165.1 0)
+		(mirror x)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2c3f46d9-2e0b-419c-b9b3-13a20e6e7995")
+		(property "Reference" "Q10"
+			(at 302.26 166.3701 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ECW20P20"
+			(at 302.26 163.8301 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-264-3_Horizontal_TabDown"
+			(at 300.99 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 295.91 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "P-MOSFET transistor, gate/source/drain"
+			(at 295.91 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "90a7668e-a453-4d98-8964-ec4441d590f2")
+		)
+		(pin "1"
+			(uuid "0d46d741-a43f-4284-8f24-3c0d4300eef3")
+		)
+		(pin "3"
+			(uuid "c1e5b31f-05b1-475c-bfb3-2c628324107b")
+		)
+		(instances
+			(project "amp-mosfet-120w"
+				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
+					(reference "Q10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 314.96 193.04 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "2d0aba31-404d-4703-a09d-aea3b5cb0206")
+		(property "Reference" "#PWR0118"
+			(at 321.31 193.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 319.3542 192.913 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 314.96 193.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 314.96 193.04 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 314.96 193.04 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "46cddcbe-01c4-42fe-99ff-553049a2837f")
+		)
+		(instances
+			(project "amp-mosfet-120w"
+				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
+					(reference "#PWR0118")
 					(unit 1)
 				)
 			)
@@ -10860,7 +11057,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1R"
+		(property "Value" "0.47R"
 			(at 293.243 121.793 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10910,7 +11107,7 @@
 			(uuid "0b4b9841-baa2-4c7b-a915-b63aaebd108b")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R13")
 					(unit 1)
@@ -10940,7 +11137,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1R/1W"
+		(property "Value" "0.47R/1W"
 			(at 314.198 121.793 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10990,7 +11187,7 @@
 			(uuid "d3faeecb-b97b-4341-ada9-e7c7c0438892")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R20")
 					(unit 1)
@@ -11078,7 +11275,7 @@
 			(uuid "ba8be3d3-dfae-46af-ad75-bbca7d40fdbf")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q7")
 					(unit 1)
@@ -11108,7 +11305,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1R"
+		(property "Value" "0.47R"
 			(at 307.213 121.793 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11158,7 +11355,7 @@
 			(uuid "79c75ae5-b5db-43db-854f-21bb78dfb929")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R16")
 					(unit 1)
@@ -11238,7 +11435,7 @@
 			(uuid "9ace397a-53c5-42ee-936a-f4d2774a447c")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R22")
 					(unit 1)
@@ -11268,7 +11465,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1R"
+		(property "Value" "0.47R"
 			(at 300.228 121.793 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -11318,7 +11515,7 @@
 			(uuid "84bdff94-7f0d-49d5-8a72-e3de2beddf11")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R15")
 					(unit 1)
@@ -11398,7 +11595,7 @@
 			(uuid "04d58ba5-9ac1-4cb6-b983-458ab0ed27eb")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R23")
 					(unit 1)
@@ -11474,7 +11671,7 @@
 			(uuid "4134dfac-a6b8-426f-89ab-9e8f7c473612")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR03")
 					(unit 1)
@@ -11554,7 +11751,7 @@
 			(uuid "b40a4617-91d2-4700-9faf-4e7e4f1b0d97")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R26")
 					(unit 1)
@@ -11648,7 +11845,7 @@
 			(uuid "35dea4d2-7953-4bd0-87f6-6949b5324b8f")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q3")
 					(unit 1)
@@ -11741,7 +11938,7 @@
 			(uuid "e3c76058-a945-4c84-a3bd-ddd68b524818")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q3")
 					(unit 2)
@@ -11834,7 +12031,7 @@
 			(uuid "07b3276e-ea11-4e5d-b432-2f1411702c4a")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q4")
 					(unit 2)
@@ -11912,7 +12109,7 @@
 			(uuid "9bfad607-cdbe-4d7e-949f-aea5d3b2c581")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "C5")
 					(unit 1)
@@ -11992,7 +12189,7 @@
 			(uuid "ca04f75e-8dff-4d42-832e-3bc65a6320c3")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R24")
 					(unit 1)
@@ -12072,7 +12269,7 @@
 			(uuid "4e722daf-eca1-4e14-bf12-969ee896328a")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R28")
 					(unit 1)
@@ -12152,7 +12349,7 @@
 			(uuid "2c9d907d-0a4a-440d-b691-ce5d9a3d6a95")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R9")
 					(unit 1)
@@ -12228,9 +12425,89 @@
 			(uuid "9d9c8537-4cbe-4117-beb1-bafd29207a36")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "#PWR0116")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:CP")
+		(at 307.34 77.47 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "9d6d332a-b386-4dc1-8824-d3896c83005d")
+		(property "Reference" "C15"
+			(at 306.1716 74.4728 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2200u/63V"
+			(at 308.483 74.4728 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D18.0mm_P7.50mm"
+			(at 311.15 76.5048 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 307.34 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 307.34 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "75161d65-c270-409a-ba05-d56ad0bb6280")
+		)
+		(pin "2"
+			(uuid "979f97cc-c24e-4421-a62b-036841ff42c6")
+		)
+		(instances
+			(project "amp-mosfet-120w"
+				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
+					(reference "C15")
 					(unit 1)
 				)
 			)
@@ -12308,7 +12585,7 @@
 			(uuid "234cadf8-c6d0-47ae-a063-075e194122bb")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R12")
 					(unit 1)
@@ -12388,7 +12665,7 @@
 			(uuid "f5d73923-0e4d-4335-a587-f9a91e5493de")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R29")
 					(unit 1)
@@ -12482,9 +12759,85 @@
 			(uuid "35dea4d2-7953-4bd0-87f6-6949b5324b90")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 314.96 77.47 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "bd476872-9d45-4389-a430-284f1fdc8bc0")
+		(property "Reference" "#PWR0117"
+			(at 321.31 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 319.3542 77.343 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 314.96 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 314.96 77.47 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 314.96 77.47 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "4719b659-5381-4dc7-bb20-2a3121bada89")
+		)
+		(instances
+			(project "amp-mosfet-120w"
+				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
+					(reference "#PWR0117")
 					(unit 1)
 				)
 			)
@@ -12568,7 +12921,7 @@
 			(uuid "566ea7cc-ba7a-48db-bdfa-71ea2f1e1bba")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q5")
 					(unit 1)
@@ -12598,7 +12951,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1R"
+		(property "Value" "0.47"
 			(at 286.258 121.793 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12648,7 +13001,7 @@
 			(uuid "395bc5a1-4bc3-451c-bc0b-79c359694d67")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R2")
 					(unit 1)
@@ -12728,9 +13081,94 @@
 			(uuid "daede4bb-281d-4a39-a994-21fa26077618")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "kicad-snk:ECW20N20")
+		(at 295.91 104.14 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d87b8726-69cd-46f3-aae6-504c53395164")
+		(property "Reference" "Q9"
+			(at 302.26 102.8699 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ECW20N20"
+			(at 302.26 105.4099 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-264-3_Horizontal_TabDown"
+			(at 300.99 101.6 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 295.91 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "N-MOSFET transistor, gate/source/drain"
+			(at 295.91 104.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "3"
+			(uuid "dcee7a83-e1fd-471d-9c8d-660b7d323d4b")
+		)
+		(pin "2"
+			(uuid "d135010d-67b7-45ce-9294-12740fa5537c")
+		)
+		(pin "1"
+			(uuid "ecc25831-1204-444d-a72b-37ce4803bda8")
+		)
+		(instances
+			(project "amp-mosfet-120w"
+				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
+					(reference "Q9")
 					(unit 1)
 				)
 			)
@@ -12808,7 +13246,7 @@
 			(uuid "0525cf18-e90a-43d3-85e5-d1c6b2c8c49f")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "R8")
 					(unit 1)
@@ -12895,7 +13333,7 @@
 			(uuid "8f4700dd-21a5-468c-965d-c8d8a3f19c15")
 		)
 		(instances
-			(project "amp-mosfet-80w"
+			(project "amp-mosfet-120w"
 				(path "/0c3dceba-7c95-4b3d-b590-0eb581444beb"
 					(reference "Q8")
 					(unit 1)
