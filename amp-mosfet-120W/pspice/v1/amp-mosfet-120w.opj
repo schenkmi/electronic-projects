@@ -1,6 +1,6 @@
 (ExpressProject "amp-mosfet-160w"
   (ProjectVersion "19981106")
-  (SoftwareVersion "22.1 S006 (4129556)  [7/30/2023]-[09/03/23]")
+  (SoftwareVersion "25.1 S050 (4459063)  [7/18/2026]-[11/12/26]")
   (ProjectType "Analog or A/D Mixed Mode")
   (Folder "Design Resources"
     (Folder "Library"
@@ -25,9 +25,9 @@
            "..\..\..\..\..\..\..\..\Cadence\SPB_17.4\tools\capture\library\pspice\special.olb")
         (Type "Schematic Library")))
     (NoModify)
-    (File ".\amp-mosfet-80w.DSN"
+    (File ".\amp-mosfet-120w.DSN"
       (Type "Schematic Design")
-      (DisplayName ".\amp-mosfet-80w.DSN"))
+      (DisplayName ".\amp-mosfet-120w.DSN"))
     (BuildFileAddedOrDeleted "x")
     (CompileFileAddedOrDeleted "x")
     (ANNOTATE_Scope "0")
@@ -41,9 +41,9 @@
     (PSPICE_Regenerate_Netlist_Flag "FALSE"))
   (Folder "Layout")
   (Folder "Outputs"
-    (File ".\amp-mosfet-80w-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net"
+    (File ".\amp-mosfet-120w-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net"
       (Type "Report")
-      (DisplayName ".\amp-mosfet-80w-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net")))
+      (DisplayName ".\amp-mosfet-120w-PSpiceFiles\SCHEMATIC1\SCHEMATIC1.net")))
   (Folder "PSpice Resources"
     (Folder "Model Libraries"
       (Sort User))
@@ -53,24 +53,44 @@
       (Sort User))
     (Folder "Simulation Profiles"
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
-         ".\amp-mosfet-80w-pspicefiles\schematic1\tran.sim"
-        (DisplayName "SCHEMATIC1-Tran")
-        (Type "PSpice Profile"))
-      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
-         ".\amp-mosfet-80w-pspicefiles\schematic1\ac.sim"
-        (DisplayName "SCHEMATIC1-AC")
-        (Type "PSpice Profile"))
-      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
-         ".\amp-mosfet-80w-pspicefiles\schematic1\bias.sim"
+         ".\amp-mosfet-120w-pspicefiles\schematic1\bias.sim"
         (DisplayName "SCHEMATIC1-bias")
         (Type "PSpice Profile"))
       (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
-         ".\amp-mosfet-80w-pspicefiles\schematic1\tran-puls.sim"
+         ".\amp-mosfet-120w-pspicefiles\schematic1\ac.sim"
+        (DisplayName "SCHEMATIC1-AC")
+        (Type "PSpice Profile"))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\amp-mosfet-120w-pspicefiles\schematic1\tran-puls.sim"
         (DisplayName "SCHEMATIC1-Tran-Puls")
         (Type "PSpice Profile"))
-      (ActiveProfile ".\amp-mosfet-80w-pspicefiles\schematic1\ac.sim")))
+      (File.PSpice.{09528990-3187-11D2-BC7B-00A0C90CBF91}
+         ".\amp-mosfet-120w-pspicefiles\schematic1\tran.sim"
+        (DisplayName "SCHEMATIC1-Tran")
+        (Type "PSpice Profile"))
+      (ActiveProfile ".\amp-mosfet-120w-pspicefiles\schematic1\ac.sim")))
   (DefaultLibraryBrowseDirectory "library\PSpice")
   (PartMRUSelector
+    (ECW20P20
+      (FullPartName "ECW20P20.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\EXICONMOSFET\EXICONMOSFET.OLB")
+      (DeviceIndex "0"))
+    (ECW20N20
+      (FullPartName "ECW20N20.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\EXICONMOSFET\EXICONMOSFET.OLB")
+      (DeviceIndex "0"))
+    (ECX10P20
+      (FullPartName "ECX10P20.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\EXICONMOSFET\EXICONMOSFET.OLB")
+      (DeviceIndex "0"))
+    (ECX10N20
+      (FullPartName "ECX10N20.Normal")
+      (LibraryName
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\EXICONMOSFET\EXICONMOSFET.OLB")
+      (DeviceIndex "0"))
     (VPULSE
       (FullPartName "VPULSE.Normal")
       (LibraryName
@@ -175,58 +195,31 @@
       (FullPartName "BD139C.Normal")
       (LibraryName
          "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\CORDELL\CORDELL.OLB")
-      (DeviceIndex "0"))
-    (MJE340C
-      (FullPartName "MJE340C.Normal")
-      (LibraryName
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\CORDELL\CORDELL.OLB")
-      (DeviceIndex "0"))
-    (MJE350C
-      (FullPartName "MJE350C.Normal")
-      (LibraryName
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\CORDELL\CORDELL.OLB")
-      (DeviceIndex "0"))
-    (L
-      (FullPartName "L.Normal")
-      (LibraryName
-         "C:\CADENCE\SPB_17.4\TOOLS\CAPTURE\LIBRARY\PSPICE\ANALOG.OLB")
-      (DeviceIndex "0"))
-    (2SA1381C
-      (FullPartName "2SA1381C.Normal")
-      (LibraryName
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\PSPICE-TUBE-LIBRARY\CORDELL\CORDELL.OLB")
       (DeviceIndex "0")))
   (LastUsedLibraryBrowseDirectory
-     "C:\Users\schenk\Documents\GitHub\electronic-projects\pspice-tube-library\Cordell")
-  (MPSSessionName "Schenk")
+     "C:\Users\schenk\Documents\GitHub\electronic-projects\pspice-tube-library\ExiconMosFet")
+  (MPSSessionName "schenk")
   (Folder "Logs")
   (GlobalState
     (FileView
       (Path "Design Resources")
-      (Path "Design Resources"
-         "C:\Users\Schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice\v5f\amp-mosfet-80w.DSN")
-      (Path "Design Resources"
-         "C:\Users\Schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice\v5f\amp-mosfet-80w.DSN"
-         "SCHEMATIC1")
       (Path "Design Resources" "Library")
       (Path "Outputs")
-      (Select "Design Resources"
-         "C:\Users\Schenk\Documents\GitHub\electronic-projects\amp-mosfet-80W\pspice\v5f\amp-mosfet-80w.DSN"
-         "SCHEMATIC1" "PAGE1"))
+      (Select "Design Resources"))
     (HierarchyView)
     (Doc
       (Type "COrCapturePMDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 1469"))
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 772"))
       (Tab 0))
     (Doc
       (Type "COrSchematicDoc")
       (Frame
-        (Placement "44 0 1 -1 -1 -1 -1 5 2826 24 1487")
-        (Scroll "-378 0")
-        (Zoom "123")
+        (Placement "44 0 1 -1 -1 -1 -1 5 1183 24 790")
+        (Scroll "282 286")
+        (Zoom "100")
         (Occurrence "/"))
       (Path
-         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\AMP-MOSFET-80W\PSPICE\V5F\AMP-MOSFET-80W.DSN")
+         "C:\USERS\SCHENK\DOCUMENTS\GITHUB\ELECTRONIC-PROJECTS\AMP-MOSFET-120W\PSPICE\V1\AMP-MOSFET-120W.DSN")
       (Schematic "SCHEMATIC1")
       (Page "PAGE1"))))
