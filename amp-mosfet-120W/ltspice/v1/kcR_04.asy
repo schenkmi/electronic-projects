@@ -1,0 +1,19 @@
+Version 4
+SymbolType CELL
+LINE Normal 0 -24 0 -17
+LINE Normal 0 17 0 24
+LINE Normal -7 -17 -7 17
+LINE Normal -7 17 7 17
+LINE Normal 7 17 7 -17
+LINE Normal 7 -17 -7 -17
+WINDOW 0 14 -10 Left 2
+WINDOW 3 14 6 Left 2
+SYMATTR Prefix R
+SYMATTR Value {RV1VAL}
+SYMATTR InstName R
+PIN 0 -24 NONE 0
+PINATTR PinName 1
+PINATTR SpiceOrder 1
+PIN 0 24 NONE 0
+PINATTR PinName 3
+PINATTR SpiceOrder 2

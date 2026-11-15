@@ -1,0 +1,24 @@
+Version 4
+SymbolType CELL
+LINE Normal 4 -14 4 14
+LINE Normal -32 0 4 0
+LINE Normal 16 -32 16 -18
+LINE Normal 16 32 16 18
+LINE Normal 4 -8 16 -18
+LINE Normal 4 8 16 18
+LINE Normal 12 15 4 14
+LINE Normal 12 15 10 7
+WINDOW 0 44 -12 Left 2
+WINDOW 3 44 6 Left 2
+SYMATTR Prefix Q
+SYMATTR Value QBC846B
+SYMATTR InstName Q
+PIN 16 -32 NONE 0
+PINATTR PinName C
+PINATTR SpiceOrder 1
+PIN -32 0 NONE 0
+PINATTR PinName B
+PINATTR SpiceOrder 2
+PIN 16 32 NONE 0
+PINATTR PinName E
+PINATTR SpiceOrder 3
